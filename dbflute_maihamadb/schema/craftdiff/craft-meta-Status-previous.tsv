@@ -1,0 +1,4 @@
+"MEMBER_STATUS_CODE"	"MEMBER_STATUS_NAME"	"DESCRIPTION"	"DISPLAY_ORDER"
+"PRV"	"Provisional"	"first status after entry, allowed to use only part of service"	"3"
+"FML"	"Formalized"	"as formal member, allowed to use all service"	"1"
+"WDL"	"Withdrawal"	"withdrawal is fixed, not allowed to use service"	"2"

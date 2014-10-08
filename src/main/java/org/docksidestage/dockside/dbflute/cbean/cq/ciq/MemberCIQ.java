@@ -1,0 +1,211 @@
+/*
+ * Copyright 2004-2014 the Seasar Foundation and the Others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+package org.docksidestage.dockside.dbflute.cbean.cq.ciq;
+
+import java.util.Map;
+import org.dbflute.cbean.*;
+import org.dbflute.cbean.ckey.*;
+import org.dbflute.cbean.coption.ConditionOption;
+import org.dbflute.cbean.cvalue.ConditionValue;
+import org.dbflute.cbean.sqlclause.SqlClause;
+import org.dbflute.exception.IllegalConditionBeanOperationException;
+import org.docksidestage.dockside.dbflute.cbean.*;
+import org.docksidestage.dockside.dbflute.cbean.cq.bs.*;
+import org.docksidestage.dockside.dbflute.cbean.cq.*;
+
+/**
+ * The condition-query for in-line of MEMBER.
+ * @author DBFlute(AutoGenerator)
+ */
+public class MemberCIQ extends AbstractBsMemberCQ {
+
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
+    protected BsMemberCQ _myCQ;
+
+    // ===================================================================================
+    //                                                                         Constructor
+    //                                                                         ===========
+    public MemberCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
+                        , String aliasName, int nestLevel, BsMemberCQ myCQ) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
+        _myCQ = myCQ;
+        _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
+        _relationPath = _myCQ.xgetRelationPath(); // accept relation path
+        _inline = true;
+    }
+
+    // ===================================================================================
+    //                                                             Override about Register
+    //                                                             =======================
+    protected void reflectRelationOnUnionQuery(ConditionQuery bq, ConditionQuery uq)
+    { throw new IllegalConditionBeanOperationException("InlineView cannot use Union: " + bq + " : " + uq); }
+
+    @Override
+    protected void setupConditionValueAndRegisterWhereClause(ConditionKey k, Object v, ConditionValue cv, String col)
+    { regIQ(k, v, cv, col); }
+
+    @Override
+    protected void setupConditionValueAndRegisterWhereClause(ConditionKey k, Object v, ConditionValue cv, String col, ConditionOption op)
+    { regIQ(k, v, cv, col, op); }
+
+    @Override
+    protected void registerWhereClause(String wc)
+    { registerInlineWhereClause(wc); }
+
+    @Override
+    protected boolean isInScopeRelationSuppressLocalAliasName() {
+        if (_onClause) { throw new IllegalConditionBeanOperationException("InScopeRelation on OnClause is unsupported."); }
+        return true;
+    }
+
+    // ===================================================================================
+    //                                                                Override about Query
+    //                                                                ====================
+    protected ConditionValue getCValueMemberId() { return _myCQ.getMemberId(); }
+    public String keepMemberId_ExistsReferrer_MemberAddressList(MemberAddressCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepMemberId_ExistsReferrer_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepMemberId_ExistsReferrer_MemberFollowingByYourMemberIdList(MemberFollowingCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepMemberId_ExistsReferrer_MemberLoginList(MemberLoginCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepMemberId_ExistsReferrer_MemberSecurityAsOne(MemberSecurityCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepMemberId_ExistsReferrer_MemberServiceAsOne(MemberServiceCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepMemberId_ExistsReferrer_MemberWithdrawalAsOne(MemberWithdrawalCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepMemberId_ExistsReferrer_PurchaseList(PurchaseCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepMemberId_NotExistsReferrer_MemberAddressList(MemberAddressCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepMemberId_NotExistsReferrer_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepMemberId_NotExistsReferrer_MemberFollowingByYourMemberIdList(MemberFollowingCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepMemberId_NotExistsReferrer_MemberLoginList(MemberLoginCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepMemberId_NotExistsReferrer_MemberSecurityAsOne(MemberSecurityCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepMemberId_NotExistsReferrer_MemberServiceAsOne(MemberServiceCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepMemberId_NotExistsReferrer_MemberWithdrawalAsOne(MemberWithdrawalCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepMemberId_NotExistsReferrer_PurchaseList(PurchaseCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepMemberId_InScopeRelation_MemberAddressList(MemberAddressCQ sq)
+    { return _myCQ.keepMemberId_InScopeRelation_MemberAddressList(sq); }
+    public String keepMemberId_InScopeRelation_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq)
+    { return _myCQ.keepMemberId_InScopeRelation_MemberFollowingByMyMemberIdList(sq); }
+    public String keepMemberId_InScopeRelation_MemberFollowingByYourMemberIdList(MemberFollowingCQ sq)
+    { return _myCQ.keepMemberId_InScopeRelation_MemberFollowingByYourMemberIdList(sq); }
+    public String keepMemberId_InScopeRelation_MemberLoginList(MemberLoginCQ sq)
+    { return _myCQ.keepMemberId_InScopeRelation_MemberLoginList(sq); }
+    public String keepMemberId_InScopeRelation_MemberSecurityAsOne(MemberSecurityCQ sq)
+    { return _myCQ.keepMemberId_InScopeRelation_MemberSecurityAsOne(sq); }
+    public String keepMemberId_InScopeRelation_MemberServiceAsOne(MemberServiceCQ sq)
+    { return _myCQ.keepMemberId_InScopeRelation_MemberServiceAsOne(sq); }
+    public String keepMemberId_InScopeRelation_MemberWithdrawalAsOne(MemberWithdrawalCQ sq)
+    { return _myCQ.keepMemberId_InScopeRelation_MemberWithdrawalAsOne(sq); }
+    public String keepMemberId_InScopeRelation_PurchaseList(PurchaseCQ sq)
+    { return _myCQ.keepMemberId_InScopeRelation_PurchaseList(sq); }
+    public String keepMemberId_NotInScopeRelation_MemberAddressList(MemberAddressCQ sq)
+    { return _myCQ.keepMemberId_NotInScopeRelation_MemberAddressList(sq); }
+    public String keepMemberId_NotInScopeRelation_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq)
+    { return _myCQ.keepMemberId_NotInScopeRelation_MemberFollowingByMyMemberIdList(sq); }
+    public String keepMemberId_NotInScopeRelation_MemberFollowingByYourMemberIdList(MemberFollowingCQ sq)
+    { return _myCQ.keepMemberId_NotInScopeRelation_MemberFollowingByYourMemberIdList(sq); }
+    public String keepMemberId_NotInScopeRelation_MemberLoginList(MemberLoginCQ sq)
+    { return _myCQ.keepMemberId_NotInScopeRelation_MemberLoginList(sq); }
+    public String keepMemberId_NotInScopeRelation_MemberSecurityAsOne(MemberSecurityCQ sq)
+    { return _myCQ.keepMemberId_NotInScopeRelation_MemberSecurityAsOne(sq); }
+    public String keepMemberId_NotInScopeRelation_MemberServiceAsOne(MemberServiceCQ sq)
+    { return _myCQ.keepMemberId_NotInScopeRelation_MemberServiceAsOne(sq); }
+    public String keepMemberId_NotInScopeRelation_MemberWithdrawalAsOne(MemberWithdrawalCQ sq)
+    { return _myCQ.keepMemberId_NotInScopeRelation_MemberWithdrawalAsOne(sq); }
+    public String keepMemberId_NotInScopeRelation_PurchaseList(PurchaseCQ sq)
+    { return _myCQ.keepMemberId_NotInScopeRelation_PurchaseList(sq); }
+    public String keepMemberId_SpecifyDerivedReferrer_MemberAddressList(MemberAddressCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepMemberId_SpecifyDerivedReferrer_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepMemberId_SpecifyDerivedReferrer_MemberFollowingByYourMemberIdList(MemberFollowingCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepMemberId_SpecifyDerivedReferrer_MemberLoginList(MemberLoginCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepMemberId_SpecifyDerivedReferrer_PurchaseList(PurchaseCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepMemberId_QueryDerivedReferrer_MemberAddressList(MemberAddressCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepMemberId_QueryDerivedReferrer_MemberAddressListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepMemberId_QueryDerivedReferrer_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepMemberId_QueryDerivedReferrer_MemberFollowingByMyMemberIdListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepMemberId_QueryDerivedReferrer_MemberFollowingByYourMemberIdList(MemberFollowingCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepMemberId_QueryDerivedReferrer_MemberFollowingByYourMemberIdListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepMemberId_QueryDerivedReferrer_MemberLoginList(MemberLoginCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepMemberId_QueryDerivedReferrer_MemberLoginListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepMemberId_QueryDerivedReferrer_PurchaseList(PurchaseCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepMemberId_QueryDerivedReferrer_PurchaseListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    protected ConditionValue getCValueMemberName() { return _myCQ.getMemberName(); }
+    protected ConditionValue getCValueMemberAccount() { return _myCQ.getMemberAccount(); }
+    protected ConditionValue getCValueMemberStatusCode() { return _myCQ.getMemberStatusCode(); }
+    public String keepMemberStatusCode_InScopeRelation_MemberStatus(MemberStatusCQ sq)
+    { return _myCQ.keepMemberStatusCode_InScopeRelation_MemberStatus(sq); }
+    public String keepMemberStatusCode_NotInScopeRelation_MemberStatus(MemberStatusCQ sq)
+    { return _myCQ.keepMemberStatusCode_NotInScopeRelation_MemberStatus(sq); }
+    protected ConditionValue getCValueFormalizedDatetime() { return _myCQ.getFormalizedDatetime(); }
+    protected ConditionValue getCValueBirthdate() { return _myCQ.getBirthdate(); }
+    protected ConditionValue getCValueRegisterDatetime() { return _myCQ.getRegisterDatetime(); }
+    protected ConditionValue getCValueRegisterUser() { return _myCQ.getRegisterUser(); }
+    protected ConditionValue getCValueUpdateDatetime() { return _myCQ.getUpdateDatetime(); }
+    protected ConditionValue getCValueUpdateUser() { return _myCQ.getUpdateUser(); }
+    protected ConditionValue getCValueVersionNo() { return _myCQ.getVersionNo(); }
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(MemberCQ sq)
+    { throwIICBOE("ScalarCondition"); return null; }
+    public String keepSpecifyMyselfDerived(MemberCQ sq)
+    { throwIICBOE("(Specify)MyselfDerived"); return null;}
+    public String keepQueryMyselfDerived(MemberCQ sq)
+    { throwIICBOE("(Query)MyselfDerived"); return null;}
+    public String keepQueryMyselfDerivedParameter(Object vl)
+    { throwIICBOE("(Query)MyselfDerived"); return null;}
+    public String keepMyselfExists(MemberCQ sq)
+    { throwIICBOE("MyselfExists"); return null;}
+    public String keepMyselfInScope(MemberCQ sq)
+    { throwIICBOE("MyselfInScope"); return null;}
+
+    protected void throwIICBOE(String name)
+    { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }
+
+    // ===================================================================================
+    //                                                                       Very Internal
+    //                                                                       =============
+    // very internal (for suppressing warn about 'Not Use Import')
+    protected String xinCB() { return MemberCB.class.getName(); }
+    protected String xinCQ() { return MemberCQ.class.getName(); }
+}
