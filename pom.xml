@@ -2,19 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.dbflute</groupId>
-	<artifactId>dbflute-test-basic</artifactId>
-	<version>1.0.0</version>
+	<groupId>org.dbflute.dftest</groupId>
+	<artifactId>dbflute-test-active-dockside</artifactId>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>DBFlute Spring Example</name>
-	<description>The example project for Spring Framework and DBFlute</description>
-	<url>http://dbflute.seasar.org/</url>
-	<inceptionYear>2006</inceptionYear>
+	<name>DBFlute Test as Active Dockside</name>
+	<description>test project as active stage named 'Dockside' for using Spring and H2</description>
+	<url>https://github.com/dbflute-test/dbflute-test-active-dockside</url>
+	<inceptionYear>2014</inceptionYear>
 
 	<properties>
 		<dbflute.version>1.1-pilot4-SNAPSHOT</dbflute.version>
-		<h2.jdbc.version>1.4.178</h2.jdbc.version>
+		<h2.jdbc.version>1.4.181</h2.jdbc.version>
 		<spring.version>4.1.1.RELEASE</spring.version>
 		<utflute.version>0.5.0-pilot1-SNAPSHOT</utflute.version>
 	</properties>
@@ -27,8 +27,8 @@
 		</license>
 	</licenses>
 	<organization>
-		<name>The Seasar Foundation</name>
-		<url>http://www.seasar.org/</url>
+		<name>The DBFlute Project</name>
+		<url>http://dbflute.org/</url>
 	</organization>
 
 	<developers>
@@ -39,24 +39,18 @@
 	</developers>
 
 	<issueManagement>
-		<system>JIRA</system>
-		<url>https://www.seasar.org/issues/browse/DBFLUTE</url>
+		<system>Github</system>
+		<url>https://github.com/dbflute-test/dbflute-test-active-dockside/issues</url>
 	</issueManagement>
 	<mailingLists>
 		<mailingList>
-			<name>Seasar-user</name>
-			<subscribe>https://www.seasar.org/mailman/listinfo/seasar-user</subscribe>
-			<unsubscribe>https://www.seasar.org/mailman/listinfo/seasar-user</unsubscribe>
-			<post>seasar-user@ml.seasar.org</post>
-			<archive>https://www.seasar.org/mailman/listinfo/seasar-user</archive>
+			<name>DBFlute-users</name>
+			<subscribe>https://groups.google.com/forum/#!forum/dbflute</subscribe>
+			<unsubscribe>https://groups.google.com/forum/#!forum/dbflute</unsubscribe>
+			<post>dbflute@googlegroups.com</post>
+			<archive>https://groups.google.com/forum/#!forum/dbflute</archive>
 		</mailingList>
 	</mailingLists>
-
-	<scm>
-		<connection>scm:svn:https://www.seasar.org/svn/dbflute/trunk/dbflute-spring-example/</connection>
-		<developerConnection>scm:svn:https://www.seasar.org/svn/dbflute/trunk/dbflute-spring-example/</developerConnection>
-		<url>http://svn.seasar.org/browse/?root=dbflute</url>
-	</scm>
 
 	<build>
 		<defaultGoal>validate</defaultGoal>
