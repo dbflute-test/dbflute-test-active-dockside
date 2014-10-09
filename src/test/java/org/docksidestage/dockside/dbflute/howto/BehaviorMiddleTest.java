@@ -87,12 +87,11 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
      */
     public void test_selectPage() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberName_Asc();
-        cb.paging(4, 3);// The page size is 4 records per 1 page, and The page number is 3.
-
-        // ## Act ##
-        PagingResultBean<Member> page3 = memberBhv.selectPage(cb);
+        PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_MemberName_Asc();
+            cb.paging(4, 3);// The page size is 4 records per 1 page, and The page number is 3.
+            });
 
         // ## Assert ##
         assertNotSame(0, page3.size());
@@ -134,13 +133,13 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
      */
     public void test_scalarSelect_max() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().columnBirthdate();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.query().setBirthdate_IsNotNull();
-        cb.query().addOrderBy_Birthdate_Desc();
-        cb.fetchFirst(1);
-        Date expected = memberBhv.selectEntityWithDeletedCheck(cb).getBirthdate();
+        Date expected = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.specify().columnBirthdate();
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.query().setBirthdate_IsNotNull();
+            cb.query().addOrderBy_Birthdate_Desc();
+            cb.fetchFirst(1);
+        }).getBirthdate();
 
         // ## Act ##
         Date birthday = memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
@@ -171,10 +170,9 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
      */
     public void test_loadReferrer() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // At first, it selects the list of Member.
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            // At first, it selects the list of Member.
+            });
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.
@@ -238,9 +236,10 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         memberBhv.insertOrUpdate(member);
 
         // ## Assert ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(member.getMemberId());
-        Member actual = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(member.getMemberId());
+        });
+
         log(actual);
         assertEquals("testName2", actual.getMemberName());
 
@@ -267,9 +266,10 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         memberBhv.insertOrUpdateNonstrict(member);
 
         // ## Assert ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(member.getMemberId());
-        Member actual = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(member.getMemberId());
+        });
+
         log(actual);
         assertEquals("testName2", actual.getMemberName());
 
@@ -296,19 +296,18 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         member.setMemberStatusCode_Provisional();// 会員ステータスを「仮会員」に
         member.setFormalizedDatetime(null);// 正式会員日時を「null」に
 
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();// 正式会員
-
-        // ## Act ##
-        int updatedCount = memberBhv.queryUpdate(member, cb);
+        int updatedCount = memberBhv.queryUpdate(member, cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        });
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberStatusCode_Equal_Provisional();
-        actualCB.query().setFormalizedDatetime_IsNull();
-        actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser());// Common Column
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberStatusCode_Equal_Provisional();
+            actualCB.query().setFormalizedDatetime_IsNull();
+            actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser());
+        });
         assertEquals(actualList.size(), updatedCount);
 
         // [Description]
@@ -328,15 +327,14 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         // ## Arrange ##
         deleteMemberReferrer();// for Test
 
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();// 正式会員
-
-        // ## Act ##
-        int deletedCount = memberBhv.queryDelete(cb);
+        int deletedCount = memberBhv.queryDelete(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        });
 
         // ## Assert ##
         assertNotSame(0, deletedCount);
-        assertEquals(0, memberBhv.selectCount(cb));
+        assertEquals(0, memberBhv.selectCount(cb -> {}));
 
         // [Description]
         // A. 条件として、結合先のカラムによる条件やexists句を使ったサブクエリーなども利用可能。

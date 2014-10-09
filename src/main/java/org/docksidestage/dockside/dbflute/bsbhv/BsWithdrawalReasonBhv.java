@@ -107,11 +107,11 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * cb.query().setFoo...(value);
      * int count = withdrawalReasonBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
-     * @param cb The condition-bean of WithdrawalReason. (NotNull)
+     * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(WithdrawalReasonCB cb) {
-        return facadeSelectCount(cb);
+    public int selectCount(CBCall<WithdrawalReasonCB> cbLambda) {
+        return facadeSelectCount(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -131,13 +131,13 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      *     ...
      * }
      * </pre>
-     * @param cb The condition-bean of WithdrawalReason. (NotNull)
+     * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public WithdrawalReason selectEntity(WithdrawalReasonCB cb) {
-        return facadeSelectEntity(cb);
+    public WithdrawalReason selectEntity(CBCall<WithdrawalReasonCB> cbLambda) {
+        return facadeSelectEntity(handleCBCall(cbLambda));
     }
 
     protected WithdrawalReason facadeSelectEntity(WithdrawalReasonCB cb) {
@@ -159,14 +159,14 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * WithdrawalReason withdrawalReason = withdrawalReasonBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = withdrawalReason.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cb The condition-bean of WithdrawalReason. (NotNull)
+     * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public WithdrawalReason selectEntityWithDeletedCheck(WithdrawalReasonCB cb) {
-        return facadeSelectEntityWithDeletedCheck(cb);
+    public WithdrawalReason selectEntityWithDeletedCheck(CBCall<WithdrawalReasonCB> cbLambda) {
+        return facadeSelectEntityWithDeletedCheck(handleCBCall(cbLambda));
     }
 
     /**
@@ -252,12 +252,12 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      *     ... = withdrawalReason.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of WithdrawalReason. (NotNull)
+     * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<WithdrawalReason> selectList(WithdrawalReasonCB cb) {
-        return facadeSelectList(cb);
+    public ListResultBean<WithdrawalReason> selectList(CBCall<WithdrawalReasonCB> cbLambda) {
+        return facadeSelectList(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -281,12 +281,12 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      *     ... = withdrawalReason.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of WithdrawalReason. (NotNull)
+     * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<WithdrawalReason> selectPage(WithdrawalReasonCB cb) {
-        return facadeSelectPage(cb);
+    public PagingResultBean<WithdrawalReason> selectPage(CBCall<WithdrawalReasonCB> cbLambda) {
+        return facadeSelectPage(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -303,11 +303,11 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      *     }
      * });
      * </pre>
-     * @param cb The condition-bean of WithdrawalReason. (NotNull)
-     * @param entityRowHandler The handler of entity row of WithdrawalReason. (NotNull)
+     * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
+     * @param entityLambda The handler of entity row of WithdrawalReason. (NotNull)
      */
-    public void selectCursor(WithdrawalReasonCB cb, EntityRowHandler<WithdrawalReason> entityRowHandler) {
-        facadeSelectCursor(cb, entityRowHandler);
+    public void selectCursor(CBCall<WithdrawalReasonCB> cbLambda, EntityRowHandler<WithdrawalReason> entityLambda) {
+        facadeSelectCursor(handleCBCall(cbLambda), entityLambda);
     }
 
     // ===================================================================================
@@ -767,12 +767,12 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * withdrawalReasonBhv.<span style="color: #DD4747">queryUpdate</span>(withdrawalReason, cb);
      * </pre>
      * @param withdrawalReason The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cb The condition-bean of WithdrawalReason. (NotNull)
+     * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(WithdrawalReason withdrawalReason, WithdrawalReasonCB cb) {
-        return doQueryUpdate(withdrawalReason, cb, null);
+    public int queryUpdate(WithdrawalReason withdrawalReason, CBCall<WithdrawalReasonCB> cbLambda) {
+        return doQueryUpdate(withdrawalReason, handleCBCall(cbLambda), null);
     }
 
     /**
@@ -782,12 +782,12 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * cb.query().setFoo...(value);
      * withdrawalReasonBhv.<span style="color: #DD4747">queryDelete</span>(withdrawalReason, cb);
      * </pre>
-     * @param cb The condition-bean of WithdrawalReason. (NotNull)
+     * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(WithdrawalReasonCB cb) {
-        return doQueryDelete(cb, null);
+    public int queryDelete(CBCall<WithdrawalReasonCB> cbLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), null);
     }
 
     // ===================================================================================
@@ -960,26 +960,26 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * withdrawalReasonBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(withdrawalReason, cb, option);
      * </pre>
      * @param withdrawalReason The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cb The condition-bean of WithdrawalReason. (NotNull)
+     * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(WithdrawalReason withdrawalReason, WithdrawalReasonCB cb, WOptionCall<WithdrawalReasonCB, UpdateOption<WithdrawalReasonCB>> opLambda) {
-        return doQueryUpdate(withdrawalReason, cb, handleUpdateOpCall(opLambda));
+    public int varyingQueryUpdate(WithdrawalReason withdrawalReason, CBCall<WithdrawalReasonCB> cbLambda, WOptionCall<WithdrawalReasonCB, UpdateOption<WithdrawalReasonCB>> opLambda) {
+        return doQueryUpdate(withdrawalReason, handleCBCall(cbLambda), handleUpdateOpCall(opLambda));
     }
 
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
      * Other specifications are same as batchUpdateNonstrict(entityList).
-     * @param cb The condition-bean of WithdrawalReason. (NotNull)
+     * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(WithdrawalReasonCB cb, WOptionCall<WithdrawalReasonCB, DeleteOption<WithdrawalReasonCB>> opLambda) {
-        return doQueryDelete(cb, handleDeleteOpCall(opLambda));
+    public int varyingQueryDelete(CBCall<WithdrawalReasonCB> cbLambda, WOptionCall<WithdrawalReasonCB, DeleteOption<WithdrawalReasonCB>> opLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), handleDeleteOpCall(opLambda));
     }
 
     // ===================================================================================

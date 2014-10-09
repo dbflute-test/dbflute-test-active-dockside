@@ -543,10 +543,34 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)} <br />
      * <pre>e.g. setProductStatusName_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param productStatusName The value of productStatusName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setProductStatusName_LikeSearch(String productStatusName, COptionCall<LikeSearchOption> opLambda) {
+        LikeSearchOption op = cLSOP(); opLambda.callback(op);
+        setProductStatusName_LikeSearch(productStatusName, op);
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
+     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)} <br />
+     * <pre>e.g. setProductStatusName_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param productStatusName The value of productStatusName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     public void setProductStatusName_LikeSearch(String productStatusName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(productStatusName), getCValueProductStatusName(), "PRODUCT_STATUS_NAME", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br />
+     * And NullOrEmptyIgnored, SeveralRegistered. <br />
+     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * @param productStatusName The value of productStatusName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setProductStatusName_NotLikeSearch(String productStatusName, COptionCall<LikeSearchOption> opLambda) {
+        LikeSearchOption op = cLSOP(); opLambda.callback(op);
+        setProductStatusName_NotLikeSearch(productStatusName, op);
     }
 
     /**
@@ -632,6 +656,20 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      */
     public void setDisplayOrder_LessEqual(Integer displayOrder) {
         regDisplayOrder(CK_LE, displayOrder);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br />
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
+     * And NullIgnored, OnlyOnceRegistered. <br />
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * @param minNumber The min number of displayOrder. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of displayOrder. (NullAllowed: if null, no to-condition)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
+        RangeOfOption op = cROOP(); opLambda.callback(op);
+        setDisplayOrder_RangeOf(minNumber, maxNumber, op);
     }
 
     /**

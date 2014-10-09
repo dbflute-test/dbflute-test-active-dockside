@@ -107,11 +107,11 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * cb.query().setFoo...(value);
      * int count = vendorPrimaryKeyOnlyBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
-     * @param cb The condition-bean of VendorPrimaryKeyOnly. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(VendorPrimaryKeyOnlyCB cb) {
-        return facadeSelectCount(cb);
+    public int selectCount(CBCall<VendorPrimaryKeyOnlyCB> cbLambda) {
+        return facadeSelectCount(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -131,13 +131,13 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      *     ...
      * }
      * </pre>
-     * @param cb The condition-bean of VendorPrimaryKeyOnly. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public VendorPrimaryKeyOnly selectEntity(VendorPrimaryKeyOnlyCB cb) {
-        return facadeSelectEntity(cb);
+    public VendorPrimaryKeyOnly selectEntity(CBCall<VendorPrimaryKeyOnlyCB> cbLambda) {
+        return facadeSelectEntity(handleCBCall(cbLambda));
     }
 
     protected VendorPrimaryKeyOnly facadeSelectEntity(VendorPrimaryKeyOnlyCB cb) {
@@ -159,14 +159,14 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * VendorPrimaryKeyOnly vendorPrimaryKeyOnly = vendorPrimaryKeyOnlyBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = vendorPrimaryKeyOnly.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cb The condition-bean of VendorPrimaryKeyOnly. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public VendorPrimaryKeyOnly selectEntityWithDeletedCheck(VendorPrimaryKeyOnlyCB cb) {
-        return facadeSelectEntityWithDeletedCheck(cb);
+    public VendorPrimaryKeyOnly selectEntityWithDeletedCheck(CBCall<VendorPrimaryKeyOnlyCB> cbLambda) {
+        return facadeSelectEntityWithDeletedCheck(handleCBCall(cbLambda));
     }
 
     /**
@@ -227,12 +227,12 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      *     ... = vendorPrimaryKeyOnly.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of VendorPrimaryKeyOnly. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<VendorPrimaryKeyOnly> selectList(VendorPrimaryKeyOnlyCB cb) {
-        return facadeSelectList(cb);
+    public ListResultBean<VendorPrimaryKeyOnly> selectList(CBCall<VendorPrimaryKeyOnlyCB> cbLambda) {
+        return facadeSelectList(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -256,12 +256,12 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      *     ... = vendorPrimaryKeyOnly.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of VendorPrimaryKeyOnly. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<VendorPrimaryKeyOnly> selectPage(VendorPrimaryKeyOnlyCB cb) {
-        return facadeSelectPage(cb);
+    public PagingResultBean<VendorPrimaryKeyOnly> selectPage(CBCall<VendorPrimaryKeyOnlyCB> cbLambda) {
+        return facadeSelectPage(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -278,11 +278,11 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      *     }
      * });
      * </pre>
-     * @param cb The condition-bean of VendorPrimaryKeyOnly. (NotNull)
-     * @param entityRowHandler The handler of entity row of VendorPrimaryKeyOnly. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
+     * @param entityLambda The handler of entity row of VendorPrimaryKeyOnly. (NotNull)
      */
-    public void selectCursor(VendorPrimaryKeyOnlyCB cb, EntityRowHandler<VendorPrimaryKeyOnly> entityRowHandler) {
-        facadeSelectCursor(cb, entityRowHandler);
+    public void selectCursor(CBCall<VendorPrimaryKeyOnlyCB> cbLambda, EntityRowHandler<VendorPrimaryKeyOnly> entityLambda) {
+        facadeSelectCursor(handleCBCall(cbLambda), entityLambda);
     }
 
     // ===================================================================================
@@ -642,12 +642,12 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * vendorPrimaryKeyOnlyBhv.<span style="color: #DD4747">queryUpdate</span>(vendorPrimaryKeyOnly, cb);
      * </pre>
      * @param vendorPrimaryKeyOnly The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cb The condition-bean of VendorPrimaryKeyOnly. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB cb) {
-        return doQueryUpdate(vendorPrimaryKeyOnly, cb, null);
+    public int queryUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, CBCall<VendorPrimaryKeyOnlyCB> cbLambda) {
+        return doQueryUpdate(vendorPrimaryKeyOnly, handleCBCall(cbLambda), null);
     }
 
     /**
@@ -657,12 +657,12 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * cb.query().setFoo...(value);
      * vendorPrimaryKeyOnlyBhv.<span style="color: #DD4747">queryDelete</span>(vendorPrimaryKeyOnly, cb);
      * </pre>
-     * @param cb The condition-bean of VendorPrimaryKeyOnly. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(VendorPrimaryKeyOnlyCB cb) {
-        return doQueryDelete(cb, null);
+    public int queryDelete(CBCall<VendorPrimaryKeyOnlyCB> cbLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), null);
     }
 
     // ===================================================================================
@@ -835,26 +835,26 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * vendorPrimaryKeyOnlyBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(vendorPrimaryKeyOnly, cb, option);
      * </pre>
      * @param vendorPrimaryKeyOnly The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cb The condition-bean of VendorPrimaryKeyOnly. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, VendorPrimaryKeyOnlyCB cb, WOptionCall<VendorPrimaryKeyOnlyCB, UpdateOption<VendorPrimaryKeyOnlyCB>> opLambda) {
-        return doQueryUpdate(vendorPrimaryKeyOnly, cb, handleUpdateOpCall(opLambda));
+    public int varyingQueryUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, CBCall<VendorPrimaryKeyOnlyCB> cbLambda, WOptionCall<VendorPrimaryKeyOnlyCB, UpdateOption<VendorPrimaryKeyOnlyCB>> opLambda) {
+        return doQueryUpdate(vendorPrimaryKeyOnly, handleCBCall(cbLambda), handleUpdateOpCall(opLambda));
     }
 
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
      * Other specifications are same as batchUpdateNonstrict(entityList).
-     * @param cb The condition-bean of VendorPrimaryKeyOnly. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(VendorPrimaryKeyOnlyCB cb, WOptionCall<VendorPrimaryKeyOnlyCB, DeleteOption<VendorPrimaryKeyOnlyCB>> opLambda) {
-        return doQueryDelete(cb, handleDeleteOpCall(opLambda));
+    public int varyingQueryDelete(CBCall<VendorPrimaryKeyOnlyCB> cbLambda, WOptionCall<VendorPrimaryKeyOnlyCB, DeleteOption<VendorPrimaryKeyOnlyCB>> opLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), handleDeleteOpCall(opLambda));
     }
 
     // ===================================================================================

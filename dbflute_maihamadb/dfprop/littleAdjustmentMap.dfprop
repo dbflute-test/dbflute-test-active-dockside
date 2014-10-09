@@ -49,7 +49,7 @@ map:{
     ; isMakeConditionQueryExistsReferrerToOne = true
     ; isMakeConditionQueryInScopeRelationToOne = true
     ; isMakeConditionQueryPlainListManualOrder = true
-    ; isMakeDirectConditionBeanSetup = true
+    ; isMakeDirectConditionBeanSetup = false
     ; isMakeBatchUpdateSpecifyColumn = true
     ; isAvailableSelectEntityPlainReturn = true
     ; isAvailableRelationPlainEntity = true
@@ -67,9 +67,9 @@ map:{
     ; isCompatibleBizOneToOneImplicitReverseFkAllowed = true
 
     # compile compatible (false if compatible)
-    ; isMakeCallbackConditionBeanSetup = false
+    ; isMakeCallbackConditionBeanSetup = true
     ; isEntityDerivedMappable = false
-    ; isMakeCallbackConditionOptionSetup = false
+    ; isMakeCallbackConditionOptionSetup = true
     ; isMakeCallbackConditionManualOrder = false
     ; isAvailableJava8TimeLocalDateEntity = false
 

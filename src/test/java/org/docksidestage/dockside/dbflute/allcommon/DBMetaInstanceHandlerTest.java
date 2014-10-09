@@ -7,7 +7,6 @@ import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.info.ColumnInfo;
 import org.dbflute.utflute.core.PlainTestCase;
 import org.dbflute.util.DfReflectionUtil;
-import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberStatusDbm;
 import org.docksidestage.dockside.dbflute.exentity.Member;

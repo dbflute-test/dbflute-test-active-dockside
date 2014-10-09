@@ -112,11 +112,11 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * cb.query().setFoo...(value);
      * int count = vendorCheckBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
-     * @param cb The condition-bean of VendorCheck. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(VendorCheckCB cb) {
-        return facadeSelectCount(cb);
+    public int selectCount(CBCall<VendorCheckCB> cbLambda) {
+        return facadeSelectCount(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -136,13 +136,13 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      *     ...
      * }
      * </pre>
-     * @param cb The condition-bean of VendorCheck. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public VendorCheck selectEntity(VendorCheckCB cb) {
-        return facadeSelectEntity(cb);
+    public VendorCheck selectEntity(CBCall<VendorCheckCB> cbLambda) {
+        return facadeSelectEntity(handleCBCall(cbLambda));
     }
 
     protected VendorCheck facadeSelectEntity(VendorCheckCB cb) {
@@ -164,14 +164,14 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * VendorCheck vendorCheck = vendorCheckBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = vendorCheck.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cb The condition-bean of VendorCheck. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public VendorCheck selectEntityWithDeletedCheck(VendorCheckCB cb) {
-        return facadeSelectEntityWithDeletedCheck(cb);
+    public VendorCheck selectEntityWithDeletedCheck(CBCall<VendorCheckCB> cbLambda) {
+        return facadeSelectEntityWithDeletedCheck(handleCBCall(cbLambda));
     }
 
     /**
@@ -232,12 +232,12 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      *     ... = vendorCheck.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of VendorCheck. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<VendorCheck> selectList(VendorCheckCB cb) {
-        return facadeSelectList(cb);
+    public ListResultBean<VendorCheck> selectList(CBCall<VendorCheckCB> cbLambda) {
+        return facadeSelectList(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -261,12 +261,12 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      *     ... = vendorCheck.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of VendorCheck. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<VendorCheck> selectPage(VendorCheckCB cb) {
-        return facadeSelectPage(cb);
+    public PagingResultBean<VendorCheck> selectPage(CBCall<VendorCheckCB> cbLambda) {
+        return facadeSelectPage(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -283,11 +283,11 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      *     }
      * });
      * </pre>
-     * @param cb The condition-bean of VendorCheck. (NotNull)
-     * @param entityRowHandler The handler of entity row of VendorCheck. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
+     * @param entityLambda The handler of entity row of VendorCheck. (NotNull)
      */
-    public void selectCursor(VendorCheckCB cb, EntityRowHandler<VendorCheck> entityRowHandler) {
-        facadeSelectCursor(cb, entityRowHandler);
+    public void selectCursor(CBCall<VendorCheckCB> cbLambda, EntityRowHandler<VendorCheck> entityLambda) {
+        facadeSelectCursor(handleCBCall(cbLambda), entityLambda);
     }
 
     // ===================================================================================
@@ -647,12 +647,12 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * vendorCheckBhv.<span style="color: #DD4747">queryUpdate</span>(vendorCheck, cb);
      * </pre>
      * @param vendorCheck The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cb The condition-bean of VendorCheck. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(VendorCheck vendorCheck, VendorCheckCB cb) {
-        return doQueryUpdate(vendorCheck, cb, null);
+    public int queryUpdate(VendorCheck vendorCheck, CBCall<VendorCheckCB> cbLambda) {
+        return doQueryUpdate(vendorCheck, handleCBCall(cbLambda), null);
     }
 
     /**
@@ -662,12 +662,12 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * cb.query().setFoo...(value);
      * vendorCheckBhv.<span style="color: #DD4747">queryDelete</span>(vendorCheck, cb);
      * </pre>
-     * @param cb The condition-bean of VendorCheck. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(VendorCheckCB cb) {
-        return doQueryDelete(cb, null);
+    public int queryDelete(CBCall<VendorCheckCB> cbLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), null);
     }
 
     // ===================================================================================
@@ -840,26 +840,26 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * vendorCheckBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(vendorCheck, cb, option);
      * </pre>
      * @param vendorCheck The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cb The condition-bean of VendorCheck. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(VendorCheck vendorCheck, VendorCheckCB cb, WOptionCall<VendorCheckCB, UpdateOption<VendorCheckCB>> opLambda) {
-        return doQueryUpdate(vendorCheck, cb, handleUpdateOpCall(opLambda));
+    public int varyingQueryUpdate(VendorCheck vendorCheck, CBCall<VendorCheckCB> cbLambda, WOptionCall<VendorCheckCB, UpdateOption<VendorCheckCB>> opLambda) {
+        return doQueryUpdate(vendorCheck, handleCBCall(cbLambda), handleUpdateOpCall(opLambda));
     }
 
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
      * Other specifications are same as batchUpdateNonstrict(entityList).
-     * @param cb The condition-bean of VendorCheck. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(VendorCheckCB cb, WOptionCall<VendorCheckCB, DeleteOption<VendorCheckCB>> opLambda) {
-        return doQueryDelete(cb, handleDeleteOpCall(opLambda));
+    public int varyingQueryDelete(CBCall<VendorCheckCB> cbLambda, WOptionCall<VendorCheckCB, DeleteOption<VendorCheckCB>> opLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), handleDeleteOpCall(opLambda));
     }
 
     // ===================================================================================

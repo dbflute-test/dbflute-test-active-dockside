@@ -130,6 +130,20 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
      * @param minNumber The min number of primaryKeyOnlyId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of primaryKeyOnlyId. (NullAllowed: if null, no to-condition)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setPrimaryKeyOnlyId_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
+        RangeOfOption op = cROOP(); opLambda.callback(op);
+        setPrimaryKeyOnlyId_RangeOf(minNumber, maxNumber, op);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br />
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
+     * And NullIgnored, OnlyOnceRegistered. <br />
+     * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
+     * @param minNumber The min number of primaryKeyOnlyId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of primaryKeyOnlyId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     public void setPrimaryKeyOnlyId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {

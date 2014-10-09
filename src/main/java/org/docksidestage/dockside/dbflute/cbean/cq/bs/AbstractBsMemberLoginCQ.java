@@ -130,6 +130,20 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (会員ログインID)MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param minNumber The min number of memberLoginId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of memberLoginId. (NullAllowed: if null, no to-condition)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setMemberLoginId_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
+        RangeOfOption op = cROOP(); opLambda.callback(op);
+        setMemberLoginId_RangeOf(minNumber, maxNumber, op);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br />
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
+     * And NullIgnored, OnlyOnceRegistered. <br />
+     * (会員ログインID)MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)}
+     * @param minNumber The min number of memberLoginId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of memberLoginId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     public void setMemberLoginId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
@@ -237,6 +251,20 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      */
     public void setMemberId_LessEqual(Integer memberId) {
         regMemberId(CK_LE, memberId);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br />
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
+     * And NullIgnored, OnlyOnceRegistered. <br />
+     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * @param minNumber The min number of memberId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of memberId. (NullAllowed: if null, no to-condition)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setMemberId_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
+        RangeOfOption op = cROOP(); opLambda.callback(op);
+        setMemberId_RangeOf(minNumber, maxNumber, op);
     }
 
     /**
@@ -354,6 +382,20 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      */
     public void setLoginDatetime_LessEqual(java.sql.Timestamp loginDatetime) {
         regLoginDatetime(CK_LE, loginDatetime);
+    }
+
+    /**
+     * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
+     * And NullIgnored, OnlyOnceRegistered. <br />
+     * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
+     * <pre>e.g. setLoginDatetime_FromTo(fromDate, toDate, new <span style="color: #DD4747">FromToOption</span>().compareAsDate());</pre>
+     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of loginDatetime. (NullAllowed: if null, no from-condition)
+     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of loginDatetime. (NullAllowed: if null, no to-condition)
+     * @param opLambda The callback for option of from-to. (NotNull)
+     */
+    public void setLoginDatetime_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
+        FromToOption op = cFTOP(); opLambda.callback(op);
+        setLoginDatetime_FromTo(fromDatetime, toDatetime, op);
     }
 
     /**

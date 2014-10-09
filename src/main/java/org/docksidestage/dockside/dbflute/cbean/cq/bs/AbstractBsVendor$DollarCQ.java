@@ -130,6 +130,20 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)}
      * @param minNumber The min number of vendor$DollarId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of vendor$DollarId. (NullAllowed: if null, no to-condition)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setVendor$DollarId_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
+        RangeOfOption op = cROOP(); opLambda.callback(op);
+        setVendor$DollarId_RangeOf(minNumber, maxNumber, op);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br />
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
+     * And NullIgnored, OnlyOnceRegistered. <br />
+     * VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)}
+     * @param minNumber The min number of vendor$DollarId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of vendor$DollarId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     public void setVendor$DollarId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
@@ -270,10 +284,34 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br />
      * <pre>e.g. setVendor$DollarName_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param vendor$DollarName The value of vendor$DollarName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setVendor$DollarName_LikeSearch(String vendor$DollarName, COptionCall<LikeSearchOption> opLambda) {
+        LikeSearchOption op = cLSOP(); opLambda.callback(op);
+        setVendor$DollarName_LikeSearch(vendor$DollarName, op);
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
+     * VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br />
+     * <pre>e.g. setVendor$DollarName_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param vendor$DollarName The value of vendor$DollarName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     public void setVendor$DollarName_LikeSearch(String vendor$DollarName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(vendor$DollarName), getCValueVendor$DollarName(), "VENDOR_$_DOLLAR_NAME", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br />
+     * And NullOrEmptyIgnored, SeveralRegistered. <br />
+     * VENDOR_$_DOLLAR_NAME: {VARCHAR(32)}
+     * @param vendor$DollarName The value of vendor$DollarName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setVendor$DollarName_NotLikeSearch(String vendor$DollarName, COptionCall<LikeSearchOption> opLambda) {
+        LikeSearchOption op = cLSOP(); opLambda.callback(op);
+        setVendor$DollarName_NotLikeSearch(vendor$DollarName, op);
     }
 
     /**

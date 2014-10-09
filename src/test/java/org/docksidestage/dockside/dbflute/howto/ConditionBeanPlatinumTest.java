@@ -91,14 +91,13 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     public void test_query_LikeSearch_likeContain_splitBySpace() {
         // ## Arrange ##
         String keyword = "S jko ic";
-        MemberCB cb = new MemberCB();
-
-        // *Point!
-        LikeSearchOption option = new LikeSearchOption().likeContain().splitBySpace();
-        cb.query().setMemberName_LikeSearch(keyword, option);
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // *Point!
+                LikeSearchOption option = new LikeSearchOption().likeContain().splitBySpace();
+                cb.query().setMemberName_LikeSearch(keyword, option);
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -130,14 +129,13 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     public void test_query_setMember_LikeSearch_likeContain_splitBySpace_asOrSplit() {
         // ## Arrange ##
         String keyword = "Sto avi uke";
-        MemberCB cb = new MemberCB();
-
-        // *Point!
-        LikeSearchOption option = new LikeSearchOption().likeContain().splitBySpace().asOrSplit();
-        cb.query().setMemberName_LikeSearch(keyword, option);
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // *Point!
+                LikeSearchOption option = new LikeSearchOption().likeContain().splitBySpace().asOrSplit();
+                cb.query().setMemberName_LikeSearch(keyword, option);
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -162,19 +160,19 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      */
     public void test_columnQuery() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        }).lessThan(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberWithdrawalAsOne().columnWithdrawalDatetime();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            }).lessThan(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().specifyMemberWithdrawalAsOne().columnWithdrawalDatetime();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -197,26 +195,26 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      * 商品名称に's'もしくは'a'が含まれる商品を購入したことのある会員を検索。
      */
     public void test_query_exists_union() {
-        final MemberCB cb = new MemberCB();
-        final LikeSearchOption option = new LikeSearchOption().likeContain();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB purchaseCB) {
-                purchaseCB.query().setPurchaseCount_GreaterThan(2);
-                purchaseCB.union(new UnionQuery<PurchaseCB>() {
-                    public void query(PurchaseCB purchaseUnionCB) {
-                        purchaseUnionCB.query().queryProduct().setProductName_LikeSearch("s", option);
-                    }
-                });
-                purchaseCB.union(new UnionQuery<PurchaseCB>() {
-                    public void query(PurchaseCB purchaseUnionCB) {
-                        purchaseUnionCB.query().queryProduct().setProductName_LikeSearch("a", option);
-                    }
-                });
-            }
+        final ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            final LikeSearchOption option = new LikeSearchOption().likeContain();
+            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB purchaseCB) {
+                    purchaseCB.query().setPurchaseCount_GreaterThan(2);
+                    purchaseCB.union(new UnionQuery<PurchaseCB>() {
+                        public void query(PurchaseCB purchaseUnionCB) {
+                            purchaseUnionCB.query().queryProduct().setProductName_LikeSearch("s", option);
+                        }
+                    });
+                    purchaseCB.union(new UnionQuery<PurchaseCB>() {
+                        public void query(PurchaseCB purchaseUnionCB) {
+                            purchaseUnionCB.query().queryProduct().setProductName_LikeSearch("a", option);
+                        }
+                    });
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        final ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         final ConditionBeanSetupper<PurchaseCB> setuppper = new ConditionBeanSetupper<PurchaseCB>() {
@@ -251,11 +249,11 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      */
     public void test_query_addOrderBy_withNullsFirst() {
         // ## Arrange ##
-        final MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_Birthdate_Asc().withNullsFirst();
-
-        // ## Act ##
-        final ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        final ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_Birthdate_Asc().withNullsFirst();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         boolean nulls = true;
@@ -281,11 +279,11 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      */
     public void test_query_addOrderBy_withNullsLast() {
         // ## Arrange ##
-        final MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_Birthdate_Asc().withNullsLast();
-
-        // ## Act ##
-        final ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        final ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_Birthdate_Asc().withNullsLast();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         boolean nulls = false;
@@ -311,17 +309,17 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      */
     public void test_query_addOrderBy_withNullsLast_and_union() {
         // ## Arrange ##
-        final MemberCB cb = new MemberCB();
-        cb.query().setBirthdate_IsNull();
-        cb.union(new UnionQuery<MemberCB>() {
-            public void query(MemberCB unionCB) {
-                unionCB.query().setBirthdate_IsNotNull();
-            }
+        final ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setBirthdate_IsNull();
+            cb.union(new UnionQuery<MemberCB>() {
+                public void query(MemberCB unionCB) {
+                    unionCB.query().setBirthdate_IsNotNull();
+                }
+            });
+            cb.query().addOrderBy_Birthdate_Asc().withNullsLast();
+            pushCB(cb);
         });
-        cb.query().addOrderBy_Birthdate_Asc().withNullsLast();
-
-        // ## Act ##
-        final ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         boolean nulls = false;
@@ -352,17 +350,17 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      */
     public void test_query_addOrderBy_withManualOrder() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        List<CDef> manualValueList = new ArrayList<CDef>();
-        manualValueList.add(CDef.MemberStatus.Withdrawal);
-        manualValueList.add(CDef.MemberStatus.Formalized);
-        manualValueList.add(CDef.MemberStatus.Provisional);
-        cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(manualValueList);
-        cb.query().addOrderBy_Birthdate_Desc().withNullsLast();
-        cb.query().addOrderBy_MemberName_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            List<CDef> manualValueList = new ArrayList<CDef>();
+            manualValueList.add(CDef.MemberStatus.Withdrawal);
+            manualValueList.add(CDef.MemberStatus.Formalized);
+            manualValueList.add(CDef.MemberStatus.Provisional);
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(manualValueList);
+            cb.query().addOrderBy_Birthdate_Desc().withNullsLast();
+            cb.query().addOrderBy_MemberName_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -392,26 +390,26 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         String keywordDelimiterString = "S M D";
         List<String> keywordList = Arrays.asList(keywordDelimiterString.split(" "));
 
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
 
-        final LikeSearchOption prefixOption = new LikeSearchOption().likePrefix();
-        boolean first = true;
-        for (final String keyword : keywordList) {
-            if (first) {
-                cb.query().setMemberAccount_LikeSearch(keyword, prefixOption);
-                first = false;
-                continue;
-            }
-            cb.union(new UnionQuery<MemberCB>() {
-                public void query(MemberCB unionCB) {
-                    unionCB.query().setMemberAccount_LikeSearch(keyword, prefixOption);
+            final LikeSearchOption prefixOption = new LikeSearchOption().likePrefix();
+            boolean first = true;
+            for (final String keyword : keywordList) {
+                if (first) {
+                    cb.query().setMemberAccount_LikeSearch(keyword, prefixOption);
+                    first = false;
+                    continue;
                 }
-            });
-        }
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+                cb.union(new UnionQuery<MemberCB>() {
+                    public void query(MemberCB unionCB) {
+                        unionCB.query().setMemberAccount_LikeSearch(keyword, prefixOption);
+                    }
+                });
+            }
+            pushCB(cb);
+        });
 
         // ## Assert ##
         log("/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ");
@@ -420,8 +418,8 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             String memberName = member.getMemberName();
             String memberAccount = member.getMemberAccount();
             log(memberName + "(" + memberAccount + ")");
-            assertTrue("Unexpected memberAccount = " + memberAccount,
-                    memberAccount.startsWith("S") || memberAccount.startsWith("M") || memberAccount.startsWith("D"));
+            assertTrue("Unexpected memberAccount = " + memberAccount, memberAccount.startsWith("S") || memberAccount.startsWith("M")
+                    || memberAccount.startsWith("D"));
         }
         log("* * * * * * * * * */");
     }
@@ -449,28 +447,26 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     public void test_selectPage_union_existsSubQuery() {
         // ## Arrange ##
         int fetchSize = 3;
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Withdrawal();
-        cb.union(new UnionQuery<MemberCB>() {
-            public void query(MemberCB unionCB) {
-                unionCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.query().setPurchasePrice_GreaterEqual(1500);
-                    }
-                });
-            }
+        PagingResultBean<Member> page1 = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            arrangeUnionForPaging(cb);
+            cb.paging(fetchSize, 1);
         });
-        cb.query().addOrderBy_Birthdate_Desc().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        cb.paging(fetchSize, 1);
-        PagingResultBean<Member> page1 = memberBhv.selectPage(cb);
-        cb.paging(fetchSize, 2);
-        PagingResultBean<Member> page2 = memberBhv.selectPage(cb);
-        cb.paging(fetchSize, 3);
-        PagingResultBean<Member> page3 = memberBhv.selectPage(cb);
-        cb.paging(fetchSize, page1.getAllPageCount());// Last Page
-        PagingResultBean<Member> lastPage = memberBhv.selectPage(cb);
+        PagingResultBean<Member> page2 = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            arrangeUnionForPaging(cb);
+            cb.paging(fetchSize, 2);
+        });
+        PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            arrangeUnionForPaging(cb);
+            cb.paging(fetchSize, 3);
+        });
+        PagingResultBean<Member> lastPage = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            arrangeUnionForPaging(cb);
+            cb.paging(fetchSize, page1.getAllPageCount());
+        });
 
         // ## Assert ##
         showPage(page1, page2, page3, lastPage);
@@ -513,8 +509,22 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         assertTrue(bl.isExistsPurchasePriceOnly());
 
         log("/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ");
-        log(ln() + cb.toDisplaySql());
+        log(ln() + popCB().toDisplaySql());
         log("* * * * * * * * * */");
+    }
+
+    protected void arrangeUnionForPaging(MemberCB cb) {
+        cb.query().setMemberStatusCode_Equal_Withdrawal();
+        cb.union(new UnionQuery<MemberCB>() {
+            public void query(MemberCB unionCB) {
+                unionCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.query().setPurchasePrice_GreaterEqual(1500);
+                    }
+                });
+            }
+        });
+        cb.query().addOrderBy_Birthdate_Desc().addOrderBy_MemberId_Asc();
     }
 
     protected void findTarget_of_selectPage_union_existsSubQuery(PagingResultBean<Member> memberPage,
@@ -608,25 +618,25 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      */
     public void test_selectList_query_queryForeign_on() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberWithdrawalAsOne();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberWithdrawalAsOne();
 
-        // 「退会理由コードがnullでない会員退会情報」のレコードは結合されてないようにする
-        // left outer join xxx on xxx = xxx and WithdrawalReasonCode is not null
-        cb.query().queryMemberWithdrawalAsOne().on().setWithdrawalReasonCode_IsNotNull();
+            // 「退会理由コードがnullでない会員退会情報」のレコードは結合されてないようにする
+            // left outer join xxx on xxx = xxx and WithdrawalReasonCode is not null
+                cb.query().queryMemberWithdrawalAsOne().on().setWithdrawalReasonCode_IsNotNull();
 
-        // left outer join (select * from xxx where WithdrawalReasonCode is not null) xxx on xxx = xxx
-        // cb.query().queryMemberWithdrawalAsOne().inline().setWithdrawalReasonCode_IsNotNull();
+                // left outer join (select * from xxx where WithdrawalReasonCode is not null) xxx on xxx = xxx
+                // cb.query().queryMemberWithdrawalAsOne().inline().setWithdrawalReasonCode_IsNotNull();
 
-        // 会員退会情報が存在する会員だけを取得するようにする
-        cb.query().inScopeMemberWithdrawalAsOne(new SubQuery<MemberWithdrawalCB>() {
-            public void query(MemberWithdrawalCB subCB) {
-            }
-        });
-        cb.query().queryMemberWithdrawalAsOne().addOrderBy_WithdrawalDatetime_Desc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+                // 会員退会情報が存在する会員だけを取得するようにする
+                cb.query().inScopeMemberWithdrawalAsOne(new SubQuery<MemberWithdrawalCB>() {
+                    public void query(MemberWithdrawalCB subCB) {
+                    }
+                });
+                cb.query().queryMemberWithdrawalAsOne().addOrderBy_WithdrawalDatetime_Desc();
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -671,13 +681,13 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      */
     public void test_specifyColumn() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.specify().columnMemberName();
-        cb.specify().specifyMemberStatus().columnMemberStatusName();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.specify().columnMemberName();
+            cb.specify().specifyMemberStatus().columnMemberStatusName();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -736,16 +746,16 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      */
     public void test_sepcify_derivedReferrer_max() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnLoginDatetime(); // *Point!
-                subCB.query().setMobileLoginFlg_Equal_False(); // except mobile
-            }
-        }, Member.ALIAS_latestLoginDatetime);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.specify().columnLoginDatetime(); // *Point!
+                    subCB.query().setMobileLoginFlg_Equal_False(); // except mobile
+                }
+            }, Member.ALIAS_latestLoginDatetime);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -858,18 +868,18 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      */
     public void test_query_addSepcifidDerivedOrderBy_count() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnMemberLoginId();// *Point!
-                subCB.query().setMobileLoginFlg_Equal_False();// Except Mobile
-            }
-        }, Member.ALIAS_loginCount);
-        cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_loginCount);
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.specify().columnMemberLoginId();// *Point!
+                    subCB.query().setMobileLoginFlg_Equal_False();// Except Mobile
+                }
+            }, Member.ALIAS_loginCount);
+            cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_loginCount);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -894,18 +904,18 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      */
     public void test_sepcify_derivedReferrer_countDistinct() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnProductId();
-                subCB.query().setPaymentCompleteFlg_Equal_True();
-            }
-        }, Member.ALIAS_productKindCount);
-        cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_productKindCount);
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnProductId();
+                    subCB.query().setPaymentCompleteFlg_Equal_True();
+                }
+            }, Member.ALIAS_productKindCount);
+            cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_productKindCount);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -915,7 +925,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             assertNotNull(productKindCount);// count()なので0件の場合は0になる(DB次第かも...)
             log("memberName=" + memberName + ", productKindCount=" + productKindCount);
         }
-        assertTrue(cb.toDisplaySql().contains("count(distinct"));
+        assertTrue(popCB().toDisplaySql().contains("count(distinct"));
     }
 
     // ===================================================================================
@@ -930,17 +940,17 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // ## Arrange ##
         Integer expected = 1800;
 
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchasePrice(); // *Point!
-                subCB.query().setPaymentCompleteFlg_Equal_True();
-            }
-        }).greaterEqual(expected); // *Don't forget!
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchasePrice(); // *Point!
+                    subCB.query().setPaymentCompleteFlg_Equal_True();
+                }
+            }).greaterEqual(expected); // *Don't forget!
+                pushCB(cb);
+            });
 
         // ## Assert ##
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
@@ -1001,17 +1011,17 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // ## Arrange ##
         Date expected = selectExpectedMaxBirthdayOnFormalized();
 
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnBirthdate(); // *Point!
-                subCB.query().setMemberStatusCode_Equal_Formalized();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnBirthdate(); // *Point!
+                    subCB.query().setMemberStatusCode_Equal_Formalized();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -1049,9 +1059,11 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     protected Date selectExpectedMaxBirthdayOnFormalized() {
         Date expected = null;
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberStatusCode_Equal_Formalized();
-            ListResultBean<Member> listAll = memberBhv.selectList(cb);
+            ListResultBean<Member> listAll = memberBhv.selectList(cb -> {
+                cb.query().setMemberStatusCode_Equal_Formalized();
+                pushCB(cb);
+            });
+
             for (Member member : listAll) {
                 Date day = member.getBirthdate();
                 if (day != null && (expected == null || expected.getTime() < day.getTime())) {
@@ -1122,12 +1134,12 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         cal.set(2005, 11, 12); // 2005/12/12
         Date targetDate = cal.getTime();
 
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberAddressAsValid(targetDate);
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberAddressAsValid(targetDate);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -1153,7 +1165,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             }
         }
         assertTrue(existsAddress);
-        assertFalse(cb.toDisplaySql().contains("where")); // not use where clause
+        assertFalse(popCB().toDisplaySql().contains("where")); // not use where clause
 
         // [SQL]
         // select dfloc.MEMBER_NAME as MEMBER_NAME, ... 
@@ -1188,14 +1200,14 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         final Date targetDate = cal.getTime();
         final String targetChar = "i";
 
-        MemberCB cb = new MemberCB();
-        LikeSearchOption likeSearchOption = new LikeSearchOption().likeContain();
-        cb.query().queryMemberAddressAsValid(targetDate).setAddress_LikeSearch(targetChar, likeSearchOption);
-        cb.query().queryMemberAddressAsValid(targetDate).addOrderBy_Address_Asc();
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            LikeSearchOption likeSearchOption = new LikeSearchOption().likeContain();
+            cb.query().queryMemberAddressAsValid(targetDate).setAddress_LikeSearch(targetChar, likeSearchOption);
+            cb.query().queryMemberAddressAsValid(targetDate).addOrderBy_Address_Asc();
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -1239,11 +1251,11 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      */
     public void test_configure_statementConfig() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.configure(new StatementConfig().typeForwardOnly().queryTimeout(7).fetchSize(4).maxRows(3));
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.configure(new StatementConfig().typeForwardOnly().queryTimeout(7).fetchSize(4).maxRows(3));
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertEquals(3, memberList.size());
@@ -1264,12 +1276,12 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
      */
     public void test_arrangeQuery() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().arrangeServiceMember();
-        cb.query().addOrderBy_MemberName_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().arrangeServiceMember();
+            cb.query().addOrderBy_MemberName_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());

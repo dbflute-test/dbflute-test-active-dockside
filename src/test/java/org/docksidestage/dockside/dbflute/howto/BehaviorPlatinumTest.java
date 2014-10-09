@@ -30,7 +30,6 @@ import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
@@ -75,14 +74,17 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_selectPage_PageRangeOption_PageGroupOption() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberName_Asc();
+        PagingResultBean<Member> page2 = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_MemberName_Asc();
+            cb.paging(4, 2);
+        });
 
-        // ## Act ##
-        cb.paging(4, 2);
-        PagingResultBean<Member> page2 = memberBhv.selectPage(cb);
-        cb.paging(4, 3);
-        PagingResultBean<Member> page3 = memberBhv.selectPage(cb);
+        PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_MemberName_Asc();
+            cb.paging(4, 3);
+        });
 
         // ## Assert ##
         assertNotSame(0, page3.size());
@@ -152,13 +154,12 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_selectCursor_EntityRowHandler() {
         // ## Arrange ##
-        int allCount = memberBhv.selectCount(new MemberCB());
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
         final Set<Integer> memberIdSet = new HashSet<Integer>();
-
-        // ## Act ##
-        memberBhv.selectCursor(cb, new EntityRowHandler<Member>() {
+        int allCount = memberBhv.selectCount(cb -> {});
+        memberBhv.selectCursor(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+        }, new EntityRowHandler<Member>() {
             public void handle(Member entity) {
                 memberIdSet.add(entity.getMemberId());
                 log(entity.getMemberName() + ", " + entity.getMemberStatus().getMemberStatusName());
@@ -174,8 +175,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_LoadReferrer_setupSelect_Foreign() {
         // ## Arrange ##
-        final MemberCB cb = new MemberCB();
-        final ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        final ListResultBean<Member> memberList = memberBhv.selectList(cb -> {});
 
         // ## Act ##
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
@@ -202,8 +202,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
     public void test_LoadReferrer_loadReferrerReferrer() {
         // ## Arrange ##
         // A base table is MemberStatus at this test case.
-        MemberStatusCB cb = new MemberStatusCB();
-        ListResultBean<MemberStatus> memberStatusList = memberStatusBhv.selectList(cb);
+        ListResultBean<MemberStatus> memberStatusList = memberStatusBhv.selectList(cb -> {});
 
         LoadReferrerOption<MemberCB, Member> loadReferrerOption = new LoadReferrerOption<MemberCB, Member>();
 
@@ -228,7 +227,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
         // ## Act ##
         memberStatusBhv.loadMemberList(memberStatusList, loadReferrerOption);
-
+        
         // ## Assert ##
         boolean existsPurchase = false;
         assertNotSame(0, memberStatusList.size());
@@ -250,9 +249,9 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
     public void test_LoadReferrer_pulloutMember_loadMemberLoginList() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.setupSelect_Member();// *Point!
-        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            cb.setupSelect_Member();// *Point!
+            });
 
         // ## Act ##
         List<Member> memberList = purchaseBhv.pulloutMember(purchaseList);// *Point!
@@ -300,8 +299,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         pmb.paging(8, 2);
         Class<UnpaidSummaryMember> entityType = UnpaidSummaryMember.class;
 
-        PagingResultBean<UnpaidSummaryMember> memberPage = memberBhv.outsideSql().autoPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<UnpaidSummaryMember> memberPage = memberBhv.outsideSql().autoPaging().selectPage(path, pmb, entityType);
         List<Member> domainList = new ArrayList<Member>();
         for (UnpaidSummaryMember member : memberPage) {
             domainList.add(member.prepareDomain());
@@ -376,9 +374,10 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         int count = 0;
         List<Long> expectedVersionNoList = new ArrayList<Long>();
         for (Member member : memberList) {
@@ -408,9 +407,10 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         int count = 0;
         for (Member member : memberList) {
             member.setMemberName("testName" + count);
@@ -446,9 +446,9 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
 
         // ## Act ##
         int[] result = memberBhv.batchDelete(memberList);
@@ -627,8 +627,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         // ## Act ##
         int pageSize = 3;
         pmb.paging(pageSize, 1); // 1st page
-        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType);
 
         // ## Assert ##
         assertNotSame(0, page1.size());
@@ -665,8 +664,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
         // ## Act ##
         // SQL実行！
-        List<SimpleMember> memberList = memberBhv.outsideSql().configure(statementConfig)
-                .selectList(path, pmb, entityType);
+        List<SimpleMember> memberList = memberBhv.outsideSql().configure(statementConfig).selectList(path, pmb, entityType);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -833,9 +831,10 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         memberBhv.insert(member);
 
         // ## Assert ##
-        final MemberCB cb = new MemberCB();
-        cb.acceptPrimaryKeyMap(member.getDBMeta().extractPrimaryKeyMap(member));
-        final Member actualMember = memberBhv.selectEntityWithDeletedCheck(cb);
+        final Member actualMember = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.acceptPrimaryKeyMap(member.getDBMeta().extractPrimaryKeyMap(member));
+        });
+
         final Timestamp registerDatetime = actualMember.getRegisterDatetime();
         final String registerUser = actualMember.getRegisterUser();
         final Timestamp updateDatetime = actualMember.getUpdateDatetime();
@@ -862,13 +861,12 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_conditionBean_paging_disablePagingReSelect() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberName_Asc();
-        cb.paging(4, 99999);
-        cb.disablePagingReSelect();
-
-        // ## Act ##
-        PagingResultBean<Member> page99999 = memberBhv.selectPage(cb);
+        PagingResultBean<Member> page99999 = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_MemberName_Asc();
+            cb.paging(4, 99999);
+            cb.disablePagingReSelect();
+        });
 
         // ## Assert ##
         assertTrue(page99999.isEmpty());
@@ -894,8 +892,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         // SQL実行！
         int pageSize = 3;
         pmb.paging(pageSize, 99999);
-        PagingResultBean<UnpaidSummaryMember> page99999 = memberBhv.outsideSql().autoPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<UnpaidSummaryMember> page99999 = memberBhv.outsideSql().autoPaging().selectPage(path, pmb, entityType);
 
         // ## Assert ##
         assertTrue(page99999.isEmpty());
@@ -910,9 +907,10 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_selectList_ListResultBean_groupingList_count() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberName_Asc();
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().addOrderBy_MemberName_Asc();
+        });
+
         log("ListResultBean.toString():" + ln() + " " + memberList);
 
         // ## Act ##
@@ -942,9 +940,10 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_selectList_ListResultBean_groupingList_determine() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberName_Asc();
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().addOrderBy_MemberName_Asc();
+        });
+
         log("ListResultBean.toString():" + ln() + " " + memberList);
 
         // ## Act ##

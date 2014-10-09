@@ -107,11 +107,11 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * cb.query().setFoo...(value);
      * int count = vendorTheLongAndWindingTableAndColumnRefBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
-     * @param cb The condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(VendorTheLongAndWindingTableAndColumnRefCB cb) {
-        return facadeSelectCount(cb);
+    public int selectCount(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda) {
+        return facadeSelectCount(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -131,13 +131,13 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      *     ...
      * }
      * </pre>
-     * @param cb The condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public VendorTheLongAndWindingTableAndColumnRef selectEntity(VendorTheLongAndWindingTableAndColumnRefCB cb) {
-        return facadeSelectEntity(cb);
+    public VendorTheLongAndWindingTableAndColumnRef selectEntity(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda) {
+        return facadeSelectEntity(handleCBCall(cbLambda));
     }
 
     protected VendorTheLongAndWindingTableAndColumnRef facadeSelectEntity(VendorTheLongAndWindingTableAndColumnRefCB cb) {
@@ -159,14 +159,14 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef = vendorTheLongAndWindingTableAndColumnRefBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = vendorTheLongAndWindingTableAndColumnRef.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cb The condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public VendorTheLongAndWindingTableAndColumnRef selectEntityWithDeletedCheck(VendorTheLongAndWindingTableAndColumnRefCB cb) {
-        return facadeSelectEntityWithDeletedCheck(cb);
+    public VendorTheLongAndWindingTableAndColumnRef selectEntityWithDeletedCheck(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda) {
+        return facadeSelectEntityWithDeletedCheck(handleCBCall(cbLambda));
     }
 
     /**
@@ -227,12 +227,12 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      *     ... = vendorTheLongAndWindingTableAndColumnRef.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<VendorTheLongAndWindingTableAndColumnRef> selectList(VendorTheLongAndWindingTableAndColumnRefCB cb) {
-        return facadeSelectList(cb);
+    public ListResultBean<VendorTheLongAndWindingTableAndColumnRef> selectList(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda) {
+        return facadeSelectList(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -256,12 +256,12 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      *     ... = vendorTheLongAndWindingTableAndColumnRef.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<VendorTheLongAndWindingTableAndColumnRef> selectPage(VendorTheLongAndWindingTableAndColumnRefCB cb) {
-        return facadeSelectPage(cb);
+    public PagingResultBean<VendorTheLongAndWindingTableAndColumnRef> selectPage(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda) {
+        return facadeSelectPage(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -278,11 +278,11 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      *     }
      * });
      * </pre>
-     * @param cb The condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
-     * @param entityRowHandler The handler of entity row of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
+     * @param entityLambda The handler of entity row of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      */
-    public void selectCursor(VendorTheLongAndWindingTableAndColumnRefCB cb, EntityRowHandler<VendorTheLongAndWindingTableAndColumnRef> entityRowHandler) {
-        facadeSelectCursor(cb, entityRowHandler);
+    public void selectCursor(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda, EntityRowHandler<VendorTheLongAndWindingTableAndColumnRef> entityLambda) {
+        facadeSelectCursor(handleCBCall(cbLambda), entityLambda);
     }
 
     // ===================================================================================
@@ -650,12 +650,12 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * vendorTheLongAndWindingTableAndColumnRefBhv.<span style="color: #DD4747">queryUpdate</span>(vendorTheLongAndWindingTableAndColumnRef, cb);
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumnRef The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cb The condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, VendorTheLongAndWindingTableAndColumnRefCB cb) {
-        return doQueryUpdate(vendorTheLongAndWindingTableAndColumnRef, cb, null);
+    public int queryUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda) {
+        return doQueryUpdate(vendorTheLongAndWindingTableAndColumnRef, handleCBCall(cbLambda), null);
     }
 
     /**
@@ -665,12 +665,12 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * cb.query().setFoo...(value);
      * vendorTheLongAndWindingTableAndColumnRefBhv.<span style="color: #DD4747">queryDelete</span>(vendorTheLongAndWindingTableAndColumnRef, cb);
      * </pre>
-     * @param cb The condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(VendorTheLongAndWindingTableAndColumnRefCB cb) {
-        return doQueryDelete(cb, null);
+    public int queryDelete(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), null);
     }
 
     // ===================================================================================
@@ -843,26 +843,26 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * vendorTheLongAndWindingTableAndColumnRefBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(vendorTheLongAndWindingTableAndColumnRef, cb, option);
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumnRef The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cb The condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, VendorTheLongAndWindingTableAndColumnRefCB cb, WOptionCall<VendorTheLongAndWindingTableAndColumnRefCB, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB>> opLambda) {
-        return doQueryUpdate(vendorTheLongAndWindingTableAndColumnRef, cb, handleUpdateOpCall(opLambda));
+    public int varyingQueryUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda, WOptionCall<VendorTheLongAndWindingTableAndColumnRefCB, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB>> opLambda) {
+        return doQueryUpdate(vendorTheLongAndWindingTableAndColumnRef, handleCBCall(cbLambda), handleUpdateOpCall(opLambda));
     }
 
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
      * Other specifications are same as batchUpdateNonstrict(entityList).
-     * @param cb The condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
+     * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(VendorTheLongAndWindingTableAndColumnRefCB cb, WOptionCall<VendorTheLongAndWindingTableAndColumnRefCB, DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB>> opLambda) {
-        return doQueryDelete(cb, handleDeleteOpCall(opLambda));
+    public int varyingQueryDelete(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda, WOptionCall<VendorTheLongAndWindingTableAndColumnRefCB, DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB>> opLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), handleDeleteOpCall(opLambda));
     }
 
     // ===================================================================================

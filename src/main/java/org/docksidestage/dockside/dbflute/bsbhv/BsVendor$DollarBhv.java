@@ -107,11 +107,11 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * cb.query().setFoo...(value);
      * int count = vendor$DollarBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
-     * @param cb The condition-bean of Vendor$Dollar. (NotNull)
+     * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(Vendor$DollarCB cb) {
-        return facadeSelectCount(cb);
+    public int selectCount(CBCall<Vendor$DollarCB> cbLambda) {
+        return facadeSelectCount(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -131,13 +131,13 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      *     ...
      * }
      * </pre>
-     * @param cb The condition-bean of Vendor$Dollar. (NotNull)
+     * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public Vendor$Dollar selectEntity(Vendor$DollarCB cb) {
-        return facadeSelectEntity(cb);
+    public Vendor$Dollar selectEntity(CBCall<Vendor$DollarCB> cbLambda) {
+        return facadeSelectEntity(handleCBCall(cbLambda));
     }
 
     protected Vendor$Dollar facadeSelectEntity(Vendor$DollarCB cb) {
@@ -159,14 +159,14 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * Vendor$Dollar vendor$Dollar = vendor$DollarBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = vendor$Dollar.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cb The condition-bean of Vendor$Dollar. (NotNull)
+     * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public Vendor$Dollar selectEntityWithDeletedCheck(Vendor$DollarCB cb) {
-        return facadeSelectEntityWithDeletedCheck(cb);
+    public Vendor$Dollar selectEntityWithDeletedCheck(CBCall<Vendor$DollarCB> cbLambda) {
+        return facadeSelectEntityWithDeletedCheck(handleCBCall(cbLambda));
     }
 
     /**
@@ -227,12 +227,12 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      *     ... = vendor$Dollar.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of Vendor$Dollar. (NotNull)
+     * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<Vendor$Dollar> selectList(Vendor$DollarCB cb) {
-        return facadeSelectList(cb);
+    public ListResultBean<Vendor$Dollar> selectList(CBCall<Vendor$DollarCB> cbLambda) {
+        return facadeSelectList(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -256,12 +256,12 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      *     ... = vendor$Dollar.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of Vendor$Dollar. (NotNull)
+     * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<Vendor$Dollar> selectPage(Vendor$DollarCB cb) {
-        return facadeSelectPage(cb);
+    public PagingResultBean<Vendor$Dollar> selectPage(CBCall<Vendor$DollarCB> cbLambda) {
+        return facadeSelectPage(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -278,11 +278,11 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      *     }
      * });
      * </pre>
-     * @param cb The condition-bean of Vendor$Dollar. (NotNull)
-     * @param entityRowHandler The handler of entity row of Vendor$Dollar. (NotNull)
+     * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
+     * @param entityLambda The handler of entity row of Vendor$Dollar. (NotNull)
      */
-    public void selectCursor(Vendor$DollarCB cb, EntityRowHandler<Vendor$Dollar> entityRowHandler) {
-        facadeSelectCursor(cb, entityRowHandler);
+    public void selectCursor(CBCall<Vendor$DollarCB> cbLambda, EntityRowHandler<Vendor$Dollar> entityLambda) {
+        facadeSelectCursor(handleCBCall(cbLambda), entityLambda);
     }
 
     // ===================================================================================
@@ -642,12 +642,12 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * vendor$DollarBhv.<span style="color: #DD4747">queryUpdate</span>(vendor$Dollar, cb);
      * </pre>
      * @param vendor$Dollar The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cb The condition-bean of Vendor$Dollar. (NotNull)
+     * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(Vendor$Dollar vendor$Dollar, Vendor$DollarCB cb) {
-        return doQueryUpdate(vendor$Dollar, cb, null);
+    public int queryUpdate(Vendor$Dollar vendor$Dollar, CBCall<Vendor$DollarCB> cbLambda) {
+        return doQueryUpdate(vendor$Dollar, handleCBCall(cbLambda), null);
     }
 
     /**
@@ -657,12 +657,12 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * cb.query().setFoo...(value);
      * vendor$DollarBhv.<span style="color: #DD4747">queryDelete</span>(vendor$Dollar, cb);
      * </pre>
-     * @param cb The condition-bean of Vendor$Dollar. (NotNull)
+     * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(Vendor$DollarCB cb) {
-        return doQueryDelete(cb, null);
+    public int queryDelete(CBCall<Vendor$DollarCB> cbLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), null);
     }
 
     // ===================================================================================
@@ -835,26 +835,26 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * vendor$DollarBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(vendor$Dollar, cb, option);
      * </pre>
      * @param vendor$Dollar The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cb The condition-bean of Vendor$Dollar. (NotNull)
+     * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(Vendor$Dollar vendor$Dollar, Vendor$DollarCB cb, WOptionCall<Vendor$DollarCB, UpdateOption<Vendor$DollarCB>> opLambda) {
-        return doQueryUpdate(vendor$Dollar, cb, handleUpdateOpCall(opLambda));
+    public int varyingQueryUpdate(Vendor$Dollar vendor$Dollar, CBCall<Vendor$DollarCB> cbLambda, WOptionCall<Vendor$DollarCB, UpdateOption<Vendor$DollarCB>> opLambda) {
+        return doQueryUpdate(vendor$Dollar, handleCBCall(cbLambda), handleUpdateOpCall(opLambda));
     }
 
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
      * Other specifications are same as batchUpdateNonstrict(entityList).
-     * @param cb The condition-bean of Vendor$Dollar. (NotNull)
+     * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(Vendor$DollarCB cb, WOptionCall<Vendor$DollarCB, DeleteOption<Vendor$DollarCB>> opLambda) {
-        return doQueryDelete(cb, handleDeleteOpCall(opLambda));
+    public int varyingQueryDelete(CBCall<Vendor$DollarCB> cbLambda, WOptionCall<Vendor$DollarCB, DeleteOption<Vendor$DollarCB>> opLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), handleDeleteOpCall(opLambda));
     }
 
     // ===================================================================================

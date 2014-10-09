@@ -107,11 +107,11 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * cb.query().setFoo...(value);
      * int count = memberWithdrawalBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
-     * @param cb The condition-bean of MemberWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(MemberWithdrawalCB cb) {
-        return facadeSelectCount(cb);
+    public int selectCount(CBCall<MemberWithdrawalCB> cbLambda) {
+        return facadeSelectCount(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -131,13 +131,13 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      *     ...
      * }
      * </pre>
-     * @param cb The condition-bean of MemberWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public MemberWithdrawal selectEntity(MemberWithdrawalCB cb) {
-        return facadeSelectEntity(cb);
+    public MemberWithdrawal selectEntity(CBCall<MemberWithdrawalCB> cbLambda) {
+        return facadeSelectEntity(handleCBCall(cbLambda));
     }
 
     protected MemberWithdrawal facadeSelectEntity(MemberWithdrawalCB cb) {
@@ -159,14 +159,14 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * MemberWithdrawal memberWithdrawal = memberWithdrawalBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = memberWithdrawal.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cb The condition-bean of MemberWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public MemberWithdrawal selectEntityWithDeletedCheck(MemberWithdrawalCB cb) {
-        return facadeSelectEntityWithDeletedCheck(cb);
+    public MemberWithdrawal selectEntityWithDeletedCheck(CBCall<MemberWithdrawalCB> cbLambda) {
+        return facadeSelectEntityWithDeletedCheck(handleCBCall(cbLambda));
     }
 
     /**
@@ -227,12 +227,12 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      *     ... = memberWithdrawal.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of MemberWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<MemberWithdrawal> selectList(MemberWithdrawalCB cb) {
-        return facadeSelectList(cb);
+    public ListResultBean<MemberWithdrawal> selectList(CBCall<MemberWithdrawalCB> cbLambda) {
+        return facadeSelectList(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -256,12 +256,12 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      *     ... = memberWithdrawal.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of MemberWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<MemberWithdrawal> selectPage(MemberWithdrawalCB cb) {
-        return facadeSelectPage(cb);
+    public PagingResultBean<MemberWithdrawal> selectPage(CBCall<MemberWithdrawalCB> cbLambda) {
+        return facadeSelectPage(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -278,11 +278,11 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      *     }
      * });
      * </pre>
-     * @param cb The condition-bean of MemberWithdrawal. (NotNull)
-     * @param entityRowHandler The handler of entity row of MemberWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
+     * @param entityLambda The handler of entity row of MemberWithdrawal. (NotNull)
      */
-    public void selectCursor(MemberWithdrawalCB cb, EntityRowHandler<MemberWithdrawal> entityRowHandler) {
-        facadeSelectCursor(cb, entityRowHandler);
+    public void selectCursor(CBCall<MemberWithdrawalCB> cbLambda, EntityRowHandler<MemberWithdrawal> entityLambda) {
+        facadeSelectCursor(handleCBCall(cbLambda), entityLambda);
     }
 
     // ===================================================================================
@@ -804,12 +804,12 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * memberWithdrawalBhv.<span style="color: #DD4747">queryUpdate</span>(memberWithdrawal, cb);
      * </pre>
      * @param memberWithdrawal The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cb The condition-bean of MemberWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(MemberWithdrawal memberWithdrawal, MemberWithdrawalCB cb) {
-        return doQueryUpdate(memberWithdrawal, cb, null);
+    public int queryUpdate(MemberWithdrawal memberWithdrawal, CBCall<MemberWithdrawalCB> cbLambda) {
+        return doQueryUpdate(memberWithdrawal, handleCBCall(cbLambda), null);
     }
 
     /**
@@ -819,12 +819,12 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * cb.query().setFoo...(value);
      * memberWithdrawalBhv.<span style="color: #DD4747">queryDelete</span>(memberWithdrawal, cb);
      * </pre>
-     * @param cb The condition-bean of MemberWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(MemberWithdrawalCB cb) {
-        return doQueryDelete(cb, null);
+    public int queryDelete(CBCall<MemberWithdrawalCB> cbLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), null);
     }
 
     // ===================================================================================
@@ -1079,26 +1079,26 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * memberWithdrawalBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(memberWithdrawal, cb, option);
      * </pre>
      * @param memberWithdrawal The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cb The condition-bean of MemberWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(MemberWithdrawal memberWithdrawal, MemberWithdrawalCB cb, WOptionCall<MemberWithdrawalCB, UpdateOption<MemberWithdrawalCB>> opLambda) {
-        return doQueryUpdate(memberWithdrawal, cb, handleUpdateOpCall(opLambda));
+    public int varyingQueryUpdate(MemberWithdrawal memberWithdrawal, CBCall<MemberWithdrawalCB> cbLambda, WOptionCall<MemberWithdrawalCB, UpdateOption<MemberWithdrawalCB>> opLambda) {
+        return doQueryUpdate(memberWithdrawal, handleCBCall(cbLambda), handleUpdateOpCall(opLambda));
     }
 
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
      * Other specifications are same as batchUpdateNonstrict(entityList).
-     * @param cb The condition-bean of MemberWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(MemberWithdrawalCB cb, WOptionCall<MemberWithdrawalCB, DeleteOption<MemberWithdrawalCB>> opLambda) {
-        return doQueryDelete(cb, handleDeleteOpCall(opLambda));
+    public int varyingQueryDelete(CBCall<MemberWithdrawalCB> cbLambda, WOptionCall<MemberWithdrawalCB, DeleteOption<MemberWithdrawalCB>> opLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), handleDeleteOpCall(opLambda));
     }
 
     // ===================================================================================

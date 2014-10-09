@@ -107,11 +107,11 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * cb.query().setFoo...(value);
      * int count = regionBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
-     * @param cb The condition-bean of Region. (NotNull)
+     * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(RegionCB cb) {
-        return facadeSelectCount(cb);
+    public int selectCount(CBCall<RegionCB> cbLambda) {
+        return facadeSelectCount(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -131,13 +131,13 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      *     ...
      * }
      * </pre>
-     * @param cb The condition-bean of Region. (NotNull)
+     * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public Region selectEntity(RegionCB cb) {
-        return facadeSelectEntity(cb);
+    public Region selectEntity(CBCall<RegionCB> cbLambda) {
+        return facadeSelectEntity(handleCBCall(cbLambda));
     }
 
     protected Region facadeSelectEntity(RegionCB cb) {
@@ -159,14 +159,14 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * Region region = regionBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = region.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cb The condition-bean of Region. (NotNull)
+     * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public Region selectEntityWithDeletedCheck(RegionCB cb) {
-        return facadeSelectEntityWithDeletedCheck(cb);
+    public Region selectEntityWithDeletedCheck(CBCall<RegionCB> cbLambda) {
+        return facadeSelectEntityWithDeletedCheck(handleCBCall(cbLambda));
     }
 
     /**
@@ -227,12 +227,12 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      *     ... = region.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of Region. (NotNull)
+     * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<Region> selectList(RegionCB cb) {
-        return facadeSelectList(cb);
+    public ListResultBean<Region> selectList(CBCall<RegionCB> cbLambda) {
+        return facadeSelectList(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -256,12 +256,12 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      *     ... = region.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of Region. (NotNull)
+     * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<Region> selectPage(RegionCB cb) {
-        return facadeSelectPage(cb);
+    public PagingResultBean<Region> selectPage(CBCall<RegionCB> cbLambda) {
+        return facadeSelectPage(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -278,11 +278,11 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      *     }
      * });
      * </pre>
-     * @param cb The condition-bean of Region. (NotNull)
-     * @param entityRowHandler The handler of entity row of Region. (NotNull)
+     * @param cbLambda The callback for condition-bean of Region. (NotNull)
+     * @param entityLambda The handler of entity row of Region. (NotNull)
      */
-    public void selectCursor(RegionCB cb, EntityRowHandler<Region> entityRowHandler) {
-        facadeSelectCursor(cb, entityRowHandler);
+    public void selectCursor(CBCall<RegionCB> cbLambda, EntityRowHandler<Region> entityLambda) {
+        facadeSelectCursor(handleCBCall(cbLambda), entityLambda);
     }
 
     // ===================================================================================
@@ -734,12 +734,12 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * regionBhv.<span style="color: #DD4747">queryUpdate</span>(region, cb);
      * </pre>
      * @param region The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cb The condition-bean of Region. (NotNull)
+     * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(Region region, RegionCB cb) {
-        return doQueryUpdate(region, cb, null);
+    public int queryUpdate(Region region, CBCall<RegionCB> cbLambda) {
+        return doQueryUpdate(region, handleCBCall(cbLambda), null);
     }
 
     /**
@@ -749,12 +749,12 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * cb.query().setFoo...(value);
      * regionBhv.<span style="color: #DD4747">queryDelete</span>(region, cb);
      * </pre>
-     * @param cb The condition-bean of Region. (NotNull)
+     * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(RegionCB cb) {
-        return doQueryDelete(cb, null);
+    public int queryDelete(CBCall<RegionCB> cbLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), null);
     }
 
     // ===================================================================================
@@ -927,26 +927,26 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * regionBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(region, cb, option);
      * </pre>
      * @param region The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cb The condition-bean of Region. (NotNull)
+     * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(Region region, RegionCB cb, WOptionCall<RegionCB, UpdateOption<RegionCB>> opLambda) {
-        return doQueryUpdate(region, cb, handleUpdateOpCall(opLambda));
+    public int varyingQueryUpdate(Region region, CBCall<RegionCB> cbLambda, WOptionCall<RegionCB, UpdateOption<RegionCB>> opLambda) {
+        return doQueryUpdate(region, handleCBCall(cbLambda), handleUpdateOpCall(opLambda));
     }
 
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
      * Other specifications are same as batchUpdateNonstrict(entityList).
-     * @param cb The condition-bean of Region. (NotNull)
+     * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(RegionCB cb, WOptionCall<RegionCB, DeleteOption<RegionCB>> opLambda) {
-        return doQueryDelete(cb, handleDeleteOpCall(opLambda));
+    public int varyingQueryDelete(CBCall<RegionCB> cbLambda, WOptionCall<RegionCB, DeleteOption<RegionCB>> opLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), handleDeleteOpCall(opLambda));
     }
 
     // ===================================================================================

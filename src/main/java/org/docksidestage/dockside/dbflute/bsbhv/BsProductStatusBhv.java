@@ -107,11 +107,11 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * cb.query().setFoo...(value);
      * int count = productStatusBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
-     * @param cb The condition-bean of ProductStatus. (NotNull)
+     * @param cbLambda The callback for condition-bean of ProductStatus. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(ProductStatusCB cb) {
-        return facadeSelectCount(cb);
+    public int selectCount(CBCall<ProductStatusCB> cbLambda) {
+        return facadeSelectCount(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -131,13 +131,13 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      *     ...
      * }
      * </pre>
-     * @param cb The condition-bean of ProductStatus. (NotNull)
+     * @param cbLambda The callback for condition-bean of ProductStatus. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ProductStatus selectEntity(ProductStatusCB cb) {
-        return facadeSelectEntity(cb);
+    public ProductStatus selectEntity(CBCall<ProductStatusCB> cbLambda) {
+        return facadeSelectEntity(handleCBCall(cbLambda));
     }
 
     protected ProductStatus facadeSelectEntity(ProductStatusCB cb) {
@@ -159,14 +159,14 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * ProductStatus productStatus = productStatusBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = productStatus.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cb The condition-bean of ProductStatus. (NotNull)
+     * @param cbLambda The callback for condition-bean of ProductStatus. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ProductStatus selectEntityWithDeletedCheck(ProductStatusCB cb) {
-        return facadeSelectEntityWithDeletedCheck(cb);
+    public ProductStatus selectEntityWithDeletedCheck(CBCall<ProductStatusCB> cbLambda) {
+        return facadeSelectEntityWithDeletedCheck(handleCBCall(cbLambda));
     }
 
     /**
@@ -252,12 +252,12 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      *     ... = productStatus.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of ProductStatus. (NotNull)
+     * @param cbLambda The callback for condition-bean of ProductStatus. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<ProductStatus> selectList(ProductStatusCB cb) {
-        return facadeSelectList(cb);
+    public ListResultBean<ProductStatus> selectList(CBCall<ProductStatusCB> cbLambda) {
+        return facadeSelectList(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -281,12 +281,12 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      *     ... = productStatus.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of ProductStatus. (NotNull)
+     * @param cbLambda The callback for condition-bean of ProductStatus. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<ProductStatus> selectPage(ProductStatusCB cb) {
-        return facadeSelectPage(cb);
+    public PagingResultBean<ProductStatus> selectPage(CBCall<ProductStatusCB> cbLambda) {
+        return facadeSelectPage(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -303,11 +303,11 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      *     }
      * });
      * </pre>
-     * @param cb The condition-bean of ProductStatus. (NotNull)
-     * @param entityRowHandler The handler of entity row of ProductStatus. (NotNull)
+     * @param cbLambda The callback for condition-bean of ProductStatus. (NotNull)
+     * @param entityLambda The handler of entity row of ProductStatus. (NotNull)
      */
-    public void selectCursor(ProductStatusCB cb, EntityRowHandler<ProductStatus> entityRowHandler) {
-        facadeSelectCursor(cb, entityRowHandler);
+    public void selectCursor(CBCall<ProductStatusCB> cbLambda, EntityRowHandler<ProductStatus> entityLambda) {
+        facadeSelectCursor(handleCBCall(cbLambda), entityLambda);
     }
 
     // ===================================================================================
@@ -859,12 +859,12 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * productStatusBhv.<span style="color: #DD4747">queryUpdate</span>(productStatus, cb);
      * </pre>
      * @param productStatus The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cb The condition-bean of ProductStatus. (NotNull)
+     * @param cbLambda The callback for condition-bean of ProductStatus. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(ProductStatus productStatus, ProductStatusCB cb) {
-        return doQueryUpdate(productStatus, cb, null);
+    public int queryUpdate(ProductStatus productStatus, CBCall<ProductStatusCB> cbLambda) {
+        return doQueryUpdate(productStatus, handleCBCall(cbLambda), null);
     }
 
     /**
@@ -874,12 +874,12 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * cb.query().setFoo...(value);
      * productStatusBhv.<span style="color: #DD4747">queryDelete</span>(productStatus, cb);
      * </pre>
-     * @param cb The condition-bean of ProductStatus. (NotNull)
+     * @param cbLambda The callback for condition-bean of ProductStatus. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(ProductStatusCB cb) {
-        return doQueryDelete(cb, null);
+    public int queryDelete(CBCall<ProductStatusCB> cbLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), null);
     }
 
     // ===================================================================================
@@ -1052,26 +1052,26 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * productStatusBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(productStatus, cb, option);
      * </pre>
      * @param productStatus The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cb The condition-bean of ProductStatus. (NotNull)
+     * @param cbLambda The callback for condition-bean of ProductStatus. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(ProductStatus productStatus, ProductStatusCB cb, WOptionCall<ProductStatusCB, UpdateOption<ProductStatusCB>> opLambda) {
-        return doQueryUpdate(productStatus, cb, handleUpdateOpCall(opLambda));
+    public int varyingQueryUpdate(ProductStatus productStatus, CBCall<ProductStatusCB> cbLambda, WOptionCall<ProductStatusCB, UpdateOption<ProductStatusCB>> opLambda) {
+        return doQueryUpdate(productStatus, handleCBCall(cbLambda), handleUpdateOpCall(opLambda));
     }
 
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
      * Other specifications are same as batchUpdateNonstrict(entityList).
-     * @param cb The condition-bean of ProductStatus. (NotNull)
+     * @param cbLambda The callback for condition-bean of ProductStatus. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(ProductStatusCB cb, WOptionCall<ProductStatusCB, DeleteOption<ProductStatusCB>> opLambda) {
-        return doQueryDelete(cb, handleDeleteOpCall(opLambda));
+    public int varyingQueryDelete(CBCall<ProductStatusCB> cbLambda, WOptionCall<ProductStatusCB, DeleteOption<ProductStatusCB>> opLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), handleDeleteOpCall(opLambda));
     }
 
     // ===================================================================================

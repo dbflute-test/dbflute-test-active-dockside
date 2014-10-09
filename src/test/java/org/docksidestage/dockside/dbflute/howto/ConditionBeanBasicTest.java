@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.exception.SelectEntityConditionNotFoundException;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
@@ -76,27 +75,25 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         // A. 基点テーブルのConditionBeanを生成
         //    --> select句, from句
         // = = = = = = = = = = = = = = = = =
-        MemberCB cb = new MemberCB(); // 基点テーブルは「会員」
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // = = = = = = = = = = = = = = = =
+            // B. 取得したい関連テーブルを指定
+            //    --> select句, from句, join句
+            // = = = = = = = = = = = = = = = =
+                cb.setupSelect_MemberStatus(); // 「会員ステータス」を結合してSelect句に展開
 
-        // = = = = = = = = = = = = = = = =
-        // B. 取得したい関連テーブルを指定
-        //    --> select句, from句, join句
-        // = = = = = = = = = = = = = = = =
-        cb.setupSelect_MemberStatus(); // 「会員ステータス」を結合してSelect句に展開
-
-        // = = = = = = = = = = = = = = = = = = = = = =
-        // C. 絞り込み条件・ソート条件を設定
-        //    --> where句, order-by句 (, from句, join句)
-        // = = = = = = = = = = = = = = = = = = = = = =
-        cb.query().setMemberName_PrefixSearch("S"); // 会員名が'S'で始まること
-        cb.query().addOrderBy_Birthdate_Desc(); // 会員の生年月日の降順で並べる
-        cb.query().addOrderBy_MemberId_Asc(); // 生年月日が同じ場合は会員IDの昇順
-
-        // ## Act ##
-        // = = = = = = = = = = = = =
-        // D. Behaviorのメソッドを呼ぶ
-        // = = = = = = = = = = = = =
-        List<Member> memberList = memberBhv.selectList(cb);// リスト検索
+                // = = = = = = = = = = = = = = = = = = = = = =
+                // C. 絞り込み条件・ソート条件を設定
+                //    --> where句, order-by句 (, from句, join句)
+                // = = = = = = = = = = = = = = = = = = = = = =
+                cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix()); // 会員名が'S'で始まること
+                cb.query().addOrderBy_Birthdate_Desc(); // 会員の生年月日の降順で並べる
+                cb.query().addOrderBy_MemberId_Asc(); // 生年月日が同じ場合は会員IDの昇順
+                // = = = = = = = = = = = = =
+                // D. Behaviorのメソッドを呼ぶ
+                // = = = = = = = = = = = = =
+            });// リスト検索
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -126,11 +123,10 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
      */
     public void test_setupSelect_Foreign() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();// *Point!
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();// *Point!
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -163,11 +159,10 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
      */
     public void test_setupSelect_AsOne() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberWithdrawalAsOne();// *Point!
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberWithdrawalAsOne();// *Point!
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -211,11 +206,10 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
     public void test_query_Equal() {
         // ## Arrange ##
         Integer expectedMemberId = 3;
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(expectedMemberId);// *Point!
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(expectedMemberId);// *Point!
+            });
 
         // ## Assert ##
         assertNotNull(member);
@@ -233,12 +227,11 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
      */
     public void test_query_Equal_TwoOrMoreCondition() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(1);// *Point!
-        cb.query().setMemberAccount_Equal("Pixy");// *Point!
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(1);// *Point!
+                cb.query().setMemberAccount_Equal("Pixy");// *Point!
+            });
 
         // ## Assert ##
         assertNotNull(member);
@@ -253,12 +246,13 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
      */
     public void test_query_Equal_ArgumentNull() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(null);// *Point!
-
-        // ## Act & Assert ##
         try {
-            memberBhv.selectEntityWithDeletedCheck(cb);
+            memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().setMemberId_Equal(null);// *Point!
+
+                    // ## Act & Assert ##
+                });
+
             fail();
         } catch (SelectEntityConditionNotFoundException e) {
             // OK
@@ -276,14 +270,13 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
      */
     public void test_query_Equal_ArgumentEmptyString() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_Equal("");// *Point!
-
-        // ## Act ##
-        int count = memberBhv.selectCount(cb);
+        int count = memberBhv.selectCount(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberName_Equal("");// *Point!
+            });
 
         // ## Assert ##
-        assertEquals("条件なしの件数と同じであること", memberBhv.selectCount(new MemberCB()), count);
+        assertEquals("条件なしの件数と同じであること", memberBhv.selectCount(cb -> {}), count);
 
         // [Description]
         // A. 空文字で検索したい場合は、setXxx_Equal_EmptyString()を利用。
@@ -301,12 +294,11 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         Integer beforeMemberId = 3;
         Integer afterMemberId = 4;
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(beforeMemberId);
-        cb.query().setMemberId_Equal(afterMemberId);// *Point!
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(beforeMemberId);
+            cb.query().setMemberId_Equal(afterMemberId);// *Point!
+            });
 
         // ## Assert ##
         assertNotNull(member);
@@ -322,12 +314,11 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         Integer beforeMemberId = 3;
         Integer afterMemberId = beforeMemberId;
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(beforeMemberId);
-        cb.query().setMemberId_Equal(afterMemberId);// *Point!
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(beforeMemberId);
+            cb.query().setMemberId_Equal(afterMemberId);// *Point!
+            });
 
         // ## Assert ##
         assertNotNull(member);
@@ -340,11 +331,10 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
      */
     public void test_query_queryForeign_Equal() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_Equal("PRD");// *Point!
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_Equal("PRD");// *Point!
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -380,11 +370,10 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
      */
     public void test_query_addOrderBy_Asc() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberAccount_Asc();// *Point!
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_MemberAccount_Asc();// *Point!
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -399,11 +388,10 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
      */
     public void test_query_addOrderBy_Desc() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberAccount_Desc();// *Point!
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_MemberAccount_Desc();// *Point!
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -418,12 +406,11 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
      */
     public void test_query_addOrderBy_Desc_addOrderBy_Asc() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_Birthdate_Desc();// *Point!
-        cb.query().addOrderBy_MemberAccount_Desc();// *Point!
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_Birthdate_Desc();// *Point!
+                cb.query().addOrderBy_MemberAccount_Desc();// *Point!
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -438,11 +425,10 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
      */
     public void test_query_queryForeign_addOrderBy_Asc() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();// *Point!
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();// *Point!
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());

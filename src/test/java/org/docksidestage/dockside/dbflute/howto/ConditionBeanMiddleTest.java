@@ -86,11 +86,11 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_setupSelect() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -124,14 +124,14 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_setupSelect_withForeign_withForeign() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();// *Point!
-        cb.setupSelect_Member().withMemberStatus();
-        cb.setupSelect_Product().withProductStatus();
-        cb.query().addOrderBy_PurchaseDatetime_Desc().addOrderBy_PurchaseId_Asc();
-
-        // ## Act ##
-        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();// *Point!
+                cb.setupSelect_Member().withMemberStatus();
+                cb.setupSelect_Product().withProductStatus();
+                cb.query().addOrderBy_PurchaseDatetime_Desc().addOrderBy_PurchaseId_Asc();
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotSame(0, purchaseList.size());
@@ -179,11 +179,11 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_setMemberStatusCode_Equal_Classification() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();// *Point!
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal_Formalized();// *Point!
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -201,12 +201,12 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_NotEqual() {
         // ## Arrange ##
-        int countAll = memberBhv.selectCount(new MemberCB());
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberAccount_NotEqual("Pixy");// *Point!
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        int countAll = memberBhv.selectCount(cb -> {});
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberAccount_NotEqual("Pixy");// *Point!
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -234,11 +234,11 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_NotEqual_Classification() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_NotEqual_Formalized();// *Point!
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_NotEqual_Formalized();// *Point!
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -260,11 +260,11 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_GreaterThan() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_GreaterThan(3);// *Point!
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_GreaterThan(3);// *Point!
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -286,11 +286,11 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_GreaterEqual() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_GreaterEqual(3);// *Point!
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_GreaterEqual(3);// *Point!
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -312,11 +312,11 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_LessThan() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_LessThan(3);// *Point!
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_LessThan(3);// *Point!
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -338,11 +338,11 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_LessEqual() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_LessEqual(3);// *Point!
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_LessEqual(3);// *Point!
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -364,11 +364,11 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_PrefixSearch() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_PrefixSearch("S");// *Point!
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());// *Point!
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -395,15 +395,14 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_InScope() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
         List<Integer> expectedMemberIdList = new ArrayList<Integer>();
         expectedMemberIdList.add(3);
         expectedMemberIdList.add(6);
         expectedMemberIdList.add(7);
-        cb.query().setMemberId_InScope(expectedMemberIdList);// *Point!
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_InScope(expectedMemberIdList);
+        });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -433,15 +432,14 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_NotInScope() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
         List<Integer> expectedMemberIdList = new ArrayList<Integer>();
         expectedMemberIdList.add(3);
         expectedMemberIdList.add(6);
         expectedMemberIdList.add(7);
-        cb.query().setMemberId_NotInScope(expectedMemberIdList);// *Point!
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_NotInScope(expectedMemberIdList);
+        });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -473,14 +471,13 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_LikeSearch_likePrefix() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // *Point!
-        LikeSearchOption option = new LikeSearchOption().likePrefix();
-        cb.query().setMemberName_LikeSearch("S", option);
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // *Point!
+                LikeSearchOption option = new LikeSearchOption().likePrefix();
+                cb.query().setMemberName_LikeSearch("S", option);
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -501,14 +498,13 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_LikeSearch_likeContain() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // *Point!
-        LikeSearchOption option = new LikeSearchOption().likeContain();
-        cb.query().setMemberName_LikeSearch("v", option);
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // *Point!
+                LikeSearchOption option = new LikeSearchOption().likeContain();
+                cb.query().setMemberName_LikeSearch("v", option);
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -529,14 +525,13 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_LikeSearch_likeSuffix() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // *Point!
-        LikeSearchOption option = new LikeSearchOption().likeSuffix();
-        cb.query().setMemberName_LikeSearch("r", option);
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // *Point!
+                LikeSearchOption option = new LikeSearchOption().likeSuffix();
+                cb.query().setMemberName_LikeSearch("r", option);
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -588,20 +583,19 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         memberBhv.insert(nonEscapeOnlyMember);
 
         // 一時的に登録した会員が想定しているものかどうかをチェック
-        MemberCB checkCB = new MemberCB();
-
         // Check if not escape!
-        checkCB.query().setMemberName_LikeSearch(keyword, new LikeSearchOption().likeContain().notEscape());
-        assertEquals("escapeなしで2件ともHITすること", 2, memberBhv.selectList(checkCB).size());
+        assertEquals("escapeなしで2件ともHITすること", 2, memberBhv.selectList(checkCB -> {
+            checkCB.query().setMemberName_LikeSearch(keyword, new LikeSearchOption().likeContain().notEscape());
+        }).size());
 
         // /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-        MemberCB cb = new MemberCB();
-        LikeSearchOption option = new LikeSearchOption().likeContain(); // *Point!
-        cb.query().setMemberName_LikeSearch(keyword, option);
-        // - - - - - - - - - -/
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            LikeSearchOption option = new LikeSearchOption().likeContain(); // *Point!
+                cb.query().setMemberName_LikeSearch(keyword, option);
+                // - - - - - - - - - -/
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -669,14 +663,13 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_NotLikeSearch_likePrefix() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // *Point!
-        LikeSearchOption option = new LikeSearchOption().likePrefix();
-        cb.query().setMemberName_NotLikeSearch("S", option);
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // *Point!
+                LikeSearchOption option = new LikeSearchOption().likePrefix();
+                cb.query().setMemberName_NotLikeSearch("S", option);
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -701,17 +694,16 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_exists_ReferrerCondition() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // *Point!
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().setPurchaseCount_GreaterThan(2);
-            }
-        });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // *Point!
+                cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.query().setPurchaseCount_GreaterThan(2);
+                    }
+                });
+                pushCB(cb);
+            });
 
         // ## Assert ##
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
@@ -780,17 +772,16 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_exists_ManyToManyCondition() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // *Point!
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryProduct().setProductName_PrefixSearch("Storm");
-            }
-        });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // *Point!
+                cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.query().queryProduct().setProductName_LikeSearch("Storm", op -> op.likePrefix());
+                    }
+                });
+                pushCB(cb);
+            });
 
         // ## Assert ##
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
@@ -822,18 +813,17 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_exists_ForeignReferrerCondition() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-
-        // *Point!
-        cb.query().queryMember().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.query().setMobileLoginFlg_Equal_True();
-            }
-        });
-        cb.query().addOrderBy_MemberId_Asc().addOrderBy_ProductId_Asc();
-
-        // ## Act ##
-        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            /* ## Act ## */
+            // *Point!
+                cb.query().queryMember().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.query().setMobileLoginFlg_Equal_True();
+                    }
+                });
+                cb.query().addOrderBy_MemberId_Asc().addOrderBy_ProductId_Asc();
+                pushCB(cb);
+            });
 
         // ## Assert ##
         List<Long> purchaseIdList = new ArrayList<Long>();
@@ -848,17 +838,17 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             purchaseIdList.add(purchaseId);
             memberIdSet.add(memberId);
         }
-        MemberCB memberCB = new MemberCB();
-        memberCB.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.query().setMobileLoginFlg_Equal_True();
-            }
+        int expected = memberBhv.selectCount(memberCB -> {
+            memberCB.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.query().setMobileLoginFlg_Equal_True();
+                }
+            });
+            memberCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                }
+            });
         });
-        memberCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-            }
-        });
-        int expected = memberBhv.selectCount(memberCB);
         assertEquals(expected, memberIdSet.size());
 
         // [SQL]
@@ -881,17 +871,16 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_notExists_ReferrerCondition() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // *Point!
-        cb.query().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().setPurchaseCount_GreaterThan(2);
-            }
-        });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // *Point!
+                cb.query().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.query().setPurchaseCount_GreaterThan(2);
+                    }
+                });
+                pushCB(cb);
+            });
 
         // ## Assert ##
         ConditionBeanSetupper<PurchaseCB> setuppper = new ConditionBeanSetupper<PurchaseCB>() {
@@ -927,17 +916,16 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_inScope_ReferrerCondition() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // *Point!
-        cb.query().inScopePurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().setPurchaseCount_GreaterThan(2);
-            }
-        });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // *Point!
+                cb.query().inScopePurchaseList(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.query().setPurchaseCount_GreaterThan(2);
+                    }
+                });
+                pushCB(cb);
+            });
 
         // ## Assert ##
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
@@ -973,17 +961,16 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_inScope_ManyToManyCondition() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // *Point!
-        cb.query().inScopePurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryProduct().setProductName_PrefixSearch("Storm");
-            }
-        });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // *Point!
+                cb.query().inScopePurchaseList(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.query().queryProduct().setProductName_LikeSearch("Storm", op -> op.likePrefix());
+                    }
+                });
+                pushCB(cb);
+            });
 
         // ## Assert ##
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
@@ -1020,17 +1007,16 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_notInScope_ReferrerCondition() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // *Point!
-        cb.query().notInScopePurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().setPurchaseCount_GreaterThan(2);
-            }
-        });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // *Point!
+                cb.query().notInScopePurchaseList(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.query().setPurchaseCount_GreaterThan(2);
+                    }
+                });
+                pushCB(cb);
+            });
 
         // ## Assert ##
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
@@ -1086,16 +1072,16 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_query_DateFromTo() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        Calendar cal = Calendar.getInstance();
-        cal.set(2007, 10, 26);// 2007/11/26
-        Date fromDate = new Date(cal.getTimeInMillis());
-        cal.set(2007, 11, 1);// 2007/12/01
-        Date toDate = new Date(cal.getTimeInMillis());
-        cb.query().setFormalizedDatetime_DateFromTo(fromDate, toDate);// *Point!
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            Calendar cal = Calendar.getInstance();
+            cal.set(2007, 10, 26);// 2007/11/26
+                Date fromDate = new Date(cal.getTimeInMillis());
+                cal.set(2007, 11, 1);// 2007/12/01
+                Date toDate = new Date(cal.getTimeInMillis());
+                cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, op -> op.compareAsDate());// *Point!
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -1113,18 +1099,18 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      * 関連テーブルとして会員ステータスを取得。
      */
     public void test_union() {
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.query().setMemberStatusCode_Equal_Provisional();
-        cb.union(new UnionQuery<MemberCB>() {
-            public void query(MemberCB unionCB) {
-                unionCB.query().setMemberName_PrefixSearch("St");
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.query().setMemberStatusCode_Equal_Provisional();
+            cb.union(new UnionQuery<MemberCB>() {
+                public void query(MemberCB unionCB) {
+                    unionCB.query().setMemberName_LikeSearch("St", op -> op.likePrefix());
+                }
+            });
+            cb.query().addOrderBy_MemberName_Desc();
+            pushCB(cb);
         });
-        cb.query().addOrderBy_MemberName_Desc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         for (Member member : memberList) {
@@ -1174,20 +1160,20 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      * 互いの条件でデータがかぶらないので、UnionAllを利用。
      */
     public void test_unionAll() {
-        MemberCB cb = new MemberCB();
-        Calendar cal = Calendar.getInstance();
-        cal.set(1967, 0, 1);// 1967/01/01
-        cb.query().setBirthdate_LessThan(new Date(cal.getTimeInMillis()));
-        cb.unionAll(new UnionQuery<MemberCB>() {
-            public void query(MemberCB unionCB) {
-                unionCB.query().setBirthdate_IsNull();
-            }
-        });
-        cb.query().addOrderBy_Birthdate_Desc();
-        cb.query().addOrderBy_MemberName_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            Calendar cal = Calendar.getInstance();
+            cal.set(1967, 0, 1);// 1967/01/01
+                cb.query().setBirthdate_LessThan(new Date(cal.getTimeInMillis()));
+                cb.unionAll(new UnionQuery<MemberCB>() {
+                    public void query(MemberCB unionCB) {
+                        unionCB.query().setBirthdate_IsNull();
+                    }
+                });
+                cb.query().addOrderBy_Birthdate_Desc();
+                cb.query().addOrderBy_MemberName_Asc();
+                pushCB(cb);
+            });
 
         // ## Assert ##
         for (Member member : memberList) {
@@ -1228,12 +1214,12 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_paging() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberName_Asc();
-        cb.paging(4, 3);// The page size is 4 records per 1 page, and The page number is 3.
-
-        // ## Act ##
-        PagingResultBean<Member> page3 = memberBhv.selectPage(cb);
+        PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_MemberName_Asc();
+            cb.paging(4, 3);// The page size is 4 records per 1 page, and The page number is 3.
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotSame(0, page3.size());
@@ -1264,12 +1250,12 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_fetchFirst() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_Birthdate_Desc().withNullsLast();
-        cb.fetchFirst(1);// *Point!
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_Birthdate_Desc().withNullsLast();
+            cb.fetchFirst(1);// *Point!
+                pushCB(cb);
+            });
 
         // ## Assert ##
         log(member.getMemberName() + ", " + member.getBirthdate());
@@ -1289,12 +1275,12 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
      */
     public void test_lockForUpdate() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(3);
-        cb.lockForUpdate();
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(3);
+            cb.lockForUpdate();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotNull(member);
@@ -1318,8 +1304,6 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         cb.lockForUpdate();
         cb.fetchFirst(2);
         cb.fetchPage(3);
-
-        // ## Act ##
         String displaySql = cb.toDisplaySql();// *Point!
 
         // ## Assert ##
@@ -1354,8 +1338,6 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
                 subCB.query().setPurchaseCount_GreaterEqual(2);
             }
         });
-
-        // ## Act ##
         String displaySql = cb.toDisplaySql();
 
         // ## Assert ##

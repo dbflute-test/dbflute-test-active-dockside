@@ -107,11 +107,11 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
      * cb.query().setFoo...(value);
      * int count = memberLoginBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
-     * @param cb The condition-bean of MemberLogin. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberLogin. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(MemberLoginCB cb) {
-        return facadeSelectCount(cb);
+    public int selectCount(CBCall<MemberLoginCB> cbLambda) {
+        return facadeSelectCount(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -131,13 +131,13 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
      *     ...
      * }
      * </pre>
-     * @param cb The condition-bean of MemberLogin. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberLogin. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public MemberLogin selectEntity(MemberLoginCB cb) {
-        return facadeSelectEntity(cb);
+    public MemberLogin selectEntity(CBCall<MemberLoginCB> cbLambda) {
+        return facadeSelectEntity(handleCBCall(cbLambda));
     }
 
     protected MemberLogin facadeSelectEntity(MemberLoginCB cb) {
@@ -159,14 +159,14 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
      * MemberLogin memberLogin = memberLoginBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = memberLogin.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cb The condition-bean of MemberLogin. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberLogin. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public MemberLogin selectEntityWithDeletedCheck(MemberLoginCB cb) {
-        return facadeSelectEntityWithDeletedCheck(cb);
+    public MemberLogin selectEntityWithDeletedCheck(CBCall<MemberLoginCB> cbLambda) {
+        return facadeSelectEntityWithDeletedCheck(handleCBCall(cbLambda));
     }
 
     /**
@@ -253,12 +253,12 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
      *     ... = memberLogin.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of MemberLogin. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberLogin. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<MemberLogin> selectList(MemberLoginCB cb) {
-        return facadeSelectList(cb);
+    public ListResultBean<MemberLogin> selectList(CBCall<MemberLoginCB> cbLambda) {
+        return facadeSelectList(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -282,12 +282,12 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
      *     ... = memberLogin.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of MemberLogin. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberLogin. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<MemberLogin> selectPage(MemberLoginCB cb) {
-        return facadeSelectPage(cb);
+    public PagingResultBean<MemberLogin> selectPage(CBCall<MemberLoginCB> cbLambda) {
+        return facadeSelectPage(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -304,11 +304,11 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
      *     }
      * });
      * </pre>
-     * @param cb The condition-bean of MemberLogin. (NotNull)
-     * @param entityRowHandler The handler of entity row of MemberLogin. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberLogin. (NotNull)
+     * @param entityLambda The handler of entity row of MemberLogin. (NotNull)
      */
-    public void selectCursor(MemberLoginCB cb, EntityRowHandler<MemberLogin> entityRowHandler) {
-        facadeSelectCursor(cb, entityRowHandler);
+    public void selectCursor(CBCall<MemberLoginCB> cbLambda, EntityRowHandler<MemberLogin> entityLambda) {
+        facadeSelectCursor(handleCBCall(cbLambda), entityLambda);
     }
 
     // ===================================================================================
@@ -684,12 +684,12 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
      * memberLoginBhv.<span style="color: #DD4747">queryUpdate</span>(memberLogin, cb);
      * </pre>
      * @param memberLogin The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cb The condition-bean of MemberLogin. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberLogin. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(MemberLogin memberLogin, MemberLoginCB cb) {
-        return doQueryUpdate(memberLogin, cb, null);
+    public int queryUpdate(MemberLogin memberLogin, CBCall<MemberLoginCB> cbLambda) {
+        return doQueryUpdate(memberLogin, handleCBCall(cbLambda), null);
     }
 
     /**
@@ -699,12 +699,12 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
      * cb.query().setFoo...(value);
      * memberLoginBhv.<span style="color: #DD4747">queryDelete</span>(memberLogin, cb);
      * </pre>
-     * @param cb The condition-bean of MemberLogin. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberLogin. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(MemberLoginCB cb) {
-        return doQueryDelete(cb, null);
+    public int queryDelete(CBCall<MemberLoginCB> cbLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), null);
     }
 
     // ===================================================================================
@@ -877,26 +877,26 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
      * memberLoginBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(memberLogin, cb, option);
      * </pre>
      * @param memberLogin The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cb The condition-bean of MemberLogin. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberLogin. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(MemberLogin memberLogin, MemberLoginCB cb, WOptionCall<MemberLoginCB, UpdateOption<MemberLoginCB>> opLambda) {
-        return doQueryUpdate(memberLogin, cb, handleUpdateOpCall(opLambda));
+    public int varyingQueryUpdate(MemberLogin memberLogin, CBCall<MemberLoginCB> cbLambda, WOptionCall<MemberLoginCB, UpdateOption<MemberLoginCB>> opLambda) {
+        return doQueryUpdate(memberLogin, handleCBCall(cbLambda), handleUpdateOpCall(opLambda));
     }
 
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
      * Other specifications are same as batchUpdateNonstrict(entityList).
-     * @param cb The condition-bean of MemberLogin. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberLogin. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(MemberLoginCB cb, WOptionCall<MemberLoginCB, DeleteOption<MemberLoginCB>> opLambda) {
-        return doQueryDelete(cb, handleDeleteOpCall(opLambda));
+    public int varyingQueryDelete(CBCall<MemberLoginCB> cbLambda, WOptionCall<MemberLoginCB, DeleteOption<MemberLoginCB>> opLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), handleDeleteOpCall(opLambda));
     }
 
     // ===================================================================================

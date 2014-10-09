@@ -107,11 +107,11 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable<Member
      * cb.query().setFoo...(value);
      * int count = memberAddressBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
-     * @param cb The condition-bean of MemberAddress. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberAddress. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(MemberAddressCB cb) {
-        return facadeSelectCount(cb);
+    public int selectCount(CBCall<MemberAddressCB> cbLambda) {
+        return facadeSelectCount(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -131,13 +131,13 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable<Member
      *     ...
      * }
      * </pre>
-     * @param cb The condition-bean of MemberAddress. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberAddress. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public MemberAddress selectEntity(MemberAddressCB cb) {
-        return facadeSelectEntity(cb);
+    public MemberAddress selectEntity(CBCall<MemberAddressCB> cbLambda) {
+        return facadeSelectEntity(handleCBCall(cbLambda));
     }
 
     protected MemberAddress facadeSelectEntity(MemberAddressCB cb) {
@@ -159,14 +159,14 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable<Member
      * MemberAddress memberAddress = memberAddressBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = memberAddress.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cb The condition-bean of MemberAddress. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberAddress. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public MemberAddress selectEntityWithDeletedCheck(MemberAddressCB cb) {
-        return facadeSelectEntityWithDeletedCheck(cb);
+    public MemberAddress selectEntityWithDeletedCheck(CBCall<MemberAddressCB> cbLambda) {
+        return facadeSelectEntityWithDeletedCheck(handleCBCall(cbLambda));
     }
 
     /**
@@ -253,12 +253,12 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable<Member
      *     ... = memberAddress.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of MemberAddress. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberAddress. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<MemberAddress> selectList(MemberAddressCB cb) {
-        return facadeSelectList(cb);
+    public ListResultBean<MemberAddress> selectList(CBCall<MemberAddressCB> cbLambda) {
+        return facadeSelectList(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -282,12 +282,12 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable<Member
      *     ... = memberAddress.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of MemberAddress. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberAddress. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<MemberAddress> selectPage(MemberAddressCB cb) {
-        return facadeSelectPage(cb);
+    public PagingResultBean<MemberAddress> selectPage(CBCall<MemberAddressCB> cbLambda) {
+        return facadeSelectPage(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -304,11 +304,11 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable<Member
      *     }
      * });
      * </pre>
-     * @param cb The condition-bean of MemberAddress. (NotNull)
-     * @param entityRowHandler The handler of entity row of MemberAddress. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberAddress. (NotNull)
+     * @param entityLambda The handler of entity row of MemberAddress. (NotNull)
      */
-    public void selectCursor(MemberAddressCB cb, EntityRowHandler<MemberAddress> entityRowHandler) {
-        facadeSelectCursor(cb, entityRowHandler);
+    public void selectCursor(CBCall<MemberAddressCB> cbLambda, EntityRowHandler<MemberAddress> entityLambda) {
+        facadeSelectCursor(handleCBCall(cbLambda), entityLambda);
     }
 
     // ===================================================================================
@@ -830,12 +830,12 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable<Member
      * memberAddressBhv.<span style="color: #DD4747">queryUpdate</span>(memberAddress, cb);
      * </pre>
      * @param memberAddress The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cb The condition-bean of MemberAddress. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberAddress. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(MemberAddress memberAddress, MemberAddressCB cb) {
-        return doQueryUpdate(memberAddress, cb, null);
+    public int queryUpdate(MemberAddress memberAddress, CBCall<MemberAddressCB> cbLambda) {
+        return doQueryUpdate(memberAddress, handleCBCall(cbLambda), null);
     }
 
     /**
@@ -845,12 +845,12 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable<Member
      * cb.query().setFoo...(value);
      * memberAddressBhv.<span style="color: #DD4747">queryDelete</span>(memberAddress, cb);
      * </pre>
-     * @param cb The condition-bean of MemberAddress. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberAddress. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(MemberAddressCB cb) {
-        return doQueryDelete(cb, null);
+    public int queryDelete(CBCall<MemberAddressCB> cbLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), null);
     }
 
     // ===================================================================================
@@ -1105,26 +1105,26 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable<Member
      * memberAddressBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(memberAddress, cb, option);
      * </pre>
      * @param memberAddress The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cb The condition-bean of MemberAddress. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberAddress. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(MemberAddress memberAddress, MemberAddressCB cb, WOptionCall<MemberAddressCB, UpdateOption<MemberAddressCB>> opLambda) {
-        return doQueryUpdate(memberAddress, cb, handleUpdateOpCall(opLambda));
+    public int varyingQueryUpdate(MemberAddress memberAddress, CBCall<MemberAddressCB> cbLambda, WOptionCall<MemberAddressCB, UpdateOption<MemberAddressCB>> opLambda) {
+        return doQueryUpdate(memberAddress, handleCBCall(cbLambda), handleUpdateOpCall(opLambda));
     }
 
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
      * Other specifications are same as batchUpdateNonstrict(entityList).
-     * @param cb The condition-bean of MemberAddress. (NotNull)
+     * @param cbLambda The callback for condition-bean of MemberAddress. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(MemberAddressCB cb, WOptionCall<MemberAddressCB, DeleteOption<MemberAddressCB>> opLambda) {
-        return doQueryDelete(cb, handleDeleteOpCall(opLambda));
+    public int varyingQueryDelete(CBCall<MemberAddressCB> cbLambda, WOptionCall<MemberAddressCB, DeleteOption<MemberAddressCB>> opLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), handleDeleteOpCall(opLambda));
     }
 
     // ===================================================================================

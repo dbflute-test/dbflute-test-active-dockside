@@ -2,8 +2,6 @@ package org.docksidestage.dockside.dbflute.allcommon;
 
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.jdbc.StatementConfig;
-import org.docksidestage.dockside.dbflute.allcommon.DBFluteConfig;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -57,13 +55,12 @@ public class DBFluteConfigTest extends UnitContainerTestCase {
     //                                                                     ===============
     public void test_ConditionBean_configure_default_is_overridden() throws Exception {
         // ## Arrange ##
-        final MemberCB cb = new MemberCB();
-        final StatementConfig statementConfig = new StatementConfig();
-        statementConfig.typeScrollSensitive().fetchSize(123).maxRows(1);
-        cb.configure(statementConfig);
-
-        // ## Act ##
-        final ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        final ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            final StatementConfig statementConfig = new StatementConfig();
+            statementConfig.typeScrollSensitive().fetchSize(123).maxRows(1);
+            cb.configure(statementConfig);
+        });
 
         // ## Assert ##
         assertEquals(1, memberList.size()); // should be overridden

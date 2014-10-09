@@ -107,11 +107,11 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * cb.query().setFoo...(value);
      * int count = serviceRankBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
-     * @param cb The condition-bean of ServiceRank. (NotNull)
+     * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(ServiceRankCB cb) {
-        return facadeSelectCount(cb);
+    public int selectCount(CBCall<ServiceRankCB> cbLambda) {
+        return facadeSelectCount(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -131,13 +131,13 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      *     ...
      * }
      * </pre>
-     * @param cb The condition-bean of ServiceRank. (NotNull)
+     * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ServiceRank selectEntity(ServiceRankCB cb) {
-        return facadeSelectEntity(cb);
+    public ServiceRank selectEntity(CBCall<ServiceRankCB> cbLambda) {
+        return facadeSelectEntity(handleCBCall(cbLambda));
     }
 
     protected ServiceRank facadeSelectEntity(ServiceRankCB cb) {
@@ -159,14 +159,14 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * ServiceRank serviceRank = serviceRankBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = serviceRank.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cb The condition-bean of ServiceRank. (NotNull)
+     * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ServiceRank selectEntityWithDeletedCheck(ServiceRankCB cb) {
-        return facadeSelectEntityWithDeletedCheck(cb);
+    public ServiceRank selectEntityWithDeletedCheck(CBCall<ServiceRankCB> cbLambda) {
+        return facadeSelectEntityWithDeletedCheck(handleCBCall(cbLambda));
     }
 
     /**
@@ -252,12 +252,12 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      *     ... = serviceRank.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of ServiceRank. (NotNull)
+     * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<ServiceRank> selectList(ServiceRankCB cb) {
-        return facadeSelectList(cb);
+    public ListResultBean<ServiceRank> selectList(CBCall<ServiceRankCB> cbLambda) {
+        return facadeSelectList(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -281,12 +281,12 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      *     ... = serviceRank.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of ServiceRank. (NotNull)
+     * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<ServiceRank> selectPage(ServiceRankCB cb) {
-        return facadeSelectPage(cb);
+    public PagingResultBean<ServiceRank> selectPage(CBCall<ServiceRankCB> cbLambda) {
+        return facadeSelectPage(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -303,11 +303,11 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      *     }
      * });
      * </pre>
-     * @param cb The condition-bean of ServiceRank. (NotNull)
-     * @param entityRowHandler The handler of entity row of ServiceRank. (NotNull)
+     * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
+     * @param entityLambda The handler of entity row of ServiceRank. (NotNull)
      */
-    public void selectCursor(ServiceRankCB cb, EntityRowHandler<ServiceRank> entityRowHandler) {
-        facadeSelectCursor(cb, entityRowHandler);
+    public void selectCursor(CBCall<ServiceRankCB> cbLambda, EntityRowHandler<ServiceRank> entityLambda) {
+        facadeSelectCursor(handleCBCall(cbLambda), entityLambda);
     }
 
     // ===================================================================================
@@ -767,12 +767,12 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * serviceRankBhv.<span style="color: #DD4747">queryUpdate</span>(serviceRank, cb);
      * </pre>
      * @param serviceRank The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cb The condition-bean of ServiceRank. (NotNull)
+     * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(ServiceRank serviceRank, ServiceRankCB cb) {
-        return doQueryUpdate(serviceRank, cb, null);
+    public int queryUpdate(ServiceRank serviceRank, CBCall<ServiceRankCB> cbLambda) {
+        return doQueryUpdate(serviceRank, handleCBCall(cbLambda), null);
     }
 
     /**
@@ -782,12 +782,12 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * cb.query().setFoo...(value);
      * serviceRankBhv.<span style="color: #DD4747">queryDelete</span>(serviceRank, cb);
      * </pre>
-     * @param cb The condition-bean of ServiceRank. (NotNull)
+     * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(ServiceRankCB cb) {
-        return doQueryDelete(cb, null);
+    public int queryDelete(CBCall<ServiceRankCB> cbLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), null);
     }
 
     // ===================================================================================
@@ -960,26 +960,26 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * serviceRankBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(serviceRank, cb, option);
      * </pre>
      * @param serviceRank The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cb The condition-bean of ServiceRank. (NotNull)
+     * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(ServiceRank serviceRank, ServiceRankCB cb, WOptionCall<ServiceRankCB, UpdateOption<ServiceRankCB>> opLambda) {
-        return doQueryUpdate(serviceRank, cb, handleUpdateOpCall(opLambda));
+    public int varyingQueryUpdate(ServiceRank serviceRank, CBCall<ServiceRankCB> cbLambda, WOptionCall<ServiceRankCB, UpdateOption<ServiceRankCB>> opLambda) {
+        return doQueryUpdate(serviceRank, handleCBCall(cbLambda), handleUpdateOpCall(opLambda));
     }
 
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
      * Other specifications are same as batchUpdateNonstrict(entityList).
-     * @param cb The condition-bean of ServiceRank. (NotNull)
+     * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(ServiceRankCB cb, WOptionCall<ServiceRankCB, DeleteOption<ServiceRankCB>> opLambda) {
-        return doQueryDelete(cb, handleDeleteOpCall(opLambda));
+    public int varyingQueryDelete(CBCall<ServiceRankCB> cbLambda, WOptionCall<ServiceRankCB, DeleteOption<ServiceRankCB>> opLambda) {
+        return doQueryDelete(handleCBCall(cbLambda), handleDeleteOpCall(opLambda));
     }
 
     // ===================================================================================

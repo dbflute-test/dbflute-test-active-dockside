@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.exception.EntityAlreadyDeletedException;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.MemberChangedToWithdrawalForcedlyPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.SimpleMemberPmb;
@@ -57,11 +56,10 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
      */
     public void test_selectEntity() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(3);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntity(cb);
+        Member member = memberBhv.selectEntity(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(3);
+        });
 
         // ## Assert ##
         log(member.toString());
@@ -81,12 +79,13 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
      */
     public void test_selectEntityWithDeletedCheck() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(99999);
-
-        // ## Act & Assert ##
         try {
-            memberBhv.selectEntityWithDeletedCheck(cb);
+            memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().setMemberId_Equal(99999);
+
+                // ## Act & Assert ##
+                });
+
             fail();
         } catch (EntityAlreadyDeletedException e) {
             // OK
@@ -110,12 +109,11 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
      */
     public void test_selectList() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_PrefixSearch("S");
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().addOrderBy_MemberId_Asc();
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -142,11 +140,10 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
      */
     public void test_selectCount() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_PrefixSearch("S");
-
-        // ## Act ##
-        int count = memberBhv.selectCount(cb);
+        int count = memberBhv.selectCount(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+        });
 
         // ## Assert ##
         assertNotSame(0, count);

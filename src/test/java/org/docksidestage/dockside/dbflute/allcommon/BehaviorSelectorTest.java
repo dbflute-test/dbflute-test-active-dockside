@@ -7,7 +7,6 @@ import org.dbflute.cbean.ConditionBean;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.dbmeta.DBMeta;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -58,7 +57,7 @@ public class BehaviorSelectorTest extends UnitContainerTestCase {
         log("/********************************");
         log("count=" + count);
         log("**********/");
-        assertEquals(memberBhv.selectCount(new MemberCB()), count);
+        assertEquals(memberBhv.selectCount(ll -> {}), count);
     }
 
     public void test_BehaviorSelector_byName_and_readList() {
@@ -78,9 +77,9 @@ public class BehaviorSelectorTest extends UnitContainerTestCase {
             log("entity=" + entity);
         }
         log("**********/");
-        final MemberCB expectedCB = new MemberCB();
-        expectedCB.addOrderBy_PK_Desc();
-        final ListResultBean<Member> expectedList = memberBhv.selectList(expectedCB);
+        final ListResultBean<Member> expectedList = memberBhv.selectList(expectedCB -> {
+            expectedCB.addOrderBy_PK_Desc();
+        });
         assertEquals(expectedList, entityList);
     }
 }

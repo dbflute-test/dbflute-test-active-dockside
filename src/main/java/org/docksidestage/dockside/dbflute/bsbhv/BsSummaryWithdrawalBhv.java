@@ -105,11 +105,11 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      * cb.query().setFoo...(value);
      * int count = summaryWithdrawalBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
-     * @param cb The condition-bean of SummaryWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of SummaryWithdrawal. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(SummaryWithdrawalCB cb) {
-        return facadeSelectCount(cb);
+    public int selectCount(CBCall<SummaryWithdrawalCB> cbLambda) {
+        return facadeSelectCount(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -129,13 +129,13 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      *     ...
      * }
      * </pre>
-     * @param cb The condition-bean of SummaryWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of SummaryWithdrawal. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public SummaryWithdrawal selectEntity(SummaryWithdrawalCB cb) {
-        return facadeSelectEntity(cb);
+    public SummaryWithdrawal selectEntity(CBCall<SummaryWithdrawalCB> cbLambda) {
+        return facadeSelectEntity(handleCBCall(cbLambda));
     }
 
     protected SummaryWithdrawal facadeSelectEntity(SummaryWithdrawalCB cb) {
@@ -157,14 +157,14 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      * SummaryWithdrawal summaryWithdrawal = summaryWithdrawalBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = summaryWithdrawal.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cb The condition-bean of SummaryWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of SummaryWithdrawal. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public SummaryWithdrawal selectEntityWithDeletedCheck(SummaryWithdrawalCB cb) {
-        return facadeSelectEntityWithDeletedCheck(cb);
+    public SummaryWithdrawal selectEntityWithDeletedCheck(CBCall<SummaryWithdrawalCB> cbLambda) {
+        return facadeSelectEntityWithDeletedCheck(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -181,12 +181,12 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      *     ... = summaryWithdrawal.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of SummaryWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of SummaryWithdrawal. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<SummaryWithdrawal> selectList(SummaryWithdrawalCB cb) {
-        return facadeSelectList(cb);
+    public ListResultBean<SummaryWithdrawal> selectList(CBCall<SummaryWithdrawalCB> cbLambda) {
+        return facadeSelectList(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -210,12 +210,12 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      *     ... = summaryWithdrawal.get...();
      * }
      * </pre>
-     * @param cb The condition-bean of SummaryWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of SummaryWithdrawal. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<SummaryWithdrawal> selectPage(SummaryWithdrawalCB cb) {
-        return facadeSelectPage(cb);
+    public PagingResultBean<SummaryWithdrawal> selectPage(CBCall<SummaryWithdrawalCB> cbLambda) {
+        return facadeSelectPage(handleCBCall(cbLambda));
     }
 
     // ===================================================================================
@@ -232,11 +232,11 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      *     }
      * });
      * </pre>
-     * @param cb The condition-bean of SummaryWithdrawal. (NotNull)
-     * @param entityRowHandler The handler of entity row of SummaryWithdrawal. (NotNull)
+     * @param cbLambda The callback for condition-bean of SummaryWithdrawal. (NotNull)
+     * @param entityLambda The handler of entity row of SummaryWithdrawal. (NotNull)
      */
-    public void selectCursor(SummaryWithdrawalCB cb, EntityRowHandler<SummaryWithdrawal> entityRowHandler) {
-        facadeSelectCursor(cb, entityRowHandler);
+    public void selectCursor(CBCall<SummaryWithdrawalCB> cbLambda, EntityRowHandler<SummaryWithdrawal> entityLambda) {
+        facadeSelectCursor(handleCBCall(cbLambda), entityLambda);
     }
 
     // ===================================================================================
