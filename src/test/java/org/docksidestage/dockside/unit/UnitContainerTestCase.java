@@ -1,5 +1,7 @@
 package org.docksidestage.dockside.unit;
 
+import java.util.Stack;
+
 import org.dbflute.bhv.BehaviorSelector;
 import org.dbflute.bhv.BehaviorWritable;
 import org.dbflute.bhv.writable.DeleteOption;
@@ -28,14 +30,32 @@ public abstract class UnitContainerTestCase extends ContainerTestCase {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    private final Stack<ConditionBean> _cbStack = new Stack<ConditionBean>();
     private BehaviorSelector _behaviorSelector;
 
     // ===================================================================================
-    //                                                                             Prepare
-    //                                                                             =======
+    //                                                                            Settings
+    //                                                                            ========
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+        _cbStack.clear();
+    }
+
     @Override
     protected ApplicationContext provideDefaultApplicationContext() {
         return new AnnotationConfigApplicationContext(JdbcBeansJavaConfig.class, DBFluteBeansJavaConfig.class);
+    }
+
+    // ===================================================================================
+    //                                                                 ConditionBean Stack
+    //                                                                 ===================
+    protected void pushCB(ConditionBean cb) {
+        _cbStack.push(cb);
+    }
+
+    protected ConditionBean popCB() {
+        return _cbStack.pop();
     }
 
     // ===================================================================================
