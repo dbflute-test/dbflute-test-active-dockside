@@ -87,8 +87,7 @@ public class WxOutsideSqlCheckTest extends UnitContainerTestCase {
 
         // ## Act && Assert ##
         // Expect no exception
-        PagingResultBean<PurchaseMaxPriceMember> page = memberBhv.outsideSql().manualPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page = memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType);
         assertEquals(maxSize, page.getAllRecordCount());
     }
 }

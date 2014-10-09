@@ -16,7 +16,6 @@ import org.dbflute.exception.SpecifyIllegalPurposeException;
 import org.dbflute.exception.SpecifyThatsBadTimingException;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberWithdrawalCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -39,9 +38,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
     public void test_illegalPurpose_setupSelect() throws Exception {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
         try {
-            // ## Act ##
             cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.setupSelect_Member();
@@ -57,9 +54,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
     public void test_illegalPurpose_orderBy() throws Exception {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
         try {
-            // ## Act ##
             cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.query().addOrderBy_MemberId_Asc();
@@ -77,47 +72,47 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
     //                                                                          ==========
     public void test_badTiming_allRight() {
         // ## Arrange ##
-        final MemberStatusCB cb = new MemberStatusCB();
-        cb.enableThatsBadTiming();
-        cb.query().setDisplayOrder_Equal(3);
-        cb.query().existsMemberList(new SubQuery<MemberCB>() {
-            public void query(MemberCB memberCB) {
-                memberCB.query().setBirthdate_LessEqual(new Date());
-                memberCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB purchaseCB) {
-                        purchaseCB.query().setPurchaseCount_GreaterEqual(2);
-                    }
-                });
-                memberCB.query().existsMemberWithdrawalAsOne(new SubQuery<MemberWithdrawalCB>() {
-                    public void query(MemberWithdrawalCB subCB) {
-                        final LikeSearchOption option = new LikeSearchOption().likeContain().escapeByPipeLine();
-                        subCB.query().queryWithdrawalReason().setWithdrawalReasonText_LikeSearch("xxx", option);
-                        subCB.union(new UnionQuery<MemberWithdrawalCB>() {
-                            public void query(MemberWithdrawalCB unionCB) {
-                                unionCB.query().setWithdrawalReasonInputText_IsNotNull();
-                            }
-                        });
-                    }
-                });
-            }
-        });
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.query().inScopeMember(new SubQuery<MemberCB>() {
-                    public void query(MemberCB subCB) {
-                        subCB.query().setBirthdate_GreaterEqual(new Date());
-                    }
-                });
-            }
-        });
-        cb.query().addOrderBy_DisplayOrder_Asc().addOrderBy_MemberStatusCode_Desc();
-
-        // ## Act ##
-        memberStatusBhv.selectList(cb); // expect no exception
+        memberStatusBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.enableThatsBadTiming();
+            cb.query().setDisplayOrder_Equal(3);
+            cb.query().existsMemberList(new SubQuery<MemberCB>() {
+                public void query(MemberCB memberCB) {
+                    memberCB.query().setBirthdate_LessEqual(new Date());
+                    memberCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB purchaseCB) {
+                            purchaseCB.query().setPurchaseCount_GreaterEqual(2);
+                        }
+                    });
+                    memberCB.query().existsMemberWithdrawalAsOne(new SubQuery<MemberWithdrawalCB>() {
+                        public void query(MemberWithdrawalCB subCB) {
+                            final LikeSearchOption option = new LikeSearchOption().likeContain().escapeByPipeLine();
+                            subCB.query().queryWithdrawalReason().setWithdrawalReasonText_LikeSearch("xxx", option);
+                            subCB.union(new UnionQuery<MemberWithdrawalCB>() {
+                                public void query(MemberWithdrawalCB unionCB) {
+                                    unionCB.query().setWithdrawalReasonInputText_IsNotNull();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.query().inScopeMember(new SubQuery<MemberCB>() {
+                        public void query(MemberCB subCB) {
+                            subCB.query().setBirthdate_GreaterEqual(new Date());
+                        }
+                    });
+                }
+            });
+            cb.query().addOrderBy_DisplayOrder_Asc().addOrderBy_MemberStatusCode_Desc();
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
-        log(ln() + cb.toDisplaySql());
+        log(ln() + popCB().toDisplaySql());
     }
 
     public void test_badTiming_setupSelect() {

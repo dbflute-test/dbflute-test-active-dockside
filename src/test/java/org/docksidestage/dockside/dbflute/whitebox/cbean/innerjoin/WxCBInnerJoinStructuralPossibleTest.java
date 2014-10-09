@@ -11,7 +11,6 @@ import org.docksidestage.dockside.dbflute.bsentity.dbmeta.ProductStatusDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.ServiceRankDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.SummaryProductDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.WithdrawalReasonDbm;
-import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberWithdrawal;
@@ -37,18 +36,18 @@ public class WxCBInnerJoinStructuralPossibleTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_StructuralPossible_without_Query() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.enableInnerJoinAutoDetect();
-        cb.setupSelect_Member().withMemberStatus();
-        cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
-        cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
-        cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
-        cb.setupSelect_Product().withProductStatus();
-        cb.setupSelect_SummaryProduct();
-        cb.query().addOrderBy_MemberId_Asc().addOrderBy_PurchaseDatetime_Desc();
-
-        // ## Act ##
-        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.enableInnerJoinAutoDetect();
+            cb.setupSelect_Member().withMemberStatus();
+            cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
+            cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
+            cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
+            cb.setupSelect_Product().withProductStatus();
+            cb.setupSelect_SummaryProduct();
+            cb.query().addOrderBy_MemberId_Asc().addOrderBy_PurchaseDatetime_Desc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotSame(0, purchaseList.size());
@@ -74,7 +73,7 @@ public class WxCBInnerJoinStructuralPossibleTest extends UnitContainerTestCase {
                 }
             }
         }
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("inner join " + MemberDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("inner join " + MemberStatusDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("left outer join " + MemberAddressDbm.getInstance().getTableDbName()));
@@ -90,19 +89,19 @@ public class WxCBInnerJoinStructuralPossibleTest extends UnitContainerTestCase {
 
     public void test_StructuralPossible_trace_is_ManualInnerJoin() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.enableInnerJoinAutoDetect();
-        cb.setupSelect_Member().withMemberStatus();
-        cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
-        cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
-        cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
-        cb.setupSelect_Product().withProductStatus();
-        cb.setupSelect_SummaryProduct();
-        cb.query().queryMember().queryMemberServiceAsOne().innerJoin();
-        cb.query().addOrderBy_MemberId_Asc().addOrderBy_PurchaseDatetime_Desc();
-
-        // ## Act ##
-        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.enableInnerJoinAutoDetect();
+            cb.setupSelect_Member().withMemberStatus();
+            cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
+            cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
+            cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
+            cb.setupSelect_Product().withProductStatus();
+            cb.setupSelect_SummaryProduct();
+            cb.query().queryMember().queryMemberServiceAsOne().innerJoin();
+            cb.query().addOrderBy_MemberId_Asc().addOrderBy_PurchaseDatetime_Desc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotSame(0, purchaseList.size());
@@ -128,7 +127,7 @@ public class WxCBInnerJoinStructuralPossibleTest extends UnitContainerTestCase {
                 }
             }
         }
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("inner join " + MemberDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("inner join " + MemberStatusDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("left outer join " + MemberAddressDbm.getInstance().getTableDbName()));
@@ -144,19 +143,19 @@ public class WxCBInnerJoinStructuralPossibleTest extends UnitContainerTestCase {
 
     public void test_StructuralPossible_trace_is_WhereUsedInnerJoin() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.enableInnerJoinAutoDetect();
-        cb.setupSelect_Member().withMemberStatus();
-        cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
-        cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
-        cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
-        cb.setupSelect_Product().withProductStatus();
-        cb.setupSelect_SummaryProduct();
-        cb.query().queryMember().queryMemberServiceAsOne().setServiceRankCode_Equal_Gold();
-        cb.query().addOrderBy_MemberId_Asc().addOrderBy_PurchaseDatetime_Desc();
-
-        // ## Act ##
-        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.enableInnerJoinAutoDetect();
+            cb.setupSelect_Member().withMemberStatus();
+            cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
+            cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
+            cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
+            cb.setupSelect_Product().withProductStatus();
+            cb.setupSelect_SummaryProduct();
+            cb.query().queryMember().queryMemberServiceAsOne().setServiceRankCode_Equal_Gold();
+            cb.query().addOrderBy_MemberId_Asc().addOrderBy_PurchaseDatetime_Desc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotSame(0, purchaseList.size());
@@ -182,7 +181,7 @@ public class WxCBInnerJoinStructuralPossibleTest extends UnitContainerTestCase {
                 }
             }
         }
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("inner join " + MemberDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("inner join " + MemberStatusDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("left outer join " + MemberAddressDbm.getInstance().getTableDbName()));

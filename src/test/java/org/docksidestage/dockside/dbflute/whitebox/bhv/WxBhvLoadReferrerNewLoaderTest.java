@@ -22,8 +22,6 @@ import org.docksidestage.dockside.dbflute.cbean.MemberServiceCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberWithdrawalCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchasePaymentCB;
-import org.docksidestage.dockside.dbflute.cbean.ServiceRankCB;
-import org.docksidestage.dockside.dbflute.cbean.WithdrawalReasonCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
@@ -62,12 +60,11 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_loadReferrer_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_PrefixSearch("S");
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().addOrderBy_MemberId_Asc();
+        });
 
         // Member
         //  |-Purchase
@@ -90,7 +87,10 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        ListResultBean<Member> expectedList = memberBhv.selectList(cb);
+        ListResultBean<Member> expectedList = memberBhv.selectList(cb -> {
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().addOrderBy_MemberId_Asc();
+        });
         memberBhv.loadPurchaseList(expectedList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB referrerCB) {
                 referrerCB.query().addOrderBy_PurchasePrice_Asc();
@@ -131,12 +131,12 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
 
     public void test_loadReferrer_nest_and_branch() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_PrefixSearch("S");
-        cb.query().addOrderBy_MemberId_Asc();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().addOrderBy_MemberId_Asc();
+        });
 
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
         memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
             public void handle(LoaderOfMember loader) {
                 loader.loadPurchaseList(new ConditionBeanSetupper<PurchaseCB>() {
@@ -161,7 +161,10 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        ListResultBean<Member> expectedList = memberBhv.selectList(cb);
+        ListResultBean<Member> expectedList = memberBhv.selectList(cb -> {
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().addOrderBy_MemberId_Asc();
+        });
         memberBhv.loadPurchaseList(expectedList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB referrerCB) {
                 referrerCB.query().addOrderBy_PurchasePrice_Asc();
@@ -236,13 +239,13 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
     //                                                                            ========
     public void test_loadReferrer_pullout_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.query().setMemberName_PrefixSearch("S");
-        cb.query().addOrderBy_MemberId_Asc();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().addOrderBy_MemberId_Asc();
+        });
 
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
         memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
             public void handle(LoaderOfMember loader) {
                 loader.pulloutMemberStatus().loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {
@@ -255,14 +258,17 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        ListResultBean<Member> expectedList = memberBhv.selectList(cb);
-        memberStatusBhv.loadMemberLoginList(memberBhv.pulloutMemberStatus(expectedList),
-                new ConditionBeanSetupper<MemberLoginCB>() {
-                    public void setup(MemberLoginCB referrerCB) {
-                        referrerCB.query().setMobileLoginFlg_Equal_False();
-                        referrerCB.query().addOrderBy_LoginDatetime_Asc();
-                    }
-                });
+        ListResultBean<Member> expectedList = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberStatus();
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().addOrderBy_MemberId_Asc();
+        });
+        memberStatusBhv.loadMemberLoginList(memberBhv.pulloutMemberStatus(expectedList), new ConditionBeanSetupper<MemberLoginCB>() {
+            public void setup(MemberLoginCB referrerCB) {
+                referrerCB.query().setMobileLoginFlg_Equal_False();
+                referrerCB.query().addOrderBy_LoginDatetime_Asc();
+            }
+        });
 
         assertEquals(expectedList, memberList);
         Map<Integer, Member> expectedMap = newHashMap();
@@ -306,12 +312,12 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
 
     public void test_loadReferrer_pullout_noSetupSelect() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_PrefixSearch("S");
-        cb.query().addOrderBy_MemberId_Asc();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().addOrderBy_MemberId_Asc();
+        });
 
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
         memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
             public void handle(LoaderOfMember loader) {
                 loader.pulloutMemberStatus().loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {
@@ -324,14 +330,16 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        ListResultBean<Member> expectedList = memberBhv.selectList(cb);
-        memberStatusBhv.loadMemberLoginList(memberBhv.pulloutMemberStatus(expectedList),
-                new ConditionBeanSetupper<MemberLoginCB>() {
-                    public void setup(MemberLoginCB referrerCB) {
-                        referrerCB.query().setMobileLoginFlg_Equal_False();
-                        referrerCB.query().addOrderBy_LoginDatetime_Asc();
-                    }
-                });
+        ListResultBean<Member> expectedList = memberBhv.selectList(cb -> {
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().addOrderBy_MemberId_Asc();
+        });
+        memberStatusBhv.loadMemberLoginList(memberBhv.pulloutMemberStatus(expectedList), new ConditionBeanSetupper<MemberLoginCB>() {
+            public void setup(MemberLoginCB referrerCB) {
+                referrerCB.query().setMobileLoginFlg_Equal_False();
+                referrerCB.query().addOrderBy_LoginDatetime_Asc();
+            }
+        });
 
         assertEquals(expectedList, memberList);
         Map<Integer, Member> expectedMap = newHashMap();
@@ -356,11 +364,11 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
 
     public void test_loadReferrer_pullout_branch() {
         // ## Arrange ##
-        ServiceRankCB cb = new ServiceRankCB();
-        cb.query().addOrderBy_DisplayOrder_Asc();
+        ListResultBean<ServiceRank> rankList = serviceRankBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_DisplayOrder_Asc();
+        });
 
-        // ## Act ##
-        ListResultBean<ServiceRank> rankList = serviceRankBhv.selectList(cb);
         serviceRankBhv.load(rankList, new ReferrerLoaderHandler<LoaderOfServiceRank>() {
             public void handle(LoaderOfServiceRank loader) {
                 loader.loadMemberServiceList(new ConditionBeanSetupper<MemberServiceCB>() {
@@ -420,11 +428,11 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
 
     public void test_loadReferrer_pullout_branch_nested() {
         // ## Arrange ##
-        ServiceRankCB cb = new ServiceRankCB();
-        cb.query().addOrderBy_DisplayOrder_Asc();
+        ListResultBean<ServiceRank> rankList = serviceRankBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_DisplayOrder_Asc();
+        });
 
-        // ## Act ##
-        ListResultBean<ServiceRank> rankList = serviceRankBhv.selectList(cb);
         serviceRankBhv.load(rankList, new ReferrerLoaderHandler<LoaderOfServiceRank>() {
             public void handle(LoaderOfServiceRank loader) {
                 loader.loadMemberServiceList(new ConditionBeanSetupper<MemberServiceCB>() {
@@ -480,8 +488,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             List<MemberService> serviceList = rank.getMemberServiceList();
             for (MemberService service : serviceList) {
                 Member member = service.getMember();
-                log("  " + member.getMemberName(), service.getServicePointCount(), member.getMemberStatus()
-                        .getMemberStatusName());
+                log("  " + member.getMemberName(), service.getServicePointCount(), member.getMemberStatus().getMemberStatusName());
                 assertTrue(member.isMemberStatusCodeProvisional() || member.isMemberStatusCodeWithdrawal());
                 List<Purchase> purchaseList = member.getPurchaseList();
                 for (Purchase purchase : purchaseList) {
@@ -524,12 +531,12 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
 
     public void test_loadReferrer_pullout_setupSelect_mightBeNull() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
-        cb.query().addOrderBy_Birthdate_Desc();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+            cb.query().addOrderBy_Birthdate_Desc();
+        });
 
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
         memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
             public void handle(LoaderOfMember loader) {
                 loader.pulloutMemberWithdrawalAsOne().pulloutWithdrawalReason()
@@ -548,8 +555,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
                 WithdrawalReason reason = withdrawal.getWithdrawalReason();
                 if (reason != null) {
                     List<MemberWithdrawal> withdrawalList = reason.getMemberWithdrawalList();
-                    log(member.getMemberName(), withdrawal.getWithdrawalDatetime(), reason.getDisplayOrder(),
-                            withdrawalList.size());
+                    log(member.getMemberName(), withdrawal.getWithdrawalDatetime(), reason.getDisplayOrder(), withdrawalList.size());
                     markHere("exists");
                 } else {
                     log(member.getMemberName(), withdrawal.getWithdrawalDatetime());
@@ -571,30 +577,28 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_loadReferrer_noReferrer_pulloutOnly() throws Exception {
         // ## Arrange ##
-        PurchasePaymentCB cb = new PurchasePaymentCB();
-        cb.setupSelect_Purchase().withMember().withMemberLoginAsLatest();
-
-        // ## Act ##
-        ListResultBean<PurchasePayment> paymentList = purchasePaymentBhv.selectList(cb);
+        ListResultBean<PurchasePayment> paymentList = purchasePaymentBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_Purchase().withMember().withMemberLoginAsLatest();
+        });
 
         // ## Assert ##
         assertHasAnyElement(paymentList);
         purchasePaymentBhv.load(paymentList, new ReferrerLoaderHandler<LoaderOfPurchasePayment>() {
             public void handle(LoaderOfPurchasePayment loader) {
-                loader.pulloutPurchase().pulloutMember()
-                        .loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {
-                            public void setup(MemberLoginCB referrerCB) {
-                                referrerCB.setupSelect_MemberStatus();
-                            }
-                        }).withNestedReferrer(new ReferrerLoaderHandler<LoaderOfMemberLogin>() {
-                            public void handle(LoaderOfMemberLogin loader) {
-                                loader.pulloutMemberStatus().loadMemberList(new ConditionBeanSetupper<MemberCB>() {
-                                    public void setup(MemberCB referrerCB) {
-                                        referrerCB.query().setMemberName_PrefixSearch("S");
-                                    }
-                                });
+                loader.pulloutPurchase().pulloutMember().loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {
+                    public void setup(MemberLoginCB referrerCB) {
+                        referrerCB.setupSelect_MemberStatus();
+                    }
+                }).withNestedReferrer(new ReferrerLoaderHandler<LoaderOfMemberLogin>() {
+                    public void handle(LoaderOfMemberLogin loader) {
+                        loader.pulloutMemberStatus().loadMemberList(new ConditionBeanSetupper<MemberCB>() {
+                            public void setup(MemberCB referrerCB) {
+                                referrerCB.query().setMemberName_PrefixSearch("S");
                             }
                         });
+                    }
+                });
             }
         });
         for (PurchasePayment payment : paymentList) {
@@ -622,10 +626,10 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
     //                                                                             =======
     public void test_loadReferrer_nullFK() {
         // ## Arrange ##
-        WithdrawalReasonCB cb = new WithdrawalReasonCB();
+        ListResultBean<WithdrawalReason> reasonList = withdrawalReasonBhv.selectList(cb -> {
+            /* ## Act ## */
+        });
 
-        // ## Act ##
-        ListResultBean<WithdrawalReason> reasonList = withdrawalReasonBhv.selectList(cb);
         withdrawalReasonBhv.load(reasonList, new ReferrerLoaderHandler<LoaderOfWithdrawalReason>() {
             public void handle(LoaderOfWithdrawalReason loader) {
                 loader.loadMemberWithdrawalList(new ConditionBeanSetupper<MemberWithdrawalCB>() {

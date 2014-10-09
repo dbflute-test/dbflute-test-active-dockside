@@ -11,8 +11,6 @@ import org.dbflute.helper.HandyDate;
 import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlLogHandler;
 import org.dbflute.hook.SqlLogInfo;
-import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
-import org.docksidestage.dockside.dbflute.cbean.PurchasePaymentCB;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchasePaymentBhv;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
@@ -38,10 +36,10 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
         Purchase purchase = new Purchase();
         purchase.setPurchasePrice(99999);
 
-        PurchaseCB cb = new PurchaseCB();
-        cb.query().setPaymentCompleteFlg_Equal_True();
-        cb.query().addOrderBy_PurchaseId_Asc();
-        ListResultBean<Purchase> beforeList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> beforeList = purchaseBhv.selectList(cb -> {
+            cb.query().setPaymentCompleteFlg_Equal_True();
+            cb.query().addOrderBy_PurchaseId_Asc();
+        });
 
         // ## Act ##
         purchaseBhv.varyingQueryUpdate(purchase, cb, op -> op.self(colCB -> {
@@ -74,10 +72,10 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
         Purchase purchase = new Purchase();
         purchase.setPurchasePrice(99999);
 
-        PurchaseCB cb = new PurchaseCB();
-        cb.query().setPaymentCompleteFlg_Equal_True();
-        cb.query().addOrderBy_PurchaseId_Asc();
-        ListResultBean<Purchase> beforeList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> beforeList = purchaseBhv.selectList(cb -> {
+            cb.query().setPaymentCompleteFlg_Equal_True();
+            cb.query().addOrderBy_PurchaseId_Asc();
+        });
 
         // ## Act ##
         purchaseBhv.varyingQueryUpdate(purchase, cb, upOp -> upOp.self(colCB -> {
@@ -107,11 +105,10 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
         // ## Arrange ##
         Purchase purchase = new Purchase();
         purchase.setPurchasePrice(99999);
-        PurchaseCB cb = new PurchaseCB();
-
-        // ## Act ##
         try {
-            int updated = purchaseBhv.varyingQueryUpdate(purchase, cb, op -> {});
+            int updated = purchaseBhv.varyingQueryUpdate(purchase, cb -> {
+                /* ## Act ## */
+            }, op -> {});
 
             // ## Assert ##
             fail("updated=" + updated);
@@ -125,10 +122,9 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
         // ## Arrange ##
         Purchase purchase = new Purchase();
         purchase.setPurchasePrice(99999);
-        PurchaseCB cb = new PurchaseCB();
-
-        // ## Act ##
-        int updated = purchaseBhv.varyingQueryUpdate(purchase, cb, op -> op.allowNonQueryUpdate());
+        int updated = purchaseBhv.varyingQueryUpdate(purchase, cb -> {
+            /* ## Act ## */
+        }, op -> op.allowNonQueryUpdate());
 
         // ## Assert ##
         ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb);
@@ -141,12 +137,11 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
 
     public void test_varyingQueryDelete_NonQueryDelete_allow() throws Exception {
         // ## Arrange ##
-        purchasePaymentBhv.varyingQueryDelete(new PurchasePaymentCB(), op -> op.allowNonQueryDelete());
-        int countAll = purchaseBhv.selectCount(new PurchaseCB());
-        PurchaseCB cb = new PurchaseCB();
-
-        // ## Act ##
-        int deleted = purchaseBhv.varyingQueryDelete(cb, op -> op.allowNonQueryDelete());
+        purchasePaymentBhv.varyingQueryDelete(cb -> {}, op -> op.allowNonQueryDelete());
+        int countAll = purchaseBhv.selectCount(countCB -> {});
+        int deleted = purchaseBhv.varyingQueryDelete(cb -> {
+            /* ## Act ## */
+        }, op -> op.allowNonQueryDelete());
 
         // ## Assert ##
         ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb);
@@ -162,10 +157,10 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
         Purchase purchase = new Purchase();
         purchase.setPurchasePrice(99999);
 
-        PurchaseCB cb = new PurchaseCB();
-        cb.query().setPaymentCompleteFlg_Equal_True();
-        cb.query().addOrderBy_PurchaseId_Asc();
-        ListResultBean<Purchase> beforeList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> beforeList = purchaseBhv.selectList(cb -> {
+            cb.query().setPaymentCompleteFlg_Equal_True();
+            cb.query().addOrderBy_PurchaseId_Asc();
+        });
 
         final List<String> displaySqlList = newArrayList();
         CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
@@ -202,14 +197,13 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
         Purchase purchase = new Purchase();
         purchase.setPurchasePrice(99999);
 
-        PurchaseCB cb = new PurchaseCB();
-        cb.query().queryMember().setMemberStatusCode_Equal_Formalized();
-        cb.query().setPaymentCompleteFlg_Equal_True();
-        cb.query().addOrderBy_PurchaseId_Asc();
-
-        // ## Act ##
         try {
-            purchaseBhv.varyingQueryUpdate(purchase, cb, op -> op.allowQueryUpdateForcedDirect());
+            purchaseBhv.varyingQueryUpdate(purchase, cb -> {
+                /* ## Act ## */
+                cb.query().queryMember().setMemberStatusCode_Equal_Formalized();
+                cb.query().setPaymentCompleteFlg_Equal_True();
+                cb.query().addOrderBy_PurchaseId_Asc();
+            }, op -> op.allowQueryUpdateForcedDirect());
 
             // ## Assert ##
             fail();
@@ -221,17 +215,17 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
 
     public void test_varyingQueryDelete_ForcedDirect_basic() throws Exception {
         // ## Arrange ##
-        purchasePaymentBhv.varyingQueryDelete(new PurchasePaymentCB(), op -> op.allowNonQueryDelete());
+        purchasePaymentBhv.varyingQueryDelete(cb -> {}, op -> op.allowNonQueryDelete());
 
-        PurchaseCB cb = new PurchaseCB();
-        cb.query().setPaymentCompleteFlg_Equal_True();
-        cb.query().addOrderBy_PurchaseId_Asc();
-
-        final List<String> displaySqlList = newArrayList();
-        CallbackContext.setSqlLogHandlerOnThread(info -> displaySqlList.add(info.getDisplaySql()));
         try {
-            // ## Act ##
-            purchaseBhv.varyingQueryDelete(cb, op -> op.allowQueryDeleteForcedDirect());
+            purchaseBhv.varyingQueryDelete(cb -> {
+                /* ## Act ## */
+                cb.query().setPaymentCompleteFlg_Equal_True();
+                cb.query().addOrderBy_PurchaseId_Asc();
+
+                final List<String> displaySqlList = newArrayList();
+                CallbackContext.setSqlLogHandlerOnThread(info -> displaySqlList.add(info.getDisplaySql()));
+            }, op -> op.allowQueryDeleteForcedDirect());
 
             // ## Assert ##
             String queryDeleteSql = displaySqlList.get(0);
@@ -246,13 +240,13 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
 
     public void test_varyingQueryDelete_ForcedDirect_relation() throws Exception {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.query().queryMember().setMemberStatusCode_Equal_Formalized();
-        cb.query().addOrderBy_PurchaseId_Asc();
-
         try {
-            // ## Act ##
-            purchaseBhv.varyingQueryDelete(cb, op -> op.allowQueryDeleteForcedDirect());
+            purchaseBhv.varyingQueryDelete(cb -> {
+                /* ## Act ## */
+                cb.query().queryMember().setMemberStatusCode_Equal_Formalized();
+                cb.query().addOrderBy_PurchaseId_Asc();
+
+            }, op -> op.allowQueryDeleteForcedDirect());
 
             // ## Assert ##
             fail();

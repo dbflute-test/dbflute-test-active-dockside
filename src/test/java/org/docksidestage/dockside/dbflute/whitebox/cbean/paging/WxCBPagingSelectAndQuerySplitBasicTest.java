@@ -34,33 +34,34 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
     @SuppressWarnings("deprecation")
     public void test_selectList_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberServiceAsOne().withServiceRank();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchasePrice();
-            }
-        }, Member.ALIAS_highestPurchasePrice);
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberStatusCode_Equal_Formalized();
-                orCB.query().setMemberName_PrefixSearch("S");
-            }
-        });
-        cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
-        cb.query().addOrderBy_MemberId_Asc();
-        cb.enablePagingSelectAndQuerySplit();
-        cb.fetchFirst(5);
-
-        final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                infoList.add(info);
-            }
-        });
         try {
-            // ## Act ##
-            ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberServiceAsOne().withServiceRank();
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchasePrice();
+                }
+            }, Member.ALIAS_highestPurchasePrice);
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberStatusCode_Equal_Formalized();
+                    orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                }
+            });
+            cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
+            cb.query().addOrderBy_MemberId_Asc();
+            cb.enablePagingSelectAndQuerySplit();
+            cb.fetchFirst(5);
+    
+            final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
+            CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                public void handle(SqlLogInfo info) {
+                    infoList.add(info);
+                }
+            });
+        });
+
 
             // ## Assert ##
             assertEquals(5, memberList.size());
@@ -89,33 +90,34 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
     @SuppressWarnings("deprecation")
     public void test_selectPage_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberServiceAsOne().withServiceRank();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchasePrice();
-            }
-        }, Member.ALIAS_highestPurchasePrice);
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberStatusCode_Equal_Formalized();
-                orCB.query().setMemberName_PrefixSearch("S");
-            }
-        });
-        cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
-        cb.query().addOrderBy_MemberId_Asc();
-        cb.enablePagingSelectAndQuerySplit();
-        cb.paging(3, 1);
-
-        final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                infoList.add(info);
-            }
-        });
         try {
-            // ## Act ##
-            PagingResultBean<Member> page = memberBhv.selectPage(cb);
+            PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberServiceAsOne().withServiceRank();
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchasePrice();
+                }
+            }, Member.ALIAS_highestPurchasePrice);
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberStatusCode_Equal_Formalized();
+                    orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                }
+            });
+            cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
+            cb.query().addOrderBy_MemberId_Asc();
+            cb.enablePagingSelectAndQuerySplit();
+            cb.paging(3, 1);
+    
+            final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
+            CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                public void handle(SqlLogInfo info) {
+                    infoList.add(info);
+                }
+            });
+        });
+
 
             // ## Assert ##
             log(page);
@@ -153,38 +155,39 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
     @SuppressWarnings("deprecation")
     public void test_selectPage_onParade() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberServiceAsOne().withServiceRank();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchasePrice();
-            }
-        }, Member.ALIAS_highestPurchasePrice);
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberStatusCode_Equal_Formalized();
-                orCB.query().setMemberName_PrefixSearch("S");
-            }
-        });
-        cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseCount();
-            }
-        }).greaterEqual(2);
-        cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
-        cb.query().addOrderBy_MemberId_Asc();
-        cb.enablePagingSelectAndQuerySplit();
-        cb.paging(3, 1);
-
-        final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                infoList.add(info);
-            }
-        });
         try {
-            // ## Act ##
-            PagingResultBean<Member> page = memberBhv.selectPage(cb);
+            PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberServiceAsOne().withServiceRank();
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchasePrice();
+                }
+            }, Member.ALIAS_highestPurchasePrice);
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberStatusCode_Equal_Formalized();
+                    orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                }
+            });
+            cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchaseCount();
+                }
+            }).greaterEqual(2);
+            cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
+            cb.query().addOrderBy_MemberId_Asc();
+            cb.enablePagingSelectAndQuerySplit();
+            cb.paging(3, 1);
+    
+            final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
+            CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                public void handle(SqlLogInfo info) {
+                    infoList.add(info);
+                }
+            });
+        });
+
 
             // ## Assert ##
             log(page);
@@ -221,40 +224,41 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
     @SuppressWarnings("deprecation")
     public void test_selectPage_empty() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB() {
-            @Override
-            public void disablePagingCountLater() {
-                // do nothing to check empty result
-                markHere("override");
-            }
-        };
-        cb.setupSelect_MemberServiceAsOne().withServiceRank();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchasePrice();
-            }
-        }, Member.ALIAS_highestPurchasePrice);
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberStatusCode_Equal_Formalized();
-                orCB.query().setMemberName_PrefixSearch("S");
-            }
-        });
-        cb.query().setMemberId_Equal(99999);
-        cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
-        cb.query().addOrderBy_MemberId_Asc();
-        cb.enablePagingSelectAndQuerySplit();
-        cb.paging(3, 1);
-
-        final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                infoList.add(info);
-            }
-        });
         try {
-            // ## Act ##
-            PagingResultBean<Member> page = memberBhv.selectPage(cb);
+            PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+                @Override
+                public void disablePagingCountLater() {
+                    // do nothing to check empty result
+                    markHere("override");
+                }
+            };
+            cb.setupSelect_MemberServiceAsOne().withServiceRank();
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchasePrice();
+                }
+            }, Member.ALIAS_highestPurchasePrice);
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberStatusCode_Equal_Formalized();
+                    orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                }
+            });
+            cb.query().setMemberId_Equal(99999);
+            cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
+            cb.query().addOrderBy_MemberId_Asc();
+            cb.enablePagingSelectAndQuerySplit();
+            cb.paging(3, 1);
+    
+            final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
+            CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                public void handle(SqlLogInfo info) {
+                    infoList.add(info);
+                }
+            });
+        });
+
 
             // ## Assert ##
             log(page);
@@ -274,14 +278,14 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
     @SuppressWarnings("deprecation")
     public void test_selectPage_noSetupSelect() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
-        cb.query().addOrderBy_MemberId_Asc();
-        cb.enablePagingSelectAndQuerySplit();
-        cb.paging(3, 1);
+        PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
+            cb.query().addOrderBy_MemberId_Asc();
+            cb.enablePagingSelectAndQuerySplit();
+            cb.paging(3, 1);
+        });
 
-        // ## Act ##
-        PagingResultBean<Member> page = memberBhv.selectPage(cb);
 
         // ## Assert ##
         log(page);
@@ -297,21 +301,21 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
     @SuppressWarnings("deprecation")
     public void test_selectPage_noQuery() throws Exception {
         // ## Arrange ##
-        int countAll = memberBhv.selectCount(new MemberCB());
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberServiceAsOne().withServiceRank();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchasePrice();
-            }
-        }, Member.ALIAS_highestPurchasePrice);
-        cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
-        cb.query().addOrderBy_MemberId_Asc();
-        cb.enablePagingSelectAndQuerySplit();
-        cb.paging(3, 1);
+        int countAll = memberBhv.selectCount(countCB -> {});
+        PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberServiceAsOne().withServiceRank();
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchasePrice();
+                }
+            }, Member.ALIAS_highestPurchasePrice);
+            cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
+            cb.query().addOrderBy_MemberId_Asc();
+            cb.enablePagingSelectAndQuerySplit();
+            cb.paging(3, 1);
+        });
 
-        // ## Act ##
-        PagingResultBean<Member> page = memberBhv.selectPage(cb);
 
         // ## Assert ##
         log(page);
@@ -333,43 +337,44 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
     @SuppressWarnings("deprecation")
     public void test_selectPage_SpecifiedDerivedOrderBy() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberServiceAsOne().withServiceRank();
-        cb.specify().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnMemberLoginId();
-            }
-        }, Member.ALIAS_loginCount);
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchasePrice();
-            }
-        }, Member.ALIAS_highestPurchasePrice);
-        cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnLoginDatetime();
-            }
-        }, Member.ALIAS_latestLoginDatetime);
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberStatusCode_Equal_Formalized();
-                orCB.query().setMemberName_PrefixSearch("S");
-            }
-        });
-        cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
-        cb.query().addSpecifiedDerivedOrderBy_Asc(Member.ALIAS_highestPurchasePrice).withNullsLast();
-        cb.enablePagingSelectAndQuerySplit();
-        cb.fetchFirst(5);
-
-        final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                infoList.add(info);
-            }
-        });
         try {
-            // ## Act ##
-            PagingResultBean<Member> page = memberBhv.selectPage(cb);
+            PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberServiceAsOne().withServiceRank();
+            cb.specify().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.specify().columnMemberLoginId();
+                }
+            }, Member.ALIAS_loginCount);
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchasePrice();
+                }
+            }, Member.ALIAS_highestPurchasePrice);
+            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.specify().columnLoginDatetime();
+                }
+            }, Member.ALIAS_latestLoginDatetime);
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberStatusCode_Equal_Formalized();
+                    orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                }
+            });
+            cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
+            cb.query().addSpecifiedDerivedOrderBy_Asc(Member.ALIAS_highestPurchasePrice).withNullsLast();
+            cb.enablePagingSelectAndQuerySplit();
+            cb.fetchFirst(5);
+    
+            final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
+            CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                public void handle(SqlLogInfo info) {
+                    infoList.add(info);
+                }
+            });
+        });
+
 
             // ## Assert ##
             assertEquals(5, page.size());
@@ -409,32 +414,33 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
     @SuppressWarnings("deprecation")
     public void test_selectList_notPaging() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberServiceAsOne().withServiceRank();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchasePrice();
-            }
-        }, Member.ALIAS_highestPurchasePrice);
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberStatusCode_Equal_Formalized();
-                orCB.query().setMemberName_PrefixSearch("S");
-            }
-        });
-        cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
-        cb.query().addOrderBy_MemberId_Asc();
-        cb.enablePagingSelectAndQuerySplit();
-
-        final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                infoList.add(info);
-            }
-        });
         try {
-            // ## Act ##
-            ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberServiceAsOne().withServiceRank();
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchasePrice();
+                }
+            }, Member.ALIAS_highestPurchasePrice);
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberStatusCode_Equal_Formalized();
+                    orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                }
+            });
+            cb.query().queryMemberStatus().addOrderBy_DisplayOrder_Asc();
+            cb.query().addOrderBy_MemberId_Asc();
+            cb.enablePagingSelectAndQuerySplit();
+    
+            final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
+            CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                public void handle(SqlLogInfo info) {
+                    infoList.add(info);
+                }
+            });
+        });
+
 
             // ## Assert ##
             assertHasAnyElement(memberList);

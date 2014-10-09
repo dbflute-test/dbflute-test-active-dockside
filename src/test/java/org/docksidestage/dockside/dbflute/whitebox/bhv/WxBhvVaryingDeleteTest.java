@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.dbflute.exception.OptimisticLockColumnValueNullException;
 import org.dbflute.util.DfCollectionUtil;
-import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
-import org.docksidestage.dockside.dbflute.cbean.PurchasePaymentCB;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchasePaymentBhv;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
@@ -28,10 +26,10 @@ public class WxBhvVaryingDeleteTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_varyingDelete_basic() throws Exception {
         // ## Arrange ##
-        purchasePaymentBhv.varyingQueryDelete(new PurchasePaymentCB(), op -> op.allowNonQueryDelete());
-        PurchaseCB cb = new PurchaseCB();
-        cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(1, 3, 7));
-        List<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        purchasePaymentBhv.varyingQueryDelete(cb -> {}, op -> op.allowNonQueryDelete());
+        List<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(1, 3, 7));
+        });
 
         // ## Act ##
         purchaseBhv.varyingBatchDelete(purchaseList, op -> {});
@@ -43,9 +41,10 @@ public class WxBhvVaryingDeleteTest extends UnitContainerTestCase {
 
     public void test_varyingDelete_noOptimistickLockValue() throws Exception {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(1, 3, 7));
-        List<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        List<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(1, 3, 7));
+        });
+
         for (Purchase purchase : purchaseList) {
             purchase.setVersionNo(null);
         }
@@ -67,11 +66,12 @@ public class WxBhvVaryingDeleteTest extends UnitContainerTestCase {
     //                                                                           =========
     public void test_varyingDeleteNonstrict_basic() throws Exception {
         // ## Arrange ##
-        purchasePaymentBhv.varyingQueryDelete(new PurchasePaymentCB(), op -> op.allowNonQueryDelete());
+        purchasePaymentBhv.varyingQueryDelete(cb -> {}, op -> op.allowNonQueryDelete());
 
-        PurchaseCB cb = new PurchaseCB();
-        cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(1, 3, 7));
-        List<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        List<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(1, 3, 7));
+        });
+
         for (Purchase purchase : purchaseList) {
             purchase.setVersionNo(null);
         }

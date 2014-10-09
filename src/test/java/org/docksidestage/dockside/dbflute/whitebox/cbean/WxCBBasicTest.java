@@ -42,14 +42,13 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     //                                                                              ======
     public void test_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.query().setMemberName_PrefixSearch("S");
-        cb.query().addOrderBy_Birthdate_Desc();
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().addOrderBy_Birthdate_Desc();
+            cb.query().addOrderBy_MemberId_Asc();
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -64,30 +63,29 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     //                                                                        ============
     public void test_query_InScope_SeveralRegistered() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        List<Integer> expectedMemberIdList1 = new ArrayList<Integer>();
-        expectedMemberIdList1.add(3);
-        expectedMemberIdList1.add(6);
-        expectedMemberIdList1.add(7);
-        cb.query().setMemberId_InScope(expectedMemberIdList1);// *Point!
-        List<Integer> expectedMemberIdList2 = new ArrayList<Integer>();
-        expectedMemberIdList2.add(2);
-        expectedMemberIdList2.add(5);
-        expectedMemberIdList2.add(7);
-        cb.query().setMemberId_InScope(expectedMemberIdList2);// *Point!
-        List<Integer> expectedMemberIdList3 = new ArrayList<Integer>();
-        expectedMemberIdList3.add(3);
-        expectedMemberIdList3.add(7);
-        expectedMemberIdList3.add(9);
-        cb.query().setMemberId_InScope(expectedMemberIdList3);// *Point!
-        List<Integer> expectedMemberIdList4 = new ArrayList<Integer>();
-        expectedMemberIdList4.add(8);
-        expectedMemberIdList4.add(9);
-        expectedMemberIdList4.add(7);
-        cb.query().setMemberId_InScope(expectedMemberIdList4);// *Point!
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            List<Integer> expectedMemberIdList1 = new ArrayList<Integer>();
+            expectedMemberIdList1.add(3);
+            expectedMemberIdList1.add(6);
+            expectedMemberIdList1.add(7);
+            cb.query().setMemberId_InScope(expectedMemberIdList1);// *Point!
+                List<Integer> expectedMemberIdList2 = new ArrayList<Integer>();
+                expectedMemberIdList2.add(2);
+                expectedMemberIdList2.add(5);
+                expectedMemberIdList2.add(7);
+                cb.query().setMemberId_InScope(expectedMemberIdList2);// *Point!
+                List<Integer> expectedMemberIdList3 = new ArrayList<Integer>();
+                expectedMemberIdList3.add(3);
+                expectedMemberIdList3.add(7);
+                expectedMemberIdList3.add(9);
+                cb.query().setMemberId_InScope(expectedMemberIdList3);// *Point!
+                List<Integer> expectedMemberIdList4 = new ArrayList<Integer>();
+                expectedMemberIdList4.add(8);
+                expectedMemberIdList4.add(9);
+                expectedMemberIdList4.add(7);
+                cb.query().setMemberId_InScope(expectedMemberIdList4);// *Point!
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -97,12 +95,11 @@ public class WxCBBasicTest extends UnitContainerTestCase {
 
     public void test_query_LikeSearch_SeveralRegistered() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_LikeSearch("S", new LikeSearchOption().likePrefix());
-        cb.query().setMemberName_LikeSearch("t", new LikeSearchOption().likeContain());
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberName_LikeSearch("S", new LikeSearchOption().likePrefix());
+            cb.query().setMemberName_LikeSearch("t", new LikeSearchOption().likeContain());
+        });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -123,26 +120,25 @@ public class WxCBBasicTest extends UnitContainerTestCase {
                 cb.specify().columnBirthdate();
             }
         });
-        MemberCB cb = new MemberCB();
-        cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnBirthdate();
-                subCB.query().setMemberStatusCode_Equal_Formalized();
-                subCB.union(new UnionQuery<MemberCB>() {
-                    public void query(MemberCB unionCB) {
-                        unionCB.query().setMemberStatusCode_Equal_Provisional();
-                    }
-                });
-                subCB.union(new UnionQuery<MemberCB>() {
-                    public void query(MemberCB unionCB) {
-                        unionCB.query().setMemberStatusCode_Equal_Withdrawal();
-                    }
-                });
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnBirthdate();
+                    subCB.query().setMemberStatusCode_Equal_Formalized();
+                    subCB.union(new UnionQuery<MemberCB>() {
+                        public void query(MemberCB unionCB) {
+                            unionCB.query().setMemberStatusCode_Equal_Provisional();
+                        }
+                    });
+                    subCB.union(new UnionQuery<MemberCB>() {
+                        public void query(MemberCB unionCB) {
+                            unionCB.query().setMemberStatusCode_Equal_Withdrawal();
+                        }
+                    });
+                }
+            });
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         for (Member member : memberList) {
@@ -158,8 +154,6 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     public void test_metaHandling() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
         // ## Assert ##
         assertFalse(cb.hasWhereClauseOnBaseQuery());
         assertFalse(cb.hasOrderByClause());
@@ -188,21 +182,20 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     //                                                             =======================
     public void test_myselfInScopeSubQuery_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().myselfInScope(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.query().setMemberName_PrefixSearch("S");
-                subCB.union(new UnionQuery<MemberCB>() {
-                    public void query(MemberCB unionCB) {
-                        unionCB.query().setMemberStatusCode_Equal_Formalized();
-                    }
-                });
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().myselfInScope(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                    subCB.union(new UnionQuery<MemberCB>() {
+                        public void query(MemberCB unionCB) {
+                            unionCB.query().setMemberStatusCode_Equal_Formalized();
+                        }
+                    });
+                }
+            });
+            cb.query().addOrderBy_Birthdate_Desc();
         });
-        cb.query().addOrderBy_Birthdate_Desc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -226,26 +219,25 @@ public class WxCBBasicTest extends UnitContainerTestCase {
 
     public void test_myselfInScopeSubQuery_foreign() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().queryMemberStatus().myselfInScope(new SubQuery<MemberStatusCB>() {
-            public void query(MemberStatusCB subCB) {
-                subCB.query().setMemberStatusCode_Equal_Formalized();
-                subCB.union(new UnionQuery<MemberStatusCB>() {
-                    public void query(MemberStatusCB unionCB) {
-                        unionCB.query().setMemberStatusCode_Equal_Provisional();
-                    }
-                });
-                subCB.query().existsMemberList(new SubQuery<MemberCB>() {
-                    public void query(MemberCB subCB) {
-                        subCB.query().setMemberStatusCode_NotEqual_Withdrawal();
-                    }
-                });
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().queryMemberStatus().myselfInScope(new SubQuery<MemberStatusCB>() {
+                public void query(MemberStatusCB subCB) {
+                    subCB.query().setMemberStatusCode_Equal_Formalized();
+                    subCB.union(new UnionQuery<MemberStatusCB>() {
+                        public void query(MemberStatusCB unionCB) {
+                            unionCB.query().setMemberStatusCode_Equal_Provisional();
+                        }
+                    });
+                    subCB.query().existsMemberList(new SubQuery<MemberCB>() {
+                        public void query(MemberCB subCB) {
+                            subCB.query().setMemberStatusCode_NotEqual_Withdrawal();
+                        }
+                    });
+                }
+            });
+            cb.query().addOrderBy_Birthdate_Desc();
         });
-        cb.query().addOrderBy_Birthdate_Desc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -271,10 +263,10 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_safetyResult_selectList() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        int allCount = memberBhv.selectCount(new MemberCB());
-        cb.checkSafetyResult(allCount);
-        memberBhv.selectList(cb); // expect no exception
+        int allCount = memberBhv.selectCount(countCB -> {});
+        memberBhv.selectList(cb -> {
+            cb.checkSafetyResult(allCount);
+        }); // expect no exception
 
         // ## Act ##
         cb.checkSafetyResult(allCount - 1);
@@ -296,9 +288,7 @@ public class WxCBBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         Timestamp timestamp = currentTimestamp();
-
-        // ## Act ##
-        cb.query().setBirthdate_DateFromTo(timestamp, timestamp);
+        cb.query().setBirthdate_FromTo(timestamp, timestamp, op -> op.compareAsDate());
 
         // ## Assert ##
         {
@@ -308,8 +298,6 @@ public class WxCBBasicTest extends UnitContainerTestCase {
             assertNull(fixed.get("greaterThan"));
             assertNull(fixed.get("lessEqual"));
         }
-
-        // ## Act ##
         cb.query().setBirthdate_Equal(timestamp);
         cb.query().setBirthdate_GreaterEqual(timestamp);
         cb.query().setBirthdate_GreaterThan(timestamp);
@@ -331,8 +319,6 @@ public class WxCBBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         Timestamp timestamp = currentTimestamp();
-
-        // ## Act ##
         cb.query().queryMemberAddressAsValid(timestamp);
 
         // ## Assert ##
@@ -345,13 +331,14 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     //                                                                      ==============
     public void test_relationCache() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.query().setMemberStatusCode_Equal_Formalized();
+            ListResultBean<Member> list = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberStatus();
+            cb.query().setMemberStatusCode_Equal_Formalized();
+    
+            // ## Act & Assert ##
+            {
+        });
 
-        // ## Act & Assert ##
-        {
-            ListResultBean<Member> list = memberBhv.selectList(cb);
             MemberStatus memberStatus1 = list.get(0).getMemberStatus();
             MemberStatus memberStatus2 = list.get(1).getMemberStatus();
             assertEquals(memberStatus1, memberStatus2);
@@ -392,9 +379,7 @@ public class WxCBBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         MySerializableCB cb = new MySerializableCB();
         cb.setupSelect_MemberStatus();
-        cb.query().setBirthdate_DateFromTo(currentDate(), currentDate());
-
-        // ## Act ##
+        cb.query().setBirthdate_FromTo(currentDate(), currentDate(), op -> op.compareAsDate());
         byte[] binary = DfTypeUtil.toBinary(cb);
         Serializable serializable = DfTypeUtil.toSerializable(binary);
 

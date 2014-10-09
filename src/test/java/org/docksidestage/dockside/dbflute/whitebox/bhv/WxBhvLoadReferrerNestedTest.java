@@ -7,7 +7,6 @@ import org.dbflute.bhv.referrer.ReferrerListHandler;
 import org.dbflute.cbean.result.ListResultBean;
 import org.docksidestage.dockside.dbflute.cbean.MemberServiceCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
-import org.docksidestage.dockside.dbflute.cbean.ServiceRankCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberServiceBhv;
 import org.docksidestage.dockside.dbflute.exbhv.ServiceRankBhv;
@@ -35,10 +34,9 @@ public class WxBhvLoadReferrerNestedTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_loadReferrer_one_entity() {
         // ## Arrange ##
-        ServiceRankCB cb = new ServiceRankCB();
-
-        // ## Act ##
-        ListResultBean<ServiceRank> rankList = serviceRankBhv.selectList(cb);
+        ListResultBean<ServiceRank> rankList = serviceRankBhv.selectList(cb -> {
+            /* ## Act ## */
+        });
 
         // ServiceRank
         //  |-MemberService -> Member
@@ -77,9 +75,8 @@ public class WxBhvLoadReferrerNestedTest extends UnitContainerTestCase {
             List<MemberService> serviceList = rank.getMemberServiceList();
             for (MemberService service : serviceList) {
                 Member member = service.getMember();
-                log("  " + member.getMemberId(), member.getMemberName(),
-                        member.getMemberStatus().getMemberStatusName(), service.getServiceRankCode(),
-                        service.getServicePointCount());
+                log("  " + member.getMemberId(), member.getMemberName(), member.getMemberStatus().getMemberStatusName(),
+                        service.getServiceRankCode(), service.getServicePointCount());
                 List<Purchase> purchaseList = member.getPurchaseList();
                 for (Purchase purchase : purchaseList) {
                     log("    " + purchase.getMemberId(), purchase.getPurchasePrice());

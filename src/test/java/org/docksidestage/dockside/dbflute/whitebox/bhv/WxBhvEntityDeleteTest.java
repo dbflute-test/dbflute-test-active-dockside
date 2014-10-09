@@ -3,8 +3,6 @@ package org.docksidestage.dockside.dbflute.whitebox.bhv;
 import java.sql.Timestamp;
 
 import org.dbflute.exception.EntityAlreadyDeletedException;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
-import org.docksidestage.dockside.dbflute.cbean.PurchasePaymentCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
@@ -133,14 +131,15 @@ public class WxBhvEntityDeleteTest extends UnitContainerTestCase {
     }
 
     protected Member selectByAccount(String account) {
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberAccount_Equal(account);
-        return memberBhv.selectEntityWithDeletedCheck(cb);
+        return memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberAccount_Equal(account);
+        });
+
     }
 
     public void test_delete_uniqueBy_compoundKey_basic() throws Exception {
         // ## Arrange ##
-        purchasePaymentBhv.varyingQueryDelete(new PurchasePaymentCB(), op -> op.allowNonQueryDelete());
+        purchasePaymentBhv.varyingQueryDelete(cb -> {}, op -> op.allowNonQueryDelete());
         Purchase before = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
         Purchase purchase = new Purchase();
         purchase.setPurchaseId(99999L); // dummy
@@ -165,7 +164,7 @@ public class WxBhvEntityDeleteTest extends UnitContainerTestCase {
 
     public void test_deleteNonstrict_uniqueBy_compoundKey_basic() throws Exception {
         // ## Arrange ##
-        purchasePaymentBhv.varyingQueryDelete(new PurchasePaymentCB(), op -> op.allowNonQueryDelete());
+        purchasePaymentBhv.varyingQueryDelete(cb -> {}, op -> op.allowNonQueryDelete());
         Purchase before = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
         Purchase purchase = new Purchase();
         purchase.setPurchaseId(99999L); // dummy

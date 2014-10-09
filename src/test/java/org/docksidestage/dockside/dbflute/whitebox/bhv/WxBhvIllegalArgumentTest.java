@@ -37,7 +37,7 @@ public class WxBhvIllegalArgumentTest extends UnitContainerTestCase {
         // ## Arrange ##
         // ## Act ##
         try {
-            memberBhv.selectEntity(new MemberCB().dreamCruiseCB());
+            memberBhv.readEntity(new MemberCB().dreamCruiseCB()); // uses read for lambda
 
             // ## Assert ##
             fail();
@@ -65,7 +65,7 @@ public class WxBhvIllegalArgumentTest extends UnitContainerTestCase {
         // ## Arrange ##
         // ## Act ##
         try {
-            memberBhv.selectEntityWithDeletedCheck(new MemberCB().dreamCruiseCB());
+            memberBhv.readEntityWithDeletedCheck(new MemberCB().dreamCruiseCB()); // uses read for lambda
 
             // ## Assert ##
             fail();

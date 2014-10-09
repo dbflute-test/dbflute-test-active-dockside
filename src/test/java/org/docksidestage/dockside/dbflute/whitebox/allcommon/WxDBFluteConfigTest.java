@@ -64,8 +64,6 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.checkInvalidQuery();
-
-        // ## Act ##
         cb.query().setMemberName_Equal(""); // expect no exception
 
         // ## Assert ##
@@ -88,8 +86,6 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
     public void test_invalidQuery_invalidQueryChecked_basic() throws Exception {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
         try {
             cb.query().setMemberName_Equal(null);
 
@@ -107,13 +103,13 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
     //                                                                     ===============
     public void test_ConditionBean_configure_Config_is_Request() throws Exception {
         // ## Arrange ##
-        final MemberCB cb = new MemberCB();
-        final StatementConfig statementConfig = new StatementConfig();
-        statementConfig.typeScrollSensitive().fetchSize(123).maxRows(1);
-        cb.configure(statementConfig);
-
-        // ## Act ##
-        final ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        final ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            final StatementConfig statementConfig = new StatementConfig();
+            statementConfig.typeScrollSensitive().fetchSize(123).maxRows(1);
+            cb.configure(statementConfig);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertEquals(1, memberList.size()); // should be overridden

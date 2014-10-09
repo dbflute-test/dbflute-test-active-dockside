@@ -38,12 +38,11 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_selectEntity_duplicateResult() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(Arrays.asList(new Integer[] { 3, 5 }));
-
-        // ## Act ##
         try {
-            memberBhv.selectEntity(cb);
+            memberBhv.selectEntity(cb -> {
+                /* ## Act ## */
+                cb.query().setMemberId_InScope(Arrays.asList(new Integer[] { 3, 5 }));
+            });
 
             // ## Assert ##
             fail();
@@ -58,11 +57,8 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
 
     public void test_selectEntity_conditionNotFound() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // ## Act ##
         try {
-            memberBhv.selectEntity(cb);
+            memberBhv.selectEntity(cb -> {});
 
             // ## Assert ##
             fail();
@@ -74,7 +70,7 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            memberBhv.selectEntityWithDeletedCheck(cb);
+            memberBhv.selectEntityWithDeletedCheck(cb -> {});
 
             // ## Assert ##
             fail();
@@ -86,8 +82,9 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            cb.query().setMemberId_Equal(null);
-            memberBhv.selectEntity(cb);
+            memberBhv.selectEntity(cb -> {
+                cb.query().setMemberId_Equal(null);
+            });
 
             // ## Assert ##
             fail();
@@ -99,8 +96,9 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            cb.fetchFirst(1983);
-            memberBhv.selectEntity(cb);
+            memberBhv.selectEntity(cb -> {
+                cb.fetchFirst(1983);
+            });
 
             // ## Assert ##
             fail();
@@ -111,8 +109,9 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        cb.fetchFirst(1);
-        Member member = memberBhv.selectEntity(cb);
+        Member member = memberBhv.selectEntity(cb -> {
+            cb.fetchFirst(1);
+        });
 
         // ## Assert ##
         assertNotNull(member);
@@ -160,8 +159,7 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
         pmb.setMemberStatusCode_Formalized();
         PurchaseSummaryMemberCursorHandler handler = new PurchaseSummaryMemberCursorHandler() {
             public Object fetchCursor(PurchaseSummaryMemberCursor cursor) throws SQLException {
-                while (cursor.next()) {
-                }
+                while (cursor.next()) {}
                 return null;
             }
         };
@@ -178,14 +176,20 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_scalarSelect_max_union() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().columnRegisterDatetime();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.query().addOrderBy_RegisterDatetime_Desc();
-        cb.fetchFirst(1);
-        Timestamp expected1 = memberBhv.selectEntityWithDeletedCheck(cb).getRegisterDatetime();
-        cb.query().setMemberStatusCode_Equal_Withdrawal();
-        Timestamp expected2 = memberBhv.selectEntityWithDeletedCheck(cb).getRegisterDatetime();
+        Timestamp expected1 = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.specify().columnRegisterDatetime();
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.query().addOrderBy_RegisterDatetime_Desc();
+            cb.fetchFirst(1);
+        }).getRegisterDatetime();
+
+        Timestamp expected2 = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.specify().columnRegisterDatetime();
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.query().addOrderBy_RegisterDatetime_Desc();
+            cb.query().setMemberStatusCode_Equal_Withdrawal();
+            cb.fetchFirst(1);
+        }).getRegisterDatetime();
         Timestamp expected = expected1.compareTo(expected2) > 0 ? expected1 : expected2;
 
         // ## Act ##

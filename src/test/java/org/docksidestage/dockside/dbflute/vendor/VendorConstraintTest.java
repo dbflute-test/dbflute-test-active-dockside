@@ -150,12 +150,13 @@ public class VendorConstraintTest extends UnitContainerTestCase {
         Member member = new Member();
         member.setMemberAccount("Pixy");
 
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_PrefixSearch("S");
-
-        // ## Act & Assert ##
         try {
-            memberBhv.queryUpdate(member, cb);
+            memberBhv.queryUpdate(member, cb -> {
+                cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+
+                // ## Act & Assert ##
+                });
+
             fail();
         } catch (EntityAlreadyExistsException e) {
             SQLException cause = e.getSQLException();

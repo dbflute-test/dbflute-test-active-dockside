@@ -25,11 +25,10 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
     //                                                               =====================
     public void test_BizOneToOne_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberAddressAsValid(currentDate());
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberAddressAsValid(currentDate());
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -51,8 +50,6 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
     public void test_BizOneToOne_nullBinding() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
         try {
             cb.setupSelect_MemberAddressAsValid(null);
 
@@ -68,12 +65,11 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_BizOneToOne_SpecifyColumn_specifyEmpty() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberAddressAsValid(currentDate());
-        cb.specify().specifyMemberAddressAsValid().columnAddress();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberAddressAsValid(currentDate());
+            cb.specify().specifyMemberAddressAsValid().columnAddress();
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -93,12 +89,11 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
 
     public void test_BizOneToOne_SpecifyColumn_specifyOnceMore() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberAddressAsValid(currentDate());
-        cb.specify().specifyMemberAddressAsValid(currentDate()).columnAddress();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberAddressAsValid(currentDate());
+            cb.specify().specifyMemberAddressAsValid(currentDate()).columnAddress();
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -121,20 +116,20 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_BizOneToOne_ColumnQuery_specifyEmpty() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).lessThan(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberAddressAsValid().columnValidBeginDate();
-            }
-        });
-
-        // ## Act ##
         try {
-            memberBhv.selectList(cb);
+            memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().columnBirthdate();
+                    }
+                }).lessThan(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().specifyMemberAddressAsValid().columnValidBeginDate();
+                    }
+                });
+            });
+
             // ## Assert ##
             fail();
         } catch (FixedConditionParameterNotFoundException e) {

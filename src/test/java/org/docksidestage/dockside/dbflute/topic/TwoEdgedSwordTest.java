@@ -10,7 +10,6 @@ import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.dbmeta.info.ColumnInfo;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.MapLikeSearchPmb;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -50,41 +49,40 @@ public class TwoEdgedSwordTest extends UnitContainerTestCase {
     @SuppressWarnings("deprecation")
     public void test_embedCondition() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(3);
-        cb.query().setMemberName_PrefixSearch("Mijato");
-        cb.query().setFormalizedDatetime_LessEqual(currentTimestamp());
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(3);
+            cb.query().setMemberName_LikeSearch("Mijato", op -> op.likePrefix());
+            cb.query().setFormalizedDatetime_LessEqual(currentTimestamp());
 
-        // Internal Check!
-        String before2WaySQL = cb.getSqlClause().getClause();
-        log(ln() + "[Before]" + ln() + before2WaySQL);
-        assertTrue(before2WaySQL.contains(" /*pmb.conditionQuery.memberId"));
-        assertTrue(before2WaySQL.contains(" /*pmb.conditionQuery.memberName"));
-        assertTrue(before2WaySQL.contains(" /*pmb.conditionQuery.formalizedDatetime"));
-        assertFalse(before2WaySQL.contains(" /*$pmb.conditionQuery.memberId"));
-        assertFalse(before2WaySQL.contains(" /*$pmb.conditionQuery.memberName"));
-        assertFalse(before2WaySQL.contains(" /*$pmb.conditionQuery.formalizedDatetime"));
+            // Internal Check!
+                String before2WaySQL = cb.getSqlClause().getClause();
+                log(ln() + "[Before]" + ln() + before2WaySQL);
+                assertTrue(before2WaySQL.contains(" /*pmb.conditionQuery.memberId"));
+                assertTrue(before2WaySQL.contains(" /*pmb.conditionQuery.memberName"));
+                assertTrue(before2WaySQL.contains(" /*pmb.conditionQuery.formalizedDatetime"));
+                assertFalse(before2WaySQL.contains(" /*$pmb.conditionQuery.memberId"));
+                assertFalse(before2WaySQL.contains(" /*$pmb.conditionQuery.memberName"));
+                assertFalse(before2WaySQL.contains(" /*$pmb.conditionQuery.formalizedDatetime"));
 
-        Set<ColumnInfo> plainSet = new HashSet<ColumnInfo>();
-        plainSet.add(MemberDbm.getInstance().columnMemberId());
-        cb.embedCondition(plainSet, false); // mainly number type
+                Set<ColumnInfo> plainSet = new HashSet<ColumnInfo>();
+                plainSet.add(MemberDbm.getInstance().columnMemberId());
+                cb.embedCondition(plainSet, false); // mainly number type
 
-        Set<ColumnInfo> quotedSet = new HashSet<ColumnInfo>();
-        quotedSet.add(MemberDbm.getInstance().columnMemberName());
-        cb.embedCondition(quotedSet, true); // mainly string type
+                Set<ColumnInfo> quotedSet = new HashSet<ColumnInfo>();
+                quotedSet.add(MemberDbm.getInstance().columnMemberName());
+                cb.embedCondition(quotedSet, true); // mainly string type
 
-        // Internal Check!
-        String after2WaySQL = cb.getSqlClause().getClause();
-        log(ln() + "[After]" + ln() + after2WaySQL);
-        assertFalse(after2WaySQL.contains(" /*pmb.conditionQuery.memberId"));
-        assertFalse(after2WaySQL.contains(" /*pmb.conditionQuery.memberName"));
-        assertFalse(after2WaySQL.contains(" /*$pmb.conditionQuery.formalizedDatetime"));
-        assertTrue(after2WaySQL.contains(" /*$pmb.conditionQuery.memberId."));
-        assertTrue(after2WaySQL.contains(" /*$pmb.conditionQuery.memberName.varying.likeSearch.likeSearch0*/'dummy'"));
-        assertTrue(after2WaySQL.contains(" /*pmb.conditionQuery.formalizedDatetime"));
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+                // Internal Check!
+                String after2WaySQL = cb.getSqlClause().getClause();
+                log(ln() + "[After]" + ln() + after2WaySQL);
+                assertFalse(after2WaySQL.contains(" /*pmb.conditionQuery.memberId"));
+                assertFalse(after2WaySQL.contains(" /*pmb.conditionQuery.memberName"));
+                assertFalse(after2WaySQL.contains(" /*$pmb.conditionQuery.formalizedDatetime"));
+                assertTrue(after2WaySQL.contains(" /*$pmb.conditionQuery.memberId."));
+                assertTrue(after2WaySQL.contains(" /*$pmb.conditionQuery.memberName.varying.likeSearch.likeSearch0*/'dummy'"));
+                assertTrue(after2WaySQL.contains(" /*pmb.conditionQuery.formalizedDatetime"));
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -166,11 +164,9 @@ public class TwoEdgedSwordTest extends UnitContainerTestCase {
         memberBhv.insert(nonEscapeOnlyMember);
 
         // 一時的に登録した会員が想定しているものかどうかをチェック
-        MemberCB checkCB = new MemberCB();
-
-        // *Point!
-        checkCB.query().setMemberName_LikeSearch(keyword, new LikeSearchOption().likeContain().notEscape());
-        assertEquals("escapeなしで2件ともHITすること", 2, memberBhv.selectList(checkCB).size());
+        assertEquals("escapeなしで2件ともHITすること", 2, memberBhv.selectList(checkCB -> {
+            checkCB.query().setMemberName_LikeSearch(keyword, new LikeSearchOption().likeContain().notEscape());
+        }).size());
 
         // SQLのパス
         String path = MemberBhv.PATH_whitebox_pmbean_selectMapLikeSearch;

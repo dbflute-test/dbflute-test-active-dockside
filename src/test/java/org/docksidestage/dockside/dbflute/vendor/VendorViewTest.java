@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.cbean.result.ListResultBean;
-import org.docksidestage.dockside.dbflute.cbean.ProductStatusCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.cbean.SummaryProductCB;
 import org.docksidestage.dockside.dbflute.exbhv.ProductStatusBhv;
@@ -33,11 +32,10 @@ public class VendorViewTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_TableToView_setupSelect() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.setupSelect_SummaryProduct();
-
-        // ## Act ##
-        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_SummaryProduct();
+        });
 
         // ## Assert ##
         for (Purchase purchase : purchaseList) {
@@ -52,11 +50,10 @@ public class VendorViewTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_ViewToTable_setupSelect() {
         // ## Arrange ##
-        SummaryProductCB cb = new SummaryProductCB();
-        cb.setupSelect_ProductStatus();
-
-        // ## Act ##
-        ListResultBean<SummaryProduct> productList = summaryProductBhv.selectList(cb);
+        ListResultBean<SummaryProduct> productList = summaryProductBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_ProductStatus();
+        });
 
         // ## Assert ##
         for (SummaryProduct product : productList) {
@@ -66,8 +63,7 @@ public class VendorViewTest extends UnitContainerTestCase {
 
     public void test_ViewToTable_local_loadReferrer() {
         // ## Arrange ##
-        SummaryProductCB cb = new SummaryProductCB();
-        ListResultBean<SummaryProduct> summaryProductList = summaryProductBhv.selectList(cb);
+        ListResultBean<SummaryProduct> summaryProductList = summaryProductBhv.selectList(cb -> {});
 
         // ## Act ##
         summaryProductBhv.loadPurchaseList(summaryProductList, new ConditionBeanSetupper<PurchaseCB>() {
@@ -91,8 +87,7 @@ public class VendorViewTest extends UnitContainerTestCase {
 
     public void test_ViewToTable_foreign_loadReferrer() {
         // ## Arrange ##
-        ProductStatusCB cb = new ProductStatusCB();
-        ListResultBean<ProductStatus> productStatusList = productStatusBhv.selectList(cb);
+        ListResultBean<ProductStatus> productStatusList = productStatusBhv.selectList(cb -> {});
 
         // ## Act ##
         productStatusBhv.loadSummaryProductList(productStatusList, new ConditionBeanSetupper<SummaryProductCB>() {

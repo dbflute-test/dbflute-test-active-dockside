@@ -19,7 +19,6 @@ import org.dbflute.exception.EntityAlreadyDeletedException;
 import org.dbflute.exception.EntityAlreadyUpdatedException;
 import org.docksidestage.dockside.dbflute.allcommon.DBCurrent;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
-import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.SimpleMemberPmb;
@@ -48,9 +47,11 @@ public class VendorCheckTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+            pushCB(cb);
+        });
+
         int count = 0;
         for (Member member : memberList) {
             member.setMemberName("testName" + count);
@@ -96,9 +97,11 @@ public class VendorCheckTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+            pushCB(cb);
+        });
+
         int count = 0;
         for (Member member : memberList) {
             member.setMemberName("testName" + count);
@@ -158,23 +161,22 @@ public class VendorCheckTest extends UnitContainerTestCase {
         memberBhv.insert(nonEscapeOnlyMember);
 
         // 一時的に登録した会員が想定しているものかどうかをチェック
-        MemberCB checkCB = new MemberCB();
-
         // Check!
-        checkCB.query().setMemberName_LikeSearch(keyword, new LikeSearchOption().likeContain().notEscape());
-        assertEquals("escapeなしでも1件だけHITすること", 1, memberBhv.selectList(checkCB).size());
+        assertEquals("escapeなしでも1件だけHITすること", 1, memberBhv.selectList(checkCB -> {
+            checkCB.query().setMemberName_LikeSearch(keyword, new LikeSearchOption().likeContain().notEscape());
+        }).size());
 
         // /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-        MemberCB cb = new MemberCB();
-        LikeSearchOption option = new LikeSearchOption().likeContain(); // *Point!
-        cb.query().setMemberName_LikeSearch(keyword, option);
-        // - - - - - - - - - -/
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            LikeSearchOption option = new LikeSearchOption().likeContain(); // *Point!
+                cb.query().setMemberName_LikeSearch(keyword, option);
+                // - - - - - - - - - -/
 
-        String displaySql = cb.toDisplaySql();
-        assertTrue(displaySql.contains("100％ジュース||和歌山＿テ"));
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+                String displaySql = cb.toDisplaySql();
+                assertTrue(displaySql.contains("100％ジュース||和歌山＿テ"));
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -193,11 +195,11 @@ public class VendorCheckTest extends UnitContainerTestCase {
         member.setMemberId(4);
         member.setMemberName("fo[v]％barc%o");
         memberBhv.updateNonstrict(member);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_LikeSearch("[v]％c", new LikeSearchOption().likeContain());
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberName_LikeSearch("[v]％c", new LikeSearchOption().likeContain());
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -257,21 +259,21 @@ public class VendorCheckTest extends UnitContainerTestCase {
     //                                                                        ============
     public void test_query_InScope_SeveralRegistered() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        List<Integer> memberIdList = new ArrayList<Integer>();
-        for (int i = 0; i < 3123; i++) {
-            memberIdList.add(i);
-        }
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.query().setMemberId_InScope(memberIdList);
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb); // Except no exception
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            List<Integer> memberIdList = new ArrayList<Integer>();
+            for (int i = 0; i < 3123; i++) {
+                memberIdList.add(i);
+            }
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.query().setMemberId_InScope(memberIdList);
+            pushCB(cb);
+        }); // Except no exception
 
         // ## Assert ##
         assertNotNull(memberList);
         assertFalse(memberList.isEmpty());
-        String displaySql = cb.toDisplaySql();
+        String displaySql = popCB().toDisplaySql();
         assertTrue(displaySql.contains(" in ("));
         assertFalse(displaySql.contains(") or "));
     }
@@ -323,10 +325,10 @@ public class VendorCheckTest extends UnitContainerTestCase {
         }
         // Repeat the member as joined table
         {
-            PurchaseCB purchaseCB = new PurchaseCB();
-            purchaseCB.setupSelect_Member();
-            purchaseCB.query().setMemberId_Equal(3);
-            Member actual = purchaseBhv.selectList(purchaseCB).get(0).getMember();
+            Member actual = purchaseBhv.selectList(purchaseCB -> {
+                purchaseCB.setupSelect_Member();
+                purchaseCB.query().setMemberId_Equal(3);
+            }).get(0).getMember();
             log("joined actual=" + actual);
             assertEquals("testName", actual.getMemberName());
         }
@@ -350,10 +352,10 @@ public class VendorCheckTest extends UnitContainerTestCase {
         }
         // Repeat the member as joined table
         {
-            PurchaseCB purchaseCB = new PurchaseCB();
-            purchaseCB.setupSelect_Member();
-            purchaseCB.query().setMemberId_Equal(3);
-            Member actual = purchaseBhv.selectList(purchaseCB).get(0).getMember();
+            Member actual = purchaseBhv.selectList(purchaseCB -> {
+                purchaseCB.setupSelect_Member();
+                purchaseCB.query().setMemberId_Equal(3);
+            }).get(0).getMember();
             log("joined actual=" + actual);
             assertEquals("testName", actual.getMemberName());
         }
@@ -413,16 +415,16 @@ public class VendorCheckTest extends UnitContainerTestCase {
 
     public void doTest_paging_binding(boolean suppress) {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        if (suppress) {
-            ((SqlClauseH2) cb.getSqlClause()).suppressPagingBinding();
-        }
-        cb.query().addOrderBy_MemberId_Asc();
-        cb.paging(4, 3);
-        assertEquals(3, cb.getFetchPageNumber());
-
         // ## Act ##
-        PagingResultBean<Member> page = memberBhv.selectPage(cb); // re-select
+        PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
+            if (suppress) {
+                ((SqlClauseH2) cb.getSqlClause()).suppressPagingBinding();
+            }
+            cb.query().addOrderBy_MemberId_Asc();
+            cb.paging(4, 3);
+            assertEquals(3, cb.getFetchPageNumber());
+            pushCB(cb);
+        }); // re-select
 
         // ## Assert ##
         assertEquals(4, page.size());
@@ -432,13 +434,12 @@ public class VendorCheckTest extends UnitContainerTestCase {
         assertEquals(5, page.getAllPageCount());
         assertEquals(Integer.valueOf(9), page.get(0).getMemberId());
 
-        String clause = cb.getSqlClause().getClause();
+        String clause = popCB().getSqlClause().getClause();
         log(ln() + clause);
         if (suppress) {
             assertTrue(clause.contains("limit 4 offset 8"));
         } else {
-            assertTrue(clause
-                    .contains("limit /*pmb.sqlClause.pagingBindingLimit*/0 offset /*pmb.sqlClause.pagingBindingOffset*/0"));
+            assertTrue(clause.contains("limit /*pmb.sqlClause.pagingBindingLimit*/0 offset /*pmb.sqlClause.pagingBindingOffset*/0"));
         }
     }
 }

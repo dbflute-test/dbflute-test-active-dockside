@@ -11,7 +11,6 @@ import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlResultHandler;
 import org.dbflute.hook.SqlResultInfo;
 import org.dbflute.outsidesql.OutsideSqlContext;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
@@ -37,10 +36,10 @@ public class WxCBSelectCursorTest extends UnitContainerTestCase {
     public void test_insert_in_selectCursor_of_conditionBean_sameTable() throws Exception {
         // ## Arrange ##
         final List<Integer> memberIdList = new ArrayList<Integer>();
-        MemberCB cb = new MemberCB();
+        memberBhv.selectCursor(cb -> {
+            /* ## Act ## */
+        }, new EntityRowHandler<Member>() {
 
-        // ## Act ##
-        memberBhv.selectCursor(cb, new EntityRowHandler<Member>() {
             int count = 0;
 
             public void handle(Member entity) {
@@ -74,10 +73,10 @@ public class WxCBSelectCursorTest extends UnitContainerTestCase {
     public void test_insert_in_selectCursor_of_conditionBean_diffTable() throws Exception {
         // ## Arrange ##
         final List<String> codeList = new ArrayList<String>();
-        MemberCB cb = new MemberCB();
+        memberBhv.selectCursor(cb -> {
+            /* ## Act ## */
+        }, new EntityRowHandler<Member>() {
 
-        // ## Act ##
-        memberBhv.selectCursor(cb, new EntityRowHandler<Member>() {
             int count = 0;
 
             public void handle(Member entity) {
@@ -123,30 +122,30 @@ public class WxCBSelectCursorTest extends UnitContainerTestCase {
     //                                                                      ==============
     public void test_selectCursor_parentContext_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // ## Act ##
-        CallbackContext.setSqlResultHandlerOnThread(new SqlResultHandler() {
-            public void handle(SqlResultInfo info) {
-                ResourceContext context = ResourceContext.getResourceContextOnThread();
-                ResourceContext parentContext = context.getParentContext();
-
-                // ## Assert ##
-                if (context.getBehaviorCommand().isSelectCursor()) {
-                    assertNull(parentContext);
-                } else if (context.getBehaviorCommand().isSelectCount()) {
-                    assertNotNull(parentContext);
-                    log("parentContext=" + parentContext.getBehaviorCommand().getCommandName());
-                    assertTrue(parentContext.getBehaviorCommand().isSelectCursor());
-                } else {
-                    fail();
-                }
-            }
-        });
         try {
-            memberBhv.selectCursor(cb, new EntityRowHandler<Member>() {
+            memberBhv.selectCursor(cb -> {
+                /* ## Act ## */
+                CallbackContext.setSqlResultHandlerOnThread(new SqlResultHandler() {
+                    public void handle(SqlResultInfo info) {
+                        ResourceContext context = ResourceContext.getResourceContextOnThread();
+                        ResourceContext parentContext = context.getParentContext();
+
+                        // ## Assert ##
+                        if (context.getBehaviorCommand().isSelectCursor()) {
+                            assertNull(parentContext);
+                        } else if (context.getBehaviorCommand().isSelectCount()) {
+                            assertNotNull(parentContext);
+                            log("parentContext=" + parentContext.getBehaviorCommand().getCommandName());
+                            assertTrue(parentContext.getBehaviorCommand().isSelectCursor());
+                        } else {
+                            fail();
+                        }
+                    }
+                });
+            }, new EntityRowHandler<Member>() {
+
                 public void handle(Member entity) {
-                    memberBhv.selectCount(new MemberCB());
+                    memberBhv.selectCount(countCB -> {});
                 }
             });
         } finally {

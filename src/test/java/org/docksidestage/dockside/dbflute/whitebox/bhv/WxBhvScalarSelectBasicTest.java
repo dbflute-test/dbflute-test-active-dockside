@@ -48,13 +48,13 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_ScalarSelect_max() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().columnBirthdate();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.query().setBirthdate_IsNotNull();
-        cb.query().addOrderBy_Birthdate_Desc();
-        cb.fetchFirst(1);
-        Date expected = memberBhv.selectEntityWithDeletedCheck(cb).getBirthdate();
+        Date expected = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.specify().columnBirthdate();
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.query().setBirthdate_IsNotNull();
+            cb.query().addOrderBy_Birthdate_Desc();
+            cb.fetchFirst(1);
+        }).getBirthdate();
 
         // ## Act ##
         Date birthdate = memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
@@ -73,8 +73,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
     //                                                                      ==============
     public void test_ScalarSelect_count() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        int countAll = memberBhv.selectCount(cb);
+        int countAll = memberBhv.selectCount(countCB -> {});
 
         // ## Act ##
         Integer scalarCount = memberBhv.scalarSelect(Integer.class).count(new ScalarQuery<MemberCB>() {
@@ -92,8 +91,8 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
     //                                                                      ==============
     public void test_ScalarSelect_countDistinct_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {});
+
         HashSet<String> statusSet = new HashSet<String>();
         for (Member member : memberList) {
             statusSet.add(member.getMemberStatusCode());
@@ -130,16 +129,17 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
     //                                                                     ===============
     public void test_ScalarSelect_DerivedReferrer_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchasePrice();
-                subCB.query().setPaymentCompleteFlg_Equal_True();
-                subCB.query().setPurchasePrice_GreaterEqual(800);
-            }
-        }, Member.ALIAS_productKindCount, op -> op.coalesce(0));
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchasePrice();
+                    subCB.query().setPaymentCompleteFlg_Equal_True();
+                    subCB.query().setPurchasePrice_GreaterEqual(800);
+                }
+            }, Member.ALIAS_productKindCount, op -> op.coalesce(0));
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        });
+
         Integer expected = 0;
         for (Member member : memberList) {
             Integer max = member.getProductKindCount();
@@ -168,21 +168,22 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
 
     public void test_ScalarSelect_DerivedReferrer_with_UnionQuery() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchasePrice();
-                subCB.query().setPaymentCompleteFlg_Equal_True();
-                subCB.query().setPurchasePrice_GreaterEqual(800);
-            }
-        }, Member.ALIAS_productKindCount, op -> op.coalesce(0));
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberStatusCode_Equal_Withdrawal();
-                orCB.query().setMemberName_PrefixSearch("S");
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchasePrice();
+                    subCB.query().setPaymentCompleteFlg_Equal_True();
+                    subCB.query().setPurchasePrice_GreaterEqual(800);
+                }
+            }, Member.ALIAS_productKindCount, op -> op.coalesce(0));
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberStatusCode_Equal_Withdrawal();
+                    orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                }
+            });
         });
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+
         Integer expected = 0;
         for (Member member : memberList) {
             Integer max = member.getProductKindCount();
@@ -218,9 +219,10 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
     //                                                                          ==========
     public void test_ScalarSelect_with_UnionQuery_basic_sum() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberServiceAsOne();
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberServiceAsOne();
+        });
+
         Integer expected = 0;
         for (Member member : memberList) {
             Integer pointCount = member.getMemberServiceAsOne().getServicePointCount();
@@ -262,9 +264,10 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
 
     public void test_ScalarSelect_with_UnionQuery_PrimaryKey_sum() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberServiceAsOne();
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberServiceAsOne();
+        });
+
         Integer expected = 0;
         for (Member member : memberList) {
             Integer pointCount = member.getMemberServiceAsOne().getServicePointCount();
@@ -305,15 +308,16 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
 
     public void test_ScalarSelect_with_UnionQuery_noPrimaryKey_sum() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchasePrice();
-            }
-        }, Member.ALIAS_highestPurchasePrice);
-        cb.query().setMemberStatusCode_Equal_Withdrawal();
-        cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_highestPurchasePrice);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchasePrice();
+                }
+            }, Member.ALIAS_highestPurchasePrice);
+            cb.query().setMemberStatusCode_Equal_Withdrawal();
+            cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_highestPurchasePrice);
+        });
+
         Integer expected = 0;
         for (Member member : memberList) {
             Integer maxPurchasePrice = member.getHighestPurchasePrice();

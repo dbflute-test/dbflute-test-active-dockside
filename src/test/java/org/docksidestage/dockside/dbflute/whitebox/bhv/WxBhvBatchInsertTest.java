@@ -10,7 +10,6 @@ import org.dbflute.hook.SqlLogInfo;
 import org.dbflute.hook.SqlResultHandler;
 import org.dbflute.hook.SqlResultInfo;
 import org.dbflute.util.Srl;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -77,9 +76,10 @@ public class WxBhvBatchInsertTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertEquals(3, result.length);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberAccount_PrefixSearch("testAccount");
-        ListResultBean<Member> actualList = memberBhv.selectList(cb);
+        ListResultBean<Member> actualList = memberBhv.selectList(cb -> {
+            cb.query().setMemberAccount_LikeSearch("testAccount", op -> op.likePrefix());
+        });
+
         assertEquals(3, actualList.size());
         assertEquals("testName1", actualList.get(0).getMemberName());
         assertEquals("testName2", actualList.get(1).getMemberName());
@@ -98,9 +98,10 @@ public class WxBhvBatchInsertTest extends UnitContainerTestCase {
         // ## Arrange ##
         List<Member> memberList;
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberId_InScope(newArrayList(1, 3, 7));
-            memberList = memberBhv.selectList(cb);
+            memberList = memberBhv.selectList(cb -> {
+                cb.query().setMemberId_InScope(newArrayList(1, 3, 7));
+            });
+
         }
         {
             Member member = memberList.get(0);
@@ -126,9 +127,10 @@ public class WxBhvBatchInsertTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertEquals(3, result.length);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberAccount_PrefixSearch("testAccount");
-        ListResultBean<Member> actualList = memberBhv.selectList(cb);
+        ListResultBean<Member> actualList = memberBhv.selectList(cb -> {
+            cb.query().setMemberAccount_LikeSearch("testAccount", op -> op.likePrefix());
+        });
+
         assertEquals(3, actualList.size());
         assertEquals("testName1", actualList.get(0).getMemberName());
         assertEquals("testName2", actualList.get(1).getMemberName());
@@ -175,15 +177,17 @@ public class WxBhvBatchInsertTest extends UnitContainerTestCase {
 
         // ## Assert ##
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberAccount_Equal("testAccount2");
-            Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+            Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().setMemberAccount_Equal("testAccount2");
+            });
+
             assertNull(member.getBirthdate());
         }
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberAccount_Equal("testAccount3");
-            Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+            Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().setMemberAccount_Equal("testAccount3");
+            });
+
             assertNotNull(member.getBirthdate());
         }
     }
@@ -192,9 +196,10 @@ public class WxBhvBatchInsertTest extends UnitContainerTestCase {
         // ## Arrange ##
         List<Member> memberList;
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberId_InScope(newArrayList(1, 3, 7));
-            memberList = memberBhv.selectList(cb);
+            memberList = memberBhv.selectList(cb -> {
+                cb.query().setMemberId_InScope(newArrayList(1, 3, 7));
+            });
+
         }
         {
             Member member = memberList.get(0);
@@ -221,20 +226,23 @@ public class WxBhvBatchInsertTest extends UnitContainerTestCase {
 
         // ## Assert ##
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberAccount_Equal("testAccount2");
-            Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+            Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().setMemberAccount_Equal("testAccount2");
+            });
+
             assertNull(member.getBirthdate());
         }
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberAccount_Equal("testAccount3");
-            Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+            Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().setMemberAccount_Equal("testAccount3");
+            });
+
             assertNotNull(member.getBirthdate());
         }
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberAccount_PrefixSearch("testAccount");
-        ListResultBean<Member> actualList = memberBhv.selectList(cb);
+        ListResultBean<Member> actualList = memberBhv.selectList(cb -> {
+            cb.query().setMemberAccount_LikeSearch("testAccount", op -> op.likePrefix());
+        });
+
         assertEquals(memberList.get(0).getFormalizedDatetime(), actualList.get(0).getFormalizedDatetime());
         assertEquals(memberList.get(1).getFormalizedDatetime(), actualList.get(1).getFormalizedDatetime());
         assertEquals(memberList.get(2).getFormalizedDatetime(), actualList.get(2).getFormalizedDatetime());

@@ -72,8 +72,7 @@ public class WxBhvScalarSelectDreamCruiseTest extends UnitContainerTestCase {
                 cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
-                        subCB.specify().columnPurchasePrice().multiply(3)
-                                .plus(dreamCruiseCB.specify().columnPurchaseCount());
+                        subCB.specify().columnPurchasePrice().multiply(3).plus(dreamCruiseCB.specify().columnPurchaseCount());
                     }
                 }, null);
             }
@@ -102,8 +101,7 @@ public class WxBhvScalarSelectDreamCruiseTest extends UnitContainerTestCase {
                 cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
-                        subCB.specify().columnPurchasePrice().multiply(3)
-                                .plus(dreamCruiseCB.specify().columnPurchaseCount());
+                        subCB.specify().columnPurchasePrice().multiply(3).plus(dreamCruiseCB.specify().columnPurchaseCount());
                     }
                 }, null);
                 cb.query().setMemberStatusCode_Equal_Formalized();

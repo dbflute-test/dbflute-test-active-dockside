@@ -49,22 +49,21 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_invokeSetupSelect_oneLevel() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
+        Member member = memberBhv.selectEntity(cb -> {
+            /* ## Act ## */
+            cb.invokeSetupSelect("memberStatus");
 
-        // ## Act ##
-        cb.invokeSetupSelect("memberStatus");
+            // ## Assert ##
+                cb.query().setMemberId_Equal(3);
+                pushCB(cb);
+            });
 
-        // ## Assert ##
-        cb.query().setMemberId_Equal(3);
-        Member member = memberBhv.selectEntity(cb);
         assertNotNull(member.getMemberStatus());
     }
 
     public void test_invokeSetupSelect_oneLevel_notExists() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
         try {
             cb.invokeSetupSelect("memberOverTheWaves");
 
@@ -78,14 +77,15 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
     public void test_invokeSetupSelect_twoLevel() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
+        Purchase purchase = purchaseBhv.selectEntity(cb -> {
+            /* ## Act ## */
+            cb.invokeSetupSelect("member.memberStatus");
 
-        // ## Act ##
-        cb.invokeSetupSelect("member.memberStatus");
+            // ## Assert ##
+                cb.query().setPurchaseId_Equal(3L);
+                pushCB(cb);
+            });
 
-        // ## Assert ##
-        cb.query().setPurchaseId_Equal(3L);
-        Purchase purchase = purchaseBhv.selectEntity(cb);
         assertNotNull(purchase.getMember());
         assertNotNull(purchase.getMember().getMemberStatus());
     }
@@ -93,8 +93,6 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
     public void test_invokeSetupSelect_twoLevel_notExists() {
         // ## Arrange ##
         PurchaseCB cb = new PurchaseCB();
-
-        // ## Act ##
         try {
             cb.invokeSetupSelect("member.memberBonFire");
 
@@ -186,12 +184,11 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         // ## Act ##
         cb.localCQ().invokeQuery(name, ConditionKey.CK_EQUAL.getConditionKey(), "foo");
         cb.localCQ().invokeQuery(name, ConditionKey.CK_NOT_EQUAL_STANDARD.getConditionKey(), "foo");
-        cb.localCQ().invokeQuery(name, ConditionKey.CK_LIKE_SEARCH.getConditionKey(), "foo",
-                new LikeSearchOption().likePrefix());
+        cb.localCQ().invokeQuery(name, ConditionKey.CK_LIKE_SEARCH.getConditionKey(), "foo", new LikeSearchOption().likePrefix());
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(sql.contains(" = 'foo'"));
         assertTrue(sql.contains(" <> 'foo'"));
@@ -206,8 +203,6 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         list.add("A");
         list.add("B");
         list.add("C");
-
-        // ## Act ##
         cb.query().invokeQuery(propertyName, "inScope", list);
 
         // ## Assert ##
@@ -238,7 +233,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(sql.contains(" = '2011-08-23'"));
         assertTrue(sql.contains(" >= '2011-08-23'"));
@@ -264,7 +259,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(sql.contains(" = '2011-08-23'"));
         assertTrue(sql.contains(" >= '2011-08-23'"));
@@ -294,7 +289,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(sql.contains(" = 10"));
         assertTrue(sql.contains(" >= 10"));
@@ -317,7 +312,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(sql.contains(" is null"));
         assertTrue(sql.contains(" is not null"));
@@ -334,7 +329,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertFalse(cb.hasWhereClauseOnBaseQuery());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertFalse(sql.contains(" is null"));
         assertFalse(sql.contains(" is not null"));
@@ -353,9 +348,9 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         cb.localCQ().invokeQuery(columnDbName, keyName, "");
 
         // ## Assert ##
-        log(cb.toDisplaySql());
+        log(popCB().toDisplaySql());
         assertNull(cb.localCQ().invokeValue(columnDbName).getFixed());
-        assertFalse(cb.toDisplaySql().contains("where "));
+        assertFalse(popCB().toDisplaySql().contains("where "));
     }
 
     // -----------------------------------------------------
@@ -372,18 +367,18 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         cb.localCQ().invokeQuery(columnDbName, keyName, null);
 
         // ## Assert ##
-        log(ln() + cb.toDisplaySql());
+        log(ln() + popCB().toDisplaySql());
         assertNull(cb.localCQ().invokeValue(columnDbName).getFixed());
-        assertFalse(cb.toDisplaySql().contains("where "));
+        assertFalse(popCB().toDisplaySql().contains("where "));
 
         // ## Act ##
         cb.localCQ().invokeQuery(columnDbName, keyName, "foo");
         cb.localCQ().invokeQuery(columnDbName, keyName, null);
 
         // ## Assert ##
-        log(ln() + cb.toDisplaySql());
+        log(ln() + popCB().toDisplaySql());
         assertNotNull(cb.localCQ().invokeValue(columnDbName).getFixed());
-        assertTrue(cb.toDisplaySql().contains("where "));
+        assertTrue(popCB().toDisplaySql().contains("where "));
     }
 
     // -----------------------------------------------------
@@ -393,8 +388,6 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         // ## Arrange ##
         final MemberCB cb = new MemberCB();
         final String propertyName = MemberDbm.getInstance().columnMemberName().getPropertyName();
-
-        // ## Act ##
         cb.query().invokeQuery(propertyName, "Equal", "testValue");
 
         // ## Assert ##
@@ -407,8 +400,6 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         // ## Arrange ##
         final MemberCB cb = new MemberCB();
         final String propertyName = MemberDbm.getInstance().columnMemberName().getColumnDbName();
-
-        // ## Act ##
         cb.query().invokeQuery(propertyName, "Equal", "testValue");
 
         // ## Assert ##
@@ -425,8 +416,6 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         final MemberCB cb = new MemberCB();
         final String foreingPropertyName = MemberDbm.getInstance().foreignMemberStatus().getForeignPropertyName();
         final String propertyName = MemberStatusDbm.getInstance().columnMemberStatusName().getPropertyName();
-
-        // ## Act ##
         cb.query().invokeQuery(foreingPropertyName + "." + propertyName, "Equal", "testValue");
 
         // ## Assert ##
@@ -445,13 +434,10 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
             final String prop = WithdrawalReasonDbm.getInstance().columnWithdrawalReasonText().getPropertyName();
             targetName = name1 + "." + name2 + "." + prop;
         }
-
-        // ## Act ##
         cb.query().invokeQuery(targetName, "Equal", "testValue");
 
         // ## Assert ##
-        final ConditionValue value = cb.query().queryMemberWithdrawalAsOne().queryWithdrawalReason()
-                .getWithdrawalReasonText();
+        final ConditionValue value = cb.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().getWithdrawalReasonText();
         log("conditionValue=" + value);
         assertEquals("testValue", value.getFixedQuery().get("equal"));
     }
@@ -469,7 +455,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(sql.contains(" = 'FML'"));
     }
@@ -553,13 +539,14 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
     public void test_invokeQuery_equal() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().invokeQueryEqual("memberId", 3);
 
-        // ## Act ##
-        cb.query().invokeQueryEqual("memberId", 3);
+            // ## Assert ##
+                pushCB(cb);
+            });
 
-        // ## Assert ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
         assertEquals(3, member.getMemberId());
     }
 
@@ -571,8 +558,6 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         final MemberCB cb = new MemberCB();
         final String propertyName = MemberDbm.getInstance().columnMemberName().getPropertyName();
         final String columnName = MemberDbm.getInstance().columnMemberName().getColumnDbName();
-
-        // ## Act ##
         cb.query().invokeOrderBy(propertyName, true);
 
         // ## Assert ##
@@ -586,8 +571,6 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         // ## Arrange ##
         final MemberCB cb = new MemberCB();
         final String columnName = MemberDbm.getInstance().columnMemberName().getColumnDbName();
-
-        // ## Act ##
         cb.query().invokeOrderBy(columnName, true);
 
         // ## Assert ##
@@ -603,8 +586,6 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         final String foreingPropertyName = MemberDbm.getInstance().foreignMemberStatus().getForeignPropertyName();
         final String propertyName = MemberStatusDbm.getInstance().columnMemberStatusName().getPropertyName();
         final String columnName = MemberStatusDbm.getInstance().columnMemberStatusName().getColumnDbName();
-
-        // ## Act ##
         cb.query().invokeOrderBy(foreingPropertyName + "." + propertyName, false);
 
         // ## Assert ##
@@ -617,15 +598,11 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
     public void test_invokeOrderBy_resolveNestedRelation() {
         // ## Arrange ##
         final MemberCB cb = new MemberCB();
-        final String foreingPropertyName1 = MemberDbm.getInstance().foreignMemberWithdrawalAsOne()
-                .getForeignPropertyName();
-        final String foreingPropertyName2 = MemberWithdrawalDbm.getInstance().foreignWithdrawalReason()
-                .getForeignPropertyName();
+        final String foreingPropertyName1 = MemberDbm.getInstance().foreignMemberWithdrawalAsOne().getForeignPropertyName();
+        final String foreingPropertyName2 = MemberWithdrawalDbm.getInstance().foreignWithdrawalReason().getForeignPropertyName();
         final String propertyName = WithdrawalReasonDbm.getInstance().columnWithdrawalReasonText().getPropertyName();
         final String targetName = foreingPropertyName1 + "." + foreingPropertyName2 + "." + propertyName;
         final String columnName = WithdrawalReasonDbm.getInstance().columnWithdrawalReasonText().getColumnDbName();
-
-        // ## Act ##
         cb.query().invokeOrderBy(targetName, false);
 
         // ## Assert ##

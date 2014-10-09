@@ -51,7 +51,7 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
         cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(4, 5, 6)); // append
         cb.query().setMemberId_NotInScope(DfCollectionUtil.newArrayList(7, 8, 9));
         cb.query().setMemberName_Equal("Foo");
-        cb.query().setMemberName_PrefixSearch("A");
+        cb.query().setMemberName_LikeSearch("A", op -> op.likePrefix());
         cb.query().setMemberName_LikeSearch("B%|B", new LikeSearchOption().likeSuffix());
         cb.query().setMemberName_LikeSearch("C", new LikeSearchOption().likeContain()); // append
         cb.query().inline().setBirthdate_Equal(DfTypeUtil.toDate("2099/07/08"));
@@ -67,7 +67,7 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
                 orCB.query().setMemberId_NotEqual(21);
                 orCB.query().setMemberId_NotEqual(22);
                 orCB.query().setMemberId_NotEqual(23);
-                orCB.query().setMemberName_PrefixSearch("X");
+                orCB.query().setMemberName_LikeSearch("X", op -> op.likePrefix());
                 orCB.query().setMemberName_LikeSearch("Y", new LikeSearchOption().likeSuffix());
                 orCB.query().setMemberName_LikeSearch("Z%|Z", new LikeSearchOption().likeContain()); // append
                 orCB.orScopeQueryAndPart(new AndQuery<MemberCB>() {
@@ -133,8 +133,6 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
                 orCB.query().setMemberId_Equal(88);
             }
         });
-
-        // ## Act ##
         String sql = cb.toDisplaySql();
 
         // ## Assert ##
@@ -186,8 +184,7 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
         assertTrue(Srl.count(sql, "     or dfloc.FORMALIZED_DATETIME is not null") == 2);
         assertTrue(sql.contains("     or dfloc.MEMBER_ID = 88"));
         assertTrue(sql.contains(" where dfinlineloc.BIRTHDATE = '2010-07-08'"));
-        assertTrue(sql
-                .contains("   and (dfinlineloc.BIRTHDATE = '2010-07-09' or dfinlineloc.BIRTHDATE = '2010-07-10')"));
+        assertTrue(sql.contains("   and (dfinlineloc.BIRTHDATE = '2010-07-09' or dfinlineloc.BIRTHDATE = '2010-07-10')"));
         assertTrue(sql.contains("   and dfinlineloc.MEMBER_ID <> 72"));
         assertTrue(sql.contains("   and dfinlineloc.MEMBER_ID >= 75"));
         assertTrue(sql.contains("   and dfrel_0.DISPLAY_ORDER = 60"));
@@ -197,11 +194,9 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
     public void test_query_keptLocation() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().setMemberName_PrefixSearch("A");
-        cb.query().inline().setMemberName_PrefixSearch("B");
-        cb.query().setMemberName_PrefixSearch("C");
-
-        // ## Act ##
+        cb.query().setMemberName_LikeSearch("A", op -> op.likePrefix());
+        cb.query().inline().setMemberName_LikeSearch("B", op -> op.likePrefix());
+        cb.query().setMemberName_LikeSearch("C", op -> op.likePrefix());
         String actual = cb.toDisplaySql();
 
         // ## Assert ##
@@ -214,8 +209,6 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
     public void test_query_nullOrEmpty() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
         cb.query().setMemberId_Equal(null);
         cb.query().setMemberId_GreaterEqual(null);
         cb.query().setMemberId_GreaterThan(null);
@@ -257,8 +250,6 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
         String expected = "2010/07/08 12:34:56.123";
         MemberCB cb = new MemberCB();
         Date current = DfTypeUtil.toDate(expected);
-
-        // ## Act ##
         cb.query().setBirthdate_Equal(current);
 
         // ## Assert ##
@@ -270,12 +261,12 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
     public void test_query_Date_keepPlain_Timestamp() {
         // ## Arrange ##
         String expected = "2010/07/08 12:34:56.123";
-        MemberCB cb = new MemberCB();
-        Date current = DfTypeUtil.toTimestamp(expected);
-
-        // ## Act ##
-        cb.query().setBirthdate_Equal(current);
-        memberBhv.selectList(cb);
+        memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            Date current = DfTypeUtil.toTimestamp(expected);
+            cb.query().setBirthdate_Equal(current);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         String actual = DfTypeUtil.toString(current, "yyyy/MM/dd HH:mm:ss.SSS");
@@ -286,13 +277,13 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
     public void test_query_Date_DateFromTo_keepPlain() {
         // ## Arrange ##
         String expected = "2010/07/08 12:34:56.123";
-        MemberCB cb = new MemberCB();
-        Date fromDate = DfTypeUtil.toDate(expected);
-        Date toDate = DfTypeUtil.toDate(expected);
-
-        // ## Act ##
-        cb.query().setBirthdate_DateFromTo(fromDate, toDate);
-        memberBhv.selectList(cb);
+        memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            Date fromDate = DfTypeUtil.toDate(expected);
+            Date toDate = DfTypeUtil.toDate(expected);
+            cb.query().setBirthdate_FromTo(fromDate, toDate, op -> op.compareAsDate());
+            pushCB(cb);
+        });
 
         // ## Assert ##
         String fromActual = DfTypeUtil.toString(fromDate, "yyyy/MM/dd HH:mm:ss.SSS");

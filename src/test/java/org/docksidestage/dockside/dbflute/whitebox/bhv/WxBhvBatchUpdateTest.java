@@ -70,9 +70,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(3);
         memberIdList.add(7);
         int count = 0;
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> beforeList = memberBhv.selectList(cb);
+        ListResultBean<Member> beforeList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         List<Long> expectedVersionNoList = new ArrayList<Long>();
         List<Member> memberList = new ArrayList<Member>();
         for (Member before : beforeList) {
@@ -105,9 +106,9 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             assertEquals(Long.valueOf(versionNo + 1L), actualVersionNoList.get(index));
             ++index;
         }
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberId_InScope(memberIdList);
+        });
         boolean exists = false;
         for (Member member : actualList) {
             Timestamp formalizedDatetime = member.getFormalizedDatetime();
@@ -127,9 +128,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(3);
         memberIdList.add(7);
         int count = 0;
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         List<Long> expectedVersionNoList = new ArrayList<Long>();
         for (Member member : memberList) {
             member.setMemberName("testName" + count);
@@ -157,9 +159,9 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             assertEquals(Long.valueOf(versionNo + 1L), actualVersionNoList.get(index));
             ++index;
         }
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberId_InScope(memberIdList);
+        });
         boolean exists = false;
         for (Member member : actualList) {
             Timestamp formalizedDatetime = member.getFormalizedDatetime();
@@ -178,9 +180,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> beforeList = memberBhv.selectList(cb);
+        ListResultBean<Member> beforeList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         String memberName = "oneColumn";
         List<Member> memberList = new ArrayList<Member>();
         for (Member before : beforeList) {
@@ -196,9 +199,9 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertEquals(3, result.length);
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberId_InScope(memberIdList);
+        });
         for (Member member : actualList) {
             assertEquals(memberName, member.getMemberName());
         }
@@ -213,9 +216,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> beforeList = memberBhv.selectList(cb);
+        ListResultBean<Member> beforeList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         String memberName = "oneColumn";
         List<Member> memberList = new ArrayList<Member>();
         for (Member before : beforeList) {
@@ -247,9 +251,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(7);
         ListResultBean<Member> beforeList;
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberId_InScope(memberIdList);
-            beforeList = memberBhv.selectList(cb);
+            beforeList = memberBhv.selectList(cb -> {
+                cb.query().setMemberId_InScope(memberIdList);
+            });
+
         }
         String memberName = "oneColumn";
         List<Member> memberList = new ArrayList<Member>();
@@ -286,9 +291,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         String memberName = "oneColumn";
         for (Member member : memberList) {
             member.setMemberName(memberName);
@@ -315,9 +321,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(7);
         ListResultBean<Member> memberList;
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberId_InScope(memberIdList);
-            memberList = memberBhv.selectList(cb);
+            memberList = memberBhv.selectList(cb -> {
+                cb.query().setMemberId_InScope(memberIdList);
+            });
+
         }
         String memberName = "oneColumn";
         Date currentDate = currentDate();
@@ -354,9 +361,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(7);
         ListResultBean<Member> beforeList;
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberId_InScope(memberIdList);
-            beforeList = memberBhv.selectList(cb);
+            beforeList = memberBhv.selectList(cb -> {
+                cb.query().setMemberId_InScope(memberIdList);
+            });
+
         }
         List<Member> memberList = new ArrayList<Member>();
         String memberName = "oneColumn";
@@ -438,9 +446,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         for (Member member : memberList) {
             member.setMemberName("testName");
             member.setMemberAccount("testAccount");
@@ -472,9 +481,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         List<Long> expectedVersionNoList = new ArrayList<Long>();
         {
             int count = 0;
@@ -603,9 +613,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         List<Long> expectedVersionNoList = new ArrayList<Long>();
         {
             int count = 0;
@@ -643,9 +654,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         List<Long> expectedVersionNoList = new ArrayList<Long>();
         {
             int count = 0;
@@ -676,8 +688,8 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
 
     public void test_batchUpdate_specifyUpdateColumn_emptySpecification_noCommonColumn() throws Exception {
         // ## Arrange ##
-        MemberStatusCB cb = new MemberStatusCB();
-        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb);
+        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb -> {});
+
         {
             int count = 0;
             for (MemberStatus status : statusList) {
@@ -703,9 +715,9 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
 
         // ## Act ##
         int[] result = memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
@@ -725,9 +737,9 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
 
         // ## Act ##
         try {
@@ -770,9 +782,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         int count = 0;
         List<Long> expectedVersionNoList = new ArrayList<Long>();
         for (Member member : memberList) {
@@ -827,9 +840,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> beforeList = memberBhv.selectList(cb);
+        ListResultBean<Member> beforeList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         Map<Integer, Member> beforeMap = new HashMap<Integer, Member>();
         for (Member member : beforeList) {
             beforeMap.put(member.getMemberId(), member);
@@ -880,9 +894,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> beforeList = memberBhv.selectList(cb);
+        ListResultBean<Member> beforeList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         String memberName = "oneColumn";
         List<Member> memberList = new ArrayList<Member>();
         for (Member before : beforeList) {
@@ -912,9 +927,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> beforeList = memberBhv.selectList(cb);
+        ListResultBean<Member> beforeList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         Map<Integer, Member> beforeMap = new HashMap<Integer, Member>();
         for (Member member : beforeList) {
             beforeMap.put(member.getMemberId(), member);
@@ -975,9 +991,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(1);
         memberIdList.add(3);
         memberIdList.add(7);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         List<Long> expectedVersionNoList = new ArrayList<Long>();
         {
             int count = 0;
@@ -1021,9 +1038,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberIdList.add(3);
         memberIdList.add(7);
         int count = 0;
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> beforeList = memberBhv.selectList(cb);
+        ListResultBean<Member> beforeList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         List<Long> expectedVersionNoList = new ArrayList<Long>();
         List<Member> memberList = new ArrayList<Member>();
         for (Member before : beforeList) {

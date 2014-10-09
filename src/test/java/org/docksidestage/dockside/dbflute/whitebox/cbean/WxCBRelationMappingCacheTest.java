@@ -8,7 +8,6 @@ import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.bhv.referrer.ReferrerLoaderHandler;
 import org.dbflute.cbean.result.ListResultBean;
 import org.docksidestage.dockside.dbflute.bsbhv.loader.LoaderOfMember;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -50,8 +49,8 @@ public class WxCBRelationMappingCacheTest extends UnitContainerTestCase {
             List<MemberLogin> nonCachedLoginList = nonCachedStatus.getMemberLoginList();
             int cachedLoginSize = cachedLoginList.size();
             int nonCachedLoginSize = nonCachedLoginList.size();
-            log(cached.getMemberName(), cachedStatus.getMemberStatusName(), cachedStatus.instanceHash(),
-                    nonCachedStatus.instanceHash(), cachedLoginSize, nonCachedLoginSize);
+            log(cached.getMemberName(), cachedStatus.getMemberStatusName(), cachedStatus.instanceHash(), nonCachedStatus.instanceHash(),
+                    cachedLoginSize, nonCachedLoginSize);
             assertEquals(cached.getMemberName(), nonCached.getMemberName());
             assertEquals(cachedStatus.getMemberStatusName(), nonCachedStatus.getMemberStatusName());
             assertEquals(cachedLoginSize, nonCachedLoginSize);
@@ -82,12 +81,13 @@ public class WxCBRelationMappingCacheTest extends UnitContainerTestCase {
 
     @SuppressWarnings("deprecation")
     protected ListResultBean<Member> selectMemberList(boolean suppressCache) {
-        MemberCB cb = new MemberCB();
-        if (suppressCache) {
-            cb.disableRelationMappingCache();
-        }
-        cb.setupSelect_MemberStatus();
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            if (suppressCache) {
+                cb.disableRelationMappingCache();
+            }
+            cb.setupSelect_MemberStatus();
+        });
+
         memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
             public void handle(LoaderOfMember loader) {
                 loader.pulloutMemberStatus().loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {

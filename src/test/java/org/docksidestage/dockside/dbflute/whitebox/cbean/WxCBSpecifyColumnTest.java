@@ -53,12 +53,12 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_SpecifyColumn_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.specify().columnMemberName();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.specify().columnMemberName();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -75,17 +75,17 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
 
     public void test_SpecifyColumn_normalRelation() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
-        cb.setupSelect_MemberSecurityAsOne();
-        cb.specify().columnMemberName();
-        cb.specify().specifyMemberStatus().columnMemberStatusName();
-        cb.specify().specifyMemberWithdrawalAsOne().specifyWithdrawalReason().columnWithdrawalReasonText();
-        cb.specify().specifyMemberSecurityAsOne().columnReminderAnswer();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+            cb.setupSelect_MemberSecurityAsOne();
+            cb.specify().columnMemberName();
+            cb.specify().specifyMemberStatus().columnMemberStatusName();
+            cb.specify().specifyMemberWithdrawalAsOne().specifyWithdrawalReason().columnWithdrawalReasonText();
+            cb.specify().specifyMemberSecurityAsOne().columnReminderAnswer();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -127,12 +127,12 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
 
     public void test_SpecifyColumn_onlyRelation() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.specify().specifyMemberStatus().columnMemberStatusName();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.specify().specifyMemberStatus().columnMemberStatusName();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -155,16 +155,16 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
 
     public void test_SpecifyColumn_severalCall() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.specify().columnMemberName();
-        cb.specify().columnMemberName();
-        cb.specify().columnMemberName();
-        cb.specify().specifyMemberStatus().columnMemberStatusName();
-        cb.specify().specifyMemberStatus().columnMemberStatusName();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.specify().columnMemberName();
+            cb.specify().columnMemberName();
+            cb.specify().columnMemberName();
+            cb.specify().specifyMemberStatus().columnMemberStatusName();
+            cb.specify().specifyMemberStatus().columnMemberStatusName();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -190,27 +190,27 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
     //                                                                        ============
     public void test_SpecifyColumn_selectCount_basic() {
         // ## Arrange ##
-        int countAll = memberBhv.selectCount(new MemberCB());
-        MemberCB cb = new MemberCB();
-        cb.specify().columnMemberName();
-        final Set<String> markSet = new HashSet<String>();
-        CallbackContext context = new CallbackContext();
-        context.setSqlLogHandler(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                String displaySql = info.getDisplaySql();
-                MemberDbm dbm = MemberDbm.getInstance();
-                assertTrue(Srl.contains(displaySql, "count(*)"));
-                assertFalse(Srl.contains(displaySql, dbm.columnMemberId().getColumnDbName()));
-                assertFalse(Srl.contains(displaySql, dbm.columnMemberName().getColumnDbName()));
-                assertFalse(Srl.contains(displaySql, dbm.columnMemberAccount().getColumnDbName()));
-                markSet.add("handle");
-            }
-        });
-
-        // ## Act ##
-        CallbackContext.setCallbackContextOnThread(context);
+        int countAll = memberBhv.selectCount(countCB -> {});
         try {
-            int count = memberBhv.selectCount(cb);
+            int count = memberBhv.selectCount(cb -> {
+                /* ## Act ## */
+                cb.specify().columnMemberName();
+                final Set<String> markSet = new HashSet<String>();
+                CallbackContext context = new CallbackContext();
+                context.setSqlLogHandler(new SqlLogHandler() {
+                    public void handle(SqlLogInfo info) {
+                        String displaySql = info.getDisplaySql();
+                        MemberDbm dbm = MemberDbm.getInstance();
+                        assertTrue(Srl.contains(displaySql, "count(*)"));
+                        assertFalse(Srl.contains(displaySql, dbm.columnMemberId().getColumnDbName()));
+                        assertFalse(Srl.contains(displaySql, dbm.columnMemberName().getColumnDbName()));
+                        assertFalse(Srl.contains(displaySql, dbm.columnMemberAccount().getColumnDbName()));
+                        markSet.add("handle");
+                    }
+                });
+                CallbackContext.setCallbackContextOnThread(context);
+                pushCB(cb);
+            });
 
             // ## Assert ##
             assertEquals(countAll, count);
@@ -222,31 +222,31 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
 
     public void test_SpecifyColumn_selectCount_with_UnionQuery_basic() {
         // ## Arrange ##
-        int countAll = memberBhv.selectCount(new MemberCB());
-        MemberCB cb = new MemberCB();
-        cb.specify().columnMemberName();
-        cb.union(new UnionQuery<MemberCB>() {
-            public void query(MemberCB unionCB) {
-            }
-        });
-        final Set<String> markSet = new HashSet<String>();
-        CallbackContext context = new CallbackContext();
-        context.setSqlLogHandler(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                String displaySql = info.getDisplaySql();
-                MemberDbm dbm = MemberDbm.getInstance();
-                assertTrue(Srl.contains(displaySql, "count(*)"));
-                assertTrue(Srl.contains(displaySql, dbm.columnMemberId().getColumnDbName()));
-                assertFalse(Srl.contains(displaySql, dbm.columnMemberName().getColumnDbName()));
-                assertFalse(Srl.contains(displaySql, dbm.columnMemberAccount().getColumnDbName()));
-                markSet.add("handle");
-            }
-        });
-
-        // ## Act ##
-        CallbackContext.setCallbackContextOnThread(context);
+        int countAll = memberBhv.selectCount(countCB -> {});
         try {
-            int count = memberBhv.selectCount(cb);
+            int count = memberBhv.selectCount(cb -> {
+                /* ## Act ## */
+                cb.specify().columnMemberName();
+                cb.union(new UnionQuery<MemberCB>() {
+                    public void query(MemberCB unionCB) {
+                    }
+                });
+                final Set<String> markSet = new HashSet<String>();
+                CallbackContext context = new CallbackContext();
+                context.setSqlLogHandler(new SqlLogHandler() {
+                    public void handle(SqlLogInfo info) {
+                        String displaySql = info.getDisplaySql();
+                        MemberDbm dbm = MemberDbm.getInstance();
+                        assertTrue(Srl.contains(displaySql, "count(*)"));
+                        assertTrue(Srl.contains(displaySql, dbm.columnMemberId().getColumnDbName()));
+                        assertFalse(Srl.contains(displaySql, dbm.columnMemberName().getColumnDbName()));
+                        assertFalse(Srl.contains(displaySql, dbm.columnMemberAccount().getColumnDbName()));
+                        markSet.add("handle");
+                    }
+                });
+                CallbackContext.setCallbackContextOnThread(context);
+                pushCB(cb);
+            });
 
             // ## Assert ##
             assertEquals(countAll, count);
@@ -258,31 +258,31 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
 
     public void test_SpecifyColumn_selectCount_with_UnionQuery_noPrimaryKey() {
         // ## Arrange ##
-        int countAll = summaryWithdrawalBhv.selectCount(new SummaryWithdrawalCB());
-        SummaryWithdrawalCB cb = new SummaryWithdrawalCB();
-        cb.specify().columnMemberName();
-        cb.union(new UnionQuery<SummaryWithdrawalCB>() {
-            public void query(SummaryWithdrawalCB unionCB) {
-            }
-        });
-        final Set<String> markSet = new HashSet<String>();
-        CallbackContext context = new CallbackContext();
-        context.setSqlLogHandler(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                String displaySql = info.getDisplaySql();
-                SummaryWithdrawalDbm dbm = SummaryWithdrawalDbm.getInstance();
-                assertTrue(Srl.contains(displaySql, "count(*)"));
-                assertTrue(Srl.contains(displaySql, dbm.columnMemberId().getColumnDbName()));
-                assertTrue(Srl.contains(displaySql, dbm.columnMemberName().getColumnDbName()));
-                assertTrue(Srl.contains(displaySql, dbm.columnWithdrawalDatetime().getColumnDbName()));
-                markSet.add("handle");
-            }
-        });
-
-        // ## Act ##
-        CallbackContext.setCallbackContextOnThread(context);
+        int countAll = summaryWithdrawalBhv.selectCount(countCB -> {});
         try {
-            int count = summaryWithdrawalBhv.selectCount(cb);
+            int count = summaryWithdrawalBhv.selectCount(cb -> {
+                /* ## Act ## */
+                cb.specify().columnMemberName();
+                cb.union(new UnionQuery<SummaryWithdrawalCB>() {
+                    public void query(SummaryWithdrawalCB unionCB) {
+                    }
+                });
+                final Set<String> markSet = new HashSet<String>();
+                CallbackContext context = new CallbackContext();
+                context.setSqlLogHandler(new SqlLogHandler() {
+                    public void handle(SqlLogInfo info) {
+                        String displaySql = info.getDisplaySql();
+                        SummaryWithdrawalDbm dbm = SummaryWithdrawalDbm.getInstance();
+                        assertTrue(Srl.contains(displaySql, "count(*)"));
+                        assertTrue(Srl.contains(displaySql, dbm.columnMemberId().getColumnDbName()));
+                        assertTrue(Srl.contains(displaySql, dbm.columnMemberName().getColumnDbName()));
+                        assertTrue(Srl.contains(displaySql, dbm.columnWithdrawalDatetime().getColumnDbName()));
+                        markSet.add("handle");
+                    }
+                });
+                CallbackContext.setCallbackContextOnThread(context);
+                pushCB(cb);
+            });
 
             // ## Assert ##
             assertEquals(countAll, count);
@@ -301,11 +301,12 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_loadReferrer_specifyColumn_autoResolved_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(3);
+        Member member = memberBhv.selectEntity(cb -> {
+            cb.query().setMemberId_Equal(3);
 
-        // At first, it selects the list of Member.
-        Member member = memberBhv.selectEntity(cb);
+            // At first, it selects the list of Member.
+                pushCB(cb);
+            });
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.
@@ -333,11 +334,12 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
 
     public void test_loadReferrer_specifyColumn_notResolved_by_foreignOnlySpecify() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(3);
+        Member member = memberBhv.selectEntity(cb -> {
+            cb.query().setMemberId_Equal(3);
 
-        // At first, it selects the list of Member.
-        Member member = memberBhv.selectEntity(cb);
+            // At first, it selects the list of Member.
+                pushCB(cb);
+            });
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.
@@ -373,8 +375,6 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
     public void test_specify_reverseCall_foreignSpecify() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
         try {
             cb.specify().specifyMemberStatus().columnMemberStatusName();
 
@@ -388,12 +388,12 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
 
     public void test_specify_reverseCall_FKColumnFollow_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().columnMemberName();
-        cb.setupSelect_MemberStatus();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().columnMemberName();
+            cb.setupSelect_MemberStatus();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -405,21 +405,21 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
             assertNotNull(member.getMemberStatusCode());
             assertNotNull(memberStatus);
         }
-        assertTrue(cb.toDisplaySql().contains("dfloc.MEMBER_STATUS_CODE"));
+        assertTrue(popCB().toDisplaySql().contains("dfloc.MEMBER_STATUS_CODE"));
     }
 
     public void test_specify_reverseCall_FKColumnFollow_notGoOff() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnProductId();
-            }
-        }, Member.ALIAS_productKindCount);
-        cb.setupSelect_MemberStatus();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnProductId();
+                }
+            }, Member.ALIAS_productKindCount);
+            cb.setupSelect_MemberStatus();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -432,7 +432,7 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
             assertNotNull(member.getProductKindCount());
             assertNotNull(memberStatus);
         }
-        assertTrue(cb.toDisplaySql().contains("dfloc.MEMBER_STATUS_CODE"));
+        assertTrue(popCB().toDisplaySql().contains("dfloc.MEMBER_STATUS_CODE"));
     }
 
     // ===================================================================================
@@ -444,14 +444,14 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
         cal.set(2005, 11, 12); // 2005/12/12
         Date targetDate = cal.getTime();
 
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberAddressAsValid(targetDate);
-        cb.specify().columnMemberName();
-        cb.specify().specifyMemberAddressAsValid().columnAddress();
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberAddressAsValid(targetDate);
+            cb.specify().columnMemberName();
+            cb.specify().specifyMemberAddressAsValid().columnAddress();
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -476,7 +476,7 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
             }
         }
         assertTrue(existsAddress);
-        assertFalse(cb.toDisplaySql().contains("where")); // not use where clause
+        assertFalse(popCB().toDisplaySql().contains("where")); // not use where clause
     }
 
     public void test_specify_BizOneToOne_nestRelation() {
@@ -485,15 +485,15 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
         cal.set(2005, 11, 12); // 2005/12/12
         Date targetDate = cal.getTime();
 
-        PurchaseCB cb = new PurchaseCB();
-        cb.setupSelect_Member().withMemberAddressAsValid(targetDate);
-        cb.specify().columnPurchaseCount();
-        cb.specify().specifyMember().columnMemberName();
-        cb.specify().specifyMember().specifyMemberAddressAsValid().columnAddress();
-        cb.query().addOrderBy_PurchaseDatetime_Asc();
-
-        // ## Act ##
-        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_Member().withMemberAddressAsValid(targetDate);
+            cb.specify().columnPurchaseCount();
+            cb.specify().specifyMember().columnMemberName();
+            cb.specify().specifyMember().specifyMemberAddressAsValid().columnAddress();
+            cb.query().addOrderBy_PurchaseDatetime_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotSame(0, purchaseList.size());
@@ -519,7 +519,7 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
             }
         }
         assertTrue(existsAddress);
-        assertFalse(cb.toDisplaySql().contains("where")); // not use where clause
+        assertFalse(popCB().toDisplaySql().contains("where")); // not use where clause
     }
 
     // ===================================================================================
@@ -527,14 +527,14 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_SpecifyExceptColumn_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().exceptRecordMetaColumn();
-        cb.query().setFormalizedDatetime_IsNotNull();
-        cb.query().setBirthdate_IsNotNull();
-        cb.fetchFirst(1);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.specify().exceptRecordMetaColumn();
+            cb.query().setFormalizedDatetime_IsNotNull();
+            cb.query().setBirthdate_IsNotNull();
+            cb.fetchFirst(1);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotNull(member.getMemberName());
@@ -551,15 +551,15 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
 
     public void test_SpecifyExceptColumn_relation() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberSecurityAsOne();
-        cb.specify().specifyMemberSecurityAsOne().exceptRecordMetaColumn();
-        cb.query().setFormalizedDatetime_IsNotNull();
-        cb.query().setBirthdate_IsNotNull();
-        cb.fetchFirst(1);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberSecurityAsOne();
+            cb.specify().specifyMemberSecurityAsOne().exceptRecordMetaColumn();
+            cb.query().setFormalizedDatetime_IsNotNull();
+            cb.query().setBirthdate_IsNotNull();
+            cb.fetchFirst(1);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotNull(member.getMemberName());
@@ -585,17 +585,17 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
 
     public void test_SpecifyExceptColumn_mixed() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().columnMemberName();
-        cb.specify().columnUpdateUser();
-        cb.setupSelect_MemberSecurityAsOne();
-        cb.specify().specifyMemberSecurityAsOne().exceptRecordMetaColumn();
-        cb.query().setFormalizedDatetime_IsNotNull();
-        cb.query().setBirthdate_IsNotNull();
-        cb.fetchFirst(1);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.specify().columnMemberName();
+            cb.specify().columnUpdateUser();
+            cb.setupSelect_MemberSecurityAsOne();
+            cb.specify().specifyMemberSecurityAsOne().exceptRecordMetaColumn();
+            cb.query().setFormalizedDatetime_IsNotNull();
+            cb.query().setBirthdate_IsNotNull();
+            cb.fetchFirst(1);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotNull(member.getMemberName());
@@ -625,7 +625,6 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
             MemberCB cb = new MemberCB();
             cb.specify().columnMemberName();
             try {
-                // ## Act ##
                 cb.specify().exceptRecordMetaColumn();
 
                 // ## Assert ##
@@ -640,7 +639,6 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
             MemberCB cb = new MemberCB();
             cb.specify().exceptRecordMetaColumn();
             try {
-                // ## Act ##
                 cb.specify().columnMemberName();
 
                 // ## Assert ##

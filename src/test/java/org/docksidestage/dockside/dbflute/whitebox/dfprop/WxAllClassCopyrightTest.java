@@ -142,8 +142,7 @@ public class WxAllClassCopyrightTest extends PlainTestCase {
             if (br != null) {
                 try {
                     br.close();
-                } catch (IOException ignored) {
-                }
+                } catch (IOException ignored) {}
             }
         }
         if (!contains) {

@@ -41,17 +41,17 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_orScopeQuery_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberName_PrefixSearch("S");
-                orCB.query().setMemberName_PrefixSearch("J");
-                orCB.query().setMemberId_Equal(3);
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                    orCB.query().setMemberName_LikeSearch("J", op -> op.likePrefix());
+                    orCB.query().setMemberId_Equal(3);
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -67,18 +67,18 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
     public void test_orScopeQuery_andOr() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberName_PrefixSearch("S");
-                orCB.query().setMemberName_PrefixSearch("J");
-                orCB.query().setMemberName_PrefixSearch("M");
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                    orCB.query().setMemberName_LikeSearch("J", op -> op.likePrefix());
+                    orCB.query().setMemberName_LikeSearch("M", op -> op.likePrefix());
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -94,8 +94,10 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
     public void test_orScopeQuery_nothing() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        int countAll = memberBhv.selectCount(cb);
+        int countAll = memberBhv.selectCount(cb -> {
+            pushCB(cb);
+        });
+
         cb.orScopeQuery(new OrQuery<MemberCB>() {
             public void query(MemberCB orCB) {
                 orCB.query().setMemberName_PrefixSearch(null);
@@ -114,16 +116,16 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
     public void test_orScopeQuery_onlyOne() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberName_PrefixSearch(null);
-                orCB.query().setMemberId_Equal(3);
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberName_LikeSearch(null, op -> op.likePrefix());
+                    orCB.query().setMemberId_Equal(3);
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -141,17 +143,17 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
     //                                                                          ==========
     public void test_orScopeQuery_with_splitBy_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                LikeSearchOption option = new LikeSearchOption().likeContain().splitBySpace();
-                orCB.query().setMemberName_LikeSearch("S t", option);
-                orCB.query().setMemberName_PrefixSearch("J");
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    LikeSearchOption option = new LikeSearchOption().likeContain().splitBySpace();
+                    orCB.query().setMemberName_LikeSearch("S t", option);
+                    orCB.query().setMemberName_LikeSearch("J", op -> op.likePrefix());
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -166,17 +168,17 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
     public void test_orScopeQuery_with_splitBy_orOrSplit_with_prefixSearch() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                LikeSearchOption option = new LikeSearchOption().likePrefix().splitBySpace().asOrSplit();
-                orCB.query().setMemberName_LikeSearch("S M", option);
-                orCB.query().setMemberName_PrefixSearch("J");
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    LikeSearchOption option = new LikeSearchOption().likePrefix().splitBySpace().asOrSplit();
+                    orCB.query().setMemberName_LikeSearch("S M", option);
+                    orCB.query().setMemberName_LikeSearch("J", op -> op.likePrefix());
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -191,17 +193,17 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
     public void test_orScopeQuery_with_splitBy_orOrSplit_and_others() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setFormalizedDatetime_IsNull();
-                LikeSearchOption option = new LikeSearchOption().likePrefix().splitBySpace().asOrSplit();
-                orCB.query().setMemberName_LikeSearch("M J", option);
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setFormalizedDatetime_IsNull();
+                    LikeSearchOption option = new LikeSearchOption().likePrefix().splitBySpace().asOrSplit();
+                    orCB.query().setMemberName_LikeSearch("M J", option);
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -217,20 +219,20 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
     public void test_orScopeQuery_with_exists() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberStatusCode_Equal_Provisional();
-                orCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.query().setPurchaseCount_GreaterEqual(2);
-                    }
-                });
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberStatusCode_Equal_Provisional();
+                    orCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.query().setPurchaseCount_GreaterEqual(2);
+                        }
+                    });
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -264,18 +266,18 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
     public void test_orScopeQuery_inline_andOr() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().inline().setMemberStatusCode_Equal_Formalized();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().inline().setMemberName_PrefixSearch("S");
-                orCB.query().inline().setMemberName_PrefixSearch("J");
-                orCB.query().inline().setMemberName_PrefixSearch("M");
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().inline().setMemberStatusCode_Equal_Formalized();
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().inline().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                    orCB.query().inline().setMemberName_LikeSearch("J", op -> op.likePrefix());
+                    orCB.query().inline().setMemberName_LikeSearch("M", op -> op.likePrefix());
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -291,17 +293,17 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
     public void test_orScopeQuery_onClause_andOr() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().queryMemberStatus().on().setMemberStatusCode_Equal_Formalized();
-                orCB.query().queryMemberStatus().on().setDisplayOrder_Equal(3);
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().queryMemberStatus().on().setMemberStatusCode_Equal_Formalized();
+                    orCB.query().queryMemberStatus().on().setDisplayOrder_Equal(3);
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -326,25 +328,25 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
     public void test_orScopeQuery_columnQuery_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.columnQuery(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().columnMemberId();
-                    }
-                }).lessEqual(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().specifyMemberStatus().columnDisplayOrder();
-                    }
-                });
-                orCB.query().setMemberId_Equal(18);
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.columnQuery(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.specify().columnMemberId();
+                        }
+                    }).lessEqual(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.specify().specifyMemberStatus().columnDisplayOrder();
+                        }
+                    });
+                    orCB.query().setMemberId_Equal(18);
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -363,29 +365,26 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
     public void test_orScopeQuery_with_fromTo_basic() {
         // ## Arrange ##
         PurchaseCB cb = new PurchaseCB();
-        cb.query().setPurchaseDatetime_DateFromTo(toDate("2012/03/13"), toDate("2012/03/14"));
+        cb.query().setPurchaseDatetime_FromTo(toDate("2012/03/13"), toDate("2012/03/14"), op -> op.compareAsDate());
         cb.orScopeQuery(new OrQuery<PurchaseCB>() {
             public void query(PurchaseCB orCB) {
-                orCB.query().setRegisterDatetime_DateFromTo(toDate("2012/03/15"), toDate("2012/03/16"));
+                orCB.query().setRegisterDatetime_FromTo(toDate("2012/03/15"), toDate("2012/03/16"), op -> op.compareAsDate());
                 orCB.orScopeQueryAndPart(new AndQuery<PurchaseCB>() {
                     public void query(PurchaseCB andCB) {
-                        andCB.query().queryMember().setBirthdate_DateFromTo(toDate("2012/03/17"), toDate("2012/03/18"));
+                        andCB.query().queryMember()
+                                .setBirthdate_FromTo(toDate("2012/03/17"), toDate("2012/03/18"), op -> op.compareAsDate());
                         FromToOption optionOrIsNull = new FromToOption().orIsNull();
-                        andCB.query()
-                                .queryMember()
-                                .setFormalizedDatetime_FromTo(toDate("2012/03/19"), toDate("2012/03/20"),
-                                        optionOrIsNull);
+                        andCB.query().queryMember()
+                                .setFormalizedDatetime_FromTo(toDate("2012/03/19"), toDate("2012/03/20"), optionOrIsNull);
                     }
                 });
                 orCB.orScopeQueryAndPart(new AndQuery<PurchaseCB>() {
                     public void query(PurchaseCB andCB) {
-                        andCB.query().setUpdateDatetime_DateFromTo(toDate("2012/03/21"), toDate("2012/03/22"));
+                        andCB.query().setUpdateDatetime_FromTo(toDate("2012/03/21"), toDate("2012/03/22"), op -> op.compareAsDate());
                     }
                 });
             }
         });
-
-        // ## Act ##
         String sql = cb.toDisplaySql();
 
         // ## Assert ##
@@ -426,8 +425,6 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                 });
             }
         });
-
-        // ## Act ##
         String sql = cb.toDisplaySql();
 
         // ## Assert ##
@@ -454,8 +451,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                 orCB.query().setMemberStatusCode_Equal_Formalized();
                 orCB.orScopeQueryAndPart(new AndQuery<MemberCB>() {
                     public void query(MemberCB andCB) {
-                        andCB.query().setMemberName_LikeSearch("S M",
-                                new LikeSearchOption().likeContain().splitBySpace());
+                        andCB.query().setMemberName_LikeSearch("S M", new LikeSearchOption().likeContain().splitBySpace());
                         andCB.query().setBirthdate_IsNotNull();
                         andCB.query().setFormalizedDatetime_IsNotNull();
                     }
@@ -467,12 +463,10 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                         andCB.query().setFormalizedDatetime_IsNotNull();
                     }
                 });
-                orCB.query().setRegisterUser_PrefixSearch("T");
+                orCB.query().setRegisterUser_LikeSearch("T", op -> op.likePrefix());
                 orCB.query().setBirthdate_IsNotNull(); // ignored
             }
         });
-
-        // ## Act ##
         String sql = cb.toDisplaySql();
 
         // ## Assert ##
@@ -493,18 +487,16 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
         cb.setupSelect_MemberStatus();
 
         try {
-            // ## Act ##
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
                     orCB.query().setMemberStatusCode_Equal_Formalized();
                     orCB.orScopeQueryAndPart(new AndQuery<MemberCB>() {
                         public void query(MemberCB andCB) {
-                            andCB.query().setMemberName_LikeSearch("S M",
-                                    new LikeSearchOption().likeContain().splitBySpace().asOrSplit());
+                            andCB.query().setMemberName_LikeSearch("S M", new LikeSearchOption().likeContain().splitBySpace().asOrSplit());
                             andCB.query().setBirthdate_IsNotNull();
                         }
                     });
-                    orCB.query().setRegisterUser_PrefixSearch("T");
+                    orCB.query().setRegisterUser_LikeSearch("T", op -> op.likePrefix());
                 }
             });
 
@@ -522,7 +514,6 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
         cb.setupSelect_MemberStatus();
 
         try {
-            // ## Act ##
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
                     orCB.query().setMemberStatusCode_Equal_Formalized();
@@ -537,7 +528,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                             });
                         }
                     });
-                    orCB.query().setRegisterUser_PrefixSearch("T");
+                    orCB.query().setRegisterUser_LikeSearch("T", op -> op.likePrefix());
                 }
             });
 
@@ -556,7 +547,6 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
         cb.setupSelect_MemberStatus();
 
         try {
-            // ## Act ##
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
                     orCB.query().setMemberStatusCode_Equal_Formalized();
@@ -571,7 +561,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                             });
                         }
                     });
-                    orCB.query().setRegisterUser_PrefixSearch("T");
+                    orCB.query().setRegisterUser_LikeSearch("T", op -> op.likePrefix());
                 }
             });
 
@@ -588,86 +578,85 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
     //                                                                             =======
     public void test_orScopeQuery_various() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.query().setBirthdate_GreaterThan(currentDate());
-        cb.query().inline().setUpdateUser_NotEqual("UPUSER");
-        cb.query().inline().setMemberName_PrefixSearch("IN");
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().queryMemberStatus().on().setMemberStatusCode_Equal_Formalized();
-                orCB.query().queryMemberStatus().on().setDisplayOrder_Equal(3);
-                orCB.query().queryMemberSecurityAsOne().inline().setMemberId_IsNotNull();
-                orCB.query().setBirthdate_IsNotNull();
-                orCB.query().setFormalizedDatetime_IsNull();
-                orCB.query().setMemberName_LikeSearch("OR SPLIT",
-                        new LikeSearchOption().likePrefix().splitBySpace().asOrSplit());
-                orCB.orScopeQuery(new OrQuery<MemberCB>() {
-                    public void query(MemberCB orCB) {
-                        orCB.query().setMemberName_PrefixSearch(null);
-                        orCB.query().setMemberName_PrefixSearch("S");
-                        orCB.query().setMemberName_PrefixSearch("J");
-                        orCB.query().setMemberName_LikeSearch("AND SPLIT",
-                                new LikeSearchOption().likePrefix().splitBySpace());
-                        orCB.query().setMemberId_Equal(3);
-                    }
-                });
-                orCB.orScopeQuery(new OrQuery<MemberCB>() {
-                    public void query(MemberCB orCB) {
-                        orCB.query().setMemberName_PrefixSearch(null);
-                        orCB.query().setMemberName_PrefixSearch("KI");
-                        orCB.query().setMemberName_PrefixSearch("OP");
-                    }
-                });
-                orCB.orScopeQuery(new OrQuery<MemberCB>() {
-                    public void query(MemberCB orCB) {
-                        orCB.query().setMemberName_LikeSearch("AND2 SPLIT2",
-                                new LikeSearchOption().likePrefix().splitBySpace());
-                    }
-                });
-                orCB.query().inline().setRegisterUser_NotEqual("RGUSER");
-                orCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.query().setPaymentCompleteFlg_Equal_True();
-                        subCB.query().setPurchaseCount_LessEqual(12);
-                        subCB.orScopeQuery(new OrQuery<PurchaseCB>() {
-                            public void query(PurchaseCB orCB) {
-                                orCB.query().setPurchasePrice_Equal(12345);
-                                orCB.query().setPurchaseId_Equal(987L);
-                            }
-                        });
-                        subCB.query().setRegisterUser_Equal("PRO");
-                    }
-                });
-                orCB.query().inline().setUpdateUser_NotEqual("UPPROC");
-                orCB.union(new UnionQuery<MemberCB>() {
-                    public void query(MemberCB unionCB) {
-                        unionCB.query().setBirthdate_GreaterEqual(currentDate());
-                        unionCB.query().setBirthdate_LessEqual(currentDate());
-                    }
-                }); // basically unsupported
-            }
-        });
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberId_InScope(Arrays.asList(1, 2));
-                orCB.query().setMemberAccount_NotEqual("LAST");
-                orCB.columnQuery(new SpecifyQuery<MemberCB>() {
+        memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberStatus();
+            cb.query().setBirthdate_GreaterThan(currentDate());
+            cb.query().inline().setUpdateUser_NotEqual("UPUSER");
+            cb.query().inline().setMemberName_LikeSearch("IN", op -> op.likePrefix());
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().queryMemberStatus().on().setMemberStatusCode_Equal_Formalized();
+                    orCB.query().queryMemberStatus().on().setDisplayOrder_Equal(3);
+                    orCB.query().queryMemberSecurityAsOne().inline().setMemberId_IsNotNull();
+                    orCB.query().setBirthdate_IsNotNull();
+                    orCB.query().setFormalizedDatetime_IsNull();
+                    orCB.query().setMemberName_LikeSearch("OR SPLIT", new LikeSearchOption().likePrefix().splitBySpace().asOrSplit());
+                    orCB.orScopeQuery(new OrQuery<MemberCB>() {
+                        public void query(MemberCB orCB) {
+                            orCB.query().setMemberName_LikeSearch(null, op -> op.likePrefix());
+                            orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                            orCB.query().setMemberName_LikeSearch("J", op -> op.likePrefix());
+                            orCB.query().setMemberName_LikeSearch("AND SPLIT", new LikeSearchOption().likePrefix().splitBySpace());
+                            orCB.query().setMemberId_Equal(3);
+                        }
+                    });
+                    orCB.orScopeQuery(new OrQuery<MemberCB>() {
+                        public void query(MemberCB orCB) {
+                            orCB.query().setMemberName_LikeSearch(null, op -> op.likePrefix());
+                            orCB.query().setMemberName_LikeSearch("KI", op -> op.likePrefix());
+                            orCB.query().setMemberName_LikeSearch("OP", op -> op.likePrefix());
+                        }
+                    });
+                    orCB.orScopeQuery(new OrQuery<MemberCB>() {
+                        public void query(MemberCB orCB) {
+                            orCB.query().setMemberName_LikeSearch("AND2 SPLIT2", new LikeSearchOption().likePrefix().splitBySpace());
+                        }
+                    });
+                    orCB.query().inline().setRegisterUser_NotEqual("RGUSER");
+                    orCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.query().setPaymentCompleteFlg_Equal_True();
+                            subCB.query().setPurchaseCount_LessEqual(12);
+                            subCB.orScopeQuery(new OrQuery<PurchaseCB>() {
+                                public void query(PurchaseCB orCB) {
+                                    orCB.query().setPurchasePrice_Equal(12345);
+                                    orCB.query().setPurchaseId_Equal(987L);
+                                }
+                            });
+                            subCB.query().setRegisterUser_Equal("PRO");
+                        }
+                    });
+                    orCB.query().inline().setUpdateUser_NotEqual("UPPROC");
+                    orCB.union(new UnionQuery<MemberCB>() {
+                        public void query(MemberCB unionCB) {
+                            unionCB.query().setBirthdate_GreaterEqual(currentDate());
+                            unionCB.query().setBirthdate_LessEqual(currentDate());
+                        }
+                    }); // basically unsupported
+                }
+            });
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberId_InScope(Arrays.asList(1, 2));
+                    orCB.query().setMemberAccount_NotEqual("LAST");
+                    orCB.columnQuery(new SpecifyQuery<MemberCB>() {
 
-                    public void specify(MemberCB cb) {
-                        cb.specify().columnMemberName();
-                    }
-                }).equal(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().columnMemberAccount();
-                    }
-                });
-            }
-        });
+                        public void specify(MemberCB cb) {
+                            cb.specify().columnMemberName();
+                        }
+                    }).equal(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.specify().columnMemberAccount();
+                        }
+                    });
+                }
+            });
 
-        // ## Act & Assert ##
-        memberBhv.selectList(cb); // expect no exception
-        String displaySql = cb.toDisplaySql();
+            // ## Act & Assert ##
+                pushCB(cb);
+            }); // expect no exception
+
+        String displaySql = popCB().toDisplaySql();
         assertTrue(displaySql.contains("'OR%'"));
         assertTrue(displaySql.contains("'AND%'"));
         assertTrue(displaySql.contains("'SPLIT%'"));
@@ -680,16 +669,16 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_orScopeQuery_purposeCheck_normalUse() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberName_PrefixSearch("S");
-                orCB.query().setMemberStatusCode_Equal_Formalized();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                    orCB.query().setMemberStatusCode_Equal_Formalized();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -700,27 +689,27 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
     public void test_orScopeQuery_purposeCheck_illegalPurpose() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
+        memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.setupSelect_MemberStatus();
+                }
+            });
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.specify();
+                }
+            });
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().addOrderBy_Birthdate_Asc();
+                }
+            });
 
-        // ## Act ##
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.setupSelect_MemberStatus();
-            }
-        });
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.specify();
-            }
-        });
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().addOrderBy_Birthdate_Asc();
-            }
-        });
-
-        // ## Assert ##
-        memberBhv.selectList(cb); // expect no exception
+            // ## Assert ##
+                pushCB(cb);
+            }); // expect no exception
 
         // until Java8
         //try {

@@ -11,8 +11,6 @@ import java.util.Set;
 
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.result.PagingResultBean;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
@@ -68,9 +66,10 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
         memberBhv.outsideSql().cursorHandling().selectCursor(pmb, handler);
 
         // ## Assert ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(memberIdList);
-        assertNotSame(0, memberBhv.selectCount(cb));
+        assertNotSame(0, memberBhv.selectCount(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        }));
+
     }
 
     public void test_selectCursor_insertWithCursor_diffTable() throws Exception {
@@ -109,9 +108,10 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
         memberBhv.outsideSql().cursorHandling().selectCursor(path, pmb, handler);
 
         // ## Assert ##
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.query().setMemberStatusCode_InScope(codeList);
-        assertNotSame(0, memberStatusBhv.selectCount(cb));
+        assertNotSame(0, memberStatusBhv.selectCount(cb -> {
+            cb.query().setMemberStatusCode_InScope(codeList);
+        }));
+
     }
 
     // ===================================================================================
@@ -119,24 +119,26 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_selectCursor_nestedCursor_basic() throws Exception {
         // ## Arrange ##
-        int countAll = memberBhv.selectCount(new MemberCB());
+        int countAll = memberBhv.selectCount(cb -> {});
         {
             Member member = new Member();
             member.setMemberStatusCode_Withdrawal();
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberStatusCode_Equal_Provisional();
-            memberBhv.queryUpdate(member, cb);
+            memberBhv.queryUpdate(member, cb -> {
+                cb.query().setMemberStatusCode_Equal_Provisional();
+            });
+
         }
         int withdrawalCountAll;
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberStatusCode_Equal_Withdrawal();
-            withdrawalCountAll = memberBhv.selectCount(cb);
+            withdrawalCountAll = memberBhv.selectCount(cb -> {
+                cb.query().setMemberStatusCode_Equal_Withdrawal();
+            });
+
         }
         final Map<Integer, Member> memberMap = new HashMap<Integer, Member>();
         {
-            MemberCB cb = new MemberCB();
-            ListResultBean<Member> beforeList = memberBhv.selectList(cb);
+            ListResultBean<Member> beforeList = memberBhv.selectList(cb -> {});
+
             for (Member member : beforeList) {
                 memberMap.put(member.getMemberId(), member);
             }
@@ -150,21 +152,20 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
             public Object fetchCursor(final PurchaseSummaryMemberCursor firstCursor) throws SQLException {
                 PurchaseSummaryMemberPmb pmbSecond = new PurchaseSummaryMemberPmb();
                 pmbSecond.setMemberStatusCode_Withdrawal();
-                memberBhv.outsideSql().cursorHandling()
-                        .selectCursor(pmbSecond, new PurchaseSummaryMemberCursorHandler() {
-                            protected Object fetchCursor(PurchaseSummaryMemberCursor secondCursor) throws SQLException {
-                                while (firstCursor.next()) {
-                                    // first process
-                                    memberList.add(memberMap.get(firstCursor.getMemberId()));
+                memberBhv.outsideSql().cursorHandling().selectCursor(pmbSecond, new PurchaseSummaryMemberCursorHandler() {
+                    protected Object fetchCursor(PurchaseSummaryMemberCursor secondCursor) throws SQLException {
+                        while (firstCursor.next()) {
+                            // first process
+                            memberList.add(memberMap.get(firstCursor.getMemberId()));
 
-                                    // second process
-                                    if (secondCursor.next()) {
-                                        memberList.add(memberMap.get(secondCursor.getMemberId()));
-                                    }
-                                }
-                                return null;
+                            // second process
+                            if (secondCursor.next()) {
+                                memberList.add(memberMap.get(secondCursor.getMemberId()));
                             }
-                        });
+                        }
+                        return null;
+                    }
+                });
                 return null;
             }
         });

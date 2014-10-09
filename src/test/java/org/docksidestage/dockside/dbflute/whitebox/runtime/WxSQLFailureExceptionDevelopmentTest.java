@@ -33,20 +33,20 @@ public class WxSQLFailureExceptionDevelopmentTest extends UnitContainerTestCase 
     //                                                                              ======
     public void test_select_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        }).greaterEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberAccount();
-            }
-        });
-
         try {
-            // ## Act ##
-            memberBhv.selectList(cb);
+            memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().columnFormalizedDatetime();
+                    }
+                }).greaterEqual(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().columnMemberAccount();
+                    }
+                });
+
+            });
 
             // ## Assert ##
             fail();
@@ -274,7 +274,6 @@ public class WxSQLFailureExceptionDevelopmentTest extends UnitContainerTestCase 
             memberWithdrawalBhv.queryInsert(new QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB>() {
                 public ConditionBean setup(MemberWithdrawal entity, MemberWithdrawalCB intoCB) {
                     MemberCB cb = new MemberCB();
-
                     intoCB.specify().columnMemberId().mappedFrom(cb.specify().columnMemberId());
                     intoCB.specify().columnWithdrawalReasonInputText().mappedFrom(cb.specify().columnMemberName());
 
@@ -301,12 +300,12 @@ public class WxSQLFailureExceptionDevelopmentTest extends UnitContainerTestCase 
         Member member = new Member();
         member.setMemberName("query update exception");
         member.setMemberAccount(null);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(3);
-
         try {
-            // ## Act ##
-            memberBhv.queryUpdate(member, cb);
+            memberBhv.queryUpdate(member, cb -> {
+                /* ## Act ## */
+                cb.query().setMemberId_Equal(3);
+
+            });
 
             // ## Assert ##
             fail();
@@ -324,12 +323,12 @@ public class WxSQLFailureExceptionDevelopmentTest extends UnitContainerTestCase 
 
     public void test_queryDelete_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(3);
-
         try {
-            // ## Act ##
-            memberBhv.queryDelete(cb);
+            memberBhv.queryDelete(cb -> {
+                /* ## Act ## */
+                cb.query().setMemberId_Equal(3);
+
+            });
 
             // ## Assert ##
             fail();
@@ -447,17 +446,18 @@ public class WxSQLFailureExceptionDevelopmentTest extends UnitContainerTestCase 
 
     protected class NinthLogic {
         public void ninth() {
-            MemberCB cb = new MemberCB();
-            cb.columnQuery(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnFormalizedDatetime();
-                }
-            }).greaterEqual(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnMemberAccount();
-                }
+            memberBhv.selectList(cb -> {
+                cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().columnFormalizedDatetime();
+                    }
+                }).greaterEqual(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().columnMemberAccount();
+                    }
+                });
             });
-            memberBhv.selectList(cb);
+
         }
     }
 }

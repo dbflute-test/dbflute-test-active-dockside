@@ -17,8 +17,6 @@ import org.dbflute.exception.SpecifyRelationIllegalPurposeException;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberServiceCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
-import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
@@ -49,17 +47,17 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         Date expected = selectExpectedMaxBirthdateOnFormalized();
 
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnBirthdate();
-                subCB.query().setMemberStatusCode_Equal_Formalized();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnBirthdate();
+                    subCB.query().setMemberStatusCode_Equal_Formalized();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -72,9 +70,11 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
     protected Date selectExpectedMaxBirthdateOnFormalized() {
         Date expected = null;
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberStatusCode_Equal_Formalized();
-            ListResultBean<Member> listAll = memberBhv.selectList(cb);
+            ListResultBean<Member> listAll = memberBhv.selectList(cb -> {
+                cb.query().setMemberStatusCode_Equal_Formalized();
+                pushCB(cb);
+            });
+
             for (Member member : listAll) {
                 Date day = member.getBirthdate();
                 if (day != null && (expected == null || expected.getTime() < day.getTime())) {
@@ -89,8 +89,6 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
-
-            // ## Act ##
             cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.specify().columnBirthdate();
@@ -103,8 +101,6 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
-
-            // ## Act ##
             cb.query().scalar_NotEqual().max(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.specify().columnBirthdate();
@@ -117,8 +113,6 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
-
-            // ## Act ##
             cb.query().scalar_GreaterThan().max(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.specify().columnBirthdate();
@@ -131,8 +125,6 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
-
-            // ## Act ##
             cb.query().scalar_LessThan().max(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.specify().columnBirthdate();
@@ -145,8 +137,6 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
-
-            // ## Act ##
             cb.query().scalar_GreaterEqual().max(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.specify().columnBirthdate();
@@ -159,8 +149,6 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
-
-            // ## Act ##
             cb.query().scalar_LessEqual().max(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.specify().columnBirthdate();
@@ -174,24 +162,24 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
 
     public void test_ScalarCondition_severalCall() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().columnMemberName();
-        cb.query().scalar_NotEqual().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnBirthdate();
-            }
-        });
-        cb.query().scalar_NotEqual().min(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnFormalizedDatetime();
-            }
-        });
-
-        // ## Act ##
-        memberBhv.selectList(cb); // expect no exception
+        memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().columnMemberName();
+            cb.query().scalar_NotEqual().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnBirthdate();
+                }
+            });
+            cb.query().scalar_NotEqual().min(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnFormalizedDatetime();
+                }
+            });
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsAll(sql, "max", "min", "BIRTHDATE", "FORMALIZED_DATETIME"));
     }
 
@@ -205,15 +193,15 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
                 cb.specify().columnMemberId();
             }
         });
-        PurchaseCB cb = new PurchaseCB();
-        cb.query().queryMember().scalar_GreaterThan().avg(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnMemberId();
-            }
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().queryMember().scalar_GreaterThan().avg(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnMemberId();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb);
 
         // ## Assert ##
         assertNotSame(0, purchaseList.size());
@@ -228,22 +216,22 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
     //                                                                          ==========
     public void test_ScalarCondition_PartitionBy_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnBirthdate();
-            }
-        }).partitionBy(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberStatusCode();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnBirthdate();
+                }
+            }).partitionBy(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberStatusCode();
+                }
+            });
+            pushCB(cb);
         });
 
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
-
         // ## Assert ##
-        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(new MemberStatusCB());
+        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb -> {});
         memberStatusBhv.loadMemberList(statusList, new ConditionBeanSetupper<MemberCB>() {
             public void setup(MemberCB cb) {
                 cb.query().addOrderBy_Birthdate_Desc();
@@ -264,22 +252,22 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
 
     public void test_ScalarCondition_PartitionBy_relation() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberServiceAsOne().withServiceRank();
-        cb.query().queryMemberServiceAsOne().scalar_Equal().max(new SubQuery<MemberServiceCB>() {
-            public void query(MemberServiceCB subCB) {
-                subCB.specify().columnServicePointCount();
-            }
-        }).partitionBy(new SpecifyQuery<MemberServiceCB>() {
-            public void specify(MemberServiceCB cb) {
-                cb.specify().columnServiceRankCode();
-                // unsupported
-                //cb.specify().specifyMember().columnMemberStatusCode();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberServiceAsOne().withServiceRank();
+            cb.query().queryMemberServiceAsOne().scalar_Equal().max(new SubQuery<MemberServiceCB>() {
+                public void query(MemberServiceCB subCB) {
+                    subCB.specify().columnServicePointCount();
+                }
+            }).partitionBy(new SpecifyQuery<MemberServiceCB>() {
+                public void specify(MemberServiceCB cb) {
+                    cb.specify().columnServiceRankCode();
+                    // unsupported
+                    //cb.specify().specifyMember().columnMemberStatusCode();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -298,35 +286,39 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         // ## Act ##
         ListResultBean<Member> partitionByList;
         {
-            MemberCB cb = new MemberCB();
-            cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
-                public void query(MemberCB subCB) {
-                    subCB.specify().columnBirthdate();
-                }
-            }).partitionBy(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnMemberStatusCode();
-                }
+            partitionByList = memberBhv.selectList(cb -> {
+                cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
+                    public void query(MemberCB subCB) {
+                        subCB.specify().columnBirthdate();
+                    }
+                }).partitionBy(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().columnMemberStatusCode();
+                    }
+                });
+                pushCB(cb);
             });
-            partitionByList = memberBhv.selectList(cb);
+
         }
         ListResultBean<Member> derivedReferrerList;
         {
-            MemberCB cb = new MemberCB();
-            cb.columnQuery(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnBirthdate();
-                }
-            }).equal(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().specifyMemberStatus().derivedMemberList().max(new SubQuery<MemberCB>() {
-                        public void query(MemberCB subCB) {
-                            subCB.specify().columnBirthdate();
-                        }
-                    }, null);
-                }
+            derivedReferrerList = memberBhv.selectList(cb -> {
+                cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().columnBirthdate();
+                    }
+                }).equal(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().specifyMemberStatus().derivedMemberList().max(new SubQuery<MemberCB>() {
+                            public void query(MemberCB subCB) {
+                                subCB.specify().columnBirthdate();
+                            }
+                        }, null);
+                    }
+                });
+                pushCB(cb);
             });
-            derivedReferrerList = memberBhv.selectList(cb);
+
         }
 
         // ## Assert ##
@@ -369,21 +361,21 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             memberBhv.updateNonstrict(member);
         }
 
-        MemberCB cb = new MemberCB();
-        cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnBirthdate();
-                subCB.query().setMemberName_LikeSearch("vi", new LikeSearchOption().likeContain());
-            }
-        }).partitionBy(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberStatusCode();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnBirthdate();
+                    subCB.query().setMemberName_LikeSearch("vi", new LikeSearchOption().likeContain());
+                }
+            }).partitionBy(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberStatusCode();
+                }
+            });
+            cb.query().setMemberName_LikeSearch("vi", new LikeSearchOption().likeContain());
+            pushCB(cb);
         });
-        cb.query().setMemberName_LikeSearch("vi", new LikeSearchOption().likeContain());
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -420,20 +412,20 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             memberBhv.updateNonstrict(member);
         }
 
-        MemberCB cb = new MemberCB();
-        cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnBirthdate();
-                subCB.query().setMemberName_LikeSearch("vi", new LikeSearchOption().likeContain());
-            }
-        }).partitionBy(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberStatusCode();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnBirthdate();
+                    subCB.query().setMemberName_LikeSearch("vi", new LikeSearchOption().likeContain());
+                }
+            }).partitionBy(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberStatusCode();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -456,8 +448,6 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.query().setMemberStatusCode_Equal_Formalized();
-
-        // ## Act ##
         try {
             cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
@@ -475,21 +465,22 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
 
     public void test_scalarCondition_partitionBy_query() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnBirthdate();
-            }
-        }).partitionBy(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberStatusCode();
-                cb.query().setMemberStatusCode_Equal_Formalized();
-            }
-        });
-
-        // ## Act ##
         try {
-            memberBhv.selectList(cb);
+            memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
+                    public void query(MemberCB subCB) {
+                        subCB.specify().columnBirthdate();
+                    }
+                }).partitionBy(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().columnMemberStatusCode();
+                        cb.query().setMemberStatusCode_Equal_Formalized();
+                    }
+                });
+                pushCB(cb);
+            });
+
             // ## Assert ##
             fail();
         } catch (QueryIllegalPurposeException e) {

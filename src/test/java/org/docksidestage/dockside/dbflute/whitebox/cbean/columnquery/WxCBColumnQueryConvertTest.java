@@ -24,22 +24,21 @@ public class WxCBColumnQueryConvertTest extends UnitContainerTestCase {
     //                                                                                ====
     public void test_ColumnQuery_convert_addDay() throws Exception {
         // ## Arrange ##
-        int countAll = memberBhv.selectCount(new MemberCB());
-        MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        }).lessEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).left().convert(op -> op.coalesce("1192-12-31")) // left
-                .right().convert(op -> op.coalesce("3000-12-31").addYear(100)); // right
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        int countAll = memberBhv.selectCount(countCB -> {});
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            }).lessEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).left().convert(op -> op.coalesce("1192-12-31")) // left
+                    .right().convert(op -> op.coalesce("3000-12-31").addYear(100)); // right
+                cb.query().addOrderBy_MemberId_Asc();
+            });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -52,9 +51,7 @@ public class WxCBColumnQueryConvertTest extends UnitContainerTestCase {
     public void test_ColumnQuery_convert_nullSet() throws Exception {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
         try {
-            // ## Act ##
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().columnFormalizedDatetime();

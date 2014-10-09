@@ -11,7 +11,6 @@ import org.dbflute.exception.IllegalConditionBeanOperationException;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus;
-import org.docksidestage.dockside.dbflute.cbean.MemberAddressCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberAddressBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -37,20 +36,21 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
     public void test_SwitchOrder_DreamCruise() {
         // ## Arrange ##
         adjustMemberStatusCount();
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberSecurityAsOne();
-        cb.setupSelect_MemberServiceAsOne();
-        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        cb.query().addOrderBy_MemberStatusCode_Asc();
-        ManualOrderOption mob = new ManualOrderOption();
-        mob.when_Equal(CDef.MemberStatus.Formalized).then(dreamCruiseCB.specify().columnMemberId());
-        mob.when_Equal(CDef.MemberStatus.Provisional).then(
-                dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-        mob.elseEnd(dreamCruiseCB.specify().specifyMemberSecurityAsOne().columnReminderUseCount());
-        cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList =
+                memberBhv.selectList(cb -> {
+                    /* ## Act ## */
+                    cb.setupSelect_MemberSecurityAsOne();
+                    cb.setupSelect_MemberServiceAsOne();
+                    MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+                    cb.query().addOrderBy_MemberStatusCode_Asc();
+                    ManualOrderOption mob = new ManualOrderOption();
+                    mob.when_Equal(CDef.MemberStatus.Formalized).then(dreamCruiseCB.specify().columnMemberId());
+                    mob.when_Equal(CDef.MemberStatus.Provisional).then(
+                            dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                    mob.elseEnd(dreamCruiseCB.specify().specifyMemberSecurityAsOne().columnReminderUseCount());
+                    cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
+                    pushCB(cb);
+                });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -60,8 +60,8 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
         String previousStatus = null;
         Set<String> statusSet = newHashSet();
         for (Member member : memberList) {
-            log(member.getMemberStatusCode(), member.getMemberId(), member.getMemberServiceAsOne()
-                    .getServicePointCount(), member.getMemberSecurityAsOne().getReminderUseCount());
+            log(member.getMemberStatusCode(), member.getMemberId(), member.getMemberServiceAsOne().getServicePointCount(), member
+                    .getMemberSecurityAsOne().getReminderUseCount());
             if (member.isMemberStatusCodeFormalized()) {
                 fmlList.add(member);
             } else if (member.isMemberStatusCodeProvisional()) {
@@ -122,23 +122,23 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
     public void test_SwitchOrder_binding_basic() {
         // ## Arrange ##
         adjustMemberStatusCount();
-        MemberCB cb = new MemberCB();
-        // H2 needs to suppress either 'then' or 'else' binding (why?)
-        // she said 'Unknown data type' (why?)
-        // (cannot judge order column type by all binding?)
-        ManualOrderOption mob = new ManualOrderOption().suppressElseBinding();
-        mob.when_Equal(CDef.MemberStatus.Formalized).then(3);
-        mob.when_Equal(CDef.MemberStatus.Provisional).then(4);
-        mob.elseEnd(2);
-        cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            // H2 needs to suppress either 'then' or 'else' binding (why?)
+            // she said 'Unknown data type' (why?)
+            // (cannot judge order column type by all binding?)
+                ManualOrderOption mob = new ManualOrderOption().suppressElseBinding();
+                mob.when_Equal(CDef.MemberStatus.Formalized).then(3);
+                mob.when_Equal(CDef.MemberStatus.Provisional).then(4);
+                mob.elseEnd(2);
+                cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
-        List<CDef.MemberStatus> expectedList = newArrayList(CDef.MemberStatus.Withdrawal, CDef.MemberStatus.Formalized,
-                CDef.MemberStatus.Provisional);
+        List<CDef.MemberStatus> expectedList =
+                newArrayList(CDef.MemberStatus.Withdrawal, CDef.MemberStatus.Formalized, CDef.MemberStatus.Provisional);
         Set<CDef.MemberStatus> actualSet = newLinkedHashSet();
         for (Member member : memberList) {
             actualSet.add(member.getMemberStatusCodeAsMemberStatus());
@@ -159,20 +159,20 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
     public void test_SwitchOrder_binding_suppress_Number() {
         // ## Arrange ##
         adjustMemberStatusCount();
-        MemberCB cb = new MemberCB();
-        ManualOrderOption mob = new ManualOrderOption().suppressThenBinding().suppressElseBinding();
-        mob.when_Equal(CDef.MemberStatus.Formalized).then(3);
-        mob.when_Equal(CDef.MemberStatus.Provisional).then(4);
-        mob.elseEnd(2);
-        cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            ManualOrderOption mob = new ManualOrderOption().suppressThenBinding().suppressElseBinding();
+            mob.when_Equal(CDef.MemberStatus.Formalized).then(3);
+            mob.when_Equal(CDef.MemberStatus.Provisional).then(4);
+            mob.elseEnd(2);
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
-        List<CDef.MemberStatus> expectedList = newArrayList(CDef.MemberStatus.Withdrawal, CDef.MemberStatus.Formalized,
-                CDef.MemberStatus.Provisional);
+        List<CDef.MemberStatus> expectedList =
+                newArrayList(CDef.MemberStatus.Withdrawal, CDef.MemberStatus.Formalized, CDef.MemberStatus.Provisional);
         Set<CDef.MemberStatus> actualSet = newLinkedHashSet();
         for (Member member : memberList) {
             actualSet.add(member.getMemberStatusCodeAsMemberStatus());
@@ -187,20 +187,20 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
     public void test_SwitchOrder_binding_suppress_Date() {
         // ## Arrange ##
         adjustMemberStatusCount();
-        MemberCB cb = new MemberCB();
-        ManualOrderOption mob = new ManualOrderOption().suppressThenBinding().suppressElseBinding();
-        mob.when_Equal(CDef.MemberStatus.Formalized).then(toDate("2012/10/31"));
-        mob.when_Equal(CDef.MemberStatus.Provisional).then(toDate("2001/10/31"));
-        mob.elseEnd(toDate("2007/10/31"));
-        cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            ManualOrderOption mob = new ManualOrderOption().suppressThenBinding().suppressElseBinding();
+            mob.when_Equal(CDef.MemberStatus.Formalized).then(toDate("2012/10/31"));
+            mob.when_Equal(CDef.MemberStatus.Provisional).then(toDate("2001/10/31"));
+            mob.elseEnd(toDate("2007/10/31"));
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
-        List<CDef.MemberStatus> expectedList = newArrayList(CDef.MemberStatus.Provisional,
-                CDef.MemberStatus.Withdrawal, CDef.MemberStatus.Formalized);
+        List<CDef.MemberStatus> expectedList =
+                newArrayList(CDef.MemberStatus.Provisional, CDef.MemberStatus.Withdrawal, CDef.MemberStatus.Formalized);
         Set<CDef.MemberStatus> actualSet = newLinkedHashSet();
         for (Member member : memberList) {
             actualSet.add(member.getMemberStatusCodeAsMemberStatus());
@@ -222,8 +222,6 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
         mob.when_Equal(CDef.ServiceRank.Bronze).then(CDef.ServiceRank.Platinum);
         mob.when_Equal(CDef.ServiceRank.Silver).then(CDef.ServiceRank.Gold);
         mob.elseEnd(CDef.ServiceRank.Bronze);
-
-        // ## Act ##
         try {
             cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
 
@@ -237,15 +235,15 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
 
     public void test_SwitchOrder_binding_suppress_CDef_Integer() {
         // ## Arrange ##
-        MemberAddressCB cb = new MemberAddressCB();
-        ManualOrderOption mob = new ManualOrderOption().suppressThenBinding().suppressElseBinding();
-        mob.when_Equal(CDef.Region.Chiba).then(CDef.Region.America);
-        mob.when_Equal(CDef.Region.America).then(CDef.Region.China);
-        mob.elseEnd(CDef.Region.Canada);
-        cb.query().addOrderBy_RegionId_Asc().withManualOrder(mob);
-
-        // ## Act ##
-        ListResultBean<MemberAddress> addressList = memberAddressBhv.selectList(cb);
+        ListResultBean<MemberAddress> addressList = memberAddressBhv.selectList(cb -> {
+            /* ## Act ## */
+            ManualOrderOption mob = new ManualOrderOption().suppressThenBinding().suppressElseBinding();
+            mob.when_Equal(CDef.Region.Chiba).then(CDef.Region.America);
+            mob.when_Equal(CDef.Region.America).then(CDef.Region.China);
+            mob.elseEnd(CDef.Region.Canada);
+            cb.query().addOrderBy_RegionId_Asc().withManualOrder(mob);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertHasAnyElement(addressList);
@@ -253,7 +251,7 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
             log(address.getMemberAddressId(), address.getRegionId(), address.getRegionIdAsRegion().name());
         }
         // assert by whitebox
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         String chiba = CDef.Region.Chiba.code();
         String america = CDef.Region.America.code();
         String china = CDef.Region.China.code();
@@ -269,10 +267,12 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
     //                                                                         ===========
     protected void adjustMemberStatusCount() {
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberStatusCode_Equal_Formalized();
-            cb.fetchFirst(3);
-            ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                cb.query().setMemberStatusCode_Equal_Formalized();
+                cb.fetchFirst(3);
+                pushCB(cb);
+            });
+
             for (Member member : memberList) {
                 member.setMemberStatusCode_Provisional();
             }
@@ -283,10 +283,12 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
             });
         }
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberStatusCode_Equal_Formalized();
-            cb.fetchFirst(3);
-            ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                cb.query().setMemberStatusCode_Equal_Formalized();
+                cb.fetchFirst(3);
+                pushCB(cb);
+            });
+
             for (Member member : memberList) {
                 member.setMemberStatusCode_Withdrawal();
             }

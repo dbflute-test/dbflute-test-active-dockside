@@ -29,27 +29,26 @@ public class WxCBMyselfDerivedBasicTest extends UnitContainerTestCase {
     //                                               -------
     public void test_SpecifyMyselfDerived_ranking_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberServiceAsOne();
-        final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        cb.specify().myselfDerived().count(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnMemberId();
-                subCB.columnQuery(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                    }
-                }).greaterThan(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-                    }
-                });
-            }
-        }, Member.ALIAS_loginCount, op -> op.plus(1));
-        cb.query().queryMemberServiceAsOne().addOrderBy_ServicePointCount_Desc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberServiceAsOne();
+            final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            cb.specify().myselfDerived().count(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnMemberId();
+                    subCB.columnQuery(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                        }
+                    }).greaterThan(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                        }
+                    });
+                }
+            }, Member.ALIAS_loginCount, op -> op.plus(1));
+            cb.query().queryMemberServiceAsOne().addOrderBy_ServicePointCount_Desc();
+        });
 
         // ## Assert ##
         Integer previousPoint = null;
@@ -82,44 +81,40 @@ public class WxCBMyselfDerivedBasicTest extends UnitContainerTestCase {
 
     public void test_SpecifyMyselfDerived_ranking_noisy() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberServiceAsOne();
-        final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        cb.specify().myselfDerived().count(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnMemberId();
-                subCB.columnQuery(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                    }
-                }).greaterThan(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-                    }
-                });
-            }
-        }, Member.ALIAS_loginCount, op -> op.plus(1));
-        cb.specify().myselfDerived()
-                .count(new SubQuery<MemberCB>() {
-                    public void query(MemberCB subCB) {
-                        subCB.specify().columnMemberId();
-                        subCB.columnQuery(new SpecifyQuery<MemberCB>() {
-                            public void specify(MemberCB cb) {
-                                cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                            }
-                        }).greaterThan(new SpecifyQuery<MemberCB>() {
-                            public void specify(MemberCB cb) {
-                                cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne()
-                                        .columnServicePointCount());
-                            }
-                        });
-                    }
-                }, Member.ALIAS_productKindCount,
-                        op -> op.coalesce(0).multiply(9).plus(1).minus(dreamCruiseCB.specify().columnMemberId()));
-        cb.query().queryMemberServiceAsOne().addOrderBy_ServicePointCount_Desc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberServiceAsOne();
+            final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            cb.specify().myselfDerived().count(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnMemberId();
+                    subCB.columnQuery(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                        }
+                    }).greaterThan(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                        }
+                    });
+                }
+            }, Member.ALIAS_loginCount, op -> op.plus(1));
+            cb.specify().myselfDerived().count(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnMemberId();
+                    subCB.columnQuery(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                        }
+                    }).greaterThan(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                        }
+                    });
+                }
+            }, Member.ALIAS_productKindCount, op -> op.coalesce(0).multiply(9).plus(1).minus(dreamCruiseCB.specify().columnMemberId()));
+            cb.query().queryMemberServiceAsOne().addOrderBy_ServicePointCount_Desc();
+        });
 
         // ## Assert ##
         Integer previousPoint = null;
@@ -151,44 +146,42 @@ public class WxCBMyselfDerivedBasicTest extends UnitContainerTestCase {
     //                                                 -----
     public void test_SpecifyMyselfDerived_union() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberServiceAsOne();
-        final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        cb.specify().myselfDerived().count(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnMemberId();
-                subCB.query().setMemberStatusCode_Equal_Formalized();
-                subCB.columnQuery(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                    }
-                }).greaterThan(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-                    }
-                });
-                subCB.union(new UnionQuery<MemberCB>() {
-                    public void query(MemberCB unionCB) {
-                        unionCB.query().setMemberStatusCode_Equal_Provisional();
-                        unionCB.columnQuery(new SpecifyQuery<MemberCB>() {
+        try {
+            memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.setupSelect_MemberServiceAsOne();
+                final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+                cb.specify().myselfDerived().count(new SubQuery<MemberCB>() {
+                    public void query(MemberCB subCB) {
+                        subCB.specify().columnMemberId();
+                        subCB.query().setMemberStatusCode_Equal_Formalized();
+                        subCB.columnQuery(new SpecifyQuery<MemberCB>() {
                             public void specify(MemberCB cb) {
                                 cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
                             }
                         }).greaterThan(new SpecifyQuery<MemberCB>() {
                             public void specify(MemberCB cb) {
-                                cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne()
-                                        .columnServicePointCount());
+                                cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                            }
+                        });
+                        subCB.union(new UnionQuery<MemberCB>() {
+                            public void query(MemberCB unionCB) {
+                                unionCB.query().setMemberStatusCode_Equal_Provisional();
+                                unionCB.columnQuery(new SpecifyQuery<MemberCB>() {
+                                    public void specify(MemberCB cb) {
+                                        cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                                    }
+                                }).greaterThan(new SpecifyQuery<MemberCB>() {
+                                    public void specify(MemberCB cb) {
+                                        cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                                    }
+                                });
                             }
                         });
                     }
-                });
-            }
-        }, Member.ALIAS_loginCount, op -> op.plus(1));
-        cb.query().queryMemberServiceAsOne().addOrderBy_ServicePointCount_Desc();
-
-        // ## Act ##
-        try {
-            memberBhv.selectList(cb);
+                }, Member.ALIAS_loginCount, op -> op.plus(1));
+                cb.query().queryMemberServiceAsOne().addOrderBy_ServicePointCount_Desc();
+            });
 
             // ## Assert ##
             fail(); // because of inline-view
@@ -203,16 +196,15 @@ public class WxCBMyselfDerivedBasicTest extends UnitContainerTestCase {
     //                                                 -----
     public void test_SpecifyMyselfDerived_plain_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().myselfDerived().count(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnMemberId();
-                subCB.query().setMemberStatusCode_Equal_Formalized();
-            }
-        }, Member.ALIAS_loginCount, op -> op.plus(1).minus(2).coalesce(9));
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().myselfDerived().count(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnMemberId();
+                    subCB.query().setMemberStatusCode_Equal_Formalized();
+                }
+            }, Member.ALIAS_loginCount, op -> op.plus(1).minus(2).coalesce(9));
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -236,40 +228,39 @@ public class WxCBMyselfDerivedBasicTest extends UnitContainerTestCase {
     //                                               -------
     public void test_QueryMyselfDerived_ranking_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        cb.specify().myselfDerived().count(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnMemberId();
-                subCB.columnQuery(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                    }
-                }).greaterThan(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-                    }
-                });
-            }
-        }, Member.ALIAS_loginCount, op -> op.plus(1));
-        cb.query().myselfDerived().count(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().columnMemberId();
-                subCB.columnQuery(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                    }
-                }).greaterThan(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-                    }
-                });
-            }
-        }, op -> op.plus(1)).lessEqual(3);
-        cb.query().queryMemberServiceAsOne().addOrderBy_ServicePointCount_Desc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            cb.specify().myselfDerived().count(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnMemberId();
+                    subCB.columnQuery(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                        }
+                    }).greaterThan(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                        }
+                    });
+                }
+            }, Member.ALIAS_loginCount, op -> op.plus(1));
+            cb.query().myselfDerived().count(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().columnMemberId();
+                    subCB.columnQuery(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                        }
+                    }).greaterThan(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                        }
+                    });
+                }
+            }, op -> op.plus(1)).lessEqual(3);
+            cb.query().queryMemberServiceAsOne().addOrderBy_ServicePointCount_Desc();
+        });
 
         // ## Assert ##
         Integer previousRank = null;

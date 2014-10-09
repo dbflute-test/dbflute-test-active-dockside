@@ -10,8 +10,6 @@ import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberServiceDbm;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberLoginBhv;
@@ -43,11 +41,10 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
         member.setMemberStatusCode_Provisional();
         member.setFormalizedDatetime(null);
 
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-
-        // ## Act ##
-        int updatedCount = memberBhv.queryUpdate(member, cb);
+        int updatedCount = memberBhv.queryUpdate(member, cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        });
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
@@ -65,11 +62,10 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
         member.setMemberStatusCode_Provisional();
         member.setFormalizedDatetime(null);
 
-        MemberCB cb = new MemberCB();
-        cb.query().queryMemberStatus().setMemberStatusCode_Equal_Formalized();
-
-        // ## Act ##
-        int updatedCount = memberBhv.queryUpdate(member, cb);
+        int updatedCount = memberBhv.queryUpdate(member, cb -> {
+            /* ## Act ## */
+            cb.query().queryMemberStatus().setMemberStatusCode_Equal_Formalized();
+        });
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
@@ -90,11 +86,10 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
         member.setMemberStatusCode_Provisional();
         member.setFormalizedDatetime(null);
 
-        MemberCB cb = new MemberCB();
-
-        // ## Act ##
         try {
-            int updated = memberBhv.queryUpdate(member, cb);
+            int updated = memberBhv.queryUpdate(member, cb -> {
+                /* ## Act ## */
+            });
 
             // ## Assert ##
             fail("updated=" + updated);
@@ -110,13 +105,12 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
         member.setMemberStatusCode_Provisional();
         member.setFormalizedDatetime(null);
 
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(null);
-        cb.query().queryMemberServiceAsOne().setServicePointCount_GreaterThan(null);
-
-        // ## Act ##
         try {
-            int updated = memberBhv.queryUpdate(member, cb);
+            int updated = memberBhv.queryUpdate(member, cb -> {
+                /* ## Act ## */
+                cb.query().setMemberId_Equal(null);
+                cb.query().queryMemberServiceAsOne().setServicePointCount_GreaterThan(null);
+            });
 
             // ## Assert ##
             fail("updated=" + updated);
@@ -140,16 +134,15 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
         member.setMemberStatusCode_Provisional();
         member.setFormalizedDatetime(null);
 
-        MemberCB cb = new MemberCB();
-        cb.query().queryMemberStatus().setMemberStatusCode_Equal_Formalized();
-        cb.union(new UnionQuery<MemberCB>() {
-            public void query(MemberCB unionCB) {
-                unionCB.query().queryMemberStatus().setMemberStatusCode_Equal_Formalized();
-            }
+        int updatedCount = memberBhv.queryUpdate(member, cb -> {
+            /* ## Act ## */
+            cb.query().queryMemberStatus().setMemberStatusCode_Equal_Formalized();
+            cb.union(new UnionQuery<MemberCB>() {
+                public void query(MemberCB unionCB) {
+                    unionCB.query().queryMemberStatus().setMemberStatusCode_Equal_Formalized();
+                }
+            });
         });
-
-        // ## Act ##
-        int updatedCount = memberBhv.queryUpdate(member, cb);
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
@@ -167,16 +160,15 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
         member.setMemberStatusCode_Provisional();
         member.setFormalizedDatetime(null);
 
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().setPaymentCompleteFlg_Equal_False();
-            }
+        int updatedCount = memberBhv.queryUpdate(member, cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().setPaymentCompleteFlg_Equal_False();
+                }
+            });
         });
-
-        // ## Act ##
-        int updatedCount = memberBhv.queryUpdate(member, cb);
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
@@ -203,11 +195,10 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
         login.setMemberLoginId(99999L);
         login.setLoginMemberStatusCode_Withdrawal();
 
-        MemberLoginCB cb = new MemberLoginCB();
-        cb.query().setMemberLoginId_Equal(3L);
-
-        // ## Act ##
-        int updatedCount = memberLoginBhv.queryUpdate(login, cb);
+        int updatedCount = memberLoginBhv.queryUpdate(login, cb -> {
+            /* ## Act ## */
+            cb.query().setMemberLoginId_Equal(3L);
+        });
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
@@ -220,11 +211,10 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
     public void test_queryUpdate_noupdate() {
         // ## Arrange ##
         MemberStatus status = new MemberStatus();
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-
-        // ## Act ##
-        int updatedCount = memberStatusBhv.queryUpdate(status, cb); // expect no exception
+        int updatedCount = memberStatusBhv.queryUpdate(status, cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        }); // expect no exception
 
         // ## Assert ##
         assertEquals(0, updatedCount);
@@ -240,12 +230,12 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
         member.setFormalizedDatetime(null);
         member.uniqueBy("foo"); // nonsense
 
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-
         try {
-            // ## Act ##
-            memberBhv.queryUpdate(member, cb);
+            memberBhv.queryUpdate(member, cb -> {
+                /* ## Act ## */
+                cb.query().setMemberStatusCode_Equal_Formalized();
+
+            });
 
             // ## Assert ##
             fail();

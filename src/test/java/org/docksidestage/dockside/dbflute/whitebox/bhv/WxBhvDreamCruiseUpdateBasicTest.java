@@ -66,19 +66,19 @@ public class WxBhvDreamCruiseUpdateBasicTest extends UnitContainerTestCase {
         Purchase purchase = new Purchase();
         purchase.setPaymentCompleteFlg_True();
 
-        PurchaseCB cb = new PurchaseCB();
-        cb.query().setPaymentCompleteFlg_Equal_True();
-
         try {
-            final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
-            CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-                public void handle(SqlLogInfo info) {
-                    infoList.add(info);
-                }
-            });
-            // ## Act ##
-            PurchaseCB dreamCruiseCB = cb.dreamCruiseCB();
-            int updatedCount = purchaseBhv.varyingQueryUpdate(purchase, cb, op -> op.self(colCB -> {
+            int updatedCount = purchaseBhv.varyingQueryUpdate(purchase, cb -> {
+                /* ## Act ## */
+                cb.query().setPaymentCompleteFlg_Equal_True();
+
+                final List<SqlLogInfo> infoList = new ArrayList<SqlLogInfo>();
+                CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                    public void handle(SqlLogInfo info) {
+                        infoList.add(info);
+                    }
+                });
+                PurchaseCB dreamCruiseCB = cb.dreamCruiseCB();
+            }, op -> op.self(colCB -> {
                 colCB.specify().columnPurchasePrice();
             }).multiply(dreamCruiseCB.specify().columnPurchaseCount()));
 
@@ -99,14 +99,14 @@ public class WxBhvDreamCruiseUpdateBasicTest extends UnitContainerTestCase {
         Purchase purchase = new Purchase();
         purchase.setPaymentCompleteFlg_True();
 
-        PurchaseCB cb = new PurchaseCB();
-        cb.query().queryMember().setMemberStatusCode_Equal_Formalized();
-        cb.query().setPaymentCompleteFlg_Equal_True();
-
         try {
-            // ## Act ##
-            PurchaseCB dreamCruiseCB = cb.dreamCruiseCB();
-            purchaseBhv.varyingQueryUpdate(purchase, cb, op -> op.self(colCB -> {
+            purchaseBhv.varyingQueryUpdate(purchase, cb -> {
+                /* ## Act ## */
+                cb.query().queryMember().setMemberStatusCode_Equal_Formalized();
+                cb.query().setPaymentCompleteFlg_Equal_True();
+
+                PurchaseCB dreamCruiseCB = cb.dreamCruiseCB();
+            }, op -> op.self(colCB -> {
                 colCB.specify().columnPurchasePrice();
             }).multiply(dreamCruiseCB.specify().columnPurchaseCount()).divide(dreamCruiseCB.specify().specifyMember().columnMemberId()));
 

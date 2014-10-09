@@ -6,7 +6,6 @@ import java.util.List;
 import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.util.Srl;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.DomainMemberPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.MemberChangedToWithdrawalForcedlyPmb;
@@ -171,9 +170,10 @@ public class WxOutsideSqlBasicTest extends UnitContainerTestCase {
         // ## Assert ##
         log("updatedCount=" + updatedCount);
         assertNotSame(0, updatedCount);
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_LikeSearch("S", new LikeSearchOption().likePrefix());
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberName_LikeSearch("S", new LikeSearchOption().likePrefix());
+        });
+
         for (Member member : memberList) {
             Timestamp formalizedDatetime = member.getFormalizedDatetime();
             log(member.getMemberName() + ", " + formalizedDatetime);

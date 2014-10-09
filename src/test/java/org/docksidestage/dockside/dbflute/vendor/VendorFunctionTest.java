@@ -34,28 +34,32 @@ public class VendorFunctionTest extends UnitContainerTestCase {
         // ## Arrange ##
         int countAll;
         {
-            MemberCB cb = new MemberCB();
-            countAll = memberBhv.selectCount(cb);
+            countAll = memberBhv.selectCount(cb -> {
+                pushCB(cb);
+            });
+
         }
         {
-            MemberCB cb = new MemberCB();
-            cb.query().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
-                public void query(MemberLoginCB subCB) {
-                    subCB.specify().columnMemberLoginId();
-                }
-            }).equal(0);
-            memberBhv.selectEntityWithDeletedCheck(cb); // expect no exception
-        }
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnLoginDatetime();
-            }
-        }, Member.ALIAS_latestLoginDatetime, op -> op.coalesce("1192-01-01"));
-        assertTrue(cb.toDisplaySql().contains("coalesce("));
+            memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnMemberLoginId();
+                    }
+                }).equal(0);
+                pushCB(cb);
+            }); // expect no exception
 
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.specify().columnLoginDatetime();
+                }
+            }, Member.ALIAS_latestLoginDatetime, op -> op.coalesce("1192-01-01"));
+            assertTrue(cb.toDisplaySql().contains("coalesce("));
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -79,19 +83,21 @@ public class VendorFunctionTest extends UnitContainerTestCase {
         // ## Arrange ##
         int countAll;
         {
-            MemberCB cb = new MemberCB();
-            countAll = memberBhv.selectCount(cb);
-        }
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseCount();
-            }
-        }, Member.ALIAS_productKindCount, op -> op.round(0));
-        assertTrue(cb.toDisplaySql().contains("round("));
+            countAll = memberBhv.selectCount(cb -> {
+                pushCB(cb);
+            });
 
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchaseCount();
+                }
+            }, Member.ALIAS_productKindCount, op -> op.round(0));
+            assertTrue(cb.toDisplaySql().contains("round("));
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -117,19 +123,21 @@ public class VendorFunctionTest extends UnitContainerTestCase {
         // ## Arrange ##
         int countAll;
         {
-            MemberCB cb = new MemberCB();
-            countAll = memberBhv.selectCount(cb);
-        }
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseCount();
-            }
-        }, Member.ALIAS_productKindCount, op -> op.trunc(0));
-        assertTrue(cb.toDisplaySql().contains("truncate("));
+            countAll = memberBhv.selectCount(cb -> {
+                pushCB(cb);
+            });
 
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchaseCount();
+                }
+            }, Member.ALIAS_productKindCount, op -> op.trunc(0));
+            assertTrue(cb.toDisplaySql().contains("truncate("));
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -153,24 +161,24 @@ public class VendorFunctionTest extends UnitContainerTestCase {
     //                                         -------------
     public void test_ColumnQuery_truncMonth_right() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseDatetime();
-            }
-        }, Member.ALIAS_latestLoginDatetime, op -> op.truncMonth());
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        }).notEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        }).convert(op -> op.truncMonth());
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb); // expect no exception
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchaseDatetime();
+                }
+            }, Member.ALIAS_latestLoginDatetime, op -> op.truncMonth());
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            }).notEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            }).convert(op -> op.truncMonth());
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -186,30 +194,30 @@ public class VendorFunctionTest extends UnitContainerTestCase {
             }
         }
         assertTrue(exists);
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.contains(sql, " <> cast(substring(dfloc.FORMALIZED_DATETIME, 1, 4) || '-01-01' as date)"));
     }
 
     public void test_ColumnQuery_truncDay_right() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseDatetime();
-            }
-        }, Member.ALIAS_latestLoginDatetime, op -> op.truncDay());
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        }).notEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        }).convert(op -> op.truncDay());
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb); // expect no exception
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchaseDatetime();
+                }
+            }, Member.ALIAS_latestLoginDatetime, op -> op.truncDay());
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            }).notEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            }).convert(op -> op.truncDay());
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -225,25 +233,25 @@ public class VendorFunctionTest extends UnitContainerTestCase {
             }
         }
         assertTrue(exists);
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.contains(sql, " <> cast(substring(dfloc.FORMALIZED_DATETIME, 1, 7) || '-01' as date)"));
     }
 
     public void test_ColumnQuery_truncDay_date() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).notEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).convert(op -> op.truncDay());
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb); // expect no exception
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).notEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).convert(op -> op.truncDay());
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -251,24 +259,24 @@ public class VendorFunctionTest extends UnitContainerTestCase {
 
     public void test_ColumnQuery_truncTime_right() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseDatetime();
-            }
-        }, Member.ALIAS_latestLoginDatetime, op -> op.truncTime());
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        }).notEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        }).convert(op -> op.truncTime());
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb); // expect no exception
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchaseDatetime();
+                }
+            }, Member.ALIAS_latestLoginDatetime, op -> op.truncTime());
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            }).notEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            }).convert(op -> op.truncTime());
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -283,7 +291,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
             }
         }
         assertTrue(exists);
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.contains(sql, " <> cast(substring(dfloc.FORMALIZED_DATETIME, 1, 10) as date)"));
     }
 
@@ -297,23 +305,25 @@ public class VendorFunctionTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> plainList;
         {
-            MemberCB cb = new MemberCB();
+            plainList = memberBhv.selectList(cb -> {
+                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.specify().columnPurchaseDatetime();
+                    }
+                }, Member.ALIAS_latestLoginDatetime);
+                pushCB(cb);
+            });
+
+        }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
             cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseDatetime();
                 }
-            }, Member.ALIAS_latestLoginDatetime);
-            plainList = memberBhv.selectList(cb);
-        }
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseDatetime();
-            }
-        }, Member.ALIAS_latestLoginDatetime, op -> op.addYear(10).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50));
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            }, Member.ALIAS_latestLoginDatetime, op -> op.addYear(10).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50));
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -339,7 +349,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
             }
         }
         assertTrue(exists);
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertEquals(6, Srl.count(sql, "dateadd("));
         assertTrue(Srl.contains(sql, "dateadd(second, 50, dateadd(minute, 20, dateadd(hour, 5, dateadd(day, 7"));
         assertTrue(Srl.contains(sql, "day, 7, dateadd(month, 3, dateadd(year, 10"));
@@ -350,23 +360,25 @@ public class VendorFunctionTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> plainList;
         {
-            MemberCB cb = new MemberCB();
+            plainList = memberBhv.selectList(cb -> {
+                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.specify().columnPurchaseDatetime();
+                    }
+                }, Member.ALIAS_latestLoginDatetime);
+                pushCB(cb);
+            });
+
+        }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
             cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseDatetime();
                 }
-            }, Member.ALIAS_latestLoginDatetime);
-            plainList = memberBhv.selectList(cb);
-        }
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseDatetime();
-            }
-        }, Member.ALIAS_latestLoginDatetime, op -> op.addMonth(1).truncDay().addDay(-1)); // means last_day
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb); // expect no exception
+            }, Member.ALIAS_latestLoginDatetime, op -> op.addMonth(1).truncDay().addDay(-1)); // means last_day
+                pushCB(cb);
+            }); // expect no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -398,15 +410,17 @@ public class VendorFunctionTest extends UnitContainerTestCase {
     //                                ----------------------
     public void test_QueryDerivedReferrer_dateAdd_right() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseDatetime();
-            }
-        }, op -> op.addYear(-80).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50)).lessThan(DfTypeUtil.toDate("1970/06/25"));
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb); // expect no exception
+        ListResultBean<Member> memberList =
+                memberBhv.selectList(cb -> {
+                    /* ## Act ## */
+                    cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchaseDatetime();
+                        }
+                    }, op -> op.addYear(-80).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50))
+                            .lessThan(DfTypeUtil.toDate("1970/06/25"));
+                    pushCB(cb);
+                }); // expect no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -417,23 +431,23 @@ public class VendorFunctionTest extends UnitContainerTestCase {
     //                                           -----------
     public void test_ColumnQuery_dateAdd_right() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).lessEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).convert(op -> op.addYear(10).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50));
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb); // expect no exception
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).lessEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).convert(op -> op.addYear(10).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50));
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertEquals(6, Srl.count(sql, "dateadd("));
         assertTrue(Srl.contains(sql, "dateadd(second, 50, dateadd(minute, 20, dateadd(hour, 5, dateadd(day, 7"));
         assertTrue(Srl.contains(sql, "day, 7, dateadd(month, 3, dateadd(year, 10"));
@@ -443,23 +457,23 @@ public class VendorFunctionTest extends UnitContainerTestCase {
 
     public void test_ColumnQuery_dateAdd_left() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).greaterEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).left().convert(op -> op.addYear(10).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50));
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb); // expect no exception
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).greaterEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).left().convert(op -> op.addYear(10).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50));
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertEquals(6, Srl.count(sql, "dateadd("));
         assertTrue(Srl.contains(sql, "dateadd(second, 50, dateadd(minute, 20, dateadd(hour, 5, dateadd(day, 7"));
         assertTrue(Srl.contains(sql, "day, 7, dateadd(month, 3, dateadd(year, 10"));
@@ -469,23 +483,23 @@ public class VendorFunctionTest extends UnitContainerTestCase {
 
     public void test_ColumnQuery_dateAdd_collaboration() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).lessEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        }).plus(123).convert(op -> op.addDay(7).truncTime()).minus(789);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb); // expect no exception
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).lessEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            }).plus(123).convert(op -> op.addDay(7).truncTime()).minus(789);
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(Srl.contains(sql, "(cast(substring(dateadd(day, 7, (dfloc.FORMALIZED_DATETIME"));
         assertTrue(Srl.contains(sql, "FORMALIZED_DATETIME + 123)), 1, 10) as date)) - 789"));
@@ -493,76 +507,76 @@ public class VendorFunctionTest extends UnitContainerTestCase {
 
     public void test_ColumnQuery_dateAdd_derived() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).greaterEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnPurchaseDatetime();
-                    }
-                }, null);
-            }
-        }).convert(op -> op.addDay(3).truncTime());
-        cb.query().queryMemberStatus().existsMemberList(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.columnQuery(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().columnBirthdate();
-                    }
-                }).greaterEqual(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                            public void query(PurchaseCB subCB) {
-                                subCB.specify().columnPurchaseDatetime();
-                            }
-                        }, null);
-                    }
-                }).convert(op -> op.addDay(3).truncTime());
+        memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).greaterEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchaseDatetime();
+                        }
+                    }, null);
+                }
+            }).convert(op -> op.addDay(3).truncTime());
+            cb.query().queryMemberStatus().existsMemberList(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.columnQuery(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.specify().columnBirthdate();
+                        }
+                    }).greaterEqual(new SpecifyQuery<MemberCB>() {
+                        public void specify(MemberCB cb) {
+                            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                                public void query(PurchaseCB subCB) {
+                                    subCB.specify().columnPurchaseDatetime();
+                                }
+                            }, null);
+                        }
+                    }).convert(op -> op.addDay(3).truncTime());
 
-            }
-        }); // formatting check
-
-        // ## Act ##
-        memberBhv.selectList(cb); // expect no exception
+                }
+            }); // formatting check
+                pushCB(cb);
+            }); // expect no exception
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.contains(sql, "cast(substring(dateadd(day, 3, (select"));
         assertTrue(Srl.contains(sql, "(select max(sub1loc.PURCHASE_DATETIME)"));
     }
 
     public void test_ColumnQuery_dateAdd_derived_bothSide() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseDatetime();
-            }
-        }, Member.ALIAS_latestLoginDatetime, op -> op.addYear(1000));
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnPurchaseDatetime();
-                    }
-                }, null);
-            }
-        }).equal(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnPurchaseDatetime();
-                    }
-                }, null);
-            }
-        }).left().convert(op -> op.addDay(-3)).right().convert(op -> op.addDay(-3));
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb); // expect no exception
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchaseDatetime();
+                }
+            }, Member.ALIAS_latestLoginDatetime, op -> op.addYear(1000));
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchaseDatetime();
+                        }
+                    }, null);
+                }
+            }).equal(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchaseDatetime();
+                        }
+                    }, null);
+                }
+            }).left().convert(op -> op.addDay(-3)).right().convert(op -> op.addDay(-3));
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -570,7 +584,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
             Timestamp maxPurchaseDatetime = member.getLatestLoginDatetime();
             log(member.getMemberName() + ", " + maxPurchaseDatetime);
         }
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertEquals(2, Srl.count(sql, "dateadd(day, -3, (select max(sub1loc.PURCHASE_DATETIME)"));
     }
 }

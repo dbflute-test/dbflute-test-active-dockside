@@ -26,75 +26,73 @@ public class WxCBInlineViewTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_inline_local_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().inline().setMemberName_PrefixSearch("S");
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().inline().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             assertTrue(member.getMemberName().startsWith("S"));
         }
-        assertTrue(cb.toDisplaySql().contains(" dfinlineloc.MEMBER_NAME like 'S%' escape '|'"));
+        assertTrue(popCB().toDisplaySql().contains(" dfinlineloc.MEMBER_NAME like 'S%' escape '|'"));
     }
 
     public void test_inline_local_InScopeRelation_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().inline().setMemberName_PrefixSearch("S");
-        cb.query().inline().inScopePurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().setPaymentCompleteFlg_Equal_True();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().inline().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().inline().inScopePurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().setPaymentCompleteFlg_Equal_True();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             assertTrue(member.getMemberName().startsWith("S"));
         }
-        assertTrue(cb.toDisplaySql().contains(" dfinlineloc.MEMBER_NAME like 'S%' escape '|'"));
+        assertTrue(popCB().toDisplaySql().contains(" dfinlineloc.MEMBER_NAME like 'S%' escape '|'"));
     }
 
     public void test_inline_local_InScopeRelation_withVarious() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.setupSelect_MemberAddressAsValid(currentDate());
-        cb.query().inline().setMemberName_PrefixSearch("S");
-        cb.query().inline().inScopePurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().setPaymentCompleteFlg_Equal_True();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.setupSelect_MemberAddressAsValid(currentDate());
+            cb.query().inline().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().inline().inScopePurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().setPaymentCompleteFlg_Equal_True();
+                }
+            });
+            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().setPaymentCompleteFlg_Equal_True();
+                }
+            });
+            pushCB(cb);
         });
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().setPaymentCompleteFlg_Equal_True();
-            }
-        });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             assertTrue(member.getMemberName().startsWith("S"));
         }
-        assertTrue(cb.toDisplaySql().contains(" dfinlineloc.MEMBER_NAME like 'S%' escape '|'"));
+        assertTrue(popCB().toDisplaySql().contains(" dfinlineloc.MEMBER_NAME like 'S%' escape '|'"));
     }
 
     public void test_inline_local_ExistsReferrer() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().inline().setMemberName_PrefixSearch("S");
-
-        // ## Act ##
+        cb.query().inline().setMemberName_LikeSearch("S", op -> op.likePrefix());
         try {
             cb.query().inline().existsPurchaseList(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
@@ -112,8 +110,10 @@ public class WxCBInlineViewTest extends UnitContainerTestCase {
 
     public void test_inline_relation_InScopeRelation_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        int countAll = memberBhv.selectCount(cb);
+        int countAll = memberBhv.selectCount(cb -> {
+            pushCB(cb);
+        });
+
         cb.query().queryMemberStatus().inline().setDisplayOrder_GreaterEqual(2);
         cb.query().queryMemberStatus().inline().inScopeMemberLoginList(new SubQuery<MemberLoginCB>() {
             public void query(MemberLoginCB subCB) {
@@ -127,7 +127,7 @@ public class WxCBInlineViewTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         assertEquals(countAll, memberList.size());
-        assertTrue(cb.toDisplaySql().contains("where dfinlineloc.DISPLAY_ORDER >= 2"));
-        assertTrue(cb.toDisplaySql().contains(".MOBILE_LOGIN_FLG = 1"));
+        assertTrue(popCB().toDisplaySql().contains("where dfinlineloc.DISPLAY_ORDER >= 2"));
+        assertTrue(popCB().toDisplaySql().contains(".MOBILE_LOGIN_FLG = 1"));
     }
 }

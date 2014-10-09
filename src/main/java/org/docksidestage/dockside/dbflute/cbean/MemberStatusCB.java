@@ -15,7 +15,10 @@
  */
 package org.docksidestage.dockside.dbflute.cbean;
 
+import org.dbflute.cbean.ConditionQuery;
+import org.dbflute.cbean.sqlclause.SqlClause;
 import org.docksidestage.dockside.dbflute.cbean.bs.BsMemberStatusCB;
+import org.docksidestage.dockside.dbflute.cbean.cq.MemberStatusCQ;
 
 /**
  * The condition-bean of MEMBER_STATUS.
@@ -24,6 +27,28 @@ import org.docksidestage.dockside.dbflute.cbean.bs.BsMemberStatusCB;
  * This class remains when re-generating.
  * </p>
  * @author DBFlute(AutoGenerator)
+ * @author jflute
  */
 public class MemberStatusCB extends BsMemberStatusCB {
+
+    protected boolean _shortCharHandlingIgnored;
+
+    public void suppressShortCharHandling() {
+        _shortCharHandlingIgnored = true;
+    }
+
+    @Override
+    protected MemberStatusCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        // internal manipulation (Don't mimic it)
+        if (_shortCharHandlingIgnored) {
+            return new MemberStatusCQ(childQuery, sqlClause, aliasName, nestLevel) {
+                @Override
+                protected String hSC(String propertyName, String value, Integer size, String modeCode) {
+                    return value; // do nothing for not depending on shortCharHandlingMode
+                }
+            };
+        } else {
+            return super.xcreateCQ(childQuery, sqlClause, aliasName, nestLevel);
+        }
+    }
 }

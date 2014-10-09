@@ -32,18 +32,18 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     public void test_FromTo_plain_basic() throws Exception {
         // ## Arrange ##
         Member updated = updateFormalizedDatetime("2011/11/18 12:34:56.789");
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(updated.getMemberId());
-        Date fromDate = toDate("2011/11/17 12:34:56.789");
-        Date toDate = toDate("2011/11/19 02:04:06.009");
-        FromToOption option = new FromToOption();
-        cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(updated.getMemberId());
+            Date fromDate = toDate("2011/11/17 12:34:56.789");
+            Date toDate = toDate("2011/11/19 02:04:06.009");
+            FromToOption option = new FromToOption();
+            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
+            pushCB(cb);
+        });
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(Srl.contains(sql, " >= '2011-11-17 12:34:56.789'"));
         assertTrue(Srl.contains(sql, " <= '2011-11-19 02:04:06.009'"));
@@ -57,17 +57,17 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     public void test_FromTo_compareAsYear_basic() throws Exception {
         // ## Arrange ##
         Member updated = updateFormalizedDatetime("2011/12/30 12:34:56.789");
-        MemberCB cb = new MemberCB();
-        Date fromDate = toDate("2011/11/17 12:34:56.789");
-        Date toDate = toDate("2011/11/19 02:04:06.009");
-        FromToOption option = new FromToOption().compareAsYear();
-        cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            Date fromDate = toDate("2011/11/17 12:34:56.789");
+            Date toDate = toDate("2011/11/19 02:04:06.009");
+            FromToOption option = new FromToOption().compareAsYear();
+            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
+            pushCB(cb);
+        });
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(Srl.contains(sql, " >= '2011-01-01 00:00:00.000'"));
         assertTrue(Srl.contains(sql, " < '2012-01-01 00:00:00.000'"));
@@ -81,17 +81,17 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     public void test_FromTo_compareAsMonth_basic() throws Exception {
         // ## Arrange ##
         Member updated = updateFormalizedDatetime("2011/11/29 23:34:56.789");
-        MemberCB cb = new MemberCB();
-        Date fromDate = toDate("2011/11/17 12:34:56.789");
-        Date toDate = toDate("2011/11/19 02:04:06.009");
-        FromToOption option = new FromToOption().compareAsMonth();
-        cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            Date fromDate = toDate("2011/11/17 12:34:56.789");
+            Date toDate = toDate("2011/11/19 02:04:06.009");
+            FromToOption option = new FromToOption().compareAsMonth();
+            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
+            pushCB(cb);
+        });
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(Srl.contains(sql, " >= '2011-11-01 00:00:00.000'"));
         assertTrue(Srl.contains(sql, " < '2011-12-01 00:00:00.000'"));
@@ -105,17 +105,17 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     public void test_FromTo_compareAsDate_basic() throws Exception {
         // ## Arrange ##
         Member updated = updateFormalizedDatetime("2011/11/19 23:34:56.789");
-        MemberCB cb = new MemberCB();
-        Date fromDate = toDate("2011/11/17 12:34:56.789");
-        Date toDate = toDate("2011/11/19 02:04:06.009");
-        FromToOption option = new FromToOption().compareAsDate();
-        cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            Date fromDate = toDate("2011/11/17 12:34:56.789");
+            Date toDate = toDate("2011/11/19 02:04:06.009");
+            FromToOption option = new FromToOption().compareAsDate();
+            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
+            pushCB(cb);
+        });
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(Srl.contains(sql, " >= '2011-11-17 00:00:00.000'"));
         assertTrue(Srl.contains(sql, " < '2011-11-20 00:00:00.000'"));
@@ -129,17 +129,17 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     public void test_FromTo_compareAsHour_basic() throws Exception {
         // ## Arrange ##
         Member updated = updateFormalizedDatetime("2011/11/17 18:34:56.789");
-        MemberCB cb = new MemberCB();
-        Date fromDate = toDate("2011/11/17 12:34:56.789");
-        Date toDate = toDate("2011/11/17 18:04:06.009");
-        FromToOption option = new FromToOption().compareAsHour();
-        cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            Date fromDate = toDate("2011/11/17 12:34:56.789");
+            Date toDate = toDate("2011/11/17 18:04:06.009");
+            FromToOption option = new FromToOption().compareAsHour();
+            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
+            pushCB(cb);
+        });
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(Srl.contains(sql, " >= '2011-11-17 12:00:00.000'"));
         assertTrue(Srl.contains(sql, " < '2011-11-17 19:00:00.000'"));
@@ -154,8 +154,6 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         Date targetDate = toDate("2011/11/17");
-
-        // ## Act ##
         FromToOption option = new FromToOption().compareAsWeek().beginWeek_DayOfWeek(targetDate);
         cb.query().setFormalizedDatetime_FromTo(targetDate, targetDate, option);
 
@@ -227,9 +225,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     public void test_DateFromTo_eitherOr_from() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
-        cb.query().setBirthdate_DateFromTo(DfTypeUtil.toDate("2011-01-21"), null);
+        cb.query().setBirthdate_FromTo(DfTypeUtil.toDate("2011-01-21"), null, op -> op.compareAsDate());
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
@@ -241,9 +237,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     public void test_DateFromTo_eitherOr_to() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
-        cb.query().setBirthdate_DateFromTo(null, DfTypeUtil.toDate("2011-01-21"));
+        cb.query().setBirthdate_FromTo(null, DfTypeUtil.toDate("2011-01-21"), op -> op.compareAsDate());
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
@@ -258,9 +252,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     public void test_DateFromTo_noQuery() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
-        cb.query().setBirthdate_DateFromTo(null, null);
+        cb.query().setBirthdate_FromTo(null, null, op -> op.compareAsDate());
 
         // ## Assert ##
         assertFalse(cb.hasWhereClauseOnBaseQuery());
@@ -273,8 +265,10 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Arrange ##
         HandyDate date = new HandyDate(toDate("1970/01/01"));
 
-        MemberCB cb = new MemberCB();
-        int countAll = memberBhv.selectCount(cb);
+        int countAll = memberBhv.selectCount(cb -> {
+            pushCB(cb);
+        });
+
         cb.query().setBirthdate_FromTo(date.getDate(), null, new FromToOption().orIsNull());
 
         // ## Act ##
@@ -297,7 +291,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         assertTrue(existsGreaterEqual);
         assertTrue(existsIsNull);
         assertTrue(memberList.size() < countAll);
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(Srl.contains(sql, "where (dfloc.BIRTHDATE >= '1970-01-01' or dfloc.BIRTHDATE is null)"));
     }
@@ -306,8 +300,10 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Arrange ##
         HandyDate date = new HandyDate(toDate("1970/01/01"));
 
-        MemberCB cb = new MemberCB();
-        int countAll = memberBhv.selectCount(cb);
+        int countAll = memberBhv.selectCount(cb -> {
+            pushCB(cb);
+        });
+
         cb.query().setBirthdate_FromTo(null, date.getDate(), new FromToOption().orIsNull());
 
         // ## Act ##
@@ -330,7 +326,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         assertTrue(existsLessEqual);
         assertTrue(existsIsNull);
         assertTrue(memberList.size() < countAll);
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(Srl.contains(sql, "where (dfloc.BIRTHDATE <= '1970-01-01' or dfloc.BIRTHDATE is null)"));
     }
@@ -341,8 +337,6 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         FromToOption option = new FromToOption().orIsNull().greaterThan().lessThan();
         cb.query().setBirthdate_FromTo(date.getDate(), date.getDate(), option);
-
-        // ## Act ##
         String sql = cb.toDisplaySql();
 
         // ## Assert ##
@@ -357,8 +351,6 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         FromToOption option = new FromToOption().compareAsDate().orIsNull();
         cb.query().setBirthdate_FromTo(date.getDate(), date.getDate(), option);
-
-        // ## Act ##
         String sql = cb.toDisplaySql();
 
         // ## Assert ##
@@ -383,26 +375,25 @@ public class WxCBFromToTest extends UnitContainerTestCase {
                 });
             }
         });
-
-        // ## Act ##
         String sql = cb.toDisplaySql();
 
         // ## Assert ##
         log(ln() + sql);
         assertTrue(Srl.contains(sql, "where ((dfloc.BIRTHDATE < '1970-01-01' or dfloc.BIRTHDATE is null)"));
         assertTrue(Srl.contains(sql, "or (dfloc.MEMBER_ID = 3 and (dfloc.FORMALIZED_DATETIME > '"));
-        assertTrue(Srl.contains(sql,
-                "FORMALIZED_DATETIME > '1970-01-01 00:00:00.000' or dfloc.FORMALIZED_DATETIME is null))"));
+        assertTrue(Srl.contains(sql, "FORMALIZED_DATETIME > '1970-01-01 00:00:00.000' or dfloc.FORMALIZED_DATETIME is null))"));
     }
 
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
     protected Member updateFormalizedDatetime(String exp) {
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.fetchFirst(1);
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.fetchFirst(1);
+            pushCB(cb);
+        });
+
         member.setFormalizedDatetime(toTimestamp(exp));
         memberBhv.updateNonstrict(member);
         return member;

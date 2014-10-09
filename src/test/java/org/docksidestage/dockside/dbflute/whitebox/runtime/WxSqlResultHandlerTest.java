@@ -114,9 +114,10 @@ public class WxSqlResultHandlerTest extends UnitContainerTestCase {
         });
 
         // ## Act ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_PrefixSearch("S");
-        memberBhv.selectCount(cb);
+        memberBhv.selectCount(cb -> {
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+        });
+
         cb.query().setMemberStatusCode_Equal_Formalized();
         memberBhv.selectList(cb);
         cb.query().setBirthdate_IsNotNull();
@@ -299,9 +300,10 @@ public class WxSqlResultHandlerTest extends UnitContainerTestCase {
     //                                                                        ============
     public void test_batchUpdate_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(newArrayList(1, 3, 7));
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(newArrayList(1, 3, 7));
+        });
+
         for (Member member : memberList) {
             member.setMemberStatusCode_Withdrawal();
         }

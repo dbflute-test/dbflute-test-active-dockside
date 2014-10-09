@@ -14,7 +14,6 @@ import org.dbflute.util.DfTypeUtil;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberLoginBhv;
@@ -44,38 +43,38 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
     public void test_ExistsReferrer_nested() {
         // ## Arrange ##
         final Member member = memberBhv.selectByPKValueWithDeletedCheck(3);
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.query().existsMemberList(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.query().queryMember().setMemberId_Equal(member.getMemberId());
-                        subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
-                            public void specify(PurchaseCB cb) {
-                                cb.specify().columnPurchaseCount();
-                            }
-                        }).greaterEqual(new SpecifyQuery<PurchaseCB>() {
-                            public void specify(PurchaseCB cb) {
-                                cb.specify().specifyProduct().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
-                                    public void query(PurchaseCB subCB) {
-                                        subCB.specify().columnPurchaseCount();
-                                    }
-                                }, null);
-                            }
-                        });
-                    }
-                });
-                subCB.query().setMemberStatusCode_Equal_AsMemberStatus(member.getMemberStatusCodeAsMemberStatus());
-            }
+        MemberStatus status = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().existsMemberList(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.query().queryMember().setMemberId_Equal(member.getMemberId());
+                            subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
+                                public void specify(PurchaseCB cb) {
+                                    cb.specify().columnPurchaseCount();
+                                }
+                            }).greaterEqual(new SpecifyQuery<PurchaseCB>() {
+                                public void specify(PurchaseCB cb) {
+                                    cb.specify().specifyProduct().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
+                                        public void query(PurchaseCB subCB) {
+                                            subCB.specify().columnPurchaseCount();
+                                        }
+                                    }, null);
+                                }
+                            });
+                        }
+                    });
+                    subCB.query().setMemberStatusCode_Equal_AsMemberStatus(member.getMemberStatusCodeAsMemberStatus());
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        MemberStatus status = memberStatusBhv.selectEntityWithDeletedCheck(cb);
 
         // ## Arrange ##
         String memberStatusCode = status.getMemberStatusCode();
         assertEquals(member.getMemberStatusCode(), memberStatusCode);
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         String lastFront = Srl.substringLastFront(sql, "exists");
         assertTrue(Srl.containsIgnoreCase(lastFront, "where sub1loc.MEMBER_STATUS_CODE = dfloc.MEMBER_STATUS_CODE"));
         String lastRear = Srl.substringLastRear(sql, "exists");
@@ -92,17 +91,17 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
     //                                                                     ===============
     public void test_ExistsReferrer_QueryRelation_resolvedAliasBatting_basic() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        cb.setupSelect_MemberStatus();
-        cb.setupSelect_Member().withMemberStatus();
-        cb.query().queryMember().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryMember().setMemberId_Equal(3);
-            }
+        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.setupSelect_Member().withMemberStatus();
+            cb.query().queryMember().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().queryMember().setMemberId_Equal(3);
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb);
 
         // ## Assert ##
         assertNotSame(0, loginList.size());
@@ -115,7 +114,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
             log(loginId + ", " + statusName + ", " + memberId + ", " + memberName);
             assertEquals(Integer.valueOf(3), memberId);
         }
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsIgnoreCase(sql, "inner join MEMBER_STATUS dfrel_1"));
         assertTrue(Srl.containsIgnoreCase(sql, "inner join MEMBER_STATUS dfrel_1_0"));
         assertTrue(Srl.containsIgnoreCase(sql, "where sub1loc.MEMBER_ID = dfrel_1.MEMBER_ID"));
@@ -126,33 +125,35 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<MemberStatus> expectedList;
         {
-            MemberStatusCB cb = new MemberStatusCB();
-            cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
-                public void query(MemberLoginCB subCB) {
-                    subCB.query().setMemberId_Equal(3);
-                }
+            expectedList = memberStatusBhv.selectList(cb -> {
+                cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.query().setMemberId_Equal(3);
+                    }
+                });
+                cb.query().addOrderBy_DisplayOrder_Asc();
+                pushCB(cb);
             });
-            cb.query().addOrderBy_DisplayOrder_Asc();
-            expectedList = memberStatusBhv.selectList(cb);
-            int countAll = memberStatusBhv.selectCount(new MemberStatusCB());
+
+            int countAll = memberStatusBhv.selectCount(countCB -> {});
             assertTrue(countAll > expectedList.size());
             assertNotSame(0, expectedList.size());
         }
 
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.query().queryMember().existsPurchaseList(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.query().queryMember().setMemberId_Equal(3);
-                    }
-                });
-            }
+        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.query().queryMember().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.query().queryMember().setMemberId_Equal(3);
+                        }
+                    });
+                }
+            });
+            cb.query().addOrderBy_DisplayOrder_Asc();
+            pushCB(cb);
         });
-        cb.query().addOrderBy_DisplayOrder_Asc();
-
-        // ## Act ##
-        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb);
 
         // ## Assert ##
         assertNotSame(0, statusList.size());
@@ -160,7 +161,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
             log(status);
         }
         assertEquals(expectedList, statusList);
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         String lastFront = Srl.substringLastFront(sql, "exists");
         assertTrue(Srl.containsIgnoreCase(lastFront, "inner join MEMBER sub1rel_1")); // auto-detected
         String lastRear = Srl.substringLastRear(sql, "exists");
@@ -171,16 +172,16 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
 
     public void test_ExistsReferrer_QueryRelation_resolvedAliasBatting_QueryDelete() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        cb.setupSelect_Member().withMemberStatus();
-        cb.query().queryMember().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryMember().setMemberId_Equal(3);
-            }
+        memberLoginBhv.queryDelete(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_Member().withMemberStatus();
+            cb.query().queryMember().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().queryMember().setMemberId_Equal(3);
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        memberLoginBhv.queryDelete(cb);
 
         // ## Assert ##
         {
@@ -201,16 +202,16 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
     public void test_ExistsReferrer_BixOneToOne() {
         // ## Arrange ##
         final Date date = DfTypeUtil.toDate("2008/09/15");
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberAddressAsValid(date);
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryMember().queryMemberAddressAsValid(date).setAddress_PrefixSearch("S");
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberAddressAsValid(date);
+            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().queryMember().queryMemberAddressAsValid(date).setAddress_LikeSearch("S", op -> op.likePrefix());
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -226,15 +227,15 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
     //                                                                   =================
     public void test_notExistsReferrer_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().setPaymentCompleteFlg_Equal_True();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().setPaymentCompleteFlg_Equal_True();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertNotSame(0, memberList);
@@ -263,7 +264,6 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 try {
-                    // ## Act ##
                     subCB.setupSelect_Member();
 
                     // ## Assert ##
@@ -273,7 +273,6 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
                     log(e.getMessage());
                 }
                 try {
-                    // ## Act ##
                     subCB.specify();
 
                     // ## Assert ##
@@ -283,7 +282,6 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
                     log(e.getMessage());
                 }
                 try {
-                    // ## Act ##
                     subCB.query().addOrderBy_MemberId_Asc();
 
                     // ## Assert ##

@@ -7,9 +7,7 @@ import java.util.Set;
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.util.DfTraceViewUtil;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
-import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
@@ -40,11 +38,10 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
     //                                                                      ==============
     public void test_firstRelation_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -66,12 +63,11 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
     @SuppressWarnings("deprecation")
     public void test_firstRelation_disableCache() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.disableRelationMappingCache();
-        cb.setupSelect_MemberStatus();
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.disableRelationMappingCache();
+            cb.setupSelect_MemberStatus();
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -93,11 +89,11 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
 
     public void test_firstRelation_LoadReferrer() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+        });
 
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
         List<MemberStatus> statusList = memberBhv.pulloutMemberStatus(memberList);
         memberStatusBhv.loadMemberLoginList(statusList, new ConditionBeanSetupper<MemberLoginCB>() {
             public void setup(MemberLoginCB cb) {
@@ -134,12 +130,11 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_nestRelation_basic() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.setupSelect_Member().withMemberStatus();
-        cb.query().addOrderBy_PurchaseId_Asc();
-
-        // ## Act ##
-        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_Member().withMemberStatus();
+            cb.query().addOrderBy_PurchaseId_Asc();
+        });
 
         // ## Assert ##
         assertHasAnyElement(purchaseList);
@@ -173,13 +168,12 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
     @SuppressWarnings("deprecation")
     public void test_nestRelation_disableCache() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.disableRelationMappingCache();
-        cb.setupSelect_Member().withMemberStatus();
-        cb.query().addOrderBy_PurchaseId_Asc();
-
-        // ## Act ##
-        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.disableRelationMappingCache();
+            cb.setupSelect_Member().withMemberStatus();
+            cb.query().addOrderBy_PurchaseId_Asc();
+        });
 
         // ## Assert ##
         assertHasAnyElement(purchaseList);
@@ -214,11 +208,11 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
 
     public void test_nestRelation_LoadReferrer() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.setupSelect_Member().withMemberStatus();
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_Member().withMemberStatus();
+        });
 
-        // ## Act ##
-        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb);
         List<Member> memberList = purchaseBhv.pulloutMember(purchaseList);
         List<MemberStatus> statusList = memberBhv.pulloutMemberStatus(memberList);
         memberStatusBhv.loadMemberLoginList(statusList, new ConditionBeanSetupper<MemberLoginCB>() {
@@ -257,20 +251,19 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
     //                                                                   =================
     public void test_onParadeRelation_basic() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.setupSelect_Member().withMemberStatus();
-        cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
-        cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
-        cb.setupSelect_Member().withMemberSecurityAsOne().withMember().withMemberStatus();
-        cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
-        cb.setupSelect_Member().withMemberWithdrawalAsOne().withMember();
-        cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
-        cb.setupSelect_Product().withProductCategory().withProductCategorySelf();
-        cb.setupSelect_Product().withProductStatus();
-        cb.query().addOrderBy_PurchaseId_Asc();
-
-        // ## Act ##
-        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_Member().withMemberStatus();
+            cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
+            cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
+            cb.setupSelect_Member().withMemberSecurityAsOne().withMember().withMemberStatus();
+            cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
+            cb.setupSelect_Member().withMemberWithdrawalAsOne().withMember();
+            cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
+            cb.setupSelect_Product().withProductCategory().withProductCategorySelf();
+            cb.setupSelect_Product().withProductStatus();
+            cb.query().addOrderBy_PurchaseId_Asc();
+        });
 
         // ## Assert ##
         assertHasAnyElement(purchaseList);
@@ -351,12 +344,13 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_performance_firstRelation() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.setupSelect_Member();
-        cb.setupSelect_Product();
-        cb.setupSelect_SummaryProduct();
-        long warmBefore = currentTimestamp().getTime();
-        purchaseBhv.selectList(cb); // warming up
+        purchaseBhv.selectList(cb -> {
+            cb.setupSelect_Member();
+            cb.setupSelect_Product();
+            cb.setupSelect_SummaryProduct();
+            long warmBefore = currentTimestamp().getTime();
+        }); // warming up
+
         long warmAfter = currentTimestamp().getTime();
 
         // ## Act ##
@@ -377,18 +371,19 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
 
     public void test_performance_onParadeRelation_basic() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        cb.setupSelect_Member().withMemberStatus();
-        cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
-        cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
-        cb.setupSelect_Member().withMemberSecurityAsOne().withMember().withMemberStatus();
-        cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
-        cb.setupSelect_Member().withMemberWithdrawalAsOne().withMember();
-        cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
-        cb.setupSelect_Product().withProductCategory().withProductCategorySelf();
-        cb.setupSelect_Product().withProductStatus();
-        long warmBefore = currentTimestamp().getTime();
-        purchaseBhv.selectList(cb); // warming up
+        purchaseBhv.selectList(cb -> {
+            cb.setupSelect_Member().withMemberStatus();
+            cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
+            cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
+            cb.setupSelect_Member().withMemberSecurityAsOne().withMember().withMemberStatus();
+            cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
+            cb.setupSelect_Member().withMemberWithdrawalAsOne().withMember();
+            cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
+            cb.setupSelect_Product().withProductCategory().withProductCategorySelf();
+            cb.setupSelect_Product().withProductStatus();
+            long warmBefore = currentTimestamp().getTime();
+        }); // warming up
+
         long warmAfter = currentTimestamp().getTime();
 
         // ## Act ##
@@ -409,19 +404,20 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
 
     public void test_performance_onParade_disableCache() {
         // ## Arrange ##
-        PurchaseCB cb = new PurchaseCB();
-        //cb.disableRelationMappingCache();
-        cb.setupSelect_Member().withMemberStatus();
-        cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
-        cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
-        cb.setupSelect_Member().withMemberSecurityAsOne().withMember().withMemberStatus();
-        cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
-        cb.setupSelect_Member().withMemberWithdrawalAsOne().withMember();
-        cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
-        cb.setupSelect_Product().withProductCategory().withProductCategorySelf();
-        cb.setupSelect_Product().withProductStatus();
-        long warmBefore = currentTimestamp().getTime();
-        purchaseBhv.selectList(cb); // warming up
+        purchaseBhv.selectList(cb -> {
+            //cb.disableRelationMappingCache();
+                cb.setupSelect_Member().withMemberStatus();
+                cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
+                cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
+                cb.setupSelect_Member().withMemberSecurityAsOne().withMember().withMemberStatus();
+                cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
+                cb.setupSelect_Member().withMemberWithdrawalAsOne().withMember();
+                cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
+                cb.setupSelect_Product().withProductCategory().withProductCategorySelf();
+                cb.setupSelect_Product().withProductStatus();
+                long warmBefore = currentTimestamp().getTime();
+            }); // warming up
+
         long warmAfter = currentTimestamp().getTime();
 
         // ## Act ##

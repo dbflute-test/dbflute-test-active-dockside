@@ -30,35 +30,34 @@ public class WxCBExistsReferrerDreamCruiseTest extends UnitContainerTestCase {
     //                                                                      CountLeastJoin
     //                                                                      ==============
     public void test_ExsitsReferrer_DreamCruise_OverTheWaves_CountLeastJoin() throws Exception {
-        MemberCB cb = new MemberCB();
-        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        final HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne()
-                .columnServicePointCount();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
-                    public void specify(PurchaseCB cb) {
-                        cb.specify().columnMemberId();
-                    }
-                }).lessThan(new SpecifyQuery<PurchaseCB>() {
-                    public void specify(PurchaseCB cb) {
-                        cb.overTheWaves(servicePointCount);
+        try {
+            ListResultBean<Member> memberList = memberBhv.selectPage(cb -> {
+                /* ## Act ## */
+                MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+                final HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
+                            public void specify(PurchaseCB cb) {
+                                cb.specify().columnMemberId();
+                            }
+                        }).lessThan(new SpecifyQuery<PurchaseCB>() {
+                            public void specify(PurchaseCB cb) {
+                                cb.overTheWaves(servicePointCount);
+                            }
+                        });
                     }
                 });
-            }
-        });
-        cb.query().addOrderBy_Birthdate_Desc();
-        cb.paging(3, 1);
+                cb.query().addOrderBy_Birthdate_Desc();
+                cb.paging(3, 1);
 
-        final List<SqlLogInfo> infoList = newArrayList();
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                infoList.add(info);
-            }
-        });
-        try {
-            // ## Act ##
-            ListResultBean<Member> memberList = memberBhv.selectPage(cb); // expect no exception
+                final List<SqlLogInfo> infoList = newArrayList();
+                CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                    public void handle(SqlLogInfo info) {
+                        infoList.add(info);
+                    }
+                });
+            }); // expect no exception
 
             // ## Assert ##
             assertHasAnyElement(memberList);
@@ -82,35 +81,34 @@ public class WxCBExistsReferrerDreamCruiseTest extends UnitContainerTestCase {
     }
 
     public void test_ExsitsReferrer_DreamCruise_OptionCalculation_CountLeastJoin() throws Exception {
-        MemberCB cb = new MemberCB();
-        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        final HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne()
-                .columnServicePointCount();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
-                    public void specify(PurchaseCB cb) {
-                        cb.specify().columnMemberId();
-                    }
-                }).lessThan(new SpecifyQuery<PurchaseCB>() {
-                    public void specify(PurchaseCB cb) {
-                        cb.specify().columnProductId();
-                    }
-                }).plus(servicePointCount);
-            }
-        });
-        cb.query().addOrderBy_Birthdate_Desc();
-        cb.paging(3, 1);
-
-        final List<SqlLogInfo> infoList = newArrayList();
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                infoList.add(info);
-            }
-        });
         try {
-            // ## Act ##
-            ListResultBean<Member> memberList = memberBhv.selectPage(cb); // expect no exception
+            ListResultBean<Member> memberList = memberBhv.selectPage(cb -> {
+                /* ## Act ## */
+                MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+                final HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
+                            public void specify(PurchaseCB cb) {
+                                cb.specify().columnMemberId();
+                            }
+                        }).lessThan(new SpecifyQuery<PurchaseCB>() {
+                            public void specify(PurchaseCB cb) {
+                                cb.specify().columnProductId();
+                            }
+                        }).plus(servicePointCount);
+                    }
+                });
+                cb.query().addOrderBy_Birthdate_Desc();
+                cb.paging(3, 1);
+
+                final List<SqlLogInfo> infoList = newArrayList();
+                CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                    public void handle(SqlLogInfo info) {
+                        infoList.add(info);
+                    }
+                });
+            }); // expect no exception
 
             // ## Assert ##
             assertHasAnyElement(memberList);

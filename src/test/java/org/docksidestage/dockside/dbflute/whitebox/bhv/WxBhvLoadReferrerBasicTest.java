@@ -9,7 +9,6 @@ import org.dbflute.bhv.referrer.LoadReferrerOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
@@ -38,11 +37,12 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_loadReferrer_one_entity() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(3);
+        Member member = memberBhv.selectEntity(cb -> {
+            cb.query().setMemberId_Equal(3);
 
-        // At first, it selects the list of Member.
-        Member member = memberBhv.selectEntity(cb);
+            // At first, it selects the list of Member.
+                pushCB(cb);
+            });
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.
@@ -65,9 +65,10 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
     public void test_loadReferrer_loadReferrerReferrer() {
         // ## Arrange ##
         // A base table is MemberStatus at this test case.
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        MemberStatus memberStatus = memberStatusBhv.selectEntity(cb);
+        MemberStatus memberStatus = memberStatusBhv.selectEntity(cb -> {
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            pushCB(cb);
+        });
 
         LoadReferrerOption<MemberCB, Member> loadReferrerOption = new LoadReferrerOption<MemberCB, Member>();
 
@@ -111,12 +112,13 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
 
     public void test_loadReferrer_union_querySynchronization() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_PrefixSearch("S");
-        cb.query().addOrderBy_Birthdate_Desc().withNullsLast();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().addOrderBy_Birthdate_Desc().withNullsLast();
+            pushCB(cb);
+        });
 
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
         assertFalse(memberList.isEmpty());
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
@@ -195,11 +197,12 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_loadReferrer_with_SpecifyColumn_noFK() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(3);
+        Member member = memberBhv.selectEntity(cb -> {
+            cb.query().setMemberId_Equal(3);
 
-        // At first, it selects the list of Member.
-        Member member = memberBhv.selectEntity(cb);
+            // At first, it selects the list of Member.
+                pushCB(cb);
+            });
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.
@@ -271,12 +274,13 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
     //                                                                            ========
     public void test_loadReferrer_pulloutMember() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.setupSelect_MemberSecurityAsOne();
-        cb.setupSelect_MemberWithdrawalAsOne();
-        cb.setupSelect_MemberAddressAsValid(currentDate());
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberStatus();
+            cb.setupSelect_MemberSecurityAsOne();
+            cb.setupSelect_MemberWithdrawalAsOne();
+            cb.setupSelect_MemberAddressAsValid(currentDate());
+            pushCB(cb);
+        });
 
         // ## Act & Assert ##
         assertFalse(memberList.isEmpty());
@@ -330,8 +334,8 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         assertNotSame(0, memberAddressAsValieList.size());
         for (MemberAddress memberAddress : memberAddressAsValieList) {
             Member backTo = memberAddress.getMember();
-            log(memberAddress.getAddress() + ", " + memberAddress.getValidBeginDate() + ", "
-                    + memberAddress.getValidEndDate() + ", " + backTo);
+            log(memberAddress.getAddress() + ", " + memberAddress.getValidBeginDate() + ", " + memberAddress.getValidEndDate() + ", "
+                    + backTo);
             assertNull(backTo);
         }
     }

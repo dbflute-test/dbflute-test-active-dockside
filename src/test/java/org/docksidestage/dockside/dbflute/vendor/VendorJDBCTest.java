@@ -19,7 +19,6 @@ import org.dbflute.utflute.core.cannonball.CannonballOption;
 import org.dbflute.utflute.core.cannonball.CannonballRun;
 import org.dbflute.util.DfCollectionUtil;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PurchaseMaxPriceMemberPmb;
@@ -143,8 +142,7 @@ public class VendorJDBCTest extends UnitContainerTestCase {
             try {
                 // ## Act ##
                 {
-                    MemberCB cb = new MemberCB();
-                    memberBhv.selectList(cb);
+                    memberBhv.selectList(cb -> {});
                 }
                 {
                     Member member = new Member();
@@ -153,10 +151,10 @@ public class VendorJDBCTest extends UnitContainerTestCase {
                     memberBhv.updateNonstrict(member);
                 }
                 {
-                    MemberCB cb = new MemberCB();
-                    cb.query().setMemberStatusCode_Equal_Provisional();
                     Member member = new Member();
-                    memberBhv.queryUpdate(member, cb);
+                    memberBhv.queryUpdate(member, cb -> {
+                        cb.query().setMemberStatusCode_Equal_Provisional();
+                    });
                 }
                 {
                     PurchaseMaxPriceMemberPmb pmb = new PurchaseMaxPriceMemberPmb();

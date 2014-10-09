@@ -10,7 +10,6 @@ import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchasePaymentCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -30,16 +29,16 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
 
     public void test_query_derivedReferrer_OneToManyToOne() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().specifySummaryProduct().columnLatestPurchaseDatetime();
-            }
-        }).lessThan(currentTimestamp());
-
-        // ## Act ##
-        // Expect no exception
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().specifySummaryProduct().columnLatestPurchaseDatetime();
+                }
+            }).lessThan(currentTimestamp());
+            // Expect no exception
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -50,24 +49,24 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
 
     public void test_query_derivedReferrer_OneToManyToOne_with_union() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().specifySummaryProduct().columnLatestPurchaseDatetime();
-                subCB.union(new UnionQuery<PurchaseCB>() {
-                    public void query(PurchaseCB unionCB) {
-                    }
-                });
-            }
-        }).lessEqual(currentTimestamp());
-        cb.union(new UnionQuery<MemberCB>() {
-            public void query(MemberCB unionCB) {
-            }
-        });
-
-        // ## Act ##
-        // Expect no exception
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().specifySummaryProduct().columnLatestPurchaseDatetime();
+                    subCB.union(new UnionQuery<PurchaseCB>() {
+                        public void query(PurchaseCB unionCB) {
+                        }
+                    });
+                }
+            }).lessEqual(currentTimestamp());
+            cb.union(new UnionQuery<MemberCB>() {
+                public void query(MemberCB unionCB) {
+                }
+            });
+            // Expect no exception
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -78,50 +77,49 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
 
     public void test_query_derivedReferrer_in_ExistsReferrer() {
         // ## Arrange ##
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.query().existsMemberList(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.query().setMemberId_LessThan(300);
-                subCB.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnPurchasePrice();
-                    }
-                }).greaterEqual(1234);
-            }
+        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().existsMemberList(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.query().setMemberId_LessThan(300);
+                    subCB.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchasePrice();
+                        }
+                    }).greaterEqual(1234);
+                }
+            });
+            cb.query().setDisplayOrder_LessEqual(500);
+            pushCB(cb);
         });
-        cb.query().setDisplayOrder_LessEqual(500);
-
-        // ## Act ##
-        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb);
 
         // ## Assert ##
         assertNotSame(0, statusList.size());
         for (MemberStatus status : statusList) {
             log(status);
         }
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsAll(sql, ") >= 1234"));
     }
 
     public void test_query_derivedReferrer_between_Integer() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().sum(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseCount();
-            }
-        }, Member.ALIAS_loginCount); // rental
         Integer fromCount = 6;
         Integer toCount = 7;
-        cb.query().derivedPurchaseList().sum(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseCount();
-            }
-        }).rangeOf(fromCount, toCount);
-
-        // ## Act ##
-        // Expect no exception
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedPurchaseList().sum(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchaseCount();
+                }
+            }, Member.ALIAS_loginCount); // rental
+                cb.query().derivedPurchaseList().sum(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.specify().columnPurchaseCount();
+                    }
+                }).rangeOf(fromCount, toCount);
+                pushCB(cb);
+            }); // expects no exception
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -135,23 +133,22 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
 
     public void test_query_derivedReferrer_between_Date() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseDatetime();
-            }
-        }, Member.ALIAS_latestLoginDatetime); // rental
         Date fromDate = toDate("2007/11/01");
         Date toDate = toDate("2007/11/02");
-        cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchaseDatetime();
-            }
-        }).fromTo(fromDate, toDate, new FromToOption());
-
-        // ## Act ##
-        // Expect no exception
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchaseDatetime();
+                }
+            }, Member.ALIAS_latestLoginDatetime); // rental
+                cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.specify().columnPurchaseDatetime();
+                    }
+                }).fromTo(fromDate, toDate, new FromToOption());
+                pushCB(cb);
+            }); // expects no exception
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -165,34 +162,34 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
 
     public void test_query_derivedReferrer_OneToManyToMany_union_monkey() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnLoginDatetime();
-                subCB.query().setMobileLoginFlg_Equal_False();
-                subCB.union(new UnionQuery<MemberLoginCB>() {
-                    public void query(MemberLoginCB unionCB) {
-                        unionCB.query().setLoginMemberStatusCode_Equal_Formalized();
-                    }
-                });
-            }
-        }).lessEqual(toDate("2014/07/12"));
-        cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().derivedPurchasePaymentList().max(new SubQuery<PurchasePaymentCB>() {
-                    public void query(PurchasePaymentCB subCB) {
-                        subCB.specify().columnPaymentAmount();
-                    }
-                }, null);
-                subCB.union(new UnionQuery<PurchaseCB>() {
-                    public void query(PurchaseCB unionCB) {
-                    }
-                });
-            }
-        }).greaterEqual(1);
-
-        // ## Act ##
-        memberBhv.selectList(cb); // expect no exception
+        memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.specify().columnLoginDatetime();
+                    subCB.query().setMobileLoginFlg_Equal_False();
+                    subCB.union(new UnionQuery<MemberLoginCB>() {
+                        public void query(MemberLoginCB unionCB) {
+                            unionCB.query().setLoginMemberStatusCode_Equal_Formalized();
+                        }
+                    });
+                }
+            }).lessEqual(toDate("2014/07/12"));
+            cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().derivedPurchasePaymentList().max(new SubQuery<PurchasePaymentCB>() {
+                        public void query(PurchasePaymentCB subCB) {
+                            subCB.specify().columnPaymentAmount();
+                        }
+                    }, null);
+                    subCB.union(new UnionQuery<PurchaseCB>() {
+                        public void query(PurchaseCB unionCB) {
+                        }
+                    });
+                }
+            }).greaterEqual(1);
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
         /*
@@ -222,7 +219,7 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
                  where sub1main.MEMBER_ID = dfloc.MEMBER_ID
                ) >= 1
         */
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("where (select max(sub1main.LOGIN_DATETIME)"));
         assertTrue(sql.contains("from (select sub1loc.MEMBER_LOGIN_ID, sub1loc.MEMBER_ID, sub1loc.LOGIN_DATETIME"));
         assertTrue(sql.contains("where sub1loc.MOBILE_LOGIN_FLG = 0"));

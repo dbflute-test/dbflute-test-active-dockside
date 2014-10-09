@@ -29,7 +29,7 @@ public class WxBhvInterfaceDispatchTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.query().setMemberId_Equal(3);
 
-        // ## Act ##
+        /* ## Act ## */
         Entity entity = memberBhv.readEntity(cb);
 
         // ## Assert ##

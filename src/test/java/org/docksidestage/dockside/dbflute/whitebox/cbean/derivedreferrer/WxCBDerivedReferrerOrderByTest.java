@@ -5,7 +5,6 @@ import java.util.Date;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.util.DfTypeUtil;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -28,18 +27,18 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
     public void test_sepcify_derivedReferrer_orderBy_basic() {
         // ## Arrange ##
         Date defaultLoginDate = DfTypeUtil.toDate("1000/01/01");
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnLoginDatetime();
-                subCB.query().setMobileLoginFlg_Equal_False();
-            }
-        }, Member.ALIAS_latestLoginDatetime, op -> op.coalesce(defaultLoginDate));
-        cb.query().addSpecifiedDerivedOrderBy_Asc(Member.ALIAS_latestLoginDatetime);
-
-        // ## Act ##
         {
-            ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            // ## Act ##
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime();
+                        subCB.query().setMobileLoginFlg_Equal_False();
+                    }
+                }, Member.ALIAS_latestLoginDatetime, op -> op.coalesce(defaultLoginDate));
+                cb.query().addSpecifiedDerivedOrderBy_Asc(Member.ALIAS_latestLoginDatetime);
+                pushCB(cb);
+            });
 
             // ## Assert ##
             assertFalse(memberList.isEmpty());
@@ -48,13 +47,18 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
             assertTrue(first.before(last));
         }
 
-        // ## Arrange ##
-        cb.clearOrderBy();
-        cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_latestLoginDatetime);
-
-        // ## Act ##
         {
-            ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            // ## Act ##
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime();
+                        subCB.query().setMobileLoginFlg_Equal_False();
+                    }
+                }, Member.ALIAS_latestLoginDatetime, op -> op.coalesce(defaultLoginDate));
+                cb.clearOrderBy();
+                cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_latestLoginDatetime);
+            });
 
             // ## Assert ##
             assertFalse(memberList.isEmpty());
@@ -70,18 +74,17 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
     public void test_sepcify_derivedReferrer_orderBy_foreign() {
         // ## Arrange ##
         Date defaultLoginDate = DfTypeUtil.toDate("1000/01/01");
-        MemberCB cb = new MemberCB();
-        cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnLoginDatetime();
-                subCB.query().setMobileLoginFlg_Equal_False();
-            }
-        }, Member.ALIAS_latestLoginDatetime, op -> op.coalesce(defaultLoginDate));
-        cb.query().addSpecifiedDerivedOrderBy_Asc(Member.ALIAS_latestLoginDatetime);
-
-        // ## Act ##
         {
-            ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            // ## Act ##
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime();
+                        subCB.query().setMobileLoginFlg_Equal_False();
+                    }
+                }, Member.ALIAS_latestLoginDatetime, op -> op.coalesce(defaultLoginDate));
+                cb.query().addSpecifiedDerivedOrderBy_Asc(Member.ALIAS_latestLoginDatetime);
+            });
 
             // ## Assert ##
             assertFalse(memberList.isEmpty());
@@ -90,13 +93,17 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
             assertTrue(first.before(last));
         }
 
-        // ## Arrange ##
-        cb.clearOrderBy();
-        cb.query().queryMemberStatus().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_latestLoginDatetime);
-
-        // ## Act ##
         {
-            ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            // ## Act ##
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime();
+                        subCB.query().setMobileLoginFlg_Equal_False();
+                    }
+                }, Member.ALIAS_latestLoginDatetime, op -> op.coalesce(defaultLoginDate));
+                cb.query().queryMemberStatus().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_latestLoginDatetime);
+            });
 
             // ## Assert ##
             assertFalse(memberList.isEmpty());

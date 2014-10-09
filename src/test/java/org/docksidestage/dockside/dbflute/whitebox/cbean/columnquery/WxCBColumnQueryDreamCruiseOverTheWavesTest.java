@@ -35,30 +35,30 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
     public void test_ColumnQuery_OverTheWaves_basic() throws Exception {
         // ## Arrange ##
         List<Member> expectedList = selectMyOnlyProductMember();
-        MemberCB cb = new MemberCB();
-        cb.specify().columnBirthdate();
-        final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryProduct().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
-                            public void specify(PurchaseCB cb) {
-                                cb.specify().columnMemberId();
-                            }
-                        }).notEqual(new SpecifyQuery<PurchaseCB>() {
-                            public void specify(PurchaseCB cb) {
-                                cb.overTheWaves(dreamCruiseCB.specify().columnMemberId());
-                            }
-                        });
-                    }
-                });
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().columnBirthdate();
+            final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().queryProduct().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
+                                public void specify(PurchaseCB cb) {
+                                    cb.specify().columnMemberId();
+                                }
+                            }).notEqual(new SpecifyQuery<PurchaseCB>() {
+                                public void specify(PurchaseCB cb) {
+                                    cb.overTheWaves(dreamCruiseCB.specify().columnMemberId());
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            cb.addOrderBy_PK_Asc();
+            pushCB(cb);
         });
-        cb.addOrderBy_PK_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -71,32 +71,31 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
     public void test_ColumnQuery_OverTheWaves_calculation_basic() throws Exception {
         // ## Arrange ##
         List<Member> expectedList = selectMyOnlyProductMember();
-        MemberCB cb = new MemberCB();
-        cb.specify().columnBirthdate();
-        final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryProduct().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        HpSpecifiedColumn pointColumn = dreamCruiseCB.specify().specifyMemberServiceAsOne()
-                                .columnServicePointCount();
-                        subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
-                            public void specify(PurchaseCB cb) {
-                                cb.specify().columnMemberId();
-                            }
-                        }).notEqual(new SpecifyQuery<PurchaseCB>() {
-                            public void specify(PurchaseCB cb) {
-                                cb.overTheWaves(dreamCruiseCB.specify().columnMemberId());
-                            }
-                        }).multiply(pointColumn).divide(pointColumn);
-                    }
-                });
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().columnBirthdate();
+            final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().queryProduct().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            HpSpecifiedColumn pointColumn = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                            subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
+                                public void specify(PurchaseCB cb) {
+                                    cb.specify().columnMemberId();
+                                }
+                            }).notEqual(new SpecifyQuery<PurchaseCB>() {
+                                public void specify(PurchaseCB cb) {
+                                    cb.overTheWaves(dreamCruiseCB.specify().columnMemberId());
+                                }
+                            }).multiply(pointColumn).divide(pointColumn);
+                        }
+                    });
+                }
+            });
+            cb.addOrderBy_PK_Asc();
+            pushCB(cb);
         });
-        cb.addOrderBy_PK_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -104,52 +103,54 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
             log(member);
         }
         assertEquals(expectedList, memberList);
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsAll(sql, "*", "/"));
     }
 
     protected List<Member> selectMyOnlyProductMember() throws Exception {
-        MemberCB cb = new MemberCB();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryProduct().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnMemberId();
-                    }
-                }).equal(1);
-            }
+        return memberBhv.selectList(cb -> {
+            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().queryProduct().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnMemberId();
+                        }
+                    }).equal(1);
+                }
+            });
+            cb.addOrderBy_PK_Asc();
+            pushCB(cb);
         });
-        cb.addOrderBy_PK_Asc();
-        return memberBhv.selectList(cb);
+
     }
 
     public void test_ColumnQuery_OverTheWaves_relation_convert() throws Exception {
         // ## Arrange ##
         List<Member> expectedList = selectMyOnlyProductMember();
-        MemberCB cb = new MemberCB();
-        cb.specify().columnBirthdate();
-        final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryProduct().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
-                            public void specify(PurchaseCB cb) {
-                                cb.specify().columnMemberId();
-                            }
-                        }).notEqual(new SpecifyQuery<PurchaseCB>() {
-                            public void specify(PurchaseCB cb) {
-                                cb.overTheWaves(dreamCruiseCB.specify().specifyMemberSecurityAsOne().columnMemberId());
-                            }
-                        }).convert(op -> op.trunc(1));
-                    }
-                });
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().columnBirthdate();
+            final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().queryProduct().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
+                                public void specify(PurchaseCB cb) {
+                                    cb.specify().columnMemberId();
+                                }
+                            }).notEqual(new SpecifyQuery<PurchaseCB>() {
+                                public void specify(PurchaseCB cb) {
+                                    cb.overTheWaves(dreamCruiseCB.specify().specifyMemberSecurityAsOne().columnMemberId());
+                                }
+                            }).convert(op -> op.trunc(1));
+                        }
+                    });
+                }
+            });
+            cb.addOrderBy_PK_Asc();
+            pushCB(cb);
         });
-        cb.addOrderBy_PK_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -157,7 +158,7 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
             log(member);
         }
         assertEquals(expectedList, memberList);
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("trunc"));
     }
 
@@ -166,28 +167,28 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
     //                                                                  ==================
     public void test_ColumnQuery_DreamCruise_SpecifyCalculation_leftPlain_rightDream() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().columnBirthdate();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberId().plus(3);
-            }
-        }).lessEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
-                        subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().columnPurchaseCount());
-                    }
-                }, null);
-            }
-        }).multiply(5);
-
-        // ## Act ##
-        memberBhv.selectList(cb); // expect no exception
+        memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().columnBirthdate();
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberId().plus(3);
+                }
+            }).lessEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
+                            subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().columnPurchaseCount());
+                        }
+                    }, null);
+                }
+            }).multiply(5);
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("where dfloc.MEMBER_ID + 3 <= (select max("));
         assertTrue(sql.contains(" <= (select max(sub1loc.PURCHASE_PRICE + sub1loc.PURCHASE_COUNT)"));
         assertTrue(sql.contains(") * 5"));
@@ -195,28 +196,28 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
 
     public void test_ColumnQuery_DreamCruise_SpecifyCalculation_leftDream_rightPlain() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().columnBirthdate();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
-                        subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().columnPurchaseCount());
-                    }
-                }, null);
-            }
-        }).lessEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberId().plus(3);
-            }
-        }).multiply(5);
-
-        // ## Act ##
-        memberBhv.selectList(cb); // expect no exception
+        memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().columnBirthdate();
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
+                            subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().columnPurchaseCount());
+                        }
+                    }, null);
+                }
+            }).lessEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberId().plus(3);
+                }
+            }).multiply(5);
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("where (select max(sub1loc.PURCHASE_PRICE + sub1loc.PURCHASE_COUNT)"));
         assertTrue(sql.contains(") <= (dfloc.MEMBER_ID + 3) * 5"));
     }
@@ -228,15 +229,17 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
         // ## Arrange ##
         MemberAddress first;
         {
-            MemberAddressCB cb = new MemberAddressCB();
-            cb.query().queryMember().derivedMemberAddressList().count(new SubQuery<MemberAddressCB>() {
-                public void query(MemberAddressCB subCB) {
-                    subCB.specify().columnMemberAddressId();
-                }
-            }).greaterEqual(2);
-            cb.query().addOrderBy_MemberId_Asc();
-            cb.query().addOrderBy_ValidBeginDate_Asc();
-            ListResultBean<MemberAddress> addressList = memberAddressBhv.selectList(cb);
+            ListResultBean<MemberAddress> addressList = memberAddressBhv.selectList(cb -> {
+                cb.query().queryMember().derivedMemberAddressList().count(new SubQuery<MemberAddressCB>() {
+                    public void query(MemberAddressCB subCB) {
+                        subCB.specify().columnMemberAddressId();
+                    }
+                }).greaterEqual(2);
+                cb.query().addOrderBy_MemberId_Asc();
+                cb.query().addOrderBy_ValidBeginDate_Asc();
+                pushCB(cb);
+            });
+
             first = addressList.get(0);
             MemberAddress second = addressList.get(1);
             assertEquals(first.getMemberId(), second.getMemberId());
@@ -251,34 +254,34 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
             log("second=" + second.getMemberAddressId() + ", " + secondBegin + ", " + secondEnd);
             memberAddressBhv.updateNonstrict(second);
         }
-        MemberAddressCB cb = new MemberAddressCB();
-        final MemberAddressCB dreamCruiseCB = cb.dreamCruiseCB();
-        cb.query().myselfExists(new SubQuery<MemberAddressCB>() {
-            public void query(MemberAddressCB subCB) {
-                subCB.specify().columnMemberId();
-                subCB.columnQuery(new SpecifyQuery<MemberAddressCB>() {
-                    public void specify(MemberAddressCB cb) {
-                        cb.specify().columnValidBeginDate();
-                    }
-                }).greaterThan(new SpecifyQuery<MemberAddressCB>() {
-                    public void specify(MemberAddressCB cb) {
-                        cb.overTheWaves(dreamCruiseCB.specify().columnValidBeginDate());
-                    }
-                });
-                subCB.columnQuery(new SpecifyQuery<MemberAddressCB>() {
-                    public void specify(MemberAddressCB cb) {
-                        cb.specify().columnValidBeginDate();
-                    }
-                }).lessThan(new SpecifyQuery<MemberAddressCB>() {
-                    public void specify(MemberAddressCB cb) {
-                        cb.overTheWaves(dreamCruiseCB.specify().columnValidEndDate());
-                    }
-                });
-            }
+        ListResultBean<MemberAddress> addressList = memberAddressBhv.selectList(cb -> {
+            /* ## Act ## */
+            final MemberAddressCB dreamCruiseCB = cb.dreamCruiseCB();
+            cb.query().myselfExists(new SubQuery<MemberAddressCB>() {
+                public void query(MemberAddressCB subCB) {
+                    subCB.specify().columnMemberId();
+                    subCB.columnQuery(new SpecifyQuery<MemberAddressCB>() {
+                        public void specify(MemberAddressCB cb) {
+                            cb.specify().columnValidBeginDate();
+                        }
+                    }).greaterThan(new SpecifyQuery<MemberAddressCB>() {
+                        public void specify(MemberAddressCB cb) {
+                            cb.overTheWaves(dreamCruiseCB.specify().columnValidBeginDate());
+                        }
+                    });
+                    subCB.columnQuery(new SpecifyQuery<MemberAddressCB>() {
+                        public void specify(MemberAddressCB cb) {
+                            cb.specify().columnValidBeginDate();
+                        }
+                    }).lessThan(new SpecifyQuery<MemberAddressCB>() {
+                        public void specify(MemberAddressCB cb) {
+                            cb.overTheWaves(dreamCruiseCB.specify().columnValidEndDate());
+                        }
+                    });
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<MemberAddress> addressList = memberAddressBhv.selectList(cb);
 
         // ## Assert ##
         assertHasAnyElement(addressList);

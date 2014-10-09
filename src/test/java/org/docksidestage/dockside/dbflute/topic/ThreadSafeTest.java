@@ -10,7 +10,6 @@ import org.dbflute.utflute.core.cannonball.CannonballCar;
 import org.dbflute.utflute.core.cannonball.CannonballOption;
 import org.dbflute.utflute.core.cannonball.CannonballRun;
 import org.dbflute.util.DfCollectionUtil;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.SimpleMemberPmb;
@@ -38,13 +37,12 @@ public class ThreadSafeTest extends UnitContainerTestCase {
         cannonball(new CannonballRun() {
             public void drive(CannonballCar car) {
                 // ## Arrange ##
-                MemberCB cb = new MemberCB();
-                cb.setupSelect_MemberStatus();
-                cb.query().setMemberName_PrefixSearch("S");
-                cb.query().addOrderBy_Birthdate_Desc().addOrderBy_MemberId_Asc();
-
-                // ## Act ##
-                ListResultBean<Member> memberList = memberBhv.selectList(cb);
+                ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                    /* ## Act ## */
+                    cb.setupSelect_MemberStatus();
+                    cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                    cb.query().addOrderBy_Birthdate_Desc().addOrderBy_MemberId_Asc();
+                });
 
                 // ## Assert ##
                 assertFalse(memberList.isEmpty());

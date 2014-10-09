@@ -33,13 +33,13 @@ public class WxCBSetupSelectTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_setupSelect_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
-        cb.setupSelect_MemberSecurityAsOne();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+            cb.setupSelect_MemberSecurityAsOne();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotSame(0, memberList);
@@ -73,12 +73,12 @@ public class WxCBSetupSelectTest extends UnitContainerTestCase {
         cal.set(2005, 11, 12); // 2005/12/12
         Date targetDate = cal.getTime();
 
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberAddressAsValid(targetDate);
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberAddressAsValid(targetDate);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -104,7 +104,7 @@ public class WxCBSetupSelectTest extends UnitContainerTestCase {
             }
         }
         assertTrue(existsAddress);
-        assertFalse(cb.toDisplaySql().contains("where")); // not use where clause
+        assertFalse(popCB().toDisplaySql().contains("where")); // not use where clause
     }
 
     // ===================================================================================
@@ -112,24 +112,24 @@ public class WxCBSetupSelectTest extends UnitContainerTestCase {
     //                                                                              ======
     public void test_setupSelect_after_union() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.union(new UnionQuery<MemberCB>() {
-            public void query(MemberCB unionCB) {
-                unionCB.orScopeQuery(new OrQuery<MemberCB>() {
-                    public void query(MemberCB orCB) {
-                        orCB.query().setMemberStatusCode_Equal_Provisional();
-                        orCB.query().setMemberStatusCode_Equal_Withdrawal();
-                    }
-                });
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.union(new UnionQuery<MemberCB>() {
+                public void query(MemberCB unionCB) {
+                    unionCB.orScopeQuery(new OrQuery<MemberCB>() {
+                        public void query(MemberCB orCB) {
+                            orCB.query().setMemberStatusCode_Equal_Provisional();
+                            orCB.query().setMemberStatusCode_Equal_Withdrawal();
+                        }
+                    });
+                }
+            });
+            cb.setupSelect_MemberStatus();
+            cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+            cb.setupSelect_MemberSecurityAsOne();
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            pushCB(cb);
         });
-        cb.setupSelect_MemberStatus();
-        cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
-        cb.setupSelect_MemberSecurityAsOne();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertNotSame(0, memberList);

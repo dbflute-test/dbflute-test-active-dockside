@@ -31,8 +31,7 @@ public class WxParameterBeanGenerationTest extends UnitContainerTestCase {
     public void test_pmb_CDefList() {
         // ## Arrange ##
         PurchaseMaxPriceMemberPmb pmb = new PurchaseMaxPriceMemberPmb();
-        final List<MemberStatus> clsList = DfCollectionUtil.newArrayList(CDef.MemberStatus.Formalized,
-                CDef.MemberStatus.Withdrawal);
+        final List<MemberStatus> clsList = DfCollectionUtil.newArrayList(CDef.MemberStatus.Formalized, CDef.MemberStatus.Withdrawal);
         pmb.setMemberStatusCodeList(clsList);
 
         // ## Act ##
@@ -71,7 +70,7 @@ public class WxParameterBeanGenerationTest extends UnitContainerTestCase {
         List<Integer> integerList = pmb.getIntegerList();
         List<MemberStatus> cdefList = pmb.getCdefList();
         List<MemberStatus> memberStatusCodeList = pmb.getMemberStatusCodeList();
-        
+
         // LikeSearch
         pmb.setPrefixSearchOption_PrefixSearch("S");
         pmb.setSuffixSearchOption_SuffixSearch("S");

@@ -22,11 +22,10 @@ public class WxBhvQueryDeleteTest extends UnitContainerTestCase {
     //                                                                           =========
     public void test_queryDelete_noCondition_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-
-        // ## Act ##
         try {
-            int deleted = memberBhv.queryDelete(cb);
+            int deleted = memberBhv.queryDelete(cb -> {
+                /* ## Act ## */
+            });
 
             // ## Assert ##
             fail("deleted=" + deleted);
@@ -39,16 +38,15 @@ public class WxBhvQueryDeleteTest extends UnitContainerTestCase {
     public void test_queryDelete_noCondition_union_noCondition() {
         // ## Arrange ##
         deleteMemberReferrer();
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.union(new UnionQuery<MemberCB>() {
-            public void query(MemberCB unionCB) {
-            }
-        });
-
-        // ## Act ##
         try {
-            int deleted = memberBhv.queryDelete(cb);
+            int deleted = memberBhv.queryDelete(cb -> {
+                /* ## Act ## */
+                cb.query().setMemberStatusCode_Equal_Formalized();
+                cb.union(new UnionQuery<MemberCB>() {
+                    public void query(MemberCB unionCB) {
+                    }
+                });
+            });
 
             // ## Assert ##
             fail("deleted=" + deleted);
@@ -61,8 +59,8 @@ public class WxBhvQueryDeleteTest extends UnitContainerTestCase {
     public void test_queryDelete_no_condition_union_validCondition() {
         // ## Arrange ##
         deleteMemberReferrer();
-        MemberCB cb = new MemberCB();
-        int countAll = memberBhv.selectCount(cb);
+        int countAll = memberBhv.selectCount(countCB -> {});
+
         cb.query().setMemberStatusCode_Equal_Formalized();
         cb.union(new UnionQuery<MemberCB>() {
             public void query(MemberCB unionCB) {

@@ -38,34 +38,36 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         // ## Arrange ##
         int expectedCount;
         {
-            MemberCB cb = new MemberCB();
+            expectedCount = memberBhv.selectCount(cb -> {
+                cb.getSqlClause().disableInnerJoinAutoDetect();
+                cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
+                cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime();
+                    }
+                }).isNull();
+                pushCB(cb);
+            });
+
+            assertFalse(popCB().toDisplaySql().contains("inner join"));
+            assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
             cb.getSqlClause().disableInnerJoinAutoDetect();
+            cb.getSqlClause().enableWhereUsedInnerJoin();
             cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
             cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                 }
             }).isNull();
-            expectedCount = memberBhv.selectCount(cb);
-            assertFalse(cb.toDisplaySql().contains("inner join"));
-            assertTrue(cb.toDisplaySql().contains("left outer join"));
-        }
-        MemberCB cb = new MemberCB();
-        cb.getSqlClause().disableInnerJoinAutoDetect();
-        cb.getSqlClause().enableWhereUsedInnerJoin();
-        cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
-        cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnLoginDatetime();
-            }
-        }).isNull();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            pushCB(cb);
+        });
 
         // ## Assert ##
-        assertFalse(cb.toDisplaySql().contains("inner join"));
-        assertTrue(cb.toDisplaySql().contains("left outer join"));
+        assertFalse(popCB().toDisplaySql().contains("inner join"));
+        assertTrue(popCB().toDisplaySql().contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(expectedCount, memberList.size());
         for (Member member : memberList) {
@@ -77,34 +79,36 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         // ## Arrange ##
         int expectedCount;
         {
-            MemberCB cb = new MemberCB();
+            expectedCount = memberBhv.selectCount(cb -> {
+                cb.getSqlClause().disableInnerJoinAutoDetect();
+                cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
+                cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnMemberLoginId();
+                    }
+                }, op -> op.coalesce(99999)).equal(99999);
+                pushCB(cb);
+            });
+
+            assertFalse(popCB().toDisplaySql().contains("inner join"));
+            assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
             cb.getSqlClause().disableInnerJoinAutoDetect();
+            cb.getSqlClause().enableWhereUsedInnerJoin();
             cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
             cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnMemberLoginId();
                 }
             }, op -> op.coalesce(99999)).equal(99999);
-            expectedCount = memberBhv.selectCount(cb);
-            assertFalse(cb.toDisplaySql().contains("inner join"));
-            assertTrue(cb.toDisplaySql().contains("left outer join"));
-        }
-        MemberCB cb = new MemberCB();
-        cb.getSqlClause().disableInnerJoinAutoDetect();
-        cb.getSqlClause().enableWhereUsedInnerJoin();
-        cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
-        cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnMemberLoginId();
-            }
-        }, op -> op.coalesce(99999)).equal(99999);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            pushCB(cb);
+        });
 
         // ## Assert ##
-        assertFalse(cb.toDisplaySql().contains("inner join"));
-        assertTrue(cb.toDisplaySql().contains("left outer join"));
+        assertFalse(popCB().toDisplaySql().contains("inner join"));
+        assertTrue(popCB().toDisplaySql().contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(expectedCount, memberList.size());
         for (Member member : memberList) {
@@ -116,34 +120,36 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         // ## Arrange ##
         int expectedCount;
         {
-            MemberCB cb = new MemberCB();
+            expectedCount = memberBhv.selectCount(cb -> {
+                cb.getSqlClause().disableInnerJoinAutoDetect();
+                cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
+                cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnMemberLoginId();
+                    }
+                }).greaterThan(0);
+                pushCB(cb);
+            });
+
+            assertFalse(popCB().toDisplaySql().contains("inner join"));
+            assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
             cb.getSqlClause().disableInnerJoinAutoDetect();
+            cb.getSqlClause().enableWhereUsedInnerJoin();
             cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
             cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnMemberLoginId();
                 }
             }).greaterThan(0);
-            expectedCount = memberBhv.selectCount(cb);
-            assertFalse(cb.toDisplaySql().contains("inner join"));
-            assertTrue(cb.toDisplaySql().contains("left outer join"));
-        }
-        MemberCB cb = new MemberCB();
-        cb.getSqlClause().disableInnerJoinAutoDetect();
-        cb.getSqlClause().enableWhereUsedInnerJoin();
-        cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
-        cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnMemberLoginId();
-            }
-        }).greaterThan(0);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            pushCB(cb);
+        });
 
         // ## Assert ##
-        assertTrue(cb.toDisplaySql().contains("inner join"));
-        assertFalse(cb.toDisplaySql().contains("left outer join"));
+        assertTrue(popCB().toDisplaySql().contains("inner join"));
+        assertFalse(popCB().toDisplaySql().contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(expectedCount, memberList.size());
         for (Member member : memberList) {
@@ -152,28 +158,28 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
     }
 
     public void test_innerJoin_QueryDerivedReferrer_DreamCruise() throws Exception {
-        MemberCB cb = new MemberCB();
-        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        HpSpecifiedColumn servicePointCount =
-                dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
-        cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
-                subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().specifyMember().columnMemberId());
-            }
-        }).greaterEqual(dreamCruiseCB.specify().columnVersionNo().plus(servicePointCount));
-        cb.query().addOrderBy_Birthdate_Desc();
-        cb.paging(3, 1);
-
-        final List<SqlLogInfo> infoList = newArrayList();
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                infoList.add(info);
-            }
-        });
         try {
-            // ## Act ##
-            ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+                HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
+                        subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().specifyMember().columnMemberId());
+                    }
+                }).greaterEqual(dreamCruiseCB.specify().columnVersionNo().plus(servicePointCount));
+                cb.query().addOrderBy_Birthdate_Desc();
+                cb.paging(3, 1);
+
+                final List<SqlLogInfo> infoList = newArrayList();
+                CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                    public void handle(SqlLogInfo info) {
+                        infoList.add(info);
+                    }
+                });
+                pushCB(cb);
+            });
 
             // ## Assert ##
             assertHasAnyElement(memberList);
@@ -200,8 +206,27 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         // ## Arrange ##
         int expectedCount;
         {
-            MemberCB cb = new MemberCB();
+            expectedCount = memberBhv.selectCount(cb -> {
+                cb.disableInnerJoinAutoDetect();
+                cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                    }
+                }).greaterThan(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().specifyMemberWithdrawalAsOne().columnMemberId();
+                    }
+                });
+                pushCB(cb);
+            });
+
+            assertFalse(popCB().toDisplaySql().contains("inner join"));
+            assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
             cb.disableInnerJoinAutoDetect();
+            cb.getSqlClause().enableWhereUsedInnerJoin();
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
@@ -211,29 +236,12 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
                     cb.specify().specifyMemberWithdrawalAsOne().columnMemberId();
                 }
             });
-            expectedCount = memberBhv.selectCount(cb);
-            assertFalse(cb.toDisplaySql().contains("inner join"));
-            assertTrue(cb.toDisplaySql().contains("left outer join"));
-        }
-        MemberCB cb = new MemberCB();
-        cb.disableInnerJoinAutoDetect();
-        cb.getSqlClause().enableWhereUsedInnerJoin();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
-            }
-        }).greaterThan(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberWithdrawalAsOne().columnMemberId();
-            }
+            pushCB(cb);
         });
 
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
-
         // ## Assert ##
-        assertTrue(cb.toDisplaySql().contains("inner join"));
-        assertFalse(cb.toDisplaySql().contains("left outer join"));
+        assertTrue(popCB().toDisplaySql().contains("inner join"));
+        assertFalse(popCB().toDisplaySql().contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(expectedCount, memberList.size());
         for (Member member : memberList) {
@@ -245,8 +253,28 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         // ## Arrange ##
         int expectedCount;
         {
-            MemberCB cb = new MemberCB();
-            cb.getSqlClause().disableInnerJoinAutoDetect();
+            expectedCount = memberBhv.selectCount(cb -> {
+                cb.getSqlClause().disableInnerJoinAutoDetect();
+                cb.query().queryMemberServiceAsOne().inline().setMemberServiceId_Equal(7);
+                cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                    }
+                }).greaterThan(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().specifyMemberWithdrawalAsOne().columnMemberId();
+                    }
+                }).left().convert(op -> op.coalesce(99999));
+                pushCB(cb);
+            });
+
+            assertFalse(popCB().toDisplaySql().contains("inner join"));
+            assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.disableInnerJoinAutoDetect();
+            cb.getSqlClause().enableWhereUsedInnerJoin();
             cb.query().queryMemberServiceAsOne().inline().setMemberServiceId_Equal(7);
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
@@ -257,29 +285,11 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
                     cb.specify().specifyMemberWithdrawalAsOne().columnMemberId();
                 }
             }).left().convert(op -> op.coalesce(99999));
-            expectedCount = memberBhv.selectCount(cb);
-            assertFalse(cb.toDisplaySql().contains("inner join"));
-            assertTrue(cb.toDisplaySql().contains("left outer join"));
-        }
-        MemberCB cb = new MemberCB();
-        cb.disableInnerJoinAutoDetect();
-        cb.getSqlClause().enableWhereUsedInnerJoin();
-        cb.query().queryMemberServiceAsOne().inline().setMemberServiceId_Equal(7);
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
-            }
-        }).greaterThan(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberWithdrawalAsOne().columnMemberId();
-            }
-        }).left().convert(op -> op.coalesce(99999));
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            pushCB(cb);
+        });
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("left outer join (select * from " + MemberServiceDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("inner join " + MemberWithdrawalDbm.getInstance().getTableDbName()));
         assertFalse(memberList.isEmpty());
@@ -293,8 +303,28 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         // ## Arrange ##
         int expectedCount;
         {
-            MemberCB cb = new MemberCB();
-            cb.getSqlClause().disableInnerJoinAutoDetect();
+            expectedCount = memberBhv.selectCount(cb -> {
+                cb.getSqlClause().disableInnerJoinAutoDetect();
+                cb.query().queryMemberServiceAsOne().inline().setMemberServiceId_Equal(7);
+                cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                    }
+                }).lessThan(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().specifyMemberWithdrawalAsOne().columnMemberId();
+                    }
+                }).convert(op -> op.coalesce(99999));
+                pushCB(cb);
+            });
+
+            assertFalse(popCB().toDisplaySql().contains("inner join"));
+            assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.disableInnerJoinAutoDetect();
+            cb.getSqlClause().enableWhereUsedInnerJoin();
             cb.query().queryMemberServiceAsOne().inline().setMemberServiceId_Equal(7);
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
@@ -305,29 +335,11 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
                     cb.specify().specifyMemberWithdrawalAsOne().columnMemberId();
                 }
             }).convert(op -> op.coalesce(99999));
-            expectedCount = memberBhv.selectCount(cb);
-            assertFalse(cb.toDisplaySql().contains("inner join"));
-            assertTrue(cb.toDisplaySql().contains("left outer join"));
-        }
-        MemberCB cb = new MemberCB();
-        cb.disableInnerJoinAutoDetect();
-        cb.getSqlClause().enableWhereUsedInnerJoin();
-        cb.query().queryMemberServiceAsOne().inline().setMemberServiceId_Equal(7);
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
-            }
-        }).lessThan(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberWithdrawalAsOne().columnMemberId();
-            }
-        }).convert(op -> op.coalesce(99999));
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            pushCB(cb);
+        });
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("inner join (select * from " + MemberServiceDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("left outer join " + MemberWithdrawalDbm.getInstance().getTableDbName()));
         assertFalse(memberList.isEmpty());
@@ -342,8 +354,31 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         // ## Arrange ##
         int expectedCount;
         {
-            MemberCB cb = new MemberCB();
+            expectedCount = memberBhv.selectCount(cb -> {
+                cb.suppressInnerJoinAutoDetect();
+                cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                            public void query(MemberLoginCB subCB) {
+                                subCB.specify().columnMemberLoginId();
+                            }
+                        }, null);
+                    }
+                }).notEqual(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().specifyMemberSecurityAsOne().columnMemberId();
+                    }
+                });
+                pushCB(cb);
+            });
+
+            assertFalse(popCB().toDisplaySql().contains("inner join"));
+            assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
             cb.suppressInnerJoinAutoDetect();
+            cb.getSqlClause().enableWhereUsedInnerJoin();
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
@@ -357,32 +392,11 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
                     cb.specify().specifyMemberSecurityAsOne().columnMemberId();
                 }
             });
-            expectedCount = memberBhv.selectCount(cb);
-            assertFalse(cb.toDisplaySql().contains("inner join"));
-            assertTrue(cb.toDisplaySql().contains("left outer join"));
-        }
-        MemberCB cb = new MemberCB();
-        cb.suppressInnerJoinAutoDetect();
-        cb.getSqlClause().enableWhereUsedInnerJoin();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-                    public void query(MemberLoginCB subCB) {
-                        subCB.specify().columnMemberLoginId();
-                    }
-                }, null);
-            }
-        }).notEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberSecurityAsOne().columnMemberId();
-            }
+            pushCB(cb);
         });
 
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
-
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("left outer join " + MemberStatusDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("inner join " + MemberSecurityDbm.getInstance().getTableDbName()));
         assertFalse(memberList.isEmpty());

@@ -1,6 +1,5 @@
 package org.docksidestage.dockside.dbflute.whitebox.runtime;
 
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
@@ -87,13 +86,13 @@ public class WxCommandLoggingTest extends UnitContainerTestCase {
         }
 
         public void aaa() {
-            memberBhv.selectList(new MemberCB());
+            memberBhv.selectList(cb -> {});
         }
     }
 
     protected class BbbService {
         public void bbb() {
-            memberBhv.selectList(new MemberCB());
+            memberBhv.selectList(cb -> {});
         }
 
         public void page() {
@@ -111,13 +110,13 @@ public class WxCommandLoggingTest extends UnitContainerTestCase {
         }
 
         public void ccc() {
-            memberBhv.selectList(new MemberCB());
+            memberBhv.selectList(cb -> {});
         }
     }
 
     protected class DddFacade {
         public void ddd() {
-            memberBhv.selectList(new MemberCB());
+            memberBhv.selectList(cb -> {});
         }
 
         public void action() {

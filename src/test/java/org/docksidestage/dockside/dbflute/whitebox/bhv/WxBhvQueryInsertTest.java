@@ -23,7 +23,6 @@ import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberWithdrawalCB;
-import org.docksidestage.dockside.dbflute.cbean.WithdrawalReasonCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberWithdrawalBhv;
 import org.docksidestage.dockside.dbflute.exbhv.WithdrawalReasonBhv;
@@ -50,29 +49,31 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_queryInsert_basic() { // and fixed value, common column, exclusive control column
         // ## Arrange ##
-        int countAll = memberWithdrawalBhv.selectCount(new MemberWithdrawalCB());
+        int countAll = memberWithdrawalBhv.selectCount(countCB -> {});
         Map<Integer, Member> formalizedMemberMap = new LinkedHashMap<Integer, Member>();
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberStatusCode_Equal_Formalized();
-            ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                cb.query().setMemberStatusCode_Equal_Formalized();
+            });
+
             for (Member member : memberList) {
                 formalizedMemberMap.put(member.getMemberId(), member);
             }
         }
         final WithdrawalReason firstReason;
         {
-            WithdrawalReasonCB cb = new WithdrawalReasonCB();
-            cb.fetchFirst(1);
-            firstReason = withdrawalReasonBhv.selectEntityWithDeletedCheck(cb);
+            firstReason = withdrawalReasonBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.fetchFirst(1);
+            });
+
         }
 
         // ## Act ##
         int inserted = memberWithdrawalBhv.queryInsert(new QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB>() {
             public ConditionBean setup(MemberWithdrawal entity, MemberWithdrawalCB intoCB) {
                 entity.setWithdrawalReasonCode(firstReason.getWithdrawalReasonCode());
+                int actualCountAll = memberWithdrawalBhv.selectCount(countCB -> {});
                 MemberCB cb = new MemberCB();
-
                 intoCB.specify().columnMemberId().mappedFrom(cb.specify().columnMemberId());
                 intoCB.specify().columnWithdrawalDatetime().mappedFrom(cb.specify().columnFormalizedDatetime());
                 intoCB.specify().columnWithdrawalReasonInputText().mappedFrom(cb.specify().columnMemberName());
@@ -84,18 +85,17 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, inserted);
-        int actualCountAll = memberWithdrawalBhv.selectCount(new MemberWithdrawalCB());
         assertNotSame(countAll, actualCountAll);
         assertTrue(countAll < actualCountAll);
         assertEquals(actualCountAll - countAll, inserted);
+        ListResultBean<MemberWithdrawal> actualList = memberWithdrawalBhv.selectList(cb -> {
+            List<Integer> memberIdList = DfCollectionUtil.newArrayList();
+            for (Member member : formalizedMemberMap.values()) {
+                memberIdList.add(member.getMemberId());
+            }
+            cb.query().setMemberId_InScope(memberIdList);
+        });
 
-        MemberWithdrawalCB cb = new MemberWithdrawalCB();
-        List<Integer> memberIdList = DfCollectionUtil.newArrayList();
-        for (Member member : formalizedMemberMap.values()) {
-            memberIdList.add(member.getMemberId());
-        }
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<MemberWithdrawal> actualList = memberWithdrawalBhv.selectList(cb);
         assertNotSame(0, actualList.size());
         assertEquals(memberIdList.size(), actualList.size());
         String fmt = "yyyy-MM-dd HH:mm:ss.SSS";
@@ -126,16 +126,17 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
         // ## Arrange ##
         Map<Integer, Member> formalizedMemberMap = new LinkedHashMap<Integer, Member>();
         {
-            MemberCB cb = new MemberCB();
-            cb.setupSelect_MemberStatus();
-            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-                public void query(MemberLoginCB subCB) {
-                    subCB.specify().columnLoginDatetime();
-                    subCB.query().setMobileLoginFlg_Equal_True();
-                }
-            }, Member.ALIAS_latestLoginDatetime);
-            cb.query().setMemberStatusCode_Equal_Formalized();
-            ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                cb.setupSelect_MemberStatus();
+                cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime();
+                        subCB.query().setMobileLoginFlg_Equal_True();
+                    }
+                }, Member.ALIAS_latestLoginDatetime);
+                cb.query().setMemberStatusCode_Equal_Formalized();
+            });
+
             for (Member member : memberList) {
                 formalizedMemberMap.put(member.getMemberId(), member);
             }
@@ -156,8 +157,7 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
 
                 intoCB.specify().columnMemberId().mappedFrom(cb.specify().columnMemberId());
                 intoCB.specify().columnWithdrawalDatetime().mappedFromDerived(Member.ALIAS_latestLoginDatetime);
-                intoCB.specify().columnWithdrawalReasonInputText()
-                        .mappedFrom(cb.specify().specifyMemberStatus().columnMemberStatusName());
+                intoCB.specify().columnWithdrawalReasonInputText().mappedFrom(cb.specify().specifyMemberStatus().columnMemberStatusName());
 
                 cb.query().setMemberStatusCode_Equal_Formalized();
                 cb.query().addOrderBy_Birthdate_Desc().withNullsLast();
@@ -167,13 +167,14 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        MemberWithdrawalCB cb = new MemberWithdrawalCB();
-        List<Integer> memberIdList = DfCollectionUtil.newArrayList();
-        for (Member member : formalizedMemberMap.values()) {
-            memberIdList.add(member.getMemberId());
-        }
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<MemberWithdrawal> actualList = memberWithdrawalBhv.selectList(cb);
+        ListResultBean<MemberWithdrawal> actualList = memberWithdrawalBhv.selectList(cb -> {
+            List<Integer> memberIdList = DfCollectionUtil.newArrayList();
+            for (Member member : formalizedMemberMap.values()) {
+                memberIdList.add(member.getMemberId());
+            }
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         assertNotSame(0, actualList.size());
         String fmt = "yyyy-MM-dd HH:mm:ss.SSS";
         Set<String> existsSet = new HashSet<String>();
@@ -204,9 +205,10 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
         // ## Arrange ##
         Map<Integer, Member> formalizedMemberMap = new LinkedHashMap<Integer, Member>();
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberStatusCode_Equal_Formalized();
-            ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                cb.query().setMemberStatusCode_Equal_Formalized();
+            });
+
             for (Member member : memberList) {
                 formalizedMemberMap.put(member.getMemberId(), member);
             }
@@ -226,7 +228,6 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
             memberWithdrawalBhv.queryInsert(new QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB>() {
                 public ConditionBean setup(MemberWithdrawal entity, MemberWithdrawalCB intoCB) {
                     MemberCB cb = new MemberCB();
-
                     entity.setWithdrawalReasonCode(null);
                     entity.setRegisterUser("foo-bar-baz-qux-quux"); // overridden
                     entity.setVersionNo(9999999999L); // overridden in an internal process
@@ -244,13 +245,14 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
         }
 
         // ## Assert ##
-        MemberWithdrawalCB cb = new MemberWithdrawalCB();
-        List<Integer> memberIdList = DfCollectionUtil.newArrayList();
-        for (Member member : formalizedMemberMap.values()) {
-            memberIdList.add(member.getMemberId());
-        }
-        cb.query().setMemberId_InScope(memberIdList);
-        ListResultBean<MemberWithdrawal> actualList = memberWithdrawalBhv.selectList(cb);
+        ListResultBean<MemberWithdrawal> actualList = memberWithdrawalBhv.selectList(cb -> {
+            List<Integer> memberIdList = DfCollectionUtil.newArrayList();
+            for (Member member : formalizedMemberMap.values()) {
+                memberIdList.add(member.getMemberId());
+            }
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
         assertNotSame(0, actualList.size());
         assertEquals(memberIdList.size(), actualList.size());
         String fmt = "yyyy-MM-dd HH:mm:ss.SSS";

@@ -3,7 +3,6 @@ package org.docksidestage.dockside.dbflute.whitebox.bhv;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -24,9 +23,9 @@ public class WxBhvExtractColumnTest extends UnitContainerTestCase {
     //                                                                          ==========
     public void test_extractPK_List_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberStatus();
+        });
 
         // ## Act ##
         List<Integer> memberIdList = memberBhv.extractMemberIdList(memberList);
@@ -43,9 +42,9 @@ public class WxBhvExtractColumnTest extends UnitContainerTestCase {
 
     public void test_extractUQ_List_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberStatus();
+        });
 
         // ## Act ##
         List<String> accountList = memberBhv.extractMemberAccountList(memberList);

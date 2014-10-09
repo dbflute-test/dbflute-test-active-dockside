@@ -10,9 +10,7 @@ import java.util.Date;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.util.DfTypeUtil;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberWithdrawalCB;
-import org.docksidestage.dockside.dbflute.cbean.VendorCheckCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberWithdrawalBhv;
 import org.docksidestage.dockside.dbflute.exbhv.VendorCheckBhv;
@@ -43,15 +41,14 @@ public class VendorTypeTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_TEXT_union() {
         // ## Arrange ##
-        MemberWithdrawalCB cb = new MemberWithdrawalCB();
-        cb.specify().columnWithdrawalReasonInputText();
-        cb.union(new UnionQuery<MemberWithdrawalCB>() {
-            public void query(MemberWithdrawalCB unionCB) {
-            }
+        ListResultBean<MemberWithdrawal> withdrawalList = memberWithdrawalBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().columnWithdrawalReasonInputText();
+            cb.union(new UnionQuery<MemberWithdrawalCB>() {
+                public void query(MemberWithdrawalCB unionCB) {
+                }
+            });
         });
-
-        // ## Act ##
-        ListResultBean<MemberWithdrawal> withdrawalList = memberWithdrawalBhv.selectList(cb);
 
         // ## Assert ##
         assertNotSame(0, withdrawalList.size());
@@ -126,10 +123,10 @@ public class VendorTypeTest extends UnitContainerTestCase {
         // ## Act ##
         cal.set(2008, 5, 15, 12, 34, 57); // plus one second
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberId_Equal(3);
-            cb.query().setBirthdate_GreaterEqual(new Date(cal.getTimeInMillis()));
-            Member actual = memberBhv.selectEntityWithDeletedCheck(cb);
+            Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().setMemberId_Equal(3);
+                cb.query().setBirthdate_GreaterEqual(new Date(cal.getTimeInMillis()));
+            });
 
             // ## Assert ##
             Date actualValue = actual.getBirthdate();
@@ -138,10 +135,10 @@ public class VendorTypeTest extends UnitContainerTestCase {
             assertEquals("2008/06/15 00:00:00.000", formatted);
         }
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberId_Equal(3);
-            cb.query().setBirthdate_GreaterEqual(new java.sql.Date(cal.getTimeInMillis()));
-            Member actual = memberBhv.selectEntityWithDeletedCheck(cb);
+            Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().setMemberId_Equal(3);
+                cb.query().setBirthdate_GreaterEqual(new java.sql.Date(cal.getTimeInMillis()));
+            });
 
             // ## Assert ##
             Date actualValue = actual.getBirthdate();
@@ -150,10 +147,10 @@ public class VendorTypeTest extends UnitContainerTestCase {
             assertEquals("2008/06/15 00:00:00.000", formatted);
         }
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberId_Equal(3);
-            cb.query().setBirthdate_GreaterEqual(new Timestamp(cal.getTimeInMillis()));
-            Member actual = memberBhv.selectEntityWithDeletedCheck(cb);
+            Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().setMemberId_Equal(3);
+                cb.query().setBirthdate_GreaterEqual(new Timestamp(cal.getTimeInMillis()));
+            });
 
             // ## Assert ##
             Date actualValue = actual.getBirthdate();
@@ -194,11 +191,10 @@ public class VendorTypeTest extends UnitContainerTestCase {
 
     public void test_DATE_selectPureDate() { // *Important!
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setBirthdate_IsNotNull();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setBirthdate_IsNotNull();
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -256,13 +252,12 @@ public class VendorTypeTest extends UnitContainerTestCase {
         vendorCheck.setTypeOfTime(specifiedTime);
         vendorCheckBhv.insert(vendorCheck);
 
-        VendorCheckCB cb = new VendorCheckCB();
-        cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
-        cb.query().setTypeOfTime_GreaterThan(oneSecondBeforeTime);
-        cb.query().setTypeOfTime_LessThan(oneSecondAfterTime);
-
-        // ## Act ##
-        VendorCheck actual = vendorCheckBhv.selectEntityWithDeletedCheck(cb);
+        VendorCheck actual = vendorCheckBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
+            cb.query().setTypeOfTime_GreaterThan(oneSecondBeforeTime);
+            cb.query().setTypeOfTime_LessThan(oneSecondAfterTime);
+        });
 
         // ## Assert ##
         Time actualTime = actual.getTypeOfTime();
@@ -276,11 +271,12 @@ public class VendorTypeTest extends UnitContainerTestCase {
     //                                                                        ============
     public void test_BOOLEAN_delete_insert_select() {
         // ## Arrange ##
-        VendorCheckCB deleteCB = new VendorCheckCB();
-        deleteCB.query().setTypeOfBoolean_Equal(true);
-        log("deleted(true)=" + vendorCheckBhv.queryDelete(deleteCB));
-        deleteCB.query().setTypeOfBoolean_Equal(false);
-        log("deleted(false)=" + vendorCheckBhv.queryDelete(deleteCB));
+        log("deleted(true)=" + vendorCheckBhv.queryDelete(deleteCB -> {
+            deleteCB.query().setTypeOfBoolean_Equal(true);
+        }));
+        log("deleted(false)=" + vendorCheckBhv.queryDelete(deleteCB -> {
+            deleteCB.query().setTypeOfBoolean_Equal(false);
+        }));
 
         VendorCheck vendorCheck = new VendorCheck();
         vendorCheck.setVendorCheckId(Long.valueOf(8881));
@@ -298,9 +294,10 @@ public class VendorTypeTest extends UnitContainerTestCase {
         }
 
         // ## Assert ##
-        VendorCheckCB cb = new VendorCheckCB();
-        cb.query().setTypeOfBoolean_Equal(true);
-        VendorCheck actual = vendorCheckBhv.selectEntityWithDeletedCheck(cb);
+        VendorCheck actual = vendorCheckBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setTypeOfBoolean_Equal(true);
+        });
+
         log(actual);
         assertEquals(vendorCheck.getVendorCheckId(), actual.getVendorCheckId());
         assertEquals(vendorCheck.getTypeOfBoolean(), actual.getTypeOfBoolean());
@@ -322,9 +319,9 @@ public class VendorTypeTest extends UnitContainerTestCase {
 
         // ## Act ##
         vendorCheckBhv.insert(vendorCheck);
-        VendorCheckCB cb = new VendorCheckCB();
-        cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
-        VendorCheck selected = vendorCheckBhv.selectEntityWithDeletedCheck(cb);
+        VendorCheck selected = vendorCheckBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
+        });
 
         // ## Assert ##
         byte[] bytes = selected.getTypeOfBlob();
@@ -347,9 +344,9 @@ public class VendorTypeTest extends UnitContainerTestCase {
 
         // ## Act ##
         vendorCheckBhv.insert(vendorCheck);
-        VendorCheckCB cb = new VendorCheckCB();
-        cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
-        VendorCheck selected = vendorCheckBhv.selectEntityWithDeletedCheck(cb);
+        VendorCheck selected = vendorCheckBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
+        });
 
         // ## Assert ##
         byte[] bytes = selected.getTypeOfBinary();
@@ -373,9 +370,9 @@ public class VendorTypeTest extends UnitContainerTestCase {
 
         // ## Act ##
         vendorCheckBhv.insert(vendorCheck);
-        VendorCheckCB cb = new VendorCheckCB();
-        cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
-        VendorCheck selected = vendorCheckBhv.selectEntityWithDeletedCheck(cb);
+        VendorCheck selected = vendorCheckBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
+        });
 
         // ## Assert ##
         String actual = new String(selected.getTypeOfUuid(), "UTF-8");
@@ -395,10 +392,10 @@ public class VendorTypeTest extends UnitContainerTestCase {
 
         // ## Act ##
         vendorCheckBhv.insert(vendorCheck);
-        VendorCheckCB cb = new VendorCheckCB();
-        cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
-        cb.query().setTypeOfArray_Equal(expected);
-        VendorCheck selected = vendorCheckBhv.selectEntityWithDeletedCheck(cb);
+        VendorCheck selected = vendorCheckBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
+            cb.query().setTypeOfArray_Equal(expected);
+        });
 
         // ## Assert ##
         String actual = selected.getTypeOfArray();
@@ -417,9 +414,9 @@ public class VendorTypeTest extends UnitContainerTestCase {
 
         // ## Act ##
         vendorCheckBhv.insert(vendorCheck);
-        VendorCheckCB cb = new VendorCheckCB();
-        cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
-        VendorCheck selected = vendorCheckBhv.selectEntityWithDeletedCheck(cb);
+        VendorCheck selected = vendorCheckBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
+        });
 
         // ## Assert ##
         String actual = selected.getTypeOfOther();

@@ -100,8 +100,7 @@ public class WxParameterCommentTest extends UnitContainerTestCase {
         // ## Act ##
         int pageSize = 3;
         pmb.paging(pageSize, 1); // 1st page
-        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType);
 
         // ## Assert ##
         assertNotSame(0, page1.size());
@@ -128,8 +127,7 @@ public class WxParameterCommentTest extends UnitContainerTestCase {
         // ## Act ##
         int pageSize = 3;
         pmb.paging(pageSize, 1); // 1st page
-        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType);
 
         // ## Assert ##
         assertNotSame(0, page1.size());
@@ -156,8 +154,8 @@ public class WxParameterCommentTest extends UnitContainerTestCase {
         // ## Act ##
         int pageSize = 3;
         pmb.paging(pageSize, 1); // 1st page
-        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().formatSql().manualPaging()
-                .selectPage(path, pmb, entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page1 =
+                memberBhv.outsideSql().formatSql().manualPaging().selectPage(path, pmb, entityType);
 
         // ## Assert ##
         assertNotSame(0, page1.size());

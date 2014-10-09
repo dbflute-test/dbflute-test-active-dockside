@@ -1,7 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean;
 
 import org.dbflute.cbean.result.ListResultBean;
-import org.docksidestage.dockside.dbflute.cbean.MemberWithdrawalCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberWithdrawalBhv;
 import org.docksidestage.dockside.dbflute.exentity.MemberWithdrawal;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -23,26 +22,27 @@ public class WxCBQueryIsNullOrEmptyTest extends UnitContainerTestCase {
     public void test_isNullOrEmpty_basic() {
         // ## Arrange ##
         {
-            MemberWithdrawalCB cb = new MemberWithdrawalCB();
-            cb.query().setWithdrawalReasonInputText_IsNull();
-            cb.fetchFirst(1);
-            MemberWithdrawal before = memberWithdrawalBhv.selectEntityWithDeletedCheck(cb);
+            MemberWithdrawal before = memberWithdrawalBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().setWithdrawalReasonInputText_IsNull();
+                cb.fetchFirst(1);
+            });
+
             before.setWithdrawalReasonInputText("");
             memberWithdrawalBhv.updateNonstrict(before);
         }
         {
-            MemberWithdrawalCB cb = new MemberWithdrawalCB();
-            cb.query().setWithdrawalReasonInputText_IsNotNull();
-            cb.fetchFirst(1);
-            MemberWithdrawal before = memberWithdrawalBhv.selectEntityWithDeletedCheck(cb);
+            MemberWithdrawal before = memberWithdrawalBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().setWithdrawalReasonInputText_IsNotNull();
+                cb.fetchFirst(1);
+            });
+
             before.setWithdrawalReasonInputText(null);
             memberWithdrawalBhv.updateNonstrict(before);
         }
-        MemberWithdrawalCB cb = new MemberWithdrawalCB();
-        cb.query().setWithdrawalReasonInputText_IsNullOrEmpty();
-
-        // ## Act ##
-        ListResultBean<MemberWithdrawal> withdrawalList = memberWithdrawalBhv.selectList(cb);
+        ListResultBean<MemberWithdrawal> withdrawalList = memberWithdrawalBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setWithdrawalReasonInputText_IsNullOrEmpty();
+        });
 
         // ## Assert ##
         assertFalse(withdrawalList.isEmpty());

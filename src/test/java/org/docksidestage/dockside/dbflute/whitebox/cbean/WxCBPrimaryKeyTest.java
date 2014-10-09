@@ -18,8 +18,6 @@ public class WxCBPrimaryKeyTest extends UnitContainerTestCase {
     public void test_acceptPrimaryKey() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
         cb.acceptPrimaryKey(3);
 
         // ## Assert ##
@@ -31,11 +29,10 @@ public class WxCBPrimaryKeyTest extends UnitContainerTestCase {
     //                                                                    ================
     public void test_acceptUniqueOf_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.acceptUniqueOf("Pixy");
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.acceptUniqueOf("Pixy");
+        });
 
         // ## Assert ##
         assertEquals("Pixy", member.getMemberAccount());
@@ -44,8 +41,6 @@ public class WxCBPrimaryKeyTest extends UnitContainerTestCase {
     public void test_acceptUniqueOf_null() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
         try {
             cb.acceptUniqueOf(null);
             // ## Assert ##

@@ -18,8 +18,6 @@ public class WxCBEmptyStringQueryTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.query().setMemberName_Equal("");
-
-        // ## Act ##
         cb.enableEmptyStringQuery();
 
         // ## Assert ##
@@ -38,8 +36,6 @@ public class WxCBEmptyStringQueryTest extends UnitContainerTestCase {
                 subCB.query().queryProduct().setProductHandleCode_Equal("");
             }
         });
-
-        // ## Act ##
         cb.enableEmptyStringQuery();
         cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {

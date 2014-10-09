@@ -5,8 +5,6 @@ import java.util.List;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.util.Srl;
-import org.docksidestage.dockside.dbflute.cbean.Vendor$DollarCB;
-import org.docksidestage.dockside.dbflute.cbean.VendorCheckCB;
 import org.docksidestage.dockside.dbflute.cbean.VendorTheLongAndWindingTableAndColumnRefCB;
 import org.docksidestage.dockside.dbflute.exbhv.Vendor$DollarBhv;
 import org.docksidestage.dockside.dbflute.exbhv.VendorCheckBhv;
@@ -43,12 +41,12 @@ public class VendorNameTest extends UnitContainerTestCase {
         vendorCheck.setJPopBeansProperty("bar");
         vendorCheckBhv.insert(vendorCheck);
 
-        VendorCheckCB cb = new VendorCheckCB();
-        cb.query().setJAVABeansProperty_Equal("foo");
-        cb.query().setJPopBeansProperty_Equal("bar");
-
-        // ## Act ##
-        VendorCheck actual = vendorCheckBhv.selectEntityWithDeletedCheck(cb);
+        VendorCheck actual = vendorCheckBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setJAVABeansProperty_Equal("foo");
+            cb.query().setJPopBeansProperty_Equal("bar");
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertEquals("foo", actual.getJAVABeansProperty());
@@ -61,13 +59,11 @@ public class VendorNameTest extends UnitContainerTestCase {
     public void test_LongName_basic() throws Exception {
         // ## Arrange ##
         registerTheLongAndWindingData();
-        VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB();
-        cb.setupSelect_VendorTheLongAndWindingTableAndColumn();
-        cb.query().addOrderBy_TheLongAndWindingTableAndColumnRefDate_Asc();
-
-        // ## Act ##
-        ListResultBean<VendorTheLongAndWindingTableAndColumnRef> refList = vendorTheLongAndWindingTableAndColumnRefBhv
-                .selectList(cb);
+        ListResultBean<VendorTheLongAndWindingTableAndColumnRef> refList = vendorTheLongAndWindingTableAndColumnRefBhv.selectList(cb -> {
+            cb.setupSelect_VendorTheLongAndWindingTableAndColumn();
+            cb.query().addOrderBy_TheLongAndWindingTableAndColumnRefDate_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertHasAnyElement(refList);
@@ -85,7 +81,7 @@ public class VendorNameTest extends UnitContainerTestCase {
             assertEquals("shortName", main.getShortName());
             assertEquals(3, main.getShortSize());
         }
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(Srl.containsAny(sql, "_REF_ID as THE_LONG_AND", "_c1"));
         assertTrue(Srl.containsAny(sql, ".SHORT_DATE as SHORT_DATE"));
@@ -96,18 +92,15 @@ public class VendorNameTest extends UnitContainerTestCase {
     public void test_LongName_union() throws Exception {
         // ## Arrange ##
         registerTheLongAndWindingData();
-        VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB();
-        cb.setupSelect_VendorTheLongAndWindingTableAndColumn();
-        cb.union(new UnionQuery<VendorTheLongAndWindingTableAndColumnRefCB>() {
-            public void query(VendorTheLongAndWindingTableAndColumnRefCB unionCB) {
-            }
+        ListResultBean<VendorTheLongAndWindingTableAndColumnRef> refList = vendorTheLongAndWindingTableAndColumnRefBhv.selectList(cb -> {
+            cb.setupSelect_VendorTheLongAndWindingTableAndColumn();
+            cb.union(new UnionQuery<VendorTheLongAndWindingTableAndColumnRefCB>() {
+                public void query(VendorTheLongAndWindingTableAndColumnRefCB unionCB) {
+                }
+            });
+            cb.query().addOrderBy_TheLongAndWindingTableAndColumnRefDate_Asc();
+            cb.query().addOrderBy_TheLongAndWindingTableAndColumnRefId_Asc();
         });
-        cb.query().addOrderBy_TheLongAndWindingTableAndColumnRefDate_Asc();
-        cb.query().addOrderBy_TheLongAndWindingTableAndColumnRefId_Asc();
-
-        // ## Act ##
-        ListResultBean<VendorTheLongAndWindingTableAndColumnRef> refList = vendorTheLongAndWindingTableAndColumnRefBhv
-                .selectList(cb);
 
         // ## Assert ##
         assertHasAnyElement(refList);
@@ -168,11 +161,9 @@ public class VendorNameTest extends UnitContainerTestCase {
         dollar.setVendor$DollarId(99999);
         dollar.setVendor$DollarName("Pixy");
         vendorDollarBhv.insert(dollar);
-        Vendor$DollarCB cb = new Vendor$DollarCB();
-        cb.query().setVendor$DollarId_Equal(dollar.getVendor$DollarId());
-
-        // ## Act ##
-        Vendor$Dollar actual = vendorDollarBhv.selectEntityWithDeletedCheck(cb);
+        Vendor$Dollar actual = vendorDollarBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setVendor$DollarId_Equal(dollar.getVendor$DollarId());
+        });
 
         // ## Assert ##
         assertNotNull(actual);

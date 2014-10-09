@@ -15,7 +15,6 @@ import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta.SimpleVendorCheckDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.cbean.MemberAddressCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -237,11 +236,11 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
     //                                                                          ==========
     public void test_toString_nonRelation() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(18);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(18);
+        });
 
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
         String detail = member.toString();
 
         // ## Assert ##
@@ -252,11 +251,10 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
 
     public void test_toString_withManyToOne() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+        });
 
         // ## Assert ##
         StringBuilder sb = new StringBuilder();
@@ -274,13 +272,12 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
 
     public void test_toString_withOneToOne() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberAddressAsValid(currentDate());
-        cb.setupSelect_MemberSecurityAsOne();
-        cb.setupSelect_MemberWithdrawalAsOne();
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberAddressAsValid(currentDate());
+            cb.setupSelect_MemberSecurityAsOne();
+            cb.setupSelect_MemberWithdrawalAsOne();
+        });
 
         // ## Assert ##
         StringBuilder sb = new StringBuilder();
@@ -307,10 +304,10 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
 
     public void test_toString_withOneToMany() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+        });
 
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
             }
@@ -351,14 +348,14 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
 
     public void test_toString_withAll() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.setupSelect_MemberAddressAsValid(currentDate());
-        cb.setupSelect_MemberSecurityAsOne();
-        cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.setupSelect_MemberAddressAsValid(currentDate());
+            cb.setupSelect_MemberSecurityAsOne();
+            cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+        });
 
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
@@ -408,11 +405,11 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
 
     public void test_toString_BC_date_exists() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(18);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(18);
+        });
 
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
         member.setBirthdate(DfTypeUtil.toDate("BC0001/12/31 23:59:59.999"));
         String detail = member.toString();
 
@@ -423,11 +420,11 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
 
     public void test_toString_BC_date_notExists() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(18);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(18);
+        });
 
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
         member.setBirthdate(DfTypeUtil.toDate("0001/01/01 00:00:00.000"));
         String detail = member.toString();
 
@@ -441,11 +438,11 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
     //                                                              ======================
     public void test_toStringWithRelation_nonRelation() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(18);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(18);
+        });
 
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
         String detail = member.toStringWithRelation();
 
         // ## Assert ##
@@ -458,11 +455,10 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
 
     public void test_toStringWithRelation_withManyToOne() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+        });
 
         // ## Assert ##
         StringBuilder sb = new StringBuilder();
@@ -481,13 +477,12 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
 
     public void test_toStringWithRelation_withOneToOne() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberAddressAsValid(currentDate());
-        cb.setupSelect_MemberSecurityAsOne();
-        cb.setupSelect_MemberWithdrawalAsOne();
-
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberAddressAsValid(currentDate());
+            cb.setupSelect_MemberSecurityAsOne();
+            cb.setupSelect_MemberWithdrawalAsOne();
+        });
 
         // ## Assert ##
         StringBuilder sb = new StringBuilder();
@@ -518,10 +513,10 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
 
     public void test_toStringWithRelation_withOneToMany() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+        });
 
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
             }
@@ -563,14 +558,14 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
 
     public void test_toStringWithRelation_withAll() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.setupSelect_MemberAddressAsValid(currentDate());
-        cb.setupSelect_MemberSecurityAsOne();
-        cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+        List<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.setupSelect_MemberAddressAsValid(currentDate());
+            cb.setupSelect_MemberSecurityAsOne();
+            cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+        });
 
-        // ## Act ##
-        List<Member> memberList = memberBhv.selectList(cb);
         memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
@@ -627,10 +622,11 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
     //                                                                ====================
     public void test_buildDisplayString_Basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.query().setMemberId_Equal(18);
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.setupSelect_MemberStatus();
+            cb.query().setMemberId_Equal(18);
+        });
+
         MemberDbm dbm = MemberDbm.getInstance();
         String memberStatusName = dbm.foreignMemberStatus().getForeignPropertyName();
         String memberAddressName = dbm.foreignMemberAddressAsValid().getForeignPropertyName();
@@ -681,14 +677,15 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
     //                                                                             =======
     public void test_clone_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-            }
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.setupSelect_MemberStatus();
+            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                }
+            });
+            cb.fetchFirst(1);
         });
-        cb.fetchFirst(1);
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+
         memberBhv.loadPurchaseList(member, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();

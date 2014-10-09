@@ -5,7 +5,6 @@ import java.util.Date;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.util.DfTypeUtil;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -29,27 +28,27 @@ public class WxCBDerivedReferrerOptionTest extends UnitContainerTestCase {
         // ## Arrange ##
         int countAll;
         {
-            MemberCB cb = new MemberCB();
-            countAll = memberBhv.selectCount(cb);
+            countAll = memberBhv.selectCount(countCB -> {});
+
         }
         {
-            MemberCB cb = new MemberCB();
-            cb.query().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime();
+                    }
+                }).isNull();
+            }); // expect no exception
+
+        }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                 }
-            }).isNull();
-            memberBhv.selectEntityWithDeletedCheck(cb); // expect no exception
-        }
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnLoginDatetime();
-            }
-        }, Member.ALIAS_latestLoginDatetime, op -> op.coalesce("1192-01-01"));
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+            }, Member.ALIAS_latestLoginDatetime, op -> op.coalesce("1192-01-01"));
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -70,29 +69,29 @@ public class WxCBDerivedReferrerOptionTest extends UnitContainerTestCase {
         // ## Arrange ##
         int countAll;
         {
-            MemberCB cb = new MemberCB();
-            countAll = memberBhv.selectCount(cb);
+            countAll = memberBhv.selectCount(countCB -> {});
+
         }
         {
-            MemberCB cb = new MemberCB();
-            cb.query().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-                public void query(MemberLoginCB subCB) {
-                    subCB.specify().columnLoginDatetime();
-                }
-            }).isNull();
-            memberBhv.selectEntityWithDeletedCheck(cb); // expect no exception
+            memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime();
+                    }
+                }).isNull();
+            }); // expect no exception
+
         }
         String coalesce = "foo')); select * from MEMBER";
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnLoginMemberStatusCode();
-            }
-        }, Member.ALIAS_loginCount, op -> op.coalesce(coalesce));
-
-        // ## Act ##
-        // expect no exception if the value is treated as bind-parameter
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.specify().columnLoginMemberStatusCode();
+                }
+            }, Member.ALIAS_loginCount, op -> op.coalesce(coalesce));
+            // expect no exception if the value is treated as bind-parameter
+            });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());

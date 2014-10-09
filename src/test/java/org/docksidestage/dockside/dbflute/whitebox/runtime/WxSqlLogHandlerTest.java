@@ -9,7 +9,6 @@ import org.dbflute.hook.SqlLogHandler;
 import org.dbflute.hook.SqlLogInfo;
 import org.dbflute.util.DfCollectionUtil;
 import org.dbflute.util.Srl;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.MemberChangedToWithdrawalForcedlyPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PurchaseMaxPriceMemberPmb;
@@ -52,26 +51,25 @@ public class WxSqlLogHandlerTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_ConditionBean_selectList() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_PrefixSearch("S");
-        final List<String> displaySqlList = newArrayList();
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                assertTrue(info.getMeta().isConditionBean());
-                assertFalse(info.getMeta().isOutsideSql());
-                assertFalse(info.getMeta().isProcedure());
-                assertTrue(info.getMeta().isSelect());
-                assertFalse(info.getMeta().isSelectCount());
-                assertTrue(info.getExecutedSql().contains("?"));
-                assertEquals(1, info.getBindArgs().length);
-                assertEquals(1, info.getBindArgTypes().length);
-                assertEquals(String.class, info.getBindArgTypes()[0]);
-                displaySqlList.add(info.getDisplaySql());
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            final List<String> displaySqlList = newArrayList();
+            CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                public void handle(SqlLogInfo info) {
+                    assertTrue(info.getMeta().isConditionBean());
+                    assertFalse(info.getMeta().isOutsideSql());
+                    assertFalse(info.getMeta().isProcedure());
+                    assertTrue(info.getMeta().isSelect());
+                    assertFalse(info.getMeta().isSelectCount());
+                    assertTrue(info.getExecutedSql().contains("?"));
+                    assertEquals(1, info.getBindArgs().length);
+                    assertEquals(1, info.getBindArgTypes().length);
+                    assertEquals(String.class, info.getBindArgTypes()[0]);
+                    displaySqlList.add(info.getDisplaySql());
+                }
+            });
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertHasAnyElement(memberList);

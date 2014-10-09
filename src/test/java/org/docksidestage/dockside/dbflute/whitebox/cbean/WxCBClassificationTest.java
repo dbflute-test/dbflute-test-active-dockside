@@ -6,8 +6,6 @@ import java.util.List;
 import org.dbflute.cbean.result.ListResultBean;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberLoginBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -34,11 +32,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
     //                                                 -----
     public void test_String_equal_classfy() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -49,11 +46,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_String_equal_asCDef_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_Equal_AsMemberStatus(CDef.MemberStatus.Formalized);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal_AsMemberStatus(CDef.MemberStatus.Formalized);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -64,8 +60,8 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_String_equal_asCDef_nullArg() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        int countAll = memberBhv.selectCount(cb);
+        int countAll = memberBhv.selectCount(countCB -> {});
+
         cb.query().setMemberStatusCode_Equal_AsMemberStatus(null);
 
         // ## Act ##
@@ -78,11 +74,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_String_equal_asBoolean_basic() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        cb.query().setMobileLoginFlg_Equal_AsBoolean(true);
-
-        // ## Act ##
-        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb);
+        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMobileLoginFlg_Equal_AsBoolean(true);
+        });
 
         // ## Assert ##
         assertHasAnyElement(loginList);
@@ -96,11 +91,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
     //                                              --------
     public void test_String_notEqual_asCDef_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberStatusCode_NotEqual_AsMemberStatus(CDef.MemberStatus.Formalized);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_NotEqual_AsMemberStatus(CDef.MemberStatus.Formalized);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -111,8 +105,8 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_String_notEqual_asCDef_nullArg() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        int countAll = memberBhv.selectCount(cb);
+        int countAll = memberBhv.selectCount(countCB -> {});
+
         cb.query().setMemberStatusCode_NotEqual_AsMemberStatus(null);
 
         // ## Act ##
@@ -128,14 +122,13 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
     //                                               -------
     public void test_String_inScope_asCDef_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        List<MemberStatus> statusList = new ArrayList<CDef.MemberStatus>();
-        statusList.add(CDef.MemberStatus.Formalized);
-        statusList.add(CDef.MemberStatus.Provisional);
-        cb.query().setMemberStatusCode_InScope_AsMemberStatus(statusList);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            List<MemberStatus> statusList = new ArrayList<CDef.MemberStatus>();
+            statusList.add(CDef.MemberStatus.Formalized);
+            statusList.add(CDef.MemberStatus.Provisional);
+            cb.query().setMemberStatusCode_InScope_AsMemberStatus(statusList);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -158,14 +151,13 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_String_inScope_asCDef_nullElement() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        List<MemberStatus> statusList = new ArrayList<CDef.MemberStatus>();
-        statusList.add(null);
-        statusList.add(CDef.MemberStatus.Provisional);
-        cb.query().setMemberStatusCode_InScope_AsMemberStatus(statusList);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            List<MemberStatus> statusList = new ArrayList<CDef.MemberStatus>();
+            statusList.add(null);
+            statusList.add(CDef.MemberStatus.Provisional);
+            cb.query().setMemberStatusCode_InScope_AsMemberStatus(statusList);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -176,8 +168,8 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_String_inScope_asCDef_nullList() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        int countAll = memberBhv.selectCount(cb);
+        int countAll = memberBhv.selectCount(countCB -> {});
+
         cb.query().setMemberStatusCode_InScope_AsMemberStatus(null);
 
         // ## Act ##
@@ -193,14 +185,13 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
     //                                            ----------
     public void test_String_notInScope_asCDef_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        List<MemberStatus> statusList = new ArrayList<CDef.MemberStatus>();
-        statusList.add(CDef.MemberStatus.Formalized);
-        statusList.add(CDef.MemberStatus.Provisional);
-        cb.query().setMemberStatusCode_NotInScope_AsMemberStatus(statusList);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            List<MemberStatus> statusList = new ArrayList<CDef.MemberStatus>();
+            statusList.add(CDef.MemberStatus.Formalized);
+            statusList.add(CDef.MemberStatus.Provisional);
+            cb.query().setMemberStatusCode_NotInScope_AsMemberStatus(statusList);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -211,14 +202,13 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_String_notInScope_asCDef_nullElement() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        List<MemberStatus> statusList = new ArrayList<CDef.MemberStatus>();
-        statusList.add(CDef.MemberStatus.Provisional);
-        statusList.add(null);
-        cb.query().setMemberStatusCode_NotInScope_AsMemberStatus(statusList);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            List<MemberStatus> statusList = new ArrayList<CDef.MemberStatus>();
+            statusList.add(CDef.MemberStatus.Provisional);
+            statusList.add(null);
+            cb.query().setMemberStatusCode_NotInScope_AsMemberStatus(statusList);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -229,8 +219,8 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_String_notInScope_asCDef_nullList() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        int countAll = memberBhv.selectCount(cb);
+        int countAll = memberBhv.selectCount(countCB -> {});
+
         cb.query().setMemberStatusCode_NotInScope_AsMemberStatus(null);
 
         // ## Act ##
@@ -249,11 +239,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
     //                                                 -----
     public void test_Integer_equal_classify() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        cb.query().setMobileLoginFlg_Equal_True();
-
-        // ## Act ##
-        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb);
+        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMobileLoginFlg_Equal_True();
+        });
 
         // ## Assert ##
         assertHasAnyElement(loginList);
@@ -264,11 +253,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_Integer_equal_asCDef_basic() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        cb.query().setMobileLoginFlg_Equal_AsFlg(CDef.Flg.True);
-
-        // ## Act ##
-        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb);
+        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMobileLoginFlg_Equal_AsFlg(CDef.Flg.True);
+        });
 
         // ## Assert ##
         assertHasAnyElement(loginList);
@@ -279,8 +267,8 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_Integer_equal_asCDef_nullArg() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        int countAll = memberLoginBhv.selectCount(cb);
+        int countAll = memberLoginBhv.selectCount(countCB -> {});
+
         cb.query().setMobileLoginFlg_Equal_AsFlg(null);
 
         // ## Act ##
@@ -296,11 +284,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
     //                                              --------
     public void test_Integer_notEqual_asCDef_basic() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        cb.query().setMobileLoginFlg_NotEqual_AsFlg(CDef.Flg.True);
-
-        // ## Act ##
-        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb);
+        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMobileLoginFlg_NotEqual_AsFlg(CDef.Flg.True);
+        });
 
         // ## Assert ##
         assertHasAnyElement(loginList);
@@ -311,8 +298,8 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_Integer_notEqual_asCDef_nullArg() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        int countAll = memberLoginBhv.selectCount(cb);
+        int countAll = memberLoginBhv.selectCount(countCB -> {});
+
         cb.query().setMobileLoginFlg_NotEqual_AsFlg(null);
 
         // ## Act ##
@@ -328,13 +315,12 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
     //                                               -------
     public void test_Integer_inScope_asCDef() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        List<CDef.Flg> flgList = new ArrayList<CDef.Flg>();
-        flgList.add(CDef.Flg.True);
-        cb.query().setMobileLoginFlg_InScope_AsFlg(flgList);
-
-        // ## Act ##
-        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb);
+        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            /* ## Act ## */
+            List<CDef.Flg> flgList = new ArrayList<CDef.Flg>();
+            flgList.add(CDef.Flg.True);
+            cb.query().setMobileLoginFlg_InScope_AsFlg(flgList);
+        });
 
         // ## Assert ##
         assertHasAnyElement(loginList);
@@ -345,14 +331,13 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_Integer_inScope_asCDef_nullElement() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        List<CDef.Flg> flgList = new ArrayList<CDef.Flg>();
-        flgList.add(null);
-        flgList.add(CDef.Flg.True);
-        cb.query().setMobileLoginFlg_InScope_AsFlg(flgList);
-
-        // ## Act ##
-        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb);
+        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            /* ## Act ## */
+            List<CDef.Flg> flgList = new ArrayList<CDef.Flg>();
+            flgList.add(null);
+            flgList.add(CDef.Flg.True);
+            cb.query().setMobileLoginFlg_InScope_AsFlg(flgList);
+        });
 
         // ## Assert ##
         assertHasAnyElement(loginList);
@@ -363,8 +348,8 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_Integer_inScope_asCDef_nullList() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        int countAll = memberLoginBhv.selectCount(cb);
+        int countAll = memberLoginBhv.selectCount(countCB -> {});
+
         cb.query().setMobileLoginFlg_InScope_AsFlg(null);
 
         // ## Act ##
@@ -380,13 +365,12 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
     //                                            ----------
     public void test_Integer_notInScope_asCDef() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        List<CDef.Flg> flgList = new ArrayList<CDef.Flg>();
-        flgList.add(CDef.Flg.True);
-        cb.query().setMobileLoginFlg_NotInScope_AsFlg(flgList);
-
-        // ## Act ##
-        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb);
+        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            /* ## Act ## */
+            List<CDef.Flg> flgList = new ArrayList<CDef.Flg>();
+            flgList.add(CDef.Flg.True);
+            cb.query().setMobileLoginFlg_NotInScope_AsFlg(flgList);
+        });
 
         // ## Assert ##
         assertHasAnyElement(loginList);
@@ -397,14 +381,13 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_Integer_notInScope_asCDef_nullElement() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        List<CDef.Flg> flgList = new ArrayList<CDef.Flg>();
-        flgList.add(null);
-        flgList.add(CDef.Flg.True);
-        cb.query().setMobileLoginFlg_NotInScope_AsFlg(flgList);
-
-        // ## Act ##
-        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb);
+        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            /* ## Act ## */
+            List<CDef.Flg> flgList = new ArrayList<CDef.Flg>();
+            flgList.add(null);
+            flgList.add(CDef.Flg.True);
+            cb.query().setMobileLoginFlg_NotInScope_AsFlg(flgList);
+        });
 
         // ## Assert ##
         assertHasAnyElement(loginList);
@@ -415,8 +398,8 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
     public void test_Integer_notInScope_asCDef_nullList() {
         // ## Arrange ##
-        MemberLoginCB cb = new MemberLoginCB();
-        int countAll = memberLoginBhv.selectCount(cb);
+        int countAll = memberLoginBhv.selectCount(countCB -> {});
+
         cb.query().setMobileLoginFlg_NotInScope_AsFlg(null);
 
         // ## Act ##

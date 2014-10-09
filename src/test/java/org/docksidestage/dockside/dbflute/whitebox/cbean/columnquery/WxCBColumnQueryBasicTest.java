@@ -25,19 +25,19 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_ColumnQuery_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).lessEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).lessEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -48,19 +48,19 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
 
     public void test_ColumnQuery_foreignTable() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberStatusCode();
-            }
-        }).equal(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberStatus().columnMemberStatusCode();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberStatusCode();
+                }
+            }).equal(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().specifyMemberStatus().columnMemberStatusCode();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -71,19 +71,19 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
 
     public void test_ColumnQuery_foreignTable_nested() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberStatus().columnDisplayOrder();
-            }
-        }).equal(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberWithdrawalAsOne().specifyWithdrawalReason().columnDisplayOrder();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().specifyMemberStatus().columnDisplayOrder();
+                }
+            }).equal(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().specifyMemberWithdrawalAsOne().specifyWithdrawalReason().columnDisplayOrder();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -96,8 +96,6 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
         {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
-
-            // ## Act ##
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().columnBirthdate();
@@ -114,8 +112,6 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
         {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
-
-            // ## Act ##
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().columnBirthdate();
@@ -132,8 +128,6 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
         {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
-
-            // ## Act ##
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().columnBirthdate();
@@ -150,8 +144,6 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
         {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
-
-            // ## Act ##
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().columnBirthdate();
@@ -168,8 +160,6 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
         {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
-
-            // ## Act ##
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().columnBirthdate();
@@ -186,8 +176,6 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
         {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
-
-            // ## Act ##
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().columnBirthdate();
@@ -211,8 +199,6 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.setupSelect_MemberStatus();
         cb.specify().columnMemberName();
-
-        // ## Act ##
         cb.specify().specifyMemberStatus().columnMemberStatusName();
         try {
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
@@ -230,8 +216,6 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
             // OK
             log(e.getMessage());
         }
-
-        // ## Act ##
         cb.specify().specifyMemberStatus().columnMemberStatusName();
         try {
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
@@ -258,20 +242,20 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
     //                                                                     ===============
     public void test_ColumnQuery_with_FixedCondition() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().queryMemberAddressAsValid(currentDate());
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberAddressAsValid().columnValidBeginDate();
-            }
-        }).lessEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().queryMemberAddressAsValid(currentDate());
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().specifyMemberAddressAsValid().columnValidBeginDate();
+                }
+            }).lessEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());

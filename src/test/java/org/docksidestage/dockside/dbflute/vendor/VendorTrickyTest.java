@@ -1,8 +1,6 @@
 package org.docksidestage.dockside.dbflute.vendor;
 
 import org.dbflute.cbean.result.ListResultBean;
-import org.docksidestage.dockside.dbflute.cbean.VendorIdentityOnlyCB;
-import org.docksidestage.dockside.dbflute.cbean.VendorPrimaryKeyOnlyCB;
 import org.docksidestage.dockside.dbflute.exbhv.VendorIdentityOnlyBhv;
 import org.docksidestage.dockside.dbflute.exbhv.VendorPrimaryKeyOnlyBhv;
 import org.docksidestage.dockside.dbflute.exentity.VendorIdentityOnly;
@@ -26,10 +24,9 @@ public class VendorTrickyTest extends UnitContainerTestCase {
     //                                                                     ===============
     public void test_PrimaryKeyOnly_selectList_basic() throws Exception {
         // ## Arrange ##
-        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB();
-
-        // ## Act ##
-        ListResultBean<VendorPrimaryKeyOnly> pkOnlyList = vendorPrimaryKeyOnlyBhv.selectList(cb);
+        ListResultBean<VendorPrimaryKeyOnly> pkOnlyList = vendorPrimaryKeyOnlyBhv.selectList(cb -> {
+            /* ## Act ## */
+        });
 
         // ## Assert ##
         assertHasZeroElement(pkOnlyList);
@@ -52,10 +49,9 @@ public class VendorTrickyTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_IdentityOnly_selectList_basic() throws Exception {
         // ## Arrange ##
-        VendorIdentityOnlyCB cb = new VendorIdentityOnlyCB();
-
-        // ## Act ##
-        ListResultBean<VendorIdentityOnly> pkOnlyList = vendorIdentityOnlyBhv.selectList(cb);
+        ListResultBean<VendorIdentityOnly> pkOnlyList = vendorIdentityOnlyBhv.selectList(cb -> {
+            /* ## Act ## */
+        });
 
         // ## Assert ##
         assertHasZeroElement(pkOnlyList);

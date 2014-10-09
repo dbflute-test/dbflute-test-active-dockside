@@ -33,15 +33,15 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
     //                                                                   =================
     public void test_PriorityOrder_AndOrConnection_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        ManualOrderOption mob = new ManualOrderOption();
-        mob.when_Equal(5).or_Equal(13);
-        mob.when_GreaterEqual(3).and_LessEqual(4);
-        cb.query().addOrderBy_MemberId_Asc().withManualOrder(mob);
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            ManualOrderOption mob = new ManualOrderOption();
+            mob.when_Equal(5).or_Equal(13);
+            mob.when_GreaterEqual(3).and_LessEqual(4);
+            cb.query().addOrderBy_MemberId_Asc().withManualOrder(mob);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -53,7 +53,7 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
         assertEquals(Integer.valueOf(2), memberList.get(5).getMemberId());
         assertEquals(Integer.valueOf(6), memberList.get(6).getMemberId());
         assertEquals(Integer.valueOf(7), memberList.get(7).getMemberId());
-        String displaySql = cb.toDisplaySql();
+        String displaySql = popCB().toDisplaySql();
         assertTrue(displaySql.contains("dfloc.MEMBER_ID = 5 or dfloc.MEMBER_ID = 13 then 0"));
         assertTrue(displaySql.contains("dfloc.MEMBER_ID >= 3 and dfloc.MEMBER_ID <= 4 then 1"));
     }
@@ -64,14 +64,14 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
     public void test_PriorityOrder_Date_GreaterEqual() {
         // ## Arrange ##
         Date fromDate = DfTypeUtil.toDate("1970/01/01");
-        MemberCB cb = new MemberCB();
-        ManualOrderOption mob = new ManualOrderOption();
-        mob.when_GreaterEqual(fromDate);
-        cb.query().addOrderBy_Birthdate_Asc().withManualOrder(mob);
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            ManualOrderOption mob = new ManualOrderOption();
+            mob.when_GreaterEqual(fromDate);
+            cb.query().addOrderBy_Birthdate_Asc().withManualOrder(mob);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -120,18 +120,18 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
         // ## Arrange ##
         Date fromDate = DfTypeUtil.toDate("1969/01/01");
         Date toDate = DfTypeUtil.toDate("1970/12/31");
-        MemberCB cb = new MemberCB();
-        ManualOrderOption mob = new ManualOrderOption();
-        mob.when_FromTo(fromDate, toDate, op -> op.compareAsDate());
-        cb.query().addOrderBy_Birthdate_Asc().withManualOrder(mob);
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            ManualOrderOption mob = new ManualOrderOption();
+            mob.when_FromTo(fromDate, toDate, op -> op.compareAsDate());
+            cb.query().addOrderBy_Birthdate_Asc().withManualOrder(mob);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
-        assertTrue(cb.toDisplaySql().contains("< '1971-01-01'"));
+        assertTrue(popCB().toDisplaySql().contains("< '1971-01-01'"));
         List<Date> birthdateList = new ArrayList<Date>();
         Integer preMemberId = null;
         boolean secondOrder = false;
@@ -178,17 +178,17 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_PriorityOrder_DirectList_CDef_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        List<CDef.MemberStatus> manualValueList = new ArrayList<CDef.MemberStatus>();
-        manualValueList.add(CDef.MemberStatus.Withdrawal);
-        manualValueList.add(CDef.MemberStatus.Formalized);
-        manualValueList.add(CDef.MemberStatus.Provisional);
-        cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(manualValueList);
-        cb.query().addOrderBy_Birthdate_Desc().withNullsLast();
-        cb.query().addOrderBy_MemberName_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            List<CDef.MemberStatus> manualValueList = new ArrayList<CDef.MemberStatus>();
+            manualValueList.add(CDef.MemberStatus.Withdrawal);
+            manualValueList.add(CDef.MemberStatus.Formalized);
+            manualValueList.add(CDef.MemberStatus.Provisional);
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(manualValueList);
+            cb.query().addOrderBy_Birthdate_Desc().withNullsLast();
+            cb.query().addOrderBy_MemberName_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -210,8 +210,6 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
     public void test_PriorityOrder_illegalArgument() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
         try {
             cb.query().addOrderBy_Birthdate_Asc().withManualOrder((ManualOrderOption) null);
 
@@ -221,8 +219,6 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
             // OK
             log(e.getMessage());
         }
-
-        // ## Act ##
         //try {
         cb.union(new UnionQuery<MemberCB>() {
             public void query(MemberCB unionCB) {
@@ -261,8 +257,6 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
     public void test_directUse() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
         ManualOrderOption mob = new ManualOrderOption();
         mob.plus(3);
         try {
@@ -279,8 +273,6 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
     public void test_duplicateUse() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-
-        // ## Act ##
         ManualOrderOption mob = new ManualOrderOption();
         mob.plus(3);
         cb.query().addOrderBy_Birthdate_Asc().withManualOrder(mob);

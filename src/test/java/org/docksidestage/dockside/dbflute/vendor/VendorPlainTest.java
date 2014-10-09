@@ -15,13 +15,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.dbflute.cbean.ConditionQuery;
-import org.dbflute.cbean.sqlclause.SqlClause;
 import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
-import org.docksidestage.dockside.dbflute.cbean.cq.MemberStatusCQ;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -45,11 +40,13 @@ public class VendorPlainTest extends UnitContainerTestCase {
     //                                                                             =======
     public void test_BC_date() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setBirthdate_IsNotNull();
-        cb.fetchFirst(1);
-        cb.addOrderBy_PK_Asc();
-        Member member = memberBhv.selectEntity(cb);
+        Member member = memberBhv.selectEntity(cb -> {
+            cb.query().setBirthdate_IsNotNull();
+            cb.fetchFirst(1);
+            cb.addOrderBy_PK_Asc();
+            pushCB(cb);
+        });
+
         member.setBirthdate(DfTypeUtil.toSqlDate("BC1234/12/25"));
 
         // ## Act ##
@@ -65,11 +62,13 @@ public class VendorPlainTest extends UnitContainerTestCase {
 
     public void test_BC_datetime() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setFormalizedDatetime_IsNotNull();
-        cb.fetchFirst(1);
-        cb.addOrderBy_PK_Asc();
-        Member member = memberBhv.selectEntity(cb);
+        Member member = memberBhv.selectEntity(cb -> {
+            cb.query().setFormalizedDatetime_IsNotNull();
+            cb.fetchFirst(1);
+            cb.addOrderBy_PK_Asc();
+            pushCB(cb);
+        });
+
         member.setFormalizedDatetime(DfTypeUtil.toTimestamp("BC1234/12/25 12:34:56.147"));
 
         // ## Act ##
@@ -123,11 +122,11 @@ public class VendorPlainTest extends UnitContainerTestCase {
         memberStatus.setDisplayOrder(order);
         memberStatusBhv.insert(memberStatus);
 
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.query().setMemberStatusCode_Equal(code + " ");
-
-        // ## Act ##
-        MemberStatus actual = memberStatusBhv.selectEntityWithDeletedCheck(cb);
+        MemberStatus actual = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal(code + " ");
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertEquals(code, actual.getMemberStatusCode()); // DB trims it
@@ -147,11 +146,11 @@ public class VendorPlainTest extends UnitContainerTestCase {
         memberStatus.setDisplayOrder(order);
         memberStatusBhv.insert(memberStatus);
 
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.query().setMemberStatusCode_Equal(code);
-
-        // ## Act ##
-        MemberStatus actual = memberStatusBhv.selectEntityWithDeletedCheck(cb);
+        MemberStatus actual = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberStatusCode_Equal(code);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertEquals(code.trim(), actual.getMemberStatusCode()); // DB trims it
@@ -171,24 +170,13 @@ public class VendorPlainTest extends UnitContainerTestCase {
         memberStatus.setDisplayOrder(order);
         memberStatusBhv.insert(memberStatus);
 
-        MemberStatusCB cb = new MemberStatusCB() {
-            // internal manipulation (Don't mimic it)
-            @Override
-            protected MemberStatusCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName,
-                    int nestLevel) {
-                return new MemberStatusCQ(childQuery, sqlClause, aliasName, nestLevel) {
-                    @Override
-                    protected String hSC(String propertyName, String value, Integer size, String modeCode) {
-                        return value; // do nothing for not depending on shortCharHandlingMode
-                    }
-                };
-            }
-        };
-        cb.query().setMemberStatusCode_Equal(code.trim());
-        assertTrue(cb.toDisplaySql().contains("'AB'"));
-
-        // ## Act ##
-        MemberStatus actual = memberStatusBhv.selectEntityWithDeletedCheck(cb);
+        MemberStatus actual = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.suppressShortCharHandling();
+            cb.query().setMemberStatusCode_Equal(code.trim());
+            assertTrue(cb.toDisplaySql().contains("'AB'"));
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertEquals(code.trim(), actual.getMemberStatusCode());

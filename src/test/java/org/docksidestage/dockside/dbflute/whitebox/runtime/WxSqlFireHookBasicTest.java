@@ -19,7 +19,6 @@ import org.dbflute.hook.SqlLogInfo;
 import org.dbflute.jdbc.ExecutionTimeInfo;
 import org.dbflute.util.DfTraceViewUtil;
 import org.dbflute.util.Srl;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -59,49 +58,48 @@ public class WxSqlFireHookBasicTest extends UnitContainerTestCase {
     //                                                                              ======
     public void test_SqlFireHook_executeQuery_select_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberName_PrefixSearch("S");
-        final Set<String> displaySqlSet = new HashSet<String>();
-        final Set<String> markSet = new HashSet<String>();
-        CallbackContext.setSqlFireHookOnThread(new SqlFireHook() {
-            public void hookBefore(BehaviorCommandMeta meta, SqlFireReadyInfo fireReadyInfo) {
-                markSet.add("hookBefore");
-                assertTrue(meta.isConditionBean());
-                assertTrue(meta.isSelect());
-                SqlLogInfo sqlLogInfo = fireReadyInfo.getSqlLogInfo();
-                log(sqlLogInfo);
-                String executedSql = sqlLogInfo.getExecutedSql();
-                assertNotNull(executedSql);
-                String displaySql = sqlLogInfo.getDisplaySql();
-                assertNotNull(displaySql);
-                log(ln() + displaySql);
-                displaySqlSet.add(displaySql);
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            final Set<String> displaySqlSet = new HashSet<String>();
+            final Set<String> markSet = new HashSet<String>();
+            CallbackContext.setSqlFireHookOnThread(new SqlFireHook() {
+                public void hookBefore(BehaviorCommandMeta meta, SqlFireReadyInfo fireReadyInfo) {
+                    markSet.add("hookBefore");
+                    assertTrue(meta.isConditionBean());
+                    assertTrue(meta.isSelect());
+                    SqlLogInfo sqlLogInfo = fireReadyInfo.getSqlLogInfo();
+                    log(sqlLogInfo);
+                    String executedSql = sqlLogInfo.getExecutedSql();
+                    assertNotNull(executedSql);
+                    String displaySql = sqlLogInfo.getDisplaySql();
+                    assertNotNull(displaySql);
+                    log(ln() + displaySql);
+                    displaySqlSet.add(displaySql);
+                }
 
-            public void hookFinally(BehaviorCommandMeta meta, SqlFireResultInfo fireResultInfo) {
-                markSet.add("hookFinally");
-                assertTrue(meta.isConditionBean());
-                assertTrue(meta.isSelect());
-                Object nativeResult = fireResultInfo.getNativeResult();
-                assertTrue(ResultSet.class.isAssignableFrom(nativeResult.getClass()));
-                assertNull(fireResultInfo.getNativeCause());
-                SqlLogInfo sqlLogInfo = fireResultInfo.getSqlLogInfo();
-                log(sqlLogInfo);
-                assertNotNull(sqlLogInfo);
-                ExecutionTimeInfo timeInfo = fireResultInfo.getExecutionTimeInfo();
-                log(timeInfo);
-                assertNull(timeInfo.getCommandBeforeTimeMillis());
-                assertNull(timeInfo.getCommandAfterTimeMillis());
-                Long beforeTimeMillis = timeInfo.getSqlBeforeTimeMillis();
-                Long afterTimeMillis = timeInfo.getSqlAfterTimeMillis();
-                assertNotNull(beforeTimeMillis);
-                assertNotNull(afterTimeMillis);
-                log(DfTraceViewUtil.convertToPerformanceView(afterTimeMillis - beforeTimeMillis));
-            }
+                public void hookFinally(BehaviorCommandMeta meta, SqlFireResultInfo fireResultInfo) {
+                    markSet.add("hookFinally");
+                    assertTrue(meta.isConditionBean());
+                    assertTrue(meta.isSelect());
+                    Object nativeResult = fireResultInfo.getNativeResult();
+                    assertTrue(ResultSet.class.isAssignableFrom(nativeResult.getClass()));
+                    assertNull(fireResultInfo.getNativeCause());
+                    SqlLogInfo sqlLogInfo = fireResultInfo.getSqlLogInfo();
+                    log(sqlLogInfo);
+                    assertNotNull(sqlLogInfo);
+                    ExecutionTimeInfo timeInfo = fireResultInfo.getExecutionTimeInfo();
+                    log(timeInfo);
+                    assertNull(timeInfo.getCommandBeforeTimeMillis());
+                    assertNull(timeInfo.getCommandAfterTimeMillis());
+                    Long beforeTimeMillis = timeInfo.getSqlBeforeTimeMillis();
+                    Long afterTimeMillis = timeInfo.getSqlAfterTimeMillis();
+                    assertNotNull(beforeTimeMillis);
+                    assertNotNull(afterTimeMillis);
+                    log(DfTraceViewUtil.convertToPerformanceView(afterTimeMillis - beforeTimeMillis));
+                }
+            });
         });
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -113,69 +111,69 @@ public class WxSqlFireHookBasicTest extends UnitContainerTestCase {
 
     public void test_SqlFireHook_executeQuery_select_cursor() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_Equal(3);
-        final Set<String> displaySqlSet = new HashSet<String>();
-        final Set<String> markSet = new HashSet<String>();
-        CallbackContext.setSqlFireHookOnThread(new SqlFireHook() {
-            int number = 0;
+        memberBhv.selectCursor(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(3);
+            final Set<String> displaySqlSet = new HashSet<String>();
+            final Set<String> markSet = new HashSet<String>();
+            CallbackContext.setSqlFireHookOnThread(new SqlFireHook() {
+                int number = 0;
 
-            public void hookBefore(BehaviorCommandMeta meta, SqlFireReadyInfo fireReadyInfo) {
-                ++number;
-                markSet.add("hookBefore" + number);
-                if (number == 1) {
-                    assertTrue(meta.isConditionBean());
-                    assertTrue(meta.isSelect());
-                    assertFalse(meta.isSelectCount());
-                    assertTrue(meta.isSelectCursor());
-                } else if (number == 2) {
-                    assertTrue(meta.isConditionBean());
-                    assertTrue(meta.isSelect());
-                    assertTrue(meta.isSelectCount());
-                    assertFalse(meta.isSelectCursor());
-                } else if (number == 3) {
-                    assertTrue(meta.isConditionBean());
-                    assertTrue(meta.isSelect());
-                    assertFalse(meta.isSelectCount());
-                    assertTrue(meta.isSelectCursor());
+                public void hookBefore(BehaviorCommandMeta meta, SqlFireReadyInfo fireReadyInfo) {
+                    ++number;
+                    markSet.add("hookBefore" + number);
+                    if (number == 1) {
+                        assertTrue(meta.isConditionBean());
+                        assertTrue(meta.isSelect());
+                        assertFalse(meta.isSelectCount());
+                        assertTrue(meta.isSelectCursor());
+                    } else if (number == 2) {
+                        assertTrue(meta.isConditionBean());
+                        assertTrue(meta.isSelect());
+                        assertTrue(meta.isSelectCount());
+                        assertFalse(meta.isSelectCursor());
+                    } else if (number == 3) {
+                        assertTrue(meta.isConditionBean());
+                        assertTrue(meta.isSelect());
+                        assertFalse(meta.isSelectCount());
+                        assertTrue(meta.isSelectCursor());
+                    }
+                    SqlLogInfo sqlLogInfo = fireReadyInfo.getSqlLogInfo();
+                    log(sqlLogInfo);
+                    String executedSql = sqlLogInfo.getExecutedSql();
+                    assertNotNull(executedSql);
+                    String displaySql = sqlLogInfo.getDisplaySql();
+                    assertNotNull(displaySql);
+                    log(ln() + displaySql);
+                    displaySqlSet.add(displaySql);
                 }
-                SqlLogInfo sqlLogInfo = fireReadyInfo.getSqlLogInfo();
-                log(sqlLogInfo);
-                String executedSql = sqlLogInfo.getExecutedSql();
-                assertNotNull(executedSql);
-                String displaySql = sqlLogInfo.getDisplaySql();
-                assertNotNull(displaySql);
-                log(ln() + displaySql);
-                displaySqlSet.add(displaySql);
-            }
 
-            public void hookFinally(BehaviorCommandMeta meta, SqlFireResultInfo fireResultInfo) {
-                markSet.add("hookFinally" + number);
-                Object nativeResult = fireResultInfo.getNativeResult();
-                assertTrue(ResultSet.class.isAssignableFrom(nativeResult.getClass()));
-                assertNull(fireResultInfo.getNativeCause());
-                SqlLogInfo sqlLogInfo = fireResultInfo.getSqlLogInfo();
-                log(sqlLogInfo);
-                assertNotNull(sqlLogInfo);
-                ExecutionTimeInfo timeInfo = fireResultInfo.getExecutionTimeInfo();
-                log(timeInfo);
-                assertNull(timeInfo.getCommandBeforeTimeMillis());
-                assertNull(timeInfo.getCommandAfterTimeMillis());
-                Long beforeTimeMillis = timeInfo.getSqlBeforeTimeMillis();
-                Long afterTimeMillis = timeInfo.getSqlAfterTimeMillis();
-                assertNotNull(beforeTimeMillis);
-                assertNotNull(afterTimeMillis);
-                log(DfTraceViewUtil.convertToPerformanceView(afterTimeMillis - beforeTimeMillis));
-            }
-        });
+                public void hookFinally(BehaviorCommandMeta meta, SqlFireResultInfo fireResultInfo) {
+                    markSet.add("hookFinally" + number);
+                    Object nativeResult = fireResultInfo.getNativeResult();
+                    assertTrue(ResultSet.class.isAssignableFrom(nativeResult.getClass()));
+                    assertNull(fireResultInfo.getNativeCause());
+                    SqlLogInfo sqlLogInfo = fireResultInfo.getSqlLogInfo();
+                    log(sqlLogInfo);
+                    assertNotNull(sqlLogInfo);
+                    ExecutionTimeInfo timeInfo = fireResultInfo.getExecutionTimeInfo();
+                    log(timeInfo);
+                    assertNull(timeInfo.getCommandBeforeTimeMillis());
+                    assertNull(timeInfo.getCommandAfterTimeMillis());
+                    Long beforeTimeMillis = timeInfo.getSqlBeforeTimeMillis();
+                    Long afterTimeMillis = timeInfo.getSqlAfterTimeMillis();
+                    assertNotNull(beforeTimeMillis);
+                    assertNotNull(afterTimeMillis);
+                    log(DfTraceViewUtil.convertToPerformanceView(afterTimeMillis - beforeTimeMillis));
+                }
+            });
+        }, new EntityRowHandler<Member>() {
 
-        // ## Act ##
-        memberBhv.selectCursor(cb, new EntityRowHandler<Member>() {
             public void handle(Member entity) {
                 assertEquals(1, displaySqlSet.size());
-                memberBhv.selectCount(new MemberCB());
+                memberBhv.selectCount(cb -> {});
                 assertEquals(2, displaySqlSet.size());
-                memberBhv.selectCursor(new MemberCB(), new EntityRowHandler<Member>() {
+                memberBhv.selectCursor(cb -> {}, new EntityRowHandler<Member>() {
                     public void handle(Member entity) {
                         assertEquals(3, displaySqlSet.size());
                     }

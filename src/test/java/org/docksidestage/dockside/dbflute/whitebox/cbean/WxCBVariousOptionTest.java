@@ -5,7 +5,6 @@ import org.dbflute.cbean.result.PagingResultBean;
 import org.dbflute.exception.DangerousResultSizeException;
 import org.dbflute.exception.FetchingOverSafetySizeException;
 import org.dbflute.exception.PagingOverSafetySizeException;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -26,12 +25,11 @@ public class WxCBVariousOptionTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_checkSafetyResult_selectList() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.checkSafetyResult(3);
-
-        // ## Act ##
         try {
-            memberBhv.selectList(cb);
+            memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.checkSafetyResult(3);
+            });
 
             // ## Assert ##
             fail();
@@ -51,13 +49,12 @@ public class WxCBVariousOptionTest extends UnitContainerTestCase {
 
     public void test_checkSafetyResult_selectPage() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.checkSafetyResult(3);
-        cb.paging(2, 2);
-
-        // ## Act ##
         try {
-            memberBhv.selectPage(cb);
+            memberBhv.selectPage(cb -> {
+                /* ## Act ## */
+                cb.checkSafetyResult(3);
+                cb.paging(2, 2);
+            });
 
             // ## Assert ##
             fail();

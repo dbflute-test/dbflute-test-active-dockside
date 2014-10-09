@@ -11,7 +11,6 @@ import org.dbflute.cbean.result.grouping.GroupingListDeterminer;
 import org.dbflute.cbean.result.grouping.GroupingListRowResource;
 import org.dbflute.cbean.result.grouping.GroupingMapDeterminer;
 import org.dbflute.cbean.result.mapping.EntityColumnExtractor;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -32,9 +31,10 @@ public class WxListResultBeanTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_groupingList_count() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberName_Asc();
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().addOrderBy_MemberName_Asc();
+        });
+
         log("ListResultBean.toString():" + ln() + " " + memberList);
 
         // ## Act ##
@@ -62,9 +62,10 @@ public class WxListResultBeanTest extends UnitContainerTestCase {
 
     public void test_groupingList_initChar() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberName_Asc();
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().addOrderBy_MemberName_Asc();
+        });
+
         log("ListResultBean.toString():" + ln() + " " + memberList);
 
         // ## Act ##
@@ -100,9 +101,10 @@ public class WxListResultBeanTest extends UnitContainerTestCase {
     //                                                                        ============
     public void test_groupingMap_initChar() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberName_Asc();
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().addOrderBy_MemberName_Asc();
+        });
+
         log("ListResultBean.toString():" + ln() + " " + memberList);
 
         // ## Act ##
@@ -134,9 +136,9 @@ public class WxListResultBeanTest extends UnitContainerTestCase {
     //                                                                      ==============
     public void test_extractColumnList_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberStatus();
+        });
 
         // ## Act ##
         List<Integer> memberIdList = memberList.extractColumnList(new EntityColumnExtractor<Member, Integer>() {
@@ -154,9 +156,9 @@ public class WxListResultBeanTest extends UnitContainerTestCase {
 
     public void test_extractColumnList_NotNullElement() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberStatus();
+        });
 
         // ## Act ##
         Set<Date> birthdateSet = memberList.extractColumnSet(new EntityColumnExtractor<Member, Date>() {
@@ -183,9 +185,9 @@ public class WxListResultBeanTest extends UnitContainerTestCase {
 
     public void test_extractColumnSet_basic() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberStatus();
+        });
 
         // ## Act ##
         Set<String> statusSet = memberList.extractColumnSet(new EntityColumnExtractor<Member, String>() {

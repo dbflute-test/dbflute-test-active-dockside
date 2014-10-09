@@ -7,7 +7,6 @@ import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlResultHandler;
 import org.dbflute.hook.SqlResultInfo;
 import org.dbflute.util.DfTraceViewUtil;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -45,12 +44,12 @@ public class WxCBPerformanceTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_selectList_relation() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.setupSelect_MemberSecurityAsOne();
-        cb.setupSelect_MemberServiceAsOne().withServiceRank();
-        cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
-        memberBhv.selectList(cb); // initialize
+        memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberStatus();
+            cb.setupSelect_MemberSecurityAsOne();
+            cb.setupSelect_MemberServiceAsOne().withServiceRank();
+            cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+        }); // initialize
 
         // ## Act ##
         final List<SqlResultInfo> resultInfoList = newArrayList();

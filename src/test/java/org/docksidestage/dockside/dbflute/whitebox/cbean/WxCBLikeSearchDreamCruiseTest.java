@@ -24,14 +24,14 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_DreamCruise_LikeSearch_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        LikeSearchOption option = new LikeSearchOption().likeContain();
-        option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-        cb.query().setMemberName_LikeSearch("P", option);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            LikeSearchOption option = new LikeSearchOption().likeContain();
+            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+            cb.query().setMemberName_LikeSearch("P", option);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -59,101 +59,101 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
     // but the test uses varchar type column for test
     public void test_DreamCruise_LikeSearch_optimize_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        LikeSearchOption option = new LikeSearchOption().likePrefix();
-        option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-        option.optimizeCompoundColumnByFixedSize(9, 20);
-        cb.query().setMemberName_LikeSearch("StojkovicPix", option);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            LikeSearchOption option = new LikeSearchOption().likePrefix();
+            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+            option.optimizeCompoundColumnByFixedSize(9, 20);
+            cb.query().setMemberName_LikeSearch("StojkovicPix", option);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertEquals("Stojkovic", member.getMemberName());
         assertEquals("Pixy", member.getMemberAccount());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsIgnoreCase(sql, "MEMBER_NAME = 'Stojkovic'"));
         assertTrue(Srl.containsIgnoreCase(sql, "MEMBER_ACCOUNT like 'Pix%'"));
     }
 
     public void test_DreamCruise_LikeSearch_optimize_contain() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        LikeSearchOption option = new LikeSearchOption().likeContain();
-        option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-        option.optimizeCompoundColumnByFixedSize(9, 20); // no optimization
-        cb.query().setMemberName_LikeSearch("vicPix", option);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            LikeSearchOption option = new LikeSearchOption().likeContain();
+            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+            option.optimizeCompoundColumnByFixedSize(9, 20); // no optimization
+                cb.query().setMemberName_LikeSearch("vicPix", option);
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertEquals("Stojkovic", member.getMemberName());
         assertEquals("Pixy", member.getMemberAccount());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsIgnoreCase(sql, "dfloc.MEMBER_NAME || dfloc.MEMBER_ACCOUNT like '%vicPix%'"));
     }
 
     public void test_DreamCruise_LikeSearch_optimize_just_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        LikeSearchOption option = new LikeSearchOption().likePrefix();
-        option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-        option.optimizeCompoundColumnByFixedSize(9, 4);
-        cb.query().setMemberName_LikeSearch("StojkovicPixy", option);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            LikeSearchOption option = new LikeSearchOption().likePrefix();
+            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+            option.optimizeCompoundColumnByFixedSize(9, 4);
+            cb.query().setMemberName_LikeSearch("StojkovicPixy", option);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertEquals("Stojkovic", member.getMemberName());
         assertEquals("Pixy", member.getMemberAccount());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsIgnoreCase(sql, "MEMBER_NAME = 'Stojkovic'"));
         assertTrue(Srl.containsIgnoreCase(sql, "MEMBER_ACCOUNT = 'Pixy'"));
     }
 
     public void test_DreamCruise_LikeSearch_optimize_just_short_first() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        LikeSearchOption option = new LikeSearchOption().likePrefix();
-        option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-        option.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
-        option.optimizeCompoundColumnByFixedSize(9, 4, 6);
-        cb.query().setMemberName_LikeSearch("Stojko", option);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            LikeSearchOption option = new LikeSearchOption().likePrefix();
+            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+            option.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
+            option.optimizeCompoundColumnByFixedSize(9, 4, 6);
+            cb.query().setMemberName_LikeSearch("Stojko", option);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertEquals("Stojkovic", member.getMemberName());
         assertEquals("Pixy", member.getMemberAccount());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsIgnoreCase(sql, "MEMBER_NAME like 'Stojko%'"));
         assertFalse(Srl.containsIgnoreCase(sql, "MEMBER_ACCOUNT like"));
     }
 
     public void test_DreamCruise_LikeSearch_optimize_just_short_second() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        LikeSearchOption option = new LikeSearchOption().likePrefix();
-        option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-        option.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
-        option.optimizeCompoundColumnByFixedSize(9, 4, 6);
-        cb.query().setMemberName_LikeSearch("StojkovicPi", option);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            LikeSearchOption option = new LikeSearchOption().likePrefix();
+            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+            option.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
+            option.optimizeCompoundColumnByFixedSize(9, 4, 6);
+            cb.query().setMemberName_LikeSearch("StojkovicPi", option);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertEquals("Stojkovic", member.getMemberName());
         assertEquals("Pixy", member.getMemberAccount());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsIgnoreCase(sql, "MEMBER_NAME = 'Stojkovic'"));
         assertTrue(Srl.containsIgnoreCase(sql, "MEMBER_ACCOUNT like 'Pi%'"));
         assertFalse(Srl.containsIgnoreCase(sql, "REGISTER_USER like"));
@@ -161,42 +161,42 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
 
     public void test_DreamCruise_LikeSearch_optimize_firstOnly() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        LikeSearchOption option = new LikeSearchOption().likePrefix();
-        option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-        option.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
-        option.optimizeCompoundColumnByFixedSize(9);
-        cb.query().setMemberName_LikeSearch("StojkovicPix", option);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            LikeSearchOption option = new LikeSearchOption().likePrefix();
+            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+            option.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
+            option.optimizeCompoundColumnByFixedSize(9);
+            cb.query().setMemberName_LikeSearch("StojkovicPix", option);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertEquals("Stojkovic", member.getMemberName());
         assertEquals("Pixy", member.getMemberAccount());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsIgnoreCase(sql, "MEMBER_NAME = 'Stojkovic'"));
         assertTrue(Srl.containsIgnoreCase(sql, "dfloc.MEMBER_ACCOUNT || dfloc.REGISTER_USER like 'Pix%'"));
     }
 
     public void test_DreamCruise_LikeSearch_optimize_shortCondition() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        LikeSearchOption option = new LikeSearchOption().likePrefix();
-        option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-        option.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
-        option.optimizeCompoundColumnByFixedSize(9);
-        cb.query().setMemberName_LikeSearch("Stoj", option);
-
-        // ## Act ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            LikeSearchOption option = new LikeSearchOption().likePrefix();
+            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+            option.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
+            option.optimizeCompoundColumnByFixedSize(9);
+            cb.query().setMemberName_LikeSearch("Stoj", option);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertEquals("Stojkovic", member.getMemberName());
         assertEquals("Pixy", member.getMemberAccount());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsIgnoreCase(sql, "MEMBER_NAME like 'Stoj%'"));
         assertFalse(Srl.containsIgnoreCase(sql, "dfloc.MEMBER_ACCOUNT like"));
     }

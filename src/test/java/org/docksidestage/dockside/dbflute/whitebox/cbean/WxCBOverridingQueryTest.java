@@ -23,7 +23,6 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         cb.disableOverridingQuery();
 
         try {
-            // ## Act ##
             cb.query().setMemberName_Equal("sea");
             // ## Assert ##
             fail();
@@ -31,14 +30,12 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
             log(e.getMessage());
         }
         try {
-            // ## Act ##
             cb.query().setMemberName_Equal("land");
             // ## Assert ##
             fail();
         } catch (QueryAlreadyRegisteredException e) {
             log(e.getMessage());
         }
-        // ## Act ##
         cb.enableOverridingQuery();
         // ## Assert ##
         cb.query().setMemberName_Equal("sea");
@@ -51,8 +48,6 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.query().setMemberName_Equal("land");
-
-        // ## Act ##
         cb.query().setMemberName_Equal("sea");
 
         // ## Assert ##
@@ -70,8 +65,6 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.enableOverridingQuery();
         cb.query().setMemberName_Equal("land");
-
-        // ## Act ##
         cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-07"));
@@ -90,8 +83,6 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.disableOverridingQuery();
         cb.query().setMemberName_Equal("land");
-
-        // ## Act ##
         cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 markHere("exists");
@@ -117,8 +108,6 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.disableOverridingQuery();
         cb.query().setMemberName_Equal("land");
-
-        // ## Act ##
         cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.enableOverridingQuery();
@@ -153,8 +142,6 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         try {
             MemberCB cb = new MemberCB();
             cb.query().setMemberName_Equal("land");
-
-            // ## Act ##
             try {
                 cb.query().setMemberName_Equal("sea");
                 // ## Assert ##

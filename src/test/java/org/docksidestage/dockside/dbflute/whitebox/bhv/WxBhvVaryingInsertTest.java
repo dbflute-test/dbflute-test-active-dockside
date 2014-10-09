@@ -19,7 +19,6 @@ import org.dbflute.util.DfReflectionUtil;
 import org.dbflute.util.DfTypeUtil;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -260,9 +259,10 @@ public class WxBhvVaryingInsertTest extends UnitContainerTestCase {
         }
 
         // ## Assert ##
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberId_InScope(Arrays.asList(memberList.get(0).getMemberId(), memberList.get(1).getMemberId()));
-        ListResultBean<Member> actualList = memberBhv.selectList(cb);
+        ListResultBean<Member> actualList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(Arrays.asList(memberList.get(0).getMemberId(), memberList.get(1).getMemberId()));
+        });
+
         assertNotSame(0, actualList.size());
         assertEquals(Integer.valueOf(99991), memberList.get(0).getMemberId());
         assertEquals(Integer.valueOf(99992), memberList.get(1).getMemberId());

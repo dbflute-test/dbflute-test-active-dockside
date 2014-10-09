@@ -91,9 +91,9 @@ public class WxSqlStringFilterBasicTest extends UnitContainerTestCase {
         try {
             {
                 // ## Act ##
-                MemberCB cb = new MemberCB();
-                cb.query().setMemberName_PrefixSearch("S");
-                ListResultBean<Member> memberList = memberBhv.selectList(cb);
+                ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                    cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                });
 
                 // ## Assert ##
                 assertFalse(memberList.isEmpty());
@@ -104,9 +104,9 @@ public class WxSqlStringFilterBasicTest extends UnitContainerTestCase {
             }
             {
                 // ## Act ##
-                MemberCB cb = new MemberCB();
-                cb.query().setMemberId_Equal(3);
-                memberBhv.selectEntityWithDeletedCheck(cb);
+                memberBhv.selectEntityWithDeletedCheck(cb -> {
+                    cb.query().setMemberId_Equal(3);
+                });
 
                 // ## Assert ##
                 assertEquals(2, markList.size());
@@ -116,9 +116,9 @@ public class WxSqlStringFilterBasicTest extends UnitContainerTestCase {
             }
             {
                 // ## Act ##
-                MemberCB cb = new MemberCB();
-                cb.paging(4, 2);
-                ListResultBean<Member> memberList = memberBhv.selectPage(cb);
+                ListResultBean<Member> memberList = memberBhv.selectPage(cb -> {
+                    cb.paging(4, 2);
+                });
 
                 // ## Assert ##
                 assertFalse(memberList.isEmpty());
@@ -202,8 +202,7 @@ public class WxSqlStringFilterBasicTest extends UnitContainerTestCase {
                 try {
                     memberBhv.deleteNonstrict(member);
                     fail();
-                } catch (SQLFailureException ignored) {
-                }
+                } catch (SQLFailureException ignored) {}
                 assertEquals(5, markList.size());
                 assertEquals("filterEntityUpdate", markList.get(4));
                 assertEquals(6, sqlLogInfoList.size());
@@ -293,9 +292,10 @@ public class WxSqlStringFilterBasicTest extends UnitContainerTestCase {
             {
                 Member member = new Member();
                 member.setMemberName("queryUpdate");
-                MemberCB cb = new MemberCB();
-                cb.query().setMemberId_Equal(3);
-                memberBhv.queryUpdate(member, cb);
+                memberBhv.queryUpdate(member, cb -> {
+                    cb.query().setMemberId_Equal(3);
+                });
+
                 assertEquals("queryUpdate", memberBhv.selectByPKValueWithDeletedCheck(3).getMemberName());
                 assertEquals(2, markList.size());
                 assertEquals("filterQueryUpdate", markList.get(0));
@@ -303,13 +303,13 @@ public class WxSqlStringFilterBasicTest extends UnitContainerTestCase {
                 assertTrue(sqlLogInfoList.get(0).getDisplaySql().startsWith("/*foo*/"));
             }
             {
-                MemberCB cb = new MemberCB();
-                cb.query().setMemberId_Equal(3);
                 try {
-                    memberBhv.queryDelete(cb);
+                    memberBhv.queryDelete(cb -> {
+                        cb.query().setMemberId_Equal(3);
+                    });
+
                     fail();
-                } catch (SQLFailureException ignored) {
-                }
+                } catch (SQLFailureException ignored) {}
                 assertEquals(3, markList.size());
                 assertEquals("filterQueryUpdate", markList.get(2));
                 assertEquals(3, sqlLogInfoList.size());
@@ -419,9 +419,10 @@ public class WxSqlStringFilterBasicTest extends UnitContainerTestCase {
 
         // ## Act & Assert ##
         {
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberName_PrefixSearch("S");
-            assertFalse(memberBhv.selectList(cb).isEmpty());
+            assertFalse(memberBhv.selectList(cb -> {
+                cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            }).isEmpty());
+
             assertEquals(1, markList.size());
             assertEquals("filterSelectCB", markList.get(0));
         }
@@ -437,9 +438,10 @@ public class WxSqlStringFilterBasicTest extends UnitContainerTestCase {
         {
             Member member = new Member();
             member.setMemberName("filterQuery");
-            MemberCB cb = new MemberCB();
-            cb.query().setMemberId_Equal(3);
-            memberBhv.queryUpdate(member, cb);
+            memberBhv.queryUpdate(member, cb -> {
+                cb.query().setMemberId_Equal(3);
+            });
+
             assertEquals("filterQuery", memberBhv.selectByPKValueWithDeletedCheck(3).getMemberName());
             assertEquals(5, markList.size());
             assertEquals("filterQueryUpdate", markList.get(3));

@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 
 import org.dbflute.exception.EntityAlreadyUpdatedException;
 import org.dbflute.helper.HandyDate;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -127,9 +126,10 @@ public class WxBhvInsertOrUpdateTest extends UnitContainerTestCase {
     }
 
     protected Member selectByAccount(String account) {
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberAccount_Equal(account);
-        return memberBhv.selectEntityWithDeletedCheck(cb);
+        return memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberAccount_Equal(account);
+        });
+
     }
 
     public void test_insertOrUpdate_uniqueBy_compoundKey_insert() throws Exception {

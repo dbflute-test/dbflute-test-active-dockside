@@ -28,22 +28,22 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_ColumnQuery_calculation_plus() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.specify().specifyMemberStatus().columnDisplayOrder();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberId();
-            }
-        }).equal(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberStatus().columnDisplayOrder();
-            }
-        }).plus(1);
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.specify().specifyMemberStatus().columnDisplayOrder();
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberId();
+                }
+            }).equal(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().specifyMemberStatus().columnDisplayOrder();
+                }
+            }).plus(1);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -57,22 +57,22 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
 
     public void test_ColumnQuery_calculation_multiply_plus() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.specify().specifyMemberStatus().columnDisplayOrder();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberId();
-            }
-        }).equal(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberStatus().columnDisplayOrder();
-            }
-        }).multiply(2).divide(2).plus(1);
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.specify().specifyMemberStatus().columnDisplayOrder();
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberId();
+                }
+            }).equal(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().specifyMemberStatus().columnDisplayOrder();
+                }
+            }).multiply(2).divide(2).plus(1);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -86,25 +86,25 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
 
     public void test_ColumnQuery_calculation_decimal() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.specify().specifyMemberStatus().columnDisplayOrder();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberId();
-            }
-        }).equal(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberStatus().columnDisplayOrder();
-            }
-        }).plus(new BigDecimal("1.000"));
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.specify().specifyMemberStatus().columnDisplayOrder();
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberId();
+                }
+            }).equal(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().specifyMemberStatus().columnDisplayOrder();
+                }
+            }).plus(new BigDecimal("1.000"));
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
-        assertTrue(cb.toDisplaySql().contains("+ 1.000"));
+        assertTrue(popCB().toDisplaySql().contains("+ 1.000"));
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             Integer memberId = member.getMemberId();
@@ -116,30 +116,30 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
 
     public void test_ColumnQuery_calculation_with_DerivedReferrer() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedPurchaseList().min(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().columnPurchasePrice();
-                subCB.query().setPaymentCompleteFlg_Equal_True();
-            }
-        }, Member.ALIAS_productKindCount, op -> op.coalesce(0));
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().derivedPurchaseList().min(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnPurchasePrice();
-                        subCB.query().setPaymentCompleteFlg_Equal_True();
-                    }
-                }, null, op -> op.coalesce(0));
-            }
-        }).lessThan(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberId();
-            }
-        }).multiply(500).plus(1);
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedPurchaseList().min(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchasePrice();
+                    subCB.query().setPaymentCompleteFlg_Equal_True();
+                }
+            }, Member.ALIAS_productKindCount, op -> op.coalesce(0));
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().derivedPurchaseList().min(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchasePrice();
+                            subCB.query().setPaymentCompleteFlg_Equal_True();
+                        }
+                    }, null, op -> op.coalesce(0));
+                }
+            }).lessThan(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberId();
+                }
+            }).multiply(500).plus(1);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -154,20 +154,20 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
 
     public void test_ColumnQuery_calculation_notNumber() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).lessEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        }).plus(1);
-
-        // ## Act ##
         try {
-            memberBhv.selectList(cb);
+            memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().columnBirthdate();
+                    }
+                }).lessEqual(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().columnFormalizedDatetime();
+                    }
+                }).plus(1);
+                pushCB(cb);
+            });
 
             // ## Assert ##
             fail();
@@ -182,22 +182,22 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
     //                                                                                ====
     public void test_ColumnQuery_calculation_left() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.specify().specifyMemberStatus().columnDisplayOrder();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberId();
-            }
-        }).equal(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberStatus().columnDisplayOrder();
-            }
-        }).left().plus(1).minus(2);
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.specify().specifyMemberStatus().columnDisplayOrder();
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberId();
+                }
+            }).equal(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().specifyMemberStatus().columnDisplayOrder();
+                }
+            }).left().plus(1).minus(2);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -211,22 +211,22 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
 
     public void test_ColumnQuery_calculation_left_and_right() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.specify().specifyMemberStatus().columnDisplayOrder();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberId();
-            }
-        }).equal(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberStatus().columnDisplayOrder();
-            }
-        }).left().plus(2).minus(2).right().plus(1);
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.specify().specifyMemberStatus().columnDisplayOrder();
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberId();
+                }
+            }).equal(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().specifyMemberStatus().columnDisplayOrder();
+                }
+            }).left().plus(2).minus(2).right().plus(1);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -243,22 +243,22 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
     //                                                                  ==================
     public void test_ColumnQuery_SpecifyCalculation_plus() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberStatus();
-        cb.specify().specifyMemberStatus().columnDisplayOrder();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberId();
-            }
-        }).equal(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberStatus().columnDisplayOrder().plus(3);
-            }
-        }).plus(1);
-        cb.query().addOrderBy_MemberId_Asc();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.specify().specifyMemberStatus().columnDisplayOrder();
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberId();
+                }
+            }).equal(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().specifyMemberStatus().columnDisplayOrder().plus(3);
+                }
+            }).plus(1);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());

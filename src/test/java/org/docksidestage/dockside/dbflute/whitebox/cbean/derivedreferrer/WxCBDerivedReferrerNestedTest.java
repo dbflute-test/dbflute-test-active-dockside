@@ -84,28 +84,28 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
             }
         });
 
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnPurchasePrice();
-                        subCB.query().setPaymentCompleteFlg_Equal_True();
-                    }
-                }, null);
-                subCB.query().setBirthdate_LessThan(currentDate());
-            }
-        }, MemberStatus.ALIAS_maxPurchasePrice);
-        cb.orScopeQuery(new OrQuery<MemberStatusCB>() {
-            public void query(MemberStatusCB orCB) {
-                orCB.query().setMemberStatusCode_Equal_Formalized();
-                orCB.query().setMemberStatusCode_Equal_Withdrawal();
-                orCB.query().setMemberStatusCode_Equal_Provisional();
-            }
+        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchasePrice();
+                            subCB.query().setPaymentCompleteFlg_Equal_True();
+                        }
+                    }, null);
+                    subCB.query().setBirthdate_LessThan(currentDate());
+                }
+            }, MemberStatus.ALIAS_maxPurchasePrice);
+            cb.orScopeQuery(new OrQuery<MemberStatusCB>() {
+                public void query(MemberStatusCB orCB) {
+                    orCB.query().setMemberStatusCode_Equal_Formalized();
+                    orCB.query().setMemberStatusCode_Equal_Withdrawal();
+                    orCB.query().setMemberStatusCode_Equal_Provisional();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb);
 
         // ## Assert ##
         assertNotSame(0, statusList.size());
@@ -124,33 +124,33 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
 
     public void test_sepcify_derivedReferrer_OneToManyToMany_moreNested_basic() {
         // ## Arrange ##
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().specifyMember().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-                            public void query(MemberLoginCB subCB) {
-                                subCB.specify().columnMemberId();
-                                subCB.query().setMobileLoginFlg_Equal_False();
-                            }
-                        }, null);
-                        subCB.query().setPaymentCompleteFlg_Equal_True();
-                    }
-                }, null);
-                subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
-            }
-        }, MemberStatus.ALIAS_maxPurchasePrice);
-        cb.orScopeQuery(new OrQuery<MemberStatusCB>() {
-            public void query(MemberStatusCB orCB) {
-                orCB.query().setMemberStatusCode_Equal_Formalized();
-                orCB.query().setMemberStatusCode_Equal_Withdrawal();
-                orCB.query().setMemberStatusCode_Equal_Provisional();
-            }
-        });
-
-        // ## Act ##
-        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb); // expect no exception
+        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().specifyMember().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                                public void query(MemberLoginCB subCB) {
+                                    subCB.specify().columnMemberId();
+                                    subCB.query().setMobileLoginFlg_Equal_False();
+                                }
+                            }, null);
+                            subCB.query().setPaymentCompleteFlg_Equal_True();
+                        }
+                    }, null);
+                    subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
+                }
+            }, MemberStatus.ALIAS_maxPurchasePrice);
+            cb.orScopeQuery(new OrQuery<MemberStatusCB>() {
+                public void query(MemberStatusCB orCB) {
+                    orCB.query().setMemberStatusCode_Equal_Formalized();
+                    orCB.query().setMemberStatusCode_Equal_Withdrawal();
+                    orCB.query().setMemberStatusCode_Equal_Provisional();
+                }
+            });
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
         assertNotSame(0, statusList.size());
@@ -158,7 +158,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
             Integer maxPurchasePrice = status.getMaxPurchasePrice();
             log(status.getMemberStatusName() + ", " + maxPurchasePrice);
         }
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.contains(sql, "(select max((select max((select max(sub3loc.MEMBER_ID)"));
         assertTrue(Srl.contains(sql, "and sub3loc.MOBILE_LOGIN_FLG = 0"));
         assertTrue(Srl.contains(sql, "and sub2loc.PAYMENT_COMPLETE_FLG = 1"));
@@ -167,33 +167,33 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
 
     public void test_sepcify_derivedReferrer_OneToManyToMany_moreNested_option() {
         // ## Arrange ##
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().specifyMember().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-                            public void query(MemberLoginCB subCB) {
-                                subCB.specify().columnMemberId();
-                                subCB.query().setMobileLoginFlg_Equal_False();
-                            }
-                        }, null);
-                        subCB.query().setPaymentCompleteFlg_Equal_True();
-                    }
-                }, null, op -> op.coalesce(0));
-                subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
-            }
-        }, MemberStatus.ALIAS_maxPurchasePrice);
-        cb.orScopeQuery(new OrQuery<MemberStatusCB>() {
-            public void query(MemberStatusCB orCB) {
-                orCB.query().setMemberStatusCode_Equal_Formalized();
-                orCB.query().setMemberStatusCode_Equal_Withdrawal();
-                orCB.query().setMemberStatusCode_Equal_Provisional();
-            }
-        });
-
-        // ## Act ##
-        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb); // expect no exception
+        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().specifyMember().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                                public void query(MemberLoginCB subCB) {
+                                    subCB.specify().columnMemberId();
+                                    subCB.query().setMobileLoginFlg_Equal_False();
+                                }
+                            }, null);
+                            subCB.query().setPaymentCompleteFlg_Equal_True();
+                        }
+                    }, null, op -> op.coalesce(0));
+                    subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
+                }
+            }, MemberStatus.ALIAS_maxPurchasePrice);
+            cb.orScopeQuery(new OrQuery<MemberStatusCB>() {
+                public void query(MemberStatusCB orCB) {
+                    orCB.query().setMemberStatusCode_Equal_Formalized();
+                    orCB.query().setMemberStatusCode_Equal_Withdrawal();
+                    orCB.query().setMemberStatusCode_Equal_Provisional();
+                }
+            });
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
         assertNotSame(0, statusList.size());
@@ -201,7 +201,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
             Integer maxPurchasePrice = status.getMaxPurchasePrice();
             log(status.getMemberStatusName() + ", " + maxPurchasePrice);
         }
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.contains(sql, "select max((select coalesce(max((select max(sub3loc.MEMBER_ID)"));
         assertTrue(Srl.contains(sql, "and sub3loc.MOBILE_LOGIN_FLG = 0"));
         assertTrue(Srl.contains(sql, "and sub2loc.PAYMENT_COMPLETE_FLG = 1"));
@@ -213,28 +213,28 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
     //                                                                          ==========
     public void test_sepcify_derivedReferrer_OneToManyToMany_nested_after_union() {
         // ## Arrange ##
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnPurchasePrice();
-                        subCB.query().setPaymentCompleteFlg_Equal_True();
-                    }
-                }, null, op -> {});
-                subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
-                subCB.union(new UnionQuery<MemberCB>() {
-                    public void query(MemberCB unionCB) {
-                    }
-                });
-            }
-        }, MemberStatus.ALIAS_maxPurchasePrice);
-
-        // ## Act ##
-        memberStatusBhv.selectList(cb); // expect no exception
+        memberStatusBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchasePrice();
+                            subCB.query().setPaymentCompleteFlg_Equal_True();
+                        }
+                    }, null, op -> {});
+                    subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
+                    subCB.union(new UnionQuery<MemberCB>() {
+                        public void query(MemberCB unionCB) {
+                        }
+                    });
+                }
+            }, MemberStatus.ALIAS_maxPurchasePrice);
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("where sub2loc.MEMBER_ID = sub1main.MEMBER_ID"));
         assertTrue(sql.contains("  and sub2loc.PAYMENT_COMPLETE_FLG = 1"));
         assertTrue(sql.contains("from (select sub1loc.MEMBER_ID, sub1loc.MEMBER_STATUS_CODE"));
@@ -245,33 +245,33 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
 
     public void test_sepcify_derivedReferrer_OneToManyToMany_nestedAfterUnion_and_union() {
         // ## Arrange ##
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnPurchasePrice();
-                        subCB.query().setPaymentCompleteFlg_Equal_True();
-                        subCB.union(new UnionQuery<PurchaseCB>() {
-                            public void query(PurchaseCB unionCB) {
-                                unionCB.query().setPurchasePrice_GreaterThan(2000);
-                            }
-                        });
-                    }
-                }, null, op -> {});
-                subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
-                subCB.union(new UnionQuery<MemberCB>() {
-                    public void query(MemberCB unionCB) {
-                    }
-                });
-            }
-        }, MemberStatus.ALIAS_maxPurchasePrice);
-
-        // ## Act ##
-        memberStatusBhv.selectList(cb); // expect no exception
+        memberStatusBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchasePrice();
+                            subCB.query().setPaymentCompleteFlg_Equal_True();
+                            subCB.union(new UnionQuery<PurchaseCB>() {
+                                public void query(PurchaseCB unionCB) {
+                                    unionCB.query().setPurchasePrice_GreaterThan(2000);
+                                }
+                            });
+                        }
+                    }, null, op -> {});
+                    subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
+                    subCB.union(new UnionQuery<MemberCB>() {
+                        public void query(MemberCB unionCB) {
+                        }
+                    });
+                }
+            }, MemberStatus.ALIAS_maxPurchasePrice);
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("(select max((select max(sub2main.PURCHASE_PRICE)"));
         assertTrue(sql.contains("where sub2loc.PAYMENT_COMPLETE_FLG = 1"));
         assertTrue(sql.contains("where sub2loc.PURCHASE_PRICE > 2000"));
@@ -284,37 +284,37 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
 
     public void test_sepcify_derivedReferrer_OneToManyToMany_nestedAfterUnion_and_more_nestedAfterUnion() {
         // ## Arrange ##
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().derivedPurchasePaymentList().max(new SubQuery<PurchasePaymentCB>() {
-                            public void query(PurchasePaymentCB subCB) {
-                                subCB.specify().columnPaymentAmount();
-                            }
-                        }, null);
-                        subCB.query().setPaymentCompleteFlg_Equal_True();
-                        subCB.union(new UnionQuery<PurchaseCB>() {
-                            public void query(PurchaseCB unionCB) {
-                                unionCB.query().setPurchasePrice_GreaterThan(2000);
-                            }
-                        });
-                    }
-                }, null, op -> {});
-                subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
-                subCB.union(new UnionQuery<MemberCB>() {
-                    public void query(MemberCB unionCB) {
-                    }
-                });
-            }
-        }, MemberStatus.ALIAS_maxPurchasePrice);
-
-        // ## Act ##
-        memberStatusBhv.selectList(cb); // expect no exception
+        memberStatusBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().derivedPurchasePaymentList().max(new SubQuery<PurchasePaymentCB>() {
+                                public void query(PurchasePaymentCB subCB) {
+                                    subCB.specify().columnPaymentAmount();
+                                }
+                            }, null);
+                            subCB.query().setPaymentCompleteFlg_Equal_True();
+                            subCB.union(new UnionQuery<PurchaseCB>() {
+                                public void query(PurchaseCB unionCB) {
+                                    unionCB.query().setPurchasePrice_GreaterThan(2000);
+                                }
+                            });
+                        }
+                    }, null, op -> {});
+                    subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
+                    subCB.union(new UnionQuery<MemberCB>() {
+                        public void query(MemberCB unionCB) {
+                        }
+                    });
+                }
+            }, MemberStatus.ALIAS_maxPurchasePrice);
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("(select max((select max((select max(sub3loc.PAYMENT_AMOUNT)"));
         assertTrue(sql.contains("where sub3loc.PURCHASE_ID = sub2main.PURCHASE_ID"));
         assertTrue(sql.contains("where sub2loc.PAYMENT_COMPLETE_FLG = 1"));
@@ -328,34 +328,34 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
 
     public void test_sepcify_derivedReferrer_OneToManyToMany_union_monkey() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnLoginDatetime();
-                subCB.query().setMobileLoginFlg_Equal_False();
-                subCB.union(new UnionQuery<MemberLoginCB>() {
-                    public void query(MemberLoginCB unionCB) {
-                        unionCB.query().setLoginMemberStatusCode_Equal_Formalized();
-                    }
-                });
-            }
-        }, Member.ALIAS_latestLoginDatetime);
-        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.specify().derivedPurchasePaymentList().max(new SubQuery<PurchasePaymentCB>() {
-                    public void query(PurchasePaymentCB subCB) {
-                        subCB.specify().columnPaymentAmount();
-                    }
-                }, null);
-                subCB.union(new UnionQuery<PurchaseCB>() {
-                    public void query(PurchaseCB unionCB) {
-                    }
-                });
-            }
-        }, Member.ALIAS_loginCount);
-
-        // ## Act ##
-        memberBhv.selectList(cb); // expect no exception
+        memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.specify().columnLoginDatetime();
+                    subCB.query().setMobileLoginFlg_Equal_False();
+                    subCB.union(new UnionQuery<MemberLoginCB>() {
+                        public void query(MemberLoginCB unionCB) {
+                            unionCB.query().setLoginMemberStatusCode_Equal_Formalized();
+                        }
+                    });
+                }
+            }, Member.ALIAS_latestLoginDatetime);
+            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().derivedPurchasePaymentList().max(new SubQuery<PurchasePaymentCB>() {
+                        public void query(PurchasePaymentCB subCB) {
+                            subCB.specify().columnPaymentAmount();
+                        }
+                    }, null);
+                    subCB.union(new UnionQuery<PurchaseCB>() {
+                        public void query(PurchaseCB unionCB) {
+                        }
+                    });
+                }
+            }, Member.ALIAS_loginCount);
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
         // select dfloc.MEMBER_ID as MEMBER_ID, dfloc.MEMBER_NAME as MEMBER_NAME, dfloc.MEMBER_ACCOUNT as MEMBER_ACCOUNT, dfloc.MEMBER_STATUS_CODE as MEMBER_STATUS_CODE, dfloc.FORMALIZED_DATETIME as FORMALIZED_DATETIME, dfloc.BIRTHDATE as BIRTHDATE, dfloc.REGISTER_DATETIME as REGISTER_DATETIME, dfloc.REGISTER_USER as REGISTER_USER, dfloc.UPDATE_DATETIME as UPDATE_DATETIME, dfloc.UPDATE_USER as UPDATE_USER, dfloc.VERSION_NO as VERSION_NO
@@ -383,7 +383,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
         //          where sub1main.MEMBER_ID = dfloc.MEMBER_ID
         //        ) as LOGIN_COUNT
         //   from MEMBER dfloc
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(sql.contains(", (select max(sub1main.LOGIN_DATETIME)"));
         assertTrue(sql.contains("from (select sub1loc.MEMBER_LOGIN_ID, sub1loc.MEMBER_ID, sub1loc.LOGIN_DATETIME"));
         assertTrue(sql.contains("where sub1loc.MOBILE_LOGIN_FLG = 0"));
@@ -402,39 +402,39 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
     //                                                         ===========================
     public void test_sepcify_derivedReferrer_OneToManyToMany_with_QueryDerivedReferrer_basic() {
         // ## Arrange ##
-        MemberStatusCB cb = new MemberStatusCB();
-        cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
-            public void query(MemberCB subCB) {
-                subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnPurchasePrice();
-                        subCB.query().setPaymentCompleteFlg_Equal_True();
-                        subCB.query().queryProduct().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                            public void query(PurchaseCB subCB) {
-                                subCB.specify().columnPurchasePrice();
-                                subCB.query().setPurchaseId_GreaterThan(-1L);
-                            }
-                        }).greaterThan(300);
-                    }
-                }, null);
-                subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
-                subCB.query().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnPurchasePrice();
-                    }
-                }).lessEqual(2000);
-            }
-        }, MemberStatus.ALIAS_maxPurchasePrice);
-        cb.orScopeQuery(new OrQuery<MemberStatusCB>() {
-            public void query(MemberStatusCB orCB) {
-                orCB.query().setMemberStatusCode_Equal_Formalized();
-                orCB.query().setMemberStatusCode_Equal_Withdrawal();
-                orCB.query().setMemberStatusCode_Equal_Provisional();
-            }
+        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
+                public void query(MemberCB subCB) {
+                    subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchasePrice();
+                            subCB.query().setPaymentCompleteFlg_Equal_True();
+                            subCB.query().queryProduct().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                                public void query(PurchaseCB subCB) {
+                                    subCB.specify().columnPurchasePrice();
+                                    subCB.query().setPurchaseId_GreaterThan(-1L);
+                                }
+                            }).greaterThan(300);
+                        }
+                    }, null);
+                    subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
+                    subCB.query().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchasePrice();
+                        }
+                    }).lessEqual(2000);
+                }
+            }, MemberStatus.ALIAS_maxPurchasePrice);
+            cb.orScopeQuery(new OrQuery<MemberStatusCB>() {
+                public void query(MemberStatusCB orCB) {
+                    orCB.query().setMemberStatusCode_Equal_Formalized();
+                    orCB.query().setMemberStatusCode_Equal_Withdrawal();
+                    orCB.query().setMemberStatusCode_Equal_Provisional();
+                }
+            });
+            pushCB(cb);
         });
-
-        // ## Act ##
-        ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb);
 
         // ## Assert ##
         assertNotSame(0, statusList.size());
@@ -442,7 +442,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
             Integer maxPurchasePrice = status.getMaxPurchasePrice();
             log(status.getMemberStatusName() + ", " + maxPurchasePrice);
         }
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.contains(sql, "sub3loc.PURCHASE_ID > -1"));
         assertTrue(Srl.contains(sql, ") > 300"));
         assertTrue(Srl.contains(sql, "sub1loc.BIRTHDATE < '2010-12-04'"));

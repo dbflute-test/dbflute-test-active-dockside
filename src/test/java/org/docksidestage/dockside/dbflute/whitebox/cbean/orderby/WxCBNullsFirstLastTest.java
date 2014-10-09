@@ -28,42 +28,42 @@ public class WxCBNullsFirstLastTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_NullsFirstLast_withManualOrder() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(Arrays.asList("FML"));
-        cb.query().withNullsFirst();
-
-        // ## Act ##
-        memberBhv.selectList(cb); // expect no exception
+        memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(Arrays.asList("FML"));
+            cb.query().withNullsFirst();
+            pushCB(cb);
+        }); // expect no exception
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsAll(sql, "case", "when"));
         assertFalse(Srl.contains(sql, "nulls"));
     }
 
     public void test_NullsFirstLast_with_SpecifiedDerivedOrderBy() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.specify().columnLoginDatetime();
-                subCB.query().setMobileLoginFlg_Equal_True();
-                subCB.union(new UnionQuery<MemberLoginCB>() {
-                    public void query(MemberLoginCB unionCB) {
-                        unionCB.query().setMobileLoginFlg_Equal_False();
-                    }
-                });
-            }
-        }, Member.ALIAS_latestLoginDatetime);
-        cb.union(new UnionQuery<MemberCB>() {
-            public void query(MemberCB unionCB) {
-                unionCB.query().setMemberStatusCode_Equal_Withdrawal();
-            }
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.specify().columnLoginDatetime();
+                    subCB.query().setMobileLoginFlg_Equal_True();
+                    subCB.union(new UnionQuery<MemberLoginCB>() {
+                        public void query(MemberLoginCB unionCB) {
+                            unionCB.query().setMobileLoginFlg_Equal_False();
+                        }
+                    });
+                }
+            }, Member.ALIAS_latestLoginDatetime);
+            cb.union(new UnionQuery<MemberCB>() {
+                public void query(MemberCB unionCB) {
+                    unionCB.query().setMemberStatusCode_Equal_Withdrawal();
+                }
+            });
+            cb.query().addSpecifiedDerivedOrderBy_Asc(Member.ALIAS_latestLoginDatetime).withNullsFirst();
+            pushCB(cb);
         });
-        cb.query().addSpecifiedDerivedOrderBy_Asc(Member.ALIAS_latestLoginDatetime).withNullsFirst();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());

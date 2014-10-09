@@ -5,8 +5,6 @@ import java.sql.Timestamp;
 import org.dbflute.exception.EntityAlreadyDeletedException;
 import org.dbflute.exception.EntityAlreadyUpdatedException;
 import org.dbflute.exception.EntityUniqueKeyNotFoundException;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
@@ -89,10 +87,11 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
 
     public void test_update_nullUpdate() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().setBirthdate_IsNotNull();
-        cb.fetchFirst(1);
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setBirthdate_IsNotNull();
+            cb.fetchFirst(1);
+        });
+
         assertNotNull(member.getBirthdate());
         member.setBirthdate(null);
 
@@ -106,9 +105,9 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
 
     public void test_update_NoModified() {
         // ## Arrange ##
-        final MemberStatusCB cb = memberStatusBhv.newMyConditionBean();
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        final MemberStatus memberStatus = memberStatusBhv.selectEntityWithDeletedCheck(cb);
+        final MemberStatus memberStatus = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        });
 
         // ## Act & Assert ##
         memberStatusBhv.update(memberStatus); // Expect no exception!
@@ -159,9 +158,10 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
     }
 
     protected Member selectByAccount(String account) {
-        MemberCB cb = new MemberCB();
-        cb.query().setMemberAccount_Equal(account);
-        return memberBhv.selectEntityWithDeletedCheck(cb);
+        return memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberAccount_Equal(account);
+        });
+
     }
 
     public void test_update_uniqueBy_compoundKey_basic() throws Exception {

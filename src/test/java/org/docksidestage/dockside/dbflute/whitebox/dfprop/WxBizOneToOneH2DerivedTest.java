@@ -11,7 +11,6 @@ import org.dbflute.dbmeta.info.ForeignInfo;
 import org.dbflute.dbmeta.name.ColumnRealName;
 import org.docksidestage.dockside.dbflute.allcommon.DBFluteConfig;
 import org.docksidestage.dockside.dbflute.allcommon.ImplementedSqlClauseCreator;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -41,11 +40,10 @@ public class WxBizOneToOneH2DerivedTest extends UnitContainerTestCase {
     //                                                                    ================
     public void test_DerivedOneToOne_basic() throws Exception {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberLoginAsLatest();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberLoginAsLatest();
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -78,11 +76,10 @@ public class WxBizOneToOneH2DerivedTest extends UnitContainerTestCase {
     public void test_DerivedOneToOne_inline() throws Exception {
         // ## Arrange ##
         moveFixedConditionToInlineView();
-        MemberCB cb = new MemberCB();
-        cb.setupSelect_MemberLoginAsLatest();
-
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberLoginAsLatest();
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -118,14 +115,11 @@ public class WxBizOneToOneH2DerivedTest extends UnitContainerTestCase {
                     private static final long serialVersionUID = 1L;
 
                     @Override
-                    public void registerOuterJoin(String foreignAliasName, String foreignTableDbName,
-                            String localAliasName, String localTableDbName,
-                            Map<ColumnRealName, ColumnRealName> joinOnMap, String relationPath,
-                            ForeignInfo foreignInfo, String fixedCondition,
-                            FixedConditionResolver fixedConditionResolver) {
-                        registerOuterJoinFixedInline(foreignAliasName, foreignTableDbName, localAliasName,
-                                localTableDbName, joinOnMap, relationPath, foreignInfo, fixedCondition,
-                                fixedConditionResolver);
+                    public void registerOuterJoin(String foreignAliasName, String foreignTableDbName, String localAliasName,
+                            String localTableDbName, Map<ColumnRealName, ColumnRealName> joinOnMap, String relationPath,
+                            ForeignInfo foreignInfo, String fixedCondition, FixedConditionResolver fixedConditionResolver) {
+                        registerOuterJoinFixedInline(foreignAliasName, foreignTableDbName, localAliasName, localTableDbName, joinOnMap,
+                                relationPath, foreignInfo, fixedCondition, fixedConditionResolver);
                     }
                 };
             }
