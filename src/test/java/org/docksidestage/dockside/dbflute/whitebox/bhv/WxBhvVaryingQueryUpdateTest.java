@@ -42,12 +42,18 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
         });
 
         // ## Act ##
-        purchaseBhv.varyingQueryUpdate(purchase, cb, op -> op.self(colCB -> {
+        purchaseBhv.varyingQueryUpdate(purchase, cb -> {
+            cb.query().setPaymentCompleteFlg_Equal_True();
+            cb.query().addOrderBy_PurchaseId_Asc();
+        }, op -> op.self(colCB -> {
             colCB.specify().columnPurchaseCount();
         }).plus(1));
 
         // ## Assert ##
-        ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb -> {
+            cb.query().setPaymentCompleteFlg_Equal_True();
+            cb.query().addOrderBy_PurchaseId_Asc();
+        });
         assertNotSame(0, actualList.size());
         assertEquals(beforeList.size(), actualList.size());
         int index = 0;
@@ -78,12 +84,18 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
         });
 
         // ## Act ##
-        purchaseBhv.varyingQueryUpdate(purchase, cb, upOp -> upOp.self(colCB -> {
+        purchaseBhv.varyingQueryUpdate(purchase, cb -> {
+            cb.query().setPaymentCompleteFlg_Equal_True();
+            cb.query().addOrderBy_PurchaseId_Asc();
+        }, upOp -> upOp.self(colCB -> {
             colCB.specify().columnPurchaseDatetime();
         }).convert(op -> op.addDay(3)));
 
         // ## Assert ##
-        ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb -> {
+            cb.query().setPaymentCompleteFlg_Equal_True();
+            cb.query().addOrderBy_PurchaseId_Asc();
+        });
         assertNotSame(0, actualList.size());
         assertEquals(beforeList.size(), actualList.size());
         int index = 0;
@@ -127,7 +139,7 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
         }, op -> op.allowNonQueryUpdate());
 
         // ## Assert ##
-        ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb -> {});
         assertNotSame(0, actualList.size());
         assertEquals(actualList.size(), updated);
         for (Purchase actual : actualList) {
@@ -144,7 +156,7 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
         }, op -> op.allowNonQueryDelete());
 
         // ## Assert ##
-        ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb);
+        ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb -> {});
         assertEquals(0, actualList.size());
         assertEquals(countAll, deleted);
     }
@@ -170,13 +182,19 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
         });
         try {
             // ## Act ##
-            purchaseBhv.varyingQueryUpdate(purchase, cb, op -> op.allowQueryUpdateForcedDirect());
+            purchaseBhv.varyingQueryUpdate(purchase, cb -> {
+                cb.query().setPaymentCompleteFlg_Equal_True();
+                cb.query().addOrderBy_PurchaseId_Asc();
+            }, op -> op.allowQueryUpdateForcedDirect());
 
             // ## Assert ##
             String queryUpdateSql = displaySqlList.get(0);
             assertTrue(queryUpdateSql.contains("where PAYMENT_COMPLETE_FLG = 1"));
             assertFalse(queryUpdateSql.contains("in ("));
-            ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb);
+            ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb -> {
+                cb.query().setPaymentCompleteFlg_Equal_True();
+                cb.query().addOrderBy_PurchaseId_Asc();
+            });
             assertNotSame(0, actualList.size());
             assertEquals(beforeList.size(), actualList.size());
             int index = 0;
@@ -216,22 +234,24 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
     public void test_varyingQueryDelete_ForcedDirect_basic() throws Exception {
         // ## Arrange ##
         purchasePaymentBhv.varyingQueryDelete(cb -> {}, op -> op.allowNonQueryDelete());
+        final List<String> displaySqlList = newArrayList();
+        CallbackContext.setSqlLogHandlerOnThread(info -> displaySqlList.add(info.getDisplaySql()));
 
         try {
             purchaseBhv.varyingQueryDelete(cb -> {
                 /* ## Act ## */
                 cb.query().setPaymentCompleteFlg_Equal_True();
                 cb.query().addOrderBy_PurchaseId_Asc();
-
-                final List<String> displaySqlList = newArrayList();
-                CallbackContext.setSqlLogHandlerOnThread(info -> displaySqlList.add(info.getDisplaySql()));
             }, op -> op.allowQueryDeleteForcedDirect());
 
             // ## Assert ##
             String queryDeleteSql = displaySqlList.get(0);
             assertTrue(queryDeleteSql.contains("where PAYMENT_COMPLETE_FLG = 1"));
             assertFalse(queryDeleteSql.contains("in ("));
-            ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb);
+            ListResultBean<Purchase> actualList = purchaseBhv.selectList(cb -> {
+                cb.query().setPaymentCompleteFlg_Equal_True();
+                cb.query().addOrderBy_PurchaseId_Asc();
+            });
             assertEquals(0, actualList.size());
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();

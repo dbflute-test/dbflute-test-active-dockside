@@ -11,7 +11,6 @@ import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlResultHandler;
 import org.dbflute.hook.SqlResultInfo;
 import org.dbflute.outsidesql.OutsideSqlContext;
-import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -66,8 +65,9 @@ public class WxCBSelectCursorTest extends UnitContainerTestCase {
         assertFalse(ContextStack.isExistContextStackOnThread());
         assertFalse(ConditionBeanContext.isExistConditionBeanOnThread());
         assertFalse(OutsideSqlContext.isExistOutsideSqlContextOnThread());
-        cb.query().setMemberId_InScope(memberIdList);
-        assertNotSame(0, memberBhv.selectCount(cb));
+        assertNotSame(0, memberBhv.selectCount(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        }));
     }
 
     public void test_insert_in_selectCursor_of_conditionBean_diffTable() throws Exception {
@@ -112,9 +112,9 @@ public class WxCBSelectCursorTest extends UnitContainerTestCase {
         assertFalse(ContextStack.isExistContextStackOnThread());
         assertFalse(ConditionBeanContext.isExistConditionBeanOnThread());
         assertFalse(OutsideSqlContext.isExistOutsideSqlContextOnThread());
-        MemberStatusCB statusCB = new MemberStatusCB();
-        statusCB.query().setMemberStatusCode_InScope(codeList);
-        assertNotSame(0, memberStatusBhv.selectCount(statusCB));
+        assertNotSame(0, memberStatusBhv.selectCount(statusCB -> {
+            statusCB.query().setMemberStatusCode_InScope(codeList);
+        }));
     }
 
     // ===================================================================================

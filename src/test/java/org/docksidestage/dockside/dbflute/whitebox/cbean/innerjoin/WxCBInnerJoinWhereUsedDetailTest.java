@@ -158,6 +158,12 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
     }
 
     public void test_innerJoin_QueryDerivedReferrer_DreamCruise() throws Exception {
+        final List<SqlLogInfo> infoList = newArrayList();
+        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+            public void handle(SqlLogInfo info) {
+                infoList.add(info);
+            }
+        });
         try {
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
                 /* ## Act ## */
@@ -171,13 +177,6 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
                 }).greaterEqual(dreamCruiseCB.specify().columnVersionNo().plus(servicePointCount));
                 cb.query().addOrderBy_Birthdate_Desc();
                 cb.paging(3, 1);
-
-                final List<SqlLogInfo> infoList = newArrayList();
-                CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-                    public void handle(SqlLogInfo info) {
-                        infoList.add(info);
-                    }
-                });
                 pushCB(cb);
             });
 

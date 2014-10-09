@@ -1304,7 +1304,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         cb.lockForUpdate();
         cb.fetchFirst(2);
         cb.fetchPage(3);
-        String displaySql = cb.toDisplaySql();// *Point!
+        String displaySql = popCB().toDisplaySql();// *Point!
 
         // ## Assert ##
         StringBuilder sb = new StringBuilder();
@@ -1338,7 +1338,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
                 subCB.query().setPurchaseCount_GreaterEqual(2);
             }
         });
-        String displaySql = cb.toDisplaySql();
+        String displaySql = popCB().toDisplaySql();
 
         // ## Assert ##
         StringBuilder sb = new StringBuilder();

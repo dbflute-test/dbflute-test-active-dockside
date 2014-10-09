@@ -33,7 +33,7 @@ public class WxCBNullsFirstLastTest extends UnitContainerTestCase {
             cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(Arrays.asList("FML"));
             cb.query().withNullsFirst();
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();

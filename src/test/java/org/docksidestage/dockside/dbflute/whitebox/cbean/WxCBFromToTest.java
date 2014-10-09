@@ -158,7 +158,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         cb.query().setFormalizedDatetime_FromTo(targetDate, targetDate, option);
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(Srl.contains(sql, " >= '2011-11-17 00:00:00.000'"));
         assertTrue(Srl.contains(sql, " < '2011-11-24 00:00:00.000'"));
@@ -229,7 +229,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(Srl.contains(sql, " >= '2011-01-21'"));
     }
@@ -241,7 +241,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertTrue(Srl.contains(sql, " < '2011-01-22'")); // added
     }
@@ -269,10 +269,10 @@ public class WxCBFromToTest extends UnitContainerTestCase {
             pushCB(cb);
         });
 
-        cb.query().setBirthdate_FromTo(date.getDate(), null, new FromToOption().orIsNull());
-
         // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setBirthdate_FromTo(date.getDate(), null, new FromToOption().orIsNull());
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -300,14 +300,13 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Arrange ##
         HandyDate date = new HandyDate(toDate("1970/01/01"));
 
-        int countAll = memberBhv.selectCount(cb -> {
-            pushCB(cb);
-        });
-
-        cb.query().setBirthdate_FromTo(null, date.getDate(), new FromToOption().orIsNull());
+        int countAll = memberBhv.selectCount(cb -> {});
 
         // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setBirthdate_FromTo(null, date.getDate(), new FromToOption().orIsNull());
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -337,7 +336,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         FromToOption option = new FromToOption().orIsNull().greaterThan().lessThan();
         cb.query().setBirthdate_FromTo(date.getDate(), date.getDate(), option);
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
 
         // ## Assert ##
         log(ln() + sql);
@@ -351,7 +350,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         FromToOption option = new FromToOption().compareAsDate().orIsNull();
         cb.query().setBirthdate_FromTo(date.getDate(), date.getDate(), option);
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
 
         // ## Assert ##
         log(ln() + sql);
@@ -375,7 +374,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
                 });
             }
         });
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
 
         // ## Assert ##
         log(ln() + sql);

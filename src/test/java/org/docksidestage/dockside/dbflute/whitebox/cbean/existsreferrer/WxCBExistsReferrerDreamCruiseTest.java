@@ -31,6 +31,12 @@ public class WxCBExistsReferrerDreamCruiseTest extends UnitContainerTestCase {
     //                                                                      ==============
     public void test_ExsitsReferrer_DreamCruise_OverTheWaves_CountLeastJoin() throws Exception {
         try {
+            final List<SqlLogInfo> infoList = newArrayList();
+            CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                public void handle(SqlLogInfo info) {
+                    infoList.add(info);
+                }
+            });
             ListResultBean<Member> memberList = memberBhv.selectPage(cb -> {
                 /* ## Act ## */
                 MemberCB dreamCruiseCB = cb.dreamCruiseCB();
@@ -50,14 +56,7 @@ public class WxCBExistsReferrerDreamCruiseTest extends UnitContainerTestCase {
                 });
                 cb.query().addOrderBy_Birthdate_Desc();
                 cb.paging(3, 1);
-
-                final List<SqlLogInfo> infoList = newArrayList();
-                CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-                    public void handle(SqlLogInfo info) {
-                        infoList.add(info);
-                    }
-                });
-            }); // expect no exception
+            }); // expects no exception
 
             // ## Assert ##
             assertHasAnyElement(memberList);
@@ -82,6 +81,12 @@ public class WxCBExistsReferrerDreamCruiseTest extends UnitContainerTestCase {
 
     public void test_ExsitsReferrer_DreamCruise_OptionCalculation_CountLeastJoin() throws Exception {
         try {
+            final List<SqlLogInfo> infoList = newArrayList();
+            CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                public void handle(SqlLogInfo info) {
+                    infoList.add(info);
+                }
+            });
             ListResultBean<Member> memberList = memberBhv.selectPage(cb -> {
                 /* ## Act ## */
                 MemberCB dreamCruiseCB = cb.dreamCruiseCB();
@@ -101,14 +106,7 @@ public class WxCBExistsReferrerDreamCruiseTest extends UnitContainerTestCase {
                 });
                 cb.query().addOrderBy_Birthdate_Desc();
                 cb.paging(3, 1);
-
-                final List<SqlLogInfo> infoList = newArrayList();
-                CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-                    public void handle(SqlLogInfo info) {
-                        infoList.add(info);
-                    }
-                });
-            }); // expect no exception
+            }); // expects no exception
 
             // ## Assert ##
             assertHasAnyElement(memberList);

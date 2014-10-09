@@ -65,14 +65,13 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
             firstReason = withdrawalReasonBhv.selectEntityWithDeletedCheck(cb -> {
                 cb.fetchFirst(1);
             });
-
         }
+        int actualCountAll = memberWithdrawalBhv.selectCount(countCB -> {});
 
         // ## Act ##
         int inserted = memberWithdrawalBhv.queryInsert(new QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB>() {
             public ConditionBean setup(MemberWithdrawal entity, MemberWithdrawalCB intoCB) {
                 entity.setWithdrawalReasonCode(firstReason.getWithdrawalReasonCode());
-                int actualCountAll = memberWithdrawalBhv.selectCount(countCB -> {});
                 MemberCB cb = new MemberCB();
                 intoCB.specify().columnMemberId().mappedFrom(cb.specify().columnMemberId());
                 intoCB.specify().columnWithdrawalDatetime().mappedFrom(cb.specify().columnFormalizedDatetime());
@@ -88,8 +87,8 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
         assertNotSame(countAll, actualCountAll);
         assertTrue(countAll < actualCountAll);
         assertEquals(actualCountAll - countAll, inserted);
+        List<Integer> memberIdList = DfCollectionUtil.newArrayList();
         ListResultBean<MemberWithdrawal> actualList = memberWithdrawalBhv.selectList(cb -> {
-            List<Integer> memberIdList = DfCollectionUtil.newArrayList();
             for (Member member : formalizedMemberMap.values()) {
                 memberIdList.add(member.getMemberId());
             }
@@ -245,8 +244,8 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
         }
 
         // ## Assert ##
+        List<Integer> memberIdList = DfCollectionUtil.newArrayList();
         ListResultBean<MemberWithdrawal> actualList = memberWithdrawalBhv.selectList(cb -> {
-            List<Integer> memberIdList = DfCollectionUtil.newArrayList();
             for (Member member : formalizedMemberMap.values()) {
                 memberIdList.add(member.getMemberId());
             }

@@ -48,11 +48,12 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberStatusCode_Equal_Provisional();
-        actualCB.query().setFormalizedDatetime_IsNull();
-        actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser()); // common column
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberStatusCode_Equal_Provisional();
+            actualCB.query().setFormalizedDatetime_IsNull();
+            actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser()); // common column
+            });
+
         assertEquals(actualList.size(), updatedCount);
     }
 
@@ -69,11 +70,12 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberStatusCode_Equal_Provisional();
-        actualCB.query().setFormalizedDatetime_IsNull();
-        actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser()); // common column
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberStatusCode_Equal_Provisional();
+            actualCB.query().setFormalizedDatetime_IsNull();
+            actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser()); // common column
+            });
+
         assertEquals(actualList.size(), updatedCount);
     }
 
@@ -146,11 +148,12 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberStatusCode_Equal_Provisional();
-        actualCB.query().setFormalizedDatetime_IsNull();
-        actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser()); // Common Column
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberStatusCode_Equal_Provisional();
+            actualCB.query().setFormalizedDatetime_IsNull();
+            actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser()); // Common Column
+            });
+
         assertEquals(actualList.size(), updatedCount);
     }
 
@@ -172,17 +175,18 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberStatusCode_Equal_Formalized();
-        actualCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().setPaymentCompleteFlg_Equal_False();
-            }
-        });
-        actualCB.query().setMemberStatusCode_Equal_Provisional();
-        actualCB.query().setFormalizedDatetime_IsNull();
-        actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser()); // Common Column
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberStatusCode_Equal_Formalized();
+            actualCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().setPaymentCompleteFlg_Equal_False();
+                }
+            });
+            actualCB.query().setMemberStatusCode_Equal_Provisional();
+            actualCB.query().setFormalizedDatetime_IsNull();
+            actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser()); // Common Column
+            });
+
         assertEquals(actualList.size(), updatedCount);
     }
 
@@ -202,7 +206,9 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
-        MemberLogin deleted = memberLoginBhv.selectEntity(cb);
+        MemberLogin deleted = memberLoginBhv.selectEntity(cb -> {
+            cb.query().setMemberLoginId_Equal(3L);
+        });
         assertNull(deleted);
         MemberLogin actual = memberLoginBhv.selectByPKValueWithDeletedCheck(99999L);
         assertTrue(actual.isLoginMemberStatusCodeWithdrawal());
@@ -214,7 +220,7 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
         int updatedCount = memberStatusBhv.queryUpdate(status, cb -> {
             /* ## Act ## */
             cb.query().setMemberStatusCode_Equal_Formalized();
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         assertEquals(0, updatedCount);

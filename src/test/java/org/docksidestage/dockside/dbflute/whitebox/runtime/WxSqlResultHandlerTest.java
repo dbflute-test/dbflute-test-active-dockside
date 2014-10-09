@@ -117,13 +117,21 @@ public class WxSqlResultHandlerTest extends UnitContainerTestCase {
         memberBhv.selectCount(cb -> {
             cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
         });
-
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        memberBhv.selectList(cb);
-        cb.query().setBirthdate_IsNotNull();
-        memberBhv.selectCount(cb);
-        cb.query().setMemberName_LikeSearch("c", new LikeSearchOption().likeSuffix());
-        memberBhv.selectList(cb);
+        memberBhv.selectList(cb -> {
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        });
+        memberBhv.selectCount(cb -> {
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.query().setBirthdate_IsNotNull();
+        });
+        memberBhv.selectList(cb -> {
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.query().setBirthdate_IsNotNull();
+            cb.query().setMemberName_LikeSearch("c", new LikeSearchOption().likeSuffix());
+        });
 
         // ## Assert ##
         StringBuilder sb = new StringBuilder();

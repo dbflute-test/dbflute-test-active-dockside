@@ -1354,6 +1354,6 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             }
         });
         cb.query().addOrderBy_DisplayOrder_Asc().addOrderBy_MemberStatusCode_Desc();
-        log(ln() + cb.toDisplaySql());
+        log(ln() + popCB().toDisplaySql());
     }
 }

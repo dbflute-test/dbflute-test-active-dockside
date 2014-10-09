@@ -109,7 +109,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
             });
             cb.query().addOrderBy_DisplayOrder_Asc().addOrderBy_MemberStatusCode_Desc();
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         log(ln() + popCB().toDisplaySql());
@@ -175,22 +175,23 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         } catch (SetupSelectThatsBadTimingException e) { // setupSelect calls query()
             log(e.getMessage());
         }
-        final MemberCB cb = createCB();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                cb.setupSelect_MemberStatus(); // no check (can't be helped)
-            }
-        });
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).lessEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        });
-        memberBhv.selectList(cb); // expect no exception
+        memberBhv.selectList(cb -> {
+            cb.enableThatsBadTiming();
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    cb.setupSelect_MemberStatus(); // no check (can't be helped)
+                }
+            });
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).lessEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            });
+        }); // expects no exception
     }
 
     public void test_badTiming_specify() {
@@ -253,22 +254,23 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         } catch (SpecifyThatsBadTimingException e) {
             log(e.getMessage());
         }
-        final MemberCB cb = createCB();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                cb.specify().columnBirthdate(); // no check (can't be helped)
-            }
-        });
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).lessEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        });
-        memberBhv.selectList(cb); // expect no exception
+        memberBhv.selectList(cb -> {
+            cb.enableThatsBadTiming();
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    cb.specify().columnBirthdate(); // no check (can't be helped)
+                }
+            });
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).lessEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            });
+        }); // expects no exception
     }
 
     public void test_badTiming_query() {
@@ -344,22 +346,23 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         } catch (QueryThatsBadTimingException e) {
             log(e.getMessage());
         }
-        final MemberCB cb = createCB();
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                cb.query().addOrderBy_Birthdate_Asc(); // no check (can't be helped)
-            }
-        });
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).lessEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        });
-        memberBhv.selectList(cb); // expect no exception
+        memberBhv.selectList(cb -> {
+            cb.enableThatsBadTiming();
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    cb.query().addOrderBy_Birthdate_Asc(); // no check (can't be helped)
+                }
+            });
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).lessEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            });
+        }); // expects no exception
     }
 
     // -----------------------------------------------------
@@ -367,34 +370,34 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
     //                                          ------------
     public void test_badTiming_DreamCruise() {
         // ## Arrange ##
-        final MemberCB cb = createCB();
-        cb.specify().columnBirthdate();
-        final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryProduct().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
-                            public void specify(PurchaseCB cb) {
-                                cb.specify().columnMemberId();
-                            }
-                        }).notEqual(new SpecifyQuery<PurchaseCB>() {
-                            public void specify(PurchaseCB cb) {
-                                cb.overTheWaves(dreamCruiseCB.specify().columnMemberId());
-                            }
-                        });
-                    }
-                });
-            }
-        });
-        cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                cb.setupSelect_MemberStatus(); // no check after dream cruise (can't be helped)
-            }
-        });
-
         // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.enableThatsBadTiming();
+            cb.specify().columnBirthdate();
+            final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.query().queryProduct().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
+                                public void specify(PurchaseCB cb) {
+                                    cb.specify().columnMemberId();
+                                }
+                            }).notEqual(new SpecifyQuery<PurchaseCB>() {
+                                public void specify(PurchaseCB cb) {
+                                    cb.overTheWaves(dreamCruiseCB.specify().columnMemberId());
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    cb.setupSelect_MemberStatus(); // no check after dream cruise (can't be helped)
+                }
+            });
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);

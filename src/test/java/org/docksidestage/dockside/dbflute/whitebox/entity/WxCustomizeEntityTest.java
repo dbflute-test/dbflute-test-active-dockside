@@ -44,7 +44,7 @@ public class WxCustomizeEntityTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        boolean actual = vendorCheck.equals(other); // expect no exception
+        boolean actual = vendorCheck.equals(other); // expects no exception
 
         // ## Assert ##
         log("actual=" + actual);

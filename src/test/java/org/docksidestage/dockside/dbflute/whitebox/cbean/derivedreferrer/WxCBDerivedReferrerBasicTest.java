@@ -302,7 +302,7 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
         MemberStatusCB cb = new MemberStatusCB();
         cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
             public void query(MemberCB subCB) {
-                try {
+        try {
                     subCB.setupSelect_MemberSecurityAsOne();
 
                     // ## Assert ##
@@ -311,7 +311,7 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
                     // OK
                     log(e.getMessage());
                 }
-                try {
+        try {
                     subCB.query().addOrderBy_MemberId_Asc();
 
                     // ## Assert ##

@@ -58,7 +58,12 @@ public class WxCBPerformanceTest extends UnitContainerTestCase {
                 resultInfoList.add(info);
             }
         });
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberStatus();
+            cb.setupSelect_MemberSecurityAsOne();
+            cb.setupSelect_MemberServiceAsOne().withServiceRank();
+            cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);

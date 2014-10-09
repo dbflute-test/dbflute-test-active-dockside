@@ -1,13 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.paging;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.dbflute.cbean.paging.PagingBean;
-import org.dbflute.cbean.paging.PagingHandler;
-import org.dbflute.cbean.paging.PagingInvoker;
 import org.dbflute.cbean.result.PagingResultBean;
-import org.dbflute.cbean.result.ResultBeanBuilder;
 import org.dbflute.exception.PagingPageSizeNotPlusException;
 import org.dbflute.exception.PagingStatusInvalidException;
 import org.dbflute.util.DfCollectionUtil;
@@ -39,7 +32,6 @@ public class WxCBPagingBasicTest extends UnitContainerTestCase {
             cb.paging(4, 3);
         });
 
-
         // ## Assert ##
         assertNotSame(0, page3.size());
         for (Member member : page3) {
@@ -63,7 +55,6 @@ public class WxCBPagingBasicTest extends UnitContainerTestCase {
             cb.paging(4, 3);
         });
 
-
         // ## Assert ##
         assertEquals(0, page1.size());
         assertEquals(0, page1.getAllRecordCount());
@@ -84,7 +75,6 @@ public class WxCBPagingBasicTest extends UnitContainerTestCase {
             assertEquals(3, cb.getFetchPageNumber());
         }); // re-select
 
-
         // ## Assert ##
         assertNotSame(0, page.size());
         assertEquals(1, page.size());
@@ -102,23 +92,12 @@ public class WxCBPagingBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
             /* ## Act ## */
-                @Override
-                public <ENTITY> PagingInvoker<ENTITY> createPagingInvoker(String tableDbName) {
-                    return new PagingInvoker<ENTITY>(tableDbName) {
-                        @Override
-                        protected int executeCount(PagingHandler<ENTITY> handler) {
-                            fail();
-                            return super.executeCount(handler);
-                        }
-                    };
-                }
-            };
+            cb.xzfailPagingExecuteCount();
             cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(1, 2, 3, 4));
             cb.query().addOrderBy_MemberId_Asc();
             cb.enablePagingCountLater();
             cb.paging(3, 2);
         }); // omit count
-
 
         // ## Assert ##
         assertNotSame(0, page.size());
@@ -130,30 +109,12 @@ public class WxCBPagingBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
             /* ## Act ## */
-                @Override
-                public <ENTITY> PagingInvoker<ENTITY> createPagingInvoker(String tableDbName) {
-                    return new PagingInvoker<ENTITY>(tableDbName) {
-                        @Override
-                        protected int executeCount(PagingHandler<ENTITY> handler) {
-                            fail();
-                            return super.executeCount(handler);
-                        }
-    
-                        @Override
-                        protected PagingResultBean<ENTITY> reselect(PagingHandler<ENTITY> handler, PagingBean pagingBean,
-                                ResultBeanBuilder<ENTITY> builder, PagingResultBean<ENTITY> rb) {
-                            fail();
-                            return super.reselect(handler, pagingBean, builder, rb);
-                        }
-                    };
-                }
-            };
+            cb.xzfailPagingReselect();
             cb.query().setMemberId_Equal(99999);
             cb.query().addOrderBy_MemberId_Asc();
             cb.enablePagingCountLater();
             cb.paging(4, 1);
         }); // omit count
-
 
         // ## Assert ##
         assertEquals(0, page.size());
@@ -161,72 +122,45 @@ public class WxCBPagingBasicTest extends UnitContainerTestCase {
 
     public void test_paging_CountLater_nodata_thirdPage() {
         // ## Arrange ##
-        final Set<String> markSet = new HashSet<String>();
         PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
             /* ## Act ## */
-                @Override
-                public <ENTITY> PagingInvoker<ENTITY> createPagingInvoker(String tableDbName) {
-                    return new PagingInvoker<ENTITY>(tableDbName) {
-                        @Override
-                        protected int executeCount(PagingHandler<ENTITY> handler) {
-                            markSet.add("executeCount");
-                            return super.executeCount(handler);
-                        }
-    
-                        @Override
-                        protected PagingResultBean<ENTITY> reselect(PagingHandler<ENTITY> handler, PagingBean pagingBean,
-                                ResultBeanBuilder<ENTITY> builder, PagingResultBean<ENTITY> rb) {
-                            fail();
-                            return super.reselect(handler, pagingBean, builder, rb);
-                        }
-                    };
-                }
-            };
+            cb.xzenablePagingInvocationMarking();
+            cb.xzfailPagingReselect();
             cb.query().setMemberId_Equal(99999);
             cb.query().addOrderBy_MemberId_Asc();
             cb.enablePagingCountLater();
             cb.paging(4, 3);
+            pushCB(cb);
         });
-
 
         // ## Assert ##
         assertEquals(0, page.size());
-        assertTrue(markSet.contains("executeCount"));
-        assertFalse(markSet.contains("reselect"));
+        MemberCB cb = popCB();
+        assertTrue(cb.xzisPagingExecuteCountMarked());
+        assertFalse(cb.xzisPagingReselectMarked());
     }
 
     public void test_paging_CountLater_ReSelect_basic() {
         // ## Arrange ##
-        final Set<String> markSet = new HashSet<String>();
         PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
             /* ## Act ## */
-                @Override
-                public <ENTITY> PagingInvoker<ENTITY> createPagingInvoker(String tableDbName) {
-                    return new PagingInvoker<ENTITY>(tableDbName) {
-                        @Override
-                        protected PagingResultBean<ENTITY> reselect(PagingHandler<ENTITY> handler, PagingBean pagingBean,
-                                ResultBeanBuilder<ENTITY> builder, PagingResultBean<ENTITY> rb) {
-                            markSet.add("reselect");
-                            return super.reselect(handler, pagingBean, builder, rb);
-                        }
-                    };
-                }
-            };
+            cb.xzenablePagingInvocationMarking();
             cb.query().setMemberId_Equal(3);
             cb.query().addOrderBy_MemberId_Asc();
             cb.enablePagingCountLater();
             cb.paging(4, 3);
+            pushCB(cb);
         }); // re-select
-
 
         // ## Assert ##
         assertNotSame(0, page.size());
         assertEquals(1, page.size());
+        MemberCB cb = popCB();
         log("PagingResultBean.toString():" + ln() + " " + page);
         assertEquals(1, page.getAllRecordCount());
         assertEquals(1, page.getAllPageCount());
         assertEquals(Integer.valueOf(3), page.get(0).getMemberId());
-        assertTrue(markSet.contains("reselect"));
+        assertTrue(cb.xzisPagingReselectMarked());
     }
 
     // ===================================================================================
@@ -259,9 +193,8 @@ public class WxCBPagingBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         try {
             memberBhv.selectPage(cb -> {
-            /* ## Act ## */
-        });
-
+                /* ## Act ## */
+            });
 
             // ## Assert ##
             fail();

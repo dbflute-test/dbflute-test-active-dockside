@@ -62,10 +62,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
         // ## Arrange ##
         int countAll = memberBhv.selectCount(countCB -> {});
 
-        cb.query().setMemberStatusCode_Equal_AsMemberStatus(null);
-
         // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberStatusCode_Equal_AsMemberStatus(null);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -107,10 +107,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
         // ## Arrange ##
         int countAll = memberBhv.selectCount(countCB -> {});
 
-        cb.query().setMemberStatusCode_NotEqual_AsMemberStatus(null);
-
         // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberStatusCode_NotEqual_AsMemberStatus(null);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -170,10 +170,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
         // ## Arrange ##
         int countAll = memberBhv.selectCount(countCB -> {});
 
-        cb.query().setMemberStatusCode_InScope_AsMemberStatus(null);
-
         // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberStatusCode_InScope_AsMemberStatus(null);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -221,10 +221,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
         // ## Arrange ##
         int countAll = memberBhv.selectCount(countCB -> {});
 
-        cb.query().setMemberStatusCode_NotInScope_AsMemberStatus(null);
-
         // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberStatusCode_NotInScope_AsMemberStatus(null);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -269,10 +269,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
         // ## Arrange ##
         int countAll = memberLoginBhv.selectCount(countCB -> {});
 
-        cb.query().setMobileLoginFlg_Equal_AsFlg(null);
-
         // ## Act ##
-        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb);
+        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            cb.query().setMobileLoginFlg_Equal_AsFlg(null);
+        });
 
         // ## Assert ##
         assertHasAnyElement(loginList);
@@ -300,10 +300,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
         // ## Arrange ##
         int countAll = memberLoginBhv.selectCount(countCB -> {});
 
-        cb.query().setMobileLoginFlg_NotEqual_AsFlg(null);
-
         // ## Act ##
-        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb);
+        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            cb.query().setMobileLoginFlg_NotEqual_AsFlg(null);
+        });
 
         // ## Assert ##
         assertHasAnyElement(loginList);
@@ -350,10 +350,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
         // ## Arrange ##
         int countAll = memberLoginBhv.selectCount(countCB -> {});
 
-        cb.query().setMobileLoginFlg_InScope_AsFlg(null);
-
         // ## Act ##
-        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb);
+        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            cb.query().setMobileLoginFlg_InScope_AsFlg(null);
+        });
 
         // ## Assert ##
         assertHasAnyElement(loginList);
@@ -400,10 +400,10 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
         // ## Arrange ##
         int countAll = memberLoginBhv.selectCount(countCB -> {});
 
-        cb.query().setMobileLoginFlg_NotInScope_AsFlg(null);
-
         // ## Act ##
-        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb);
+        ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            cb.query().setMobileLoginFlg_NotInScope_AsFlg(null);
+        });
 
         // ## Assert ##
         assertHasAnyElement(loginList);

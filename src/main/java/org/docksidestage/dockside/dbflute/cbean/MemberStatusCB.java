@@ -31,16 +31,19 @@ import org.docksidestage.dockside.dbflute.cbean.cq.MemberStatusCQ;
  */
 public class MemberStatusCB extends BsMemberStatusCB {
 
-    protected boolean _shortCharHandlingIgnored;
+    // ===================================================================================
+    //                                                                   ShortCharHandling
+    //                                                                   =================
+    // internal manipulation for test (don't mimic it)
+    protected boolean _xzshortCharHandlingDisabled;
 
-    public void suppressShortCharHandling() {
-        _shortCharHandlingIgnored = true;
+    public void xzdisableShortCharHandling() {
+        _xzshortCharHandlingDisabled = true;
     }
 
     @Override
     protected MemberStatusCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        // internal manipulation (Don't mimic it)
-        if (_shortCharHandlingIgnored) {
+        if (_xzshortCharHandlingDisabled) {
             return new MemberStatusCQ(childQuery, sqlClause, aliasName, nestLevel) {
                 @Override
                 protected String hSC(String propertyName, String value, Integer size, String modeCode) {

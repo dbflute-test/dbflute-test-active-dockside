@@ -344,11 +344,11 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_performance_firstRelation() {
         // ## Arrange ##
+        long warmBefore = currentTimestamp().getTime();
         purchaseBhv.selectList(cb -> {
             cb.setupSelect_Member();
             cb.setupSelect_Product();
             cb.setupSelect_SummaryProduct();
-            long warmBefore = currentTimestamp().getTime();
         }); // warming up
 
         long warmAfter = currentTimestamp().getTime();
@@ -356,7 +356,11 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
         // ## Act ##
         long actBefore = currentTimestamp().getTime();
         for (int i = 0; i < 100; i++) {
-            purchaseBhv.selectList(cb);
+            purchaseBhv.selectList(cb -> {
+                cb.setupSelect_Member();
+                cb.setupSelect_Product();
+                cb.setupSelect_SummaryProduct();
+            });
         }
         long actAfter = currentTimestamp().getTime();
 
@@ -371,6 +375,7 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
 
     public void test_performance_onParadeRelation_basic() {
         // ## Arrange ##
+        long warmBefore = currentTimestamp().getTime();
         purchaseBhv.selectList(cb -> {
             cb.setupSelect_Member().withMemberStatus();
             cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
@@ -381,7 +386,6 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
             cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
             cb.setupSelect_Product().withProductCategory().withProductCategorySelf();
             cb.setupSelect_Product().withProductStatus();
-            long warmBefore = currentTimestamp().getTime();
         }); // warming up
 
         long warmAfter = currentTimestamp().getTime();
@@ -389,7 +393,17 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
         // ## Act ##
         long actBefore = currentTimestamp().getTime();
         for (int i = 0; i < 100; i++) {
-            purchaseBhv.selectList(cb);
+            purchaseBhv.selectList(cb -> {
+                cb.setupSelect_Member().withMemberStatus();
+                cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
+                cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
+                cb.setupSelect_Member().withMemberSecurityAsOne().withMember().withMemberStatus();
+                cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
+                cb.setupSelect_Member().withMemberWithdrawalAsOne().withMember();
+                cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
+                cb.setupSelect_Product().withProductCategory().withProductCategorySelf();
+                cb.setupSelect_Product().withProductStatus();
+            });
         }
         long actAfter = currentTimestamp().getTime();
 
@@ -402,10 +416,29 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
         // after : 00m02s100ms (00m00s500ms), 00m02s149ms (00m00s505ms), 00m02s136ms (00m00s499ms)
     }
 
+    @SuppressWarnings("deprecation")
     public void test_performance_onParade_disableCache() {
         // ## Arrange ##
+        long warmBefore = currentTimestamp().getTime();
         purchaseBhv.selectList(cb -> {
-            //cb.disableRelationMappingCache();
+            cb.disableRelationMappingCache();
+            cb.setupSelect_Member().withMemberStatus();
+            cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
+            cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
+            cb.setupSelect_Member().withMemberSecurityAsOne().withMember().withMemberStatus();
+            cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
+            cb.setupSelect_Member().withMemberWithdrawalAsOne().withMember();
+            cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
+            cb.setupSelect_Product().withProductCategory().withProductCategorySelf();
+            cb.setupSelect_Product().withProductStatus();
+        }); // warming up
+
+        long warmAfter = currentTimestamp().getTime();
+
+        // ## Act ##
+        long actBefore = currentTimestamp().getTime();
+        for (int i = 0; i < 100; i++) {
+            purchaseBhv.selectList(cb -> {
                 cb.setupSelect_Member().withMemberStatus();
                 cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
                 cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
@@ -415,15 +448,7 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
                 cb.setupSelect_Member().withMemberServiceAsOne().withServiceRank();
                 cb.setupSelect_Product().withProductCategory().withProductCategorySelf();
                 cb.setupSelect_Product().withProductStatus();
-                long warmBefore = currentTimestamp().getTime();
-            }); // warming up
-
-        long warmAfter = currentTimestamp().getTime();
-
-        // ## Act ##
-        long actBefore = currentTimestamp().getTime();
-        for (int i = 0; i < 100; i++) {
-            purchaseBhv.selectList(cb);
+            });
         }
         long actAfter = currentTimestamp().getTime();
 

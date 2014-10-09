@@ -47,7 +47,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                     }
                 }).equal(0);
                 pushCB(cb);
-            }); // expect no exception
+            }); // expects no exception
 
         }
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
@@ -57,7 +57,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                     subCB.specify().columnLoginDatetime();
                 }
             }, Member.ALIAS_latestLoginDatetime, op -> op.coalesce("1192-01-01"));
-            assertTrue(cb.toDisplaySql().contains("coalesce("));
+            assertTrue(popCB().toDisplaySql().contains("coalesce("));
             pushCB(cb);
         });
 
@@ -95,7 +95,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                     subCB.specify().columnPurchaseCount();
                 }
             }, Member.ALIAS_productKindCount, op -> op.round(0));
-            assertTrue(cb.toDisplaySql().contains("round("));
+            assertTrue(popCB().toDisplaySql().contains("round("));
             pushCB(cb);
         });
 
@@ -135,7 +135,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                     subCB.specify().columnPurchaseCount();
                 }
             }, Member.ALIAS_productKindCount, op -> op.trunc(0));
-            assertTrue(cb.toDisplaySql().contains("truncate("));
+            assertTrue(popCB().toDisplaySql().contains("truncate("));
             pushCB(cb);
         });
 
@@ -178,7 +178,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                 }
             }).convert(op -> op.truncMonth());
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -217,7 +217,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                 }
             }).convert(op -> op.truncDay());
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -251,7 +251,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                 }
             }).convert(op -> op.truncDay());
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -276,7 +276,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                 }
             }).convert(op -> op.truncTime());
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -378,7 +378,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                 }
             }, Member.ALIAS_latestLoginDatetime, op -> op.addMonth(1).truncDay().addDay(-1)); // means last_day
                 pushCB(cb);
-            }); // expect no exception
+            }); // expects no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -420,7 +420,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                     }, op -> op.addYear(-80).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50))
                             .lessThan(DfTypeUtil.toDate("1970/06/25"));
                     pushCB(cb);
-                }); // expect no exception
+                }); // expects no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -443,7 +443,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                 }
             }).convert(op -> op.addYear(10).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50));
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -469,7 +469,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                 }
             }).left().convert(op -> op.addYear(10).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50));
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -495,7 +495,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                 }
             }).plus(123).convert(op -> op.addDay(7).truncTime()).minus(789);
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -541,7 +541,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                 }
             }); // formatting check
                 pushCB(cb);
-            }); // expect no exception
+            }); // expects no exception
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();
@@ -576,7 +576,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                 }
             }).left().convert(op -> op.addDay(-3)).right().convert(op -> op.addDay(-3));
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());

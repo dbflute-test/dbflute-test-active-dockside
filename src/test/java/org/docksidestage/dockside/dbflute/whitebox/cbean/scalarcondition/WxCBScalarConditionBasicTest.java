@@ -96,7 +96,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(cb.toDisplaySql().contains(" = "));
+            assertTrue(popCB().toDisplaySql().contains(" = "));
         }
         {
             // ## Arrange ##
@@ -108,7 +108,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(cb.toDisplaySql().contains(" <> "));
+            assertTrue(popCB().toDisplaySql().contains(" <> "));
         }
         {
             // ## Arrange ##
@@ -120,7 +120,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(cb.toDisplaySql().contains(" > "));
+            assertTrue(popCB().toDisplaySql().contains(" > "));
         }
         {
             // ## Arrange ##
@@ -132,7 +132,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(cb.toDisplaySql().contains(" < "));
+            assertTrue(popCB().toDisplaySql().contains(" < "));
         }
         {
             // ## Arrange ##
@@ -144,7 +144,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(cb.toDisplaySql().contains(" >= "));
+            assertTrue(popCB().toDisplaySql().contains(" >= "));
         }
         {
             // ## Arrange ##
@@ -156,7 +156,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(cb.toDisplaySql().contains(" <= "));
+            assertTrue(popCB().toDisplaySql().contains(" <= "));
         }
     }
 
@@ -176,7 +176,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();

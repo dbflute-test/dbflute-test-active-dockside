@@ -110,19 +110,18 @@ public class WxCBInlineViewTest extends UnitContainerTestCase {
 
     public void test_inline_relation_InScopeRelation_basic() {
         // ## Arrange ##
-        int countAll = memberBhv.selectCount(cb -> {
-            pushCB(cb);
-        });
-
-        cb.query().queryMemberStatus().inline().setDisplayOrder_GreaterEqual(2);
-        cb.query().queryMemberStatus().inline().inScopeMemberLoginList(new SubQuery<MemberLoginCB>() {
-            public void query(MemberLoginCB subCB) {
-                subCB.query().setMobileLoginFlg_Equal_True();
-            }
-        });
+        int countAll = memberBhv.selectCount(cb -> {});
 
         // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().queryMemberStatus().inline().setDisplayOrder_GreaterEqual(2);
+            cb.query().queryMemberStatus().inline().inScopeMemberLoginList(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.query().setMobileLoginFlg_Equal_True();
+                }
+            });
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());

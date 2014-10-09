@@ -22,7 +22,7 @@ public class WxCBEmptyStringQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         cb.query().setMemberAccount_Equal("");
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertFalse(sql.contains(" dfloc.MEMBER_NAME = ''"));
         assertTrue(sql.contains(" dfloc.MEMBER_ACCOUNT = ''"));
@@ -44,7 +44,7 @@ public class WxCBEmptyStringQueryTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertFalse(sql.contains("PRODUCT_HANDLE_CODE = ''"));
         assertTrue(sql.contains("PRODUCT_STATUS_CODE = ''"));

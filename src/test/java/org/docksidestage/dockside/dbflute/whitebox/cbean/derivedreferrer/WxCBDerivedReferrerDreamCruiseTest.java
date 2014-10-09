@@ -88,7 +88,7 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
                 cb.paging(3, 1);
 
                 pushCB(cb);
-            }); // expect no exception
+            }); // expects no exception
 
             // ## Assert ##
             assertHasAnyElement(memberList);
@@ -202,7 +202,7 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
                 cb.paging(3, 1);
 
                 pushCB(cb);
-            }); // expect no exception
+            }); // expects no exception
 
             // ## Assert ##
             assertHasAnyElement(memberList);
@@ -310,7 +310,7 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
                 cb.paging(3, 1);
 
                 pushCB(cb);
-            }); // expect no exception
+            }); // expects no exception
 
             // ## Assert ##
             assertHasAnyElement(memberList);
@@ -713,7 +713,7 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
                 cb.query().addOrderBy_Birthdate_Desc();
                 cb.paging(3, 1);
                 pushCB(cb);
-            }); // expect no exception
+            }); // expects no exception
 
             // ## Assert ##
             assertHasAnyElement(memberList);

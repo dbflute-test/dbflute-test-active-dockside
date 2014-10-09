@@ -31,33 +31,33 @@ public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
     //                                                 -----
     public void test_checkNullOrEmptyQuery_basic() {
         // ## Arrange ##
-        try {
         Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             cb.query().setMemberId_Equal(null); // no exception
-            cb.query().setMemberName_LikeSearch("", op -> op.likePrefix()); // no exception
-            cb.checkNullOrEmptyQuery();
-                cb.query().setMemberId_Equal(null);
-    
-                // ## Assert ##
-                fail();
-            } catch (InvalidQueryRegisteredException e) {
-                // OK
-                log(e.getMessage());
-                assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_ID equal", "query()"));
-            }
-                cb.query().setMemberName_LikeSearch("", op -> op.likePrefix());
-    
-                fail();
-            } catch (InvalidQueryRegisteredException e) {
-                // OK
-                log(e.getMessage());
-                assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_NAME likeSearch", "query()"));
-            }
-            cb.query().setMemberId_Equal(3);
-            pushCB(cb);
-        });
+                cb.query().setMemberName_LikeSearch("", op -> op.likePrefix()); // no exception
+                cb.checkNullOrEmptyQuery();
+                try {
+                    cb.query().setMemberId_Equal(null);
 
+                    // ## Assert ##
+                    fail();
+                } catch (InvalidQueryRegisteredException e) {
+                    // OK
+                    log(e.getMessage());
+                    assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_ID equal", "query()"));
+                }
+                try {
+                    cb.query().setMemberName_LikeSearch("", op -> op.likePrefix());
+
+                    fail();
+                } catch (InvalidQueryRegisteredException e) {
+                    // OK
+                    log(e.getMessage());
+                    assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_NAME likeSearch", "query()"));
+                }
+                cb.query().setMemberId_Equal(3);
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertEquals(Integer.valueOf(3), actual.getMemberId());
@@ -65,33 +65,33 @@ public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
 
     public void test_checkInvalidQuery_basic() {
         // ## Arrange ##
-        try {
         Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             cb.query().setMemberId_Equal(null); // no exception
-            cb.query().setMemberName_LikeSearch("", op -> op.likePrefix()); // no exception
-            cb.checkInvalidQuery();
+                cb.query().setMemberName_LikeSearch("", op -> op.likePrefix()); // no exception
+                cb.checkInvalidQuery();
                 cb.query().setMemberId_Equal(null);
-    
-                // ## Assert ##
-                fail();
-            } catch (InvalidQueryRegisteredException e) {
-                // OK
-                log(e.getMessage());
-                assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_ID equal", "query()"));
-            }
-                cb.query().setMemberName_LikeSearch("", op -> op.likePrefix());
-    
-                fail();
-            } catch (InvalidQueryRegisteredException e) {
-                // OK
-                log(e.getMessage());
-                assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_NAME likeSearch", "query()"));
-            }
-            cb.query().setMemberId_Equal(3);
-            pushCB(cb);
-        });
 
+                try {
+                    // ## Assert ##
+                    fail();
+                } catch (InvalidQueryRegisteredException e) {
+                    // OK
+                    log(e.getMessage());
+                    assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_ID equal", "query()"));
+                }
+                cb.query().setMemberName_LikeSearch("", op -> op.likePrefix());
+
+                try {
+                    fail();
+                } catch (InvalidQueryRegisteredException e) {
+                    // OK
+                    log(e.getMessage());
+                    assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_NAME likeSearch", "query()"));
+                }
+                cb.query().setMemberId_Equal(3);
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertEquals(Integer.valueOf(3), actual.getMemberId());
@@ -105,9 +105,9 @@ public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.checkNullOrEmptyQuery();
         cb.query().setBirthdate_FromTo(DfTypeUtil.toDate("2006-09-26"), null, op -> op.compareAsDate()); // OK
-        assertTrue(Srl.contains(cb.toDisplaySql(), "2006-09-26"));
+        assertTrue(Srl.contains(popCB().toDisplaySql(), "2006-09-26"));
         cb.query().setBirthdate_FromTo(null, DfTypeUtil.toDate("2011-01-21"), op -> op.compareAsDate()); // OK
-        assertTrue(Srl.contains(cb.toDisplaySql(), "2011-01-22")); // added
+        assertTrue(Srl.contains(popCB().toDisplaySql(), "2011-01-22")); // added
 
         try {
             cb.query().setBirthdate_FromTo(null, null, op -> op.compareAsDate());
@@ -129,7 +129,7 @@ public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
         cb.checkNullOrEmptyQuery();
         LikeSearchOption option = new LikeSearchOption().splitByPipeLine();
         cb.query().setMemberName_LikeSearch("FOO|BAR||QUX", option); // OK
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsAll(sql, "FOO", "BAR", "QUX"));
         assertEquals(3, Srl.count(sql, " like "));
         log(ln() + sql);
@@ -205,36 +205,36 @@ public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
     //                                                                              ======
     public void test_ignoreNullOrEmptyQuery_basic() {
         // ## Arrange ##
-        try {
         Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             cb.query().setMemberId_Equal(null); // no exception
-            cb.query().setMemberName_LikeSearch("", op -> op.likePrefix()); // no exception
-            cb.checkInvalidQuery();
+                cb.query().setMemberName_LikeSearch("", op -> op.likePrefix()); // no exception
+                cb.checkInvalidQuery();
                 cb.query().setMemberId_Equal(null);
-    
-                // ## Assert ##
-                fail();
-            } catch (InvalidQueryRegisteredException e) {
-                // OK
-                log(e.getMessage());
-                assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_ID equal", "query()"));
-            }
-                cb.query().setMemberName_LikeSearch("", op -> op.likePrefix());
-    
-                fail();
-            } catch (InvalidQueryRegisteredException e) {
-                // OK
-                log(e.getMessage());
-                assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_NAME likeSearch", "query()"));
-            }
-            cb.ignoreNullOrEmptyQuery();
-            cb.query().setMemberId_Equal(null); // no exception
-            cb.query().setMemberName_LikeSearch("", op -> op.likePrefix()); // no exception
-            cb.query().setMemberId_Equal(3);
-            pushCB(cb);
-        });
 
+                // ## Assert ##
+                try {
+                    fail();
+                } catch (InvalidQueryRegisteredException e) {
+                    // OK
+                    log(e.getMessage());
+                    assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_ID equal", "query()"));
+                }
+                cb.query().setMemberName_LikeSearch("", op -> op.likePrefix());
+
+                try {
+                    fail();
+                } catch (InvalidQueryRegisteredException e) {
+                    // OK
+                    log(e.getMessage());
+                    assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_NAME likeSearch", "query()"));
+                }
+                cb.ignoreNullOrEmptyQuery();
+                cb.query().setMemberId_Equal(null); // no exception
+                cb.query().setMemberName_LikeSearch("", op -> op.likePrefix()); // no exception
+                cb.query().setMemberId_Equal(3);
+                pushCB(cb);
+            });
 
         // ## Assert ##
         assertEquals(Integer.valueOf(3), actual.getMemberId());
@@ -247,7 +247,7 @@ public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
         cb.ignoreNullOrEmptyQuery();
         cb.query().setBirthdate_FromTo(null, null, op -> op.compareAsDate());
 
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertNotContains(sql, "BIRTHDATE");
     }

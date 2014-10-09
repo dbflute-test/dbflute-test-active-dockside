@@ -64,11 +64,11 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.checkInvalidQuery();
-        cb.query().setMemberName_Equal(""); // expect no exception
+        cb.query().setMemberName_Equal(""); // expects no exception
 
         // ## Assert ##
-        assertTrue(Srl.contains(cb.toDisplaySql(), "MEMBER_NAME = ''"));
-        cb.enableEmptyStringQuery(); // expect no exception
+        assertTrue(Srl.contains(popCB().toDisplaySql(), "MEMBER_NAME = ''"));
+        cb.enableEmptyStringQuery(); // expects no exception
     }
 
     public void test_invalidQuery_emptyStringParameterAllowed_basic() throws Exception {
@@ -95,7 +95,7 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
             // OK
             log(e.getMessage());
         }
-        cb.checkInvalidQuery(); // expect no exception
+        cb.checkInvalidQuery(); // expects no exception
     }
 
     // ===================================================================================
@@ -123,7 +123,7 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
         member.setMemberStatusCode_Formalized();
 
         // ## Act & Assert ##
-        // expect no exception
+        // expects no exception
         memberBhv.insert(member);
         memberBhv.updateNonstrict(member);
         memberBhv.deleteNonstrict(member);
@@ -139,14 +139,14 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
         cal.set(Calendar.MILLISECOND, 123);
         MemberCB cb = new MemberCB();
         cb.query().setBirthdate_GreaterEqual(new Date(cal.getTimeInMillis()));
-        String beforeSql = cb.toDisplaySql();
+        String beforeSql = popCB().toDisplaySql();
         log(beforeSql);
         assertTrue(beforeSql.contains("'2008-06-15'"));
         try {
             DBFluteConfig.getInstance().unlock();
             DBFluteConfig.getInstance().setLogDatePattern("yyyy/MM/dd HH$mm$ss.SSS");
             // ## Act & Assert ##
-            String sql = cb.toDisplaySql();
+            String sql = popCB().toDisplaySql();
             log(sql);
             assertTrue("sql:\n" + sql, sql.contains("'2008/06/15 12$34$56.123'"));
         } finally {
@@ -162,14 +162,14 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
         cal.set(Calendar.MILLISECOND, 123);
         MemberCB cb = new MemberCB();
         cb.query().setBirthdate_GreaterEqual(new Date(cal.getTimeInMillis()));
-        String beforeSql = cb.toDisplaySql();
+        String beforeSql = popCB().toDisplaySql();
         log(beforeSql);
         assertTrue(beforeSql.contains("'2008-06-15'"));
         try {
             DBFluteConfig.getInstance().unlock();
             DBFluteConfig.getInstance().setLogDatePattern("date $df:{yyyy/MM/dd HH$mm$ss.SSS}");
             // ## Act & Assert ##
-            String sql = cb.toDisplaySql();
+            String sql = popCB().toDisplaySql();
             log(sql);
             assertTrue("sql:\n" + sql, sql.contains("date '2008/06/15 12$34$56.123'"));
         } finally {
@@ -185,14 +185,14 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
         cal.set(Calendar.MILLISECOND, 123);
         MemberCB cb = new MemberCB();
         cb.query().setRegisterDatetime_GreaterEqual(new Timestamp(cal.getTimeInMillis()));
-        String beforeSql = cb.toDisplaySql();
+        String beforeSql = popCB().toDisplaySql();
         log(beforeSql);
         assertTrue(beforeSql.contains("'2008-06-15 12:34:56.123'"));
         try {
             DBFluteConfig.getInstance().unlock();
             DBFluteConfig.getInstance().setLogTimestampPattern("yyyy/MM/dd HH-mm-ss.SSS");
             // ## Act & Assert ##
-            String sql = cb.toDisplaySql();
+            String sql = popCB().toDisplaySql();
             log(sql);
             assertTrue(sql.contains("'2008/06/15 12-34-56.123'"));
         } finally {
@@ -208,14 +208,14 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
         cal.set(Calendar.MILLISECOND, 123);
         MemberCB cb = new MemberCB();
         cb.query().setRegisterDatetime_GreaterEqual(new Timestamp(cal.getTimeInMillis()));
-        String beforeSql = cb.toDisplaySql();
+        String beforeSql = popCB().toDisplaySql();
         log(beforeSql);
         assertTrue(beforeSql.contains("'2008-06-15 12:34:56.123'"));
         try {
             DBFluteConfig.getInstance().unlock();
             DBFluteConfig.getInstance().setLogTimestampPattern("timestamp $df:{yyyy/MM/dd HH-mm-ss.SSS}");
             // ## Act & Assert ##
-            String sql = cb.toDisplaySql();
+            String sql = popCB().toDisplaySql();
             log(sql);
             assertTrue(sql.contains("timestamp '2008/06/15 12-34-56.123'"));
         } finally {

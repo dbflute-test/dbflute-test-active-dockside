@@ -172,9 +172,9 @@ public class VendorPlainTest extends UnitContainerTestCase {
 
         MemberStatus actual = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
-            cb.suppressShortCharHandling();
+            cb.xzdisableShortCharHandling();
             cb.query().setMemberStatusCode_Equal(code.trim());
-            assertTrue(cb.toDisplaySql().contains("'AB'"));
+            assertTrue(popCB().toDisplaySql().contains("'AB'"));
             pushCB(cb);
         });
 
@@ -313,7 +313,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
             ps.setInt(10, 3);
 
             // ## Assert ##
-            ps.execute(); // expect no exception
+            ps.execute(); // expects no exception
         } finally {
             if (ps != null) {
                 ps.close();

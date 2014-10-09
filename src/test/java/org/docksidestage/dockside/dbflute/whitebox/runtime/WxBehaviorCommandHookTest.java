@@ -48,10 +48,10 @@ public class WxBehaviorCommandHookTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_ConditionBean_selectList() {
         // ## Arrange ##
+        final List<String> markList = new ArrayList<String>();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
-            final List<String> markList = new ArrayList<String>();
             CallbackContext.setBehaviorCommandHookOnThread(new BehaviorCommandHook() {
                 public void hookBefore(BehaviorCommandMeta meta) {
                     assertEquals(MemberDbm.getInstance().getTableDbName(), meta.getTableDbName());
@@ -83,10 +83,10 @@ public class WxBehaviorCommandHookTest extends UnitContainerTestCase {
 
     public void test_ConditionBean_selectCount() {
         // ## Arrange ##
+        final List<String> markList = new ArrayList<String>();
         int count = memberBhv.selectCount(cb -> {
             /* ## Act ## */
             cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
-            final List<String> markList = new ArrayList<String>();
             CallbackContext.setBehaviorCommandHookOnThread(new BehaviorCommandHook() {
                 public void hookBefore(BehaviorCommandMeta meta) {
                     assertEquals(MemberDbm.getInstance().getTableDbName(), meta.getTableDbName());
@@ -118,12 +118,12 @@ public class WxBehaviorCommandHookTest extends UnitContainerTestCase {
 
     public void test_ConditionBean_queryUpdate() {
         // ## Arrange ##
+        final List<String> markList = new ArrayList<String>();
         Member member = new Member();
         member.setBirthdate(null);
         int count = memberBhv.queryUpdate(member, cb -> {
             /* ## Act ## */
             cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
-            final List<String> markList = new ArrayList<String>();
             CallbackContext.setBehaviorCommandHookOnThread(new BehaviorCommandHook() {
                 public void hookBefore(BehaviorCommandMeta meta) {
                     assertEquals(MemberDbm.getInstance().getTableDbName(), meta.getTableDbName());

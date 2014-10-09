@@ -18,7 +18,6 @@ import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.SummaryWithdrawalDbm;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
-import org.docksidestage.dockside.dbflute.cbean.SummaryWithdrawalCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.SummaryWithdrawalBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -142,41 +141,34 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
 
     public void test_UnionQuery_with_SpecifyColumn_selectListAndPage_basic() throws Exception {
         // ## Arrange ##
+        final String pkCol = MemberDbm.getInstance().columnMemberId().getColumnDbName();
+        final String specifiedCol = MemberDbm.getInstance().columnMemberName().getColumnDbName();
+        final String implicitCol = MemberDbm.getInstance().columnMemberStatusCode().getColumnDbName();
+        final String notCol = MemberDbm.getInstance().columnMemberAccount().getColumnDbName();
+        final Set<String> markSet = new HashSet<String>();
+        CallbackContext context = new CallbackContext();
+        context.setSqlLogHandler(new SqlLogHandler() {
+            public void handle(SqlLogInfo info) {
+                String displaySql = info.getDisplaySql();
+                if (displaySql.contains("count(*)")) {
+                    assertTrue(Srl.containsAll(displaySql, "count(*)", "union"));
+                    assertTrue(Srl.contains(displaySql, pkCol));
+                    assertTrue(Srl.contains(displaySql, specifiedCol));
+                    assertTrue(Srl.contains(displaySql, implicitCol));
+                    assertFalse(Srl.contains(displaySql, notCol));
+                    markSet.add("handle");
+                }
+            }
+        });
+        CallbackContext.setCallbackContextOnThread(context);
         try {
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
                 /* ## Act ## */
                 cb.setupSelect_MemberStatus();
                 cb.specify().columnMemberName();
                 cb.query().setMemberStatusCode_Equal_Provisional();
-                cb.union(new UnionQuery<MemberCB>() {
-                    public void query(MemberCB unionCB) {
-                        unionCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
-                    }
-                });
+                cb.union(unionCB -> unionCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix()));
                 cb.query().addOrderBy_MemberName_Desc();
-
-                final String pkCol = MemberDbm.getInstance().columnMemberId().getColumnDbName();
-                final String specifiedCol = MemberDbm.getInstance().columnMemberName().getColumnDbName();
-                final String implicitCol = MemberDbm.getInstance().columnMemberStatusCode().getColumnDbName();
-                final String notCol = MemberDbm.getInstance().columnMemberAccount().getColumnDbName();
-
-                final Set<String> markSet = new HashSet<String>();
-                CallbackContext context = new CallbackContext();
-                context.setSqlLogHandler(new SqlLogHandler() {
-                    public void handle(SqlLogInfo info) {
-                        String displaySql = info.getDisplaySql();
-                        if (displaySql.contains("count(*)")) {
-                            assertTrue(Srl.containsAll(displaySql, "count(*)", "union"));
-                            assertTrue(Srl.contains(displaySql, pkCol));
-                            assertTrue(Srl.contains(displaySql, specifiedCol));
-                            assertTrue(Srl.contains(displaySql, implicitCol));
-                            assertFalse(Srl.contains(displaySql, notCol));
-                            markSet.add("handle");
-                        }
-                    }
-                });
-
-                CallbackContext.setCallbackContextOnThread(context);
                 pushCB(cb);
             });
 
@@ -190,8 +182,14 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
             }
 
             // ## Act ##
-            cb.paging(5, 2);
-            PagingResultBean<Member> memberPage = memberBhv.selectPage(cb);
+            PagingResultBean<Member> memberPage = memberBhv.selectPage(cb -> {
+                cb.setupSelect_MemberStatus();
+                cb.specify().columnMemberName();
+                cb.query().setMemberStatusCode_Equal_Provisional();
+                cb.union(unionCB -> unionCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix()));
+                cb.query().addOrderBy_MemberName_Desc();
+                cb.paging(5, 2);
+            });
 
             // ## Assert ##
             assertTrue(Srl.containsAll(popCB().toDisplaySql(), pkCol, specifiedCol, implicitCol));
@@ -209,16 +207,7 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
 
     public void test_UnionQuery_with_SpecifyColumn_selectListAndPage_noPrimaryKey_basic() throws Exception {
         // ## Arrange ##
-        int countAll = summaryWithdrawalBhv.selectCount(cb -> {
-            pushCB(cb);
-        });
-
-        cb.specify().columnMemberName(); // all members have own different names
-        cb.union(new UnionQuery<SummaryWithdrawalCB>() {
-            public void query(SummaryWithdrawalCB unionCB) {
-            }
-        });
-        cb.query().addOrderBy_MemberName_Asc();
+        int countAll = summaryWithdrawalBhv.selectCount(cb -> {});
 
         final String specifiedCol = SummaryWithdrawalDbm.getInstance().columnMemberName().getColumnDbName();
         final String notCol = SummaryWithdrawalDbm.getInstance().columnWithdrawalDatetime().getColumnDbName();
@@ -240,7 +229,12 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
         CallbackContext.setCallbackContextOnThread(context);
         try {
             // ## Act ##
-            ListResultBean<SummaryWithdrawal> withdrawalList = summaryWithdrawalBhv.selectList(cb);
+            // all members have own different names
+            ListResultBean<SummaryWithdrawal> withdrawalList = summaryWithdrawalBhv.selectList(cb -> {
+                cb.specify().columnMemberName();
+                cb.union(unionCB -> {});
+                cb.query().addOrderBy_MemberName_Asc();
+            });
 
             // ## Assert ##
             assertEquals(withdrawalList.size(), countAll);
@@ -253,8 +247,12 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
             }
 
             // ## Act ##
-            cb.paging(2, 1);
-            PagingResultBean<SummaryWithdrawal> withdrawalPage = summaryWithdrawalBhv.selectPage(cb);
+            PagingResultBean<SummaryWithdrawal> withdrawalPage = summaryWithdrawalBhv.selectPage(cb -> {
+                cb.specify().columnMemberName();
+                cb.union(unionCB -> {});
+                cb.query().addOrderBy_MemberName_Asc();
+                cb.paging(2, 1);
+            });
 
             // ## Assert ##
             assertEquals(withdrawalPage.getAllRecordCount(), withdrawalList.size());
@@ -273,19 +271,15 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
 
     public void test_UnionQuery_with_SpecifyColumn_selectListAndPage_noPrimaryKey_distinct() throws Exception {
         // ## Arrange ##
-        int countAll = summaryWithdrawalBhv.selectCount(cb -> {
-            pushCB(cb);
-        });
-
-        cb.specify().columnMemberStatusCode(); // all members have the same status here
-        cb.union(new UnionQuery<SummaryWithdrawalCB>() {
-            public void query(SummaryWithdrawalCB unionCB) {
-            }
-        });
-        cb.query().addOrderBy_MemberStatusCode_Asc();
+        int countAll = summaryWithdrawalBhv.selectCount(cb -> {});
 
         // ## Act ##
-        ListResultBean<SummaryWithdrawal> withdrawalList = summaryWithdrawalBhv.selectList(cb);
+        // all members have the same status here
+        ListResultBean<SummaryWithdrawal> withdrawalList = summaryWithdrawalBhv.selectList(cb -> {
+            cb.specify().columnMemberStatusCode();
+            cb.union(unionCB -> {});
+            cb.query().addOrderBy_MemberStatusCode_Asc();
+        });
 
         // ## Assert ##
         assertTrue(withdrawalList.size() < countAll); // should have no duplicated record
@@ -300,8 +294,12 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        cb.paging(2, 1);
-        PagingResultBean<SummaryWithdrawal> withdrawalPage = summaryWithdrawalBhv.selectPage(cb);
+        PagingResultBean<SummaryWithdrawal> withdrawalPage = summaryWithdrawalBhv.selectPage(cb -> {
+            cb.specify().columnMemberStatusCode();
+            cb.union(unionCB -> {});
+            cb.query().addOrderBy_MemberStatusCode_Asc();
+            cb.paging(2, 1);
+        });
 
         // ## Assert ##
         // count-select in paging should get a corresponding count

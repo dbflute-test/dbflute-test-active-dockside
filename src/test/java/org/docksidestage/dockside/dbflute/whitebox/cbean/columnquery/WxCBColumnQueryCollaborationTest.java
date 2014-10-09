@@ -209,7 +209,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                     }
                 });
                 pushCB(cb);
-            }); // expect no exception
+            }); // expects no exception
 
         // ## Assert ##
         String displaySql = popCB().toDisplaySql();
@@ -299,7 +299,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                     }
                 });
                 pushCB(cb);
-            }); // expect no exception
+            }); // expects no exception
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();
@@ -334,7 +334,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -510,7 +510,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();
@@ -626,7 +626,6 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         try {
             // ## Arrange ##
             memberBhv.selectEntity(cb -> {
-                /* ## Act ## */
                 cb.columnQuery(new SpecifyQuery<MemberCB>() {
                     public void specify(MemberCB cb) {
                         cb.specify().columnFormalizedDatetime();
@@ -732,7 +731,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();

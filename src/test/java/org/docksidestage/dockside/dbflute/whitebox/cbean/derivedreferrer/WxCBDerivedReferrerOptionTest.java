@@ -38,7 +38,7 @@ public class WxCBDerivedReferrerOptionTest extends UnitContainerTestCase {
                         subCB.specify().columnLoginDatetime();
                     }
                 }).isNull();
-            }); // expect no exception
+            }); // expects no exception
 
         }
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
@@ -79,7 +79,7 @@ public class WxCBDerivedReferrerOptionTest extends UnitContainerTestCase {
                         subCB.specify().columnLoginDatetime();
                     }
                 }).isNull();
-            }); // expect no exception
+            }); // expects no exception
 
         }
         String coalesce = "foo')); select * from MEMBER";
@@ -90,7 +90,7 @@ public class WxCBDerivedReferrerOptionTest extends UnitContainerTestCase {
                     subCB.specify().columnLoginMemberStatusCode();
                 }
             }, Member.ALIAS_loginCount, op -> op.coalesce(coalesce));
-            // expect no exception if the value is treated as bind-parameter
+            // expects no exception if the value is treated as bind-parameter
             });
 
         // ## Assert ##

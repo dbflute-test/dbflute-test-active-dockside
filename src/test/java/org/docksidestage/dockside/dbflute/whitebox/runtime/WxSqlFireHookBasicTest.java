@@ -58,11 +58,11 @@ public class WxSqlFireHookBasicTest extends UnitContainerTestCase {
     //                                                                              ======
     public void test_SqlFireHook_executeQuery_select_basic() {
         // ## Arrange ##
+        final Set<String> displaySqlSet = new HashSet<String>();
+        final Set<String> markSet = new HashSet<String>();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
-            final Set<String> displaySqlSet = new HashSet<String>();
-            final Set<String> markSet = new HashSet<String>();
             CallbackContext.setSqlFireHookOnThread(new SqlFireHook() {
                 public void hookBefore(BehaviorCommandMeta meta, SqlFireReadyInfo fireReadyInfo) {
                     markSet.add("hookBefore");
@@ -111,11 +111,11 @@ public class WxSqlFireHookBasicTest extends UnitContainerTestCase {
 
     public void test_SqlFireHook_executeQuery_select_cursor() {
         // ## Arrange ##
+        final Set<String> displaySqlSet = new HashSet<String>();
+        final Set<String> markSet = new HashSet<String>();
         memberBhv.selectCursor(cb -> {
             /* ## Act ## */
             cb.query().setMemberId_Equal(3);
-            final Set<String> displaySqlSet = new HashSet<String>();
-            final Set<String> markSet = new HashSet<String>();
             CallbackContext.setSqlFireHookOnThread(new SqlFireHook() {
                 int number = 0;
 

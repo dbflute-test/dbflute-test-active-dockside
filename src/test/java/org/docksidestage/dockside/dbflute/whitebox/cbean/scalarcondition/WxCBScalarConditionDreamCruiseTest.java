@@ -31,7 +31,7 @@ public class WxCBScalarConditionDreamCruiseTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();
@@ -53,7 +53,7 @@ public class WxCBScalarConditionDreamCruiseTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();

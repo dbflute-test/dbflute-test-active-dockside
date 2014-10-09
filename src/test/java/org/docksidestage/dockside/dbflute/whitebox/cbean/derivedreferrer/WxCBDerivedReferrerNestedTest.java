@@ -150,7 +150,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         assertNotSame(0, statusList.size());
@@ -193,7 +193,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         assertNotSame(0, statusList.size());
@@ -231,7 +231,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                 }
             }, MemberStatus.ALIAS_maxPurchasePrice);
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();
@@ -268,7 +268,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                 }
             }, MemberStatus.ALIAS_maxPurchasePrice);
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();
@@ -311,7 +311,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                 }
             }, MemberStatus.ALIAS_maxPurchasePrice);
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();
@@ -355,7 +355,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                 }
             }, Member.ALIAS_loginCount);
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         // select dfloc.MEMBER_ID as MEMBER_ID, dfloc.MEMBER_NAME as MEMBER_NAME, dfloc.MEMBER_ACCOUNT as MEMBER_ACCOUNT, dfloc.MEMBER_STATUS_CODE as MEMBER_STATUS_CODE, dfloc.FORMALIZED_DATETIME as FORMALIZED_DATETIME, dfloc.BIRTHDATE as BIRTHDATE, dfloc.REGISTER_DATETIME as REGISTER_DATETIME, dfloc.REGISTER_USER as REGISTER_USER, dfloc.UPDATE_DATETIME as UPDATE_DATETIME, dfloc.UPDATE_USER as UPDATE_USER, dfloc.VERSION_NO as VERSION_NO

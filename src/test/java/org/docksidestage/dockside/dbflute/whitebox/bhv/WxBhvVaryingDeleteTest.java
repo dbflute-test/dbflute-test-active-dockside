@@ -35,7 +35,9 @@ public class WxBhvVaryingDeleteTest extends UnitContainerTestCase {
         purchaseBhv.varyingBatchDelete(purchaseList, op -> {});
 
         // ## Assert ##
-        List<Purchase> actualList = purchaseBhv.selectList(cb);
+        List<Purchase> actualList = purchaseBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(1, 3, 7));
+        });
         assertEquals(0, actualList.size());
     }
 
@@ -80,7 +82,9 @@ public class WxBhvVaryingDeleteTest extends UnitContainerTestCase {
         purchaseBhv.varyingBatchDeleteNonstrict(purchaseList, op -> {});
 
         // ## Assert ##
-        List<Purchase> actualList = purchaseBhv.selectList(cb);
+        List<Purchase> actualList = purchaseBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(1, 3, 7));
+        });
         assertEquals(0, actualList.size());
     }
 }

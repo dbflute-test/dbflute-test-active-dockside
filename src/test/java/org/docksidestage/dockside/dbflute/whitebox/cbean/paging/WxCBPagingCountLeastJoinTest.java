@@ -87,8 +87,8 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             countAll = memberBhv.selectCount(cb -> {
                 cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
             });
-
         }
+        List<String> displaySqlList = setupSqlLogHandler();
         PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
@@ -99,7 +99,6 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.disablePagingCountLater();
             cb.paging(2, 3);
 
-            List<String> displaySqlList = setupSqlLogHandler();
         });
 
         // ## Assert ##
@@ -123,8 +122,8 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             countAll = memberBhv.selectCount(cb -> {
                 cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
             });
-
         }
+        List<String> displaySqlList = setupSqlLogHandler();
         PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
@@ -134,8 +133,6 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.disablePagingCountLater();
             cb.disablePagingCountLeastJoin();
             cb.paging(2, 3);
-
-            List<String> displaySqlList = setupSqlLogHandler();
         });
 
         // ## Assert ##
@@ -162,8 +159,8 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             countAll = memberBhv.selectCount(cb -> {
                 cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
             });
-
         }
+        List<String> displaySqlList = setupSqlLogHandler();
         PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
             /* ## Act ## */
             cb.enableInnerJoinAutoDetect();
@@ -174,8 +171,6 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.enablePagingCountLater();
             cb.enablePagingCountLeastJoin();
             cb.paging(2, 3);
-
-            List<String> displaySqlList = setupSqlLogHandler();
         });
 
         // ## Assert ##
@@ -199,8 +194,8 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             countAll = memberBhv.selectCount(cb -> {
                 cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
             });
-
         }
+        List<String> displaySqlList = setupSqlLogHandler();
         PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
             /* ## Act ## */
             cb.getSqlClause().disableInnerJoinAutoDetect();
@@ -211,8 +206,6 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.enablePagingCountLater();
             cb.enablePagingCountLeastJoin();
             cb.paging(2, 3);
-
-            List<String> displaySqlList = setupSqlLogHandler();
         });
 
         // ## Assert ##
@@ -236,8 +229,8 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             countAll = memberBhv.selectCount(cb -> {
                 cb.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().setDisplayOrder_Equal(1);
             });
-
         }
+        List<String> displaySqlList = setupSqlLogHandler();
         PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
             /* ## Act ## */
             cb.enableInnerJoinAutoDetect();
@@ -248,8 +241,6 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.enablePagingCountLater();
             cb.enablePagingCountLeastJoin();
             cb.paging(2, 3);
-
-            List<String> displaySqlList = setupSqlLogHandler();
         });
 
         // ## Assert ##
@@ -273,8 +264,8 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             countAll = memberBhv.selectCount(cb -> {
                 cb.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().setDisplayOrder_Equal(1);
             });
-
         }
+        List<String> displaySqlList = setupSqlLogHandler();
         PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
             /* ## Act ## */
             cb.getSqlClause().disableInnerJoinAutoDetect();
@@ -285,8 +276,6 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.enablePagingCountLater();
             cb.enablePagingCountLeastJoin();
             cb.paging(2, 3);
-
-            List<String> displaySqlList = setupSqlLogHandler();
         });
 
         // ## Assert ##
@@ -309,6 +298,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
     public void test_CountLeastJoin_union() {
         // ## Arrange ##
         int countAll = memberBhv.selectCount(countCB -> {});
+        List<String> displaySqlList = setupSqlLogHandler();
         PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
@@ -321,8 +311,6 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.enablePagingCountLater();
             cb.enablePagingCountLeastJoin();
             cb.paging(4, 3);
-
-            List<String> displaySqlList = setupSqlLogHandler();
         });
 
         // ## Assert ##
@@ -349,6 +337,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_CountLeastJoin_ColumnQuery_innerJoinAutoDetect() {
         // ## Arrange ##
+        List<String> displaySqlList = setupSqlLogHandler();
         PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
             /* ## Act ## */
             cb.enableInnerJoinAutoDetect();
@@ -368,8 +357,6 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.enablePagingCountLater();
             cb.enablePagingCountLeastJoin();
             cb.paging(4, 3);
-
-            List<String> displaySqlList = setupSqlLogHandler();
         });
 
         // ## Assert ##
@@ -389,6 +376,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
 
     public void test_CountLeastJoin_ColumnQuery_leftOuterJoinBasis() {
         // ## Arrange ##
+        List<String> displaySqlList = setupSqlLogHandler();
         PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
             /* ## Act ## */
             cb.getSqlClause().disableInnerJoinAutoDetect();
@@ -408,8 +396,6 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.enablePagingCountLater();
             cb.enablePagingCountLeastJoin();
             cb.paging(4, 3);
-
-            List<String> displaySqlList = setupSqlLogHandler();
         });
 
         // ## Assert ##
@@ -432,6 +418,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
     //                                                                            ========
     public void test_CountLeastJoin_ExistsReferrer() {
         // ## Arrange ##
+        List<String> displaySqlList = setupSqlLogHandler();
         PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
             /* ## Act ## */
             cb.enableInnerJoinAutoDetect();
@@ -446,8 +433,6 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.enablePagingCountLater();
             cb.enablePagingCountLeastJoin();
             cb.paging(4, 3);
-
-            List<String> displaySqlList = setupSqlLogHandler();
         });
 
         // ## Assert ##
@@ -467,6 +452,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
 
     public void test_CountLeastJoin_QueryDerivedReferrer() {
         // ## Arrange ##
+        List<String> displaySqlList = setupSqlLogHandler();
         PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
             /* ## Act ## */
             cb.enableInnerJoinAutoDetect();
@@ -482,8 +468,6 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.enablePagingCountLater();
             cb.enablePagingCountLeastJoin();
             cb.paging(4, 3);
-
-            List<String> displaySqlList = setupSqlLogHandler();
         });
 
         // ## Assert ##
@@ -503,6 +487,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
 
     public void test_CountLeastJoin_SpecifyDerivedReferrer() {
         // ## Arrange ##
+        List<String> displaySqlList = setupSqlLogHandler();
         PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
@@ -518,8 +503,6 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.enablePagingCountLater();
             cb.enablePagingCountLeastJoin();
             cb.paging(4, 3);
-
-            List<String> displaySqlList = setupSqlLogHandler();
         });
 
         // ## Assert ##

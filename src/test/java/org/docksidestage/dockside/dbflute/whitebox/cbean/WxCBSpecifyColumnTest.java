@@ -190,12 +190,12 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
     //                                                                        ============
     public void test_SpecifyColumn_selectCount_basic() {
         // ## Arrange ##
+        final Set<String> markSet = new HashSet<String>();
         int countAll = memberBhv.selectCount(countCB -> {});
         try {
             int count = memberBhv.selectCount(cb -> {
                 /* ## Act ## */
                 cb.specify().columnMemberName();
-                final Set<String> markSet = new HashSet<String>();
                 CallbackContext context = new CallbackContext();
                 context.setSqlLogHandler(new SqlLogHandler() {
                     public void handle(SqlLogInfo info) {
@@ -222,6 +222,7 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
 
     public void test_SpecifyColumn_selectCount_with_UnionQuery_basic() {
         // ## Arrange ##
+        final Set<String> markSet = new HashSet<String>();
         int countAll = memberBhv.selectCount(countCB -> {});
         try {
             int count = memberBhv.selectCount(cb -> {
@@ -231,7 +232,6 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
                     public void query(MemberCB unionCB) {
                     }
                 });
-                final Set<String> markSet = new HashSet<String>();
                 CallbackContext context = new CallbackContext();
                 context.setSqlLogHandler(new SqlLogHandler() {
                     public void handle(SqlLogInfo info) {
@@ -258,6 +258,7 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
 
     public void test_SpecifyColumn_selectCount_with_UnionQuery_noPrimaryKey() {
         // ## Arrange ##
+        final Set<String> markSet = new HashSet<String>();
         int countAll = summaryWithdrawalBhv.selectCount(countCB -> {});
         try {
             int count = summaryWithdrawalBhv.selectCount(cb -> {
@@ -267,7 +268,6 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
                     public void query(SummaryWithdrawalCB unionCB) {
                     }
                 });
-                final Set<String> markSet = new HashSet<String>();
                 CallbackContext context = new CallbackContext();
                 context.setSqlLogHandler(new SqlLogHandler() {
                     public void handle(SqlLogInfo info) {
@@ -624,7 +624,7 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
             cb.specify().columnMemberName();
-            try {
+        try {
                 cb.specify().exceptRecordMetaColumn();
 
                 // ## Assert ##
@@ -638,7 +638,7 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
             // ## Arrange ##
             MemberCB cb = new MemberCB();
             cb.specify().exceptRecordMetaColumn();
-            try {
+        try {
                 cb.specify().columnMemberName();
 
                 // ## Assert ##

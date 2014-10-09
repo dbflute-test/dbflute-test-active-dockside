@@ -185,14 +185,18 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         {
-            MemberLoginCB actualCB = new MemberLoginCB();
-            actualCB.query().setMemberId_Equal(3);
-            assertEquals(0, memberLoginBhv.selectCount(actualCB));
+            assertEquals(0, memberLoginBhv.selectCount(actualCB -> {
+                actualCB.query().setMemberId_Equal(3);
+            pushCB(actualCB);
+        }));
+
         }
         {
-            MemberLoginCB actualCB = new MemberLoginCB();
-            actualCB.query().setMemberId_Equal(5);
-            assertNotSame(0, memberLoginBhv.selectCount(actualCB));
+            assertNotSame(0, memberLoginBhv.selectCount(actualCB -> {
+                actualCB.query().setMemberId_Equal(5);
+            pushCB(actualCB);
+        }));
+
         }
     }
 
@@ -263,7 +267,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
-                try {
+        try {
                     subCB.setupSelect_Member();
 
                     // ## Assert ##
@@ -272,7 +276,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
                     // OK
                     log(e.getMessage());
                 }
-                try {
+        try {
                     subCB.specify();
 
                     // ## Assert ##
@@ -281,7 +285,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
                     // OK
                     log(e.getMessage());
                 }
-                try {
+        try {
                     subCB.query().addOrderBy_MemberId_Asc();
 
                     // ## Assert ##

@@ -40,8 +40,10 @@ public class WxCBVariousOptionTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        cb.fetchFirst(3);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.checkSafetyResult(3);
+            cb.fetchFirst(3);
+        });
 
         // ## Assert ##
         assertEquals(3, memberList.size());
@@ -66,8 +68,11 @@ public class WxCBVariousOptionTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        cb.query().setMemberId_Equal(3);
-        PagingResultBean<Member> memberPage = memberBhv.selectPage(cb);
+        PagingResultBean<Member> memberPage = memberBhv.selectPage(cb -> {
+            cb.checkSafetyResult(3);
+            cb.query().setMemberId_Equal(3);
+            cb.paging(2, 2);
+        });
 
         // ## Assert ##
         assertEquals(1, memberPage.size());

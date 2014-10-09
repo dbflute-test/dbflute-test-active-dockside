@@ -173,7 +173,7 @@ public class VendorCheckTest extends UnitContainerTestCase {
                 cb.query().setMemberName_LikeSearch(keyword, option);
                 // - - - - - - - - - -/
 
-                String displaySql = cb.toDisplaySql();
+                String displaySql = popCB().toDisplaySql();
                 assertTrue(displaySql.contains("100％ジュース||和歌山＿テ"));
                 pushCB(cb);
             });

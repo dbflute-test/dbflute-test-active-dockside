@@ -107,7 +107,7 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(cb.toDisplaySql().contains(" = "));
+            assertTrue(popCB().toDisplaySql().contains(" = "));
         }
         {
             // ## Arrange ##
@@ -123,7 +123,7 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(cb.toDisplaySql().contains(" <> "));
+            assertTrue(popCB().toDisplaySql().contains(" <> "));
         }
         {
             // ## Arrange ##
@@ -139,7 +139,7 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(cb.toDisplaySql().contains(" > "));
+            assertTrue(popCB().toDisplaySql().contains(" > "));
         }
         {
             // ## Arrange ##
@@ -155,7 +155,7 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(cb.toDisplaySql().contains(" < "));
+            assertTrue(popCB().toDisplaySql().contains(" < "));
         }
         {
             // ## Arrange ##
@@ -171,7 +171,7 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(cb.toDisplaySql().contains(" >= "));
+            assertTrue(popCB().toDisplaySql().contains(" >= "));
         }
         {
             // ## Arrange ##
@@ -187,7 +187,7 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(cb.toDisplaySql().contains(" <= "));
+            assertTrue(popCB().toDisplaySql().contains(" <= "));
         }
     }
 

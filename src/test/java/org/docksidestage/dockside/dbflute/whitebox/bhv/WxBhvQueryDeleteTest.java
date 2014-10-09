@@ -61,20 +61,20 @@ public class WxBhvQueryDeleteTest extends UnitContainerTestCase {
         deleteMemberReferrer();
         int countAll = memberBhv.selectCount(countCB -> {});
 
-        cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.union(new UnionQuery<MemberCB>() {
-            public void query(MemberCB unionCB) {
-                unionCB.query().setMemberStatusCode_Equal_Provisional();
-            }
-        });
-        cb.union(new UnionQuery<MemberCB>() {
-            public void query(MemberCB unionCB) {
-                unionCB.query().setMemberStatusCode_Equal_Withdrawal();
-            }
-        });
-
         // ## Act ##
-        int deleted = memberBhv.queryDelete(cb);
+        int deleted = memberBhv.queryDelete(cb -> {
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.union(new UnionQuery<MemberCB>() {
+                public void query(MemberCB unionCB) {
+                    unionCB.query().setMemberStatusCode_Equal_Provisional();
+                }
+            });
+            cb.union(new UnionQuery<MemberCB>() {
+                public void query(MemberCB unionCB) {
+                    unionCB.query().setMemberStatusCode_Equal_Withdrawal();
+                }
+            });
+        });
 
         // ## Assert ##
         assertEquals(countAll, deleted);

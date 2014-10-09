@@ -18,6 +18,6 @@ public class WxBehaviorSelectorTest extends UnitContainerTestCase {
     //                                                   initializeConditionBeanMetaData()
     //                                                   =================================
     public void test_behaviorSelector_basic() {
-        behaviorSelector.initializeConditionBeanMetaData(); // expect no exception
+        behaviorSelector.initializeConditionBeanMetaData(); // expects no exception
     }
 }

@@ -179,9 +179,9 @@ public class WxParameterCommentTest extends UnitContainerTestCase {
         // ## Act & Assert ##
         int pageSize = 3;
         pmb.paging(pageSize, 1); // 1st page
-        memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType); // expect no exception
+        memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType); // expects no exception
         pmb.setMemberNameList_PrefixSearch(DfCollectionUtil.newArrayList(";select * from PURCHASE", "''"));
-        memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType); // expect no exception
+        memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType); // expects no exception
     }
 
     // ===================================================================================
@@ -206,7 +206,7 @@ public class WxParameterCommentTest extends UnitContainerTestCase {
 
         try {
             // ## Act ##
-            memberBhv.outsideSql().selectList(pmb); // expect no exception
+            memberBhv.outsideSql().selectList(pmb); // expects no exception
             assertTrue(markSet.contains("handle"));
         } finally {
             CallbackContext.clearCallbackContextOnThread();

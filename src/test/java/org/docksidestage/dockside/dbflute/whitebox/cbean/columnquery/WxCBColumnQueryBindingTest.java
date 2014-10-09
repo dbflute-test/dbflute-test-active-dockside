@@ -50,7 +50,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         String displaySql = popCB().toDisplaySql();
 
@@ -82,7 +82,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         String displaySql = popCB().toDisplaySql();
 
@@ -111,7 +111,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         String displaySql = popCB().toDisplaySql();
 
@@ -140,7 +140,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         String displaySql = popCB().toDisplaySql();
 
@@ -177,7 +177,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
             });
             log(ln() + cb.getSqlClause().getClause());
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         String displaySql = popCB().toDisplaySql();
 
@@ -210,7 +210,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         String displaySql = popCB().toDisplaySql();
 
@@ -272,7 +272,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         String displaySql = popCB().toDisplaySql();
 
@@ -312,7 +312,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         String displaySql = popCB().toDisplaySql();
 
@@ -351,7 +351,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             }, ServiceRank.ALIAS_loginCount);
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         String displaySql = popCB().toDisplaySql();
 
@@ -472,7 +472,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             });
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         String displaySql = popCB().toDisplaySql();
 

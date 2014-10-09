@@ -54,8 +54,9 @@ public abstract class UnitContainerTestCase extends ContainerTestCase {
         _cbStack.push(cb);
     }
 
-    protected ConditionBean popCB() {
-        return _cbStack.pop();
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> CB popCB() {
+        return (CB) _cbStack.pop();
     }
 
     // ===================================================================================

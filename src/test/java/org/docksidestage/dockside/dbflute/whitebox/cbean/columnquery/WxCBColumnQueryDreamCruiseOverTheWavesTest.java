@@ -185,7 +185,7 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
                 }
             }).multiply(5);
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();
@@ -214,7 +214,7 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
                 }
             }).multiply(5);
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();

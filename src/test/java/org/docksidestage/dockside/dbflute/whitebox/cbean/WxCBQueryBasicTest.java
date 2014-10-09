@@ -133,7 +133,7 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
                 orCB.query().setMemberId_Equal(88);
             }
         });
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
 
         // ## Assert ##
         log(ln() + sql);
@@ -197,7 +197,7 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
         cb.query().setMemberName_LikeSearch("A", op -> op.likePrefix());
         cb.query().inline().setMemberName_LikeSearch("B", op -> op.likePrefix());
         cb.query().setMemberName_LikeSearch("C", op -> op.likePrefix());
-        String actual = cb.toDisplaySql();
+        String actual = popCB().toDisplaySql();
 
         // ## Assert ##
         log(ln() + actual);
@@ -236,7 +236,7 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
         cb.query().setBirthdate_FromTo(null, null, new FromToOption());
 
         // ## Assert ##
-        String actual = cb.toDisplaySql();
+        String actual = popCB().toDisplaySql();
         log(ln() + actual);
         assertFalse(actual.contains("where"));
         assertFalse(actual, cb.hasWhereClauseOnBaseQuery());
@@ -261,9 +261,9 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
     public void test_query_Date_keepPlain_Timestamp() {
         // ## Arrange ##
         String expected = "2010/07/08 12:34:56.123";
+        Date current = DfTypeUtil.toTimestamp(expected);
         memberBhv.selectList(cb -> {
             /* ## Act ## */
-            Date current = DfTypeUtil.toTimestamp(expected);
             cb.query().setBirthdate_Equal(current);
             pushCB(cb);
         });
@@ -277,10 +277,10 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
     public void test_query_Date_DateFromTo_keepPlain() {
         // ## Arrange ##
         String expected = "2010/07/08 12:34:56.123";
+        Date fromDate = DfTypeUtil.toDate(expected);
+        Date toDate = DfTypeUtil.toDate(expected);
         memberBhv.selectList(cb -> {
             /* ## Act ## */
-            Date fromDate = DfTypeUtil.toDate(expected);
-            Date toDate = DfTypeUtil.toDate(expected);
             cb.query().setBirthdate_FromTo(fromDate, toDate, op -> op.compareAsDate());
             pushCB(cb);
         });

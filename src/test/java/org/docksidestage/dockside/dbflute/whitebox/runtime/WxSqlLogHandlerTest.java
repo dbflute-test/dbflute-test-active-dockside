@@ -51,10 +51,10 @@ public class WxSqlLogHandlerTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_ConditionBean_selectList() {
         // ## Arrange ##
+        final List<String> displaySqlList = newArrayList();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
-            final List<String> displaySqlList = newArrayList();
             CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
                 public void handle(SqlLogInfo info) {
                     assertTrue(info.getMeta().isConditionBean());

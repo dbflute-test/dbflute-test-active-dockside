@@ -189,7 +189,7 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
                 }
             }).greaterEqual(1);
             pushCB(cb);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Assert ##
         /*

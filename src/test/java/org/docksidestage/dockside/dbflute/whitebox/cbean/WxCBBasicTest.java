@@ -266,12 +266,13 @@ public class WxCBBasicTest extends UnitContainerTestCase {
         int allCount = memberBhv.selectCount(countCB -> {});
         memberBhv.selectList(cb -> {
             cb.checkSafetyResult(allCount);
-        }); // expect no exception
+        }); // expects no exception
 
         // ## Act ##
-        cb.checkSafetyResult(allCount - 1);
         try {
-            memberBhv.selectList(cb);
+            memberBhv.selectList(cb -> {
+                cb.checkSafetyResult(allCount - 1);
+            });
 
             // ## Assert ##
             fail();
@@ -331,14 +332,12 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     //                                                                      ==============
     public void test_relationCache() {
         // ## Arrange ##
-            ListResultBean<Member> list = memberBhv.selectList(cb -> {
+        ListResultBean<Member> list = memberBhv.selectList(cb -> {
             cb.setupSelect_MemberStatus();
             cb.query().setMemberStatusCode_Equal_Formalized();
-    
-            // ## Act & Assert ##
-            {
         });
-
+        // ## Act & Assert ##
+        {
             MemberStatus memberStatus1 = list.get(0).getMemberStatus();
             MemberStatus memberStatus2 = list.get(1).getMemberStatus();
             assertEquals(memberStatus1, memberStatus2);
@@ -347,7 +346,10 @@ public class WxCBBasicTest extends UnitContainerTestCase {
         }
         {
             final Set<String> markSet = new HashSet<String>();
-            memberBhv.selectCursor(cb, new EntityRowHandler<Member>() {
+            memberBhv.selectCursor(cb -> {
+                cb.setupSelect_MemberStatus();
+                cb.query().setMemberStatusCode_Equal_Formalized();
+            }, new EntityRowHandler<Member>() {
                 MemberStatus memberStatus1;
                 int index = 0;
 

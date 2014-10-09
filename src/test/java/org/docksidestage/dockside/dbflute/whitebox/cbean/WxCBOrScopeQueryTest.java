@@ -94,18 +94,16 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
     public void test_orScopeQuery_nothing() {
         // ## Arrange ##
-        int countAll = memberBhv.selectCount(cb -> {
-            pushCB(cb);
-        });
-
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberName_PrefixSearch(null);
-            }
-        });
+        int countAll = memberBhv.selectCount(cb -> {});
 
         // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberName_PrefixSearch(null);
+                }
+            });
+        });
 
         // ## Assert ##
         for (Member member : memberList) {
@@ -385,7 +383,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                 });
             }
         });
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
 
         // ## Assert ##
         log(sql);
@@ -425,7 +423,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                 });
             }
         });
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
 
         // ## Assert ##
         log(sql);
@@ -467,7 +465,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                 orCB.query().setBirthdate_IsNotNull(); // ignored
             }
         });
-        String sql = cb.toDisplaySql();
+        String sql = popCB().toDisplaySql();
 
         // ## Assert ##
         log(ln() + sql);
@@ -533,7 +531,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            log(ln() + cb.toDisplaySql());
+            log(ln() + popCB().toDisplaySql());
             fail();
         } catch (OrScopeQueryAndPartUnsupportedOperationException e) {
             // OK
@@ -654,7 +652,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
             // ## Act & Assert ##
                 pushCB(cb);
-            }); // expect no exception
+            }); // expects no exception
 
         String displaySql = popCB().toDisplaySql();
         assertTrue(displaySql.contains("'OR%'"));
@@ -709,7 +707,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
             // ## Assert ##
                 pushCB(cb);
-            }); // expect no exception
+            }); // expects no exception
 
         // until Java8
         //try {

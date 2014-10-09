@@ -41,7 +41,7 @@ public class VendorTrickyTest extends UnitContainerTestCase {
         vendorPrimaryKeyOnlyBhv.insert(pkOnly);
 
         // ## Assert ##
-        vendorPrimaryKeyOnlyBhv.selectByPKValueWithDeletedCheck(99999L); // expect no exception
+        vendorPrimaryKeyOnlyBhv.selectByPKValueWithDeletedCheck(99999L); // expects no exception
     }
 
     // ===================================================================================

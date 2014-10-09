@@ -274,9 +274,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberBhv.varyingBatchUpdate(memberList, op -> op.xallowUpdateColumnModifiedPropertiesFragmented());
 
         // ## Assert ##
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberId_InScope(memberIdList);
+        });
+
         assertEquals(currentDate, actualList.get(0).getBirthdate());
         assertEquals(beforeList.get(0).getFormalizedDatetime(), actualList.get(0).getFormalizedDatetime());
         assertNull(actualList.get(1).getBirthdate());
@@ -339,9 +340,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberBhv.varyingBatchUpdate(memberList, op -> op.xallowUpdateColumnModifiedPropertiesFragmented());
 
         // ## Assert ##
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberId_InScope(memberIdList);
+        });
+
         assertEquals(currentDate, actualList.get(0).getBirthdate());
         assertEquals(memberList.get(0).getFormalizedDatetime(), actualList.get(0).getFormalizedDatetime());
         assertNull(actualList.get(1).getBirthdate());
@@ -394,9 +396,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         memberBhv.varyingBatchUpdate(memberList, op -> op.xtoBeCompatibleBatchUpdateDefaultEveryColumn());
 
         // ## Assert ##
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberId_InScope(memberIdList);
+        });
+
         assertEquals(currentDate, actualList.get(0).getBirthdate());
         assertNull(actualList.get(0).getFormalizedDatetime());
         assertNull(actualList.get(1).getBirthdate());
@@ -514,7 +517,9 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             for (Member member : memberList) {
                 afterVersionNoList.add(member.getVersionNo());
             }
-            ListResultBean<Member> actualList = memberBhv.selectList(cb);
+            ListResultBean<Member> actualList = memberBhv.selectList(cb -> {
+                cb.query().setMemberId_InScope(memberIdList);
+            });
             List<Long> actualVersionNoList = new ArrayList<Long>();
             for (Member member : actualList) {
                 assertTrue(Srl.startsWith(member.getMemberName(), "testName"));
@@ -544,7 +549,9 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         // retry other columns
         {
             // ## Arrange ##
-            memberList = memberBhv.selectList(cb);
+            memberList = memberBhv.selectList(cb -> {
+                cb.query().setMemberId_InScope(memberIdList);
+            });
             int count = 0;
             for (Member member : memberList) {
                 member.setMemberName("retryName" + count);
@@ -567,7 +574,9 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             for (Member member : memberList) {
                 afterVersionNoList.add(member.getVersionNo());
             }
-            ListResultBean<Member> actualList = memberBhv.selectList(cb);
+            ListResultBean<Member> actualList = memberBhv.selectList(cb -> {
+                cb.query().setMemberId_InScope(memberIdList);
+            });
             List<Long> actualVersionNoList = new ArrayList<Long>();
             for (Member member : actualList) {
                 assertTrue(Srl.startsWith(member.getMemberName(), "testName"));
@@ -641,7 +650,9 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         // ## Assert ##
         assertEquals(3, result.length);
         assertEquals(Long.valueOf(expectedVersionNoList.get(0) + 1L), memberList.get(0).getVersionNo());
-        memberList = memberBhv.selectList(cb);
+        memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
         assertEquals("disable test", memberList.get(0).getUpdateUser());
         assertEquals("disable test", memberList.get(1).getUpdateUser());
         assertEquals("disable test", memberList.get(2).getUpdateUser());
@@ -679,7 +690,9 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         // ## Assert ##
         assertEquals(3, result.length); // because common columns exist
         assertEquals(Long.valueOf(expectedVersionNoList.get(0) + 1L), memberList.get(0).getVersionNo());
-        memberList = memberBhv.selectList(cb);
+        memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
         assertFalse(memberList.get(0).getMemberName().startsWith("test"));
         assertFalse(memberList.get(1).getMemberName().startsWith("test"));
         assertFalse(memberList.get(2).getMemberName().startsWith("test"));
@@ -871,9 +884,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         for (Member member : memberList) {
             assertNull(member.getVersionNo());
         }
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberId_InScope(memberIdList);
+        });
+
         boolean exists = false;
         for (Member member : actualList) {
             Member before = beforeMap.get(member.getMemberId());
@@ -966,9 +980,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         for (Member member : memberList) {
             assertNull(member.getVersionNo());
         }
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberId_InScope(memberIdList);
+        });
+
         boolean exists = false;
         for (Member member : actualList) {
             Member before = beforeMap.get(member.getMemberId());
@@ -1018,7 +1033,9 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         assertEquals(3, result.length);
         assertEquals(Long.valueOf(expectedVersionNoList.get(0)), memberList.get(0).getVersionNo());
 
-        memberList = memberBhv.selectList(cb);
+        memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
         assertTrue(memberList.get(0).getMemberName().startsWith("test"));
         assertTrue(memberList.get(1).getMemberName().startsWith("test"));
         assertTrue(memberList.get(2).getMemberName().startsWith("test"));
@@ -1074,9 +1091,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             assertEquals(Long.valueOf(versionNo + 1L), actualVersionNoList.get(index));
             ++index;
         }
-        MemberCB actualCB = new MemberCB();
-        actualCB.query().setMemberId_InScope(memberIdList);
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB);
+        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
+            actualCB.query().setMemberId_InScope(memberIdList);
+        });
+
         boolean exists = false;
         for (Member member : actualList) {
             Timestamp formalizedDatetime = member.getFormalizedDatetime();

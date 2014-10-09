@@ -175,7 +175,7 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         assertNotSame(member1.hashCode(), member1.hashCode());
         assertNotSame(member2.hashCode(), member2.hashCode());
         member1.setMemberId(Integer.MAX_VALUE);
-        log(member1.hashCode()); // expect no exception!
+        log(member1.hashCode()); // expects no exception!
 
         MemberLogin loing1 = new MemberLogin();
         member1.setMemberId(1);
@@ -765,7 +765,7 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        int actual = vendorCheck.hashCode(); // expect no exception
+        int actual = vendorCheck.hashCode(); // expects no exception
 
         // ## Assert ##
         log("notExistsHashcode=" + notExistsHashcode + " actual=" + actual);
@@ -785,7 +785,7 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        int actual = vendorCheck.hashCode(); // expect no exception
+        int actual = vendorCheck.hashCode(); // expects no exception
 
         // ## Assert ##
         log("notExistsHashcode=" + notExistsHashcode + " actual=" + actual);
@@ -818,7 +818,7 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        boolean actual = vendorCheck.equals(other); // expect no exception
+        boolean actual = vendorCheck.equals(other); // expects no exception
 
         // ## Assert ##
         log("actual=" + actual);
@@ -852,7 +852,7 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        boolean actual = vendorCheck.equals(other); // expect no exception
+        boolean actual = vendorCheck.equals(other); // expects no exception
 
         // ## Assert ##
         log("actual=" + actual);
@@ -878,7 +878,7 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        boolean actual = vendorCheck.equals(other); // expect no exception
+        boolean actual = vendorCheck.equals(other); // expects no exception
 
         // ## Assert ##
         log("actual=" + actual);
