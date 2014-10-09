@@ -91,7 +91,7 @@ public class VendorMetaDataTest extends UnitContainerTestCase {
     public void test_DatabaseMetaData_getTables() throws SQLException {
         DatabaseMetaData metaData = _conn.getMetaData();
         // catalog requires to be upper case, and 'public' schema too
-        ResultSet rs = metaData.getTables("EXAMPLEDB", "PUBLIC", "%", new String[] { "TABLE", "VIEW" });
+        ResultSet rs = metaData.getTables("MAIHAMADB", "PUBLIC", "%", new String[] { "TABLE", "VIEW" });
         log("[Table]");
         boolean exists = false;
         while (rs.next()) {
@@ -131,7 +131,7 @@ public class VendorMetaDataTest extends UnitContainerTestCase {
     public void test_DatabaseMetaData_getImportedKeys_basic() throws SQLException {
         DatabaseMetaData metaData = _conn.getMetaData();
         String tableDbName = PurchaseDbm.getInstance().getTableDbName();
-        ResultSet rs = metaData.getImportedKeys("EXAMPLEDB", "PUBLIC", tableDbName);
+        ResultSet rs = metaData.getImportedKeys("MAIHAMADB", "PUBLIC", tableDbName);
         boolean exists = false;
         int count = 0;
         Set<String> fkSet = new HashSet<String>();

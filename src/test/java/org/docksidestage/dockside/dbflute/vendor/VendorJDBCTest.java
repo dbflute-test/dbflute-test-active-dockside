@@ -118,60 +118,64 @@ public class VendorJDBCTest extends UnitContainerTestCase {
                 infoList.add(info);
             }
         });
-        Method actionMethod = MemberDbm.getInstance().columnBirthdate().getWriteMethod();
-        SimpleTraceableSqlStringFilter filter = new SimpleTraceableSqlStringFilter(actionMethod,
-                new TraceableSqlAdditionalInfoProvider() {
-                    public String provide() {
-                        return "marks:{?*@;+()[]'&%$#\"!\\>=<_^~-|.,}1234567890";
-                    }
-                }) {
-
-            public String filterOutsideSql(BehaviorCommandMeta meta, String executedSql) {
-                return markingSql(executedSql);
-            }
-
-            public String filterProcedure(BehaviorCommandMeta meta, String executedSql) {
-                return markingSql(executedSql);
-            }
-        };
-        if (front) {
-            filter.markingAtFront();
-        }
-        CallbackContext.setSqlStringFilterOnThread(filter);
-
         try {
-            // ## Act ##
-            {
-                MemberCB cb = new MemberCB();
-                memberBhv.selectList(cb);
+            Method actionMethod = MemberDbm.getInstance().columnBirthdate().getWriteMethod();
+            SimpleTraceableSqlStringFilter filter =
+                    new SimpleTraceableSqlStringFilter(actionMethod, new TraceableSqlAdditionalInfoProvider() {
+                        public String provide() {
+                            return "marks:{?*@;+()[]'&%$#\"!\\>=<_^~-|.,}1234567890";
+                        }
+                    }) {
+
+                        public String filterOutsideSql(BehaviorCommandMeta meta, String executedSql) {
+                            return markingSql(executedSql);
+                        }
+
+                        public String filterProcedure(BehaviorCommandMeta meta, String executedSql) {
+                            return markingSql(executedSql);
+                        }
+                    };
+            if (front) {
+                filter.markingAtFront();
             }
-            {
-                Member member = new Member();
-                member.setMemberId(3);
-                member.setBirthdate(currentDate());
-                memberBhv.updateNonstrict(member);
+            CallbackContext.setSqlStringFilterOnThread(filter);
+
+            try {
+                // ## Act ##
+                {
+                    MemberCB cb = new MemberCB();
+                    memberBhv.selectList(cb);
+                }
+                {
+                    Member member = new Member();
+                    member.setMemberId(3);
+                    member.setBirthdate(currentDate());
+                    memberBhv.updateNonstrict(member);
+                }
+                {
+                    MemberCB cb = new MemberCB();
+                    cb.query().setMemberStatusCode_Equal_Provisional();
+                    Member member = new Member();
+                    memberBhv.queryUpdate(member, cb);
+                }
+                {
+                    PurchaseMaxPriceMemberPmb pmb = new PurchaseMaxPriceMemberPmb();
+                    pmb.paging(3, 2);
+                    memberBhv.outsideSql().manualPaging().selectPage(pmb);
+                }
+                // no procedure generate here
+                //{
+                //    SpNoParameterPmb spPmb = new SpInOutParameterPmb();
+                //    spPmb.setVInVarchar("foo");
+                //    spPmb.setVInoutVarchar("bar");
+                //    memberBhv.outsideSql().call(spPmb);
+                //}
+                // ## Assert ##
+            } finally {
+                CallbackContext.clearSqlStringFilterOnThread();
             }
-            {
-                MemberCB cb = new MemberCB();
-                cb.query().setMemberStatusCode_Equal_Provisional();
-                Member member = new Member();
-                memberBhv.queryUpdate(member, cb);
-            }
-            {
-                PurchaseMaxPriceMemberPmb pmb = new PurchaseMaxPriceMemberPmb();
-                pmb.paging(3, 2);
-                memberBhv.outsideSql().manualPaging().selectPage(pmb);
-            }
-            // no procedure generate here
-            //{
-            //    SpNoParameterPmb spPmb = new SpInOutParameterPmb();
-            //    spPmb.setVInVarchar("foo");
-            //    spPmb.setVInoutVarchar("bar");
-            //    memberBhv.outsideSql().call(spPmb);
-            //}
-            // ## Assert ##
         } finally {
-            CallbackContext.clearSqlStringFilterOnThread();
+            CallbackContext.clearSqlLogHandlerOnThread();
         }
     }
 }

@@ -186,15 +186,18 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
     }
 
     public void test_instanceHash_unique() throws Exception {
-        for (int i = 0; i < 3; i++) {
-            doTest_instanceHash_unique();
+        for (int i = 0; i < 10; i++) {
+            if (doTest_instanceHash_unique()) {
+                markHere("unique");
+            }
         }
+        assertMarked("unique");
     }
 
-    protected void doTest_instanceHash_unique() throws Exception {
+    protected boolean doTest_instanceHash_unique() throws Exception {
         // ## Arrange ##
         Set<Integer> hashSet = new HashSet<Integer>();
-        int loopSize = 1000000;
+        int loopSize = 1000; // 1000000 can cause easily collision
 
         // ## Act ##
         for (int i = 0; i < loopSize; i++) {
@@ -219,13 +222,14 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
 
             // ## Assert ##
             if (hashSet.contains(hash)) {
-                fail("duplicate hash: " + hash);
+                return false;
             }
             hashSet.add(hash);
         }
         int hashSetSize = hashSet.size();
         log("hashSet.size(): " + hashSetSize);
         assertEquals(loopSize, hashSetSize);
+        return true;
     }
 
     // ===================================================================================

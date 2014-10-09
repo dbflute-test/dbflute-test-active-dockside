@@ -26,7 +26,7 @@ public class WxCBColumnQueryDreamCruiseCalcOptionTest extends UnitContainerTestC
         {
             Member member = new Member();
             member.setBirthdate(toDate("2014/09/10"));
-            memberBhv.varyingQueryUpdate(member, new MemberCB(), op -> {});
+            memberBhv.varyingQueryUpdate(member, new MemberCB(), op -> op.allowNonQueryUpdate());
         }
         MemberCB cb = new MemberCB();
         cb.setupSelect_MemberStatus();

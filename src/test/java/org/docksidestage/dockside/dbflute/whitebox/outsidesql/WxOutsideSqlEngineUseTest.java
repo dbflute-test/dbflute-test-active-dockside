@@ -24,7 +24,7 @@ public class WxOutsideSqlEngineUseTest extends UnitContainerTestCase {
     public void test_OutsideSql_dummyTableExecution() throws Exception {
         // ## Arrange ##
         OutsideSqlBasicExecutor<Object> executor = behaviorCommandInvoker.createOutsideSqlBasicExecutor("sea");
-        String path = "com/example/dbflute/spring/dbflute/exbhv/MemberBhv_selectSimpleMember.sql";
+        String path = "org/docksidestage/dockside/dbflute/exbhv/MemberBhv_selectSimpleMember.sql";
         SimpleMemberPmb pmb = new SimpleMemberPmb();
         Class<SimpleMember> entityType = SimpleMember.class;
 

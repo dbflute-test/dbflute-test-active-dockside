@@ -117,8 +117,8 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         }
         String sql = cb.toDisplaySql();
         assertTrue(Srl.containsIgnoreCase(sql, "inner join MEMBER_STATUS dfrel_1"));
-        assertTrue(Srl.containsIgnoreCase(sql, "inner join MEMBER_STATUS dfrel_0_0"));
-        assertTrue(Srl.containsIgnoreCase(sql, "where sub1loc.MEMBER_ID = dfrel_0.MEMBER_ID"));
+        assertTrue(Srl.containsIgnoreCase(sql, "inner join MEMBER_STATUS dfrel_1_0"));
+        assertTrue(Srl.containsIgnoreCase(sql, "where sub1loc.MEMBER_ID = dfrel_1.MEMBER_ID"));
         assertTrue(Srl.containsIgnoreCase(sql, "sub1rel_0.MEMBER_ID = 3"));
     }
 
@@ -162,10 +162,10 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         assertEquals(expectedList, statusList);
         String sql = cb.toDisplaySql();
         String lastFront = Srl.substringLastFront(sql, "exists");
-        assertTrue(Srl.containsIgnoreCase(lastFront, "inner join MEMBER sub1rel_0")); // auto-detected
+        assertTrue(Srl.containsIgnoreCase(lastFront, "inner join MEMBER sub1rel_1")); // auto-detected
         String lastRear = Srl.substringLastRear(sql, "exists");
         assertTrue(Srl.containsIgnoreCase(lastRear, "inner join MEMBER sub2rel_0")); // auto-detected
-        assertTrue(Srl.containsIgnoreCase(lastRear, "where sub2loc.MEMBER_ID = sub1rel_0.MEMBER_ID"));
+        assertTrue(Srl.containsIgnoreCase(lastRear, "where sub2loc.MEMBER_ID = sub1rel_1.MEMBER_ID"));
         assertTrue(Srl.containsIgnoreCase(lastRear, "and sub2rel_0.MEMBER_ID = 3"));
     }
 

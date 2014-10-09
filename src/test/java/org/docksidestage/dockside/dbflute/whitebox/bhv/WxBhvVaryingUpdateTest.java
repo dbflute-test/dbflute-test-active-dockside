@@ -181,12 +181,12 @@ public class WxBhvVaryingUpdateTest extends UnitContainerTestCase {
         purchase.setVersionNo(before.getVersionNo());
         // ## Act ##
         try {
-            @SuppressWarnings("unused")
             WOptionCall<PurchaseCB, UpdateOption<PurchaseCB>> opCall = op -> op.self(new SpecifyQuery<PurchaseCB>() {
                 public void specify(PurchaseCB cb) {
                     cb.specify().columnPurchaseCount();
                 }
             }).left().plus(1);
+            purchaseBhv.varyingUpdateNonstrict(purchase, opCall);
 
             // ## Assert ##
             fail();

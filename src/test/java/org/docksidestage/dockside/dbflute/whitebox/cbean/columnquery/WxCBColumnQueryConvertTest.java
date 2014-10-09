@@ -2,6 +2,7 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.columnquery;
 
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SpecifyQuery;
+import org.dbflute.exception.IllegalConditionBeanOperationException;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -51,23 +52,23 @@ public class WxCBColumnQueryConvertTest extends UnitContainerTestCase {
     public void test_ColumnQuery_convert_nullSet() throws Exception {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnFormalizedDatetime();
-            }
-        }).greaterEqual(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        }).convert(op -> op.addDay((Integer) null));
-        cb.query().addOrderBy_MemberId_Asc();
 
-        // ## Act ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb);
+        try {
+            // ## Act ##
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnFormalizedDatetime();
+                }
+            }).greaterEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnBirthdate();
+                }
+            }).convert(op -> op.addDay((Integer) null));
 
-        // ## Assert ##
-        assertHasAnyElement(memberList);
-        String sql = cb.toDisplaySql();
-        assertContains(sql, "where dfloc.FORMALIZED_DATETIME >= dfloc.BIRTHDATE");
+            // ## Assert ##
+            fail();
+        } catch (IllegalConditionBeanOperationException e) {
+            log(e.getMessage());
+        }
     }
 }
