@@ -43,14 +43,14 @@ public class WxBhvInterfaceDispatchTest extends UnitContainerTestCase {
             public void query(MemberCB cb) {
                 cb.specify().columnMemberId();
             }
-        });
+        }).get();
 
         // ## Act ##
         Integer max = memberBhv.readScalar(Integer.class).max(new ScalarQuery<ConditionBean>() {
             public void query(ConditionBean cb) {
                 cb.localSp().xspecifyColumn(MemberDbm.getInstance().columnMemberId().getColumnDbName());
             }
-        });
+        }).get();
 
         // ## Assert ##
         assertEquals(expected, max);

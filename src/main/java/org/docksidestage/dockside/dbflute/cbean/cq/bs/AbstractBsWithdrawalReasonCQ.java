@@ -190,7 +190,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
         doSetWithdrawalReasonCode_InScope(cTStrL(cdefList));
     }
 
-    public void doSetWithdrawalReasonCode_InScope(Collection<String> withdrawalReasonCodeList) {
+    protected void doSetWithdrawalReasonCode_InScope(Collection<String> withdrawalReasonCodeList) {
         regINS(CK_INS, cTL(withdrawalReasonCodeList), getCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE");
     }
 
@@ -213,7 +213,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
         doSetWithdrawalReasonCode_NotInScope(cTStrL(cdefList));
     }
 
-    public void doSetWithdrawalReasonCode_NotInScope(Collection<String> withdrawalReasonCodeList) {
+    protected void doSetWithdrawalReasonCode_NotInScope(Collection<String> withdrawalReasonCodeList) {
         regINS(CK_NINS, cTL(withdrawalReasonCodeList), getCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE");
     }
 
@@ -388,7 +388,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
         doSetWithdrawalReasonText_InScope(withdrawalReasonTextList);
     }
 
-    public void doSetWithdrawalReasonText_InScope(Collection<String> withdrawalReasonTextList) {
+    protected void doSetWithdrawalReasonText_InScope(Collection<String> withdrawalReasonTextList) {
         regINS(CK_INS, cTL(withdrawalReasonTextList), getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT");
     }
 
@@ -401,7 +401,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
         doSetWithdrawalReasonText_NotInScope(withdrawalReasonTextList);
     }
 
-    public void doSetWithdrawalReasonText_NotInScope(Collection<String> withdrawalReasonTextList) {
+    protected void doSetWithdrawalReasonText_NotInScope(Collection<String> withdrawalReasonTextList) {
         regINS(CK_NINS, cTL(withdrawalReasonTextList), getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT");
     }
 
@@ -741,12 +741,12 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     //                                                                        ============
     /**
      * Prepare for MyselfExists (correlated sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
+     * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<WithdrawalReasonCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
+    public void myselfExists(SubQuery<WithdrawalReasonCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
         WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
         String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }

@@ -50,7 +50,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                 }, null);
                 cb.query().setMemberStatusCode_Equal_Formalized();
             }
-        });
+        }).get();
         Integer provisinalMax = memberStatusBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberStatusCB>() {
             public void query(MemberStatusCB cb) {
                 cb.specify().derivedMember().max(new SubQuery<MemberCB>() {
@@ -66,7 +66,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                 }, null);
                 cb.query().setMemberStatusCode_Equal_Provisional();
             }
-        });
+        }).get();
         Integer withdrawalMax = memberStatusBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberStatusCB>() {
             public void query(MemberStatusCB cb) {
                 cb.specify().derivedMember().max(new SubQuery<MemberCB>() {
@@ -82,7 +82,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                 }, null);
                 cb.query().setMemberStatusCode_Equal_Withdrawal();
             }
-        });
+        }).get();
 
         ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb -> {
             /* ## Act ## */

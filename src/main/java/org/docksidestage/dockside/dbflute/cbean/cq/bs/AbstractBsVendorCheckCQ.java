@@ -262,7 +262,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetTypeOfChar_InScope(typeOfCharList);
     }
 
-    public void doSetTypeOfChar_InScope(Collection<String> typeOfCharList) {
+    protected void doSetTypeOfChar_InScope(Collection<String> typeOfCharList) {
         regINS(CK_INS, cTL(typeOfCharList), getCValueTypeOfChar(), "TYPE_OF_CHAR");
     }
 
@@ -275,7 +275,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetTypeOfChar_NotInScope(typeOfCharList);
     }
 
-    public void doSetTypeOfChar_NotInScope(Collection<String> typeOfCharList) {
+    protected void doSetTypeOfChar_NotInScope(Collection<String> typeOfCharList) {
         regINS(CK_NINS, cTL(typeOfCharList), getCValueTypeOfChar(), "TYPE_OF_CHAR");
     }
 
@@ -426,7 +426,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetTypeOfVarchar_InScope(typeOfVarcharList);
     }
 
-    public void doSetTypeOfVarchar_InScope(Collection<String> typeOfVarcharList) {
+    protected void doSetTypeOfVarchar_InScope(Collection<String> typeOfVarcharList) {
         regINS(CK_INS, cTL(typeOfVarcharList), getCValueTypeOfVarchar(), "TYPE_OF_VARCHAR");
     }
 
@@ -439,7 +439,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetTypeOfVarchar_NotInScope(typeOfVarcharList);
     }
 
-    public void doSetTypeOfVarchar_NotInScope(Collection<String> typeOfVarcharList) {
+    protected void doSetTypeOfVarchar_NotInScope(Collection<String> typeOfVarcharList) {
         regINS(CK_NINS, cTL(typeOfVarcharList), getCValueTypeOfVarchar(), "TYPE_OF_VARCHAR");
     }
 
@@ -590,7 +590,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetTypeOfClob_InScope(typeOfClobList);
     }
 
-    public void doSetTypeOfClob_InScope(Collection<String> typeOfClobList) {
+    protected void doSetTypeOfClob_InScope(Collection<String> typeOfClobList) {
         regINS(CK_INS, cTL(typeOfClobList), getCValueTypeOfClob(), "TYPE_OF_CLOB");
     }
 
@@ -603,7 +603,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetTypeOfClob_NotInScope(typeOfClobList);
     }
 
-    public void doSetTypeOfClob_NotInScope(Collection<String> typeOfClobList) {
+    protected void doSetTypeOfClob_NotInScope(Collection<String> typeOfClobList) {
         regINS(CK_NINS, cTL(typeOfClobList), getCValueTypeOfClob(), "TYPE_OF_CLOB");
     }
 
@@ -754,7 +754,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetTypeOfText_InScope(typeOfTextList);
     }
 
-    public void doSetTypeOfText_InScope(Collection<String> typeOfTextList) {
+    protected void doSetTypeOfText_InScope(Collection<String> typeOfTextList) {
         regINS(CK_INS, cTL(typeOfTextList), getCValueTypeOfText(), "TYPE_OF_TEXT");
     }
 
@@ -767,7 +767,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetTypeOfText_NotInScope(typeOfTextList);
     }
 
-    public void doSetTypeOfText_NotInScope(Collection<String> typeOfTextList) {
+    protected void doSetTypeOfText_NotInScope(Collection<String> typeOfTextList) {
         regINS(CK_NINS, cTL(typeOfTextList), getCValueTypeOfText(), "TYPE_OF_TEXT");
     }
 
@@ -2814,7 +2814,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetTypeOfArray_InScope(typeOfArrayList);
     }
 
-    public void doSetTypeOfArray_InScope(Collection<String> typeOfArrayList) {
+    protected void doSetTypeOfArray_InScope(Collection<String> typeOfArrayList) {
         regINS(CK_INS, cTL(typeOfArrayList), getCValueTypeOfArray(), "TYPE_OF_ARRAY");
     }
 
@@ -2827,7 +2827,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetTypeOfArray_NotInScope(typeOfArrayList);
     }
 
-    public void doSetTypeOfArray_NotInScope(Collection<String> typeOfArrayList) {
+    protected void doSetTypeOfArray_NotInScope(Collection<String> typeOfArrayList) {
         regINS(CK_NINS, cTL(typeOfArrayList), getCValueTypeOfArray(), "TYPE_OF_ARRAY");
     }
 
@@ -2978,7 +2978,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetTypeOfOther_InScope(typeOfOtherList);
     }
 
-    public void doSetTypeOfOther_InScope(Collection<String> typeOfOtherList) {
+    protected void doSetTypeOfOther_InScope(Collection<String> typeOfOtherList) {
         regINS(CK_INS, cTL(typeOfOtherList), getCValueTypeOfOther(), "TYPE_OF_OTHER");
     }
 
@@ -2991,7 +2991,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetTypeOfOther_NotInScope(typeOfOtherList);
     }
 
-    public void doSetTypeOfOther_NotInScope(Collection<String> typeOfOtherList) {
+    protected void doSetTypeOfOther_NotInScope(Collection<String> typeOfOtherList) {
         regINS(CK_NINS, cTL(typeOfOtherList), getCValueTypeOfOther(), "TYPE_OF_OTHER");
     }
 
@@ -3142,7 +3142,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetJAVABeansProperty_InScope(jAVABeansPropertyList);
     }
 
-    public void doSetJAVABeansProperty_InScope(Collection<String> jAVABeansPropertyList) {
+    protected void doSetJAVABeansProperty_InScope(Collection<String> jAVABeansPropertyList) {
         regINS(CK_INS, cTL(jAVABeansPropertyList), getCValueJAVABeansProperty(), "J_A_V_A_BEANS_PROPERTY");
     }
 
@@ -3155,7 +3155,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetJAVABeansProperty_NotInScope(jAVABeansPropertyList);
     }
 
-    public void doSetJAVABeansProperty_NotInScope(Collection<String> jAVABeansPropertyList) {
+    protected void doSetJAVABeansProperty_NotInScope(Collection<String> jAVABeansPropertyList) {
         regINS(CK_NINS, cTL(jAVABeansPropertyList), getCValueJAVABeansProperty(), "J_A_V_A_BEANS_PROPERTY");
     }
 
@@ -3306,7 +3306,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetJPopBeansProperty_InScope(jPopBeansPropertyList);
     }
 
-    public void doSetJPopBeansProperty_InScope(Collection<String> jPopBeansPropertyList) {
+    protected void doSetJPopBeansProperty_InScope(Collection<String> jPopBeansPropertyList) {
         regINS(CK_INS, cTL(jPopBeansPropertyList), getCValueJPopBeansProperty(), "J_POP_BEANS_PROPERTY");
     }
 
@@ -3319,7 +3319,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
         doSetJPopBeansProperty_NotInScope(jPopBeansPropertyList);
     }
 
-    public void doSetJPopBeansProperty_NotInScope(Collection<String> jPopBeansPropertyList) {
+    protected void doSetJPopBeansProperty_NotInScope(Collection<String> jPopBeansPropertyList) {
         regINS(CK_NINS, cTL(jPopBeansPropertyList), getCValueJPopBeansProperty(), "J_POP_BEANS_PROPERTY");
     }
 
@@ -3559,12 +3559,12 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     //                                                                        ============
     /**
      * Prepare for MyselfExists (correlated sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
+     * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<VendorCheckCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
+    public void myselfExists(SubQuery<VendorCheckCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
         VendorCheckCB cb = new VendorCheckCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
         String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }

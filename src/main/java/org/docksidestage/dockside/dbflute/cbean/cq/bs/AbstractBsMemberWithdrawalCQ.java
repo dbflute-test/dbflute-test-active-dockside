@@ -320,7 +320,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
         doSetWithdrawalReasonCode_InScope(cTStrL(cdefList));
     }
 
-    public void doSetWithdrawalReasonCode_InScope(Collection<String> withdrawalReasonCodeList) {
+    protected void doSetWithdrawalReasonCode_InScope(Collection<String> withdrawalReasonCodeList) {
         regINS(CK_INS, cTL(withdrawalReasonCodeList), getCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE");
     }
 
@@ -343,7 +343,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
         doSetWithdrawalReasonCode_NotInScope(cTStrL(cdefList));
     }
 
-    public void doSetWithdrawalReasonCode_NotInScope(Collection<String> withdrawalReasonCodeList) {
+    protected void doSetWithdrawalReasonCode_NotInScope(Collection<String> withdrawalReasonCodeList) {
         regINS(CK_NINS, cTL(withdrawalReasonCodeList), getCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE");
     }
 
@@ -439,7 +439,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
         doSetWithdrawalReasonInputText_InScope(withdrawalReasonInputTextList);
     }
 
-    public void doSetWithdrawalReasonInputText_InScope(Collection<String> withdrawalReasonInputTextList) {
+    protected void doSetWithdrawalReasonInputText_InScope(Collection<String> withdrawalReasonInputTextList) {
         regINS(CK_INS, cTL(withdrawalReasonInputTextList), getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT");
     }
 
@@ -452,7 +452,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
         doSetWithdrawalReasonInputText_NotInScope(withdrawalReasonInputTextList);
     }
 
-    public void doSetWithdrawalReasonInputText_NotInScope(Collection<String> withdrawalReasonInputTextList) {
+    protected void doSetWithdrawalReasonInputText_NotInScope(Collection<String> withdrawalReasonInputTextList) {
         regINS(CK_NINS, cTL(withdrawalReasonInputTextList), getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT");
     }
 
@@ -783,7 +783,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
         doSetRegisterUser_InScope(registerUserList);
     }
 
-    public void doSetRegisterUser_InScope(Collection<String> registerUserList) {
+    protected void doSetRegisterUser_InScope(Collection<String> registerUserList) {
         regINS(CK_INS, cTL(registerUserList), getCValueRegisterUser(), "REGISTER_USER");
     }
 
@@ -796,7 +796,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
         doSetRegisterUser_NotInScope(registerUserList);
     }
 
-    public void doSetRegisterUser_NotInScope(Collection<String> registerUserList) {
+    protected void doSetRegisterUser_NotInScope(Collection<String> registerUserList) {
         regINS(CK_NINS, cTL(registerUserList), getCValueRegisterUser(), "REGISTER_USER");
     }
 
@@ -1019,7 +1019,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
         doSetUpdateUser_InScope(updateUserList);
     }
 
-    public void doSetUpdateUser_InScope(Collection<String> updateUserList) {
+    protected void doSetUpdateUser_InScope(Collection<String> updateUserList) {
         regINS(CK_INS, cTL(updateUserList), getCValueUpdateUser(), "UPDATE_USER");
     }
 
@@ -1032,7 +1032,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
         doSetUpdateUser_NotInScope(updateUserList);
     }
 
-    public void doSetUpdateUser_NotInScope(Collection<String> updateUserList) {
+    protected void doSetUpdateUser_NotInScope(Collection<String> updateUserList) {
         regINS(CK_NINS, cTL(updateUserList), getCValueUpdateUser(), "UPDATE_USER");
     }
 
@@ -1372,12 +1372,12 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     //                                                                        ============
     /**
      * Prepare for MyselfExists (correlated sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
+     * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<MemberWithdrawalCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
+    public void myselfExists(SubQuery<MemberWithdrawalCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
         String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }

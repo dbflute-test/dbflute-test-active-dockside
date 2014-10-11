@@ -347,7 +347,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
         doSetTheLongAndWindingTableAndColumnName_InScope(theLongAndWindingTableAndColumnNameList);
     }
 
-    public void doSetTheLongAndWindingTableAndColumnName_InScope(Collection<String> theLongAndWindingTableAndColumnNameList) {
+    protected void doSetTheLongAndWindingTableAndColumnName_InScope(Collection<String> theLongAndWindingTableAndColumnNameList) {
         regINS(CK_INS, cTL(theLongAndWindingTableAndColumnNameList), getCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME");
     }
 
@@ -360,7 +360,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
         doSetTheLongAndWindingTableAndColumnName_NotInScope(theLongAndWindingTableAndColumnNameList);
     }
 
-    public void doSetTheLongAndWindingTableAndColumnName_NotInScope(Collection<String> theLongAndWindingTableAndColumnNameList) {
+    protected void doSetTheLongAndWindingTableAndColumnName_NotInScope(Collection<String> theLongAndWindingTableAndColumnNameList) {
         regINS(CK_NINS, cTL(theLongAndWindingTableAndColumnNameList), getCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME");
     }
 
@@ -493,7 +493,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
         doSetShortName_InScope(shortNameList);
     }
 
-    public void doSetShortName_InScope(Collection<String> shortNameList) {
+    protected void doSetShortName_InScope(Collection<String> shortNameList) {
         regINS(CK_INS, cTL(shortNameList), getCValueShortName(), "SHORT_NAME");
     }
 
@@ -506,7 +506,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
         doSetShortName_NotInScope(shortNameList);
     }
 
-    public void doSetShortName_NotInScope(Collection<String> shortNameList) {
+    protected void doSetShortName_NotInScope(Collection<String> shortNameList) {
         regINS(CK_NINS, cTL(shortNameList), getCValueShortName(), "SHORT_NAME");
     }
 
@@ -846,12 +846,12 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     //                                                                        ============
     /**
      * Prepare for MyselfExists (correlated sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
+     * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<VendorTheLongAndWindingTableAndColumnCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
+    public void myselfExists(SubQuery<VendorTheLongAndWindingTableAndColumnCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
         VendorTheLongAndWindingTableAndColumnCB cb = new VendorTheLongAndWindingTableAndColumnCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
         String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }

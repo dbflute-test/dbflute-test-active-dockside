@@ -659,7 +659,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
         setLoginMemberStatusCode_InScope_AsMemberStatus(CDef.MemberStatus.listOfServiceAvailable());
     }
 
-    public void doSetLoginMemberStatusCode_InScope(Collection<String> loginMemberStatusCodeList) {
+    protected void doSetLoginMemberStatusCode_InScope(Collection<String> loginMemberStatusCodeList) {
         regINS(CK_INS, cTL(loginMemberStatusCodeList), getCValueLoginMemberStatusCode(), "LOGIN_MEMBER_STATUS_CODE");
     }
 
@@ -682,7 +682,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
         doSetLoginMemberStatusCode_NotInScope(cTStrL(cdefList));
     }
 
-    public void doSetLoginMemberStatusCode_NotInScope(Collection<String> loginMemberStatusCodeList) {
+    protected void doSetLoginMemberStatusCode_NotInScope(Collection<String> loginMemberStatusCodeList) {
         regINS(CK_NINS, cTL(loginMemberStatusCodeList), getCValueLoginMemberStatusCode(), "LOGIN_MEMBER_STATUS_CODE");
     }
 
@@ -849,12 +849,12 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
     //                                                                        ============
     /**
      * Prepare for MyselfExists (correlated sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
+     * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<MemberLoginCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
+    public void myselfExists(SubQuery<MemberLoginCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
         MemberLoginCB cb = new MemberLoginCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
         String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }

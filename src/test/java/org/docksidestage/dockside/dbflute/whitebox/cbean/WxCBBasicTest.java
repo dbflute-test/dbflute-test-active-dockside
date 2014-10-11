@@ -13,8 +13,6 @@ import org.dbflute.bhv.core.context.ConditionBeanContext;
 import org.dbflute.bhv.readable.EntityRowHandler;
 import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.cbean.scoping.ScalarQuery;
-import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.exception.DangerousResultSizeException;
 import org.dbflute.util.DfTypeUtil;
@@ -114,32 +112,19 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     //                                                                     ===============
     public void test_ScalarCondition_max_union() {
         // ## Arrange ##
-        Date expected = memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
-            public void query(MemberCB cb) {
-                cb.specify().columnBirthdate();
-            }
-        });
+        Date expected = memberBhv.scalarSelect(Date.class).max(cb -> cb.specify().columnBirthdate()).get();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
-                public void query(MemberCB subCB) {
-                    subCB.specify().columnBirthdate();
-                    subCB.query().setMemberStatusCode_Equal_Formalized();
-                    subCB.union(new UnionQuery<MemberCB>() {
-                        public void query(MemberCB unionCB) {
-                            unionCB.query().setMemberStatusCode_Equal_Provisional();
-                        }
-                    });
-                    subCB.union(new UnionQuery<MemberCB>() {
-                        public void query(MemberCB unionCB) {
-                            unionCB.query().setMemberStatusCode_Equal_Withdrawal();
-                        }
-                    });
-                }
+            cb.query().scalar_Equal().max(mbCB -> {
+                mbCB.specify().columnBirthdate();
+                mbCB.query().setMemberStatusCode_Equal_Formalized();
+                mbCB.union(unionCB -> unionCB.query().setMemberStatusCode_Equal_Provisional());
+                mbCB.union(unionCB -> unionCB.query().setMemberStatusCode_Equal_Withdrawal());
             });
         });
 
         // ## Assert ##
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             Date Birthdate = member.getBirthdate();
             log(member.getMemberName() + ", " + Birthdate);

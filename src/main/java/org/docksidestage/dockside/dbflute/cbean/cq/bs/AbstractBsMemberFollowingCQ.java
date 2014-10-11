@@ -677,12 +677,12 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
     //                                                                        ============
     /**
      * Prepare for MyselfExists (correlated sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
+     * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<MemberFollowingCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
+    public void myselfExists(SubQuery<MemberFollowingCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
         MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
         String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }

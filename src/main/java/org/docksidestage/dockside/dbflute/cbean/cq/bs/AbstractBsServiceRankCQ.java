@@ -206,7 +206,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
         doSetServiceRankCode_InScope(cTStrL(cdefList));
     }
 
-    public void doSetServiceRankCode_InScope(Collection<String> serviceRankCodeList) {
+    protected void doSetServiceRankCode_InScope(Collection<String> serviceRankCodeList) {
         regINS(CK_INS, cTL(serviceRankCodeList), getCValueServiceRankCode(), "SERVICE_RANK_CODE");
     }
 
@@ -229,7 +229,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
         doSetServiceRankCode_NotInScope(cTStrL(cdefList));
     }
 
-    public void doSetServiceRankCode_NotInScope(Collection<String> serviceRankCodeList) {
+    protected void doSetServiceRankCode_NotInScope(Collection<String> serviceRankCodeList) {
         regINS(CK_NINS, cTL(serviceRankCodeList), getCValueServiceRankCode(), "SERVICE_RANK_CODE");
     }
 
@@ -404,7 +404,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
         doSetServiceRankName_InScope(serviceRankNameList);
     }
 
-    public void doSetServiceRankName_InScope(Collection<String> serviceRankNameList) {
+    protected void doSetServiceRankName_InScope(Collection<String> serviceRankNameList) {
         regINS(CK_INS, cTL(serviceRankNameList), getCValueServiceRankName(), "SERVICE_RANK_NAME");
     }
 
@@ -417,7 +417,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
         doSetServiceRankName_NotInScope(serviceRankNameList);
     }
 
-    public void doSetServiceRankName_NotInScope(Collection<String> serviceRankNameList) {
+    protected void doSetServiceRankName_NotInScope(Collection<String> serviceRankNameList) {
         regINS(CK_NINS, cTL(serviceRankNameList), getCValueServiceRankName(), "SERVICE_RANK_NAME");
     }
 
@@ -805,7 +805,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
         doSetDescription_InScope(descriptionList);
     }
 
-    public void doSetDescription_InScope(Collection<String> descriptionList) {
+    protected void doSetDescription_InScope(Collection<String> descriptionList) {
         regINS(CK_INS, cTL(descriptionList), getCValueDescription(), "DESCRIPTION");
     }
 
@@ -818,7 +818,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
         doSetDescription_NotInScope(descriptionList);
     }
 
-    public void doSetDescription_NotInScope(Collection<String> descriptionList) {
+    protected void doSetDescription_NotInScope(Collection<String> descriptionList) {
         regINS(CK_NINS, cTL(descriptionList), getCValueDescription(), "DESCRIPTION");
     }
 
@@ -1158,12 +1158,12 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     //                                                                        ============
     /**
      * Prepare for MyselfExists (correlated sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
+     * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<ServiceRankCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
+    public void myselfExists(SubQuery<ServiceRankCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
         ServiceRankCB cb = new ServiceRankCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
         String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }

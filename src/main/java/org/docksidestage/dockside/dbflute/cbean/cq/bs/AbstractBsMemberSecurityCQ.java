@@ -262,7 +262,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         doSetLoginPassword_InScope(loginPasswordList);
     }
 
-    public void doSetLoginPassword_InScope(Collection<String> loginPasswordList) {
+    protected void doSetLoginPassword_InScope(Collection<String> loginPasswordList) {
         regINS(CK_INS, cTL(loginPasswordList), getCValueLoginPassword(), "LOGIN_PASSWORD");
     }
 
@@ -275,7 +275,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         doSetLoginPassword_NotInScope(loginPasswordList);
     }
 
-    public void doSetLoginPassword_NotInScope(Collection<String> loginPasswordList) {
+    protected void doSetLoginPassword_NotInScope(Collection<String> loginPasswordList) {
         regINS(CK_NINS, cTL(loginPasswordList), getCValueLoginPassword(), "LOGIN_PASSWORD");
     }
 
@@ -408,7 +408,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         doSetReminderQuestion_InScope(reminderQuestionList);
     }
 
-    public void doSetReminderQuestion_InScope(Collection<String> reminderQuestionList) {
+    protected void doSetReminderQuestion_InScope(Collection<String> reminderQuestionList) {
         regINS(CK_INS, cTL(reminderQuestionList), getCValueReminderQuestion(), "REMINDER_QUESTION");
     }
 
@@ -421,7 +421,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         doSetReminderQuestion_NotInScope(reminderQuestionList);
     }
 
-    public void doSetReminderQuestion_NotInScope(Collection<String> reminderQuestionList) {
+    protected void doSetReminderQuestion_NotInScope(Collection<String> reminderQuestionList) {
         regINS(CK_NINS, cTL(reminderQuestionList), getCValueReminderQuestion(), "REMINDER_QUESTION");
     }
 
@@ -554,7 +554,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         doSetReminderAnswer_InScope(reminderAnswerList);
     }
 
-    public void doSetReminderAnswer_InScope(Collection<String> reminderAnswerList) {
+    protected void doSetReminderAnswer_InScope(Collection<String> reminderAnswerList) {
         regINS(CK_INS, cTL(reminderAnswerList), getCValueReminderAnswer(), "REMINDER_ANSWER");
     }
 
@@ -567,7 +567,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         doSetReminderAnswer_NotInScope(reminderAnswerList);
     }
 
-    public void doSetReminderAnswer_NotInScope(Collection<String> reminderAnswerList) {
+    protected void doSetReminderAnswer_NotInScope(Collection<String> reminderAnswerList) {
         regINS(CK_NINS, cTL(reminderAnswerList), getCValueReminderAnswer(), "REMINDER_ANSWER");
     }
 
@@ -908,7 +908,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         doSetRegisterUser_InScope(registerUserList);
     }
 
-    public void doSetRegisterUser_InScope(Collection<String> registerUserList) {
+    protected void doSetRegisterUser_InScope(Collection<String> registerUserList) {
         regINS(CK_INS, cTL(registerUserList), getCValueRegisterUser(), "REGISTER_USER");
     }
 
@@ -921,7 +921,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         doSetRegisterUser_NotInScope(registerUserList);
     }
 
-    public void doSetRegisterUser_NotInScope(Collection<String> registerUserList) {
+    protected void doSetRegisterUser_NotInScope(Collection<String> registerUserList) {
         regINS(CK_NINS, cTL(registerUserList), getCValueRegisterUser(), "REGISTER_USER");
     }
 
@@ -1144,7 +1144,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         doSetUpdateUser_InScope(updateUserList);
     }
 
-    public void doSetUpdateUser_InScope(Collection<String> updateUserList) {
+    protected void doSetUpdateUser_InScope(Collection<String> updateUserList) {
         regINS(CK_INS, cTL(updateUserList), getCValueUpdateUser(), "UPDATE_USER");
     }
 
@@ -1157,7 +1157,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
         doSetUpdateUser_NotInScope(updateUserList);
     }
 
-    public void doSetUpdateUser_NotInScope(Collection<String> updateUserList) {
+    protected void doSetUpdateUser_NotInScope(Collection<String> updateUserList) {
         regINS(CK_NINS, cTL(updateUserList), getCValueUpdateUser(), "UPDATE_USER");
     }
 
@@ -1497,12 +1497,12 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     //                                                                        ============
     /**
      * Prepare for MyselfExists (correlated sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
+     * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<MemberSecurityCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
+    public void myselfExists(SubQuery<MemberSecurityCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
         MemberSecurityCB cb = new MemberSecurityCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
         String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }

@@ -192,7 +192,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             public void query(MemberCB cb) {
                 cb.specify().columnMemberId();
             }
-        });
+        }).get();
         ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
             /* ## Act ## */
             cb.query().queryMember().scalar_GreaterThan().avg(new SubQuery<MemberCB>() {

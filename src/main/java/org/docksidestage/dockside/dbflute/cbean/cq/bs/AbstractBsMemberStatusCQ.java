@@ -184,7 +184,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
         setMemberStatusCode_InScope_AsMemberStatus(CDef.MemberStatus.listOfServiceAvailable());
     }
 
-    public void doSetMemberStatusCode_InScope(Collection<String> memberStatusCodeList) {
+    protected void doSetMemberStatusCode_InScope(Collection<String> memberStatusCodeList) {
         regINS(CK_INS, cTL(memberStatusCodeList), getCValueMemberStatusCode(), "MEMBER_STATUS_CODE");
     }
 
@@ -207,7 +207,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
         doSetMemberStatusCode_NotInScope(cTStrL(cdefList));
     }
 
-    public void doSetMemberStatusCode_NotInScope(Collection<String> memberStatusCodeList) {
+    protected void doSetMemberStatusCode_NotInScope(Collection<String> memberStatusCodeList) {
         regINS(CK_NINS, cTL(memberStatusCodeList), getCValueMemberStatusCode(), "MEMBER_STATUS_CODE");
     }
 
@@ -467,7 +467,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
         doSetMemberStatusName_InScope(memberStatusNameList);
     }
 
-    public void doSetMemberStatusName_InScope(Collection<String> memberStatusNameList) {
+    protected void doSetMemberStatusName_InScope(Collection<String> memberStatusNameList) {
         regINS(CK_INS, cTL(memberStatusNameList), getCValueMemberStatusName(), "MEMBER_STATUS_NAME");
     }
 
@@ -480,7 +480,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
         doSetMemberStatusName_NotInScope(memberStatusNameList);
     }
 
-    public void doSetMemberStatusName_NotInScope(Collection<String> memberStatusNameList) {
+    protected void doSetMemberStatusName_NotInScope(Collection<String> memberStatusNameList) {
         regINS(CK_NINS, cTL(memberStatusNameList), getCValueMemberStatusName(), "MEMBER_STATUS_NAME");
     }
 
@@ -613,7 +613,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
         doSetDescription_InScope(descriptionList);
     }
 
-    public void doSetDescription_InScope(Collection<String> descriptionList) {
+    protected void doSetDescription_InScope(Collection<String> descriptionList) {
         regINS(CK_INS, cTL(descriptionList), getCValueDescription(), "DESCRIPTION");
     }
 
@@ -626,7 +626,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
         doSetDescription_NotInScope(descriptionList);
     }
 
-    public void doSetDescription_NotInScope(Collection<String> descriptionList) {
+    protected void doSetDescription_NotInScope(Collection<String> descriptionList) {
         regINS(CK_NINS, cTL(descriptionList), getCValueDescription(), "DESCRIPTION");
     }
 
@@ -966,12 +966,12 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     //                                                                        ============
     /**
      * Prepare for MyselfExists (correlated sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
+     * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<MemberStatusCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
+    public void myselfExists(SubQuery<MemberStatusCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
         MemberStatusCB cb = new MemberStatusCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
         String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }

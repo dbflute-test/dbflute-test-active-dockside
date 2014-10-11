@@ -57,15 +57,13 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         }).getBirthdate();
 
         // ## Act ##
-        Date birthdate = memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
-            public void query(MemberCB cb) {
-                cb.specify().columnBirthdate(); // *Point!
-                cb.query().setMemberStatusCode_Equal_Formalized();
-            }
+        memberBhv.scalarSelect(Date.class).max(cb -> {
+            cb.specify().columnBirthdate();
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        }).alwaysPresent(birthdate -> {
+            /* ## Assert ## */
+            assertEquals(expected, birthdate);
         });
-
-        // ## Assert ##
-        assertEquals(expected, birthdate);
     }
 
     // ===================================================================================
@@ -139,31 +137,21 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
             }, Member.ALIAS_productKindCount, op -> op.coalesce(0));
             cb.query().setMemberStatusCode_Equal_Formalized();
         });
-
-        Integer expected = 0;
-        for (Member member : memberList) {
-            Integer max = member.getProductKindCount();
-            log(member.getMemberName() + " = " + max);
-            expected = expected + member.getProductKindCount();
-        }
+        Integer expected = memberList.stream().mapToInt(member -> member.getProductKindCount()).sum();
 
         // ## Act ##
-        Integer sum = memberBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberCB>() {
-            public void query(MemberCB cb) {
-                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnPurchasePrice();
-                        subCB.query().setPaymentCompleteFlg_Equal_True();
-                        subCB.query().setPurchasePrice_GreaterEqual(800);
-                    }
-                }, null);
-                cb.query().setMemberStatusCode_Equal_Formalized();
-            }
+        memberBhv.scalarSelect(Integer.class).sum(cb -> {
+            cb.specify().derivedPurchase().max(purchaseCB -> {
+                purchaseCB.specify().columnPurchasePrice();
+                purchaseCB.query().setPaymentCompleteFlg_Equal_True();
+                purchaseCB.query().setPurchasePrice_GreaterEqual(800);
+            }, null);
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        }).alwaysPresent(sum -> {
+            /* ## Assert ## */
+            log("sum = " + sum);
+            assertEquals(expected, sum);
         });
-
-        // ## Assert ##
-        log("sum = " + sum);
-        assertEquals(expected, sum);
     }
 
     public void test_ScalarSelect_DerivedReferrer_with_UnionQuery() {
@@ -183,16 +171,10 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
                 }
             });
         });
-
-        Integer expected = 0;
-        for (Member member : memberList) {
-            Integer max = member.getProductKindCount();
-            log(member.getMemberName() + " = " + max);
-            expected = expected + member.getProductKindCount();
-        }
+        Integer expected = memberList.stream().mapToInt(member -> member.getProductKindCount()).sum();
 
         // ## Act ##
-        Integer sum = memberBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberCB>() {
+        memberBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
@@ -208,10 +190,11 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
                     }
                 });
             }
+        }).alwaysPresent(sum -> {
+            /* ## Assert ## */
+            log("sum = " + sum);
+            assertEquals(expected, sum);
         });
-
-        // ## Assert ##
-        log("sum = " + sum);
     }
 
     // ===================================================================================
@@ -223,12 +206,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
             cb.setupSelect_MemberServiceAsOne();
         });
 
-        Integer expected = 0;
-        for (Member member : memberList) {
-            Integer pointCount = member.getMemberServiceAsOne().getServicePointCount();
-            log("pointCount = " + pointCount);
-            expected = expected + pointCount;
-        }
+        Integer expected = memberList.stream().mapToInt(member -> member.getMemberServiceAsOne().getServicePointCount()).sum();
         final Set<String> markSet = new HashSet<String>();
         CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
             public void handle(SqlLogInfo info) {
@@ -243,7 +221,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            Integer sum = memberServiceBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberServiceCB>() {
+            memberServiceBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB cb) {
                     cb.specify().columnServicePointCount();
                     cb.union(new UnionQuery<MemberServiceCB>() {
@@ -251,12 +229,12 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
                         }
                     });
                 }
-            });
-
-            // ## Assert ##
-            log("sum = " + sum);
-            assertEquals(expected, sum); // should be selected uniquely
-            assertTrue(markSet.contains("handle"));
+            }).alwaysPresent(sum -> {
+                /* ## Assert ## */
+                log("sum = " + sum);
+                assertEquals(expected, sum); // should be selected uniquely
+                    assertTrue(markSet.contains("handle"));
+                });
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
         }
@@ -264,16 +242,6 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
 
     public void test_ScalarSelect_with_UnionQuery_PrimaryKey_sum() {
         // ## Arrange ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.setupSelect_MemberServiceAsOne();
-        });
-
-        Integer expected = 0;
-        for (Member member : memberList) {
-            Integer pointCount = member.getMemberServiceAsOne().getServicePointCount();
-            log("pointCount = " + pointCount);
-            expected = expected + pointCount;
-        }
         final Set<String> markSet = new HashSet<String>();
         CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
             public void handle(SqlLogInfo info) {
@@ -288,7 +256,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            Integer sum = memberServiceBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberServiceCB>() {
+            memberServiceBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB cb) {
                     cb.specify().columnMemberServiceId();
                     cb.union(new UnionQuery<MemberServiceCB>() {
@@ -296,11 +264,11 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
                         }
                     });
                 }
+            }).alwaysPresent(sum -> {
+                /* ## Assert ## */
+                log("sum = " + sum);
+                assertTrue(markSet.contains("handle"));
             });
-
-            // ## Assert ##
-            log("sum = " + sum);
-            assertTrue(markSet.contains("handle"));
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
         }
@@ -318,12 +286,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
             cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_highestPurchasePrice);
         });
 
-        Integer expected = 0;
-        for (Member member : memberList) {
-            Integer maxPurchasePrice = member.getHighestPurchasePrice();
-            log("maxPurchasePrice = " + maxPurchasePrice);
-            expected = expected + maxPurchasePrice;
-        }
+        Integer expected = memberList.stream().mapToInt(member -> member.getHighestPurchasePrice()).sum();
         final Set<String> markSet = new HashSet<String>();
         CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
             public void handle(SqlLogInfo info) {
@@ -337,7 +300,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            Integer sum = summaryWithdrawalBhv.scalarSelect(Integer.class).sum(new ScalarQuery<SummaryWithdrawalCB>() {
+            summaryWithdrawalBhv.scalarSelect(Integer.class).sum(new ScalarQuery<SummaryWithdrawalCB>() {
                 public void query(SummaryWithdrawalCB cb) {
                     cb.specify().columnMaxPurchasePrice();
                     cb.union(new UnionQuery<SummaryWithdrawalCB>() {
@@ -345,12 +308,12 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
                         }
                     });
                 }
-            });
-
-            // ## Assert ##
-            log("sum = " + sum);
-            assertEquals(expected, sum); // should be selected uniquely
-            assertTrue(markSet.contains("handle"));
+            }).alwaysPresent(sum -> {
+                /* ## Assert ## */
+                log("sum = " + sum);
+                assertEquals(expected, sum); // should be selected uniquely
+                    assertTrue(markSet.contains("handle"));
+                });
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
         }
@@ -454,16 +417,16 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         int coalesce = 7849238;
 
         // ## Act ##
-        Integer max = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
+        memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().columnMemberId();
                 cb.query().setMemberStatusCode_Equal_Formalized();
                 cb.query().setMemberName_Equal("no exist");
             }
-        }, op -> op.coalesce(coalesce));
-
-        // ## Assert ##
-        assertEquals(Integer.valueOf(coalesce), max);
+        }, op -> op.coalesce(coalesce)).alwaysPresent(max -> {
+            /* ## Assert ## */
+            assertEquals(Integer.valueOf(coalesce), max);
+        });
     }
 
     public void test_ScalarSelect_option_date() {
@@ -471,16 +434,16 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         String coalesce = "2011-12-12";
 
         // ## Act ##
-        Date birthdate = memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
+        memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().columnBirthdate();
                 cb.query().setMemberStatusCode_Equal_Formalized();
                 cb.query().setMemberName_Equal("no exist");
             }
-        }, op -> op.coalesce(coalesce));
-
-        // ## Assert ##
-        assertEquals(coalesce, DfTypeUtil.toString(birthdate, "yyyy-MM-dd"));
+        }, op -> op.coalesce(coalesce)).alwaysPresent(birthdate -> {
+            /* ## Assert ## */
+            assertEquals(coalesce, DfTypeUtil.toString(birthdate, "yyyy-MM-dd"));
+        });
     }
 
     public void test_ScalarSelect_option_DerivedReferrer_basic() {
@@ -488,7 +451,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         int coalesce = 7849238;
 
         // ## Act ##
-        Integer max = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
+        memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().derivedPurchase().avg(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
@@ -498,10 +461,10 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
                 cb.query().setMemberStatusCode_Equal_Formalized();
                 cb.query().setMemberName_Equal("no exist");
             }
-        }, op -> op.coalesce(coalesce));
-
-        // ## Assert ##
-        assertEquals(Integer.valueOf(coalesce), max);
+        }, op -> op.coalesce(coalesce)).alwaysPresent(max -> {
+            /* ## Assert ## */
+            assertEquals(Integer.valueOf(coalesce), max);
+        });
     }
 
     public void test_ScalarSelect_option_DerivedReferrer_severalFunction() {
@@ -509,7 +472,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         int coalesce = 7849238;
 
         // ## Act ##
-        Integer max = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
+        memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().derivedPurchase().avg(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
@@ -519,9 +482,9 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
                 cb.query().setMemberStatusCode_Equal_Formalized();
                 cb.query().setMemberName_Equal("no exist");
             }
-        }, op -> op.coalesce(coalesce).round(2));
-
-        // ## Assert ##
-        assertEquals(Integer.valueOf(coalesce), max);
+        }, op -> op.coalesce(coalesce).round(2)).alwaysPresent(max -> {
+            /* ## Assert ## */
+            assertEquals(Integer.valueOf(coalesce), max);
+        });
     }
 }

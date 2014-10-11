@@ -174,7 +174,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
         doSetProductStatusCode_InScope(cTStrL(cdefList));
     }
 
-    public void doSetProductStatusCode_InScope(Collection<String> productStatusCodeList) {
+    protected void doSetProductStatusCode_InScope(Collection<String> productStatusCodeList) {
         regINS(CK_INS, cTL(productStatusCodeList), getCValueProductStatusCode(), "PRODUCT_STATUS_CODE");
     }
 
@@ -197,7 +197,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
         doSetProductStatusCode_NotInScope(cTStrL(cdefList));
     }
 
-    public void doSetProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
+    protected void doSetProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
         regINS(CK_NINS, cTL(productStatusCodeList), getCValueProductStatusCode(), "PRODUCT_STATUS_CODE");
     }
 
@@ -457,7 +457,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
         doSetProductStatusName_InScope(productStatusNameList);
     }
 
-    public void doSetProductStatusName_InScope(Collection<String> productStatusNameList) {
+    protected void doSetProductStatusName_InScope(Collection<String> productStatusNameList) {
         regINS(CK_INS, cTL(productStatusNameList), getCValueProductStatusName(), "PRODUCT_STATUS_NAME");
     }
 
@@ -470,7 +470,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
         doSetProductStatusName_NotInScope(productStatusNameList);
     }
 
-    public void doSetProductStatusName_NotInScope(Collection<String> productStatusNameList) {
+    protected void doSetProductStatusName_NotInScope(Collection<String> productStatusNameList) {
         regINS(CK_NINS, cTL(productStatusNameList), getCValueProductStatusName(), "PRODUCT_STATUS_NAME");
     }
 
@@ -810,12 +810,12 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     //                                                                        ============
     /**
      * Prepare for MyselfExists (correlated sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
+     * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<ProductStatusCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
+    public void myselfExists(SubQuery<ProductStatusCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
         ProductStatusCB cb = new ProductStatusCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
         String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }

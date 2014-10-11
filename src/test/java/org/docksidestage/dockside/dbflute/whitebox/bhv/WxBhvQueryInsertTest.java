@@ -280,21 +280,17 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
     //                                                                            ========
     public void test_queryInsert_IdentityEnabled() {
         // ## Arrange ##
-        Integer beforeMaxId = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
-            public void query(MemberCB cb) {
-                cb.specify().columnMemberId();
-            }
-        });
+        Integer beforeMaxId = memberBhv.scalarSelect(Integer.class).max(cb -> {
+            cb.specify().columnMemberId();
+        }).get();
 
         // ## Act ##
-        memberBhv.queryInsert(new QueryInsertSetupper<Member, MemberCB>() {
-            public ConditionBean setup(Member entity, MemberCB intoCB) {
-                MemberStatusCB cb = new MemberStatusCB();
-                intoCB.specify().columnMemberName().mappedFrom(cb.specify().columnMemberStatusName());
-                intoCB.specify().columnMemberAccount().mappedFrom(cb.specify().columnMemberStatusCode());
-                entity.setMemberStatusCode_Provisional();
-                return cb;
-            }
+        memberBhv.queryInsert((entity, intoCB) -> {
+            MemberStatusCB cb = new MemberStatusCB();
+            intoCB.specify().columnMemberName().mappedFrom(cb.specify().columnMemberStatusName());
+            intoCB.specify().columnMemberAccount().mappedFrom(cb.specify().columnMemberStatusCode());
+            entity.setMemberStatusCode_Provisional();
+            return cb;
         });
 
         // ## Assert ##
@@ -302,7 +298,7 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
             public void query(MemberCB cb) {
                 cb.specify().columnMemberId();
             }
-        });
+        }).get();
         assertTrue(beforeMaxId < afterMaxId);
     }
 }

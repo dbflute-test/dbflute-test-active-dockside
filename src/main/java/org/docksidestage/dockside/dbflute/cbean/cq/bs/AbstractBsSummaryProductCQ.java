@@ -347,7 +347,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
         doSetProductName_InScope(productNameList);
     }
 
-    public void doSetProductName_InScope(Collection<String> productNameList) {
+    protected void doSetProductName_InScope(Collection<String> productNameList) {
         regINS(CK_INS, cTL(productNameList), getCValueProductName(), "PRODUCT_NAME");
     }
 
@@ -360,7 +360,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
         doSetProductName_NotInScope(productNameList);
     }
 
-    public void doSetProductName_NotInScope(Collection<String> productNameList) {
+    protected void doSetProductName_NotInScope(Collection<String> productNameList) {
         regINS(CK_NINS, cTL(productNameList), getCValueProductName(), "PRODUCT_NAME");
     }
 
@@ -511,7 +511,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
         doSetProductHandleCode_InScope(productHandleCodeList);
     }
 
-    public void doSetProductHandleCode_InScope(Collection<String> productHandleCodeList) {
+    protected void doSetProductHandleCode_InScope(Collection<String> productHandleCodeList) {
         regINS(CK_INS, cTL(productHandleCodeList), getCValueProductHandleCode(), "PRODUCT_HANDLE_CODE");
     }
 
@@ -524,7 +524,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
         doSetProductHandleCode_NotInScope(productHandleCodeList);
     }
 
-    public void doSetProductHandleCode_NotInScope(Collection<String> productHandleCodeList) {
+    protected void doSetProductHandleCode_NotInScope(Collection<String> productHandleCodeList) {
         regINS(CK_NINS, cTL(productHandleCodeList), getCValueProductHandleCode(), "PRODUCT_HANDLE_CODE");
     }
 
@@ -717,7 +717,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
         doSetProductStatusCode_InScope(cTStrL(cdefList));
     }
 
-    public void doSetProductStatusCode_InScope(Collection<String> productStatusCodeList) {
+    protected void doSetProductStatusCode_InScope(Collection<String> productStatusCodeList) {
         regINS(CK_INS, cTL(productStatusCodeList), getCValueProductStatusCode(), "PRODUCT_STATUS_CODE");
     }
 
@@ -740,7 +740,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
         doSetProductStatusCode_NotInScope(cTStrL(cdefList));
     }
 
-    public void doSetProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
+    protected void doSetProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
         regINS(CK_NINS, cTL(productStatusCodeList), getCValueProductStatusCode(), "PRODUCT_STATUS_CODE");
     }
 
@@ -1027,12 +1027,12 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
     //                                                                        ============
     /**
      * Prepare for MyselfExists (correlated sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
+     * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<SummaryProductCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
+    public void myselfExists(SubQuery<SummaryProductCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
         SummaryProductCB cb = new SummaryProductCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
         String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }

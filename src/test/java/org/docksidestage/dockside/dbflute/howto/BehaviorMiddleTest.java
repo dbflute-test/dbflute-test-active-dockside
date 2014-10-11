@@ -7,10 +7,8 @@ import java.util.List;
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.result.PagingResultBean;
-import org.dbflute.cbean.scoping.ScalarQuery;
 import org.dbflute.exception.EntityAlreadyDeletedException;
 import org.dbflute.util.DfTypeUtil;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.MemberNamePmb;
@@ -142,15 +140,13 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         }).getBirthdate();
 
         // ## Act ##
-        Date birthday = memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
-            public void query(MemberCB cb) {
-                cb.specify().columnBirthdate(); // *Point!
-                cb.query().setMemberStatusCode_Equal_Formalized();
-            }
+        memberBhv.scalarSelect(Date.class).max(cb -> {
+            cb.specify().columnBirthdate();
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        }).alwaysPresent(birthdate -> {
+            /* ## Assert ## */
+            assertEquals(expected, birthdate);
         });
-
-        // ## Assert ##
-        assertEquals(expected, birthday);
 
         // [Description]
         // A. max()/min()/sum()/avg()をサポート

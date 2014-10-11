@@ -347,7 +347,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         doSetProductName_InScope(productNameList);
     }
 
-    public void doSetProductName_InScope(Collection<String> productNameList) {
+    protected void doSetProductName_InScope(Collection<String> productNameList) {
         regINS(CK_INS, cTL(productNameList), getCValueProductName(), "PRODUCT_NAME");
     }
 
@@ -360,7 +360,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         doSetProductName_NotInScope(productNameList);
     }
 
-    public void doSetProductName_NotInScope(Collection<String> productNameList) {
+    protected void doSetProductName_NotInScope(Collection<String> productNameList) {
         regINS(CK_NINS, cTL(productNameList), getCValueProductName(), "PRODUCT_NAME");
     }
 
@@ -493,7 +493,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         doSetProductHandleCode_InScope(productHandleCodeList);
     }
 
-    public void doSetProductHandleCode_InScope(Collection<String> productHandleCodeList) {
+    protected void doSetProductHandleCode_InScope(Collection<String> productHandleCodeList) {
         regINS(CK_INS, cTL(productHandleCodeList), getCValueProductHandleCode(), "PRODUCT_HANDLE_CODE");
     }
 
@@ -506,7 +506,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         doSetProductHandleCode_NotInScope(productHandleCodeList);
     }
 
-    public void doSetProductHandleCode_NotInScope(Collection<String> productHandleCodeList) {
+    protected void doSetProductHandleCode_NotInScope(Collection<String> productHandleCodeList) {
         regINS(CK_NINS, cTL(productHandleCodeList), getCValueProductHandleCode(), "PRODUCT_HANDLE_CODE");
     }
 
@@ -639,7 +639,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         doSetProductCategoryCode_InScope(productCategoryCodeList);
     }
 
-    public void doSetProductCategoryCode_InScope(Collection<String> productCategoryCodeList) {
+    protected void doSetProductCategoryCode_InScope(Collection<String> productCategoryCodeList) {
         regINS(CK_INS, cTL(productCategoryCodeList), getCValueProductCategoryCode(), "PRODUCT_CATEGORY_CODE");
     }
 
@@ -652,7 +652,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         doSetProductCategoryCode_NotInScope(productCategoryCodeList);
     }
 
-    public void doSetProductCategoryCode_NotInScope(Collection<String> productCategoryCodeList) {
+    protected void doSetProductCategoryCode_NotInScope(Collection<String> productCategoryCodeList) {
         regINS(CK_NINS, cTL(productCategoryCodeList), getCValueProductCategoryCode(), "PRODUCT_CATEGORY_CODE");
     }
 
@@ -827,7 +827,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         doSetProductStatusCode_InScope(cTStrL(cdefList));
     }
 
-    public void doSetProductStatusCode_InScope(Collection<String> productStatusCodeList) {
+    protected void doSetProductStatusCode_InScope(Collection<String> productStatusCodeList) {
         regINS(CK_INS, cTL(productStatusCodeList), getCValueProductStatusCode(), "PRODUCT_STATUS_CODE");
     }
 
@@ -850,7 +850,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         doSetProductStatusCode_NotInScope(cTStrL(cdefList));
     }
 
-    public void doSetProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
+    protected void doSetProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
         regINS(CK_NINS, cTL(productStatusCodeList), getCValueProductStatusCode(), "PRODUCT_STATUS_CODE");
     }
 
@@ -1136,7 +1136,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         doSetRegisterUser_InScope(registerUserList);
     }
 
-    public void doSetRegisterUser_InScope(Collection<String> registerUserList) {
+    protected void doSetRegisterUser_InScope(Collection<String> registerUserList) {
         regINS(CK_INS, cTL(registerUserList), getCValueRegisterUser(), "REGISTER_USER");
     }
 
@@ -1149,7 +1149,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         doSetRegisterUser_NotInScope(registerUserList);
     }
 
-    public void doSetRegisterUser_NotInScope(Collection<String> registerUserList) {
+    protected void doSetRegisterUser_NotInScope(Collection<String> registerUserList) {
         regINS(CK_NINS, cTL(registerUserList), getCValueRegisterUser(), "REGISTER_USER");
     }
 
@@ -1372,7 +1372,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         doSetUpdateUser_InScope(updateUserList);
     }
 
-    public void doSetUpdateUser_InScope(Collection<String> updateUserList) {
+    protected void doSetUpdateUser_InScope(Collection<String> updateUserList) {
         regINS(CK_INS, cTL(updateUserList), getCValueUpdateUser(), "UPDATE_USER");
     }
 
@@ -1385,7 +1385,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         doSetUpdateUser_NotInScope(updateUserList);
     }
 
-    public void doSetUpdateUser_NotInScope(Collection<String> updateUserList) {
+    protected void doSetUpdateUser_NotInScope(Collection<String> updateUserList) {
         regINS(CK_NINS, cTL(updateUserList), getCValueUpdateUser(), "UPDATE_USER");
     }
 
@@ -1725,12 +1725,12 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     //                                                                        ============
     /**
      * Prepare for MyselfExists (correlated sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
+     * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<ProductCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
+    public void myselfExists(SubQuery<ProductCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
         ProductCB cb = new ProductCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
         String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }

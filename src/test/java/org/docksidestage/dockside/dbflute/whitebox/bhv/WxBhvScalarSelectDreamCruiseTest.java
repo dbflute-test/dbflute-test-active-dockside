@@ -39,19 +39,19 @@ public class WxBhvScalarSelectDreamCruiseTest extends UnitContainerTestCase {
         });
 
         // ## Act ##
-        Integer result = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
+        memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 MemberCB dreamCruiseCB = cb.dreamCruiseCB();
                 cb.specify().columnMemberId().multiply(3).plus(dreamCruiseCB.specify().columnVersionNo());
                 cb.query().setMemberStatusCode_Equal_Formalized();
             }
+        }).alwaysPresent(max -> {
+            /* ## Assert ## */
+            log(max);
+            SqlLogInfo info = infoSet.iterator().next();
+            String sql = info.getDisplaySql();
+            assertTrue(sql.contains("select max((dfloc.MEMBER_ID * 3) + dfloc.VERSION_NO) as dfscalar"));
         });
-
-        // ## Assert ##
-        log(result);
-        SqlLogInfo info = infoSet.iterator().next();
-        String sql = info.getDisplaySql();
-        assertTrue(sql.contains("select max((dfloc.MEMBER_ID * 3) + dfloc.VERSION_NO) as dfscalar"));
     }
 
     // ===================================================================================
@@ -67,7 +67,7 @@ public class WxBhvScalarSelectDreamCruiseTest extends UnitContainerTestCase {
         });
 
         // ## Act ##
-        Integer result = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
+        memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
@@ -76,14 +76,14 @@ public class WxBhvScalarSelectDreamCruiseTest extends UnitContainerTestCase {
                     }
                 }, null);
             }
+        }).alwaysPresent(max -> {
+            /* ## Assert ## */
+            log(max);
+            SqlLogInfo info = infoSet.iterator().next();
+            String sql = info.getDisplaySql();
+            assertTrue(sql.contains("max((select max((sub1loc.PURCHASE_PRICE * 3) + sub1loc.PURCHASE_COUNT)"));
+            assertTrue(sql.contains(")) as dfscalar"));
         });
-
-        // ## Assert ##
-        log(result);
-        SqlLogInfo info = infoSet.iterator().next();
-        String sql = info.getDisplaySql();
-        assertTrue(sql.contains("max((select max((sub1loc.PURCHASE_PRICE * 3) + sub1loc.PURCHASE_COUNT)"));
-        assertTrue(sql.contains(")) as dfscalar"));
     }
 
     public void test_ScalarSelect_DreamCruise_SpecifyCalculation_DerivedReferrer_Union() {
@@ -96,7 +96,7 @@ public class WxBhvScalarSelectDreamCruiseTest extends UnitContainerTestCase {
         });
 
         // ## Act ##
-        Integer result = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
+        memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
@@ -111,19 +111,19 @@ public class WxBhvScalarSelectDreamCruiseTest extends UnitContainerTestCase {
                     }
                 });
             }
+        }).alwaysPresent(max -> {
+            /* ## Assert ## */
+            log(max);
+            SqlLogInfo info = infoSet.iterator().next();
+            String sql = info.getDisplaySql();
+            assertTrue(sql.contains("select max(dfunionview.dfscalar)"));
+            assertTrue(sql.contains(", (select max((sub1loc.PURCHASE_PRICE * 3) + sub1loc.PURCHASE_COUNT)"));
+            assertTrue(sql.contains(") as dfscalar"));
+            assertTrue(sql.contains("where dfloc.MEMBER_STATUS_CODE = 'FML'"));
+            assertTrue(sql.contains("union"));
+            assertTrue(sql.contains("where dfloc.MEMBER_STATUS_CODE = 'PRV'"));
+            assertTrue(sql.contains(") dfunionview"));
         });
-
-        // ## Assert ##
-        log(result);
-        SqlLogInfo info = infoSet.iterator().next();
-        String sql = info.getDisplaySql();
-        assertTrue(sql.contains("select max(dfunionview.dfscalar)"));
-        assertTrue(sql.contains(", (select max((sub1loc.PURCHASE_PRICE * 3) + sub1loc.PURCHASE_COUNT)"));
-        assertTrue(sql.contains(") as dfscalar"));
-        assertTrue(sql.contains("where dfloc.MEMBER_STATUS_CODE = 'FML'"));
-        assertTrue(sql.contains("union"));
-        assertTrue(sql.contains("where dfloc.MEMBER_STATUS_CODE = 'PRV'"));
-        assertTrue(sql.contains(") dfunionview"));
         /*
         select max(dfunionview.dfscalar)
           from (select dfloc.MEMBER_ID as MEMBER_ID

@@ -819,7 +819,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
         doSetMemberName_InScope(memberNameList);
     }
 
-    public void doSetMemberName_InScope(Collection<String> memberNameList) {
+    protected void doSetMemberName_InScope(Collection<String> memberNameList) {
         regINS(CK_INS, cTL(memberNameList), getCValueMemberName(), "MEMBER_NAME");
     }
 
@@ -832,7 +832,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
         doSetMemberName_NotInScope(memberNameList);
     }
 
-    public void doSetMemberName_NotInScope(Collection<String> memberNameList) {
+    protected void doSetMemberName_NotInScope(Collection<String> memberNameList) {
         regINS(CK_NINS, cTL(memberNameList), getCValueMemberName(), "MEMBER_NAME");
     }
 
@@ -965,7 +965,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
         doSetMemberAccount_InScope(memberAccountList);
     }
 
-    public void doSetMemberAccount_InScope(Collection<String> memberAccountList) {
+    protected void doSetMemberAccount_InScope(Collection<String> memberAccountList) {
         regINS(CK_INS, cTL(memberAccountList), getCValueMemberAccount(), "MEMBER_ACCOUNT");
     }
 
@@ -978,7 +978,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
         doSetMemberAccount_NotInScope(memberAccountList);
     }
 
-    public void doSetMemberAccount_NotInScope(Collection<String> memberAccountList) {
+    protected void doSetMemberAccount_NotInScope(Collection<String> memberAccountList) {
         regINS(CK_NINS, cTL(memberAccountList), getCValueMemberAccount(), "MEMBER_ACCOUNT");
     }
 
@@ -1163,7 +1163,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
         setMemberStatusCode_InScope_AsMemberStatus(CDef.MemberStatus.listOfServiceAvailable());
     }
 
-    public void doSetMemberStatusCode_InScope(Collection<String> memberStatusCodeList) {
+    protected void doSetMemberStatusCode_InScope(Collection<String> memberStatusCodeList) {
         regINS(CK_INS, cTL(memberStatusCodeList), getCValueMemberStatusCode(), "MEMBER_STATUS_CODE");
     }
 
@@ -1186,7 +1186,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
         doSetMemberStatusCode_NotInScope(cTStrL(cdefList));
     }
 
-    public void doSetMemberStatusCode_NotInScope(Collection<String> memberStatusCodeList) {
+    protected void doSetMemberStatusCode_NotInScope(Collection<String> memberStatusCodeList) {
         regINS(CK_NINS, cTL(memberStatusCodeList), getCValueMemberStatusCode(), "MEMBER_STATUS_CODE");
     }
 
@@ -1558,7 +1558,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
         doSetRegisterUser_InScope(registerUserList);
     }
 
-    public void doSetRegisterUser_InScope(Collection<String> registerUserList) {
+    protected void doSetRegisterUser_InScope(Collection<String> registerUserList) {
         regINS(CK_INS, cTL(registerUserList), getCValueRegisterUser(), "REGISTER_USER");
     }
 
@@ -1571,7 +1571,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
         doSetRegisterUser_NotInScope(registerUserList);
     }
 
-    public void doSetRegisterUser_NotInScope(Collection<String> registerUserList) {
+    protected void doSetRegisterUser_NotInScope(Collection<String> registerUserList) {
         regINS(CK_NINS, cTL(registerUserList), getCValueRegisterUser(), "REGISTER_USER");
     }
 
@@ -1794,7 +1794,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
         doSetUpdateUser_InScope(updateUserList);
     }
 
-    public void doSetUpdateUser_InScope(Collection<String> updateUserList) {
+    protected void doSetUpdateUser_InScope(Collection<String> updateUserList) {
         regINS(CK_INS, cTL(updateUserList), getCValueUpdateUser(), "UPDATE_USER");
     }
 
@@ -1807,7 +1807,7 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
         doSetUpdateUser_NotInScope(updateUserList);
     }
 
-    public void doSetUpdateUser_NotInScope(Collection<String> updateUserList) {
+    protected void doSetUpdateUser_NotInScope(Collection<String> updateUserList) {
         regINS(CK_NINS, cTL(updateUserList), getCValueUpdateUser(), "UPDATE_USER");
     }
 
@@ -2147,12 +2147,12 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
     //                                                                        ============
     /**
      * Prepare for MyselfExists (correlated sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
+     * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
+    public void myselfExists(SubQuery<MemberCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
         MemberCB cb = new MemberCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
         String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
