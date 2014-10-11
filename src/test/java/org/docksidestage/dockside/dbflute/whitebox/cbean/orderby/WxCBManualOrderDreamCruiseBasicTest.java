@@ -240,7 +240,7 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
         }
         // H2 does not support order by column derived from select clause 
         try {
-            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            memberBhv.selectList(cb -> {
                 /* ## Act ## */
                 cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
@@ -255,7 +255,9 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
             });
             fail();
         } catch (SQLFailureException e) {
-            log(e.getMessage());
+            String msg = e.getMessage();
+            log(msg);
+            assertContains(msg, "Column \"HIGHEST_PURCHASE_PRICE\" not found");
         }
 
         // ## Assert ##
@@ -273,8 +275,9 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
         for (MemberService service : serviceList) {
             serviceMap.put(service.getMemberId(), service);
         }
+        // H2 does not support order by column derived from select clause 
         try {
-            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            memberBhv.selectList(cb -> {
                 /* ## Act ## */
                 cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
@@ -291,12 +294,13 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
                 mob.multiply(dreamCruiseCB.inviteDerivedToDreamCruise(Member.ALIAS_highestPurchasePrice));
                 mob.plus(dreamCruiseCB.inviteDerivedToDreamCruise(Member.ALIAS_loginCount));
                 cb.query().addOrderBy_MemberId_Asc().withManualOrder(mob);
-                // H2 does not support order by column derived from select clause 
-                    pushCB(cb);
-                });
+                pushCB(cb);
+            });
             fail();
         } catch (SQLFailureException e) {
-            log(e.getMessage());
+            String msg = e.getMessage();
+            log(msg);
+            assertContains(msg, "Column \"HIGHEST_PURCHASE_PRICE\" not found");
         }
 
         // ## Assert ##
@@ -335,31 +339,37 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
     public void test_DreamCruise_ManualOrder_union_journeyLogBook_basic() throws Exception {
         // ## Arrange ##
         // H2 does not support order by column derived from select clause
-        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.specify().columnPurchasePrice();
-                }
-            }, Member.ALIAS_highestPurchasePrice);
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.specify().columnPurchaseCount();
-                }
-            }, Member.ALIAS_loginCount);
-            cb.union(new UnionQuery<MemberCB>() {
-                public void query(MemberCB unionCB) {
-                }
+        try {
+            memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.specify().columnPurchasePrice();
+                    }
+                }, Member.ALIAS_highestPurchasePrice);
+                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.specify().columnPurchaseCount();
+                    }
+                }, Member.ALIAS_loginCount);
+                cb.union(new UnionQuery<MemberCB>() {
+                    public void query(MemberCB unionCB) {
+                    }
+                });
+                MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+                ManualOrderOption mob = new ManualOrderOption();
+                mob.multiply(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                cb.query().addOrderBy_MemberId_Asc().withManualOrder(mob);
+                pushCB(cb);
             });
-            MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            ManualOrderOption mob = new ManualOrderOption();
-            mob.multiply(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-            cb.query().addOrderBy_MemberId_Asc().withManualOrder(mob);
-            pushCB(cb);
-        });
+            fail();
+        } catch (SQLFailureException e) {
+            String msg = e.getMessage();
+            log(msg);
+            assertContains(msg, "must be in the result list in this case");
+        }
 
         // ## Assert ##
-        //assertHasAnyElement(memberList);
         String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertContains(sql, "union");
@@ -371,33 +381,38 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
     public void test_DreamCruise_ManualOrder_union_journeyLogBook_nested() throws Exception {
         // ## Arrange ##
         // H2 does not support order by column derived from select clause 
-        ListResultBean<Member> memberList =
-                memberBhv.selectList(cb -> {
-                    /* ## Act ## */
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                        public void query(PurchaseCB subCB) {
-                            subCB.specify().columnPurchasePrice();
-                        }
-                    }, Member.ALIAS_highestPurchasePrice);
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                        public void query(PurchaseCB subCB) {
-                            subCB.specify().columnPurchaseCount();
-                        }
-                    }, Member.ALIAS_loginCount);
-                    cb.union(new UnionQuery<MemberCB>() {
-                        public void query(MemberCB unionCB) {
-                        }
-                    });
-                    MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-                    ManualOrderOption mob = new ManualOrderOption();
-                    mob.multiply(dreamCruiseCB.specify().columnVersionNo()).multiply(
-                            dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-                    cb.query().addOrderBy_MemberId_Asc().withManualOrder(mob);
-                    pushCB(cb);
+        try {
+            memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.specify().columnPurchasePrice();
+                    }
+                }, Member.ALIAS_highestPurchasePrice);
+                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.specify().columnPurchaseCount();
+                    }
+                }, Member.ALIAS_loginCount);
+                cb.union(new UnionQuery<MemberCB>() {
+                    public void query(MemberCB unionCB) {
+                    }
                 });
+                MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+                ManualOrderOption mob = new ManualOrderOption();
+                mob.multiply(dreamCruiseCB.specify().columnVersionNo()).multiply(
+                        dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                cb.query().addOrderBy_MemberId_Asc().withManualOrder(mob);
+                pushCB(cb);
+            });
+            fail();
+        } catch (SQLFailureException e) {
+            String msg = e.getMessage();
+            log(msg);
+            assertContains(msg, "must be in the result list in this case");
+        }
 
         // ## Assert ##
-        //assertHasAnyElement(memberList);
         String sql = popCB().toDisplaySql();
         log(ln() + sql);
         assertContains(sql, "union");
@@ -419,10 +434,10 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            ManualOrderOption mob = new ManualOrderOption();
-            mob.convert(op -> op.coalesce(0));
-            mob.multiply(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-            cb.query().addOrderBy_MemberId_Asc().withManualOrder(mob);
+            ManualOrderOption moo = new ManualOrderOption();
+            moo.convert(op -> op.coalesce(0));
+            moo.multiply(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+            cb.query().addOrderBy_MemberId_Asc().withManualOrder(moo);
             pushCB(cb);
         });
 
@@ -506,19 +521,26 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
             serviceMap.put(service.getMemberId(), service);
         }
         // H2 does not support ManualOrder on Union
-        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            /* ## Act ## */
-            //cb.setupSelect_MemberServiceAsOne(); // auto-resolved
-                cb.union(new UnionQuery<MemberCB>() {
-                    public void query(MemberCB unionCB) {
-                    }
+        try {
+            memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                //cb.setupSelect_MemberServiceAsOne(); // auto-resolved
+                    cb.union(new UnionQuery<MemberCB>() {
+                        public void query(MemberCB unionCB) {
+                        }
+                    });
+                    MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+                    ManualOrderOption mob = new ManualOrderOption();
+                    mob.multiply(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                    cb.query().addOrderBy_MemberId_Asc().withManualOrder(mob);
+                    pushCB(cb);
                 });
-                MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-                ManualOrderOption mob = new ManualOrderOption();
-                mob.multiply(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-                cb.query().addOrderBy_MemberId_Asc().withManualOrder(mob);
-                pushCB(cb);
-            });
+            fail();
+        } catch (SQLFailureException e) {
+            String msg = e.getMessage();
+            log(msg);
+            assertContains(msg, "must be in the result list in this case");
+        }
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();
@@ -535,19 +557,26 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
             serviceMap.put(service.getMemberId(), service);
         }
         // H2 does not support ManualOrder on Union
-        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            /* ## Act ## */
-            //cb.setupSelect_MemberServiceAsOne(); // auto-resolved
-                cb.union(new UnionQuery<MemberCB>() {
-                    public void query(MemberCB unionCB) {
-                    }
+        try {
+            memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                //cb.setupSelect_MemberServiceAsOne(); // auto-resolved
+                    cb.union(new UnionQuery<MemberCB>() {
+                        public void query(MemberCB unionCB) {
+                        }
+                    });
+                    MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+                    ManualOrderOption mob = new ManualOrderOption();
+                    mob.multiply(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                    cb.query().addOrderBy_MemberId_Desc().withManualOrder(mob);
+                    pushCB(cb);
                 });
-                MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-                ManualOrderOption mob = new ManualOrderOption();
-                mob.multiply(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-                cb.query().addOrderBy_MemberId_Desc().withManualOrder(mob);
-                pushCB(cb);
-            });
+            fail();
+        } catch (SQLFailureException e) {
+            String msg = e.getMessage();
+            log(msg);
+            assertContains(msg, "must be in the result list in this case");
+        }
 
         // ## Assert ##
         String sql = popCB().toDisplaySql();

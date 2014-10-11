@@ -174,11 +174,11 @@ public class VendorPlainTest extends UnitContainerTestCase {
             /* ## Act ## */
             cb.xzdisableShortCharHandling();
             cb.query().setMemberStatusCode_Equal(code.trim());
-            assertTrue(popCB().toDisplaySql().contains("'AB'"));
             pushCB(cb);
         });
 
         // ## Assert ##
+        assertTrue(popCB().toDisplaySql().contains("'AB'"));
         assertEquals(code.trim(), actual.getMemberStatusCode());
         assertEquals(name, actual.getMemberStatusName());
     }

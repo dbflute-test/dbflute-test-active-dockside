@@ -164,7 +164,7 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
             MemberCB cb = new MemberCB();
             cb.query().setMemberName_Equal("land");
             cb.query().setMemberName_Equal("sea");
-            String sql = popCB().toDisplaySql();
+            String sql = cb.toDisplaySql();
             assertNotContains(sql, "land");
             assertContains(sql, "sea");
         } finally {

@@ -122,23 +122,17 @@ public class VendorGrammerTest extends UnitContainerTestCase {
         {
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
                 cb.query().setMemberStatusCode_Equal_Formalized();
-                pushCB(cb);
             });
 
             for (Member member : memberList) {
                 formalizedMemberMap.put(member.getMemberId(), member);
             }
         }
-        final WithdrawalReason firstReason;
-        {
-            firstReason = withdrawalReasonBhv.selectEntityWithDeletedCheck(cb -> {
-                cb.fetchFirst(1);
-                pushCB(cb);
-            });
-        }
+        WithdrawalReason firstReason = withdrawalReasonBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.fetchFirst(1);
+        });
 
         // ## Act ##
-        int actualCountAll = memberWithdrawalBhv.selectCount(cb -> {});
         int inserted = memberWithdrawalBhv.queryInsert(new QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB>() {
             public ConditionBean setup(MemberWithdrawal entity, MemberWithdrawalCB intoCB) {
                 entity.setWithdrawalReasonCode(firstReason.getWithdrawalReasonCode());
@@ -151,6 +145,7 @@ public class VendorGrammerTest extends UnitContainerTestCase {
                 return cb;
             }
         });
+        int actualCountAll = memberWithdrawalBhv.selectCount(cb -> {});
 
         // ## Assert ##
         assertNotSame(0, inserted);
@@ -163,7 +158,6 @@ public class VendorGrammerTest extends UnitContainerTestCase {
         }
         ListResultBean<MemberWithdrawal> actualList = memberWithdrawalBhv.selectList(cb -> {
             cb.query().setMemberId_InScope(memberIdList);
-            pushCB(cb);
         });
 
         assertNotSame(0, actualList.size());

@@ -66,7 +66,6 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
                 cb.fetchFirst(1);
             });
         }
-        int actualCountAll = memberWithdrawalBhv.selectCount(countCB -> {});
 
         // ## Act ##
         int inserted = memberWithdrawalBhv.queryInsert(new QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB>() {
@@ -83,6 +82,7 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
+        int actualCountAll = memberWithdrawalBhv.selectCount(countCB -> {});
         assertNotSame(0, inserted);
         assertNotSame(countAll, actualCountAll);
         assertTrue(countAll < actualCountAll);

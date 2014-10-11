@@ -49,8 +49,9 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
                 pushCB(cb);
             });
 
-            assertFalse(popCB().toDisplaySql().contains("inner join"));
-            assertTrue(popCB().toDisplaySql().contains("left outer join"));
+            String sql = popCB().toDisplaySql();
+            assertFalse(sql.contains("inner join"));
+            assertTrue(sql.contains("left outer join"));
         }
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -66,8 +67,9 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertFalse(popCB().toDisplaySql().contains("inner join"));
-        assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertFalse(sql.contains("inner join"));
+        assertTrue(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(expectedCount, memberList.size());
         for (Member member : memberList) {
@@ -90,8 +92,9 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
                 pushCB(cb);
             });
 
-            assertFalse(popCB().toDisplaySql().contains("inner join"));
-            assertTrue(popCB().toDisplaySql().contains("left outer join"));
+            String sql = popCB().toDisplaySql();
+            assertFalse(sql.contains("inner join"));
+            assertTrue(sql.contains("left outer join"));
         }
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -107,8 +110,9 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertFalse(popCB().toDisplaySql().contains("inner join"));
-        assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertFalse(sql.contains("inner join"));
+        assertTrue(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(expectedCount, memberList.size());
         for (Member member : memberList) {
@@ -131,8 +135,9 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
                 pushCB(cb);
             });
 
-            assertFalse(popCB().toDisplaySql().contains("inner join"));
-            assertTrue(popCB().toDisplaySql().contains("left outer join"));
+            String sql = popCB().toDisplaySql();
+            assertFalse(sql.contains("inner join"));
+            assertTrue(sql.contains("left outer join"));
         }
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -148,8 +153,9 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertTrue(popCB().toDisplaySql().contains("inner join"));
-        assertFalse(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertTrue(sql.contains("inner join"));
+        assertFalse(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(expectedCount, memberList.size());
         for (Member member : memberList) {

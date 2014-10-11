@@ -48,7 +48,6 @@ public class WxBhvVaryingQueryInsertTest extends UnitContainerTestCase {
         WithdrawalReason firstReason = withdrawalReasonBhv.selectEntityWithDeletedCheck(cb -> {
             cb.fetchFirst(1);
         });
-        int actualCountAll = memberWithdrawalBhv.selectCount(countCB -> {});
 
         // ## Act ##
         int inserted = memberWithdrawalBhv.varyingQueryInsert((entity, intoCB) -> {
@@ -67,6 +66,7 @@ public class WxBhvVaryingQueryInsertTest extends UnitContainerTestCase {
         }, op -> op.disableCommonColumnAutoSetup());
 
         // ## Assert ##
+        int actualCountAll = memberWithdrawalBhv.selectCount(countCB -> {});
         assertNotSame(0, inserted);
         assertNotSame(countAll, actualCountAll);
         assertTrue(countAll < actualCountAll);

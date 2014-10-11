@@ -3,6 +3,7 @@ package org.docksidestage.dockside.dbflute.whitebox.tools;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.dbflute.helper.filesystem.FileTextIO;
 import org.dbflute.helper.filesystem.FileTextLineFilter;
@@ -15,6 +16,10 @@ import org.dbflute.util.Srl;
  * @author jflute
  */
 public class ToolsDocksideMigrationCBLambdaTest extends PlainTestCase {
+
+    public void test_dummy() throws Exception { // to suppress warning
+        assertEquals("foo", Optional.of("foo").orElse("bar"));
+    }
 
     // remove test_ because of already migrated
     public void migration_cbLambda() throws Exception {

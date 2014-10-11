@@ -355,7 +355,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         cb.query().setBirthdate_FromTo(date.getDate(), date.getDate(), option);
 
         // ## Assert ##
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         log(ln() + sql);
         assertTrue(Srl.contains(sql, "where (dfloc.BIRTHDATE >= '1970-01-01' or dfloc.BIRTHDATE is null)"));
         assertTrue(Srl.contains(sql, "  and (dfloc.BIRTHDATE < '1970-01-02' or dfloc.BIRTHDATE is null)"));
