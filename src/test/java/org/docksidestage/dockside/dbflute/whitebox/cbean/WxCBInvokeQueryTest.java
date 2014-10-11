@@ -52,12 +52,10 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         Member member = memberBhv.selectEntity(cb -> {
             /* ## Act ## */
             cb.invokeSetupSelect("memberStatus");
+            cb.query().setMemberId_Equal(3);
+        });
 
-            // ## Assert ##
-                cb.query().setMemberId_Equal(3);
-                pushCB(cb);
-            });
-
+        // ## Assert ##
         assertNotNull(member.getMemberStatus());
     }
 
@@ -80,12 +78,10 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         Purchase purchase = purchaseBhv.selectEntity(cb -> {
             /* ## Act ## */
             cb.invokeSetupSelect("member.memberStatus");
+            cb.query().setPurchaseId_Equal(3L);
+        });
 
-            // ## Assert ##
-                cb.query().setPurchaseId_Equal(3L);
-                pushCB(cb);
-            });
-
+        // ## Assert ##
         assertNotNull(purchase.getMember());
         assertNotNull(purchase.getMember().getMemberStatus());
     }
@@ -188,7 +184,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         log(ln() + sql);
         assertTrue(sql.contains(" = 'foo'"));
         assertTrue(sql.contains(" <> 'foo'"));
@@ -233,7 +229,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         log(ln() + sql);
         assertTrue(sql.contains(" = '2011-08-23'"));
         assertTrue(sql.contains(" >= '2011-08-23'"));
@@ -259,7 +255,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         log(ln() + sql);
         assertTrue(sql.contains(" = '2011-08-23'"));
         assertTrue(sql.contains(" >= '2011-08-23'"));
@@ -289,7 +285,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         log(ln() + sql);
         assertTrue(sql.contains(" = 10"));
         assertTrue(sql.contains(" >= 10"));
@@ -312,7 +308,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         log(ln() + sql);
         assertTrue(sql.contains(" is null"));
         assertTrue(sql.contains(" is not null"));
@@ -329,7 +325,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertFalse(cb.hasWhereClauseOnBaseQuery());
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         log(ln() + sql);
         assertFalse(sql.contains(" is null"));
         assertFalse(sql.contains(" is not null"));
@@ -348,9 +344,9 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         cb.localCQ().invokeQuery(columnDbName, keyName, "");
 
         // ## Assert ##
-        log(popCB().toDisplaySql());
+        log(cb.toDisplaySql());
         assertNull(cb.localCQ().invokeValue(columnDbName).getFixed());
-        assertFalse(popCB().toDisplaySql().contains("where "));
+        assertFalse(cb.toDisplaySql().contains("where "));
     }
 
     // -----------------------------------------------------
@@ -367,18 +363,18 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         cb.localCQ().invokeQuery(columnDbName, keyName, null);
 
         // ## Assert ##
-        log(ln() + popCB().toDisplaySql());
+        log(ln() + cb.toDisplaySql());
         assertNull(cb.localCQ().invokeValue(columnDbName).getFixed());
-        assertFalse(popCB().toDisplaySql().contains("where "));
+        assertFalse(cb.toDisplaySql().contains("where "));
 
         // ## Act ##
         cb.localCQ().invokeQuery(columnDbName, keyName, "foo");
         cb.localCQ().invokeQuery(columnDbName, keyName, null);
 
         // ## Assert ##
-        log(ln() + popCB().toDisplaySql());
+        log(ln() + cb.toDisplaySql());
         assertNotNull(cb.localCQ().invokeValue(columnDbName).getFixed());
-        assertTrue(popCB().toDisplaySql().contains("where "));
+        assertTrue(cb.toDisplaySql().contains("where "));
     }
 
     // -----------------------------------------------------
@@ -455,7 +451,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         log(ln() + sql);
         assertTrue(sql.contains(" = 'FML'"));
     }
@@ -542,11 +538,9 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             cb.query().invokeQueryEqual("memberId", 3);
+        });
 
-            // ## Assert ##
-                pushCB(cb);
-            });
-
+        // ## Assert ##
         assertEquals(3, member.getMemberId());
     }
 

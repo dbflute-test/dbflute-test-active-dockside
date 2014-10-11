@@ -45,13 +45,9 @@ public class WxBhvVaryingQueryInsertTest extends UnitContainerTestCase {
                 formalizedMemberMap.put(member.getMemberId(), member);
             }
         }
-        final WithdrawalReason firstReason;
-        {
-            firstReason = withdrawalReasonBhv.selectEntityWithDeletedCheck(cb -> {
-                cb.fetchFirst(1);
-            });
-
-        }
+        WithdrawalReason firstReason = withdrawalReasonBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.fetchFirst(1);
+        });
         int actualCountAll = memberWithdrawalBhv.selectCount(countCB -> {});
 
         // ## Act ##

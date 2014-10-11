@@ -80,8 +80,9 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
         assertTrue(existsProv);
         assertTrue(existsStart);
         assertTrue(existsBoth);
-        assertTrue(popCB().toDisplaySql().contains(" union"));
-        assertFalse(popCB().toDisplaySql().contains(" union all"));
+        String sql = popCB().toDisplaySql();
+        assertTrue(sql.contains(" union"));
+        assertFalse(sql.contains(" union all"));
     }
 
     public void test_UnionQuery_unionAll_basic() {
@@ -173,12 +174,15 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(Srl.containsAll(popCB().toDisplaySql(), pkCol, specifiedCol, implicitCol));
-            assertFalse(Srl.contains(popCB().toDisplaySql(), notCol));
-            assertFalse(memberList.isEmpty());
-            for (Member member : memberList) {
-                assertNotNull(member.getMemberName());
-                assertNull(member.getMemberAccount());
+            {
+                String sql = popCB().toDisplaySql();
+                assertTrue(Srl.containsAll(sql, pkCol, specifiedCol, implicitCol));
+                assertFalse(Srl.contains(sql, notCol));
+                assertFalse(memberList.isEmpty());
+                for (Member member : memberList) {
+                    assertNotNull(member.getMemberName());
+                    assertNull(member.getMemberAccount());
+                }
             }
 
             // ## Act ##
@@ -189,17 +193,21 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
                 cb.union(unionCB -> unionCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix()));
                 cb.query().addOrderBy_MemberName_Desc();
                 cb.paging(5, 2);
+                pushCB(cb);
             });
 
             // ## Assert ##
-            assertTrue(Srl.containsAll(popCB().toDisplaySql(), pkCol, specifiedCol, implicitCol));
-            assertFalse(Srl.contains(popCB().toDisplaySql(), notCol));
-            assertNotSame(0, memberPage.size());
-            for (Member member : memberPage) {
-                assertNotNull(member.getMemberName());
-                assertNull(member.getMemberAccount());
+            {
+                String sql = popCB().toDisplaySql();
+                assertTrue(Srl.containsAll(sql, pkCol, specifiedCol, implicitCol));
+                assertFalse(Srl.contains(sql, notCol));
+                assertNotSame(0, memberPage.size());
+                for (Member member : memberPage) {
+                    assertNotNull(member.getMemberName());
+                    assertNull(member.getMemberAccount());
+                }
+                assertTrue(markSet.contains("handle")); // for count-select assert
             }
-            assertTrue(markSet.contains("handle")); // for count-select assert
         } finally {
             CallbackContext.clearCallbackContextOnThread();
         }
@@ -234,12 +242,14 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
                 cb.specify().columnMemberName();
                 cb.union(unionCB -> {});
                 cb.query().addOrderBy_MemberName_Asc();
+                pushCB(cb);
             });
 
             // ## Assert ##
             assertEquals(withdrawalList.size(), countAll);
-            assertTrue(Srl.contains(popCB().toDisplaySql(), specifiedCol));
-            assertFalse(Srl.contains(popCB().toDisplaySql(), notCol));
+            String sql = popCB().toDisplaySql();
+            assertTrue(Srl.contains(sql, specifiedCol));
+            assertFalse(Srl.contains(sql, notCol));
             assertNotSame(0, withdrawalList.size());
             for (SummaryWithdrawal withdrawal : withdrawalList) {
                 assertNotNull(withdrawal.getMemberName());
@@ -256,8 +266,8 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
 
             // ## Assert ##
             assertEquals(withdrawalPage.getAllRecordCount(), withdrawalList.size());
-            assertTrue(Srl.contains(popCB().toDisplaySql(), specifiedCol));
-            assertFalse(Srl.contains(popCB().toDisplaySql(), notCol));
+            assertTrue(Srl.contains(sql, specifiedCol));
+            assertFalse(Srl.contains(sql, notCol));
             assertNotSame(0, withdrawalPage.size());
             for (SummaryWithdrawal withdrawal : withdrawalPage) {
                 assertNotNull(withdrawal.getMemberName());
@@ -279,14 +289,16 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
             cb.specify().columnMemberStatusCode();
             cb.union(unionCB -> {});
             cb.query().addOrderBy_MemberStatusCode_Asc();
+            pushCB(cb);
         });
 
         // ## Assert ##
         assertTrue(withdrawalList.size() < countAll); // should have no duplicated record
         String specifiedCol = SummaryWithdrawalDbm.getInstance().columnMemberStatusCode().getColumnDbName();
         String notCol = SummaryWithdrawalDbm.getInstance().columnWithdrawalDatetime().getColumnDbName();
-        assertTrue(Srl.contains(popCB().toDisplaySql(), specifiedCol));
-        assertFalse(Srl.contains(popCB().toDisplaySql(), notCol));
+        String sql = popCB().toDisplaySql();
+        assertTrue(Srl.contains(sql, specifiedCol));
+        assertFalse(Srl.contains(sql, notCol));
         assertNotSame(0, withdrawalList.size());
         for (SummaryWithdrawal withdrawal : withdrawalList) {
             assertNotNull(withdrawal.getMemberStatusCode());
@@ -304,8 +316,8 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
         // ## Assert ##
         // count-select in paging should get a corresponding count
         assertEquals(withdrawalPage.getAllRecordCount(), withdrawalList.size());
-        assertTrue(Srl.contains(popCB().toDisplaySql(), specifiedCol));
-        assertFalse(Srl.contains(popCB().toDisplaySql(), notCol));
+        assertTrue(Srl.contains(sql, specifiedCol));
+        assertFalse(Srl.contains(sql, notCol));
         assertNotSame(0, withdrawalPage.size());
         for (SummaryWithdrawal withdrawal : withdrawalPage) {
             assertNotNull(withdrawal.getMemberStatusCode());
@@ -348,11 +360,11 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
                     // OK
                     log(e.getMessage());
                 }
-                unionCB.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() { // OK
-                            public void query(PurchaseCB subCB) {
-                                subCB.specify().columnPurchasePrice();
-                            }
-                        }).equal(123);
+                unionCB.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.specify().columnPurchasePrice();
+                    }
+                }).equal(123); // expects no exception
             }
         });
     }

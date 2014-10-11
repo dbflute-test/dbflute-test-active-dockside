@@ -35,8 +35,9 @@ public class WxCBInnerJoinManualTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertTrue(popCB().toDisplaySql().contains("inner join"));
-        assertFalse(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertTrue(sql.contains("inner join"));
+        assertFalse(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertNotSame(countAll, memberList.size());
         assertTrue(countAll > memberList.size());
@@ -59,8 +60,9 @@ public class WxCBInnerJoinManualTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertTrue(popCB().toDisplaySql().contains("inner join"));
-        assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertTrue(sql.contains("inner join"));
+        assertTrue(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertNotSame(countAll, memberList.size());
         assertTrue(countAll > memberList.size());
@@ -84,8 +86,9 @@ public class WxCBInnerJoinManualTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertTrue(popCB().toDisplaySql().contains("inner join"));
-        assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertTrue(sql.contains("inner join"));
+        assertTrue(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertNotSame(countAll, memberList.size());
         assertTrue(countAll > memberList.size());
@@ -108,8 +111,9 @@ public class WxCBInnerJoinManualTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertTrue(popCB().toDisplaySql().contains("inner join"));
-        assertFalse(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertTrue(sql.contains("inner join"));
+        assertFalse(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertNotSame(countAll, memberList.size());
         assertTrue(countAll > memberList.size());
@@ -156,15 +160,10 @@ public class WxCBInnerJoinManualTest extends UnitContainerTestCase {
     //                                                                              ======
     public void test_innerJoin_nested() {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = memberBhv.selectCount(cb -> {
-                cb.query().setMemberStatusCode_Equal_Withdrawal();
-                cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
-                pushCB(cb);
-            });
-
-        }
+        int countAll = memberBhv.selectCount(cb -> {
+            cb.query().setMemberStatusCode_Equal_Withdrawal();
+            cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
+        });
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -173,8 +172,9 @@ public class WxCBInnerJoinManualTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertTrue(popCB().toDisplaySql().contains("inner join"));
-        assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertTrue(sql.contains("inner join"));
+        assertTrue(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(countAll, memberList.size());
         for (Member member : memberList) {

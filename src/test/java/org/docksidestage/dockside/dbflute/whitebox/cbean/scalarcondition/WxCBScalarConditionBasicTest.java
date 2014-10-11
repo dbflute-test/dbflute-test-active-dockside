@@ -96,7 +96,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(popCB().toDisplaySql().contains(" = "));
+            assertTrue(cb.toDisplaySql().contains(" = "));
         }
         {
             // ## Arrange ##
@@ -108,7 +108,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(popCB().toDisplaySql().contains(" <> "));
+            assertTrue(cb.toDisplaySql().contains(" <> "));
         }
         {
             // ## Arrange ##
@@ -120,7 +120,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(popCB().toDisplaySql().contains(" > "));
+            assertTrue(cb.toDisplaySql().contains(" > "));
         }
         {
             // ## Arrange ##
@@ -132,7 +132,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(popCB().toDisplaySql().contains(" < "));
+            assertTrue(cb.toDisplaySql().contains(" < "));
         }
         {
             // ## Arrange ##
@@ -144,7 +144,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(popCB().toDisplaySql().contains(" >= "));
+            assertTrue(cb.toDisplaySql().contains(" >= "));
         }
         {
             // ## Arrange ##
@@ -156,7 +156,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(popCB().toDisplaySql().contains(" <= "));
+            assertTrue(cb.toDisplaySql().contains(" <= "));
         }
     }
 

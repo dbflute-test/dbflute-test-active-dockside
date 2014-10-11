@@ -383,7 +383,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                 });
             }
         });
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
 
         // ## Assert ##
         log(sql);
@@ -423,7 +423,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                 });
             }
         });
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
 
         // ## Assert ##
         log(sql);
@@ -465,7 +465,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                 orCB.query().setBirthdate_IsNotNull(); // ignored
             }
         });
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
 
         // ## Assert ##
         log(ln() + sql);

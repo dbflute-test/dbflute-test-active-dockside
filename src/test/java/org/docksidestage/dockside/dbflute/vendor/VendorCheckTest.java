@@ -169,17 +169,16 @@ public class VendorCheckTest extends UnitContainerTestCase {
         // /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         List<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            LikeSearchOption option = new LikeSearchOption().likeContain(); // *Point!
-                cb.query().setMemberName_LikeSearch(keyword, option);
-                // - - - - - - - - - -/
-
-                String displaySql = popCB().toDisplaySql();
-                assertTrue(displaySql.contains("100％ジュース||和歌山＿テ"));
-                pushCB(cb);
-            });
+            LikeSearchOption option = new LikeSearchOption().likeContain();
+            cb.query().setMemberName_LikeSearch(keyword, option);
+            pushCB(cb);
+        });
+        // - - - - - - - - - -/
 
         // ## Assert ##
-        assertNotNull(memberList);
+        assertHasAnyElement(memberList);
+        String displaySql = popCB().toDisplaySql();
+        assertTrue(displaySql.contains("100％ジュース||和歌山＿テ"));
         assertEquals(1, memberList.size()); // escapeしてもHITすること
         Member actualMember = memberList.get(0);
         log(actualMember);

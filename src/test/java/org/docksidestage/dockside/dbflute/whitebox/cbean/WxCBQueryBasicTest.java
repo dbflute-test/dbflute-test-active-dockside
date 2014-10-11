@@ -133,7 +133,7 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
                 orCB.query().setMemberId_Equal(88);
             }
         });
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
 
         // ## Assert ##
         log(ln() + sql);
@@ -197,7 +197,7 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
         cb.query().setMemberName_LikeSearch("A", op -> op.likePrefix());
         cb.query().inline().setMemberName_LikeSearch("B", op -> op.likePrefix());
         cb.query().setMemberName_LikeSearch("C", op -> op.likePrefix());
-        String actual = popCB().toDisplaySql();
+        String actual = cb.toDisplaySql();
 
         // ## Assert ##
         log(ln() + actual);
@@ -236,7 +236,7 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
         cb.query().setBirthdate_FromTo(null, null, new FromToOption());
 
         // ## Assert ##
-        String actual = popCB().toDisplaySql();
+        String actual = cb.toDisplaySql();
         log(ln() + actual);
         assertFalse(actual.contains("where"));
         assertFalse(actual, cb.hasWhereClauseOnBaseQuery());

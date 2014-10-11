@@ -466,6 +466,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             /* ## Act ## */
             arrangeUnionForPaging(cb);
             cb.paging(fetchSize, page1.getAllPageCount());
+            pushCB(cb);
         });
 
         // ## Assert ##
@@ -491,11 +492,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         assertTrue(lastPage.isExistPrePage());
         assertFalse(lastPage.isExistNextPage());
 
-        ConditionBeanSetupper<PurchaseCB> setupper = new ConditionBeanSetupper<PurchaseCB>() {
-            public void setup(PurchaseCB cb) {
-                cb.query().setPurchasePrice_GreaterEqual(1500);
-            }
-        };
+        ConditionBeanSetupper<PurchaseCB> setupper = cb -> cb.query().setPurchasePrice_GreaterEqual(1500);
         memberBhv.loadPurchaseList(page1, setupper);
         memberBhv.loadPurchaseList(page2, setupper);
         memberBhv.loadPurchaseList(page3, setupper);
@@ -1354,6 +1351,6 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             }
         });
         cb.query().addOrderBy_DisplayOrder_Asc().addOrderBy_MemberStatusCode_Desc();
-        log(ln() + popCB().toDisplaySql());
+        log(ln() + cb.toDisplaySql());
     }
 }

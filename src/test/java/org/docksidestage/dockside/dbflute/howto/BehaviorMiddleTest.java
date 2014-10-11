@@ -309,23 +309,11 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
             actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser());
         });
         assertEquals(actualList.size(), updatedCount);
-
-        // [Description]
-        // A. 条件として、結合先のカラムによる条件やexists句を使ったサブクエリーなども利用可能。
-        // B. setupSelect_Xxx()やaddOrderBy_Xxx()を呼び出しても意味はない。
-        // C. 排他制御はせずに問答無用で更新する。(バージョンNOは自動インクリメント)
-        // D. 更新結果が0件でも特に例外は発生しない。
-        // E. 共通カラム(CommonColumn)の自動設定は有効。
     }
 
-    /**
-     * Queryを使った削除: queryDelete().
-     * 会員ステータスが正式会員の会員を全て削除する。
-     * ConditionBeanで設定した条件で一括削除が可能である。(排他制御はない)
-     */
     public void test_queryDelete() {
         // ## Arrange ##
-        deleteMemberReferrer();// for Test
+        deleteMemberReferrer();
 
         int deletedCount = memberBhv.queryDelete(cb -> {
             /* ## Act ## */
@@ -334,13 +322,9 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, deletedCount);
-        assertEquals(0, memberBhv.selectCount(cb -> {}));
-
-        // [Description]
-        // A. 条件として、結合先のカラムによる条件やexists句を使ったサブクエリーなども利用可能。
-        // B. setupSelect_Xxx()やaddOrderBy_Xxx()を呼び出しても意味はない。
-        // C. 排他制御はせずに問答無用で削除する。
-        // D. 削除結果が0件でも特に例外は発生しない。
+        assertEquals(0, memberBhv.selectCount(cb -> {
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        }));
     }
 
     // ===================================================================================

@@ -107,7 +107,7 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
             });
 
             // ## Assert ##
-            assertTrue(popCB().toDisplaySql().contains(" = "));
+            assertTrue(cb.toDisplaySql().contains(" = "));
         }
         {
             // ## Arrange ##

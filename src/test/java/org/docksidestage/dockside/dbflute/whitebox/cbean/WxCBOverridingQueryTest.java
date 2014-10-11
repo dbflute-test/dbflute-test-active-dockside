@@ -39,7 +39,7 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         cb.enableOverridingQuery();
         // ## Assert ##
         cb.query().setMemberName_Equal("sea");
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         assertNotContains(sql, "land");
         assertContains(sql, "sea");
     }
@@ -51,7 +51,7 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         cb.query().setMemberName_Equal("sea");
 
         // ## Assert ##
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         log(sql);
         assertNotContains(sql, "land");
         assertContains(sql, "sea");
@@ -73,7 +73,7 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         assertNotContains(sql, "2014-08-07");
         assertContains(sql, "2014-08-08");
     }
@@ -87,7 +87,7 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
             public void query(PurchaseCB subCB) {
                 markHere("exists");
                 subCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-07"));
-        try {
+                try {
                     subCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-08"));
                     fail();
                 } catch (QueryAlreadyRegisteredException e) {
@@ -97,7 +97,7 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         assertNotContains(sql, "2014-08-08");
         assertContains(sql, "2014-08-07");
         assertMarked("exists");
@@ -123,7 +123,7 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         }
 
         // ## Assert ##
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         assertNotContains(sql, "2014-08-07");
         assertContains(sql, "2014-08-08");
         assertNotContains(sql, "sea");
@@ -142,7 +142,7 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         try {
             MemberCB cb = new MemberCB();
             cb.query().setMemberName_Equal("land");
-        try {
+            try {
                 cb.query().setMemberName_Equal("sea");
                 // ## Assert ##
                 fail();

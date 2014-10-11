@@ -126,7 +126,8 @@ public class WxCBInlineViewTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         assertEquals(countAll, memberList.size());
-        assertTrue(popCB().toDisplaySql().contains("where dfinlineloc.DISPLAY_ORDER >= 2"));
-        assertTrue(popCB().toDisplaySql().contains(".MOBILE_LOGIN_FLG = 1"));
+        String sql = popCB().toDisplaySql();
+        assertTrue(sql.contains("where dfinlineloc.DISPLAY_ORDER >= 2"));
+        assertTrue(sql.contains(".MOBILE_LOGIN_FLG = 1"));
     }
 }

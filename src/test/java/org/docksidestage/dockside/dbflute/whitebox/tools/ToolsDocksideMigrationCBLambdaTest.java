@@ -16,7 +16,8 @@ import org.dbflute.util.Srl;
  */
 public class ToolsDocksideMigrationCBLambdaTest extends PlainTestCase {
 
-    public void test_migration_cbLambda() throws Exception {
+    // remove test_ because of already migrated
+    public void migration_cbLambda() throws Exception {
         policeStoryOfJavaClassChase(new PoliceStoryJavaClassHandler() {
             @Override
             public void handle(File srcFile, Class<?> clazz) {

@@ -105,9 +105,9 @@ public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.checkNullOrEmptyQuery();
         cb.query().setBirthdate_FromTo(DfTypeUtil.toDate("2006-09-26"), null, op -> op.compareAsDate()); // OK
-        assertTrue(Srl.contains(popCB().toDisplaySql(), "2006-09-26"));
+        assertTrue(Srl.contains(cb.toDisplaySql(), "2006-09-26"));
         cb.query().setBirthdate_FromTo(null, DfTypeUtil.toDate("2011-01-21"), op -> op.compareAsDate()); // OK
-        assertTrue(Srl.contains(popCB().toDisplaySql(), "2011-01-22")); // added
+        assertTrue(Srl.contains(cb.toDisplaySql(), "2011-01-22")); // added
 
         try {
             cb.query().setBirthdate_FromTo(null, null, op -> op.compareAsDate());
@@ -129,7 +129,7 @@ public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
         cb.checkNullOrEmptyQuery();
         LikeSearchOption option = new LikeSearchOption().splitByPipeLine();
         cb.query().setMemberName_LikeSearch("FOO|BAR||QUX", option); // OK
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         assertTrue(Srl.containsAll(sql, "FOO", "BAR", "QUX"));
         assertEquals(3, Srl.count(sql, " like "));
         log(ln() + sql);
@@ -233,7 +233,6 @@ public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
                 cb.query().setMemberId_Equal(null); // no exception
                 cb.query().setMemberName_LikeSearch("", op -> op.likePrefix()); // no exception
                 cb.query().setMemberId_Equal(3);
-                pushCB(cb);
             });
 
         // ## Assert ##
@@ -247,7 +246,7 @@ public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
         cb.ignoreNullOrEmptyQuery();
         cb.query().setBirthdate_FromTo(null, null, op -> op.compareAsDate());
 
-        String sql = popCB().toDisplaySql();
+        String sql = cb.toDisplaySql();
         log(ln() + sql);
         assertNotContains(sql, "BIRTHDATE");
     }

@@ -50,15 +50,10 @@ public class VendorGrammerTest extends UnitContainerTestCase {
     //                                                                           =========
     public void test_innerJoin_nested_basic() {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = memberBhv.selectCount(cb -> {
-                cb.query().setMemberStatusCode_Equal_Withdrawal();
-                cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
-                pushCB(cb);
-            });
-
-        }
+        int countAll = memberBhv.selectCount(cb -> {
+            cb.query().setMemberStatusCode_Equal_Withdrawal();
+            cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
+        });
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -67,8 +62,9 @@ public class VendorGrammerTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertTrue(popCB().toDisplaySql().contains("inner join"));
-        assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertTrue(sql.contains("inner join"));
+        assertTrue(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(countAll, memberList.size());
         for (Member member : memberList) {
@@ -78,14 +74,9 @@ public class VendorGrammerTest extends UnitContainerTestCase {
 
     public void test_innerJoin_nested_branch() {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = purchaseBhv.selectCount(cb -> {
-                cb.query().queryMember().queryMemberWithdrawalAsOne().queryWithdrawalReason().setWithdrawalReasonCode_IsNotNull();
-                pushCB(cb);
-            });
-
-        }
+        int countAll = purchaseBhv.selectCount(cb -> {
+            cb.query().queryMember().queryMemberWithdrawalAsOne().queryWithdrawalReason().setWithdrawalReasonCode_IsNotNull();
+        });
 
         ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
             /* ## Act ## */
@@ -97,8 +88,9 @@ public class VendorGrammerTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertTrue(popCB().toDisplaySql().contains("inner join"));
-        assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertTrue(sql.contains("inner join"));
+        assertTrue(sql.contains("left outer join"));
         assertFalse(purchaseList.isEmpty());
         assertEquals(countAll, purchaseList.size());
         boolean existsSecurity = false;
@@ -143,7 +135,6 @@ public class VendorGrammerTest extends UnitContainerTestCase {
                 cb.fetchFirst(1);
                 pushCB(cb);
             });
-
         }
 
         // ## Act ##

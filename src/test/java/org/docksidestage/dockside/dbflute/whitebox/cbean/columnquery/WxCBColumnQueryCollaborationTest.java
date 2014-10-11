@@ -1,5 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.columnquery;
 
+import org.dbflute.cbean.ConditionBean;
 import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SpecifyQuery;
@@ -467,7 +468,8 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         for (Member member : memberList) {
             log(member);
         }
-        String sql = popCB().toDisplaySql();
+        ConditionBean cb = popCB();
+        String sql = cb.toDisplaySql();
         assertTrue(Srl.contains(sql, " where dfrel_4.SERVICE_POINT_COUNT >= 100"));
         assertTrue(Srl.contains(sql, "and (select max((select max(sub2loc.MEMBER_LOGIN_ID)"));
         assertTrue(Srl.contains(sql, "and sub2loc.MOBILE_LOGIN_FLG = 0"));
@@ -482,7 +484,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         assertTrue(Srl.contains(sql, "and sub1loc.PURCHASE_PRICE >= 123"));
 
         long before = currentTimestamp().getTime();
-        popCB().toDisplaySql();
+        cb.toDisplaySql();
         long after = currentTimestamp().getTime();
         log("cost = " + DfTraceViewUtil.convertToPerformanceView(after - before));
     }
@@ -570,23 +572,24 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
             // OK
             log(e.getMessage());
         }
+        // ## Arrange ##
         try {
-            // ## Arrange ##
-            MemberCB cb = new MemberCB();
-            cb.columnQuery(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    // reverse
-                    cb.specify().columnBirthdate();
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                        public void query(PurchaseCB subCB) {
-                            subCB.specify().columnPurchaseCount();
-                        }
-                    }, null);
-                }
-            }).greaterEqual(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnMemberId();
-                }
+            memberBhv.selectEntity(cb -> {
+                cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        // reverse
+                        cb.specify().columnBirthdate();
+                        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                            public void query(PurchaseCB subCB) {
+                                subCB.specify().columnPurchaseCount();
+                            }
+                        }, null);
+                    }
+                }).greaterEqual(new SpecifyQuery<MemberCB>() {
+                    public void specify(MemberCB cb) {
+                        cb.specify().columnMemberId();
+                    }
+                });
             });
 
             // ## Assert ##
@@ -595,57 +598,40 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
             // OK
             log(e.getMessage());
         }
+        // ## Arrange ##
         try {
-            // ## Arrange ##
-            MemberCB cb = new MemberCB();
-            cb.columnQuery(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            memberBhv.selectEntity(cb -> {
+                cb.columnQuery(colCB -> {
+                    colCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchaseCount();
                         }
                     }, null);
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    colCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchaseCount();
                         }
                     }, null);
-                }
-            }).greaterEqual(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnMemberId();
-                }
+                }).greaterEqual(colCB -> colCB.specify().columnMemberId());
             });
 
             // ## Assert ##
             fail();
         } catch (SpecifyDerivedReferrerTwoOrMoreException e) {
-            // OK
             log(e.getMessage());
         }
+        // ## Arrange ##
         try {
-            // ## Arrange ##
             memberBhv.selectEntity(cb -> {
-                cb.columnQuery(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().columnFormalizedDatetime();
-                    }
-                }).greaterEqual(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                            public void query(PurchaseCB subCB) {
-                                subCB.specify().columnPurchaseDatetime();
-                            }
-                        }, null);
-                    }
+                cb.columnQuery(colCB -> {
+                    colCB.specify().columnFormalizedDatetime();
+                }).greaterEqual(colCB -> {
+                    colCB.specify().derivedPurchaseList().max(subCB -> subCB.specify().columnPurchaseDatetime(), null);
                 }).minus(1);
-                pushCB(cb);
             });
-
             // ## Assert ##
             fail();
         } catch (ColumnQueryCalculationUnsupportedColumnTypeException e) {
-            // OK
             log(e.getMessage());
         }
     }

@@ -128,15 +128,10 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
     //                                                                      ==============
     public void test_innerJoin_query_IsNull_basic() {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = memberBhv.selectCount(cb -> {
-                cb.getSqlClause().disableInnerJoinAutoDetect();
-                cb.query().setMemberStatusCode_NotEqual_Withdrawal();
-                pushCB(cb);
-            });
-
-        }
+        int countAll = memberBhv.selectCount(cb -> {
+            cb.getSqlClause().disableInnerJoinAutoDetect();
+            cb.query().setMemberStatusCode_NotEqual_Withdrawal();
+        });
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -146,8 +141,9 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertFalse(popCB().toDisplaySql().contains("inner join"));
-        assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertFalse(sql.contains("inner join"));
+        assertTrue(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(countAll, memberList.size());
         for (Member member : memberList) {
@@ -157,20 +153,15 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
 
     public void test_innerJoin_query_IsNull_nested() {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = memberBhv.selectCount(cb -> {
-                cb.getSqlClause().disableInnerJoinAutoDetect();
-                cb.orScopeQuery(new OrQuery<MemberCB>() {
-                    public void query(MemberCB orCB) {
-                        orCB.query().setMemberStatusCode_NotEqual_Withdrawal();
-                        orCB.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNull();
-                    }
-                });
-                pushCB(cb);
+        int countAll = memberBhv.selectCount(cb -> {
+            cb.getSqlClause().disableInnerJoinAutoDetect();
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberStatusCode_NotEqual_Withdrawal();
+                    orCB.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNull();
+                }
             });
-
-        }
+        });
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -180,8 +171,9 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertFalse(popCB().toDisplaySql().contains("inner join"));
-        assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertFalse(sql.contains("inner join"));
+        assertTrue(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(countAll, memberList.size());
         for (Member member : memberList) {
@@ -191,19 +183,14 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
 
     public void test_innerJoin_query_IsNullOrEmpty_basic() {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = memberBhv.selectCount(cb -> {
-                cb.getSqlClause().disableInnerJoinAutoDetect();
-                cb.orScopeQuery(new OrQuery<MemberCB>() {
-                    public void query(MemberCB orCB) {
-                        orCB.query().queryMemberWithdrawalAsOne().setWithdrawalReasonInputText_IsNullOrEmpty();
-                    }
-                });
-                pushCB(cb);
+        int countAll = memberBhv.selectCount(cb -> {
+            cb.getSqlClause().disableInnerJoinAutoDetect();
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().queryMemberWithdrawalAsOne().setWithdrawalReasonInputText_IsNullOrEmpty();
+                }
             });
-
-        }
+        });
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -213,8 +200,9 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertFalse(popCB().toDisplaySql().contains("inner join"));
-        assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertFalse(sql.contains("inner join"));
+        assertTrue(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(countAll, memberList.size());
         for (Member member : memberList) {
@@ -224,15 +212,10 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
 
     public void test_innerJoin_query_IsNotNull_basic() {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = memberBhv.selectCount(cb -> {
-                cb.getSqlClause().disableInnerJoinAutoDetect();
-                cb.query().setMemberStatusCode_Equal_Withdrawal();
-                pushCB(cb);
-            });
-
-        }
+        int countAll = memberBhv.selectCount(cb -> {
+            cb.getSqlClause().disableInnerJoinAutoDetect();
+            cb.query().setMemberStatusCode_Equal_Withdrawal();
+        });
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -242,8 +225,9 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertTrue(popCB().toDisplaySql().contains("inner join"));
-        assertFalse(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertTrue(sql.contains("inner join"));
+        assertFalse(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(countAll, memberList.size());
         for (Member member : memberList) {
@@ -253,16 +237,11 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
 
     public void test_innerJoin_query_IsNotNull_nested() {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = memberBhv.selectCount(cb -> {
-                cb.getSqlClause().disableInnerJoinAutoDetect();
-                cb.query().setMemberStatusCode_Equal_Withdrawal();
-                cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
-                pushCB(cb);
-            });
-
-        }
+        int countAll = memberBhv.selectCount(cb -> {
+            cb.getSqlClause().disableInnerJoinAutoDetect();
+            cb.query().setMemberStatusCode_Equal_Withdrawal();
+            cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNotNull();
+        });
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -272,8 +251,9 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertTrue(popCB().toDisplaySql().contains("inner join"));
-        assertFalse(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertTrue(sql.contains("inner join"));
+        assertFalse(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(countAll, memberList.size());
         for (Member member : memberList) {
@@ -318,14 +298,9 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
     //                                                                        ============
     public void test_innerJoin_OrScopeQuery_basic() {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = memberBhv.selectCount(cb -> {
-                cb.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().setWithdrawalReasonCode_Equal_Prd();
-                pushCB(cb);
-            });
-
-        }
+        int countAll = memberBhv.selectCount(cb -> {
+            cb.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().setWithdrawalReasonCode_Equal_Prd();
+        });
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -339,8 +314,9 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertFalse(popCB().toDisplaySql().contains("inner join"));
-        assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertFalse(sql.contains("inner join"));
+        assertTrue(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(countAll, memberList.size());
         for (Member member : memberList) {
@@ -350,19 +326,14 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
 
     public void test_innerJoin_OrScopeQuery_with_IsNull() {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = memberBhv.selectCount(cb -> {
-                cb.orScopeQuery(new OrQuery<MemberCB>() {
-                    public void query(MemberCB orCB) {
-                        orCB.query().setMemberStatusCode_NotEqual_Withdrawal();
-                        orCB.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNull();
-                    }
-                });
-                pushCB(cb);
+        int countAll = memberBhv.selectCount(cb -> {
+            cb.orScopeQuery(new OrQuery<MemberCB>() {
+                public void query(MemberCB orCB) {
+                    orCB.query().setMemberStatusCode_NotEqual_Withdrawal();
+                    orCB.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_IsNull();
+                }
             });
-
-        }
+        });
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -377,8 +348,9 @@ public class WxCBInnerJoinWhereUsedBasicTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertFalse(popCB().toDisplaySql().contains("inner join"));
-        assertTrue(popCB().toDisplaySql().contains("left outer join"));
+        String sql = popCB().toDisplaySql();
+        assertFalse(sql.contains("inner join"));
+        assertTrue(sql.contains("left outer join"));
         assertFalse(memberList.isEmpty());
         assertEquals(countAll, memberList.size());
         for (Member member : memberList) {

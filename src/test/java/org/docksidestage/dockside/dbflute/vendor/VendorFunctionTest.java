@@ -32,13 +32,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
     //                                                                            ========
     public void test_SepcifyDerivedReferrer_option_coalesce_basic() throws Exception {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = memberBhv.selectCount(cb -> {
-                pushCB(cb);
-            });
-
-        }
+        int countAll = memberBhv.selectCount(cb -> {});
         {
             memberBhv.selectEntityWithDeletedCheck(cb -> {
                 cb.query().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
@@ -46,7 +40,6 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                         subCB.specify().columnMemberLoginId();
                     }
                 }).equal(0);
-                pushCB(cb);
             }); // expects no exception
 
         }
@@ -57,13 +50,13 @@ public class VendorFunctionTest extends UnitContainerTestCase {
                     subCB.specify().columnLoginDatetime();
                 }
             }, Member.ALIAS_latestLoginDatetime, op -> op.coalesce("1192-01-01"));
-            assertTrue(popCB().toDisplaySql().contains("coalesce("));
             pushCB(cb);
         });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         assertEquals(countAll, memberList.size());
+        assertTrue(popCB().toDisplaySql().contains("coalesce("));
         boolean exists = false;
         for (Member member : memberList) {
             Date latestLoginDatetime = member.getLatestLoginDatetime();
@@ -81,27 +74,19 @@ public class VendorFunctionTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_SepcifyDerivedReferrer_option_round_basic() throws Exception {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = memberBhv.selectCount(cb -> {
-                pushCB(cb);
-            });
-
-        }
+        int countAll = memberBhv.selectCount(cb -> {});
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.specify().columnPurchaseCount();
-                }
+            cb.specify().derivedPurchaseList().avg(subCB -> {
+                subCB.specify().columnPurchaseCount();
             }, Member.ALIAS_productKindCount, op -> op.round(0));
-            assertTrue(popCB().toDisplaySql().contains("round("));
             pushCB(cb);
         });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
+        assertHasAnyElement(memberList);
         assertEquals(countAll, memberList.size());
+        assertTrue(popCB().toDisplaySql().contains("round("));
         boolean existsNotNull = true;
         boolean existsNull = true;
         for (Member member : memberList) {
@@ -121,27 +106,19 @@ public class VendorFunctionTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_SepcifyDerivedReferrer_option_trunc_basic() throws Exception {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = memberBhv.selectCount(cb -> {
-                pushCB(cb);
-            });
-
-        }
+        int countAll = memberBhv.selectCount(cb -> {});
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.specify().columnPurchaseCount();
-                }
+            cb.specify().derivedPurchaseList().avg(subCB -> {
+                subCB.specify().columnPurchaseCount();
             }, Member.ALIAS_productKindCount, op -> op.trunc(0));
-            assertTrue(popCB().toDisplaySql().contains("truncate("));
             pushCB(cb);
         });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
+        assertHasAnyElement(memberList);
         assertEquals(countAll, memberList.size());
+        assertTrue(popCB().toDisplaySql().contains("truncate("));
         boolean existsNotNull = true;
         boolean existsNull = true;
         for (Member member : memberList) {
