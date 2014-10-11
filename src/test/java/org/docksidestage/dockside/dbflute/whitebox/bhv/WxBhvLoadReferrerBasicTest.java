@@ -46,7 +46,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.
-        memberBhv.loadPurchaseList(member, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(member, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.query().setPurchaseCount_GreaterEqual(2);
                 cb.query().addOrderBy_PurchaseCount_Desc();
@@ -82,7 +82,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         // Purchase
         loadReferrerOption.setEntityListSetupper(new EntityListSetupper<Member>() {
             public void setup(List<Member> entityList) {
-                memberBhv.loadPurchaseList(entityList, new ConditionBeanSetupper<PurchaseCB>() {
+                memberBhv.loadPurchase(entityList, new ConditionBeanSetupper<PurchaseCB>() {
                     public void setup(PurchaseCB cb) {
                         cb.query().addOrderBy_PurchaseCount_Desc();
                         cb.query().addOrderBy_ProductId_Desc();
@@ -92,7 +92,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         });
 
         // ## Act ##
-        memberStatusBhv.loadMemberList(memberStatus, loadReferrerOption);
+        memberStatusBhv.loadMember(memberStatus, loadReferrerOption);
 
         // ## Assert ##
         boolean existsPurchase = false;
@@ -120,7 +120,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         });
 
         assertFalse(memberList.isEmpty());
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.query().setPurchasePrice_GreaterEqual(1800);
                 cb.union(new UnionQuery<PurchaseCB>() {
@@ -177,7 +177,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        memberStatusBhv.loadMemberList(statusList, new ConditionBeanSetupper<MemberCB>() {
+        memberStatusBhv.loadMember(statusList, new ConditionBeanSetupper<MemberCB>() {
             public void setup(MemberCB cb) {
             }
         });
@@ -206,7 +206,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.
-        memberBhv.loadPurchaseList(member, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(member, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.specify().columnPurchaseCount();
                 cb.query().setPurchaseCount_GreaterEqual(2);
@@ -235,7 +235,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         try {
             // ## Act ##
-            memberBhv.loadPurchaseList((Member) null, new ConditionBeanSetupper<PurchaseCB>() {
+            memberBhv.loadPurchase((Member) null, new ConditionBeanSetupper<PurchaseCB>() {
                 public void setup(PurchaseCB cb) {
                     cb.query().setPurchaseCount_GreaterEqual(2);
                     cb.query().addOrderBy_PurchaseCount_Desc();
@@ -254,7 +254,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         try {
             // ## Act ##
-            memberBhv.loadPurchaseList(new Member(), new ConditionBeanSetupper<PurchaseCB>() {
+            memberBhv.loadPurchase(new Member(), new ConditionBeanSetupper<PurchaseCB>() {
                 public void setup(PurchaseCB cb) {
                     cb.query().setPurchaseCount_GreaterEqual(2);
                     cb.query().addOrderBy_PurchaseCount_Desc();

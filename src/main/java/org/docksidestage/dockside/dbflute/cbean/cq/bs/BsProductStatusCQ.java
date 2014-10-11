@@ -106,18 +106,6 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
     public Map<String, SummaryProductCQ> getProductStatusCode_NotExistsReferrer_SummaryProductList() { return xgetSQueMap("productStatusCode_NotExistsReferrer_SummaryProductList"); }
     public String keepProductStatusCode_NotExistsReferrer_SummaryProductList(SummaryProductCQ sq) { return xkeepSQue("productStatusCode_NotExistsReferrer_SummaryProductList", sq); }
 
-    public Map<String, ProductCQ> getProductStatusCode_InScopeRelation_ProductList() { return xgetSQueMap("productStatusCode_InScopeRelation_ProductList"); }
-    public String keepProductStatusCode_InScopeRelation_ProductList(ProductCQ sq) { return xkeepSQue("productStatusCode_InScopeRelation_ProductList", sq); }
-
-    public Map<String, SummaryProductCQ> getProductStatusCode_InScopeRelation_SummaryProductList() { return xgetSQueMap("productStatusCode_InScopeRelation_SummaryProductList"); }
-    public String keepProductStatusCode_InScopeRelation_SummaryProductList(SummaryProductCQ sq) { return xkeepSQue("productStatusCode_InScopeRelation_SummaryProductList", sq); }
-
-    public Map<String, ProductCQ> getProductStatusCode_NotInScopeRelation_ProductList() { return xgetSQueMap("productStatusCode_NotInScopeRelation_ProductList"); }
-    public String keepProductStatusCode_NotInScopeRelation_ProductList(ProductCQ sq) { return xkeepSQue("productStatusCode_NotInScopeRelation_ProductList", sq); }
-
-    public Map<String, SummaryProductCQ> getProductStatusCode_NotInScopeRelation_SummaryProductList() { return xgetSQueMap("productStatusCode_NotInScopeRelation_SummaryProductList"); }
-    public String keepProductStatusCode_NotInScopeRelation_SummaryProductList(SummaryProductCQ sq) { return xkeepSQue("productStatusCode_NotInScopeRelation_SummaryProductList", sq); }
-
     public Map<String, ProductCQ> getProductStatusCode_SpecifyDerivedReferrer_ProductList() { return xgetSQueMap("productStatusCode_SpecifyDerivedReferrer_ProductList"); }
     public String keepProductStatusCode_SpecifyDerivedReferrer_ProductList(ProductCQ sq) { return xkeepSQue("productStatusCode_SpecifyDerivedReferrer_ProductList", sq); }
 

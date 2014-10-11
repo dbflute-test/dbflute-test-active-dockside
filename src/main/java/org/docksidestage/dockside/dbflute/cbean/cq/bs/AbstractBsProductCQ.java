@@ -181,7 +181,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * {exists (select PRODUCT_ID from PURCHASE where ...)} <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsPurchaseList</span>(new SubQuery&lt;PurchaseCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsPurchase</span>(new SubQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -189,7 +189,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * </pre>
      * @param subCBLambda The callback for sub-query of PurchaseList for 'exists'. (NotNull)
      */
-    public void existsPurchaseList(SubQuery<PurchaseCB> subCBLambda) {
+    public void existsPurchase(SubQuery<PurchaseCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subCBLambda.query(cb); } finally { unlock(); }
@@ -203,7 +203,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * {not exists (select PRODUCT_ID from PURCHASE where ...)} <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsPurchaseList</span>(new SubQuery&lt;PurchaseCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsPurchase</span>(new SubQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -211,7 +211,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * </pre>
      * @param subCBLambda The callback for sub-query of ProductId_NotExistsReferrer_PurchaseList for 'not exists'. (NotNull)
      */
-    public void notExistsPurchaseList(SubQuery<PurchaseCB> subCBLambda) {
+    public void notExistsPurchase(SubQuery<PurchaseCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
         PurchaseCB cb = new PurchaseCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subCBLambda.query(cb); } finally { unlock(); }
@@ -219,36 +219,6 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         registerNotExistsReferrer(cb.query(), "PRODUCT_ID", "PRODUCT_ID", pp, "purchaseList");
     }
     public abstract String keepProductId_NotExistsReferrer_PurchaseList(PurchaseCQ sq);
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select PRODUCT_ID from PURCHASE where ...)} <br />
-     * (購入)PURCHASE by PRODUCT_ID, named 'purchaseAsOne'.
-     * @param subCBLambda The callback for sub-query of PurchaseList for 'in-scope'. (NotNull)
-     */
-    public void inScopePurchaseList(SubQuery<PurchaseCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        PurchaseCB cb = new PurchaseCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepProductId_InScopeRelation_PurchaseList(cb.query());
-        registerInScopeRelation(cb.query(), "PRODUCT_ID", "PRODUCT_ID", pp, "purchaseList");
-    }
-    public abstract String keepProductId_InScopeRelation_PurchaseList(PurchaseCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select PRODUCT_ID from PURCHASE where ...)} <br />
-     * (購入)PURCHASE by PRODUCT_ID, named 'purchaseAsOne'.
-     * @param subCBLambda The callback for sub-query of PurchaseList for 'not in-scope'. (NotNull)
-     */
-    public void notInScopePurchaseList(SubQuery<PurchaseCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        PurchaseCB cb = new PurchaseCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepProductId_NotInScopeRelation_PurchaseList(cb.query());
-        registerNotInScopeRelation(cb.query(), "PRODUCT_ID", "PRODUCT_ID", pp, "purchaseList");
-    }
-    public abstract String keepProductId_NotInScopeRelation_PurchaseList(PurchaseCQ sq);
 
     public void xsderivePurchaseList(String fn, SubQuery<PurchaseCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
@@ -264,16 +234,14 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from PURCHASE where ...)} <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedPurchaseList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;PurchaseCB&gt;() {
-     *     public void query(PurchaseCB subCB) {
-     *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
-     *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
-     *     }
+     * cb.query().<span style="color: #DD4747">derivedPurchase()</span>.<span style="color: #DD4747">max</span>(purchaseCB -&gt; {
+     *     purchaseCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     purchaseCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
      * }).<span style="color: #DD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<PurchaseCB> derivedPurchaseList() {
+    public HpQDRFunction<PurchaseCB> derivedPurchase() {
         return xcreateQDRFunctionPurchaseList();
     }
     protected HpQDRFunction<PurchaseCB> xcreateQDRFunctionPurchaseList() {
@@ -743,36 +711,6 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         setProductCategoryCode_LikeSearch(productCategoryCode, cLSOP().likePrefix());
     }
 
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select PRODUCT_CATEGORY_CODE from PRODUCT_CATEGORY where ...)} <br />
-     * (商品カテゴリ)PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
-     * @param subCBLambda The callback for sub-query of ProductCategory for 'in-scope'. (NotNull)
-     */
-    public void inScopeProductCategory(SubQuery<ProductCategoryCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepProductCategoryCode_InScopeRelation_ProductCategory(cb.query());
-        registerInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", pp, "productCategory");
-    }
-    public abstract String keepProductCategoryCode_InScopeRelation_ProductCategory(ProductCategoryCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select PRODUCT_CATEGORY_CODE from PRODUCT_CATEGORY where ...)} <br />
-     * (商品カテゴリ)PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
-     * @param subCBLambda The callback for sub-query of ProductCategory for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeProductCategory(SubQuery<ProductCategoryCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepProductCategoryCode_NotInScopeRelation_ProductCategory(cb.query());
-        registerNotInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", pp, "productCategory");
-    }
-    public abstract String keepProductCategoryCode_NotInScopeRelation_ProductCategory(ProductCategoryCQ sq);
-
     protected void regProductCategoryCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductCategoryCode(), "PRODUCT_CATEGORY_CODE"); }
     protected abstract ConditionValue getCValueProductCategoryCode();
 
@@ -915,36 +853,6 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     public void doSetProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
         regINS(CK_NINS, cTL(productStatusCodeList), getCValueProductStatusCode(), "PRODUCT_STATUS_CODE");
     }
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select PRODUCT_STATUS_CODE from PRODUCT_STATUS where ...)} <br />
-     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
-     * @param subCBLambda The callback for sub-query of ProductStatus for 'in-scope'. (NotNull)
-     */
-    public void inScopeProductStatus(SubQuery<ProductStatusCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        ProductStatusCB cb = new ProductStatusCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepProductStatusCode_InScopeRelation_ProductStatus(cb.query());
-        registerInScopeRelation(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", pp, "productStatus");
-    }
-    public abstract String keepProductStatusCode_InScopeRelation_ProductStatus(ProductStatusCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select PRODUCT_STATUS_CODE from PRODUCT_STATUS where ...)} <br />
-     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
-     * @param subCBLambda The callback for sub-query of ProductStatus for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeProductStatus(SubQuery<ProductStatusCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        ProductStatusCB cb = new ProductStatusCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepProductStatusCode_NotInScopeRelation_ProductStatus(cb.query());
-        registerNotInScopeRelation(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", pp, "productStatus");
-    }
-    public abstract String keepProductStatusCode_NotInScopeRelation_ProductStatus(ProductStatusCQ sq);
 
     protected void regProductStatusCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductStatusCode(), "PRODUCT_STATUS_CODE"); }
     protected abstract ConditionValue getCValueProductStatusCode();
@@ -1827,22 +1735,6 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(ProductCQ sq);
-
-    // ===================================================================================
-    //                                                                       MyselfInScope
-    //                                                                       =============
-    /**
-     * Prepare for MyselfInScope (sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
-     */
-    public void myselfInScope(SubQuery<ProductCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        ProductCB cb = new ProductCB(); cb.xsetupForMyselfInScope(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
-        String pp = keepMyselfInScope(cb.query());
-        registerMyselfInScope(cb.query(), pp);
-    }
-    public abstract String keepMyselfInScope(ProductCQ sq);
 
     // ===================================================================================
     //                                                                        Manual Order

@@ -44,7 +44,7 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
                 /* ## Act ## */
                 cb.setupSelect_MemberServiceAsOne().withServiceRank();
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }
@@ -94,7 +94,7 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
             PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
                 /* ## Act ## */
                 cb.setupSelect_MemberServiceAsOne().withServiceRank();
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }
@@ -153,7 +153,7 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
             PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
                 /* ## Act ## */
                 cb.setupSelect_MemberServiceAsOne().withServiceRank();
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }
@@ -164,7 +164,7 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
                         orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
                     }
                 });
-                cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchaseCount();
                     }
@@ -215,7 +215,7 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
             CallbackContext.setSqlLogHandlerOnThread(info -> infoList.add(info));
             PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
                 cb.setupSelect_MemberServiceAsOne().withServiceRank();
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }
@@ -277,7 +277,7 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
         PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberServiceAsOne().withServiceRank();
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchasePrice();
                 }
@@ -314,17 +314,17 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
             PagingResultBean<Member> page = memberBhv.selectPage(cb -> {
                 /* ## Act ## */
                 cb.setupSelect_MemberServiceAsOne().withServiceRank();
-                cb.specify().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
+                cb.specify().derivedMemberLogin().count(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.specify().columnMemberLoginId();
                     }
                 }, Member.ALIAS_loginCount);
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }
                 }, Member.ALIAS_highestPurchasePrice);
-                cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.specify().columnLoginDatetime();
                     }
@@ -385,7 +385,7 @@ public class WxCBPagingSelectAndQuerySplitBasicTest extends UnitContainerTestCas
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
                 /* ## Act ## */
                 cb.setupSelect_MemberServiceAsOne().withServiceRank();
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }

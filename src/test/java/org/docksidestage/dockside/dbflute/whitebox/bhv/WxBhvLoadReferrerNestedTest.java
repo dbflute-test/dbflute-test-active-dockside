@@ -2,11 +2,7 @@ package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
 import java.util.List;
 
-import org.dbflute.bhv.referrer.ConditionBeanSetupper;
-import org.dbflute.bhv.referrer.ReferrerListHandler;
 import org.dbflute.cbean.result.ListResultBean;
-import org.docksidestage.dockside.dbflute.cbean.MemberServiceCB;
-import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberServiceBhv;
 import org.docksidestage.dockside.dbflute.exbhv.ServiceRankBhv;
@@ -43,29 +39,23 @@ public class WxBhvLoadReferrerNestedTest extends UnitContainerTestCase {
         //                      |-Purchase
         //
         // if Java8
-        // serviceRankBhv.loadMemberServiceList(rankList, serviceCB -> {
+        // serviceRankBhv.loadMemberService(rankList, serviceCB -> {
         //     serviceCB.setupSelect_Member().withMemberStatus();
         //     serviceCB.query().queryMember().setMemberStatusCode_Equal_Formalized();
         // }).withNestedReferrer(serviceList -> {
         //     List<Member> memberList = memberServiceBhv.pulloutMember(serviceList);
-        //     memberBhv.loadPurchaseList(memberList, purchaseCB -> {
+        //     memberBhv.loadPurchase(memberList, purchaseCB -> {
         //         purchaseCB.query().setPurchasePrice_GreaterEqual(1000);
         //     });
         // });
-        serviceRankBhv.loadMemberServiceList(rankList, new ConditionBeanSetupper<MemberServiceCB>() {
-            public void setup(MemberServiceCB cb) {
-                cb.setupSelect_Member().withMemberStatus();
-                cb.query().queryMember().setMemberStatusCode_Equal_Formalized();
-            }
-        }).withNestedReferrer(new ReferrerListHandler<MemberService>() {
-            public void handle(List<MemberService> referrerList) {
-                List<Member> memberList = memberServiceBhv.pulloutMember(referrerList);
-                memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
-                    public void setup(PurchaseCB cb) {
-                        cb.query().setPurchasePrice_GreaterEqual(1000);
-                    }
-                });
-            }
+        serviceRankBhv.loadMemberService(rankList, cb -> {
+            cb.setupSelect_Member().withMemberStatus();
+            cb.query().queryMember().setMemberStatusCode_Equal_Formalized();
+        }).withNestedReferrer(serviceList -> {
+            List<Member> memberList = memberServiceBhv.pulloutMember(serviceList);
+            memberBhv.loadPurchase(memberList, purchaseCB -> {
+                purchaseCB.query().setPurchasePrice_GreaterEqual(1000);
+            });
         });
 
         // ## Assert ##

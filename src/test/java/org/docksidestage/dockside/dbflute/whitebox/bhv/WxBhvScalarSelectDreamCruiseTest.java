@@ -69,7 +69,7 @@ public class WxBhvScalarSelectDreamCruiseTest extends UnitContainerTestCase {
         // ## Act ##
         Integer result = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
                         subCB.specify().columnPurchasePrice().multiply(3).plus(dreamCruiseCB.specify().columnPurchaseCount());
@@ -98,7 +98,7 @@ public class WxBhvScalarSelectDreamCruiseTest extends UnitContainerTestCase {
         // ## Act ##
         Integer result = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
                         subCB.specify().columnPurchasePrice().multiply(3).plus(dreamCruiseCB.specify().columnPurchaseCount());

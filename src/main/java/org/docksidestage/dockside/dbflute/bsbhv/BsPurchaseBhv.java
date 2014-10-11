@@ -424,12 +424,10 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * Load referrer of purchasePaymentList by the set-upper of referrer. <br />
      * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
      * <pre>
-     * purchaseBhv.<span style="color: #DD4747">loadPurchasePaymentList</span>(purchaseList, new ConditionBeanSetupper&lt;PurchasePaymentCB&gt;() {
-     *     public void setup(PurchasePaymentCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * purchaseBhv.<span style="color: #DD4747">loadPurchasePayment</span>(purchaseList, paymentCB -&gt; {
+     *     paymentCB.setupSelect...();
+     *     paymentCB.query().setFoo...(value);
+     *     paymentCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -448,21 +446,19 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<PurchasePayment> loadPurchasePaymentList(List<Purchase> purchaseList, ConditionBeanSetupper<PurchasePaymentCB> refCBLambda) {
+    public NestedReferrerListGateway<PurchasePayment> loadPurchasePayment(List<Purchase> purchaseList, ConditionBeanSetupper<PurchasePaymentCB> refCBLambda) {
         xassLRArg(purchaseList, refCBLambda);
-        return doLoadPurchasePaymentList(purchaseList, new LoadReferrerOption<PurchasePaymentCB, PurchasePayment>().xinit(refCBLambda));
+        return doLoadPurchasePayment(purchaseList, new LoadReferrerOption<PurchasePaymentCB, PurchasePayment>().xinit(refCBLambda));
     }
 
     /**
      * Load referrer of purchasePaymentList by the set-upper of referrer. <br />
      * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
      * <pre>
-     * purchaseBhv.<span style="color: #DD4747">loadPurchasePaymentList</span>(purchaseList, new ConditionBeanSetupper&lt;PurchasePaymentCB&gt;() {
-     *     public void setup(PurchasePaymentCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * purchaseBhv.<span style="color: #DD4747">loadPurchasePayment</span>(purchaseList, paymentCB -&gt; {
+     *     paymentCB.setupSelect...();
+     *     paymentCB.query().setFoo...(value);
+     *     paymentCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -479,9 +475,9 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<PurchasePayment> loadPurchasePaymentList(Purchase purchase, ConditionBeanSetupper<PurchasePaymentCB> refCBLambda) {
+    public NestedReferrerListGateway<PurchasePayment> loadPurchasePayment(Purchase purchase, ConditionBeanSetupper<PurchasePaymentCB> refCBLambda) {
         xassLRArg(purchase, refCBLambda);
-        return doLoadPurchasePaymentList(xnewLRLs(purchase), new LoadReferrerOption<PurchasePaymentCB, PurchasePayment>().xinit(refCBLambda));
+        return doLoadPurchasePayment(xnewLRLs(purchase), new LoadReferrerOption<PurchasePaymentCB, PurchasePayment>().xinit(refCBLambda));
     }
 
     /**
@@ -490,9 +486,9 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<PurchasePayment> loadPurchasePaymentList(Purchase purchase, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> loadReferrerOption) {
+    public NestedReferrerListGateway<PurchasePayment> loadPurchasePayment(Purchase purchase, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> loadReferrerOption) {
         xassLRArg(purchase, loadReferrerOption);
-        return loadPurchasePaymentList(xnewLRLs(purchase), loadReferrerOption);
+        return loadPurchasePayment(xnewLRLs(purchase), loadReferrerOption);
     }
 
     /**
@@ -502,13 +498,13 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerListGateway<PurchasePayment> loadPurchasePaymentList(List<Purchase> purchaseList, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> loadReferrerOption) {
+    public NestedReferrerListGateway<PurchasePayment> loadPurchasePayment(List<Purchase> purchaseList, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> loadReferrerOption) {
         xassLRArg(purchaseList, loadReferrerOption);
         if (purchaseList.isEmpty()) { return (NestedReferrerListGateway<PurchasePayment>)EMPTY_NREF_LGWAY; }
-        return doLoadPurchasePaymentList(purchaseList, loadReferrerOption);
+        return doLoadPurchasePayment(purchaseList, loadReferrerOption);
     }
 
-    protected NestedReferrerListGateway<PurchasePayment> doLoadPurchasePaymentList(List<Purchase> purchaseList, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> option) {
+    protected NestedReferrerListGateway<PurchasePayment> doLoadPurchasePayment(List<Purchase> purchaseList, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> option) {
         return helpLoadReferrerInternally(purchaseList, option, "purchasePaymentList");
     }
 

@@ -42,7 +42,7 @@ public class WxOutsideSqlLoadReferrerTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        memberBhv.loadPurchaseList(domainList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(domainList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
                 cb.query().setPaymentCompleteFlg_Equal_True();
@@ -79,13 +79,13 @@ public class WxOutsideSqlLoadReferrerTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        memberBhv.loadPurchaseList(domainList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(domainList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
                 cb.query().setPaymentCompleteFlg_Equal_True();
             }
         });
-        memberBhv.loadMemberLoginList(domainList, new ConditionBeanSetupper<MemberLoginCB>() {
+        memberBhv.loadMemberLogin(domainList, new ConditionBeanSetupper<MemberLoginCB>() {
             public void setup(MemberLoginCB cb) {
                 cb.query().setMobileLoginFlg_Equal_False();
             }

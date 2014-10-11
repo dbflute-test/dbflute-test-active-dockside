@@ -95,7 +95,7 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
         });
 
         List<MemberStatus> statusList = memberBhv.pulloutMemberStatus(memberList);
-        memberStatusBhv.loadMemberLoginList(statusList, new ConditionBeanSetupper<MemberLoginCB>() {
+        memberStatusBhv.loadMemberLogin(statusList, new ConditionBeanSetupper<MemberLoginCB>() {
             public void setup(MemberLoginCB cb) {
             }
         });
@@ -215,7 +215,7 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
 
         List<Member> memberList = purchaseBhv.pulloutMember(purchaseList);
         List<MemberStatus> statusList = memberBhv.pulloutMemberStatus(memberList);
-        memberStatusBhv.loadMemberLoginList(statusList, new ConditionBeanSetupper<MemberLoginCB>() {
+        memberStatusBhv.loadMemberLogin(statusList, new ConditionBeanSetupper<MemberLoginCB>() {
             public void setup(MemberLoginCB cb) {
             }
         });

@@ -395,12 +395,10 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * Load referrer of memberAddressList by the set-upper of referrer. <br />
      * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * <pre>
-     * regionBhv.<span style="color: #DD4747">loadMemberAddressList</span>(regionList, new ConditionBeanSetupper&lt;MemberAddressCB&gt;() {
-     *     public void setup(MemberAddressCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * regionBhv.<span style="color: #DD4747">loadMemberAddress</span>(regionList, addressCB -&gt; {
+     *     addressCB.setupSelect...();
+     *     addressCB.query().setFoo...(value);
+     *     addressCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -419,21 +417,19 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberAddress> loadMemberAddressList(List<Region> regionList, ConditionBeanSetupper<MemberAddressCB> refCBLambda) {
+    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(List<Region> regionList, ConditionBeanSetupper<MemberAddressCB> refCBLambda) {
         xassLRArg(regionList, refCBLambda);
-        return doLoadMemberAddressList(regionList, new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(refCBLambda));
+        return doLoadMemberAddress(regionList, new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(refCBLambda));
     }
 
     /**
      * Load referrer of memberAddressList by the set-upper of referrer. <br />
      * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * <pre>
-     * regionBhv.<span style="color: #DD4747">loadMemberAddressList</span>(regionList, new ConditionBeanSetupper&lt;MemberAddressCB&gt;() {
-     *     public void setup(MemberAddressCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * regionBhv.<span style="color: #DD4747">loadMemberAddress</span>(regionList, addressCB -&gt; {
+     *     addressCB.setupSelect...();
+     *     addressCB.query().setFoo...(value);
+     *     addressCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -450,9 +446,9 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberAddress> loadMemberAddressList(Region region, ConditionBeanSetupper<MemberAddressCB> refCBLambda) {
+    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(Region region, ConditionBeanSetupper<MemberAddressCB> refCBLambda) {
         xassLRArg(region, refCBLambda);
-        return doLoadMemberAddressList(xnewLRLs(region), new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(refCBLambda));
+        return doLoadMemberAddress(xnewLRLs(region), new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(refCBLambda));
     }
 
     /**
@@ -461,9 +457,9 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberAddress> loadMemberAddressList(Region region, LoadReferrerOption<MemberAddressCB, MemberAddress> loadReferrerOption) {
+    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(Region region, LoadReferrerOption<MemberAddressCB, MemberAddress> loadReferrerOption) {
         xassLRArg(region, loadReferrerOption);
-        return loadMemberAddressList(xnewLRLs(region), loadReferrerOption);
+        return loadMemberAddress(xnewLRLs(region), loadReferrerOption);
     }
 
     /**
@@ -473,13 +469,13 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerListGateway<MemberAddress> loadMemberAddressList(List<Region> regionList, LoadReferrerOption<MemberAddressCB, MemberAddress> loadReferrerOption) {
+    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(List<Region> regionList, LoadReferrerOption<MemberAddressCB, MemberAddress> loadReferrerOption) {
         xassLRArg(regionList, loadReferrerOption);
         if (regionList.isEmpty()) { return (NestedReferrerListGateway<MemberAddress>)EMPTY_NREF_LGWAY; }
-        return doLoadMemberAddressList(regionList, loadReferrerOption);
+        return doLoadMemberAddress(regionList, loadReferrerOption);
     }
 
-    protected NestedReferrerListGateway<MemberAddress> doLoadMemberAddressList(List<Region> regionList, LoadReferrerOption<MemberAddressCB, MemberAddress> option) {
+    protected NestedReferrerListGateway<MemberAddress> doLoadMemberAddress(List<Region> regionList, LoadReferrerOption<MemberAddressCB, MemberAddress> option) {
         return helpLoadReferrerInternally(regionList, option, "memberAddressList");
     }
 

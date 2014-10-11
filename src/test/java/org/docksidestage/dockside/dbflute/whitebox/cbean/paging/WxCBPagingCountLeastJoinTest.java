@@ -425,7 +425,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.setupSelect_MemberStatus();
             cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
             cb.setupSelect_MemberServiceAsOne().withServiceRank();
-            cb.query().queryMemberStatus().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+            cb.query().queryMemberStatus().existsMemberLogin(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                 }
             });
@@ -459,7 +459,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.setupSelect_MemberStatus();
             cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
             cb.setupSelect_MemberServiceAsOne().withServiceRank();
-            cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.query().queryMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                 }
@@ -493,7 +493,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
             cb.setupSelect_MemberStatus();
             cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
             cb.setupSelect_MemberServiceAsOne().withServiceRank();
-            cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.specify().specifyMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                 }

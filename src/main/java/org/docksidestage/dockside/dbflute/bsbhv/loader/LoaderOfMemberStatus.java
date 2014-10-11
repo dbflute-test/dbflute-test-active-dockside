@@ -76,26 +76,26 @@ public class LoaderOfMemberStatus {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
-    protected List<Member> _referrerMemberList;
-    public NestedReferrerLoaderGateway<LoaderOfMember> loadMemberList(ConditionBeanSetupper<MemberCB> refCBLambda) {
-        myBhv().loadMemberList(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<Member>() {
-            public void handle(List<Member> referrerList) { _referrerMemberList = referrerList; }
+    protected List<Member> _referrerMember;
+    public NestedReferrerLoaderGateway<LoaderOfMember> loadMember(ConditionBeanSetupper<MemberCB> refCBLambda) {
+        myBhv().loadMember(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<Member>() {
+            public void handle(List<Member> referrerList) { _referrerMember = referrerList; }
         });
         return new NestedReferrerLoaderGateway<LoaderOfMember>() {
             public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfMember> handler) {
-                handler.handle(new LoaderOfMember().ready(_referrerMemberList, _selector));
+                handler.handle(new LoaderOfMember().ready(_referrerMember, _selector));
             }
         };
     }
 
-    protected List<MemberLogin> _referrerMemberLoginList;
-    public NestedReferrerLoaderGateway<LoaderOfMemberLogin> loadMemberLoginList(ConditionBeanSetupper<MemberLoginCB> refCBLambda) {
-        myBhv().loadMemberLoginList(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<MemberLogin>() {
-            public void handle(List<MemberLogin> referrerList) { _referrerMemberLoginList = referrerList; }
+    protected List<MemberLogin> _referrerMemberLogin;
+    public NestedReferrerLoaderGateway<LoaderOfMemberLogin> loadMemberLogin(ConditionBeanSetupper<MemberLoginCB> refCBLambda) {
+        myBhv().loadMemberLogin(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<MemberLogin>() {
+            public void handle(List<MemberLogin> referrerList) { _referrerMemberLogin = referrerList; }
         });
         return new NestedReferrerLoaderGateway<LoaderOfMemberLogin>() {
             public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfMemberLogin> handler) {
-                handler.handle(new LoaderOfMemberLogin().ready(_referrerMemberLoginList, _selector));
+                handler.handle(new LoaderOfMemberLogin().ready(_referrerMemberLogin, _selector));
             }
         };
     }

@@ -114,12 +114,6 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
       return _memberId; }
     protected ConditionValue getCValueMemberId() { return getMemberId(); }
 
-    public Map<String, MemberCQ> getMemberId_InScopeRelation_Member() { return xgetSQueMap("memberId_InScopeRelation_Member"); }
-    public String keepMemberId_InScopeRelation_Member(MemberCQ sq) { return xkeepSQue("memberId_InScopeRelation_Member", sq); }
-
-    public Map<String, MemberCQ> getMemberId_NotInScopeRelation_Member() { return xgetSQueMap("memberId_NotInScopeRelation_Member"); }
-    public String keepMemberId_NotInScopeRelation_Member(MemberCQ sq) { return xkeepSQue("memberId_NotInScopeRelation_Member", sq); }
-
     /** 
      * Add order-by as ascend. <br />
      * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
@@ -159,12 +153,6 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     { if (_serviceRankCode == null) { _serviceRankCode = nCV(); }
       return _serviceRankCode; }
     protected ConditionValue getCValueServiceRankCode() { return getServiceRankCode(); }
-
-    public Map<String, ServiceRankCQ> getServiceRankCode_InScopeRelation_ServiceRank() { return xgetSQueMap("serviceRankCode_InScopeRelation_ServiceRank"); }
-    public String keepServiceRankCode_InScopeRelation_ServiceRank(ServiceRankCQ sq) { return xkeepSQue("serviceRankCode_InScopeRelation_ServiceRank", sq); }
-
-    public Map<String, ServiceRankCQ> getServiceRankCode_NotInScopeRelation_ServiceRank() { return xgetSQueMap("serviceRankCode_NotInScopeRelation_ServiceRank"); }
-    public String keepServiceRankCode_NotInScopeRelation_ServiceRank(ServiceRankCQ sq) { return xkeepSQue("serviceRankCode_NotInScopeRelation_ServiceRank", sq); }
 
     /** 
      * Add order-by as ascend. <br />

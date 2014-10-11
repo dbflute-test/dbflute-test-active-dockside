@@ -527,22 +527,6 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     public abstract String keepMyselfExists(Vendor$DollarCQ sq);
 
     // ===================================================================================
-    //                                                                       MyselfInScope
-    //                                                                       =============
-    /**
-     * Prepare for MyselfInScope (sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
-     */
-    public void myselfInScope(SubQuery<Vendor$DollarCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        Vendor$DollarCB cb = new Vendor$DollarCB(); cb.xsetupForMyselfInScope(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
-        String pp = keepMyselfInScope(cb.query());
-        registerMyselfInScope(cb.query(), pp);
-    }
-    public abstract String keepMyselfInScope(Vendor$DollarCQ sq);
-
-    // ===================================================================================
     //                                                                        Manual Order
     //                                                                        ============
     /**

@@ -178,7 +178,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         final ListResultBean<Member> memberList = memberBhv.selectList(cb -> {});
 
         // ## Act ##
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();// *Point!
                 cb.query().addOrderBy_PurchaseCount_Desc();
@@ -216,7 +216,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         // Purchase
         loadReferrerOption.setEntityListSetupper(new EntityListSetupper<Member>() {
             public void setup(List<Member> entityList) {
-                memberBhv.loadPurchaseList(entityList, new ConditionBeanSetupper<PurchaseCB>() {
+                memberBhv.loadPurchase(entityList, new ConditionBeanSetupper<PurchaseCB>() {
                     public void setup(PurchaseCB cb) {
                         cb.query().addOrderBy_PurchaseCount_Desc();
                         cb.query().addOrderBy_ProductId_Desc();
@@ -226,7 +226,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         });
 
         // ## Act ##
-        memberStatusBhv.loadMemberList(memberStatusList, loadReferrerOption);
+        memberStatusBhv.loadMember(memberStatusList, loadReferrerOption);
         
         // ## Assert ##
         boolean existsPurchase = false;
@@ -247,7 +247,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         assertTrue(existsPurchase);
     }
 
-    public void test_LoadReferrer_pulloutMember_loadMemberLoginList() {
+    public void test_LoadReferrer_pulloutMember_loadMemberLogin() {
         // ## Arrange ##
         ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
             cb.setupSelect_Member();// *Point!
@@ -255,7 +255,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
         // ## Act ##
         List<Member> memberList = purchaseBhv.pulloutMember(purchaseList);// *Point!
-        memberBhv.loadMemberLoginList(memberList, new ConditionBeanSetupper<MemberLoginCB>() {
+        memberBhv.loadMemberLogin(memberList, new ConditionBeanSetupper<MemberLoginCB>() {
             public void setup(MemberLoginCB cb) {
                 cb.query().setMobileLoginFlg_Equal_True();
                 cb.query().addOrderBy_LoginDatetime_Desc();
@@ -306,7 +306,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        memberBhv.loadPurchaseList(domainList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(domainList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
                 cb.query().setPaymentCompleteFlg_Equal_True();

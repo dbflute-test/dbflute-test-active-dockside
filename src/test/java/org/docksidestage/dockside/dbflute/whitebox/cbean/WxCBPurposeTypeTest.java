@@ -39,7 +39,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         try {
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.setupSelect_Member();
                 }
@@ -55,7 +55,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         try {
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.query().addOrderBy_MemberId_Asc();
                 }
@@ -76,10 +76,10 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
             /* ## Act ## */
             cb.enableThatsBadTiming();
             cb.query().setDisplayOrder_Equal(3);
-            cb.query().existsMemberList(new SubQuery<MemberCB>() {
+            cb.query().existsMember(new SubQuery<MemberCB>() {
                 public void query(MemberCB memberCB) {
                     memberCB.query().setBirthdate_LessEqual(new Date());
-                    memberCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                    memberCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB purchaseCB) {
                             purchaseCB.query().setPurchaseCount_GreaterEqual(2);
                         }
@@ -98,9 +98,9 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
                 }
             });
             cb.query().setMemberStatusCode_Equal_Formalized();
-            cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+            cb.query().existsMemberLogin(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
-                    subCB.query().inScopeMember(new SubQuery<MemberCB>() {
+                    subCB.query().queryMemberStatus().existsMember(new SubQuery<MemberCB>() {
                         public void query(MemberCB subCB) {
                             subCB.query().setBirthdate_GreaterEqual(new Date());
                         }
@@ -120,7 +120,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         try {
             // ## Act ##
             final MemberCB cb = createCB();
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseDatetime();
                     cb.setupSelect_MemberStatus();
@@ -134,7 +134,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         try {
             // ## Act ##
             final MemberCB cb = createCB();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     cb.setupSelect_MemberStatus();
                 }
@@ -147,9 +147,9 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         try {
             // ## Act ##
             final MemberCB cb = createCB();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(final PurchaseCB subCB) {
-                    subCB.query().queryProduct().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                    subCB.query().queryProduct().existsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB noNoNoNoNoNoNoNoNoCB) {
                             subCB.setupSelect_Member(); // also illegal purpose
                         }
@@ -164,7 +164,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         try {
             // ## Act ##
             final MemberCB cb = createCB();
-            cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseDatetime();
                     cb.setupSelect_MemberStatus();
@@ -199,7 +199,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         try {
             // ## Act ##
             final MemberCB cb = createCB();
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseDatetime();
                     cb.specify();
@@ -213,7 +213,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         try {
             // ## Act ##
             final MemberCB cb = createCB();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     cb.specify();
                 }
@@ -226,9 +226,9 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         try {
             // ## Act ##
             final MemberCB cb = createCB();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(final PurchaseCB subCB) {
-                    subCB.query().queryProduct().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                    subCB.query().queryProduct().existsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB noNoNoNoNoNoNoNoNoCB) {
                             subCB.specify();
                         }
@@ -243,7 +243,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         try {
             // ## Act ##
             final MemberCB cb = createCB();
-            cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseDatetime();
                     cb.specify();
@@ -278,7 +278,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         try {
             // ## Act ##
             final MemberCB cb = createCB();
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseDatetime();
                     cb.query();
@@ -292,7 +292,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         try {
             // ## Act ##
             final MemberCB cb = createCB();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     cb.query();
                 }
@@ -305,7 +305,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         try {
             // ## Act ##
             final MemberCB cb = createCB();
-            cb.query().queryMemberStatus().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+            cb.query().queryMemberStatus().existsMemberLogin(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     cb.query();
                 }
@@ -318,9 +318,9 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         try {
             // ## Act ##
             final MemberCB cb = createCB();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(final PurchaseCB subCB) {
-                    subCB.query().queryProduct().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                    subCB.query().queryProduct().existsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB noNoNoNoNoNoNoNoNoCB) {
                             subCB.query();
                         }
@@ -335,7 +335,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         try {
             // ## Act ##
             final MemberCB cb = createCB();
-            cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseDatetime();
                     cb.query();
@@ -375,9 +375,9 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
             cb.enableThatsBadTiming();
             cb.specify().columnBirthdate();
             final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
-                    subCB.query().queryProduct().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
+                    subCB.query().queryProduct().notExistsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
                                 public void specify(PurchaseCB cb) {
@@ -392,7 +392,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
                     });
                 }
             });
-            cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+            cb.query().existsMemberLogin(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     cb.setupSelect_MemberStatus(); // no check after dream cruise (can't be helped)
                 }

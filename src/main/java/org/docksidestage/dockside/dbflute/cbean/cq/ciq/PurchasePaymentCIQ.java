@@ -78,10 +78,6 @@ public class PurchasePaymentCIQ extends AbstractBsPurchasePaymentCQ {
     //                                                                ====================
     protected ConditionValue getCValuePurchasePaymentId() { return _myCQ.getPurchasePaymentId(); }
     protected ConditionValue getCValuePurchaseId() { return _myCQ.getPurchaseId(); }
-    public String keepPurchaseId_InScopeRelation_Purchase(PurchaseCQ sq)
-    { return _myCQ.keepPurchaseId_InScopeRelation_Purchase(sq); }
-    public String keepPurchaseId_NotInScopeRelation_Purchase(PurchaseCQ sq)
-    { return _myCQ.keepPurchaseId_NotInScopeRelation_Purchase(sq); }
     protected ConditionValue getCValuePaymentAmount() { return _myCQ.getPaymentAmount(); }
     protected ConditionValue getCValuePaymentDatetime() { return _myCQ.getPaymentDatetime(); }
     protected ConditionValue getCValuePaymentMethodCode() { return _myCQ.getPaymentMethodCode(); }
@@ -100,8 +96,6 @@ public class PurchasePaymentCIQ extends AbstractBsPurchasePaymentCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(PurchasePaymentCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(PurchasePaymentCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

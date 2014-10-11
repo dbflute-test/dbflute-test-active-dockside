@@ -189,7 +189,7 @@ public class VendorGrammerTest extends UnitContainerTestCase {
         {
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
                 cb.setupSelect_MemberStatus();
-                cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.specify().columnLoginDatetime();
                         subCB.query().setMobileLoginFlg_Equal_True();
@@ -210,7 +210,7 @@ public class VendorGrammerTest extends UnitContainerTestCase {
             public ConditionBean setup(MemberWithdrawal entity, MemberWithdrawalCB intoCB) {
                 MemberCB cb = new MemberCB();
                 cb.setupSelect_MemberStatus();
-                cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.specify().columnLoginDatetime();
                         subCB.query().setMobileLoginFlg_Equal_True();

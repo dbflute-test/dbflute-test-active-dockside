@@ -360,7 +360,7 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
                     // OK
                     log(e.getMessage());
                 }
-                unionCB.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                unionCB.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }

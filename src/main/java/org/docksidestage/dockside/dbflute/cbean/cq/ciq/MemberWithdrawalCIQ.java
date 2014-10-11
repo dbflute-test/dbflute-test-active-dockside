@@ -77,15 +77,7 @@ public class MemberWithdrawalCIQ extends AbstractBsMemberWithdrawalCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue getCValueMemberId() { return _myCQ.getMemberId(); }
-    public String keepMemberId_InScopeRelation_Member(MemberCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_Member(sq); }
-    public String keepMemberId_NotInScopeRelation_Member(MemberCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_Member(sq); }
     protected ConditionValue getCValueWithdrawalReasonCode() { return _myCQ.getWithdrawalReasonCode(); }
-    public String keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(WithdrawalReasonCQ sq)
-    { return _myCQ.keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(sq); }
-    public String keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(WithdrawalReasonCQ sq)
-    { return _myCQ.keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(sq); }
     protected ConditionValue getCValueWithdrawalReasonInputText() { return _myCQ.getWithdrawalReasonInputText(); }
     protected ConditionValue getCValueWithdrawalDatetime() { return _myCQ.getWithdrawalDatetime(); }
     protected ConditionValue getCValueRegisterDatetime() { return _myCQ.getRegisterDatetime(); }
@@ -104,8 +96,6 @@ public class MemberWithdrawalCIQ extends AbstractBsMemberWithdrawalCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(MemberWithdrawalCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(MemberWithdrawalCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

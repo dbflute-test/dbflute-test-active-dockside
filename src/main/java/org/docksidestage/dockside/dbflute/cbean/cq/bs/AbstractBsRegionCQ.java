@@ -222,7 +222,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * {exists (select REGION_ID from MEMBER_ADDRESS where ...)} <br />
      * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsMemberAddressList</span>(new SubQuery&lt;MemberAddressCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsMemberAddress</span>(new SubQuery&lt;MemberAddressCB&gt;() {
      *     public void query(MemberAddressCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -230,7 +230,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * </pre>
      * @param subCBLambda The callback for sub-query of MemberAddressList for 'exists'. (NotNull)
      */
-    public void existsMemberAddressList(SubQuery<MemberAddressCB> subCBLambda) {
+    public void existsMemberAddress(SubQuery<MemberAddressCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
         MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subCBLambda.query(cb); } finally { unlock(); }
@@ -244,7 +244,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * {not exists (select REGION_ID from MEMBER_ADDRESS where ...)} <br />
      * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsMemberAddressList</span>(new SubQuery&lt;MemberAddressCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsMemberAddress</span>(new SubQuery&lt;MemberAddressCB&gt;() {
      *     public void query(MemberAddressCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -252,7 +252,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * </pre>
      * @param subCBLambda The callback for sub-query of RegionId_NotExistsReferrer_MemberAddressList for 'not exists'. (NotNull)
      */
-    public void notExistsMemberAddressList(SubQuery<MemberAddressCB> subCBLambda) {
+    public void notExistsMemberAddress(SubQuery<MemberAddressCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
         MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subCBLambda.query(cb); } finally { unlock(); }
@@ -260,36 +260,6 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
         registerNotExistsReferrer(cb.query(), "REGION_ID", "REGION_ID", pp, "memberAddressList");
     }
     public abstract String keepRegionId_NotExistsReferrer_MemberAddressList(MemberAddressCQ sq);
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select REGION_ID from MEMBER_ADDRESS where ...)} <br />
-     * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressAsOne'.
-     * @param subCBLambda The callback for sub-query of MemberAddressList for 'in-scope'. (NotNull)
-     */
-    public void inScopeMemberAddressList(SubQuery<MemberAddressCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepRegionId_InScopeRelation_MemberAddressList(cb.query());
-        registerInScopeRelation(cb.query(), "REGION_ID", "REGION_ID", pp, "memberAddressList");
-    }
-    public abstract String keepRegionId_InScopeRelation_MemberAddressList(MemberAddressCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select REGION_ID from MEMBER_ADDRESS where ...)} <br />
-     * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressAsOne'.
-     * @param subCBLambda The callback for sub-query of MemberAddressList for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeMemberAddressList(SubQuery<MemberAddressCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepRegionId_NotInScopeRelation_MemberAddressList(cb.query());
-        registerNotInScopeRelation(cb.query(), "REGION_ID", "REGION_ID", pp, "memberAddressList");
-    }
-    public abstract String keepRegionId_NotInScopeRelation_MemberAddressList(MemberAddressCQ sq);
 
     public void xsderiveMemberAddressList(String fn, SubQuery<MemberAddressCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
@@ -305,16 +275,14 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from MEMBER_ADDRESS where ...)} <br />
      * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedMemberAddressList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberAddressCB&gt;() {
-     *     public void query(MemberAddressCB subCB) {
-     *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
-     *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
-     *     }
+     * cb.query().<span style="color: #DD4747">derivedMemberAddress()</span>.<span style="color: #DD4747">max</span>(addressCB -&gt; {
+     *     addressCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     addressCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
      * }).<span style="color: #DD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<MemberAddressCB> derivedMemberAddressList() {
+    public HpQDRFunction<MemberAddressCB> derivedMemberAddress() {
         return xcreateQDRFunctionMemberAddressList();
     }
     protected HpQDRFunction<MemberAddressCB> xcreateQDRFunctionMemberAddressList() {
@@ -665,22 +633,6 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(RegionCQ sq);
-
-    // ===================================================================================
-    //                                                                       MyselfInScope
-    //                                                                       =============
-    /**
-     * Prepare for MyselfInScope (sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
-     */
-    public void myselfInScope(SubQuery<RegionCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        RegionCB cb = new RegionCB(); cb.xsetupForMyselfInScope(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
-        String pp = keepMyselfInScope(cb.query());
-        registerMyselfInScope(cb.query(), pp);
-    }
-    public abstract String keepMyselfInScope(RegionCQ sq);
 
     // ===================================================================================
     //                                                                        Manual Order

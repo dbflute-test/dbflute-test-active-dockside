@@ -22,16 +22,15 @@ public class WxCBMyselfInScopeTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                               Basic
     //                                                                               =====
-    public void test_myselfInScope_basic() {
+    public void test_myselfExists_basic() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
             cb.query().setMemberStatusCode_Equal_Formalized();
-            cb.query().myselfInScope(new SubQuery<MemberCB>() {
-                public void query(MemberCB subCB) {
-                    subCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
-                }
+            cb.query().myselfExists(myselfCB -> {
+                myselfCB.useInScopeSubQuery();
+                myselfCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
             });
         });
 
@@ -44,14 +43,15 @@ public class WxCBMyselfInScopeTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_myselfInScope_OneToOne() {
+    public void test_myselfExists_OneToOne() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberServiceAsOne().withServiceRank();
             cb.query().setMemberStatusCode_Equal_Formalized();
-            cb.query().queryMemberServiceAsOne().myselfInScope(new SubQuery<MemberServiceCB>() {
+            cb.query().queryMemberServiceAsOne().myselfExists(new SubQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB subCB) {
+                    subCB.useInScopeSubQuery();
                     subCB.query().setServiceRankCode_Equal_Gold();
                 }
             });
@@ -70,14 +70,15 @@ public class WxCBMyselfInScopeTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                             Specify
     //                                                                             =======
-    public void test_myselfInScope_specify_basic() {
+    public void test_myselfExists_specify_basic() {
         // ## Arrange ##
         String memberStatusCode = memberBhv.selectByPKValueWithDeletedCheck(3).getMemberStatusCode();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
-            cb.query().myselfInScope(new SubQuery<MemberCB>() {
+            cb.query().myselfExists(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
+                    subCB.useInScopeSubQuery();
                     subCB.specify().columnMemberStatusCode();
                     subCB.query().setMemberId_Equal(3);
                 }
@@ -92,16 +93,17 @@ public class WxCBMyselfInScopeTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_myselfInScope_specify_nested() {
+    public void test_myselfExists_specify_nested() {
         // ## Arrange ##
         String memberStatusCode = memberBhv.selectByPKValueWithDeletedCheck(3).getMemberStatusCode();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
-            cb.query().myselfInScope(new SubQuery<MemberCB>() {
+            cb.query().myselfExists(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
+                    subCB.useInScopeSubQuery();
                     subCB.specify().columnMemberStatusCode();
-                    subCB.query().myselfInScope(new SubQuery<MemberCB>() {
+                    subCB.query().myselfExists(new SubQuery<MemberCB>() {
                         public void query(MemberCB subCB) {
                             subCB.query().setMemberId_Equal(3);
                         }
@@ -118,14 +120,15 @@ public class WxCBMyselfInScopeTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_myselfInScope_specify_duplicated() {
+    public void test_myselfExists_specify_duplicated() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.setupSelect_MemberStatus();
 
         try {
-            cb.query().myselfInScope(new SubQuery<MemberCB>() {
+            cb.query().myselfExists(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
+                    subCB.useInScopeSubQuery();
                     subCB.specify().columnFormalizedDatetime();
                     subCB.specify().columnMemberStatusCode();
                     subCB.query().setMemberId_Equal(3);

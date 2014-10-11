@@ -45,9 +45,9 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         final Member member = memberBhv.selectByPKValueWithDeletedCheck(3);
         MemberStatus status = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
-            cb.query().existsMemberList(new SubQuery<MemberCB>() {
+            cb.query().existsMember(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
-                    subCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                    subCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.query().queryMember().setMemberId_Equal(member.getMemberId());
                             subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
@@ -56,7 +56,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
                                 }
                             }).greaterEqual(new SpecifyQuery<PurchaseCB>() {
                                 public void specify(PurchaseCB cb) {
-                                    cb.specify().specifyProduct().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
+                                    cb.specify().specifyProduct().derivedPurchase().avg(new SubQuery<PurchaseCB>() {
                                         public void query(PurchaseCB subCB) {
                                             subCB.specify().columnPurchaseCount();
                                         }
@@ -95,7 +95,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
             cb.setupSelect_Member().withMemberStatus();
-            cb.query().queryMember().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().queryMember().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.query().queryMember().setMemberId_Equal(3);
                 }
@@ -126,7 +126,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         ListResultBean<MemberStatus> expectedList;
         {
             expectedList = memberStatusBhv.selectList(cb -> {
-                cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+                cb.query().existsMemberLogin(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.query().setMemberId_Equal(3);
                     }
@@ -142,9 +142,9 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
 
         ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+            cb.query().existsMemberLogin(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
-                    subCB.query().queryMember().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                    subCB.query().queryMember().existsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.query().queryMember().setMemberId_Equal(3);
                         }
@@ -175,7 +175,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         memberLoginBhv.queryDelete(cb -> {
             /* ## Act ## */
             cb.setupSelect_Member().withMemberStatus();
-            cb.query().queryMember().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().queryMember().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.query().queryMember().setMemberId_Equal(3);
                 }
@@ -209,7 +209,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberAddressAsValid(date);
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.query().queryMember().queryMemberAddressAsValid(date).setAddress_LikeSearch("S", op -> op.likePrefix());
                 }
@@ -233,7 +233,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().notExistsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.query().setPaymentCompleteFlg_Equal_True();
                 }
@@ -243,7 +243,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, memberList);
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
             }
         });
@@ -265,7 +265,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
     public void test_existsReferrer_illegal() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
         try {
                     subCB.setupSelect_Member();

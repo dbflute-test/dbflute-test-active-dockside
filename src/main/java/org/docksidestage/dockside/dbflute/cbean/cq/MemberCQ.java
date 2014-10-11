@@ -16,14 +16,13 @@
 package org.docksidestage.dockside.dbflute.cbean.cq;
 
 import org.dbflute.cbean.ConditionQuery;
-import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.cbean.sqlclause.SqlClause;
-import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.cbean.cq.bs.BsMemberCQ;
 
 /**
  * The condition-query of MEMBER.
  * @author DBFlute(AutoGenerator)
+ * @author jflute
  */
 public class MemberCQ extends BsMemberCQ {
 
@@ -59,10 +58,8 @@ public class MemberCQ extends BsMemberCQ {
         final Integer specialProductId = 3;
         setMemberName_PrefixSearch("S");
         setMemberStatusCode_Equal_Formalized();
-        existsPurchaseList(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().setProductId_Equal(specialProductId);
-            }
+        existsPurchase(purCB -> {
+            purCB.query().setProductId_Equal(specialProductId);
         });
     }
 }

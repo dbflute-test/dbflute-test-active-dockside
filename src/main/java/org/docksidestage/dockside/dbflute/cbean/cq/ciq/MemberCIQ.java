@@ -109,38 +109,6 @@ public class MemberCIQ extends AbstractBsMemberCQ {
     { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepMemberId_NotExistsReferrer_PurchaseList(PurchaseCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepMemberId_InScopeRelation_MemberAddressList(MemberAddressCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_MemberAddressList(sq); }
-    public String keepMemberId_InScopeRelation_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_MemberFollowingByMyMemberIdList(sq); }
-    public String keepMemberId_InScopeRelation_MemberFollowingByYourMemberIdList(MemberFollowingCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_MemberFollowingByYourMemberIdList(sq); }
-    public String keepMemberId_InScopeRelation_MemberLoginList(MemberLoginCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_MemberLoginList(sq); }
-    public String keepMemberId_InScopeRelation_MemberSecurityAsOne(MemberSecurityCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_MemberSecurityAsOne(sq); }
-    public String keepMemberId_InScopeRelation_MemberServiceAsOne(MemberServiceCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_MemberServiceAsOne(sq); }
-    public String keepMemberId_InScopeRelation_MemberWithdrawalAsOne(MemberWithdrawalCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_MemberWithdrawalAsOne(sq); }
-    public String keepMemberId_InScopeRelation_PurchaseList(PurchaseCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_PurchaseList(sq); }
-    public String keepMemberId_NotInScopeRelation_MemberAddressList(MemberAddressCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_MemberAddressList(sq); }
-    public String keepMemberId_NotInScopeRelation_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_MemberFollowingByMyMemberIdList(sq); }
-    public String keepMemberId_NotInScopeRelation_MemberFollowingByYourMemberIdList(MemberFollowingCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_MemberFollowingByYourMemberIdList(sq); }
-    public String keepMemberId_NotInScopeRelation_MemberLoginList(MemberLoginCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_MemberLoginList(sq); }
-    public String keepMemberId_NotInScopeRelation_MemberSecurityAsOne(MemberSecurityCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_MemberSecurityAsOne(sq); }
-    public String keepMemberId_NotInScopeRelation_MemberServiceAsOne(MemberServiceCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_MemberServiceAsOne(sq); }
-    public String keepMemberId_NotInScopeRelation_MemberWithdrawalAsOne(MemberWithdrawalCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_MemberWithdrawalAsOne(sq); }
-    public String keepMemberId_NotInScopeRelation_PurchaseList(PurchaseCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_PurchaseList(sq); }
     public String keepMemberId_SpecifyDerivedReferrer_MemberAddressList(MemberAddressCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepMemberId_SpecifyDerivedReferrer_MemberFollowingByMyMemberIdList(MemberFollowingCQ sq)
@@ -174,10 +142,6 @@ public class MemberCIQ extends AbstractBsMemberCQ {
     protected ConditionValue getCValueMemberName() { return _myCQ.getMemberName(); }
     protected ConditionValue getCValueMemberAccount() { return _myCQ.getMemberAccount(); }
     protected ConditionValue getCValueMemberStatusCode() { return _myCQ.getMemberStatusCode(); }
-    public String keepMemberStatusCode_InScopeRelation_MemberStatus(MemberStatusCQ sq)
-    { return _myCQ.keepMemberStatusCode_InScopeRelation_MemberStatus(sq); }
-    public String keepMemberStatusCode_NotInScopeRelation_MemberStatus(MemberStatusCQ sq)
-    { return _myCQ.keepMemberStatusCode_NotInScopeRelation_MemberStatus(sq); }
     protected ConditionValue getCValueFormalizedDatetime() { return _myCQ.getFormalizedDatetime(); }
     protected ConditionValue getCValueBirthdate() { return _myCQ.getBirthdate(); }
     protected ConditionValue getCValueRegisterDatetime() { return _myCQ.getRegisterDatetime(); }
@@ -196,8 +160,6 @@ public class MemberCIQ extends AbstractBsMemberCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(MemberCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(MemberCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

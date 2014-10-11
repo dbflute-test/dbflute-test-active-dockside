@@ -81,10 +81,6 @@ public class ProductCIQ extends AbstractBsProductCQ {
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepProductId_NotExistsReferrer_PurchaseList(PurchaseCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepProductId_InScopeRelation_PurchaseList(PurchaseCQ sq)
-    { return _myCQ.keepProductId_InScopeRelation_PurchaseList(sq); }
-    public String keepProductId_NotInScopeRelation_PurchaseList(PurchaseCQ sq)
-    { return _myCQ.keepProductId_NotInScopeRelation_PurchaseList(sq); }
     public String keepProductId_SpecifyDerivedReferrer_PurchaseList(PurchaseCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepProductId_QueryDerivedReferrer_PurchaseList(PurchaseCQ sq)
@@ -94,15 +90,7 @@ public class ProductCIQ extends AbstractBsProductCQ {
     protected ConditionValue getCValueProductName() { return _myCQ.getProductName(); }
     protected ConditionValue getCValueProductHandleCode() { return _myCQ.getProductHandleCode(); }
     protected ConditionValue getCValueProductCategoryCode() { return _myCQ.getProductCategoryCode(); }
-    public String keepProductCategoryCode_InScopeRelation_ProductCategory(ProductCategoryCQ sq)
-    { return _myCQ.keepProductCategoryCode_InScopeRelation_ProductCategory(sq); }
-    public String keepProductCategoryCode_NotInScopeRelation_ProductCategory(ProductCategoryCQ sq)
-    { return _myCQ.keepProductCategoryCode_NotInScopeRelation_ProductCategory(sq); }
     protected ConditionValue getCValueProductStatusCode() { return _myCQ.getProductStatusCode(); }
-    public String keepProductStatusCode_InScopeRelation_ProductStatus(ProductStatusCQ sq)
-    { return _myCQ.keepProductStatusCode_InScopeRelation_ProductStatus(sq); }
-    public String keepProductStatusCode_NotInScopeRelation_ProductStatus(ProductStatusCQ sq)
-    { return _myCQ.keepProductStatusCode_NotInScopeRelation_ProductStatus(sq); }
     protected ConditionValue getCValueRegularPrice() { return _myCQ.getRegularPrice(); }
     protected ConditionValue getCValueRegisterDatetime() { return _myCQ.getRegisterDatetime(); }
     protected ConditionValue getCValueRegisterUser() { return _myCQ.getRegisterUser(); }
@@ -120,8 +108,6 @@ public class ProductCIQ extends AbstractBsProductCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(ProductCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(ProductCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

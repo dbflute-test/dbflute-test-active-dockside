@@ -198,7 +198,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         final ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             final LikeSearchOption option = new LikeSearchOption().likeContain();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB purchaseCB) {
                     purchaseCB.query().setPurchaseCount_GreaterThan(2);
                     purchaseCB.union(new UnionQuery<PurchaseCB>() {
@@ -222,7 +222,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
                 cb.setupSelect_Product();
             }
         };
-        memberBhv.loadPurchaseList(memberList, setuppper);
+        memberBhv.loadPurchase(memberList, setuppper);
         for (Member member : memberList) {
             log("[member] " + member.getMemberId() + ", " + member.getMemberName());
             final List<Purchase> purchaseList = member.getPurchaseList();
@@ -493,10 +493,10 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         assertFalse(lastPage.isExistNextPage());
 
         ConditionBeanSetupper<PurchaseCB> setupper = cb -> cb.query().setPurchasePrice_GreaterEqual(1500);
-        memberBhv.loadPurchaseList(page1, setupper);
-        memberBhv.loadPurchaseList(page2, setupper);
-        memberBhv.loadPurchaseList(page3, setupper);
-        memberBhv.loadPurchaseList(lastPage, setupper);
+        memberBhv.loadPurchase(page1, setupper);
+        memberBhv.loadPurchase(page2, setupper);
+        memberBhv.loadPurchase(page3, setupper);
+        memberBhv.loadPurchase(lastPage, setupper);
         SelectPageUnionExistsReferrerAssertBoolean bl = new SelectPageUnionExistsReferrerAssertBoolean();
         findTarget_of_selectPage_union_existsSubQuery(page1, bl);
         findTarget_of_selectPage_union_existsSubQuery(page2, bl);
@@ -514,7 +514,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         cb.query().setMemberStatusCode_Equal_Withdrawal();
         cb.union(new UnionQuery<MemberCB>() {
             public void query(MemberCB unionCB) {
-                unionCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                unionCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.query().setPurchasePrice_GreaterEqual(1500);
                     }
@@ -626,11 +626,6 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
                 // left outer join (select * from xxx where WithdrawalReasonCode is not null) xxx on xxx = xxx
                 // cb.query().queryMemberWithdrawalAsOne().inline().setWithdrawalReasonCode_IsNotNull();
 
-                // 会員退会情報が存在する会員だけを取得するようにする
-                cb.query().inScopeMemberWithdrawalAsOne(new SubQuery<MemberWithdrawalCB>() {
-                    public void query(MemberWithdrawalCB subCB) {
-                    }
-                });
                 cb.query().queryMemberWithdrawalAsOne().addOrderBy_WithdrawalDatetime_Desc();
                 pushCB(cb);
             });
@@ -660,8 +655,11 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         assertTrue(notExistsMemberWithdrawal);
         // MemberWithdrawalを取得できなかった会員の会員退会情報がちゃんとあるかどうか確認
         for (Integer memberId : notExistsMemberIdList) {
-            memberWithdrawalBhv.selectByPKValueWithDeletedCheck(memberId);// Expected no exception
+            if (memberWithdrawalBhv.selectByPKValue(memberId) != null) {
+                markHere("exists");
+            }
         }
+        assertMarked("exists");
     }
 
     // ===================================================================================
@@ -745,7 +743,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime(); // *Point!
                     subCB.query().setMobileLoginFlg_Equal_False(); // except mobile
@@ -867,7 +865,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
+            cb.specify().derivedMemberLogin().count(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnMemberLoginId();// *Point!
                     subCB.query().setMobileLoginFlg_Equal_False();// Except Mobile
@@ -903,11 +901,9 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.specify().columnProductId();
-                    subCB.query().setPaymentCompleteFlg_Equal_True();
-                }
+            cb.specify().derivedPurchase().countDistinct(purchaseCB -> {
+                purchaseCB.specify().columnProductId();
+                purchaseCB.query().setPaymentCompleteFlg_Equal_True();
             }, Member.ALIAS_productKindCount);
             cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_productKindCount);
             cb.query().addOrderBy_MemberId_Asc();
@@ -940,7 +936,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.query().setMemberStatusCode_Equal_Formalized();
-            cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchasePrice(); // *Point!
                     subCB.query().setPaymentCompleteFlg_Equal_True();
@@ -950,7 +946,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             });
 
         // ## Assert ##
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.query().setPaymentCompleteFlg_Equal_True();
             }
@@ -1208,7 +1204,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
-        memberBhv.loadMemberAddressList(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
+        memberBhv.loadMemberAddress(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
             public void setup(MemberAddressCB cb) {
                 cb.query().setAddress_LikeSearch(targetChar, new LikeSearchOption().likeContain());
                 cb.query().setValidBeginDate_LessEqual(targetDate);
@@ -1319,10 +1315,10 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         final MemberStatusCB cb = new MemberStatusCB();
         cb.query().setDisplayOrder_Equal(3);
-        cb.query().existsMemberList(new SubQuery<MemberCB>() {
+        cb.query().existsMember(new SubQuery<MemberCB>() {
             public void query(MemberCB memberCB) {
                 memberCB.query().setBirthdate_LessEqual(new Date());
-                memberCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                memberCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB purchaseCB) {
                         purchaseCB.query().setPurchaseCount_GreaterEqual(2);
                     }
@@ -1341,10 +1337,11 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             }
         });
         cb.query().setMemberStatusCode_Equal_Formalized();
-        cb.query().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+        cb.query().existsMemberLogin(new SubQuery<MemberLoginCB>() {
             public void query(MemberLoginCB subCB) {
-                subCB.query().inScopeMember(new SubQuery<MemberCB>() {
+                subCB.query().queryMemberStatus().existsMember(new SubQuery<MemberCB>() {
                     public void query(MemberCB subCB) {
+                        subCB.useInScopeSubQuery();
                         subCB.query().setBirthdate_GreaterEqual(new Date());
                     }
                 });

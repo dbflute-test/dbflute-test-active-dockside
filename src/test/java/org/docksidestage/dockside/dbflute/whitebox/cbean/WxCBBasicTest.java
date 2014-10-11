@@ -20,7 +20,6 @@ import org.dbflute.exception.DangerousResultSizeException;
 import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
@@ -184,15 +183,14 @@ public class WxCBBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().myselfInScope(new SubQuery<MemberCB>() {
-                public void query(MemberCB subCB) {
-                    subCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
-                    subCB.union(new UnionQuery<MemberCB>() {
-                        public void query(MemberCB unionCB) {
-                            unionCB.query().setMemberStatusCode_Equal_Formalized();
-                        }
-                    });
-                }
+            cb.query().myselfExists(myselfCB -> {
+                myselfCB.useInScopeSubQuery();
+                myselfCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                myselfCB.union(new UnionQuery<MemberCB>() {
+                    public void query(MemberCB unionCB) {
+                        unionCB.query().setMemberStatusCode_Equal_Formalized();
+                    }
+                });
             });
             cb.query().addOrderBy_Birthdate_Desc();
         });
@@ -221,20 +219,15 @@ public class WxCBBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().queryMemberStatus().myselfInScope(new SubQuery<MemberStatusCB>() {
-                public void query(MemberStatusCB subCB) {
-                    subCB.query().setMemberStatusCode_Equal_Formalized();
-                    subCB.union(new UnionQuery<MemberStatusCB>() {
-                        public void query(MemberStatusCB unionCB) {
-                            unionCB.query().setMemberStatusCode_Equal_Provisional();
-                        }
-                    });
-                    subCB.query().existsMemberList(new SubQuery<MemberCB>() {
-                        public void query(MemberCB subCB) {
-                            subCB.query().setMemberStatusCode_NotEqual_Withdrawal();
-                        }
-                    });
-                }
+            cb.query().queryMemberStatus().myselfExists(myselfCB -> {
+                myselfCB.useInScopeSubQuery();
+                myselfCB.query().setMemberStatusCode_Equal_Formalized();
+                myselfCB.union(unionCB -> {
+                    unionCB.query().setMemberStatusCode_Equal_Provisional();
+                });
+                myselfCB.query().existsMember(mbCB -> {
+                    mbCB.query().setMemberStatusCode_NotEqual_Withdrawal();
+                });
             });
             cb.query().addOrderBy_Birthdate_Desc();
         });

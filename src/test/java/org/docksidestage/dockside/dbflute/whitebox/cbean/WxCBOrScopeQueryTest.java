@@ -222,7 +222,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
                     orCB.query().setMemberStatusCode_Equal_Provisional();
-                    orCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                    orCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.query().setPurchaseCount_GreaterEqual(2);
                         }
@@ -234,7 +234,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.query().addOrderBy_ProductId_Asc();
             }
@@ -611,7 +611,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                         }
                     });
                     orCB.query().inline().setRegisterUser_NotEqual("RGUSER");
-                    orCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                    orCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.query().setPaymentCompleteFlg_Equal_True();
                             subCB.query().setPurchaseCount_LessEqual(12);

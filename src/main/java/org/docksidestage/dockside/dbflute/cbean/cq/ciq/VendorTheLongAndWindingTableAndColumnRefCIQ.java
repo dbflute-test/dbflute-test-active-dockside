@@ -78,10 +78,6 @@ public class VendorTheLongAndWindingTableAndColumnRefCIQ extends AbstractBsVendo
     //                                                                ====================
     protected ConditionValue getCValueTheLongAndWindingTableAndColumnRefId() { return _myCQ.getTheLongAndWindingTableAndColumnRefId(); }
     protected ConditionValue getCValueTheLongAndWindingTableAndColumnId() { return _myCQ.getTheLongAndWindingTableAndColumnId(); }
-    public String keepTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn(VendorTheLongAndWindingTableAndColumnCQ sq)
-    { return _myCQ.keepTheLongAndWindingTableAndColumnId_InScopeRelation_VendorTheLongAndWindingTableAndColumn(sq); }
-    public String keepTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn(VendorTheLongAndWindingTableAndColumnCQ sq)
-    { return _myCQ.keepTheLongAndWindingTableAndColumnId_NotInScopeRelation_VendorTheLongAndWindingTableAndColumn(sq); }
     protected ConditionValue getCValueTheLongAndWindingTableAndColumnRefDate() { return _myCQ.getTheLongAndWindingTableAndColumnRefDate(); }
     protected ConditionValue getCValueShortDate() { return _myCQ.getShortDate(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
@@ -95,8 +91,6 @@ public class VendorTheLongAndWindingTableAndColumnRefCIQ extends AbstractBsVendo
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(VendorTheLongAndWindingTableAndColumnRefCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(VendorTheLongAndWindingTableAndColumnRefCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

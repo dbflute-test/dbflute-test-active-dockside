@@ -152,14 +152,14 @@ public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
     public void test_checkInvalidQuery_subquery() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.query().setPurchaseDatetime_Equal(null); // no exception
             }
         });
         cb.checkInvalidQuery();
         try {
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.query().setPurchaseDatetime_Equal(null);
                 }

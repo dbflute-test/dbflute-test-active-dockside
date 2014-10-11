@@ -232,7 +232,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb -> {});
-        memberStatusBhv.loadMemberList(statusList, new ConditionBeanSetupper<MemberCB>() {
+        memberStatusBhv.loadMember(statusList, new ConditionBeanSetupper<MemberCB>() {
             public void setup(MemberCB cb) {
                 cb.query().addOrderBy_Birthdate_Desc();
             }
@@ -309,7 +309,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
                     }
                 }).equal(new SpecifyQuery<MemberCB>() {
                     public void specify(MemberCB cb) {
-                        cb.specify().specifyMemberStatus().derivedMemberList().max(new SubQuery<MemberCB>() {
+                        cb.specify().specifyMemberStatus().derivedMember().max(new SubQuery<MemberCB>() {
                             public void query(MemberCB subCB) {
                                 subCB.specify().columnBirthdate();
                             }

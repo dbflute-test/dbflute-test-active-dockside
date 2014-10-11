@@ -81,10 +81,6 @@ public class ServiceRankCIQ extends AbstractBsServiceRankCQ {
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepServiceRankCode_NotExistsReferrer_MemberServiceList(MemberServiceCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepServiceRankCode_InScopeRelation_MemberServiceList(MemberServiceCQ sq)
-    { return _myCQ.keepServiceRankCode_InScopeRelation_MemberServiceList(sq); }
-    public String keepServiceRankCode_NotInScopeRelation_MemberServiceList(MemberServiceCQ sq)
-    { return _myCQ.keepServiceRankCode_NotInScopeRelation_MemberServiceList(sq); }
     public String keepServiceRankCode_SpecifyDerivedReferrer_MemberServiceList(MemberServiceCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepServiceRankCode_QueryDerivedReferrer_MemberServiceList(MemberServiceCQ sq)
@@ -107,8 +103,6 @@ public class ServiceRankCIQ extends AbstractBsServiceRankCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(ServiceRankCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(ServiceRankCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

@@ -81,10 +81,6 @@ public class SummaryProductCIQ extends AbstractBsSummaryProductCQ {
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepProductId_NotExistsReferrer_PurchaseList(PurchaseCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepProductId_InScopeRelation_PurchaseList(PurchaseCQ sq)
-    { return _myCQ.keepProductId_InScopeRelation_PurchaseList(sq); }
-    public String keepProductId_NotInScopeRelation_PurchaseList(PurchaseCQ sq)
-    { return _myCQ.keepProductId_NotInScopeRelation_PurchaseList(sq); }
     public String keepProductId_SpecifyDerivedReferrer_PurchaseList(PurchaseCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepProductId_QueryDerivedReferrer_PurchaseList(PurchaseCQ sq)
@@ -94,10 +90,6 @@ public class SummaryProductCIQ extends AbstractBsSummaryProductCQ {
     protected ConditionValue getCValueProductName() { return _myCQ.getProductName(); }
     protected ConditionValue getCValueProductHandleCode() { return _myCQ.getProductHandleCode(); }
     protected ConditionValue getCValueProductStatusCode() { return _myCQ.getProductStatusCode(); }
-    public String keepProductStatusCode_InScopeRelation_ProductStatus(ProductStatusCQ sq)
-    { return _myCQ.keepProductStatusCode_InScopeRelation_ProductStatus(sq); }
-    public String keepProductStatusCode_NotInScopeRelation_ProductStatus(ProductStatusCQ sq)
-    { return _myCQ.keepProductStatusCode_NotInScopeRelation_ProductStatus(sq); }
     protected ConditionValue getCValueLatestPurchaseDatetime() { return _myCQ.getLatestPurchaseDatetime(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(SummaryProductCQ sq)
@@ -110,8 +102,6 @@ public class SummaryProductCIQ extends AbstractBsSummaryProductCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(SummaryProductCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(SummaryProductCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

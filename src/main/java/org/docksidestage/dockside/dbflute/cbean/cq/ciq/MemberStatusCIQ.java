@@ -85,14 +85,6 @@ public class MemberStatusCIQ extends AbstractBsMemberStatusCQ {
     { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepMemberStatusCode_NotExistsReferrer_MemberLoginList(MemberLoginCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepMemberStatusCode_InScopeRelation_MemberList(MemberCQ sq)
-    { return _myCQ.keepMemberStatusCode_InScopeRelation_MemberList(sq); }
-    public String keepMemberStatusCode_InScopeRelation_MemberLoginList(MemberLoginCQ sq)
-    { return _myCQ.keepMemberStatusCode_InScopeRelation_MemberLoginList(sq); }
-    public String keepMemberStatusCode_NotInScopeRelation_MemberList(MemberCQ sq)
-    { return _myCQ.keepMemberStatusCode_NotInScopeRelation_MemberList(sq); }
-    public String keepMemberStatusCode_NotInScopeRelation_MemberLoginList(MemberLoginCQ sq)
-    { return _myCQ.keepMemberStatusCode_NotInScopeRelation_MemberLoginList(sq); }
     public String keepMemberStatusCode_SpecifyDerivedReferrer_MemberList(MemberCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepMemberStatusCode_SpecifyDerivedReferrer_MemberLoginList(MemberLoginCQ sq)
@@ -119,8 +111,6 @@ public class MemberStatusCIQ extends AbstractBsMemberStatusCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(MemberStatusCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(MemberStatusCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

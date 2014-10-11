@@ -41,7 +41,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             expectedCount = memberBhv.selectCount(cb -> {
                 cb.getSqlClause().disableInnerJoinAutoDetect();
                 cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
-                cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                cb.query().queryMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.specify().columnLoginDatetime();
                     }
@@ -58,7 +58,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.getSqlClause().enableWhereUsedInnerJoin();
             cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
-            cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.query().queryMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                 }
@@ -84,7 +84,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             expectedCount = memberBhv.selectCount(cb -> {
                 cb.getSqlClause().disableInnerJoinAutoDetect();
                 cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
-                cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                cb.query().queryMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.specify().columnMemberLoginId();
                     }
@@ -101,7 +101,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.getSqlClause().enableWhereUsedInnerJoin();
             cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
-            cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.query().queryMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnMemberLoginId();
                 }
@@ -127,7 +127,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             expectedCount = memberBhv.selectCount(cb -> {
                 cb.getSqlClause().disableInnerJoinAutoDetect();
                 cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
-                cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                cb.query().queryMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.specify().columnMemberLoginId();
                     }
@@ -144,7 +144,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             cb.getSqlClause().disableInnerJoinAutoDetect();
             cb.getSqlClause().enableWhereUsedInnerJoin();
             cb.query().queryMemberStatus().inline().setMemberStatusCode_Equal_Formalized();
-            cb.query().queryMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.query().queryMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnMemberLoginId();
                 }
@@ -175,7 +175,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
                 /* ## Act ## */
                 MemberCB dreamCruiseCB = cb.dreamCruiseCB();
                 HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
                         subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().specifyMember().columnMemberId());
@@ -367,7 +367,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
                 cb.suppressInnerJoinAutoDetect();
                 cb.columnQuery(new SpecifyQuery<MemberCB>() {
                     public void specify(MemberCB cb) {
-                        cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                        cb.specify().specifyMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                             public void query(MemberLoginCB subCB) {
                                 subCB.specify().columnMemberLoginId();
                             }
@@ -391,7 +391,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             cb.getSqlClause().enableWhereUsedInnerJoin();
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                    cb.specify().specifyMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                         public void query(MemberLoginCB subCB) {
                             subCB.specify().columnMemberLoginId();
                         }

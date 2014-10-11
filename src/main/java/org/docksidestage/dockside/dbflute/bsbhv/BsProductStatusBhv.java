@@ -420,12 +420,10 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * Load referrer of productList by the set-upper of referrer. <br />
      * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
      * <pre>
-     * productStatusBhv.<span style="color: #DD4747">loadProductList</span>(productStatusList, new ConditionBeanSetupper&lt;ProductCB&gt;() {
-     *     public void setup(ProductCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * productStatusBhv.<span style="color: #DD4747">loadProduct</span>(productStatusList, productCB -&gt; {
+     *     productCB.setupSelect...();
+     *     productCB.query().setFoo...(value);
+     *     productCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -444,21 +442,19 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Product> loadProductList(List<ProductStatus> productStatusList, ConditionBeanSetupper<ProductCB> refCBLambda) {
+    public NestedReferrerListGateway<Product> loadProduct(List<ProductStatus> productStatusList, ConditionBeanSetupper<ProductCB> refCBLambda) {
         xassLRArg(productStatusList, refCBLambda);
-        return doLoadProductList(productStatusList, new LoadReferrerOption<ProductCB, Product>().xinit(refCBLambda));
+        return doLoadProduct(productStatusList, new LoadReferrerOption<ProductCB, Product>().xinit(refCBLambda));
     }
 
     /**
      * Load referrer of productList by the set-upper of referrer. <br />
      * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
      * <pre>
-     * productStatusBhv.<span style="color: #DD4747">loadProductList</span>(productStatusList, new ConditionBeanSetupper&lt;ProductCB&gt;() {
-     *     public void setup(ProductCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * productStatusBhv.<span style="color: #DD4747">loadProduct</span>(productStatusList, productCB -&gt; {
+     *     productCB.setupSelect...();
+     *     productCB.query().setFoo...(value);
+     *     productCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -475,9 +471,9 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Product> loadProductList(ProductStatus productStatus, ConditionBeanSetupper<ProductCB> refCBLambda) {
+    public NestedReferrerListGateway<Product> loadProduct(ProductStatus productStatus, ConditionBeanSetupper<ProductCB> refCBLambda) {
         xassLRArg(productStatus, refCBLambda);
-        return doLoadProductList(xnewLRLs(productStatus), new LoadReferrerOption<ProductCB, Product>().xinit(refCBLambda));
+        return doLoadProduct(xnewLRLs(productStatus), new LoadReferrerOption<ProductCB, Product>().xinit(refCBLambda));
     }
 
     /**
@@ -486,9 +482,9 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Product> loadProductList(ProductStatus productStatus, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
+    public NestedReferrerListGateway<Product> loadProduct(ProductStatus productStatus, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
         xassLRArg(productStatus, loadReferrerOption);
-        return loadProductList(xnewLRLs(productStatus), loadReferrerOption);
+        return loadProduct(xnewLRLs(productStatus), loadReferrerOption);
     }
 
     /**
@@ -498,13 +494,13 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerListGateway<Product> loadProductList(List<ProductStatus> productStatusList, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
+    public NestedReferrerListGateway<Product> loadProduct(List<ProductStatus> productStatusList, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
         xassLRArg(productStatusList, loadReferrerOption);
         if (productStatusList.isEmpty()) { return (NestedReferrerListGateway<Product>)EMPTY_NREF_LGWAY; }
-        return doLoadProductList(productStatusList, loadReferrerOption);
+        return doLoadProduct(productStatusList, loadReferrerOption);
     }
 
-    protected NestedReferrerListGateway<Product> doLoadProductList(List<ProductStatus> productStatusList, LoadReferrerOption<ProductCB, Product> option) {
+    protected NestedReferrerListGateway<Product> doLoadProduct(List<ProductStatus> productStatusList, LoadReferrerOption<ProductCB, Product> option) {
         return helpLoadReferrerInternally(productStatusList, option, "productList");
     }
 
@@ -512,12 +508,10 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * Load referrer of summaryProductList by the set-upper of referrer. <br />
      * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'.
      * <pre>
-     * productStatusBhv.<span style="color: #DD4747">loadSummaryProductList</span>(productStatusList, new ConditionBeanSetupper&lt;SummaryProductCB&gt;() {
-     *     public void setup(SummaryProductCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * productStatusBhv.<span style="color: #DD4747">loadSummaryProduct</span>(productStatusList, productCB -&gt; {
+     *     productCB.setupSelect...();
+     *     productCB.query().setFoo...(value);
+     *     productCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -536,21 +530,19 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<SummaryProduct> loadSummaryProductList(List<ProductStatus> productStatusList, ConditionBeanSetupper<SummaryProductCB> refCBLambda) {
+    public NestedReferrerListGateway<SummaryProduct> loadSummaryProduct(List<ProductStatus> productStatusList, ConditionBeanSetupper<SummaryProductCB> refCBLambda) {
         xassLRArg(productStatusList, refCBLambda);
-        return doLoadSummaryProductList(productStatusList, new LoadReferrerOption<SummaryProductCB, SummaryProduct>().xinit(refCBLambda));
+        return doLoadSummaryProduct(productStatusList, new LoadReferrerOption<SummaryProductCB, SummaryProduct>().xinit(refCBLambda));
     }
 
     /**
      * Load referrer of summaryProductList by the set-upper of referrer. <br />
      * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'.
      * <pre>
-     * productStatusBhv.<span style="color: #DD4747">loadSummaryProductList</span>(productStatusList, new ConditionBeanSetupper&lt;SummaryProductCB&gt;() {
-     *     public void setup(SummaryProductCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * productStatusBhv.<span style="color: #DD4747">loadSummaryProduct</span>(productStatusList, productCB -&gt; {
+     *     productCB.setupSelect...();
+     *     productCB.query().setFoo...(value);
+     *     productCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -567,9 +559,9 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<SummaryProduct> loadSummaryProductList(ProductStatus productStatus, ConditionBeanSetupper<SummaryProductCB> refCBLambda) {
+    public NestedReferrerListGateway<SummaryProduct> loadSummaryProduct(ProductStatus productStatus, ConditionBeanSetupper<SummaryProductCB> refCBLambda) {
         xassLRArg(productStatus, refCBLambda);
-        return doLoadSummaryProductList(xnewLRLs(productStatus), new LoadReferrerOption<SummaryProductCB, SummaryProduct>().xinit(refCBLambda));
+        return doLoadSummaryProduct(xnewLRLs(productStatus), new LoadReferrerOption<SummaryProductCB, SummaryProduct>().xinit(refCBLambda));
     }
 
     /**
@@ -578,9 +570,9 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<SummaryProduct> loadSummaryProductList(ProductStatus productStatus, LoadReferrerOption<SummaryProductCB, SummaryProduct> loadReferrerOption) {
+    public NestedReferrerListGateway<SummaryProduct> loadSummaryProduct(ProductStatus productStatus, LoadReferrerOption<SummaryProductCB, SummaryProduct> loadReferrerOption) {
         xassLRArg(productStatus, loadReferrerOption);
-        return loadSummaryProductList(xnewLRLs(productStatus), loadReferrerOption);
+        return loadSummaryProduct(xnewLRLs(productStatus), loadReferrerOption);
     }
 
     /**
@@ -590,13 +582,13 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerListGateway<SummaryProduct> loadSummaryProductList(List<ProductStatus> productStatusList, LoadReferrerOption<SummaryProductCB, SummaryProduct> loadReferrerOption) {
+    public NestedReferrerListGateway<SummaryProduct> loadSummaryProduct(List<ProductStatus> productStatusList, LoadReferrerOption<SummaryProductCB, SummaryProduct> loadReferrerOption) {
         xassLRArg(productStatusList, loadReferrerOption);
         if (productStatusList.isEmpty()) { return (NestedReferrerListGateway<SummaryProduct>)EMPTY_NREF_LGWAY; }
-        return doLoadSummaryProductList(productStatusList, loadReferrerOption);
+        return doLoadSummaryProduct(productStatusList, loadReferrerOption);
     }
 
-    protected NestedReferrerListGateway<SummaryProduct> doLoadSummaryProductList(List<ProductStatus> productStatusList, LoadReferrerOption<SummaryProductCB, SummaryProduct> option) {
+    protected NestedReferrerListGateway<SummaryProduct> doLoadSummaryProduct(List<ProductStatus> productStatusList, LoadReferrerOption<SummaryProductCB, SummaryProduct> option) {
         return helpLoadReferrerInternally(productStatusList, option, "summaryProductList");
     }
 

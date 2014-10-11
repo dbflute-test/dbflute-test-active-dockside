@@ -308,15 +308,15 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
             /* ## Act ## */
         });
 
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
             }
         });
-        memberBhv.loadMemberAddressList(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
+        memberBhv.loadMemberAddress(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
             public void setup(MemberAddressCB cb) {
             }
         });
-        memberBhv.loadMemberLoginList(memberList, new ConditionBeanSetupper<MemberLoginCB>() {
+        memberBhv.loadMemberLogin(memberList, new ConditionBeanSetupper<MemberLoginCB>() {
             public void setup(MemberLoginCB cb) {
             }
         });
@@ -356,17 +356,17 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
             cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         });
 
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
                 cb.setupSelect_SummaryProduct();
             }
         });
-        memberBhv.loadMemberAddressList(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
+        memberBhv.loadMemberAddress(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
             public void setup(MemberAddressCB cb) {
             }
         });
-        memberBhv.loadMemberLoginList(memberList, new ConditionBeanSetupper<MemberLoginCB>() {
+        memberBhv.loadMemberLogin(memberList, new ConditionBeanSetupper<MemberLoginCB>() {
             public void setup(MemberLoginCB cb) {
                 cb.setupSelect_MemberStatus();
             }
@@ -517,15 +517,15 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
             /* ## Act ## */
         });
 
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
             }
         });
-        memberBhv.loadMemberAddressList(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
+        memberBhv.loadMemberAddress(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
             public void setup(MemberAddressCB cb) {
             }
         });
-        memberBhv.loadMemberLoginList(memberList, new ConditionBeanSetupper<MemberLoginCB>() {
+        memberBhv.loadMemberLogin(memberList, new ConditionBeanSetupper<MemberLoginCB>() {
             public void setup(MemberLoginCB cb) {
             }
         });
@@ -566,18 +566,18 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
             cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
         });
 
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
                 cb.setupSelect_SummaryProduct();
             }
         });
-        memberBhv.loadMemberAddressList(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
+        memberBhv.loadMemberAddress(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
             public void setup(MemberAddressCB cb) {
                 cb.setupSelect_Member();
             }
         });
-        memberBhv.loadMemberLoginList(memberList, new ConditionBeanSetupper<MemberLoginCB>() {
+        memberBhv.loadMemberLogin(memberList, new ConditionBeanSetupper<MemberLoginCB>() {
             public void setup(MemberLoginCB cb) {
                 cb.setupSelect_Member();
                 cb.setupSelect_MemberStatus();
@@ -679,14 +679,14 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             cb.setupSelect_MemberStatus();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                 }
             });
             cb.fetchFirst(1);
         });
 
-        memberBhv.loadPurchaseList(member, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(member, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
             }

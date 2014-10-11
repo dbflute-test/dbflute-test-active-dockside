@@ -45,7 +45,7 @@ public class WxCBNullsFirstLastTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                     subCB.query().setMobileLoginFlg_Equal_True();

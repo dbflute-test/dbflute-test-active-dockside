@@ -41,7 +41,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
                 public void specify(MemberServiceCB cb) {
-                    cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                    cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                         public void query(MemberServiceCB subCB) {
                             subCB.specify().columnServicePointCount();
                             subCB.query().setUpdateUser_Equal("ColumnQueryUser");
@@ -73,7 +73,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
                 public void specify(MemberServiceCB cb) {
-                    cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                    cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                         public void query(MemberServiceCB subCB) {
                             subCB.specify().columnServicePointCount();
                             subCB.query().setUpdateUser_Equal("ColumnQueryUser");
@@ -102,7 +102,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
                 public void specify(MemberServiceCB cb) {
-                    cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                    cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                         public void query(MemberServiceCB subCB) {
                             subCB.specify().columnServicePointCount();
                             subCB.query().setUpdateUser_Equal("ColumnQueryUser");
@@ -131,7 +131,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
                 public void specify(MemberServiceCB cb) {
-                    cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                    cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                         public void query(MemberServiceCB subCB) {
                             subCB.specify().columnServicePointCount();
                             subCB.query().setUpdateUser_Equal("ColumnQueryUser");
@@ -157,23 +157,15 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
         // ## Arrange ##
         serviceRankBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().existsMemberServiceList(new SubQuery<MemberServiceCB>() {
-                public void query(MemberServiceCB subCB) {
-                    subCB.columnQuery(new SpecifyQuery<MemberServiceCB>() {
-                        public void specify(MemberServiceCB cb) {
-                            cb.specify().columnServicePointCount();
-                        }
-                    }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
-                        public void specify(MemberServiceCB cb) {
-                            cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
-                                public void query(MemberServiceCB subCB) {
-                                    subCB.specify().columnServicePointCount();
-                                    subCB.query().setUpdateUser_Equal("ColumnQueryUser");
-                                }
-                            }, null, op -> op.coalesce(123).round(8));
-                        }
-                    });
-                }
+            cb.query().existsMemberService(serviceCB -> {
+                serviceCB.columnQuery(colCB -> {
+                    colCB.specify().columnServicePointCount();
+                }).greaterThan(colCB -> {
+                    colCB.specify().specifyServiceRank().derivedMemberService().avg(rankServiceCB -> {
+                        rankServiceCB.specify().columnServicePointCount();
+                        rankServiceCB.query().setUpdateUser_Equal("ColumnQueryUser");
+                    }, null, op -> op.coalesce(123).round(8));
+                });
             });
             log(ln() + cb.getSqlClause().getClause());
             pushCB(cb);
@@ -191,7 +183,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
         // ## Arrange ##
         serviceRankBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().existsMemberServiceList(new SubQuery<MemberServiceCB>() {
+            cb.query().existsMemberService(new SubQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB subCB) {
                     subCB.columnQuery(new SpecifyQuery<MemberServiceCB>() {
                         public void specify(MemberServiceCB cb) {
@@ -199,7 +191,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                         }
                     }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
                         public void specify(MemberServiceCB cb) {
-                            cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                            cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                                 public void query(MemberServiceCB subCB) {
                                     subCB.specify().columnServicePointCount();
                                     subCB.query().setUpdateUser_Equal("ColumnQueryUser");
@@ -225,7 +217,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
         // ## Arrange ##
         serviceRankBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().existsMemberServiceList(new SubQuery<MemberServiceCB>() {
+            cb.query().existsMemberService(new SubQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB subCB) {
                     subCB.columnQuery(new SpecifyQuery<MemberServiceCB>() {
                         public void specify(MemberServiceCB cb) {
@@ -233,7 +225,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                         }
                     }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
                         public void specify(MemberServiceCB cb) {
-                            cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                            cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                                 public void query(MemberServiceCB subCB) {
                                     subCB.specify().columnServicePointCount();
                                     subCB.query().setUpdateUser_Equal("ColumnQueryUser1");
@@ -245,7 +237,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
             });
             cb.union(new UnionQuery<ServiceRankCB>() {
                 public void query(ServiceRankCB unionCB) {
-                    unionCB.query().existsMemberServiceList(new SubQuery<MemberServiceCB>() {
+                    unionCB.query().existsMemberService(new SubQuery<MemberServiceCB>() {
                         public void query(MemberServiceCB subCB) {
                             subCB.columnQuery(new SpecifyQuery<MemberServiceCB>() {
                                 public void specify(MemberServiceCB cb) {
@@ -253,11 +245,11 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                                 }
                             }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
                                 public void specify(MemberServiceCB cb) {
-                                    cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                                    cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                                         public void query(MemberServiceCB subCB) {
                                             subCB.specify().columnServicePointCount();
                                             subCB.query().setUpdateUser_Equal("ColumnQueryUser2");
-                                            subCB.query().queryMember().existsMemberLoginList(new SubQuery<MemberLoginCB>() {
+                                            subCB.query().queryMember().existsMemberLogin(new SubQuery<MemberLoginCB>() {
                                                 public void query(MemberLoginCB subCB) {
                                                     Timestamp timestamp = DfTypeUtil.toTimestamp("2011-12-21");
                                                     subCB.query().setLoginDatetime_GreaterEqual(timestamp);
@@ -293,7 +285,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
         // ## Arrange ##
         serviceRankBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().existsMemberServiceList(new SubQuery<MemberServiceCB>() {
+            cb.query().existsMemberService(new SubQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB subCB) {
                     subCB.columnQuery(new SpecifyQuery<MemberServiceCB>() {
                         public void specify(MemberServiceCB cb) {
@@ -301,7 +293,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                         }
                     }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
                         public void specify(MemberServiceCB cb) {
-                            cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                            cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                                 public void query(MemberServiceCB subCB) {
                                     subCB.specify().columnServicePointCount().convert(op -> op.coalesce(9));
                                     subCB.query().setUpdateUser_Equal("ColumnQueryUser");
@@ -331,7 +323,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
         // ## Arrange ##
         serviceRankBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberServiceList().max(new SubQuery<MemberServiceCB>() {
+            cb.specify().derivedMemberService().max(new SubQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB subCB) {
                     subCB.specify().columnServicePointCount();
                     subCB.columnQuery(new SpecifyQuery<MemberServiceCB>() {
@@ -340,7 +332,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                         }
                     }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
                         public void specify(MemberServiceCB cb) {
-                            cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                            cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                                 public void query(MemberServiceCB subCB) {
                                     subCB.specify().columnServicePointCount().convert(op -> op.coalesce(9));
                                     subCB.query().setUpdateUser_Equal("ColumnQueryUser");
@@ -370,37 +362,37 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
         // ## Arrange ##
         serviceRankBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberServiceList().count(new SubQuery<MemberServiceCB>() {
+            cb.specify().derivedMemberService().count(new SubQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB subCB) {
                     subCB.specify().columnMemberServiceId();
                 }
             }, ServiceRank.ALIAS_memberCount);
-            cb.specify().derivedMemberServiceList().sum(new SubQuery<MemberServiceCB>() {
+            cb.specify().derivedMemberService().sum(new SubQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB subCB) {
-                    subCB.specify().specifyMember().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    subCB.specify().specifyMember().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchasePrice();
                         }
                     }, null);
                 }
             }, ServiceRank.ALIAS_maxPurchasePrice);
-            cb.specify().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+            cb.specify().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB subCB) {
-                    subCB.specify().specifyMember().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
+                    subCB.specify().specifyMember().derivedPurchase().avg(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchasePrice();
                         }
                     }, null);
                 }
             }, ServiceRank.ALIAS_avgPurchasePrice);
-            cb.specify().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+            cb.specify().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB subCB) {
                     subCB.specify().columnServicePointCount();
                 }
             }, ServiceRank.ALIAS_sumPointCount);
-            cb.specify().derivedMemberServiceList().count(new SubQuery<MemberServiceCB>() {
+            cb.specify().derivedMemberService().count(new SubQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB subCB) {
-                    subCB.specify().specifyMember().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
+                    subCB.specify().specifyMember().derivedMemberLogin().count(new SubQuery<MemberLoginCB>() {
 
                         public void query(MemberLoginCB subCB) {
                             subCB.specify().columnMemberLoginId();
@@ -414,7 +406,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                 }
             }).greaterThan(new SpecifyQuery<ServiceRankCB>() {
                 public void specify(ServiceRankCB cb) {
-                    cb.specify().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                    cb.specify().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                         public void query(MemberServiceCB subCB) {
                             subCB.specify().columnServicePointCount();
                             subCB.query().setUpdateUser_Equal("ColumnQueryUser");
@@ -422,7 +414,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                     }, null, op -> op.coalesce(123).round(8));
                 }
             });
-            cb.query().existsMemberServiceList(new SubQuery<MemberServiceCB>() {
+            cb.query().existsMemberService(new SubQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB subCB) {
                     subCB.columnQuery(new SpecifyQuery<MemberServiceCB>() {
                         public void specify(MemberServiceCB cb) {
@@ -430,7 +422,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                         }
                     }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
                         public void specify(MemberServiceCB cb) {
-                            cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                            cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                                 public void query(MemberServiceCB subCB) {
                                     subCB.specify().columnServicePointCount();
                                     subCB.query().setUpdateUser_Equal("ColumnQueryUser");
@@ -440,7 +432,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                     });
                     subCB.columnQuery(new SpecifyQuery<MemberServiceCB>() {
                         public void specify(MemberServiceCB cb) {
-                            cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                            cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                                 public void query(MemberServiceCB subCB) {
                                     subCB.specify().columnServicePointCount();
                                     subCB.query().setUpdateUser_Equal("@ServicePointCount");
@@ -454,7 +446,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                     });
                     subCB.columnQuery(new SpecifyQuery<MemberServiceCB>() {
                         public void specify(MemberServiceCB cb) {
-                            cb.specify().specifyMember().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                            cb.specify().specifyMember().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                                 public void query(PurchaseCB subCB) {
                                     subCB.specify().columnPurchasePrice();
                                 }
@@ -462,7 +454,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                         }
                     }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
                         public void specify(MemberServiceCB cb) {
-                            cb.specify().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+                            cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                                 public void query(MemberServiceCB subCB) {
                                     subCB.specify().columnServicePointCount();
                                 }

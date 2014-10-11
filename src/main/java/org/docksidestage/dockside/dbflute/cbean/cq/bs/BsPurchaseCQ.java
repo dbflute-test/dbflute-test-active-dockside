@@ -103,12 +103,6 @@ public class BsPurchaseCQ extends AbstractBsPurchaseCQ {
     public Map<String, PurchasePaymentCQ> getPurchaseId_SpecifyDerivedReferrer_PurchasePaymentList() { return xgetSQueMap("purchaseId_SpecifyDerivedReferrer_PurchasePaymentList"); }
     public String keepPurchaseId_SpecifyDerivedReferrer_PurchasePaymentList(PurchasePaymentCQ sq) { return xkeepSQue("purchaseId_SpecifyDerivedReferrer_PurchasePaymentList", sq); }
 
-    public Map<String, PurchasePaymentCQ> getPurchaseId_InScopeRelation_PurchasePaymentList() { return xgetSQueMap("purchaseId_InScopeRelation_PurchasePaymentList"); }
-    public String keepPurchaseId_InScopeRelation_PurchasePaymentList(PurchasePaymentCQ sq) { return xkeepSQue("purchaseId_InScopeRelation_PurchasePaymentList", sq); }
-
-    public Map<String, PurchasePaymentCQ> getPurchaseId_NotInScopeRelation_PurchasePaymentList() { return xgetSQueMap("purchaseId_NotInScopeRelation_PurchasePaymentList"); }
-    public String keepPurchaseId_NotInScopeRelation_PurchasePaymentList(PurchasePaymentCQ sq) { return xkeepSQue("purchaseId_NotInScopeRelation_PurchasePaymentList", sq); }
-
     public Map<String, PurchasePaymentCQ> getPurchaseId_QueryDerivedReferrer_PurchasePaymentList() { return xgetSQueMap("purchaseId_QueryDerivedReferrer_PurchasePaymentList"); }
     public String keepPurchaseId_QueryDerivedReferrer_PurchasePaymentList(PurchasePaymentCQ sq) { return xkeepSQue("purchaseId_QueryDerivedReferrer_PurchasePaymentList", sq); }
     public Map<String, Object> getPurchaseId_QueryDerivedReferrer_PurchasePaymentListParameter() { return xgetSQuePmMap("purchaseId_QueryDerivedReferrer_PurchasePaymentList"); }
@@ -134,12 +128,6 @@ public class BsPurchaseCQ extends AbstractBsPurchaseCQ {
       return _memberId; }
     protected ConditionValue getCValueMemberId() { return getMemberId(); }
 
-    public Map<String, MemberCQ> getMemberId_InScopeRelation_Member() { return xgetSQueMap("memberId_InScopeRelation_Member"); }
-    public String keepMemberId_InScopeRelation_Member(MemberCQ sq) { return xkeepSQue("memberId_InScopeRelation_Member", sq); }
-
-    public Map<String, MemberCQ> getMemberId_NotInScopeRelation_Member() { return xgetSQueMap("memberId_NotInScopeRelation_Member"); }
-    public String keepMemberId_NotInScopeRelation_Member(MemberCQ sq) { return xkeepSQue("memberId_NotInScopeRelation_Member", sq); }
-
     /** 
      * Add order-by as ascend. <br />
      * (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
@@ -159,12 +147,6 @@ public class BsPurchaseCQ extends AbstractBsPurchaseCQ {
     { if (_productId == null) { _productId = nCV(); }
       return _productId; }
     protected ConditionValue getCValueProductId() { return getProductId(); }
-
-    public Map<String, ProductCQ> getProductId_InScopeRelation_Product() { return xgetSQueMap("productId_InScopeRelation_Product"); }
-    public String keepProductId_InScopeRelation_Product(ProductCQ sq) { return xkeepSQue("productId_InScopeRelation_Product", sq); }
-
-    public Map<String, ProductCQ> getProductId_NotInScopeRelation_Product() { return xgetSQueMap("productId_NotInScopeRelation_Product"); }
-    public String keepProductId_NotInScopeRelation_Product(ProductCQ sq) { return xkeepSQue("productId_NotInScopeRelation_Product", sq); }
 
     /** 
      * Add order-by as ascend. <br />

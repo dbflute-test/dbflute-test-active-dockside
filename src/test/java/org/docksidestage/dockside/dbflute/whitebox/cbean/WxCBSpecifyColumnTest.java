@@ -310,7 +310,7 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.
-        memberBhv.loadPurchaseList(member, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(member, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.specify().columnPurchaseDatetime();
                 cb.query().setPurchaseCount_GreaterEqual(2);
@@ -343,7 +343,7 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.
-        memberBhv.loadPurchaseList(member, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(member, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
                 cb.specify().specifyProduct().columnProductName();
@@ -412,7 +412,7 @@ public class WxCBSpecifyColumnTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().countDistinct(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnProductId();
                 }

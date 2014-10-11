@@ -372,7 +372,7 @@ public class BsServiceRankCB extends AbstractConditionBean {
          * {select max(FOO) from MEMBER_SERVICE where ...) as FOO_MAX} <br />
          * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
          * <pre>
-         * cb.specify().<span style="color: #DD4747">derivedMemberServiceList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberServiceCB&gt;() {
+         * cb.specify().<span style="color: #DD4747">derivedMemberService()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberServiceCB&gt;() {
          *     public void query(MemberServiceCB subCB) {
          *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -381,7 +381,7 @@ public class BsServiceRankCB extends AbstractConditionBean {
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
-        public HpSDRFunction<MemberServiceCB, ServiceRankCQ> derivedMemberServiceList() {
+        public HpSDRFunction<MemberServiceCB, ServiceRankCQ> derivedMemberService() {
             assertDerived("memberServiceList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MemberServiceCB, ServiceRankCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberServiceCB, ServiceRankCQ>() {
                 public void setup(String fn, SubQuery<MemberServiceCB> sq, ServiceRankCQ cq, String al, DerivedReferrerOption op) {

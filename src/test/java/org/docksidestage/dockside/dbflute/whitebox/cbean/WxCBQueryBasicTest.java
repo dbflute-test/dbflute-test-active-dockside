@@ -90,7 +90,7 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
                     public void query(MemberCB andCB) {
                         andCB.query().setMemberId_Equal(35);
                         andCB.query().setMemberId_Equal(36);
-                        andCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                        andCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
                             public void query(PurchaseCB subCB) {
                                 subCB.query().setPurchaseId_Equal(99L);
                                 subCB.query().setPurchaseId_Equal(3L); // override

@@ -242,7 +242,7 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
         try {
             memberBhv.selectList(cb -> {
                 /* ## Act ## */
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }
@@ -279,12 +279,12 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
         try {
             memberBhv.selectList(cb -> {
                 /* ## Act ## */
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }
                 }, Member.ALIAS_highestPurchasePrice);
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchaseCount();
                     }
@@ -342,12 +342,12 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
         try {
             memberBhv.selectList(cb -> {
                 /* ## Act ## */
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }
                 }, Member.ALIAS_highestPurchasePrice);
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchaseCount();
                     }
@@ -384,12 +384,12 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
         try {
             memberBhv.selectList(cb -> {
                 /* ## Act ## */
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }
                 }, Member.ALIAS_highestPurchasePrice);
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchaseCount();
                     }

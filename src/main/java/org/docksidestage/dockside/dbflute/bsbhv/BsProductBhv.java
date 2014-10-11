@@ -420,12 +420,10 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * Load referrer of purchaseList by the set-upper of referrer. <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
-     * productBhv.<span style="color: #DD4747">loadPurchaseList</span>(productList, new ConditionBeanSetupper&lt;PurchaseCB&gt;() {
-     *     public void setup(PurchaseCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * productBhv.<span style="color: #DD4747">loadPurchase</span>(productList, purchaseCB -&gt; {
+     *     purchaseCB.setupSelect...();
+     *     purchaseCB.query().setFoo...(value);
+     *     purchaseCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -444,21 +442,19 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Purchase> loadPurchaseList(List<Product> productList, ConditionBeanSetupper<PurchaseCB> refCBLambda) {
+    public NestedReferrerListGateway<Purchase> loadPurchase(List<Product> productList, ConditionBeanSetupper<PurchaseCB> refCBLambda) {
         xassLRArg(productList, refCBLambda);
-        return doLoadPurchaseList(productList, new LoadReferrerOption<PurchaseCB, Purchase>().xinit(refCBLambda));
+        return doLoadPurchase(productList, new LoadReferrerOption<PurchaseCB, Purchase>().xinit(refCBLambda));
     }
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br />
      * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
-     * productBhv.<span style="color: #DD4747">loadPurchaseList</span>(productList, new ConditionBeanSetupper&lt;PurchaseCB&gt;() {
-     *     public void setup(PurchaseCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * productBhv.<span style="color: #DD4747">loadPurchase</span>(productList, purchaseCB -&gt; {
+     *     purchaseCB.setupSelect...();
+     *     purchaseCB.query().setFoo...(value);
+     *     purchaseCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -475,9 +471,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Purchase> loadPurchaseList(Product product, ConditionBeanSetupper<PurchaseCB> refCBLambda) {
+    public NestedReferrerListGateway<Purchase> loadPurchase(Product product, ConditionBeanSetupper<PurchaseCB> refCBLambda) {
         xassLRArg(product, refCBLambda);
-        return doLoadPurchaseList(xnewLRLs(product), new LoadReferrerOption<PurchaseCB, Purchase>().xinit(refCBLambda));
+        return doLoadPurchase(xnewLRLs(product), new LoadReferrerOption<PurchaseCB, Purchase>().xinit(refCBLambda));
     }
 
     /**
@@ -486,9 +482,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Purchase> loadPurchaseList(Product product, LoadReferrerOption<PurchaseCB, Purchase> loadReferrerOption) {
+    public NestedReferrerListGateway<Purchase> loadPurchase(Product product, LoadReferrerOption<PurchaseCB, Purchase> loadReferrerOption) {
         xassLRArg(product, loadReferrerOption);
-        return loadPurchaseList(xnewLRLs(product), loadReferrerOption);
+        return loadPurchase(xnewLRLs(product), loadReferrerOption);
     }
 
     /**
@@ -498,13 +494,13 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerListGateway<Purchase> loadPurchaseList(List<Product> productList, LoadReferrerOption<PurchaseCB, Purchase> loadReferrerOption) {
+    public NestedReferrerListGateway<Purchase> loadPurchase(List<Product> productList, LoadReferrerOption<PurchaseCB, Purchase> loadReferrerOption) {
         xassLRArg(productList, loadReferrerOption);
         if (productList.isEmpty()) { return (NestedReferrerListGateway<Purchase>)EMPTY_NREF_LGWAY; }
-        return doLoadPurchaseList(productList, loadReferrerOption);
+        return doLoadPurchase(productList, loadReferrerOption);
     }
 
-    protected NestedReferrerListGateway<Purchase> doLoadPurchaseList(List<Product> productList, LoadReferrerOption<PurchaseCB, Purchase> option) {
+    protected NestedReferrerListGateway<Purchase> doLoadPurchase(List<Product> productList, LoadReferrerOption<PurchaseCB, Purchase> option) {
         return helpLoadReferrerInternally(productList, option, "purchaseList");
     }
 

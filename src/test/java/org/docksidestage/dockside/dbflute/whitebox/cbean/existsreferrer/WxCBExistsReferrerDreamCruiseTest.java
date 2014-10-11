@@ -41,7 +41,7 @@ public class WxCBExistsReferrerDreamCruiseTest extends UnitContainerTestCase {
                 /* ## Act ## */
                 MemberCB dreamCruiseCB = cb.dreamCruiseCB();
                 final HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
                             public void specify(PurchaseCB cb) {
@@ -91,7 +91,7 @@ public class WxCBExistsReferrerDreamCruiseTest extends UnitContainerTestCase {
                 /* ## Act ## */
                 MemberCB dreamCruiseCB = cb.dreamCruiseCB();
                 final HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+                cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
                             public void specify(PurchaseCB cb) {

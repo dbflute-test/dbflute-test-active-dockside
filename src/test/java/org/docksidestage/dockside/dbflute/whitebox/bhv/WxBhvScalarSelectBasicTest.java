@@ -130,7 +130,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
     public void test_ScalarSelect_DerivedReferrer_basic() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchasePrice();
                     subCB.query().setPaymentCompleteFlg_Equal_True();
@@ -150,7 +150,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         // ## Act ##
         Integer sum = memberBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                         subCB.query().setPaymentCompleteFlg_Equal_True();
@@ -169,7 +169,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
     public void test_ScalarSelect_DerivedReferrer_with_UnionQuery() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchasePrice();
                     subCB.query().setPaymentCompleteFlg_Equal_True();
@@ -194,7 +194,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         // ## Act ##
         Integer sum = memberBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                         subCB.query().setPaymentCompleteFlg_Equal_True();
@@ -309,7 +309,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
     public void test_ScalarSelect_with_UnionQuery_noPrimaryKey_sum() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchasePrice();
                 }
@@ -385,7 +385,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
             memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
                 public void query(MemberCB cb) {
                     cb.specify().columnMemberAccount();
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchaseCount();
                         }
@@ -407,12 +407,12 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         try {
             memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
                 public void query(MemberCB cb) {
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchaseCount();
                         }
                     }, null);
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchasePrice();
                         }
@@ -490,7 +490,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         // ## Act ##
         Integer max = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
-                cb.specify().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().avg(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }
@@ -511,7 +511,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         // ## Act ##
         Integer max = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
-                cb.specify().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().avg(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }

@@ -420,12 +420,10 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * Load referrer of memberServiceList by the set-upper of referrer. <br />
      * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
      * <pre>
-     * serviceRankBhv.<span style="color: #DD4747">loadMemberServiceList</span>(serviceRankList, new ConditionBeanSetupper&lt;MemberServiceCB&gt;() {
-     *     public void setup(MemberServiceCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * serviceRankBhv.<span style="color: #DD4747">loadMemberService</span>(serviceRankList, serviceCB -&gt; {
+     *     serviceCB.setupSelect...();
+     *     serviceCB.query().setFoo...(value);
+     *     serviceCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -444,21 +442,19 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberService> loadMemberServiceList(List<ServiceRank> serviceRankList, ConditionBeanSetupper<MemberServiceCB> refCBLambda) {
+    public NestedReferrerListGateway<MemberService> loadMemberService(List<ServiceRank> serviceRankList, ConditionBeanSetupper<MemberServiceCB> refCBLambda) {
         xassLRArg(serviceRankList, refCBLambda);
-        return doLoadMemberServiceList(serviceRankList, new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(refCBLambda));
+        return doLoadMemberService(serviceRankList, new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(refCBLambda));
     }
 
     /**
      * Load referrer of memberServiceList by the set-upper of referrer. <br />
      * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
      * <pre>
-     * serviceRankBhv.<span style="color: #DD4747">loadMemberServiceList</span>(serviceRankList, new ConditionBeanSetupper&lt;MemberServiceCB&gt;() {
-     *     public void setup(MemberServiceCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * serviceRankBhv.<span style="color: #DD4747">loadMemberService</span>(serviceRankList, serviceCB -&gt; {
+     *     serviceCB.setupSelect...();
+     *     serviceCB.query().setFoo...(value);
+     *     serviceCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -475,9 +471,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberService> loadMemberServiceList(ServiceRank serviceRank, ConditionBeanSetupper<MemberServiceCB> refCBLambda) {
+    public NestedReferrerListGateway<MemberService> loadMemberService(ServiceRank serviceRank, ConditionBeanSetupper<MemberServiceCB> refCBLambda) {
         xassLRArg(serviceRank, refCBLambda);
-        return doLoadMemberServiceList(xnewLRLs(serviceRank), new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(refCBLambda));
+        return doLoadMemberService(xnewLRLs(serviceRank), new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(refCBLambda));
     }
 
     /**
@@ -486,9 +482,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberService> loadMemberServiceList(ServiceRank serviceRank, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
+    public NestedReferrerListGateway<MemberService> loadMemberService(ServiceRank serviceRank, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
         xassLRArg(serviceRank, loadReferrerOption);
-        return loadMemberServiceList(xnewLRLs(serviceRank), loadReferrerOption);
+        return loadMemberService(xnewLRLs(serviceRank), loadReferrerOption);
     }
 
     /**
@@ -498,13 +494,13 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerListGateway<MemberService> loadMemberServiceList(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
+    public NestedReferrerListGateway<MemberService> loadMemberService(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
         xassLRArg(serviceRankList, loadReferrerOption);
         if (serviceRankList.isEmpty()) { return (NestedReferrerListGateway<MemberService>)EMPTY_NREF_LGWAY; }
-        return doLoadMemberServiceList(serviceRankList, loadReferrerOption);
+        return doLoadMemberService(serviceRankList, loadReferrerOption);
     }
 
-    protected NestedReferrerListGateway<MemberService> doLoadMemberServiceList(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> option) {
+    protected NestedReferrerListGateway<MemberService> doLoadMemberService(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> option) {
         return helpLoadReferrerInternally(serviceRankList, option, "memberServiceList");
     }
 

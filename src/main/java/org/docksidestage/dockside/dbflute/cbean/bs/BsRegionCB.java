@@ -340,7 +340,7 @@ public class BsRegionCB extends AbstractConditionBean {
          * {select max(FOO) from MEMBER_ADDRESS where ...) as FOO_MAX} <br />
          * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
          * <pre>
-         * cb.specify().<span style="color: #DD4747">derivedMemberAddressList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberAddressCB&gt;() {
+         * cb.specify().<span style="color: #DD4747">derivedMemberAddress()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberAddressCB&gt;() {
          *     public void query(MemberAddressCB subCB) {
          *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -349,7 +349,7 @@ public class BsRegionCB extends AbstractConditionBean {
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
-        public HpSDRFunction<MemberAddressCB, RegionCQ> derivedMemberAddressList() {
+        public HpSDRFunction<MemberAddressCB, RegionCQ> derivedMemberAddress() {
             assertDerived("memberAddressList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MemberAddressCB, RegionCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberAddressCB, RegionCQ>() {
                 public void setup(String fn, SubQuery<MemberAddressCB> sq, RegionCQ cq, String al, DerivedReferrerOption op) {

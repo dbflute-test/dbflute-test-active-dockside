@@ -85,14 +85,6 @@ public class ProductStatusCIQ extends AbstractBsProductStatusCQ {
     { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepProductStatusCode_NotExistsReferrer_SummaryProductList(SummaryProductCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepProductStatusCode_InScopeRelation_ProductList(ProductCQ sq)
-    { return _myCQ.keepProductStatusCode_InScopeRelation_ProductList(sq); }
-    public String keepProductStatusCode_InScopeRelation_SummaryProductList(SummaryProductCQ sq)
-    { return _myCQ.keepProductStatusCode_InScopeRelation_SummaryProductList(sq); }
-    public String keepProductStatusCode_NotInScopeRelation_ProductList(ProductCQ sq)
-    { return _myCQ.keepProductStatusCode_NotInScopeRelation_ProductList(sq); }
-    public String keepProductStatusCode_NotInScopeRelation_SummaryProductList(SummaryProductCQ sq)
-    { return _myCQ.keepProductStatusCode_NotInScopeRelation_SummaryProductList(sq); }
     public String keepProductStatusCode_SpecifyDerivedReferrer_ProductList(ProductCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepProductStatusCode_SpecifyDerivedReferrer_SummaryProductList(SummaryProductCQ sq)
@@ -118,8 +110,6 @@ public class ProductStatusCIQ extends AbstractBsProductStatusCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(ProductStatusCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(ProductStatusCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

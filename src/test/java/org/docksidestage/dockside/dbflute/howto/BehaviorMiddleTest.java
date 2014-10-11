@@ -176,7 +176,7 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.query().setPurchaseCount_GreaterEqual(2);
                 cb.query().addOrderBy_PurchaseCount_Desc();
@@ -198,7 +198,7 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         // select ... 
         //   from MEMBER dfloc
         // 
-        // {2}: memberBhv.loadPurchaseList(memberList, ...); 
+        // {2}: memberBhv.loadPurchase(memberList, ...); 
         // select ... 
         //   from PURCHASE dfloc 
         //  where dfloc.MEMBER_ID in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
@@ -207,7 +207,7 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
 
         // [Description]
         // A. 基点テーブルが複合PKの場合はサポートされない。
-        //    --> このExampleでは会員テーブル。もし複合PKならloadPurchaseList()メソッド自体が生成されない。
+        //    --> このExampleでは会員テーブル。もし複合PKならloadPurchase()メソッド自体が生成されない。
         // B. SubSelectフェッチなので「n+1問題」は発生しない。
         // C. 枝分かれの子テーブルを取得することも可能。
         // D. 子テーブルの親テーブルを取得することも可能。詳しくはBehaviorPlatinumTestにて

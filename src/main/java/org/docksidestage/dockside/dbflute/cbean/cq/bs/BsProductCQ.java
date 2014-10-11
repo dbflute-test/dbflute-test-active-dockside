@@ -103,12 +103,6 @@ public class BsProductCQ extends AbstractBsProductCQ {
     public Map<String, PurchaseCQ> getProductId_SpecifyDerivedReferrer_PurchaseList() { return xgetSQueMap("productId_SpecifyDerivedReferrer_PurchaseList"); }
     public String keepProductId_SpecifyDerivedReferrer_PurchaseList(PurchaseCQ sq) { return xkeepSQue("productId_SpecifyDerivedReferrer_PurchaseList", sq); }
 
-    public Map<String, PurchaseCQ> getProductId_InScopeRelation_PurchaseList() { return xgetSQueMap("productId_InScopeRelation_PurchaseList"); }
-    public String keepProductId_InScopeRelation_PurchaseList(PurchaseCQ sq) { return xkeepSQue("productId_InScopeRelation_PurchaseList", sq); }
-
-    public Map<String, PurchaseCQ> getProductId_NotInScopeRelation_PurchaseList() { return xgetSQueMap("productId_NotInScopeRelation_PurchaseList"); }
-    public String keepProductId_NotInScopeRelation_PurchaseList(PurchaseCQ sq) { return xkeepSQue("productId_NotInScopeRelation_PurchaseList", sq); }
-
     public Map<String, PurchaseCQ> getProductId_QueryDerivedReferrer_PurchaseList() { return xgetSQueMap("productId_QueryDerivedReferrer_PurchaseList"); }
     public String keepProductId_QueryDerivedReferrer_PurchaseList(PurchaseCQ sq) { return xkeepSQue("productId_QueryDerivedReferrer_PurchaseList", sq); }
     public Map<String, Object> getProductId_QueryDerivedReferrer_PurchaseListParameter() { return xgetSQuePmMap("productId_QueryDerivedReferrer_PurchaseList"); }
@@ -174,12 +168,6 @@ public class BsProductCQ extends AbstractBsProductCQ {
       return _productCategoryCode; }
     protected ConditionValue getCValueProductCategoryCode() { return getProductCategoryCode(); }
 
-    public Map<String, ProductCategoryCQ> getProductCategoryCode_InScopeRelation_ProductCategory() { return xgetSQueMap("productCategoryCode_InScopeRelation_ProductCategory"); }
-    public String keepProductCategoryCode_InScopeRelation_ProductCategory(ProductCategoryCQ sq) { return xkeepSQue("productCategoryCode_InScopeRelation_ProductCategory", sq); }
-
-    public Map<String, ProductCategoryCQ> getProductCategoryCode_NotInScopeRelation_ProductCategory() { return xgetSQueMap("productCategoryCode_NotInScopeRelation_ProductCategory"); }
-    public String keepProductCategoryCode_NotInScopeRelation_ProductCategory(ProductCategoryCQ sq) { return xkeepSQue("productCategoryCode_NotInScopeRelation_ProductCategory", sq); }
-
     /** 
      * Add order-by as ascend. <br />
      * PRODUCT_CATEGORY_CODE: {IX, NotNull, CHAR(3), FK to PRODUCT_CATEGORY}
@@ -199,12 +187,6 @@ public class BsProductCQ extends AbstractBsProductCQ {
     { if (_productStatusCode == null) { _productStatusCode = nCV(); }
       return _productStatusCode; }
     protected ConditionValue getCValueProductStatusCode() { return getProductStatusCode(); }
-
-    public Map<String, ProductStatusCQ> getProductStatusCode_InScopeRelation_ProductStatus() { return xgetSQueMap("productStatusCode_InScopeRelation_ProductStatus"); }
-    public String keepProductStatusCode_InScopeRelation_ProductStatus(ProductStatusCQ sq) { return xkeepSQue("productStatusCode_InScopeRelation_ProductStatus", sq); }
-
-    public Map<String, ProductStatusCQ> getProductStatusCode_NotInScopeRelation_ProductStatus() { return xgetSQueMap("productStatusCode_NotInScopeRelation_ProductStatus"); }
-    public String keepProductStatusCode_NotInScopeRelation_ProductStatus(ProductStatusCQ sq) { return xkeepSQue("productStatusCode_NotInScopeRelation_ProductStatus", sq); }
 
     /** 
      * Add order-by as ascend. <br />

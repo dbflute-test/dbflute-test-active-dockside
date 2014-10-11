@@ -33,7 +33,7 @@ public class WxCBDerivedReferrerOptionTest extends UnitContainerTestCase {
         }
         {
             memberBhv.selectEntityWithDeletedCheck(cb -> {
-                cb.query().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                cb.query().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.specify().columnLoginDatetime();
                     }
@@ -43,7 +43,7 @@ public class WxCBDerivedReferrerOptionTest extends UnitContainerTestCase {
         }
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                 }
@@ -74,7 +74,7 @@ public class WxCBDerivedReferrerOptionTest extends UnitContainerTestCase {
         }
         {
             memberBhv.selectEntityWithDeletedCheck(cb -> {
-                cb.query().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                cb.query().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.specify().columnLoginDatetime();
                     }
@@ -85,7 +85,7 @@ public class WxCBDerivedReferrerOptionTest extends UnitContainerTestCase {
         String coalesce = "foo')); select * from MEMBER";
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberLoginList().count(new SubQuery<MemberLoginCB>() {
+            cb.specify().derivedMemberLogin().count(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginMemberStatusCode();
                 }

@@ -78,17 +78,9 @@ public class MemberLoginCIQ extends AbstractBsMemberLoginCQ {
     //                                                                ====================
     protected ConditionValue getCValueMemberLoginId() { return _myCQ.getMemberLoginId(); }
     protected ConditionValue getCValueMemberId() { return _myCQ.getMemberId(); }
-    public String keepMemberId_InScopeRelation_Member(MemberCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_Member(sq); }
-    public String keepMemberId_NotInScopeRelation_Member(MemberCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_Member(sq); }
     protected ConditionValue getCValueLoginDatetime() { return _myCQ.getLoginDatetime(); }
     protected ConditionValue getCValueMobileLoginFlg() { return _myCQ.getMobileLoginFlg(); }
     protected ConditionValue getCValueLoginMemberStatusCode() { return _myCQ.getLoginMemberStatusCode(); }
-    public String keepLoginMemberStatusCode_InScopeRelation_MemberStatus(MemberStatusCQ sq)
-    { return _myCQ.keepLoginMemberStatusCode_InScopeRelation_MemberStatus(sq); }
-    public String keepLoginMemberStatusCode_NotInScopeRelation_MemberStatus(MemberStatusCQ sq)
-    { return _myCQ.keepLoginMemberStatusCode_NotInScopeRelation_MemberStatus(sq); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(MemberLoginCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
@@ -100,8 +92,6 @@ public class MemberLoginCIQ extends AbstractBsMemberLoginCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(MemberLoginCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(MemberLoginCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

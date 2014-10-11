@@ -65,7 +65,7 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.enableOverridingQuery();
         cb.query().setMemberName_Equal("land");
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-07"));
                 subCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-08"));
@@ -83,7 +83,7 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.disableOverridingQuery();
         cb.query().setMemberName_Equal("land");
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 markHere("exists");
                 subCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-07"));
@@ -108,7 +108,7 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.disableOverridingQuery();
         cb.query().setMemberName_Equal("land");
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.enableOverridingQuery();
                 subCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-07"));

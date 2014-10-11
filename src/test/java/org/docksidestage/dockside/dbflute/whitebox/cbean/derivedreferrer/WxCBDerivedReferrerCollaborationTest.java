@@ -37,7 +37,7 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
         List<Member> expectedList = selectListAllWithLatestLoginDatetime();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                     subCB.query().setMobileLoginFlg_Equal_True();
@@ -64,7 +64,7 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
 
     protected List<Member> selectListAllWithLatestLoginDatetime() {
         return memberBhv.selectList(cb -> {
-            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                 }
@@ -78,7 +78,7 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                 }
@@ -102,7 +102,7 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                     subCB.query().setMobileLoginFlg_Equal_True();
@@ -132,7 +132,7 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnMemberId();
                     subCB.union(new UnionQuery<PurchaseCB>() {
@@ -156,7 +156,7 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.specify().columnMemberName();
-            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                 }
@@ -187,7 +187,7 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
         // ## Arrange ##
         MemberStatusCB cb = new MemberStatusCB();
         try {
-            cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
+            cb.specify().derivedMember().max(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.specify().specifyMemberAddressAsValid().columnRegionId();
                 }
@@ -203,7 +203,7 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
         // ## Arrange ##
         ListResultBean<MemberStatus> memberList = memberStatusBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberList().sum(new SubQuery<MemberCB>() {
+            cb.specify().derivedMember().sum(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.specify().specifyMemberAddressAsValid().columnRegionId();
                     subCB.query().queryMemberAddressAsValid(currentDate());

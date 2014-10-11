@@ -400,7 +400,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
          * {select max(FOO) from PRODUCT where ...) as FOO_MAX} <br />
          * (商品)PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
          * <pre>
-         * cb.specify().<span style="color: #DD4747">derivedProductList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;ProductCB&gt;() {
+         * cb.specify().<span style="color: #DD4747">derivedProduct()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;ProductCB&gt;() {
          *     public void query(ProductCB subCB) {
          *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -409,7 +409,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
-        public HpSDRFunction<ProductCB, ProductCategoryCQ> derivedProductList() {
+        public HpSDRFunction<ProductCB, ProductCategoryCQ> derivedProduct() {
             assertDerived("productList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<ProductCB, ProductCategoryCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<ProductCB, ProductCategoryCQ>() {
                 public void setup(String fn, SubQuery<ProductCB> sq, ProductCategoryCQ cq, String al, DerivedReferrerOption op) {
@@ -420,7 +420,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
          * {select max(FOO) from PRODUCT_CATEGORY where ...) as FOO_MAX} <br />
          * (商品カテゴリ)PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
          * <pre>
-         * cb.specify().<span style="color: #DD4747">derivedProductCategorySelfList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;ProductCategoryCB&gt;() {
+         * cb.specify().<span style="color: #DD4747">derivedProductCategorySelf()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;ProductCategoryCB&gt;() {
          *     public void query(ProductCategoryCB subCB) {
          *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -429,7 +429,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
-        public HpSDRFunction<ProductCategoryCB, ProductCategoryCQ> derivedProductCategorySelfList() {
+        public HpSDRFunction<ProductCategoryCB, ProductCategoryCQ> derivedProductCategorySelf() {
             assertDerived("productCategorySelfList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<ProductCategoryCB, ProductCategoryCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<ProductCategoryCB, ProductCategoryCQ>() {
                 public void setup(String fn, SubQuery<ProductCategoryCB> sq, ProductCategoryCQ cq, String al, DerivedReferrerOption op) {

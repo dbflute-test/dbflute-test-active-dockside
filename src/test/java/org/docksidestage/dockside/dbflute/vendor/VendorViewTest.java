@@ -5,7 +5,6 @@ import java.util.List;
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.cbean.result.ListResultBean;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
-import org.docksidestage.dockside.dbflute.cbean.SummaryProductCB;
 import org.docksidestage.dockside.dbflute.exbhv.ProductStatusBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exbhv.SummaryProductBhv;
@@ -66,7 +65,7 @@ public class VendorViewTest extends UnitContainerTestCase {
         ListResultBean<SummaryProduct> summaryProductList = summaryProductBhv.selectList(cb -> {});
 
         // ## Act ##
-        summaryProductBhv.loadPurchaseList(summaryProductList, new ConditionBeanSetupper<PurchaseCB>() {
+        summaryProductBhv.loadPurchase(summaryProductList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.query().addOrderBy_PurchaseDatetime_Desc();
             }
@@ -90,10 +89,8 @@ public class VendorViewTest extends UnitContainerTestCase {
         ListResultBean<ProductStatus> productStatusList = productStatusBhv.selectList(cb -> {});
 
         // ## Act ##
-        productStatusBhv.loadSummaryProductList(productStatusList, new ConditionBeanSetupper<SummaryProductCB>() {
-            public void setup(SummaryProductCB cb) {
-                cb.query().addOrderBy_LatestPurchaseDatetime_Desc();
-            }
+        productStatusBhv.loadSummaryProduct(productStatusList, cb -> {
+            cb.query().addOrderBy_LatestPurchaseDatetime_Desc();
         });
 
         // ## Assert ##

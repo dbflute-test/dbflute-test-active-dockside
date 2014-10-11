@@ -76,26 +76,26 @@ public class LoaderOfProductCategory {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
-    protected List<Product> _referrerProductList;
-    public NestedReferrerLoaderGateway<LoaderOfProduct> loadProductList(ConditionBeanSetupper<ProductCB> refCBLambda) {
-        myBhv().loadProductList(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<Product>() {
-            public void handle(List<Product> referrerList) { _referrerProductList = referrerList; }
+    protected List<Product> _referrerProduct;
+    public NestedReferrerLoaderGateway<LoaderOfProduct> loadProduct(ConditionBeanSetupper<ProductCB> refCBLambda) {
+        myBhv().loadProduct(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<Product>() {
+            public void handle(List<Product> referrerList) { _referrerProduct = referrerList; }
         });
         return new NestedReferrerLoaderGateway<LoaderOfProduct>() {
             public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfProduct> handler) {
-                handler.handle(new LoaderOfProduct().ready(_referrerProductList, _selector));
+                handler.handle(new LoaderOfProduct().ready(_referrerProduct, _selector));
             }
         };
     }
 
-    protected List<ProductCategory> _referrerProductCategorySelfList;
-    public NestedReferrerLoaderGateway<LoaderOfProductCategory> loadProductCategorySelfList(ConditionBeanSetupper<ProductCategoryCB> refCBLambda) {
-        myBhv().loadProductCategorySelfList(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<ProductCategory>() {
-            public void handle(List<ProductCategory> referrerList) { _referrerProductCategorySelfList = referrerList; }
+    protected List<ProductCategory> _referrerProductCategorySelf;
+    public NestedReferrerLoaderGateway<LoaderOfProductCategory> loadProductCategorySelf(ConditionBeanSetupper<ProductCategoryCB> refCBLambda) {
+        myBhv().loadProductCategorySelf(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<ProductCategory>() {
+            public void handle(List<ProductCategory> referrerList) { _referrerProductCategorySelf = referrerList; }
         });
         return new NestedReferrerLoaderGateway<LoaderOfProductCategory>() {
             public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfProductCategory> handler) {
-                handler.handle(new LoaderOfProductCategory().ready(_referrerProductCategorySelfList, _selector));
+                handler.handle(new LoaderOfProductCategory().ready(_referrerProductCategorySelf, _selector));
             }
         };
     }

@@ -81,10 +81,6 @@ public class WithdrawalReasonCIQ extends AbstractBsWithdrawalReasonCQ {
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepWithdrawalReasonCode_NotExistsReferrer_MemberWithdrawalList(MemberWithdrawalCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepWithdrawalReasonCode_InScopeRelation_MemberWithdrawalList(MemberWithdrawalCQ sq)
-    { return _myCQ.keepWithdrawalReasonCode_InScopeRelation_MemberWithdrawalList(sq); }
-    public String keepWithdrawalReasonCode_NotInScopeRelation_MemberWithdrawalList(MemberWithdrawalCQ sq)
-    { return _myCQ.keepWithdrawalReasonCode_NotInScopeRelation_MemberWithdrawalList(sq); }
     public String keepWithdrawalReasonCode_SpecifyDerivedReferrer_MemberWithdrawalList(MemberWithdrawalCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepWithdrawalReasonCode_QueryDerivedReferrer_MemberWithdrawalList(MemberWithdrawalCQ sq)
@@ -104,8 +100,6 @@ public class WithdrawalReasonCIQ extends AbstractBsWithdrawalReasonCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(WithdrawalReasonCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(WithdrawalReasonCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

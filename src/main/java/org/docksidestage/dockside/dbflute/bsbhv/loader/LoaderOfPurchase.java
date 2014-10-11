@@ -76,14 +76,14 @@ public class LoaderOfPurchase {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
-    protected List<PurchasePayment> _referrerPurchasePaymentList;
-    public NestedReferrerLoaderGateway<LoaderOfPurchasePayment> loadPurchasePaymentList(ConditionBeanSetupper<PurchasePaymentCB> refCBLambda) {
-        myBhv().loadPurchasePaymentList(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<PurchasePayment>() {
-            public void handle(List<PurchasePayment> referrerList) { _referrerPurchasePaymentList = referrerList; }
+    protected List<PurchasePayment> _referrerPurchasePayment;
+    public NestedReferrerLoaderGateway<LoaderOfPurchasePayment> loadPurchasePayment(ConditionBeanSetupper<PurchasePaymentCB> refCBLambda) {
+        myBhv().loadPurchasePayment(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<PurchasePayment>() {
+            public void handle(List<PurchasePayment> referrerList) { _referrerPurchasePayment = referrerList; }
         });
         return new NestedReferrerLoaderGateway<LoaderOfPurchasePayment>() {
             public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfPurchasePayment> handler) {
-                handler.handle(new LoaderOfPurchasePayment().ready(_referrerPurchasePaymentList, _selector));
+                handler.handle(new LoaderOfPurchasePayment().ready(_referrerPurchasePayment, _selector));
             }
         };
     }

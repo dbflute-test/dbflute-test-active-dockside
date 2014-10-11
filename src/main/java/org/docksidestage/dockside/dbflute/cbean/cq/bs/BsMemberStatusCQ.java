@@ -106,18 +106,6 @@ public class BsMemberStatusCQ extends AbstractBsMemberStatusCQ {
     public Map<String, MemberLoginCQ> getMemberStatusCode_NotExistsReferrer_MemberLoginList() { return xgetSQueMap("memberStatusCode_NotExistsReferrer_MemberLoginList"); }
     public String keepMemberStatusCode_NotExistsReferrer_MemberLoginList(MemberLoginCQ sq) { return xkeepSQue("memberStatusCode_NotExistsReferrer_MemberLoginList", sq); }
 
-    public Map<String, MemberCQ> getMemberStatusCode_InScopeRelation_MemberList() { return xgetSQueMap("memberStatusCode_InScopeRelation_MemberList"); }
-    public String keepMemberStatusCode_InScopeRelation_MemberList(MemberCQ sq) { return xkeepSQue("memberStatusCode_InScopeRelation_MemberList", sq); }
-
-    public Map<String, MemberLoginCQ> getMemberStatusCode_InScopeRelation_MemberLoginList() { return xgetSQueMap("memberStatusCode_InScopeRelation_MemberLoginList"); }
-    public String keepMemberStatusCode_InScopeRelation_MemberLoginList(MemberLoginCQ sq) { return xkeepSQue("memberStatusCode_InScopeRelation_MemberLoginList", sq); }
-
-    public Map<String, MemberCQ> getMemberStatusCode_NotInScopeRelation_MemberList() { return xgetSQueMap("memberStatusCode_NotInScopeRelation_MemberList"); }
-    public String keepMemberStatusCode_NotInScopeRelation_MemberList(MemberCQ sq) { return xkeepSQue("memberStatusCode_NotInScopeRelation_MemberList", sq); }
-
-    public Map<String, MemberLoginCQ> getMemberStatusCode_NotInScopeRelation_MemberLoginList() { return xgetSQueMap("memberStatusCode_NotInScopeRelation_MemberLoginList"); }
-    public String keepMemberStatusCode_NotInScopeRelation_MemberLoginList(MemberLoginCQ sq) { return xkeepSQue("memberStatusCode_NotInScopeRelation_MemberLoginList", sq); }
-
     public Map<String, MemberCQ> getMemberStatusCode_SpecifyDerivedReferrer_MemberList() { return xgetSQueMap("memberStatusCode_SpecifyDerivedReferrer_MemberList"); }
     public String keepMemberStatusCode_SpecifyDerivedReferrer_MemberList(MemberCQ sq) { return xkeepSQue("memberStatusCode_SpecifyDerivedReferrer_MemberList", sq); }
 

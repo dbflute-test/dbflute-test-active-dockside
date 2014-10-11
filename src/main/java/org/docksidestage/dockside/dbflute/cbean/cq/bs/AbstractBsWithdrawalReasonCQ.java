@@ -222,15 +222,13 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * {exists (select WITHDRAWAL_REASON_CODE from MEMBER_WITHDRAWAL where ...)} <br />
      * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">existsMemberWithdrawalList</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
-     *     public void query(MemberWithdrawalCB subCB) {
-     *         subCB.query().setXxx...
-     *     }
+     * cb.query().<span style="color: #DD4747">existsMemberWithdrawal</span>(withdrawalCB -&gt; {
+     *     withdrawalCB.query().setXxx...
      * });
      * </pre>
      * @param subCBLambda The callback for sub-query of MemberWithdrawalList for 'exists'. (NotNull)
      */
-    public void existsMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subCBLambda) {
+    public void existsMemberWithdrawal(SubQuery<MemberWithdrawalCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subCBLambda.query(cb); } finally { unlock(); }
@@ -244,7 +242,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * {not exists (select WITHDRAWAL_REASON_CODE from MEMBER_WITHDRAWAL where ...)} <br />
      * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">notExistsMemberWithdrawalList</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsMemberWithdrawal</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
      *     public void query(MemberWithdrawalCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -252,7 +250,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * </pre>
      * @param subCBLambda The callback for sub-query of WithdrawalReasonCode_NotExistsReferrer_MemberWithdrawalList for 'not exists'. (NotNull)
      */
-    public void notExistsMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subCBLambda) {
+    public void notExistsMemberWithdrawal(SubQuery<MemberWithdrawalCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForExistsReferrer(this);
         try { lock(); subCBLambda.query(cb); } finally { unlock(); }
@@ -260,36 +258,6 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
         registerNotExistsReferrer(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "memberWithdrawalList");
     }
     public abstract String keepWithdrawalReasonCode_NotExistsReferrer_MemberWithdrawalList(MemberWithdrawalCQ sq);
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select WITHDRAWAL_REASON_CODE from MEMBER_WITHDRAWAL where ...)} <br />
-     * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
-     * @param subCBLambda The callback for sub-query of MemberWithdrawalList for 'in-scope'. (NotNull)
-     */
-    public void inScopeMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepWithdrawalReasonCode_InScopeRelation_MemberWithdrawalList(cb.query());
-        registerInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "memberWithdrawalList");
-    }
-    public abstract String keepWithdrawalReasonCode_InScopeRelation_MemberWithdrawalList(MemberWithdrawalCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select WITHDRAWAL_REASON_CODE from MEMBER_WITHDRAWAL where ...)} <br />
-     * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
-     * @param subCBLambda The callback for sub-query of MemberWithdrawalList for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepWithdrawalReasonCode_NotInScopeRelation_MemberWithdrawalList(cb.query());
-        registerNotInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "memberWithdrawalList");
-    }
-    public abstract String keepWithdrawalReasonCode_NotInScopeRelation_MemberWithdrawalList(MemberWithdrawalCQ sq);
 
     public void xsderiveMemberWithdrawalList(String fn, SubQuery<MemberWithdrawalCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
@@ -305,7 +273,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * {FOO &lt;= (select max(BAR) from MEMBER_WITHDRAWAL where ...)} <br />
      * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
      * <pre>
-     * cb.query().<span style="color: #DD4747">derivedMemberWithdrawalList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedMemberWithdrawal()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
      *     public void query(MemberWithdrawalCB subCB) {
      *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
@@ -314,7 +282,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
-    public HpQDRFunction<MemberWithdrawalCB> derivedMemberWithdrawalList() {
+    public HpQDRFunction<MemberWithdrawalCB> derivedMemberWithdrawal() {
         return xcreateQDRFunctionMemberWithdrawalList();
     }
     protected HpQDRFunction<MemberWithdrawalCB> xcreateQDRFunctionMemberWithdrawalList() {
@@ -783,22 +751,6 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(WithdrawalReasonCQ sq);
-
-    // ===================================================================================
-    //                                                                       MyselfInScope
-    //                                                                       =============
-    /**
-     * Prepare for MyselfInScope (sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
-     */
-    public void myselfInScope(SubQuery<WithdrawalReasonCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForMyselfInScope(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
-        String pp = keepMyselfInScope(cb.query());
-        registerMyselfInScope(cb.query(), pp);
-    }
-    public abstract String keepMyselfInScope(WithdrawalReasonCQ sq);
 
     // ===================================================================================
     //                                                                        Manual Order

@@ -89,8 +89,6 @@ public class Vendor$DollarCIQ extends AbstractBsVendor$DollarCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(Vendor$DollarCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(Vendor$DollarCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

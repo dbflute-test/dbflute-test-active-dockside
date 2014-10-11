@@ -81,10 +81,6 @@ public class RegionCIQ extends AbstractBsRegionCQ {
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepRegionId_NotExistsReferrer_MemberAddressList(MemberAddressCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepRegionId_InScopeRelation_MemberAddressList(MemberAddressCQ sq)
-    { return _myCQ.keepRegionId_InScopeRelation_MemberAddressList(sq); }
-    public String keepRegionId_NotInScopeRelation_MemberAddressList(MemberAddressCQ sq)
-    { return _myCQ.keepRegionId_NotInScopeRelation_MemberAddressList(sq); }
     public String keepRegionId_SpecifyDerivedReferrer_MemberAddressList(MemberAddressCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepRegionId_QueryDerivedReferrer_MemberAddressList(MemberAddressCQ sq)
@@ -103,8 +99,6 @@ public class RegionCIQ extends AbstractBsRegionCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(RegionCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(RegionCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

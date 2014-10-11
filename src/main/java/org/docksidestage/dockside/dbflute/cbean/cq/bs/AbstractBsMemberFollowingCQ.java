@@ -306,36 +306,6 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
         regINS(CK_NINS, cTL(myMemberIdList), getCValueMyMemberId(), "MY_MEMBER_ID");
     }
 
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select MY_MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
-     * @param subCBLambda The callback for sub-query of MemberByMyMemberId for 'in-scope'. (NotNull)
-     */
-    public void inScopeMemberByMyMemberId(SubQuery<MemberCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepMyMemberId_InScopeRelation_MemberByMyMemberId(cb.query());
-        registerInScopeRelation(cb.query(), "MY_MEMBER_ID", "MEMBER_ID", pp, "memberByMyMemberId");
-    }
-    public abstract String keepMyMemberId_InScopeRelation_MemberByMyMemberId(MemberCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select MY_MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
-     * @param subCBLambda The callback for sub-query of MemberByMyMemberId for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeMemberByMyMemberId(SubQuery<MemberCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepMyMemberId_NotInScopeRelation_MemberByMyMemberId(cb.query());
-        registerNotInScopeRelation(cb.query(), "MY_MEMBER_ID", "MEMBER_ID", pp, "memberByMyMemberId");
-    }
-    public abstract String keepMyMemberId_NotInScopeRelation_MemberByMyMemberId(MemberCQ sq);
-
     protected void regMyMemberId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMyMemberId(), "MY_MEMBER_ID"); }
     protected abstract ConditionValue getCValueMyMemberId();
 
@@ -453,36 +423,6 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
     protected void doSetYourMemberId_NotInScope(Collection<Integer> yourMemberIdList) {
         regINS(CK_NINS, cTL(yourMemberIdList), getCValueYourMemberId(), "YOUR_MEMBER_ID");
     }
-
-    /**
-     * Set up InScopeRelation (sub-query). <br />
-     * {in (select YOUR_MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
-     * @param subCBLambda The callback for sub-query of MemberByYourMemberId for 'in-scope'. (NotNull)
-     */
-    public void inScopeMemberByYourMemberId(SubQuery<MemberCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepYourMemberId_InScopeRelation_MemberByYourMemberId(cb.query());
-        registerInScopeRelation(cb.query(), "YOUR_MEMBER_ID", "MEMBER_ID", pp, "memberByYourMemberId");
-    }
-    public abstract String keepYourMemberId_InScopeRelation_MemberByYourMemberId(MemberCQ sq);
-
-    /**
-     * Set up NotInScopeRelation (sub-query). <br />
-     * {not in (select YOUR_MEMBER_ID from MEMBER where ...)} <br />
-     * (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
-     * @param subCBLambda The callback for sub-query of MemberByYourMemberId for 'not in-scope'. (NotNull)
-     */
-    public void notInScopeMemberByYourMemberId(SubQuery<MemberCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepYourMemberId_NotInScopeRelation_MemberByYourMemberId(cb.query());
-        registerNotInScopeRelation(cb.query(), "YOUR_MEMBER_ID", "MEMBER_ID", pp, "memberByYourMemberId");
-    }
-    public abstract String keepYourMemberId_NotInScopeRelation_MemberByYourMemberId(MemberCQ sq);
 
     protected void regYourMemberId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueYourMemberId(), "YOUR_MEMBER_ID"); }
     protected abstract ConditionValue getCValueYourMemberId();
@@ -747,22 +687,6 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(MemberFollowingCQ sq);
-
-    // ===================================================================================
-    //                                                                       MyselfInScope
-    //                                                                       =============
-    /**
-     * Prepare for MyselfInScope (sub-query).
-     * @param subQuery The implementation of sub-query. (NotNull)
-     */
-    public void myselfInScope(SubQuery<MemberFollowingCB> subQuery) {
-        assertObjectNotNull("subQuery", subQuery);
-        MemberFollowingCB cb = new MemberFollowingCB(); cb.xsetupForMyselfInScope(this);
-        try { lock(); subQuery.query(cb); } finally { unlock(); }
-        String pp = keepMyselfInScope(cb.query());
-        registerMyselfInScope(cb.query(), pp);
-    }
-    public abstract String keepMyselfInScope(MemberFollowingCQ sq);
 
     // ===================================================================================
     //                                                                        Manual Order

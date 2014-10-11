@@ -5,9 +5,7 @@ import java.util.List;
 
 import org.dbflute.cbean.chelper.HpSpecifiedColumn;
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.cbean.scoping.SubQuery;
-import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.exception.SQLFailureException;
 import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlLogHandler;
@@ -36,13 +34,13 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
     public void test_SepcifyDerivedReferrer_option_DreamCruise_basic() throws Exception {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchasePrice();
                 }
             }, Member.ALIAS_highestPurchasePrice, op -> op.plus(3));
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchasePrice();
                 }
@@ -72,14 +70,14 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
         try {
             ListResultBean<Member> memberList = memberBhv.selectPage(cb -> {
                 /* ## Act ## */
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }
                 }, Member.ALIAS_highestPurchasePrice, op -> op.plus(3));
                 MemberCB dreamCruiseCB = cb.dreamCruiseCB();
                 HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }
@@ -113,7 +111,7 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseDatetime();
                 }
@@ -137,23 +135,23 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
     public void test_SpecifyDerivedReferrer_SpecifyCalculation_DreamCruise_basic() throws Exception {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchasePrice().plus(3);
                 }
             }, Member.ALIAS_highestPurchasePrice);
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
                     subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().specifyMember().columnMemberId());
                 }
             }, Member.ALIAS_loginCount);
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseDatetime().convert(op -> op.truncTime());
                 }
             }, Member.ALIAS_latestLoginDatetime);
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchasePrice().convert(op -> op.coalesce(8));
                 }
@@ -185,13 +183,13 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
         try {
             ListResultBean<Member> memberList = memberBhv.selectPage(cb -> {
                 /* ## Act ## */
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice();
                     }
                 }, Member.ALIAS_highestPurchasePrice, op -> op.plus(3));
                 final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice()
                                 .plus(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
@@ -222,13 +220,13 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
     public void test_SpecifyDerivedReferrer_SpecifyCalculation_DreamCruise_complex_list() throws Exception {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchasePrice().plus(3);
                 }
             }, Member.ALIAS_highestPurchasePrice);
             final List<PurchaseCB> cbList = new ArrayList<PurchaseCB>();
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
                     subCB.specify().columnPurchasePrice()
@@ -236,12 +234,12 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
                     cbList.add(subCB);
                 }
             }, Member.ALIAS_loginCount);
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseDatetime().convert(op -> op.truncTime()).convert(op -> op.addDay(88));
                 }
             }, Member.ALIAS_latestLoginDatetime);
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchasePrice().convert(op -> op.coalesce(5).round(6));
                 }
@@ -283,12 +281,12 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
         try {
             ListResultBean<Member> memberList = memberBhv.selectPage(cb -> {
                 /* ## Act ## */
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice().plus(3);
                     }
                 }, Member.ALIAS_highestPurchasePrice);
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
                         subCB.specify().columnPurchasePrice()
@@ -296,12 +294,12 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
                                 .divide(cb.dreamCruiseCB().specify().specifyMemberServiceAsOne().columnServicePointCount());
                     }
                 }, Member.ALIAS_loginCount);
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchaseDatetime().convert(op -> op.truncTime()).convert(op -> op.addDay(88));
                     }
                 }, Member.ALIAS_latestLoginDatetime);
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice().convert(op -> op.coalesce(5).round(6));
                     }
@@ -334,24 +332,14 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
     public void test_SpecifyDerivedReferrer_SpecifyCalculation_DreamCruise_union_basic() throws Exception {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.specify().columnPurchasePrice().plus(3);
-                    subCB.union(new UnionQuery<PurchaseCB>() {
-                        public void query(PurchaseCB unionCB) {
-                        }
-                    });
-                }
+            cb.specify().derivedPurchase().max(purchaseCB -> {
+                purchaseCB.specify().columnPurchasePrice().plus(3);
+                purchaseCB.union(unionCB -> {});
             }, Member.ALIAS_highestPurchasePrice);
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
-                    subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().specifyMember().columnMemberId());
-                    subCB.union(new UnionQuery<PurchaseCB>() {
-                        public void query(PurchaseCB unionCB) {
-                        }
-                    });
-                }
+            cb.specify().derivedPurchase().max(purchaseCB -> {
+                PurchaseCB dreamCruiseCB = purchaseCB.dreamCruiseCB();
+                purchaseCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().specifyMember().columnMemberId());
+                purchaseCB.union(unionCB -> {});
             }, Member.ALIAS_loginCount);
             cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
             cb.query().addOrderBy_Birthdate_Desc();
@@ -400,70 +388,36 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
     public void test_SpecifyDerivedReferrer_SpecifyCalculation_DreamCruise_union_freedom_list() throws Exception {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.union(new UnionQuery<PurchaseCB>() {
-                        public void query(PurchaseCB unionCB) {
-                            unionCB.query().setPaymentCompleteFlg_Equal_False();
-                        }
-                    });
-                    subCB.specify().columnPurchasePrice().plus(3);
-                    subCB.query().queryProduct().setProductName_LikeSearch("S", op -> op.likePrefix());
-                }
+            cb.specify().derivedPurchase().max(purchaseCB -> {
+                purchaseCB.union(unionCB -> {
+                    unionCB.query().setPaymentCompleteFlg_Equal_False();
+                });
+                purchaseCB.specify().columnPurchasePrice().plus(3);
+                purchaseCB.query().queryProduct().setProductName_LikeSearch("S", op -> op.likePrefix());
             }, Member.ALIAS_highestPurchasePrice);
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.union(new UnionQuery<PurchaseCB>() {
-                        public void query(PurchaseCB unionCB) {
-                        }
-                    });
-                    PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
-                    subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().specifyMember().columnMemberId());
-                }
+            cb.specify().derivedPurchase().max(purchaseCB -> {
+                purchaseCB.union(unionCB -> {});
+                PurchaseCB dreamCruiseCB = purchaseCB.dreamCruiseCB();
+                purchaseCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().specifyMember().columnMemberId());
             }, Member.ALIAS_loginCount);
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.union(new UnionQuery<PurchaseCB>() {
-                        public void query(PurchaseCB unionCB) {
-                        }
-                    });
-                    subCB.specify().columnPurchaseDatetime().convert(op -> op.truncTime());
-                }
+            cb.specify().derivedPurchase().max(purchaseCB -> {
+                purchaseCB.union(unionCB -> {});
+                purchaseCB.specify().columnPurchaseDatetime().convert(op -> op.truncTime());
             }, Member.ALIAS_latestLoginDatetime);
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.union(new UnionQuery<PurchaseCB>() {
-                        public void query(PurchaseCB unionCB) {
-                        }
-                    });
-                    subCB.specify().columnPurchasePrice().convert(op -> op.coalesce(4));
-                }
+            cb.specify().derivedPurchase().max(purchaseCB -> {
+                purchaseCB.union(unionCB -> {});
+                purchaseCB.specify().columnPurchasePrice().convert(op -> op.coalesce(4));
             }, Member.ALIAS_productKindCount);
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.union(new UnionQuery<PurchaseCB>() {
-                        public void query(PurchaseCB unionCB) {
-                        }
-                    });
-                    subCB.specify().derivedPurchasePaymentList().sum(new SubQuery<PurchasePaymentCB>() {
-                        public void query(PurchasePaymentCB subCB) {
-                            subCB.specify().columnPaymentAmount().convert(op -> op.coalesce(5));
-                            subCB.union(new UnionQuery<PurchasePaymentCB>() {
-                                public void query(PurchasePaymentCB unionCB) {
-                                    unionCB.columnQuery(new SpecifyQuery<PurchasePaymentCB>() {
-                                        public void specify(PurchasePaymentCB cb) {
-                                            cb.specify().columnPaymentDatetime();
-                                        }
-                                    }).equal(new SpecifyQuery<PurchasePaymentCB>() {
-                                        public void specify(PurchasePaymentCB cb) {
-                                            cb.specify().columnPaymentDatetime();
-                                        }
-                                    }).convert(op -> op.addDay(6).coalesce(toDate("2014/07/31")));
-                                }
-                            });
-                        }
-                    }, null, op -> op.round(7));
-                }
+            cb.specify().derivedPurchase().max(purchaseCB -> {
+                purchaseCB.union(unionCB -> {});
+                purchaseCB.specify().derivedPurchasePayment().sum(paymentCB -> {
+                    paymentCB.specify().columnPaymentAmount().convert(op -> op.coalesce(5));
+                    paymentCB.union(unionCB -> unionCB.columnQuery(colCB -> {
+                        colCB.specify().columnPaymentDatetime();
+                    }).equal(colCB -> {
+                        colCB.specify().columnPaymentDatetime();
+                    }).convert(op -> op.addDay(6).coalesce(toDate("2014/07/31"))));
+                }, null, op -> op.round(7));
             }, Member.ALIAS_totalPaymentAmount);
             cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
             cb.query().addOrderBy_Birthdate_Desc();
@@ -569,15 +523,11 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
     public void test_SpecifyDerivedReferrer_SpecifyCalculation_DreamCruise_nested() throws Exception {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.specify().derivedPurchasePaymentList().max(new SubQuery<PurchasePaymentCB>() {
-                        public void query(PurchasePaymentCB subCB) {
-                            PurchasePaymentCB dreamCruiseCB = subCB.dreamCruiseCB();
-                            subCB.specify().columnPaymentAmount().plus(dreamCruiseCB.specify().columnPurchasePaymentId());
-                        }
-                    }, null, op -> op.coalesce(3).plus(4));
-                }
+            cb.specify().derivedPurchase().max(purchaseCB -> {
+                purchaseCB.specify().derivedPurchasePayment().max(paymentCB -> {
+                    PurchasePaymentCB dreamCruiseCB = paymentCB.dreamCruiseCB();
+                    paymentCB.specify().columnPaymentAmount().plus(dreamCruiseCB.specify().columnPurchasePaymentId());
+                }, null, op -> op.coalesce(3).plus(4));
             }, Member.ALIAS_highestPurchasePrice);
             cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
             cb.query().addOrderBy_Birthdate_Desc();
@@ -602,12 +552,12 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchasePrice().plus(3);
                 }
             }).greaterEqual(dreamCruiseCB.specify().columnVersionNo());
-            cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
                     subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().specifyMember().columnMemberId());
@@ -641,13 +591,13 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
                 memberBhv.selectPage(cb -> {
                     /* ## Act ## */
                     MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-                    cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchasePrice().plus(3);
                         }
                     }).greaterEqual(dreamCruiseCB.specify().columnVersionNo());
                     HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                    cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchasePrice();
                         }
@@ -698,13 +648,13 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
             ListResultBean<Member> memberList = memberBhv.selectPage(cb -> {
                 /* ## Act ## */
                 MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-                cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchasePrice().plus(3);
                     }
                 }).greaterEqual(dreamCruiseCB.specify().columnVersionNo());
                 HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                cb.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
                         subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().specifyMember().columnMemberId());

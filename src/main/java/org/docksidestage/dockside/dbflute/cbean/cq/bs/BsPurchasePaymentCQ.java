@@ -114,12 +114,6 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
       return _purchaseId; }
     protected ConditionValue getCValuePurchaseId() { return getPurchaseId(); }
 
-    public Map<String, PurchaseCQ> getPurchaseId_InScopeRelation_Purchase() { return xgetSQueMap("purchaseId_InScopeRelation_Purchase"); }
-    public String keepPurchaseId_InScopeRelation_Purchase(PurchaseCQ sq) { return xkeepSQue("purchaseId_InScopeRelation_Purchase", sq); }
-
-    public Map<String, PurchaseCQ> getPurchaseId_NotInScopeRelation_Purchase() { return xgetSQueMap("purchaseId_NotInScopeRelation_Purchase"); }
-    public String keepPurchaseId_NotInScopeRelation_Purchase(PurchaseCQ sq) { return xkeepSQue("purchaseId_NotInScopeRelation_Purchase", sq); }
-
     /** 
      * Add order-by as ascend. <br />
      * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}

@@ -39,9 +39,9 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
             /* ## Act ## */
             cb.specify().columnBirthdate();
             final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
-                    subCB.query().queryProduct().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
+                    subCB.query().queryProduct().notExistsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
                                 public void specify(PurchaseCB cb) {
@@ -75,9 +75,9 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
             /* ## Act ## */
             cb.specify().columnBirthdate();
             final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
-                    subCB.query().queryProduct().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
+                    subCB.query().queryProduct().notExistsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             HpSpecifiedColumn pointColumn = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
                             subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
@@ -109,9 +109,9 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
 
     protected List<Member> selectMyOnlyProductMember() throws Exception {
         return memberBhv.selectList(cb -> {
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
-                    subCB.query().queryProduct().derivedPurchaseList().countDistinct(new SubQuery<PurchaseCB>() {
+                    subCB.query().queryProduct().derivedPurchase().countDistinct(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnMemberId();
                         }
@@ -131,9 +131,9 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
             /* ## Act ## */
             cb.specify().columnBirthdate();
             final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
-                    subCB.query().queryProduct().notExistsPurchaseList(new SubQuery<PurchaseCB>() {
+                    subCB.query().queryProduct().notExistsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
                                 public void specify(PurchaseCB cb) {
@@ -176,7 +176,7 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
                 }
             }).lessEqual(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
                             subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().columnPurchaseCount());
@@ -201,7 +201,7 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
             cb.specify().columnBirthdate();
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
                             subCB.specify().columnPurchasePrice().plus(dreamCruiseCB.specify().columnPurchaseCount());
@@ -230,7 +230,7 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
         MemberAddress first;
         {
             ListResultBean<MemberAddress> addressList = memberAddressBhv.selectList(cb -> {
-                cb.query().queryMember().derivedMemberAddressList().count(new SubQuery<MemberAddressCB>() {
+                cb.query().queryMember().derivedMemberAddress().count(new SubQuery<MemberAddressCB>() {
                     public void query(MemberAddressCB subCB) {
                         subCB.specify().columnMemberAddressId();
                     }

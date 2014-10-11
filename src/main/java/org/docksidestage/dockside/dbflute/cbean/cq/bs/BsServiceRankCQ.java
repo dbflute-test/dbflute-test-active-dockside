@@ -100,12 +100,6 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     public Map<String, MemberServiceCQ> getServiceRankCode_NotExistsReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_NotExistsReferrer_MemberServiceList"); }
     public String keepServiceRankCode_NotExistsReferrer_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_NotExistsReferrer_MemberServiceList", sq); }
 
-    public Map<String, MemberServiceCQ> getServiceRankCode_InScopeRelation_MemberServiceList() { return xgetSQueMap("serviceRankCode_InScopeRelation_MemberServiceList"); }
-    public String keepServiceRankCode_InScopeRelation_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_InScopeRelation_MemberServiceList", sq); }
-
-    public Map<String, MemberServiceCQ> getServiceRankCode_NotInScopeRelation_MemberServiceList() { return xgetSQueMap("serviceRankCode_NotInScopeRelation_MemberServiceList"); }
-    public String keepServiceRankCode_NotInScopeRelation_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_NotInScopeRelation_MemberServiceList", sq); }
-
     public Map<String, MemberServiceCQ> getServiceRankCode_SpecifyDerivedReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_SpecifyDerivedReferrer_MemberServiceList"); }
     public String keepServiceRankCode_SpecifyDerivedReferrer_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_SpecifyDerivedReferrer_MemberServiceList", sq); }
 

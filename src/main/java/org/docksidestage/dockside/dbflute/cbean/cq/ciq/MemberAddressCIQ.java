@@ -78,18 +78,10 @@ public class MemberAddressCIQ extends AbstractBsMemberAddressCQ {
     //                                                                ====================
     protected ConditionValue getCValueMemberAddressId() { return _myCQ.getMemberAddressId(); }
     protected ConditionValue getCValueMemberId() { return _myCQ.getMemberId(); }
-    public String keepMemberId_InScopeRelation_Member(MemberCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_Member(sq); }
-    public String keepMemberId_NotInScopeRelation_Member(MemberCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_Member(sq); }
     protected ConditionValue getCValueValidBeginDate() { return _myCQ.getValidBeginDate(); }
     protected ConditionValue getCValueValidEndDate() { return _myCQ.getValidEndDate(); }
     protected ConditionValue getCValueAddress() { return _myCQ.getAddress(); }
     protected ConditionValue getCValueRegionId() { return _myCQ.getRegionId(); }
-    public String keepRegionId_InScopeRelation_Region(RegionCQ sq)
-    { return _myCQ.keepRegionId_InScopeRelation_Region(sq); }
-    public String keepRegionId_NotInScopeRelation_Region(RegionCQ sq)
-    { return _myCQ.keepRegionId_NotInScopeRelation_Region(sq); }
     protected ConditionValue getCValueRegisterDatetime() { return _myCQ.getRegisterDatetime(); }
     protected ConditionValue getCValueRegisterUser() { return _myCQ.getRegisterUser(); }
     protected ConditionValue getCValueUpdateDatetime() { return _myCQ.getUpdateDatetime(); }
@@ -106,8 +98,6 @@ public class MemberAddressCIQ extends AbstractBsMemberAddressCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(MemberAddressCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(MemberAddressCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

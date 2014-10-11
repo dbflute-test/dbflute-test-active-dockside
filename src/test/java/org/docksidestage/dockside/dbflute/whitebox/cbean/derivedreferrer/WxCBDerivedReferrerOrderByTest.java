@@ -30,7 +30,7 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
         {
             // ## Act ##
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-                cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.specify().columnLoginDatetime();
                         subCB.query().setMobileLoginFlg_Equal_False();
@@ -50,7 +50,7 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
         {
             // ## Act ##
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-                cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.specify().columnLoginDatetime();
                         subCB.query().setMobileLoginFlg_Equal_False();
@@ -77,7 +77,7 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
         {
             // ## Act ##
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-                cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                cb.specify().specifyMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.specify().columnLoginDatetime();
                         subCB.query().setMobileLoginFlg_Equal_False();
@@ -96,7 +96,7 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
         {
             // ## Act ##
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-                cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                cb.specify().specifyMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                     public void query(MemberLoginCB subCB) {
                         subCB.specify().columnLoginDatetime();
                         subCB.query().setMobileLoginFlg_Equal_False();

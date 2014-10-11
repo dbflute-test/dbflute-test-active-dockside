@@ -103,12 +103,6 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     public Map<String, MemberAddressCQ> getRegionId_SpecifyDerivedReferrer_MemberAddressList() { return xgetSQueMap("regionId_SpecifyDerivedReferrer_MemberAddressList"); }
     public String keepRegionId_SpecifyDerivedReferrer_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_SpecifyDerivedReferrer_MemberAddressList", sq); }
 
-    public Map<String, MemberAddressCQ> getRegionId_InScopeRelation_MemberAddressList() { return xgetSQueMap("regionId_InScopeRelation_MemberAddressList"); }
-    public String keepRegionId_InScopeRelation_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_InScopeRelation_MemberAddressList", sq); }
-
-    public Map<String, MemberAddressCQ> getRegionId_NotInScopeRelation_MemberAddressList() { return xgetSQueMap("regionId_NotInScopeRelation_MemberAddressList"); }
-    public String keepRegionId_NotInScopeRelation_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_NotInScopeRelation_MemberAddressList", sq); }
-
     public Map<String, MemberAddressCQ> getRegionId_QueryDerivedReferrer_MemberAddressList() { return xgetSQueMap("regionId_QueryDerivedReferrer_MemberAddressList"); }
     public String keepRegionId_QueryDerivedReferrer_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_QueryDerivedReferrer_MemberAddressList", sq); }
     public Map<String, Object> getRegionId_QueryDerivedReferrer_MemberAddressListParameter() { return xgetSQuePmMap("regionId_QueryDerivedReferrer_MemberAddressList"); }

@@ -72,13 +72,13 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
         //
         // if Java8
         // memberBhv.load(memberList, loader -> {
-        //     loader.loadPurchaseList(purchaseCB -> {
+        //     loader.loadPurchase(purchaseCB -> {
         //         purchaseCB.query().addOrderBy_PurchasePrice_Asc();
         //     }
         // });
         memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
             public void handle(LoaderOfMember loader) {
-                loader.loadPurchaseList(new ConditionBeanSetupper<PurchaseCB>() {
+                loader.loadPurchase(new ConditionBeanSetupper<PurchaseCB>() {
                     public void setup(PurchaseCB referrerCB) {
                         referrerCB.query().addOrderBy_PurchasePrice_Asc();
                     }
@@ -91,7 +91,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
             cb.query().addOrderBy_MemberId_Asc();
         });
-        memberBhv.loadPurchaseList(expectedList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(expectedList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB referrerCB) {
                 referrerCB.query().addOrderBy_PurchasePrice_Asc();
             }
@@ -139,20 +139,20 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
 
         memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
             public void handle(LoaderOfMember loader) {
-                loader.loadPurchaseList(new ConditionBeanSetupper<PurchaseCB>() {
+                loader.loadPurchase(new ConditionBeanSetupper<PurchaseCB>() {
                     public void setup(PurchaseCB referrerCB) {
                         referrerCB.query().addOrderBy_PurchasePrice_Asc();
                     }
                 }).withNestedReferrer(new ReferrerLoaderHandler<LoaderOfPurchase>() {
                     public void handle(LoaderOfPurchase loader) {
-                        loader.loadPurchasePaymentList(new ConditionBeanSetupper<PurchasePaymentCB>() {
+                        loader.loadPurchasePayment(new ConditionBeanSetupper<PurchasePaymentCB>() {
                             public void setup(PurchasePaymentCB referrerCB) {
                                 referrerCB.query().addOrderBy_PaymentAmount_Asc();
                             }
                         });
                     }
                 });
-                loader.loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {
+                loader.loadMemberLogin(new ConditionBeanSetupper<MemberLoginCB>() {
                     public void setup(MemberLoginCB referrerCB) {
                         referrerCB.query().addOrderBy_LoginDatetime_Desc();
                     }
@@ -165,20 +165,20 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
             cb.query().addOrderBy_MemberId_Asc();
         });
-        memberBhv.loadPurchaseList(expectedList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(expectedList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB referrerCB) {
                 referrerCB.query().addOrderBy_PurchasePrice_Asc();
             }
         }).withNestedReferrer(new ReferrerListHandler<Purchase>() {
             public void handle(List<Purchase> referrerList) {
-                purchaseBhv.loadPurchasePaymentList(referrerList, new ConditionBeanSetupper<PurchasePaymentCB>() {
+                purchaseBhv.loadPurchasePayment(referrerList, new ConditionBeanSetupper<PurchasePaymentCB>() {
                     public void setup(PurchasePaymentCB referrerCB) {
                         referrerCB.query().addOrderBy_PaymentAmount_Asc();
                     }
                 });
             }
         });
-        memberBhv.loadMemberLoginList(expectedList, new ConditionBeanSetupper<MemberLoginCB>() {
+        memberBhv.loadMemberLogin(expectedList, new ConditionBeanSetupper<MemberLoginCB>() {
             public void setup(MemberLoginCB referrerCB) {
                 referrerCB.query().addOrderBy_LoginDatetime_Desc();
             }
@@ -248,7 +248,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
 
         memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
             public void handle(LoaderOfMember loader) {
-                loader.pulloutMemberStatus().loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {
+                loader.pulloutMemberStatus().loadMemberLogin(new ConditionBeanSetupper<MemberLoginCB>() {
                     public void setup(MemberLoginCB referrerCB) {
                         referrerCB.query().setMobileLoginFlg_Equal_False();
                         referrerCB.query().addOrderBy_LoginDatetime_Asc();
@@ -263,7 +263,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
             cb.query().addOrderBy_MemberId_Asc();
         });
-        memberStatusBhv.loadMemberLoginList(memberBhv.pulloutMemberStatus(expectedList), new ConditionBeanSetupper<MemberLoginCB>() {
+        memberStatusBhv.loadMemberLogin(memberBhv.pulloutMemberStatus(expectedList), new ConditionBeanSetupper<MemberLoginCB>() {
             public void setup(MemberLoginCB referrerCB) {
                 referrerCB.query().setMobileLoginFlg_Equal_False();
                 referrerCB.query().addOrderBy_LoginDatetime_Asc();
@@ -320,7 +320,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
 
         memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
             public void handle(LoaderOfMember loader) {
-                loader.pulloutMemberStatus().loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {
+                loader.pulloutMemberStatus().loadMemberLogin(new ConditionBeanSetupper<MemberLoginCB>() {
                     public void setup(MemberLoginCB referrerCB) {
                         referrerCB.query().setMobileLoginFlg_Equal_False();
                         referrerCB.query().addOrderBy_LoginDatetime_Asc();
@@ -334,7 +334,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
             cb.query().addOrderBy_MemberId_Asc();
         });
-        memberStatusBhv.loadMemberLoginList(memberBhv.pulloutMemberStatus(expectedList), new ConditionBeanSetupper<MemberLoginCB>() {
+        memberStatusBhv.loadMemberLogin(memberBhv.pulloutMemberStatus(expectedList), new ConditionBeanSetupper<MemberLoginCB>() {
             public void setup(MemberLoginCB referrerCB) {
                 referrerCB.query().setMobileLoginFlg_Equal_False();
                 referrerCB.query().addOrderBy_LoginDatetime_Asc();
@@ -371,21 +371,21 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
 
         serviceRankBhv.load(rankList, new ReferrerLoaderHandler<LoaderOfServiceRank>() {
             public void handle(LoaderOfServiceRank loader) {
-                loader.loadMemberServiceList(new ConditionBeanSetupper<MemberServiceCB>() {
+                loader.loadMemberService(new ConditionBeanSetupper<MemberServiceCB>() {
                     public void setup(MemberServiceCB referrerCB) {
                         referrerCB.setupSelect_Member();
                         referrerCB.query().queryMember().setMemberStatusCode_Equal_Formalized();
                     }
                 }).withNestedReferrer(new ReferrerLoaderHandler<LoaderOfMemberService>() {
                     public void handle(LoaderOfMemberService loader) {
-                        loader.pulloutMember().loadPurchaseList(new ConditionBeanSetupper<PurchaseCB>() {
+                        loader.pulloutMember().loadPurchase(new ConditionBeanSetupper<PurchaseCB>() {
                             public void setup(PurchaseCB referrerCB) {
                                 referrerCB.setupSelect_Product();
                                 referrerCB.query().setPaymentCompleteFlg_Equal_True();
                                 referrerCB.query().addOrderBy_PurchaseDatetime_Asc();
                             }
                         });
-                        loader.pulloutMember().loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {
+                        loader.pulloutMember().loadMemberLogin(new ConditionBeanSetupper<MemberLoginCB>() {
                             public void setup(MemberLoginCB referrerCB) {
                                 referrerCB.setupSelect_MemberStatus();
                                 referrerCB.query().setMobileLoginFlg_Equal_False();
@@ -435,7 +435,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
 
         serviceRankBhv.load(rankList, new ReferrerLoaderHandler<LoaderOfServiceRank>() {
             public void handle(LoaderOfServiceRank loader) {
-                loader.loadMemberServiceList(new ConditionBeanSetupper<MemberServiceCB>() {
+                loader.loadMemberService(new ConditionBeanSetupper<MemberServiceCB>() {
                     public void setup(MemberServiceCB referrerCB) {
                         referrerCB.setupSelect_Member().withMemberStatus();
                         List<CDef.MemberStatus> cdefList = new ArrayList<CDef.MemberStatus>();
@@ -445,7 +445,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
                     }
                 }).withNestedReferrer(new ReferrerLoaderHandler<LoaderOfMemberService>() {
                     public void handle(LoaderOfMemberService loader) {
-                        loader.pulloutMember().loadPurchaseList(new ConditionBeanSetupper<PurchaseCB>() {
+                        loader.pulloutMember().loadPurchase(new ConditionBeanSetupper<PurchaseCB>() {
                             public void setup(PurchaseCB referrerCB) {
                                 referrerCB.setupSelect_Product();
                                 referrerCB.query().setPaymentCompleteFlg_Equal_True();
@@ -453,7 +453,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
                             }
                         }).withNestedReferrer(new ReferrerLoaderHandler<LoaderOfPurchase>() {
                             public void handle(LoaderOfPurchase loader) {
-                                loader.loadPurchasePaymentList(new ConditionBeanSetupper<PurchasePaymentCB>() {
+                                loader.loadPurchasePayment(new ConditionBeanSetupper<PurchasePaymentCB>() {
                                     public void setup(PurchasePaymentCB referrerCB) {
                                         referrerCB.query().setPaymentMethodCode_Equal_BankTransfer();
                                         referrerCB.query().addOrderBy_PaymentDatetime_Desc();
@@ -461,7 +461,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
                                 });
                             }
                         });
-                        loader.pulloutMember().loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {
+                        loader.pulloutMember().loadMemberLogin(new ConditionBeanSetupper<MemberLoginCB>() {
                             public void setup(MemberLoginCB referrerCB) {
                                 referrerCB.setupSelect_MemberStatus();
                                 referrerCB.query().setMobileLoginFlg_Equal_False();
@@ -469,7 +469,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
                             }
                         }).withNestedReferrer(new ReferrerLoaderHandler<LoaderOfMemberLogin>() {
                             public void handle(LoaderOfMemberLogin loader) {
-                                loader.pulloutMemberStatus().loadMemberList(new ConditionBeanSetupper<MemberCB>() {
+                                loader.pulloutMemberStatus().loadMember(new ConditionBeanSetupper<MemberCB>() {
                                     public void setup(MemberCB referrerCB) {
                                         referrerCB.query().setMemberName_PrefixSearch("S");
                                     }
@@ -537,14 +537,8 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             cb.query().addOrderBy_Birthdate_Desc();
         });
 
-        memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
-            public void handle(LoaderOfMember loader) {
-                loader.pulloutMemberWithdrawalAsOne().pulloutWithdrawalReason()
-                        .loadMemberWithdrawalList(new ConditionBeanSetupper<MemberWithdrawalCB>() {
-                            public void setup(MemberWithdrawalCB referrerCB) {
-                            }
-                        });
-            }
+        memberBhv.load(memberList, loader -> {
+            loader.pulloutMemberWithdrawalAsOne().pulloutWithdrawalReason().loadMemberWithdrawal(referrerCB -> {});
         });
 
         // ## Assert ##
@@ -586,13 +580,13 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
         assertHasAnyElement(paymentList);
         purchasePaymentBhv.load(paymentList, new ReferrerLoaderHandler<LoaderOfPurchasePayment>() {
             public void handle(LoaderOfPurchasePayment loader) {
-                loader.pulloutPurchase().pulloutMember().loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {
+                loader.pulloutPurchase().pulloutMember().loadMemberLogin(new ConditionBeanSetupper<MemberLoginCB>() {
                     public void setup(MemberLoginCB referrerCB) {
                         referrerCB.setupSelect_MemberStatus();
                     }
                 }).withNestedReferrer(new ReferrerLoaderHandler<LoaderOfMemberLogin>() {
                     public void handle(LoaderOfMemberLogin loader) {
-                        loader.pulloutMemberStatus().loadMemberList(new ConditionBeanSetupper<MemberCB>() {
+                        loader.pulloutMemberStatus().loadMember(new ConditionBeanSetupper<MemberCB>() {
                             public void setup(MemberCB referrerCB) {
                                 referrerCB.query().setMemberName_PrefixSearch("S");
                             }
@@ -632,7 +626,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
 
         withdrawalReasonBhv.load(reasonList, new ReferrerLoaderHandler<LoaderOfWithdrawalReason>() {
             public void handle(LoaderOfWithdrawalReason loader) {
-                loader.loadMemberWithdrawalList(new ConditionBeanSetupper<MemberWithdrawalCB>() {
+                loader.loadMemberWithdrawal(new ConditionBeanSetupper<MemberWithdrawalCB>() {
                     public void setup(MemberWithdrawalCB referrerCB) {
                     }
                 });

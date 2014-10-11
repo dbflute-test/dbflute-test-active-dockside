@@ -42,7 +42,7 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+            cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                     subCB.query().setMobileLoginFlg_Equal_False();
@@ -72,14 +72,14 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<MemberStatus> statusList = memberStatusBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberList().min(new SubQuery<MemberCB>() {
+            cb.specify().derivedMember().min(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.specify().columnMemberAccount();
                 }
             }, MemberStatus.ALIAS_anyMemberAccount); // as max
             });
 
-        memberStatusBhv.loadMemberList(statusList, new ConditionBeanSetupper<MemberCB>() {
+        memberStatusBhv.loadMember(statusList, new ConditionBeanSetupper<MemberCB>() {
             public void setup(MemberCB cb) {
                 cb.query().addOrderBy_MemberAccount_Asc();
             }
@@ -112,7 +112,7 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().specifySummaryProduct().columnLatestPurchaseDatetime();
                 }
@@ -137,14 +137,14 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().sum(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().sum(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().specifyProduct().columnRegularPrice();
                 }
             }, Member.ALIAS_highestPurchasePrice);
         });
 
-        memberBhv.loadPurchaseList(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
             public void setup(PurchaseCB cb) {
                 cb.setupSelect_Product();
             }
@@ -183,7 +183,7 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().specifySummaryProduct().columnLatestPurchaseDatetime();
                     subCB.union(new UnionQuery<PurchaseCB>() {
@@ -219,7 +219,7 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().specifyMemberStatus().derivedMemberList().max(new SubQuery<MemberCB>() {
+            cb.specify().specifyMemberStatus().derivedMember().max(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.specify().columnMemberId();
                 }
@@ -300,7 +300,7 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
     public void test_sepcify_derivedReferrer_illegal() {
         // ## Arrange ##
         MemberStatusCB cb = new MemberStatusCB();
-        cb.specify().derivedMemberList().max(new SubQuery<MemberCB>() {
+        cb.specify().derivedMember().max(new SubQuery<MemberCB>() {
             public void query(MemberCB subCB) {
         try {
                     subCB.setupSelect_MemberSecurityAsOne();
@@ -321,7 +321,7 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
                     log(e.getMessage());
                 }
                 subCB.specify().columnBirthdate(); // OK
-                subCB.query().derivedPurchaseList().max(new SubQuery<PurchaseCB>() { // OK
+                subCB.query().derivedPurchase().max(new SubQuery<PurchaseCB>() { // OK
                             public void query(PurchaseCB subCB) {
                                 subCB.specify().columnPurchasePrice();
                             }
@@ -335,7 +335,7 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
         try {
             memberBhv.selectList(cb -> {
                 /* ## Act ## */
-                cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().specifySummaryProduct().columnLatestPurchaseDatetime();
                     }

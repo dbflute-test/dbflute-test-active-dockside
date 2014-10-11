@@ -76,14 +76,14 @@ public class LoaderOfVendorTheLongAndWindingTableAndColumn {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
-    protected List<VendorTheLongAndWindingTableAndColumnRef> _referrerVendorTheLongAndWindingTableAndColumnRefList;
-    public NestedReferrerLoaderGateway<LoaderOfVendorTheLongAndWindingTableAndColumnRef> loadVendorTheLongAndWindingTableAndColumnRefList(ConditionBeanSetupper<VendorTheLongAndWindingTableAndColumnRefCB> refCBLambda) {
-        myBhv().loadVendorTheLongAndWindingTableAndColumnRefList(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<VendorTheLongAndWindingTableAndColumnRef>() {
-            public void handle(List<VendorTheLongAndWindingTableAndColumnRef> referrerList) { _referrerVendorTheLongAndWindingTableAndColumnRefList = referrerList; }
+    protected List<VendorTheLongAndWindingTableAndColumnRef> _referrerVendorTheLongAndWindingTableAndColumnRef;
+    public NestedReferrerLoaderGateway<LoaderOfVendorTheLongAndWindingTableAndColumnRef> loadVendorTheLongAndWindingTableAndColumnRef(ConditionBeanSetupper<VendorTheLongAndWindingTableAndColumnRefCB> refCBLambda) {
+        myBhv().loadVendorTheLongAndWindingTableAndColumnRef(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<VendorTheLongAndWindingTableAndColumnRef>() {
+            public void handle(List<VendorTheLongAndWindingTableAndColumnRef> referrerList) { _referrerVendorTheLongAndWindingTableAndColumnRef = referrerList; }
         });
         return new NestedReferrerLoaderGateway<LoaderOfVendorTheLongAndWindingTableAndColumnRef>() {
             public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfVendorTheLongAndWindingTableAndColumnRef> handler) {
-                handler.handle(new LoaderOfVendorTheLongAndWindingTableAndColumnRef().ready(_referrerVendorTheLongAndWindingTableAndColumnRefList, _selector));
+                handler.handle(new LoaderOfVendorTheLongAndWindingTableAndColumnRef().ready(_referrerVendorTheLongAndWindingTableAndColumnRef, _selector));
             }
         };
     }

@@ -76,26 +76,26 @@ public class LoaderOfProductStatus {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
-    protected List<Product> _referrerProductList;
-    public NestedReferrerLoaderGateway<LoaderOfProduct> loadProductList(ConditionBeanSetupper<ProductCB> refCBLambda) {
-        myBhv().loadProductList(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<Product>() {
-            public void handle(List<Product> referrerList) { _referrerProductList = referrerList; }
+    protected List<Product> _referrerProduct;
+    public NestedReferrerLoaderGateway<LoaderOfProduct> loadProduct(ConditionBeanSetupper<ProductCB> refCBLambda) {
+        myBhv().loadProduct(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<Product>() {
+            public void handle(List<Product> referrerList) { _referrerProduct = referrerList; }
         });
         return new NestedReferrerLoaderGateway<LoaderOfProduct>() {
             public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfProduct> handler) {
-                handler.handle(new LoaderOfProduct().ready(_referrerProductList, _selector));
+                handler.handle(new LoaderOfProduct().ready(_referrerProduct, _selector));
             }
         };
     }
 
-    protected List<SummaryProduct> _referrerSummaryProductList;
-    public NestedReferrerLoaderGateway<LoaderOfSummaryProduct> loadSummaryProductList(ConditionBeanSetupper<SummaryProductCB> refCBLambda) {
-        myBhv().loadSummaryProductList(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<SummaryProduct>() {
-            public void handle(List<SummaryProduct> referrerList) { _referrerSummaryProductList = referrerList; }
+    protected List<SummaryProduct> _referrerSummaryProduct;
+    public NestedReferrerLoaderGateway<LoaderOfSummaryProduct> loadSummaryProduct(ConditionBeanSetupper<SummaryProductCB> refCBLambda) {
+        myBhv().loadSummaryProduct(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<SummaryProduct>() {
+            public void handle(List<SummaryProduct> referrerList) { _referrerSummaryProduct = referrerList; }
         });
         return new NestedReferrerLoaderGateway<LoaderOfSummaryProduct>() {
             public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfSummaryProduct> handler) {
-                handler.handle(new LoaderOfSummaryProduct().ready(_referrerSummaryProductList, _selector));
+                handler.handle(new LoaderOfSummaryProduct().ready(_referrerSummaryProduct, _selector));
             }
         };
     }

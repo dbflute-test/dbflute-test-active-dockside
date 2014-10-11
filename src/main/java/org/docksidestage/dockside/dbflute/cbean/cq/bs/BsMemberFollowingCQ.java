@@ -114,12 +114,6 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
       return _myMemberId; }
     protected ConditionValue getCValueMyMemberId() { return getMyMemberId(); }
 
-    public Map<String, MemberCQ> getMyMemberId_InScopeRelation_MemberByMyMemberId() { return xgetSQueMap("myMemberId_InScopeRelation_MemberByMyMemberId"); }
-    public String keepMyMemberId_InScopeRelation_MemberByMyMemberId(MemberCQ sq) { return xkeepSQue("myMemberId_InScopeRelation_MemberByMyMemberId", sq); }
-
-    public Map<String, MemberCQ> getMyMemberId_NotInScopeRelation_MemberByMyMemberId() { return xgetSQueMap("myMemberId_NotInScopeRelation_MemberByMyMemberId"); }
-    public String keepMyMemberId_NotInScopeRelation_MemberByMyMemberId(MemberCQ sq) { return xkeepSQue("myMemberId_NotInScopeRelation_MemberByMyMemberId", sq); }
-
     /** 
      * Add order-by as ascend. <br />
      * (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
@@ -139,12 +133,6 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     { if (_yourMemberId == null) { _yourMemberId = nCV(); }
       return _yourMemberId; }
     protected ConditionValue getCValueYourMemberId() { return getYourMemberId(); }
-
-    public Map<String, MemberCQ> getYourMemberId_InScopeRelation_MemberByYourMemberId() { return xgetSQueMap("yourMemberId_InScopeRelation_MemberByYourMemberId"); }
-    public String keepYourMemberId_InScopeRelation_MemberByYourMemberId(MemberCQ sq) { return xkeepSQue("yourMemberId_InScopeRelation_MemberByYourMemberId", sq); }
-
-    public Map<String, MemberCQ> getYourMemberId_NotInScopeRelation_MemberByYourMemberId() { return xgetSQueMap("yourMemberId_NotInScopeRelation_MemberByYourMemberId"); }
-    public String keepYourMemberId_NotInScopeRelation_MemberByYourMemberId(MemberCQ sq) { return xkeepSQue("yourMemberId_NotInScopeRelation_MemberByYourMemberId", sq); }
 
     /** 
      * Add order-by as ascend. <br />

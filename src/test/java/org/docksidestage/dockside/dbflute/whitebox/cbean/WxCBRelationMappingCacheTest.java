@@ -90,7 +90,7 @@ public class WxCBRelationMappingCacheTest extends UnitContainerTestCase {
 
         memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
             public void handle(LoaderOfMember loader) {
-                loader.pulloutMemberStatus().loadMemberLoginList(new ConditionBeanSetupper<MemberLoginCB>() {
+                loader.pulloutMemberStatus().loadMemberLogin(new ConditionBeanSetupper<MemberLoginCB>() {
                     public void setup(MemberLoginCB referrerCB) {
                     }
                 });

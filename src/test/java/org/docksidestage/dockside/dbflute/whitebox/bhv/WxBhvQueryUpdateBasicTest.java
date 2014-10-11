@@ -166,7 +166,7 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
         int updatedCount = memberBhv.queryUpdate(member, cb -> {
             /* ## Act ## */
             cb.query().setMemberStatusCode_Equal_Formalized();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.query().setPaymentCompleteFlg_Equal_False();
                 }
@@ -177,7 +177,7 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
         assertNotSame(0, updatedCount);
         ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
             actualCB.query().setMemberStatusCode_Equal_Formalized();
-            actualCB.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            actualCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.query().setPaymentCompleteFlg_Equal_False();
                 }

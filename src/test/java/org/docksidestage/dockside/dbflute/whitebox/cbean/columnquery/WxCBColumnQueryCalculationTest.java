@@ -118,7 +118,7 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().min(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().min(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchasePrice();
                     subCB.query().setPaymentCompleteFlg_Equal_True();
@@ -126,7 +126,7 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
             }, Member.ALIAS_productKindCount, op -> op.coalesce(0));
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.specify().derivedPurchaseList().min(new SubQuery<PurchaseCB>() {
+                    cb.specify().derivedPurchase().min(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchasePrice();
                             subCB.query().setPaymentCompleteFlg_Equal_True();

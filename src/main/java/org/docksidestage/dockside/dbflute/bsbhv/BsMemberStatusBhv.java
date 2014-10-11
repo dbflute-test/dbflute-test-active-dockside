@@ -422,12 +422,10 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * Load referrer of memberList by the set-upper of referrer. <br />
      * (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
      * <pre>
-     * memberStatusBhv.<span style="color: #DD4747">loadMemberList</span>(memberStatusList, new ConditionBeanSetupper&lt;MemberCB&gt;() {
-     *     public void setup(MemberCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * memberStatusBhv.<span style="color: #DD4747">loadMember</span>(memberStatusList, memberCB -&gt; {
+     *     memberCB.setupSelect...();
+     *     memberCB.query().setFoo...(value);
+     *     memberCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -446,21 +444,19 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Member> loadMemberList(List<MemberStatus> memberStatusList, ConditionBeanSetupper<MemberCB> refCBLambda) {
+    public NestedReferrerListGateway<Member> loadMember(List<MemberStatus> memberStatusList, ConditionBeanSetupper<MemberCB> refCBLambda) {
         xassLRArg(memberStatusList, refCBLambda);
-        return doLoadMemberList(memberStatusList, new LoadReferrerOption<MemberCB, Member>().xinit(refCBLambda));
+        return doLoadMember(memberStatusList, new LoadReferrerOption<MemberCB, Member>().xinit(refCBLambda));
     }
 
     /**
      * Load referrer of memberList by the set-upper of referrer. <br />
      * (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
      * <pre>
-     * memberStatusBhv.<span style="color: #DD4747">loadMemberList</span>(memberStatusList, new ConditionBeanSetupper&lt;MemberCB&gt;() {
-     *     public void setup(MemberCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * memberStatusBhv.<span style="color: #DD4747">loadMember</span>(memberStatusList, memberCB -&gt; {
+     *     memberCB.setupSelect...();
+     *     memberCB.query().setFoo...(value);
+     *     memberCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -477,9 +473,9 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Member> loadMemberList(MemberStatus memberStatus, ConditionBeanSetupper<MemberCB> refCBLambda) {
+    public NestedReferrerListGateway<Member> loadMember(MemberStatus memberStatus, ConditionBeanSetupper<MemberCB> refCBLambda) {
         xassLRArg(memberStatus, refCBLambda);
-        return doLoadMemberList(xnewLRLs(memberStatus), new LoadReferrerOption<MemberCB, Member>().xinit(refCBLambda));
+        return doLoadMember(xnewLRLs(memberStatus), new LoadReferrerOption<MemberCB, Member>().xinit(refCBLambda));
     }
 
     /**
@@ -488,9 +484,9 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Member> loadMemberList(MemberStatus memberStatus, LoadReferrerOption<MemberCB, Member> loadReferrerOption) {
+    public NestedReferrerListGateway<Member> loadMember(MemberStatus memberStatus, LoadReferrerOption<MemberCB, Member> loadReferrerOption) {
         xassLRArg(memberStatus, loadReferrerOption);
-        return loadMemberList(xnewLRLs(memberStatus), loadReferrerOption);
+        return loadMember(xnewLRLs(memberStatus), loadReferrerOption);
     }
 
     /**
@@ -500,13 +496,13 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerListGateway<Member> loadMemberList(List<MemberStatus> memberStatusList, LoadReferrerOption<MemberCB, Member> loadReferrerOption) {
+    public NestedReferrerListGateway<Member> loadMember(List<MemberStatus> memberStatusList, LoadReferrerOption<MemberCB, Member> loadReferrerOption) {
         xassLRArg(memberStatusList, loadReferrerOption);
         if (memberStatusList.isEmpty()) { return (NestedReferrerListGateway<Member>)EMPTY_NREF_LGWAY; }
-        return doLoadMemberList(memberStatusList, loadReferrerOption);
+        return doLoadMember(memberStatusList, loadReferrerOption);
     }
 
-    protected NestedReferrerListGateway<Member> doLoadMemberList(List<MemberStatus> memberStatusList, LoadReferrerOption<MemberCB, Member> option) {
+    protected NestedReferrerListGateway<Member> doLoadMember(List<MemberStatus> memberStatusList, LoadReferrerOption<MemberCB, Member> option) {
         return helpLoadReferrerInternally(memberStatusList, option, "memberList");
     }
 
@@ -514,12 +510,10 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * Load referrer of memberLoginList by the set-upper of referrer. <br />
      * (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
      * <pre>
-     * memberStatusBhv.<span style="color: #DD4747">loadMemberLoginList</span>(memberStatusList, new ConditionBeanSetupper&lt;MemberLoginCB&gt;() {
-     *     public void setup(MemberLoginCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * memberStatusBhv.<span style="color: #DD4747">loadMemberLogin</span>(memberStatusList, loginCB -&gt; {
+     *     loginCB.setupSelect...();
+     *     loginCB.query().setFoo...(value);
+     *     loginCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -538,21 +532,19 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberLogin> loadMemberLoginList(List<MemberStatus> memberStatusList, ConditionBeanSetupper<MemberLoginCB> refCBLambda) {
+    public NestedReferrerListGateway<MemberLogin> loadMemberLogin(List<MemberStatus> memberStatusList, ConditionBeanSetupper<MemberLoginCB> refCBLambda) {
         xassLRArg(memberStatusList, refCBLambda);
-        return doLoadMemberLoginList(memberStatusList, new LoadReferrerOption<MemberLoginCB, MemberLogin>().xinit(refCBLambda));
+        return doLoadMemberLogin(memberStatusList, new LoadReferrerOption<MemberLoginCB, MemberLogin>().xinit(refCBLambda));
     }
 
     /**
      * Load referrer of memberLoginList by the set-upper of referrer. <br />
      * (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
      * <pre>
-     * memberStatusBhv.<span style="color: #DD4747">loadMemberLoginList</span>(memberStatusList, new ConditionBeanSetupper&lt;MemberLoginCB&gt;() {
-     *     public void setup(MemberLoginCB cb) {
-     *         cb.setupSelect...();
-     *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...();
-     *     }
+     * memberStatusBhv.<span style="color: #DD4747">loadMemberLogin</span>(memberStatusList, loginCB -&gt; {
+     *     loginCB.setupSelect...();
+     *     loginCB.query().setFoo...(value);
+     *     loginCB.query().addOrderBy_Bar...();
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
      * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
@@ -569,9 +561,9 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberLogin> loadMemberLoginList(MemberStatus memberStatus, ConditionBeanSetupper<MemberLoginCB> refCBLambda) {
+    public NestedReferrerListGateway<MemberLogin> loadMemberLogin(MemberStatus memberStatus, ConditionBeanSetupper<MemberLoginCB> refCBLambda) {
         xassLRArg(memberStatus, refCBLambda);
-        return doLoadMemberLoginList(xnewLRLs(memberStatus), new LoadReferrerOption<MemberLoginCB, MemberLogin>().xinit(refCBLambda));
+        return doLoadMemberLogin(xnewLRLs(memberStatus), new LoadReferrerOption<MemberLoginCB, MemberLogin>().xinit(refCBLambda));
     }
 
     /**
@@ -580,9 +572,9 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberLogin> loadMemberLoginList(MemberStatus memberStatus, LoadReferrerOption<MemberLoginCB, MemberLogin> loadReferrerOption) {
+    public NestedReferrerListGateway<MemberLogin> loadMemberLogin(MemberStatus memberStatus, LoadReferrerOption<MemberLoginCB, MemberLogin> loadReferrerOption) {
         xassLRArg(memberStatus, loadReferrerOption);
-        return loadMemberLoginList(xnewLRLs(memberStatus), loadReferrerOption);
+        return loadMemberLogin(xnewLRLs(memberStatus), loadReferrerOption);
     }
 
     /**
@@ -592,13 +584,13 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerListGateway<MemberLogin> loadMemberLoginList(List<MemberStatus> memberStatusList, LoadReferrerOption<MemberLoginCB, MemberLogin> loadReferrerOption) {
+    public NestedReferrerListGateway<MemberLogin> loadMemberLogin(List<MemberStatus> memberStatusList, LoadReferrerOption<MemberLoginCB, MemberLogin> loadReferrerOption) {
         xassLRArg(memberStatusList, loadReferrerOption);
         if (memberStatusList.isEmpty()) { return (NestedReferrerListGateway<MemberLogin>)EMPTY_NREF_LGWAY; }
-        return doLoadMemberLoginList(memberStatusList, loadReferrerOption);
+        return doLoadMemberLogin(memberStatusList, loadReferrerOption);
     }
 
-    protected NestedReferrerListGateway<MemberLogin> doLoadMemberLoginList(List<MemberStatus> memberStatusList, LoadReferrerOption<MemberLoginCB, MemberLogin> option) {
+    protected NestedReferrerListGateway<MemberLogin> doLoadMemberLogin(List<MemberStatus> memberStatusList, LoadReferrerOption<MemberLoginCB, MemberLogin> option) {
         return helpLoadReferrerInternally(memberStatusList, option, "memberLoginList");
     }
 

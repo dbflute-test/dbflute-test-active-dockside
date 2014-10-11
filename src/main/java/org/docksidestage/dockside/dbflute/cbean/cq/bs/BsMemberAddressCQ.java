@@ -114,12 +114,6 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
       return _memberId; }
     protected ConditionValue getCValueMemberId() { return getMemberId(); }
 
-    public Map<String, MemberCQ> getMemberId_InScopeRelation_Member() { return xgetSQueMap("memberId_InScopeRelation_Member"); }
-    public String keepMemberId_InScopeRelation_Member(MemberCQ sq) { return xkeepSQue("memberId_InScopeRelation_Member", sq); }
-
-    public Map<String, MemberCQ> getMemberId_NotInScopeRelation_Member() { return xgetSQueMap("memberId_NotInScopeRelation_Member"); }
-    public String keepMemberId_NotInScopeRelation_Member(MemberCQ sq) { return xkeepSQue("memberId_NotInScopeRelation_Member", sq); }
-
     /** 
      * Add order-by as ascend. <br />
      * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
@@ -199,12 +193,6 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     { if (_regionId == null) { _regionId = nCV(); }
       return _regionId; }
     protected ConditionValue getCValueRegionId() { return getRegionId(); }
-
-    public Map<String, RegionCQ> getRegionId_InScopeRelation_Region() { return xgetSQueMap("regionId_InScopeRelation_Region"); }
-    public String keepRegionId_InScopeRelation_Region(RegionCQ sq) { return xkeepSQue("regionId_InScopeRelation_Region", sq); }
-
-    public Map<String, RegionCQ> getRegionId_NotInScopeRelation_Region() { return xgetSQueMap("regionId_NotInScopeRelation_Region"); }
-    public String keepRegionId_NotInScopeRelation_Region(RegionCQ sq) { return xkeepSQue("regionId_NotInScopeRelation_Region", sq); }
 
     /** 
      * Add order-by as ascend. <br />

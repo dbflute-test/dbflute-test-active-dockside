@@ -77,10 +77,6 @@ public class MemberSecurityCIQ extends AbstractBsMemberSecurityCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue getCValueMemberId() { return _myCQ.getMemberId(); }
-    public String keepMemberId_InScopeRelation_Member(MemberCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_Member(sq); }
-    public String keepMemberId_NotInScopeRelation_Member(MemberCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_Member(sq); }
     protected ConditionValue getCValueLoginPassword() { return _myCQ.getLoginPassword(); }
     protected ConditionValue getCValueReminderQuestion() { return _myCQ.getReminderQuestion(); }
     protected ConditionValue getCValueReminderAnswer() { return _myCQ.getReminderAnswer(); }
@@ -101,8 +97,6 @@ public class MemberSecurityCIQ extends AbstractBsMemberSecurityCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(MemberSecurityCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(MemberSecurityCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

@@ -74,14 +74,14 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseCount();
                 }
             }, Member.ALIAS_productKindCount); // uses the other variable
                 cb.columnQuery(new SpecifyQuery<MemberCB>() {
                     public void specify(MemberCB cb) {
-                        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                             public void query(PurchaseCB subCB) {
                                 subCB.specify().columnPurchaseCount();
                             }
@@ -111,7 +111,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseCount();
                 }
@@ -122,7 +122,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                     }
                 }).lessEqual(new SpecifyQuery<MemberCB>() {
                     public void specify(MemberCB cb) {
-                        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                             public void query(PurchaseCB subCB) {
                                 subCB.specify().columnPurchaseCount();
                             }
@@ -148,7 +148,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseCount();
                 }
@@ -159,7 +159,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                     }
                 }).lessEqual(new SpecifyQuery<MemberCB>() {
                     public void specify(MemberCB cb) {
-                        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                             public void query(PurchaseCB subCB) {
                                 subCB.specify().columnPurchaseCount();
                             }
@@ -185,14 +185,14 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseCount();
                 }
             }, Member.ALIAS_productKindCount); // uses the other variable
                 cb.columnQuery(new SpecifyQuery<MemberCB>() {
                     public void specify(MemberCB cb) {
-                        cb.specify().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
+                        cb.specify().derivedPurchase().avg(new SubQuery<PurchaseCB>() {
                             public void query(PurchaseCB subCB) {
                                 subCB.specify().columnPurchaseCount();
                                 subCB.query().setPaymentCompleteFlg_Equal_True();
@@ -201,7 +201,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                     }
                 }).lessEqual(new SpecifyQuery<MemberCB>() {
                     public void specify(MemberCB cb) {
-                        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                             public void query(PurchaseCB subCB) {
                                 subCB.specify().columnPurchaseCount();
                                 subCB.query().queryMember().setMemberName_LikeSearch("v", new LikeSearchOption().likeContain());
@@ -230,7 +230,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         final int coalesce = 999;
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseCount();
                     subCB.query().setPaymentCompleteFlg_Equal_True();
@@ -238,7 +238,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
             }, Member.ALIAS_productKindCount, op -> op.coalesce(coalesce)); // uses the other variable
                 cb.columnQuery(new SpecifyQuery<MemberCB>() {
                     public void specify(MemberCB cb) {
-                        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                             public void query(PurchaseCB subCB) {
                                 subCB.specify().columnPurchaseCount();
                                 subCB.query().setPaymentCompleteFlg_Equal_True();
@@ -281,14 +281,14 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         // ## Arrange ##
         memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseCount();
                 }
             }, Member.ALIAS_productKindCount); // uses the other variable
                 cb.columnQuery(new SpecifyQuery<MemberCB>() {
                     public void specify(MemberCB cb) {
-                        cb.specify().specifyMemberStatus().derivedMemberLoginList().avg(new SubQuery<MemberLoginCB>() {
+                        cb.specify().specifyMemberStatus().derivedMemberLogin().avg(new SubQuery<MemberLoginCB>() {
                             public void query(MemberLoginCB subCB) {
                                 subCB.specify().columnMemberLoginId();
                             }
@@ -315,7 +315,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberServiceAsOne();
-            cb.specify().specifyMemberServiceAsOne().specifyServiceRank().derivedMemberServiceList().avg(new SubQuery<MemberServiceCB>() {
+            cb.specify().specifyMemberServiceAsOne().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB subCB) {
                     subCB.specify().columnServicePointCount();
                 }
@@ -326,7 +326,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                 }
             }).greaterThan(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.specify().specifyMemberServiceAsOne().specifyServiceRank().derivedMemberServiceList()
+                    cb.specify().specifyMemberServiceAsOne().specifyServiceRank().derivedMemberService()
                             .avg(new SubQuery<MemberServiceCB>() {
                                 public void query(MemberServiceCB subCB) {
                                     subCB.specify().columnServicePointCount();
@@ -355,110 +355,66 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.query().queryMemberServiceAsOne().setServicePointCount_GreaterEqual(100);
-            cb.columnQuery(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                        public void query(PurchaseCB subCB) {
-                            subCB.specify().specifyMember().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-                                public void query(MemberLoginCB subCB) {
-                                    subCB.specify().columnMemberLoginId();
-                                    subCB.query().setMobileLoginFlg_Equal_False();
+            cb.columnQuery(colCB -> {
+                colCB.specify().derivedPurchase().max(purchaseCB -> {
+                    purchaseCB.specify().specifyMember().derivedMemberLogin().max(loginCB -> {
+                        loginCB.specify().columnMemberLoginId();
+                        loginCB.query().setMobileLoginFlg_Equal_False();
 
-                                    // nested (column = column)
-                                    subCB.columnQuery(new SpecifyQuery<MemberLoginCB>() {
-                                        public void specify(MemberLoginCB cb) {
-                                            cb.specify().columnMemberId();
-                                        }
-                                    }).lessEqual(new SpecifyQuery<MemberLoginCB>() {
-                                        public void specify(MemberLoginCB cb) {
-                                            cb.specify().columnMemberId();
-                                        }
-                                    });
+                        // nested (column = column)
+                            loginCB.columnQuery(loginColCB -> {
+                                loginColCB.specify().columnMemberId();
+                            }).lessEqual(loginColCB -> {
+                                loginColCB.specify().columnMemberId();
+                            });
 
-                                    // nested (sub-query = column)
-                                    subCB.columnQuery(new SpecifyQuery<MemberLoginCB>() {
-                                        public void specify(MemberLoginCB cb) {
-                                            cb.specify().specifyMemberStatus().derivedMemberList().avg(new SubQuery<MemberCB>() {
-                                                public void query(MemberCB subCB) {
-                                                    subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                                                        public void query(PurchaseCB subCB) {
-                                                            subCB.specify().columnPurchasePrice();
-                                                        }
-                                                    }, null);
-                                                }
-                                            }, null);
-                                        }
-                                    }).greaterThan(new SpecifyQuery<MemberLoginCB>() {
-                                        public void specify(MemberLoginCB cb) {
-                                            cb.specify().columnMemberId();
-                                        }
-                                    });
+                            // nested (sub-query = column)
+                            loginCB.columnQuery(loginColCB -> {
+                                loginColCB.specify().specifyMemberStatus().derivedMember().avg(memberCB -> {
+                                    memberCB.specify().derivedPurchase().max(memberPurchaseCB -> {
+                                        memberPurchaseCB.specify().columnPurchasePrice();
+                                    }, null);
+                                }, null);
+                            }).greaterThan(loginColCB -> {
+                                loginColCB.specify().columnMemberId();
+                            });
 
-                                    // nested (column = sub-query)
-                                    subCB.columnQuery(new SpecifyQuery<MemberLoginCB>() {
-                                        public void specify(MemberLoginCB cb) {
-                                            cb.specify().columnMemberId();
-                                        }
-                                    }).lessEqual(new SpecifyQuery<MemberLoginCB>() {
-                                        public void specify(MemberLoginCB cb) {
-                                            cb.specify().specifyMemberStatus().derivedMemberList().avg(new SubQuery<MemberCB>() {
-                                                public void query(MemberCB subCB) {
-                                                    subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                                                        public void query(PurchaseCB subCB) {
-                                                            subCB.specify().columnPurchasePrice();
-                                                        }
-                                                    }, null);
-                                                }
-                                            }, null);
-                                        }
-                                    });
+                            // nested (column = sub-query)
+                            loginCB.columnQuery(loginColCB -> {
+                                loginColCB.specify().columnMemberId();
+                            }).lessEqual(loginColCB -> {
+                                loginColCB.specify().specifyMemberStatus().derivedMember().avg(memberCB -> {
+                                    memberCB.specify().derivedPurchase().max(memberPurchaseCB -> {
+                                        memberPurchaseCB.specify().columnPurchasePrice();
+                                    }, null);
+                                }, null);
+                            });
 
-                                    // nested (sub-query = sub-query)
-                                    subCB.columnQuery(new SpecifyQuery<MemberLoginCB>() {
-                                        public void specify(MemberLoginCB cb) {
-                                            cb.specify().specifyMemberStatus().derivedMemberList().avg(new SubQuery<MemberCB>() {
-                                                public void query(MemberCB subCB) {
-                                                    subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                                                        public void query(PurchaseCB subCB) {
-                                                            subCB.specify().columnPurchasePrice();
-                                                        }
-                                                    }, null);
-                                                }
-                                            }, null);
-                                        }
-                                    }).equal(new SpecifyQuery<MemberLoginCB>() {
-                                        public void specify(MemberLoginCB cb) {
-                                            cb.specify().specifyMemberStatus().derivedMemberList().avg(new SubQuery<MemberCB>() {
-                                                public void query(MemberCB subCB) {
-                                                    subCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                                                        public void query(PurchaseCB subCB) {
-                                                            subCB.specify().columnPurchasePrice();
-                                                        }
-                                                    }, null);
-                                                }
-                                            }, null);
-                                        }
-                                    });
-                                }
-                            }, null);
-                            subCB.query().setPaymentCompleteFlg_Equal_True();
-                        }
+                            // nested (sub-query = sub-query)
+                            loginCB.columnQuery(loginColCB -> {
+                                loginColCB.specify().specifyMemberStatus().derivedMember().avg(memberCB -> {
+                                    memberCB.specify().derivedPurchase().max(memberPurchaseCB -> {
+                                        memberPurchaseCB.specify().columnPurchasePrice();
+                                    }, null);
+                                }, null);
+                            }).equal(loginColCB -> {
+                                loginColCB.specify().specifyMemberStatus().derivedMember().avg(memberCB -> {
+                                    memberCB.specify().derivedPurchase().max(memberPurchaseCB -> {
+                                        memberPurchaseCB.specify().columnPurchasePrice();
+                                    }, null);
+                                }, null);
+                            });
+                        }, null);
+                    purchaseCB.query().setPaymentCompleteFlg_Equal_True();
+                }, null);
+            }).greaterEqual(memberCB -> {
+                memberCB.specify().derivedPurchase().max(memberPurchaseCB -> {
+                    memberPurchaseCB.specify().specifyMember().derivedMemberLogin().max(loginCB -> {
+                        loginCB.specify().columnMemberLoginId();
+                        loginCB.query().setMemberId_GreaterThan(-1);
                     }, null);
-                }
-            }).greaterEqual(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
-                        public void query(PurchaseCB subCB) {
-                            subCB.specify().specifyMember().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
-                                public void query(MemberLoginCB subCB) {
-                                    subCB.specify().columnMemberLoginId();
-                                    subCB.query().setMemberId_GreaterThan(-1);
-                                }
-                            }, null);
-                            subCB.query().setPurchasePrice_GreaterEqual(123);
-                        }
-                    }, null);
-                }
+                    memberPurchaseCB.query().setPurchasePrice_GreaterEqual(123);
+                }, null);
             });
             pushCB(cb);
         });
@@ -493,7 +449,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         // ## Arrange ##
         memberStatusBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().existsMemberList(new SubQuery<MemberCB>() {
+            cb.query().existsMember(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.columnQuery(new SpecifyQuery<MemberCB>() {
                         public void specify(MemberCB cb) {
@@ -501,7 +457,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                         }
                     }).greaterThan(new SpecifyQuery<MemberCB>() {
                         public void specify(MemberCB cb) {
-                            cb.specify().specifyMemberServiceAsOne().specifyServiceRank().derivedMemberServiceList()
+                            cb.specify().specifyMemberServiceAsOne().specifyServiceRank().derivedMemberService()
                                     .avg(new SubQuery<MemberServiceCB>() {
                                         public void query(MemberServiceCB subCB) {
                                             subCB.specify().columnServicePointCount();
@@ -530,7 +486,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
             MemberCB cb = new MemberCB();
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchaseCount();
                         }
@@ -553,7 +509,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
             MemberCB cb = new MemberCB();
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchaseCount();
                         }
@@ -579,7 +535,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                     public void specify(MemberCB cb) {
                         // reverse
                         cb.specify().columnBirthdate();
-                        cb.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                        cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                             public void query(PurchaseCB subCB) {
                                 subCB.specify().columnPurchaseCount();
                             }
@@ -602,12 +558,12 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         try {
             memberBhv.selectEntity(cb -> {
                 cb.columnQuery(colCB -> {
-                    colCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    colCB.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchaseCount();
                         }
                     }, null);
-                    colCB.specify().derivedPurchaseList().max(new SubQuery<PurchaseCB>() {
+                    colCB.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchaseCount();
                         }
@@ -626,7 +582,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                 cb.columnQuery(colCB -> {
                     colCB.specify().columnFormalizedDatetime();
                 }).greaterEqual(colCB -> {
-                    colCB.specify().derivedPurchaseList().max(subCB -> subCB.specify().columnPurchaseDatetime(), null);
+                    colCB.specify().derivedPurchase().max(subCB -> subCB.specify().columnPurchaseDatetime(), null);
                 }).minus(1);
             });
             // ## Assert ##
@@ -646,7 +602,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
             cb.setupSelect_MemberStatus();
             cb.specify().columnMemberName();
             cb.specify().specifyMemberStatus().columnMemberStatusName();
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
                         public void specify(PurchaseCB cb) {
@@ -682,7 +638,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
             cb.setupSelect_MemberStatus();
             cb.specify().columnMemberName();
             cb.specify().specifyMemberStatus().columnMemberStatusName();
-            cb.query().queryMemberStatus().existsMemberList(new SubQuery<MemberCB>() {
+            cb.query().queryMemberStatus().existsMember(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.columnQuery(new SpecifyQuery<MemberCB>() {
                         public void specify(MemberCB cb) {
@@ -690,7 +646,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                         }
                     }).lessThan(new SpecifyQuery<MemberCB>() {
                         public void specify(MemberCB cb) {
-                            cb.specify().specifyMemberStatus().derivedMemberLoginList().max(new SubQuery<MemberLoginCB>() {
+                            cb.specify().specifyMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
                                 public void query(MemberLoginCB subCB) {
                                     subCB.specify().columnLoginDatetime();
                                 }
@@ -699,11 +655,11 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                     });
                 }
             });
-            cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
                         public void specify(PurchaseCB cb) {
-                            cb.specify().specifyProduct().derivedPurchaseList().avg(new SubQuery<PurchaseCB>() {
+                            cb.specify().specifyProduct().derivedPurchase().avg(new SubQuery<PurchaseCB>() {
                                 public void query(PurchaseCB subCB) {
                                     subCB.specify().columnProductId();
                                 }

@@ -78,16 +78,8 @@ public class MemberServiceCIQ extends AbstractBsMemberServiceCQ {
     //                                                                ====================
     protected ConditionValue getCValueMemberServiceId() { return _myCQ.getMemberServiceId(); }
     protected ConditionValue getCValueMemberId() { return _myCQ.getMemberId(); }
-    public String keepMemberId_InScopeRelation_Member(MemberCQ sq)
-    { return _myCQ.keepMemberId_InScopeRelation_Member(sq); }
-    public String keepMemberId_NotInScopeRelation_Member(MemberCQ sq)
-    { return _myCQ.keepMemberId_NotInScopeRelation_Member(sq); }
     protected ConditionValue getCValueServicePointCount() { return _myCQ.getServicePointCount(); }
     protected ConditionValue getCValueServiceRankCode() { return _myCQ.getServiceRankCode(); }
-    public String keepServiceRankCode_InScopeRelation_ServiceRank(ServiceRankCQ sq)
-    { return _myCQ.keepServiceRankCode_InScopeRelation_ServiceRank(sq); }
-    public String keepServiceRankCode_NotInScopeRelation_ServiceRank(ServiceRankCQ sq)
-    { return _myCQ.keepServiceRankCode_NotInScopeRelation_ServiceRank(sq); }
     protected ConditionValue getCValueRegisterDatetime() { return _myCQ.getRegisterDatetime(); }
     protected ConditionValue getCValueRegisterUser() { return _myCQ.getRegisterUser(); }
     protected ConditionValue getCValueUpdateDatetime() { return _myCQ.getUpdateDatetime(); }
@@ -104,8 +96,6 @@ public class MemberServiceCIQ extends AbstractBsMemberServiceCQ {
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepMyselfExists(MemberServiceCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(MemberServiceCQ sq)
-    { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name)
     { throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported."); }

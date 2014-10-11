@@ -31,13 +31,13 @@ public class WxCBEmptyStringQueryTest extends UnitContainerTestCase {
     public void test_enableEmptyStringQuery_subquery() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.query().queryProduct().setProductHandleCode_Equal("");
             }
         });
         cb.enableEmptyStringQuery();
-        cb.query().existsPurchaseList(new SubQuery<PurchaseCB>() {
+        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 subCB.query().queryProduct().setProductStatusCode_Equal("");
             }
