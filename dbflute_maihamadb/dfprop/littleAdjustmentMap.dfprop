@@ -50,11 +50,11 @@ map:{
     ; isMakeConditionQueryInScopeRelationToOne = true
     ; isMakeConditionQueryPlainListManualOrder = true
     ; isMakeDirectConditionBeanSetup = false
-    ; isMakeBatchUpdateSpecifyColumn = true
+    ; isMakeBatchUpdateSpecifyColumn = false
     ; isAvailableSelectEntityPlainReturn = true
     ; isAvailableRelationPlainEntity = true
-    ; isMakeConditionQueryPrefixSearch = true
-    ; isMakeConditionQueryDateFromTo = true
+    ; isMakeConditionQueryPrefixSearch = false
+    ; isMakeConditionQueryDateFromTo = false
     ; isMakeDirectConditionOptionSetup = true
     ; isMakeDirectConditionManualOrder = true
     ; isMakeClassificationNativeTypeSetter = true
@@ -65,6 +65,7 @@ map:{
     ; isCompatibleConditionBeanOldNamingCheckInvalid = true
     ; isCompatibleConditionBeanOldNamingOption = true
     ; isCompatibleBizOneToOneImplicitReverseFkAllowed = true
+    ; isCompatibleOutsideSqlFacadeChainOldStyle = false
 
     # compile compatible (false if compatible)
     ; isMakeCallbackConditionBeanSetup = true

@@ -326,15 +326,6 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     }
 
     /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * VENDOR_$_DOLLAR_NAME: {VARCHAR(32)}
-     * @param vendor$DollarName The value of vendor$DollarName as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setVendor$DollarName_PrefixSearch(String vendor$DollarName) {
-        setVendor$DollarName_LikeSearch(vendor$DollarName, cLSOP().likePrefix());
-    }
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * VENDOR_$_DOLLAR_NAME: {VARCHAR(32)}
      */
@@ -611,4 +602,5 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     protected String xabCQ() { return Vendor$DollarCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSCP() { return SubQuery.class.getName(); }
 }

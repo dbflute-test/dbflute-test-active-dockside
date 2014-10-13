@@ -286,7 +286,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
         return xcreateQDRFunctionMemberWithdrawalList();
     }
     protected HpQDRFunction<MemberWithdrawalCB> xcreateQDRFunctionMemberWithdrawalList() {
-        return new HpQDRFunction<MemberWithdrawalCB>(new HpQDRSetupper<MemberWithdrawalCB>() {
+        return xcQDRFunc(new HpQDRSetupper<MemberWithdrawalCB>() {
             public void setup(String fn, SubQuery<MemberWithdrawalCB> sq, String rd, Object vl, DerivedReferrerOption op) {
                 xqderiveMemberWithdrawalList(fn, sq, rd, vl, op);
             }
@@ -449,15 +449,6 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      */
     public void setWithdrawalReasonText_NotLikeSearch(String withdrawalReasonText, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(withdrawalReasonText), getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_PrefixSearch(String withdrawalReasonText) {
-        setWithdrawalReasonText_LikeSearch(withdrawalReasonText, cLSOP().likePrefix());
     }
 
     protected void regWithdrawalReasonText(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT"); }
@@ -837,4 +828,5 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     protected String xabCQ() { return WithdrawalReasonCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSCP() { return SubQuery.class.getName(); }
 }

@@ -63,7 +63,7 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
         };
 
         // ## Act ##
-        memberBhv.outsideSql().cursorHandling().selectCursor(pmb, handler);
+        memberBhv.outsideSql().selectCursor(pmb, handler);
 
         // ## Assert ##
         assertNotSame(0, memberBhv.selectCount(cb -> {
@@ -74,7 +74,6 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
 
     public void test_selectCursor_insertWithCursor_diffTable() throws Exception {
         // ## Arrange ##
-        String path = MemberBhv.PATH_selectPurchaseSummaryMember;
         PurchaseSummaryMemberPmb pmb = new PurchaseSummaryMemberPmb();
         pmb.setMemberStatusCode_Formalized();
         final List<String> codeList = new ArrayList<String>();
@@ -105,7 +104,7 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
         };
 
         // ## Act ##
-        memberBhv.outsideSql().cursorHandling().selectCursor(path, pmb, handler);
+        memberBhv.outsideSql().selectCursor(pmb, handler);
 
         // ## Assert ##
         assertNotSame(0, memberStatusBhv.selectCount(cb -> {
@@ -133,12 +132,10 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
             withdrawalCountAll = memberBhv.selectCount(cb -> {
                 cb.query().setMemberStatusCode_Equal_Withdrawal();
             });
-
         }
         final Map<Integer, Member> memberMap = new HashMap<Integer, Member>();
         {
             ListResultBean<Member> beforeList = memberBhv.selectList(cb -> {});
-
             for (Member member : beforeList) {
                 memberMap.put(member.getMemberId(), member);
             }
@@ -148,11 +145,11 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
         final List<Member> memberList = new ArrayList<Member>();
 
         // ## Act ##
-        memberBhv.outsideSql().cursorHandling().selectCursor(pmbFirst, new PurchaseSummaryMemberCursorHandler() {
+        memberBhv.outsideSql().selectCursor(pmbFirst, new PurchaseSummaryMemberCursorHandler() {
             public Object fetchCursor(final PurchaseSummaryMemberCursor firstCursor) throws SQLException {
                 PurchaseSummaryMemberPmb pmbSecond = new PurchaseSummaryMemberPmb();
                 pmbSecond.setMemberStatusCode_Withdrawal();
-                memberBhv.outsideSql().cursorHandling().selectCursor(pmbSecond, new PurchaseSummaryMemberCursorHandler() {
+                memberBhv.outsideSql().selectCursor(pmbSecond, new PurchaseSummaryMemberCursorHandler() {
                     protected Object fetchCursor(PurchaseSummaryMemberCursor secondCursor) throws SQLException {
                         while (firstCursor.next()) {
                             // first process
@@ -207,7 +204,7 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
         pmb.paging(3, 1);
 
         // ## Act ##
-        PagingResultBean<PaymentCompletePurchase> page = purchaseBhv.outsideSql().manualPaging().selectPage(pmb);
+        PagingResultBean<PaymentCompletePurchase> page = purchaseBhv.outsideSql().selectPage(pmb);
 
         // ## Assert ##
         assertHasAnyElement(page);
@@ -222,7 +219,7 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
 
         // ## Act ##
         final Set<String> markSet = new HashSet<String>();
-        purchaseBhv.outsideSql().cursorHandling().selectCursor(pmb, new PaymentCompletePurchaseCursorHandler() {
+        purchaseBhv.outsideSql().selectCursor(pmb, new PaymentCompletePurchaseCursorHandler() {
             protected Object fetchCursor(PaymentCompletePurchaseCursor cursor) throws SQLException {
                 // ## Assert ##
                 while (cursor.next()) {

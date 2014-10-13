@@ -245,7 +245,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
         return xcreateQDRFunctionPurchaseList();
     }
     protected HpQDRFunction<PurchaseCB> xcreateQDRFunctionPurchaseList() {
-        return new HpQDRFunction<PurchaseCB>(new HpQDRSetupper<PurchaseCB>() {
+        return xcQDRFunc(new HpQDRSetupper<PurchaseCB>() {
             public void setup(String fn, SubQuery<PurchaseCB> sq, String rd, Object vl, DerivedReferrerOption op) {
                 xqderivePurchaseList(fn, sq, rd, vl, op);
             }
@@ -411,15 +411,6 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
     }
 
     /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * PRODUCT_NAME: {VARCHAR(50)}
-     * @param productName The value of productName as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_PrefixSearch(String productName) {
-        setProductName_LikeSearch(productName, cLSOP().likePrefix());
-    }
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * PRODUCT_NAME: {VARCHAR(50)}
      */
@@ -572,15 +563,6 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      */
     public void setProductHandleCode_NotLikeSearch(String productHandleCode, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(productHandleCode), getCValueProductHandleCode(), "PRODUCT_HANDLE_CODE", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * PRODUCT_HANDLE_CODE: {VARCHAR(100)}
-     * @param productHandleCode The value of productHandleCode as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductHandleCode_PrefixSearch(String productHandleCode) {
-        setProductHandleCode_LikeSearch(productHandleCode, cLSOP().likePrefix());
     }
 
     /**
@@ -835,21 +817,6 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      */
     public void setLatestPurchaseDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueLatestPurchaseDatetime(), "LATEST_PURCHASE_DATETIME", fromToOption);
-    }
-
-    /**
-     * DateFromTo. (Date means yyyy/MM/dd) {fromDate &lt;= column &lt; toDate + 1 day} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
-     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
-     * <pre>
-     * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
-     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #DD4747">&lt; '2007/04/17 00:00:00'</span>
-     * </pre>
-     * @param fromDate The from-date(yyyy/MM/dd) of latestPurchaseDatetime. (NullAllowed: if null, no from-condition)
-     * @param toDate The to-date(yyyy/MM/dd) of latestPurchaseDatetime. (NullAllowed: if null, no to-condition)
-     */
-    public void setLatestPurchaseDatetime_DateFromTo(Date fromDate, Date toDate) {
-        setLatestPurchaseDatetime_FromTo(fromDate, toDate, cFTOP().compareAsDate());
     }
 
     /**
@@ -1123,4 +1090,5 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
     protected String xabCQ() { return SummaryProductCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSCP() { return SubQuery.class.getName(); }
 }

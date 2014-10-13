@@ -400,7 +400,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
                 public boolean has() { return true; }
                 public PurchaseCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider()); }
+            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
         return _specification;
     }
 
@@ -417,8 +417,9 @@ public class BsPurchaseCB extends AbstractConditionBean {
         protected ProductCB.HpSpecification _product;
         protected SummaryProductCB.HpSpecification _summaryProduct;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<PurchaseCQ> qyCall
-                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
-        { super(baseCB, qyCall, purpose, dbmetaProvider); }
+                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
+                             , FactoryOfDerivedReferrerOption sdrOpFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
         /**
          * PURCHASE_ID: {PK, ID, NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
@@ -510,7 +511,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
                 _member = new MemberCB.HpSpecification(_baseCB, new HpSpQyCall<MemberCQ>() {
                     public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryMember(); }
                     public MemberCQ qy() { return _qyCall.qy().queryMember(); } }
-                    , _purpose, _dbmetaProvider);
+                    , _purpose, _dbmetaProvider, xgetFofSDROp());
                 if (xhasSyncQyCall()) { // inherits it
                     _member.xsetSyncQyCall(new HpSpQyCall<MemberCQ>() {
                         public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMember(); }
@@ -531,7 +532,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
                 _product = new ProductCB.HpSpecification(_baseCB, new HpSpQyCall<ProductCQ>() {
                     public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryProduct(); }
                     public ProductCQ qy() { return _qyCall.qy().queryProduct(); } }
-                    , _purpose, _dbmetaProvider);
+                    , _purpose, _dbmetaProvider, xgetFofSDROp());
                 if (xhasSyncQyCall()) { // inherits it
                     _product.xsetSyncQyCall(new HpSpQyCall<ProductCQ>() {
                         public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryProduct(); }
@@ -552,7 +553,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
                 _summaryProduct = new SummaryProductCB.HpSpecification(_baseCB, new HpSpQyCall<SummaryProductCQ>() {
                     public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQuerySummaryProduct(); }
                     public SummaryProductCQ qy() { return _qyCall.qy().querySummaryProduct(); } }
-                    , _purpose, _dbmetaProvider);
+                    , _purpose, _dbmetaProvider, xgetFofSDROp());
                 if (xhasSyncQyCall()) { // inherits it
                     _summaryProduct.xsetSyncQyCall(new HpSpQyCall<SummaryProductCQ>() {
                         public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQuerySummaryProduct(); }
@@ -578,7 +579,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
          */
         public HpSDRFunction<PurchasePaymentCB, PurchaseCQ> derivedPurchasePayment() {
             assertDerived("purchasePaymentList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<PurchasePaymentCB, PurchaseCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<PurchasePaymentCB, PurchaseCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<PurchasePaymentCB, PurchaseCQ>() {
                 public void setup(String fn, SubQuery<PurchasePaymentCB> sq, PurchaseCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsderivePurchasePaymentList(fn, sq, al, op); } }, _dbmetaProvider);
         }
@@ -588,7 +589,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
          */
         public HpSDRFunction<PurchaseCB, PurchaseCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<PurchaseCB, PurchaseCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<PurchaseCB, PurchaseCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<PurchaseCB, PurchaseCQ>() {
                 public void setup(String fn, SubQuery<PurchaseCB> sq, PurchaseCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }

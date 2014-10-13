@@ -238,12 +238,7 @@ public class WxSQLFailureExceptionProductionTest extends UnitContainerTestCase {
 
         try {
             // ## Act ##
-            memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnMemberName();
-                    cb.specify().columnMemberAccount();
-                }
-            });
+            memberBhv.batchUpdate(memberList);
 
             // ## Assert ##
             fail();

@@ -447,4 +447,5 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     protected String xabCQ() { return VendorIdentityOnlyCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSCP() { return SubQuery.class.getName(); }
 }

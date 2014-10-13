@@ -505,11 +505,9 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         // first
         {
             // ## Act ##
-            int[] result = memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnMemberName();
-                }
-            });
+            int[] result = memberBhv.varyingBatchUpdate(memberList, op -> op.specify(colCB -> {
+                colCB.specify().columnMemberName();
+            }));
 
             // ## Assert ##
             assertEquals(3, result.length);
@@ -561,12 +559,12 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             }
 
             // ## Act ##
-            int[] result = memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
+            int[] result = memberBhv.varyingBatchUpdate(memberList, op -> op.specify(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().columnMemberAccount();
                     cb.specify().columnFormalizedDatetime();
                 }
-            });
+            }));
 
             // ## Assert ##
             assertEquals(3, result.length);
@@ -602,11 +600,11 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             }
 
             // ## Act ##
-            int[] result = memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
+            int[] result = memberBhv.varyingBatchUpdate(memberList, op -> op.specify(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().columnMemberAccount();
                 }
-            });
+            }));
 
             // ## Assert ##
             fail("result = " + result.length);
@@ -641,11 +639,11 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        int[] result = memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
+        int[] result = memberBhv.varyingBatchUpdate(memberList, op -> op.specify(new SpecifyQuery<MemberCB>() {
             public void specify(MemberCB cb) {
                 cb.specify().columnMemberName();
             }
-        });
+        }));
 
         // ## Assert ##
         assertEquals(3, result.length);
@@ -682,10 +680,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        int[] result = memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
+        int[] result = memberBhv.varyingBatchUpdate(memberList, op -> op.specify(new SpecifyQuery<MemberCB>() {
             public void specify(MemberCB cb) {
             }
-        });
+        }));
 
         // ## Assert ##
         assertEquals(3, result.length); // because common columns exist
@@ -712,10 +710,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        int[] result = memberStatusBhv.batchUpdate(statusList, new SpecifyQuery<MemberStatusCB>() {
+        int[] result = memberStatusBhv.varyingBatchUpdate(statusList, op -> op.specify(new SpecifyQuery<MemberStatusCB>() {
             public void specify(MemberStatusCB cb) {
             }
-        });
+        }));
 
         // ## Assert ##
         // skipped because the table does not have common columns and version no
@@ -733,12 +731,12 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         });
 
         // ## Act ##
-        int[] result = memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
+        int[] result = memberBhv.varyingBatchUpdate(memberList, op -> op.specify(new SpecifyQuery<MemberCB>() {
             public void specify(MemberCB cb) {
                 cb.specify().columnUpdateUser();
                 cb.specify().columnVersionNo();
             }
-        });
+        }));
 
         // ## Assert ##
         assertEquals(3, result.length);
@@ -756,11 +754,11 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            int[] result = memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
+            int[] result = memberBhv.varyingBatchUpdate(memberList, op -> op.specify(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().columnMemberId();
                 }
-            });
+            }));
 
             // ## Assert ##
             fail("result=" + result.length);
@@ -776,7 +774,7 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            int[] result = memberBhv.batchUpdate(memberList, null);
+            int[] result = memberBhv.varyingBatchUpdate(memberList, op -> op.specify(null));
 
             // ## Assert ##
             fail("result=" + result);
@@ -824,11 +822,11 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             }
         });
         try {
-            int[] result = memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
+            int[] result = memberBhv.varyingBatchUpdate(memberList, op -> op.specify(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().everyColumn();
                 }
-            });
+            }));
 
             // ## Assert ##
             assertEquals(3, result.length);
@@ -969,11 +967,11 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        int[] result = memberBhv.batchUpdateNonstrict(memberList, new SpecifyQuery<MemberCB>() {
+        int[] result = memberBhv.varyingBatchUpdateNonstrict(memberList, op -> op.specify(new SpecifyQuery<MemberCB>() {
             public void specify(MemberCB cb) {
                 cb.specify().everyColumn();
             }
-        });
+        }));
 
         // ## Assert ##
         assertEquals(3, result.length);
@@ -1023,11 +1021,11 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        int[] result = memberBhv.batchUpdateNonstrict(memberList, new SpecifyQuery<MemberCB>() {
+        int[] result = memberBhv.varyingBatchUpdateNonstrict(memberList, op -> op.specify(new SpecifyQuery<MemberCB>() {
             public void specify(MemberCB cb) {
                 cb.specify().columnMemberName();
             }
-        });
+        }));
 
         // ## Assert ##
         assertEquals(3, result.length);

@@ -180,7 +180,7 @@ public class VendorTypeTest extends UnitContainerTestCase {
         Class<Member> entityType = Member.class;
 
         // ## Act ##
-        Member actual = memberBhv.outsideSql().entityHandling().selectEntityWithDeletedCheck(path, pmb, entityType);
+        Member actual = memberBhv.outsideSql().traditionalStyle().selectEntity(path, pmb, entityType).get();
 
         // ## Assert ##
         Date actualValue = actual.getBirthdate();
@@ -226,7 +226,7 @@ public class VendorTypeTest extends UnitContainerTestCase {
         Class<Member> entityType = Member.class;
 
         // ## Act ##
-        Member actual = memberBhv.outsideSql().entityHandling().selectEntityWithDeletedCheck(path, pmb, entityType);
+        Member actual = memberBhv.outsideSql().traditionalStyle().selectEntity(path, pmb, entityType).get();
 
         // ## Assert ##
         Date actualValue = actual.getBirthdate();

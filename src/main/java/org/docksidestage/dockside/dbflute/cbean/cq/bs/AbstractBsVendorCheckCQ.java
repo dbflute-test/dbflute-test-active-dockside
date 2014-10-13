@@ -326,15 +326,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     }
 
     /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * TYPE_OF_CHAR: {CHAR(3)}
-     * @param typeOfChar The value of typeOfChar as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfChar_PrefixSearch(String typeOfChar) {
-        setTypeOfChar_LikeSearch(typeOfChar, cLSOP().likePrefix());
-    }
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * TYPE_OF_CHAR: {CHAR(3)}
      */
@@ -487,15 +478,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfVarchar_NotLikeSearch(String typeOfVarchar, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(typeOfVarchar), getCValueTypeOfVarchar(), "TYPE_OF_VARCHAR", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * TYPE_OF_VARCHAR: {VARCHAR(32)}
-     * @param typeOfVarchar The value of typeOfVarchar as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfVarchar_PrefixSearch(String typeOfVarchar) {
-        setTypeOfVarchar_LikeSearch(typeOfVarchar, cLSOP().likePrefix());
     }
 
     /**
@@ -654,15 +636,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     }
 
     /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * TYPE_OF_CLOB: {CLOB(2147483647)}
-     * @param typeOfClob The value of typeOfClob as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfClob_PrefixSearch(String typeOfClob) {
-        setTypeOfClob_LikeSearch(typeOfClob, cLSOP().likePrefix());
-    }
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * TYPE_OF_CLOB: {CLOB(2147483647)}
      */
@@ -815,15 +788,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfText_NotLikeSearch(String typeOfText, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(typeOfText), getCValueTypeOfText(), "TYPE_OF_TEXT", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * TYPE_OF_TEXT: {CLOB(2147483647)}
-     * @param typeOfText The value of typeOfText as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfText_PrefixSearch(String typeOfText) {
-        setTypeOfText_LikeSearch(typeOfText, cLSOP().likePrefix());
     }
 
     /**
@@ -2480,21 +2444,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     }
 
     /**
-     * DateFromTo. (Date means yyyy/MM/dd) {fromDate &lt;= column &lt; toDate + 1 day} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_DATE: {DATE(8)}
-     * <pre>
-     * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
-     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #DD4747">&lt; '2007/04/17 00:00:00'</span>
-     * </pre>
-     * @param fromDate The from-date(yyyy/MM/dd) of typeOfDate. (NullAllowed: if null, no from-condition)
-     * @param toDate The to-date(yyyy/MM/dd) of typeOfDate. (NullAllowed: if null, no to-condition)
-     */
-    public void setTypeOfDate_DateFromTo(Date fromDate, Date toDate) {
-        setTypeOfDate_FromTo(fromDate, toDate, cFTOP().compareAsDate());
-    }
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * TYPE_OF_DATE: {DATE(8)}
      */
@@ -2579,21 +2528,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueTypeOfTimestamp(), "TYPE_OF_TIMESTAMP", fromToOption);
-    }
-
-    /**
-     * DateFromTo. (Date means yyyy/MM/dd) {fromDate &lt;= column &lt; toDate + 1 day} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
-     * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
-     * <pre>
-     * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
-     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #DD4747">&lt; '2007/04/17 00:00:00'</span>
-     * </pre>
-     * @param fromDate The from-date(yyyy/MM/dd) of typeOfTimestamp. (NullAllowed: if null, no from-condition)
-     * @param toDate The to-date(yyyy/MM/dd) of typeOfTimestamp. (NullAllowed: if null, no to-condition)
-     */
-    public void setTypeOfTimestamp_DateFromTo(Date fromDate, Date toDate) {
-        setTypeOfTimestamp_FromTo(fromDate, toDate, cFTOP().compareAsDate());
     }
 
     /**
@@ -2878,15 +2812,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     }
 
     /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * TYPE_OF_ARRAY: {ARRAY}
-     * @param typeOfArray The value of typeOfArray as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfArray_PrefixSearch(String typeOfArray) {
-        setTypeOfArray_LikeSearch(typeOfArray, cLSOP().likePrefix());
-    }
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * TYPE_OF_ARRAY: {ARRAY}
      */
@@ -3039,15 +2964,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfOther_NotLikeSearch(String typeOfOther, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(typeOfOther), getCValueTypeOfOther(), "TYPE_OF_OTHER", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * TYPE_OF_OTHER: {OTHER(2147483647)}
-     * @param typeOfOther The value of typeOfOther as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTypeOfOther_PrefixSearch(String typeOfOther) {
-        setTypeOfOther_LikeSearch(typeOfOther, cLSOP().likePrefix());
     }
 
     /**
@@ -3206,15 +3122,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     }
 
     /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)}
-     * @param jAVABeansProperty The value of jAVABeansProperty as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setJAVABeansProperty_PrefixSearch(String jAVABeansProperty) {
-        setJAVABeansProperty_LikeSearch(jAVABeansProperty, cLSOP().likePrefix());
-    }
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)}
      */
@@ -3367,15 +3274,6 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setJPopBeansProperty_NotLikeSearch(String jPopBeansProperty, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(jPopBeansProperty), getCValueJPopBeansProperty(), "J_POP_BEANS_PROPERTY", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * J_POP_BEANS_PROPERTY: {VARCHAR(10)}
-     * @param jPopBeansProperty The value of jPopBeansProperty as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setJPopBeansProperty_PrefixSearch(String jPopBeansProperty) {
-        setJPopBeansProperty_LikeSearch(jPopBeansProperty, cLSOP().likePrefix());
     }
 
     /**
@@ -3655,4 +3553,5 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     protected String xabCQ() { return VendorCheckCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSCP() { return SubQuery.class.getName(); }
 }

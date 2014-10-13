@@ -79,7 +79,7 @@ public class WxParameterCommentTest extends UnitContainerTestCase {
         });
         try {
             CallbackContext.setCallbackContextOnThread(context);
-            memberBhv.outsideSql().selectList(path, pmb, entityType); // no exception
+            memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, entityType); // no exception
         } finally {
             CallbackContext.clearCallbackContextOnThread();
         }
@@ -100,7 +100,7 @@ public class WxParameterCommentTest extends UnitContainerTestCase {
         // ## Act ##
         int pageSize = 3;
         pmb.paging(pageSize, 1); // 1st page
-        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().traditionalStyle().selectPage(path, pmb, entityType);
 
         // ## Assert ##
         assertNotSame(0, page1.size());
@@ -127,7 +127,7 @@ public class WxParameterCommentTest extends UnitContainerTestCase {
         // ## Act ##
         int pageSize = 3;
         pmb.paging(pageSize, 1); // 1st page
-        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().traditionalStyle().selectPage(path, pmb, entityType);
 
         // ## Assert ##
         assertNotSame(0, page1.size());
@@ -155,7 +155,7 @@ public class WxParameterCommentTest extends UnitContainerTestCase {
         int pageSize = 3;
         pmb.paging(pageSize, 1); // 1st page
         PagingResultBean<PurchaseMaxPriceMember> page1 =
-                memberBhv.outsideSql().formatSql().manualPaging().selectPage(path, pmb, entityType);
+                memberBhv.outsideSql().formatSql().traditionalStyle().selectPage(path, pmb, entityType);
 
         // ## Assert ##
         assertNotSame(0, page1.size());
@@ -179,9 +179,9 @@ public class WxParameterCommentTest extends UnitContainerTestCase {
         // ## Act & Assert ##
         int pageSize = 3;
         pmb.paging(pageSize, 1); // 1st page
-        memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType); // expects no exception
+        memberBhv.outsideSql().traditionalStyle().selectPage(path, pmb, entityType); // expects no exception
         pmb.setMemberNameList_PrefixSearch(DfCollectionUtil.newArrayList(";select * from PURCHASE", "''"));
-        memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType); // expects no exception
+        memberBhv.outsideSql().traditionalStyle().selectPage(path, pmb, entityType); // expects no exception
     }
 
     // ===================================================================================

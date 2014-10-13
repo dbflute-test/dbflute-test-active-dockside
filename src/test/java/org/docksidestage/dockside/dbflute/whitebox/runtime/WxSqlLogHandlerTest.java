@@ -218,7 +218,7 @@ public class WxSqlLogHandlerTest extends UnitContainerTestCase {
         });
 
         // ## Act ##
-        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging().selectPage(pmb);
+        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().selectPage(pmb);
 
         // ## Assert ##
         showDisplaySqlList(displaySqlList);

@@ -36,7 +36,7 @@ public class WxParameterBeanGenerationTest extends UnitContainerTestCase {
 
         // ## Act ##
         pmb.paging(100, 1);
-        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging().selectPage(pmb);
+        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().selectPage(pmb);
 
         // ## Assert ##
         assertNotSame(0, page1.size());

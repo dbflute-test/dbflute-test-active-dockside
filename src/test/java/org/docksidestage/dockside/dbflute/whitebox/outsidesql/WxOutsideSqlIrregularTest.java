@@ -32,7 +32,8 @@ public class WxOutsideSqlIrregularTest extends UnitContainerTestCase {
         // ## Act ##
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> resultList =
-                (List<Map<String, Object>>) memberBhv.outsideSql().cursorHandling().selectCursor(path, pmb, new IrgMapListCursorHandler());
+                (List<Map<String, Object>>) memberBhv.outsideSql().traditionalStyle()
+                        .selectCursor(path, pmb, new IrgMapListCursorHandler());
 
         // ## Assert ##
         assertHasAnyElement(resultList);

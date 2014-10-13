@@ -286,7 +286,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
         return xcreateQDRFunctionMemberAddressList();
     }
     protected HpQDRFunction<MemberAddressCB> xcreateQDRFunctionMemberAddressList() {
-        return new HpQDRFunction<MemberAddressCB>(new HpQDRSetupper<MemberAddressCB>() {
+        return xcQDRFunc(new HpQDRSetupper<MemberAddressCB>() {
             public void setup(String fn, SubQuery<MemberAddressCB> sq, String rd, Object vl, DerivedReferrerOption op) {
                 xqderiveMemberAddressList(fn, sq, rd, vl, op);
             }
@@ -449,15 +449,6 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      */
     public void setRegionName_NotLikeSearch(String regionName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(regionName), getCValueRegionName(), "REGION_NAME", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
-     * @param regionName The value of regionName as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegionName_PrefixSearch(String regionName) {
-        setRegionName_LikeSearch(regionName, cLSOP().likePrefix());
     }
 
     protected void regRegionName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegionName(), "REGION_NAME"); }
@@ -719,4 +710,5 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     protected String xabCQ() { return RegionCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSCP() { return SubQuery.class.getName(); }
 }

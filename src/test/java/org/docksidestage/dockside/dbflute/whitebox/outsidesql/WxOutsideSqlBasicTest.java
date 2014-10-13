@@ -54,13 +54,11 @@ public class WxOutsideSqlBasicTest extends UnitContainerTestCase {
 
     public void test_outsideSql_selectList_freeStyle() {
         // ## Arrange ##
-        String path = MemberBhv.PATH_selectSimpleMember;
         SimpleMemberPmb pmb = new SimpleMemberPmb();
         pmb.setMemberName_PrefixSearch("S");
-        Class<SimpleMember> entityType = SimpleMember.class;
 
         // ## Act ##
-        List<SimpleMember> memberList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+        List<SimpleMember> memberList = memberBhv.outsideSql().selectList(pmb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -122,7 +120,7 @@ public class WxOutsideSqlBasicTest extends UnitContainerTestCase {
         pmb.setMemberName_PrefixSearch("S");
 
         // ## Act ##
-        ListResultBean<String> nameList = memberBhv.outsideSql().selectList(path, pmb, String.class);
+        ListResultBean<String> nameList = memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, String.class);
 
         // ## Assert ##
         assertNotSame(0, nameList.size());
@@ -189,7 +187,7 @@ public class WxOutsideSqlBasicTest extends UnitContainerTestCase {
         pmb.setMemberName_PrefixSearch("S");
 
         // ## Act ##
-        int updatedCount = memberBhv.outsideSql().execute(path, pmb);
+        int updatedCount = memberBhv.outsideSql().traditionalStyle().execute(path, pmb);
 
         // ## Assert ##
         log("updatedCount=" + updatedCount);
@@ -207,7 +205,7 @@ public class WxOutsideSqlBasicTest extends UnitContainerTestCase {
         Class<MySimpleMember> entityType = MySimpleMember.class;
 
         // ## Act ##
-        List<MySimpleMember> memberList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+        List<MySimpleMember> memberList = memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, entityType);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());

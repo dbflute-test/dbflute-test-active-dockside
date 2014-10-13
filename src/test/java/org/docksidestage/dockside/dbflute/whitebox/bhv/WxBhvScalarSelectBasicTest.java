@@ -186,7 +186,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
                 cb.query().setMemberStatusCode_Equal_Withdrawal();
                 cb.union(new UnionQuery<MemberCB>() {
                     public void query(MemberCB unionCB) {
-                        unionCB.query().setMemberName_PrefixSearch("S");
+                        unionCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
                     }
                 });
             }

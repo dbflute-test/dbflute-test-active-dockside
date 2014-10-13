@@ -331,7 +331,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
         return xcreateQDRFunctionMemberList();
     }
     protected HpQDRFunction<MemberCB> xcreateQDRFunctionMemberList() {
-        return new HpQDRFunction<MemberCB>(new HpQDRSetupper<MemberCB>() {
+        return xcQDRFunc(new HpQDRSetupper<MemberCB>() {
             public void setup(String fn, SubQuery<MemberCB> sq, String rd, Object vl, DerivedReferrerOption op) {
                 xqderiveMemberList(fn, sq, rd, vl, op);
             }
@@ -365,7 +365,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
         return xcreateQDRFunctionMemberLoginList();
     }
     protected HpQDRFunction<MemberLoginCB> xcreateQDRFunctionMemberLoginList() {
-        return new HpQDRFunction<MemberLoginCB>(new HpQDRSetupper<MemberLoginCB>() {
+        return xcQDRFunc(new HpQDRSetupper<MemberLoginCB>() {
             public void setup(String fn, SubQuery<MemberLoginCB> sq, String rd, Object vl, DerivedReferrerOption op) {
                 xqderiveMemberLoginList(fn, sq, rd, vl, op);
             }
@@ -530,15 +530,6 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(memberStatusName), getCValueMemberStatusName(), "MEMBER_STATUS_NAME", likeSearchOption);
     }
 
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusName_PrefixSearch(String memberStatusName) {
-        setMemberStatusName_LikeSearch(memberStatusName, cLSOP().likePrefix());
-    }
-
     protected void regMemberStatusName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberStatusName(), "MEMBER_STATUS_NAME"); }
     protected abstract ConditionValue getCValueMemberStatusName();
 
@@ -674,15 +665,6 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
      */
     public void setDescription_NotLikeSearch(String description, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(description), getCValueDescription(), "DESCRIPTION", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setDescription_PrefixSearch(String description) {
-        setDescription_LikeSearch(description, cLSOP().likePrefix());
     }
 
     protected void regDescription(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueDescription(), "DESCRIPTION"); }
@@ -1062,4 +1044,5 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     protected String xabCQ() { return MemberStatusCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSCP() { return SubQuery.class.getName(); }
 }

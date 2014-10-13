@@ -245,7 +245,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
         return xcreateQDRFunctionVendorTheLongAndWindingTableAndColumnRefList();
     }
     protected HpQDRFunction<VendorTheLongAndWindingTableAndColumnRefCB> xcreateQDRFunctionVendorTheLongAndWindingTableAndColumnRefList() {
-        return new HpQDRFunction<VendorTheLongAndWindingTableAndColumnRefCB>(new HpQDRSetupper<VendorTheLongAndWindingTableAndColumnRefCB>() {
+        return xcQDRFunc(new HpQDRSetupper<VendorTheLongAndWindingTableAndColumnRefCB>() {
             public void setup(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> sq, String rd, Object vl, DerivedReferrerOption op) {
                 xqderiveVendorTheLongAndWindingTableAndColumnRefList(fn, sq, rd, vl, op);
             }
@@ -410,15 +410,6 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
         regLSQ(CK_NLS, fRES(theLongAndWindingTableAndColumnName), getCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME", likeSearchOption);
     }
 
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
-     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setTheLongAndWindingTableAndColumnName_PrefixSearch(String theLongAndWindingTableAndColumnName) {
-        setTheLongAndWindingTableAndColumnName_LikeSearch(theLongAndWindingTableAndColumnName, cLSOP().likePrefix());
-    }
-
     protected void regTheLongAndWindingTableAndColumnName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME"); }
     protected abstract ConditionValue getCValueTheLongAndWindingTableAndColumnName();
 
@@ -554,15 +545,6 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      */
     public void setShortName_NotLikeSearch(String shortName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(shortName), getCValueShortName(), "SHORT_NAME", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * SHORT_NAME: {NotNull, VARCHAR(200)}
-     * @param shortName The value of shortName as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setShortName_PrefixSearch(String shortName) {
-        setShortName_LikeSearch(shortName, cLSOP().likePrefix());
     }
 
     protected void regShortName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueShortName(), "SHORT_NAME"); }
@@ -942,4 +924,5 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     protected String xabCQ() { return VendorTheLongAndWindingTableAndColumnCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSCP() { return SubQuery.class.getName(); }
 }

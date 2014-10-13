@@ -69,7 +69,7 @@ public abstract class BsPmCommentEmbedded implements Entity, Serializable, Clone
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
-    /** Serial version UID. (Default) */
+    /** The serial version UID for object serialization. (Default) */
     private static final long serialVersionUID = 1L;
 
     // ===================================================================================

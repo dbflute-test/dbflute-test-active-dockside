@@ -10,7 +10,6 @@ import java.util.Set;
 import org.dbflute.bhv.core.BehaviorCommandMeta;
 import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.exception.EntityAlreadyUpdatedException;
 import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlLogInfo;
@@ -20,7 +19,6 @@ import org.dbflute.jdbc.ExecutionTimeInfo;
 import org.dbflute.util.DfReflectionUtil;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -333,11 +331,7 @@ public class WxSqlResultHandlerTest extends UnitContainerTestCase {
         CallbackContext.setCallbackContextOnThread(callbackContext);
         try {
             // ## Act ##
-            memberBhv.batchUpdateNonstrict(memberList, new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnMemberStatusCode();
-                }
-            });
+            memberBhv.batchUpdateNonstrict(memberList);
 
             // ## Assert ##
             assertEquals(1, infoList.size());

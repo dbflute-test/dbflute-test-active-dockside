@@ -62,7 +62,7 @@ public class DBFluteBeansJavaConfig {
     //                                                                   =================
     @Bean(name="introduction")
     public DBFluteInitializer createDBFluteInitializer() {
-        return new DBFluteInitializer(dataSource);
+        return new org.docksidestage.dockside.dbflute.allcommon.DBFluteInitializer(dataSource);
     }
 
     @Bean(name="invokerAssistant")

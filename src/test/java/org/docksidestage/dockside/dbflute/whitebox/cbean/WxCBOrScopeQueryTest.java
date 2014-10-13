@@ -100,7 +100,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
-                    orCB.query().setMemberName_PrefixSearch(null);
+                    orCB.query().setMemberName_LikeSearch(null, op -> op.likePrefix());
                 }
             });
         });

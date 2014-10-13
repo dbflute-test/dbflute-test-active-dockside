@@ -5,13 +5,11 @@ import java.util.List;
 
 import org.dbflute.bhv.core.BehaviorCommandMeta;
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.exception.SQLFailureException;
 import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlLogHandler;
 import org.dbflute.hook.SqlLogInfo;
 import org.dbflute.hook.SqlStringFilter;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.MemberChangedToWithdrawalForcedlyPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.SimpleMemberPmb;
@@ -228,11 +226,7 @@ public class WxSqlStringFilterBasicTest extends UnitContainerTestCase {
                     member.setMemberName("update3");
                     memberList.add(member);
                 }
-                memberBhv.batchUpdateNonstrict(memberList, new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().columnMemberName();
-                    }
-                });
+                memberBhv.batchUpdateNonstrict(memberList);
                 assertEquals("update1", memberBhv.selectByPKValueWithDeletedCheck(3).getMemberName());
                 assertEquals("update2", memberBhv.selectByPKValueWithDeletedCheck(5).getMemberName());
                 assertEquals("update3", memberBhv.selectByPKValueWithDeletedCheck(9).getMemberName());
@@ -363,7 +357,7 @@ public class WxSqlStringFilterBasicTest extends UnitContainerTestCase {
             {
                 SimpleMemberPmb pmb = new SimpleMemberPmb();
                 pmb.setMemberId(3);
-                SimpleMember member = memberBhv.outsideSql().entityHandling().selectEntityWithDeletedCheck(pmb);
+                SimpleMember member = memberBhv.outsideSql().selectEntity(pmb).get();
                 assertNotNull(member.getMemberName());
                 assertEquals(1, markList.size());
                 assertEquals("filterOutsideSql", markList.get(0));
@@ -449,7 +443,7 @@ public class WxSqlStringFilterBasicTest extends UnitContainerTestCase {
         {
             SimpleMemberPmb pmb = new SimpleMemberPmb();
             pmb.setMemberId(3);
-            SimpleMember member = memberBhv.outsideSql().entityHandling().selectEntityWithDeletedCheck(pmb);
+            SimpleMember member = memberBhv.outsideSql().selectEntity(pmb).get();
             assertEquals("filterQuery", member.getMemberName());
             assertEquals(6, markList.size());
             assertEquals("filterOutsideSql", markList.get(5));

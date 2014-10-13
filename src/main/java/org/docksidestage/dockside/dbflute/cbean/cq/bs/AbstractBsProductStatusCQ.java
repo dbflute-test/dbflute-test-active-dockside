@@ -321,7 +321,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
         return xcreateQDRFunctionProductList();
     }
     protected HpQDRFunction<ProductCB> xcreateQDRFunctionProductList() {
-        return new HpQDRFunction<ProductCB>(new HpQDRSetupper<ProductCB>() {
+        return xcQDRFunc(new HpQDRSetupper<ProductCB>() {
             public void setup(String fn, SubQuery<ProductCB> sq, String rd, Object vl, DerivedReferrerOption op) {
                 xqderiveProductList(fn, sq, rd, vl, op);
             }
@@ -355,7 +355,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
         return xcreateQDRFunctionSummaryProductList();
     }
     protected HpQDRFunction<SummaryProductCB> xcreateQDRFunctionSummaryProductList() {
-        return new HpQDRFunction<SummaryProductCB>(new HpQDRSetupper<SummaryProductCB>() {
+        return xcQDRFunc(new HpQDRSetupper<SummaryProductCB>() {
             public void setup(String fn, SubQuery<SummaryProductCB> sq, String rd, Object vl, DerivedReferrerOption op) {
                 xqderiveSummaryProductList(fn, sq, rd, vl, op);
             }
@@ -518,15 +518,6 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      */
     public void setProductStatusName_NotLikeSearch(String productStatusName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(productStatusName), getCValueProductStatusName(), "PRODUCT_STATUS_NAME", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
-     * @param productStatusName The value of productStatusName as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductStatusName_PrefixSearch(String productStatusName) {
-        setProductStatusName_LikeSearch(productStatusName, cLSOP().likePrefix());
     }
 
     protected void regProductStatusName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductStatusName(), "PRODUCT_STATUS_NAME"); }
@@ -906,4 +897,5 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     protected String xabCQ() { return ProductStatusCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSCP() { return SubQuery.class.getName(); }
 }

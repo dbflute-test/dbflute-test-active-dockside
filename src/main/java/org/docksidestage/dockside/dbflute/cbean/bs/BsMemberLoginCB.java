@@ -362,7 +362,7 @@ public class BsMemberLoginCB extends AbstractConditionBean {
                 public boolean has() { return true; }
                 public MemberLoginCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider()); }
+            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
         return _specification;
     }
 
@@ -378,8 +378,9 @@ public class BsMemberLoginCB extends AbstractConditionBean {
         protected MemberStatusCB.HpSpecification _memberStatus;
         protected MemberCB.HpSpecification _member;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<MemberLoginCQ> qyCall
-                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
-        { super(baseCB, qyCall, purpose, dbmetaProvider); }
+                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
+                             , FactoryOfDerivedReferrerOption sdrOpFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
         /**
          * (会員ログインID)MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
@@ -432,7 +433,7 @@ public class BsMemberLoginCB extends AbstractConditionBean {
                 _memberStatus = new MemberStatusCB.HpSpecification(_baseCB, new HpSpQyCall<MemberStatusCQ>() {
                     public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryMemberStatus(); }
                     public MemberStatusCQ qy() { return _qyCall.qy().queryMemberStatus(); } }
-                    , _purpose, _dbmetaProvider);
+                    , _purpose, _dbmetaProvider, xgetFofSDROp());
                 if (xhasSyncQyCall()) { // inherits it
                     _memberStatus.xsetSyncQyCall(new HpSpQyCall<MemberStatusCQ>() {
                         public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMemberStatus(); }
@@ -453,7 +454,7 @@ public class BsMemberLoginCB extends AbstractConditionBean {
                 _member = new MemberCB.HpSpecification(_baseCB, new HpSpQyCall<MemberCQ>() {
                     public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryMember(); }
                     public MemberCQ qy() { return _qyCall.qy().queryMember(); } }
-                    , _purpose, _dbmetaProvider);
+                    , _purpose, _dbmetaProvider, xgetFofSDROp());
                 if (xhasSyncQyCall()) { // inherits it
                     _member.xsetSyncQyCall(new HpSpQyCall<MemberCQ>() {
                         public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMember(); }
@@ -469,7 +470,7 @@ public class BsMemberLoginCB extends AbstractConditionBean {
          */
         public HpSDRFunction<MemberLoginCB, MemberLoginCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<MemberLoginCB, MemberLoginCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberLoginCB, MemberLoginCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberLoginCB, MemberLoginCQ>() {
                 public void setup(String fn, SubQuery<MemberLoginCB> sq, MemberLoginCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }

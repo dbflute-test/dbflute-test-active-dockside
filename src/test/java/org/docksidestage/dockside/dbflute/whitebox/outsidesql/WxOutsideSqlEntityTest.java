@@ -30,12 +30,12 @@ public class WxOutsideSqlEntityTest extends UnitContainerTestCase {
         pmb.setMemberId(3);
 
         // ## Act ##
-        UnpaidSummaryMember member = memberBhv.outsideSql().entityHandling().selectEntity(pmb);
-
-        // ## Assert ##
-        log("member=" + member);
-        assertNotNull(member);
-        assertEquals(3, member.getUnpaidManId().intValue());
+        memberBhv.outsideSql().selectEntity(pmb).alwaysPresent(member -> {
+            /* ## Assert ## */
+            log("member=" + member);
+            assertNotNull(member);
+            assertEquals(3, member.getUnpaidManId().intValue());
+        });
     }
 
     public void test_outsideSql_selectEntity_freeStyle() {
@@ -46,12 +46,12 @@ public class WxOutsideSqlEntityTest extends UnitContainerTestCase {
         Class<UnpaidSummaryMember> entityType = UnpaidSummaryMember.class;
 
         // ## Act ##
-        UnpaidSummaryMember member = memberBhv.outsideSql().entityHandling().selectEntity(path, pmb, entityType);
-
-        // ## Assert ##
-        log("member=" + member);
-        assertNotNull(member);
-        assertEquals(3, member.getUnpaidManId().intValue());
+        memberBhv.outsideSql().traditionalStyle().selectEntity(path, pmb, entityType).alwaysPresent(member -> {
+            /* ## Assert ## */
+            log("member=" + member);
+            assertNotNull(member);
+            assertEquals(3, member.getUnpaidManId().intValue());
+        });
     }
 
     // ===================================================================================
@@ -64,7 +64,7 @@ public class WxOutsideSqlEntityTest extends UnitContainerTestCase {
         pmb.setMemberId(3);
 
         // ## Act ##
-        String name = memberBhv.outsideSql().entityHandling().selectEntity(pmb);
+        String name = memberBhv.outsideSql().selectEntity(pmb).get();
 
         // ## Assert ##
         assertNotNull(name);
@@ -83,7 +83,7 @@ public class WxOutsideSqlEntityTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            memberBhv.outsideSql().entityHandling().selectEntity(path, pmb, entityType);
+            memberBhv.outsideSql().traditionalStyle().selectEntity(path, pmb, entityType);
 
             // ## Assert ##
             fail();

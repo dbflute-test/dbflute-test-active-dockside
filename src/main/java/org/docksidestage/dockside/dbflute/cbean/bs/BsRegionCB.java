@@ -301,7 +301,7 @@ public class BsRegionCB extends AbstractConditionBean {
                 public boolean has() { return true; }
                 public RegionCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider()); }
+            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
         return _specification;
     }
 
@@ -315,8 +315,9 @@ public class BsRegionCB extends AbstractConditionBean {
 
     public static class HpSpecification extends HpAbstractSpecification<RegionCQ> {
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<RegionCQ> qyCall
-                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
-        { super(baseCB, qyCall, purpose, dbmetaProvider); }
+                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
+                             , FactoryOfDerivedReferrerOption sdrOpFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
         /**
          * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
          * @return The information object of specified column. (NotNull)
@@ -351,7 +352,7 @@ public class BsRegionCB extends AbstractConditionBean {
          */
         public HpSDRFunction<MemberAddressCB, RegionCQ> derivedMemberAddress() {
             assertDerived("memberAddressList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<MemberAddressCB, RegionCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberAddressCB, RegionCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberAddressCB, RegionCQ>() {
                 public void setup(String fn, SubQuery<MemberAddressCB> sq, RegionCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsderiveMemberAddressList(fn, sq, al, op); } }, _dbmetaProvider);
         }
@@ -361,7 +362,7 @@ public class BsRegionCB extends AbstractConditionBean {
          */
         public HpSDRFunction<RegionCB, RegionCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<RegionCB, RegionCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<RegionCB, RegionCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<RegionCB, RegionCQ>() {
                 public void setup(String fn, SubQuery<RegionCB> sq, RegionCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }

@@ -67,7 +67,7 @@ public abstract class BsVendorNumericIntegerSum implements Entity, Serializable,
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
-    /** Serial version UID. (Default) */
+    /** The serial version UID for object serialization. (Default) */
     private static final long serialVersionUID = 1L;
 
     // ===================================================================================

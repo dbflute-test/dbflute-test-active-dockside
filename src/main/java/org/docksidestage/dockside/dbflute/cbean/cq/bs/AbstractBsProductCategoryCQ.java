@@ -196,15 +196,6 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
     }
 
     /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
-     * @param productCategoryCode The value of productCategoryCode as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryCode_PrefixSearch(String productCategoryCode) {
-        setProductCategoryCode_LikeSearch(productCategoryCode, cLSOP().likePrefix());
-    }
-
-    /**
      * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select PRODUCT_CATEGORY_CODE from PRODUCT where ...)} <br />
      * (商品)PRODUCT by PRODUCT_CATEGORY_CODE, named 'productAsOne'.
@@ -324,7 +315,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
         return xcreateQDRFunctionProductList();
     }
     protected HpQDRFunction<ProductCB> xcreateQDRFunctionProductList() {
-        return new HpQDRFunction<ProductCB>(new HpQDRSetupper<ProductCB>() {
+        return xcQDRFunc(new HpQDRSetupper<ProductCB>() {
             public void setup(String fn, SubQuery<ProductCB> sq, String rd, Object vl, DerivedReferrerOption op) {
                 xqderiveProductList(fn, sq, rd, vl, op);
             }
@@ -358,7 +349,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
         return xcreateQDRFunctionProductCategorySelfList();
     }
     protected HpQDRFunction<ProductCategoryCB> xcreateQDRFunctionProductCategorySelfList() {
-        return new HpQDRFunction<ProductCategoryCB>(new HpQDRSetupper<ProductCategoryCB>() {
+        return xcQDRFunc(new HpQDRSetupper<ProductCategoryCB>() {
             public void setup(String fn, SubQuery<ProductCategoryCB> sq, String rd, Object vl, DerivedReferrerOption op) {
                 xqderiveProductCategorySelfList(fn, sq, rd, vl, op);
             }
@@ -523,15 +514,6 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
         regLSQ(CK_NLS, fRES(productCategoryName), getCValueProductCategoryName(), "PRODUCT_CATEGORY_NAME", likeSearchOption);
     }
 
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
-     * @param productCategoryName The value of productCategoryName as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryName_PrefixSearch(String productCategoryName) {
-        setProductCategoryName_LikeSearch(productCategoryName, cLSOP().likePrefix());
-    }
-
     protected void regProductCategoryName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductCategoryName(), "PRODUCT_CATEGORY_NAME"); }
     protected abstract ConditionValue getCValueProductCategoryName();
 
@@ -667,15 +649,6 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      */
     public void setParentCategoryCode_NotLikeSearch(String parentCategoryCode, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(parentCategoryCode), getCValueParentCategoryCode(), "PARENT_CATEGORY_CODE", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY}
-     * @param parentCategoryCode The value of parentCategoryCode as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setParentCategoryCode_PrefixSearch(String parentCategoryCode) {
-        setParentCategoryCode_LikeSearch(parentCategoryCode, cLSOP().likePrefix());
     }
 
     /**
@@ -955,4 +928,5 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
     protected String xabCQ() { return ProductCategoryCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSCP() { return SubQuery.class.getName(); }
 }

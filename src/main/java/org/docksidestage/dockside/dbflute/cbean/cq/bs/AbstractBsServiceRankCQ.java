@@ -302,7 +302,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
         return xcreateQDRFunctionMemberServiceList();
     }
     protected HpQDRFunction<MemberServiceCB> xcreateQDRFunctionMemberServiceList() {
-        return new HpQDRFunction<MemberServiceCB>(new HpQDRSetupper<MemberServiceCB>() {
+        return xcQDRFunc(new HpQDRSetupper<MemberServiceCB>() {
             public void setup(String fn, SubQuery<MemberServiceCB> sq, String rd, Object vl, DerivedReferrerOption op) {
                 xqderiveMemberServiceList(fn, sq, rd, vl, op);
             }
@@ -465,15 +465,6 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      */
     public void setServiceRankName_NotLikeSearch(String serviceRankName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(serviceRankName), getCValueServiceRankName(), "SERVICE_RANK_NAME", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setServiceRankName_PrefixSearch(String serviceRankName) {
-        setServiceRankName_LikeSearch(serviceRankName, cLSOP().likePrefix());
     }
 
     protected void regServiceRankName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueServiceRankName(), "SERVICE_RANK_NAME"); }
@@ -868,15 +859,6 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(description), getCValueDescription(), "DESCRIPTION", likeSearchOption);
     }
 
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setDescription_PrefixSearch(String description) {
-        setDescription_LikeSearch(description, cLSOP().likePrefix());
-    }
-
     protected void regDescription(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueDescription(), "DESCRIPTION"); }
     protected abstract ConditionValue getCValueDescription();
 
@@ -1254,4 +1236,5 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     protected String xabCQ() { return ServiceRankCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSCP() { return SubQuery.class.getName(); }
 }

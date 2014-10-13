@@ -159,7 +159,7 @@ public class VendorJDBCTest extends UnitContainerTestCase {
                 {
                     PurchaseMaxPriceMemberPmb pmb = new PurchaseMaxPriceMemberPmb();
                     pmb.paging(3, 2);
-                    memberBhv.outsideSql().manualPaging().selectPage(pmb);
+                    memberBhv.outsideSql().selectPage(pmb);
                 }
                 // no procedure generate here
                 //{

@@ -25,7 +25,6 @@ import org.dbflute.bhv.referrer.*;
 import org.dbflute.cbean.*;
 import org.dbflute.cbean.chelper.HpSLSFunction;
 import org.dbflute.cbean.result.*;
-import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.exception.*;
 import org.dbflute.optional.OptionalEntity;
 import org.dbflute.outsidesql.executor.*;
@@ -641,38 +640,6 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
     }
 
     /**
-     * Batch-update the entity list specified-only. (ExclusiveControl) <br />
-     * This method uses executeBatch() of java.sql.PreparedStatement.
-     * <pre>
-     * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * memberWithdrawalBhv.<span style="color: #DD4747">batchUpdate</span>(memberWithdrawalList, new SpecifyQuery<MemberWithdrawalCB>() {
-     *     public void specify(MemberWithdrawalCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *     }
-     * });
-     * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * memberWithdrawalBhv.<span style="color: #DD4747">batchUpdate</span>(memberWithdrawalList, new SpecifyQuery<MemberWithdrawalCB>() {
-     *     public void specify(MemberWithdrawalCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
-     *     }
-     * });
-     * </pre>
-     * <p>You can specify update columns used on set clause of update statement.
-     * However you do not need to specify common columns for update
-     * and an optimistic lock column because they are specified implicitly.</p>
-     * <p>And you should specify columns that are modified in any entities (at least one entity).
-     * But if you specify every column, it has no check.</p>
-     * @param memberWithdrawalList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
-     * @param colCBLambda The callback for specification of update columns. (NotNull)
-     * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
-     */
-    public int[] batchUpdate(List<MemberWithdrawal> memberWithdrawalList, SpecifyQuery<MemberWithdrawalCB> colCBLambda) {
-        return doBatchUpdate(memberWithdrawalList, createSpecifiedUpdateOption(colCBLambda));
-    }
-
-    /**
      * Batch-update the entity list non-strictly modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
      * <span style="color: #DD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
@@ -698,37 +665,6 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      */
     public int[] batchUpdateNonstrict(List<MemberWithdrawal> memberWithdrawalList) {
         return doBatchUpdateNonstrict(memberWithdrawalList, null);
-    }
-
-    /**
-     * Batch-update the entity list non-strictly specified-only. (NonExclusiveControl) <br />
-     * This method uses executeBatch() of java.sql.PreparedStatement.
-     * <pre>
-     * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * memberWithdrawalBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(memberWithdrawalList, new SpecifyQuery<MemberWithdrawalCB>() {
-     *     public void specify(MemberWithdrawalCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *     }
-     * });
-     * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * memberWithdrawalBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(memberWithdrawalList, new SpecifyQuery<MemberWithdrawalCB>() {
-     *     public void specify(MemberWithdrawalCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
-     *     }
-     * });
-     * </pre>
-     * <p>You can specify update columns used on set clause of update statement.
-     * However you do not need to specify common columns for update
-     * and an optimistic lock column because they are specified implicitly.</p>
-     * <p>And you should specify columns that are modified in any entities (at least one entity).</p>
-     * @param memberWithdrawalList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
-     * @param colCBLambda The callback for specification of update columns. (NotNull)
-     * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     */
-    public int[] batchUpdateNonstrict(List<MemberWithdrawal> memberWithdrawalList, SpecifyQuery<MemberWithdrawalCB> colCBLambda) {
-        return doBatchUpdateNonstrict(memberWithdrawalList, createSpecifiedUpdateOption(colCBLambda));
     }
 
     /**
@@ -1105,37 +1041,34 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
     //                                                                          OutsideSql
     //                                                                          ==========
     /**
-     * Prepare the basic executor of outside-SQL to execute it. <br />
-     * The invoker of behavior command should be not null when you call this method.
+     * Prepare the all facade executor of outside-SQL to execute it.
      * <pre>
-     * You can use the methods for outside-SQL are as follows:
-     * {Basic}
-     *   o selectList()
-     *   o execute()
-     *   o call()
+     * <span style="color: #3F7E5E">// main style</span> 
+     * memberWithdrawalBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span> 
+     * memberWithdrawalBhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
+     * memberWithdrawalBhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
+     * memberWithdrawalBhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
+     * memberWithdrawalBhv.outideSql().selectCursor(pmb, handler); <span style="color: #3F7E5E">// (by handler)</span>
+     * memberWithdrawalBhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
+     * memberWithdrawalBhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
      *
-     * {Entity}
-     *   o entityHandling().selectEntity()
-     *   o entityHandling().selectEntityWithDeletedCheck()
+     * <span style="color: #3F7E5E">// traditional style</span> 
+     * memberWithdrawalBhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
+     * memberWithdrawalBhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
+     * memberWithdrawalBhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
+     * memberWithdrawalBhv.outideSql().traditionalStyle().selectPagedListOnly(path, pmb, entityType);
+     * memberWithdrawalBhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
+     * memberWithdrawalBhv.outideSql().traditionalStyle().execute(path, pmb);
      *
-     * {Paging}
-     *   o autoPaging().selectList()
-     *   o autoPaging().selectPage()
-     *   o manualPaging().selectList()
-     *   o manualPaging().selectPage()
-     *
-     * {Cursor}
-     *   o cursorHandling().selectCursor()
-     *
-     * {Option}
-     *   o dynamicBinding().selectList()
-     *   o removeBlockComment().selectList()
-     *   o removeLineComment().selectList()
-     *   o formatSql().selectList()
+     * <span style="color: #3F7E5E">// options</span> 
+     * memberWithdrawalBhv.outideSql().removeBlockComment().selectList()
+     * memberWithdrawalBhv.outideSql().removeLineComment().selectList()
+     * memberWithdrawalBhv.outideSql().formatSql().selectList()
      * </pre>
-     * @return The basic executor of outside-SQL. (NotNull)
+     * <p>The invoker of behavior command should be not null when you call this method.</p>
+     * @return The new-created all facade executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlBasicExecutor<MemberWithdrawalBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<MemberWithdrawalBhv> outsideSql() {
         return doOutsideSql();
     }
 

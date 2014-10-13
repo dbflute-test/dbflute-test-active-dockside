@@ -11,14 +11,12 @@ import javax.sql.DataSource;
 import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.result.PagingResultBean;
-import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.cbean.sqlclause.SqlClauseH2;
 import org.dbflute.dbway.DBWay;
 import org.dbflute.exception.BatchEntityAlreadyUpdatedException;
 import org.dbflute.exception.EntityAlreadyDeletedException;
 import org.dbflute.exception.EntityAlreadyUpdatedException;
 import org.docksidestage.dockside.dbflute.allcommon.DBCurrent;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.SimpleMemberPmb;
@@ -67,11 +65,7 @@ public class VendorCheckTest extends UnitContainerTestCase {
 
         // ## Act & Assert ##
         try {
-            memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().everyColumn();
-                }
-            });
+            memberBhv.batchUpdate(memberList);
             fail();
         } catch (EntityAlreadyUpdatedException e) {
             // OK
@@ -117,11 +111,7 @@ public class VendorCheckTest extends UnitContainerTestCase {
 
         // ## Act & Assert ##
         try {
-            memberBhv.batchUpdateNonstrict(memberList, new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().everyColumn();
-                }
-            });
+            memberBhv.batchUpdateNonstrict(memberList);
             fail();
         } catch (EntityAlreadyDeletedException e) {
             // OK

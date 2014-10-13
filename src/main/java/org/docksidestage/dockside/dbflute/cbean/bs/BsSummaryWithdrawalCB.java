@@ -279,7 +279,7 @@ public class BsSummaryWithdrawalCB extends AbstractConditionBean {
                 public boolean has() { return true; }
                 public SummaryWithdrawalCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider()); }
+            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
         return _specification;
     }
 
@@ -293,8 +293,9 @@ public class BsSummaryWithdrawalCB extends AbstractConditionBean {
 
     public static class HpSpecification extends HpAbstractSpecification<SummaryWithdrawalCQ> {
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<SummaryWithdrawalCQ> qyCall
-                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
-        { super(baseCB, qyCall, purpose, dbmetaProvider); }
+                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
+                             , FactoryOfDerivedReferrerOption sdrOpFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
         /**
          * MEMBER_ID: {INTEGER(10)}
          * @return The information object of specified column. (NotNull)

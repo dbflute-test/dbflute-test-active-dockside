@@ -301,7 +301,7 @@ public class BsVendorCheckCB extends AbstractConditionBean {
                 public boolean has() { return true; }
                 public VendorCheckCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider()); }
+            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
         return _specification;
     }
 
@@ -315,8 +315,9 @@ public class BsVendorCheckCB extends AbstractConditionBean {
 
     public static class HpSpecification extends HpAbstractSpecification<VendorCheckCQ> {
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<VendorCheckCQ> qyCall
-                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
-        { super(baseCB, qyCall, purpose, dbmetaProvider); }
+                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
+                             , FactoryOfDerivedReferrerOption sdrOpFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
         /**
          * VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)}
          * @return The information object of specified column. (NotNull)
@@ -471,7 +472,7 @@ public class BsVendorCheckCB extends AbstractConditionBean {
          */
         public HpSDRFunction<VendorCheckCB, VendorCheckCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<VendorCheckCB, VendorCheckCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorCheckCB, VendorCheckCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorCheckCB, VendorCheckCQ>() {
                 public void setup(String fn, SubQuery<VendorCheckCB> sq, VendorCheckCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }

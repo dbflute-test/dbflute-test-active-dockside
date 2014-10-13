@@ -6,7 +6,6 @@ import java.util.Set;
 
 import org.dbflute.cbean.ordering.ManualOrderOption;
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.exception.IllegalConditionBeanOperationException;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
@@ -276,11 +275,7 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
             for (Member member : memberList) {
                 member.setMemberStatusCode_Provisional();
             }
-            memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnMemberStatusCode();
-                }
-            });
+            memberBhv.batchUpdate(memberList);
         }
         {
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
@@ -292,11 +287,7 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
             for (Member member : memberList) {
                 member.setMemberStatusCode_Withdrawal();
             }
-            memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnMemberStatusCode();
-                }
-            });
+            memberBhv.batchUpdate(memberList);
         }
     }
 }

@@ -88,7 +88,7 @@ public abstract class BsMemberSecurity implements EntityDefinedCommonColumn, Ser
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
-    /** Serial version UID. (Default) */
+    /** The serial version UID for object serialization. (Default) */
     private static final long serialVersionUID = 1L;
 
     // ===================================================================================

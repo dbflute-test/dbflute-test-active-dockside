@@ -43,7 +43,7 @@ public class WxSqlLoggingBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging().selectPage(pmb);
+            PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().selectPage(pmb);
 
             // ## Assert ##
             assertNotSame(0, page1.size());

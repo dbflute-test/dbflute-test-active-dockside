@@ -64,7 +64,7 @@ public class WxOutsideSqlCheckTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            memberBhv.outsideSql().manualPaging().selectPage(pmb);
+            memberBhv.outsideSql().selectPage(pmb);
 
             // ## Assert ##
             fail();
@@ -78,16 +78,14 @@ public class WxOutsideSqlCheckTest extends UnitContainerTestCase {
 
     public void test_selectPage_safetyResult_safety() {
         // ## Arrange ##
-        String path = MemberBhv.PATH_selectPurchaseMaxPriceMember;
         PurchaseMaxPriceMemberPmb pmb = new PurchaseMaxPriceMemberPmb();
         pmb.paging(2, 1);
-        Class<PurchaseMaxPriceMember> entityType = PurchaseMaxPriceMember.class;
-        int maxSize = memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType).getAllRecordCount();
+        int maxSize = memberBhv.outsideSql().selectPage(pmb).getAllRecordCount();
         pmb.checkSafetyResult(maxSize);
 
         // ## Act && Assert ##
         // Expect no exception
-        PagingResultBean<PurchaseMaxPriceMember> page = memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page = memberBhv.outsideSql().selectPage(pmb);
         assertEquals(maxSize, page.getAllRecordCount());
     }
 }

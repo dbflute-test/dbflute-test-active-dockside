@@ -56,7 +56,7 @@ public class MemberCQ extends BsMemberCQ {
      */
     public void arrangeServiceMember() {
         final Integer specialProductId = 3;
-        setMemberName_PrefixSearch("S");
+        setMemberName_LikeSearch("S", op -> op.likePrefix());
         setMemberStatusCode_Equal_Formalized();
         existsPurchase(purCB -> {
             purCB.query().setProductId_Equal(specialProductId);

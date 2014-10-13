@@ -313,7 +313,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
                 public boolean has() { return true; }
                 public VendorTheLongAndWindingTableAndColumnCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider()); }
+            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
         return _specification;
     }
 
@@ -327,8 +327,9 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
 
     public static class HpSpecification extends HpAbstractSpecification<VendorTheLongAndWindingTableAndColumnCQ> {
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<VendorTheLongAndWindingTableAndColumnCQ> qyCall
-                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
-        { super(baseCB, qyCall, purpose, dbmetaProvider); }
+                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
+                             , FactoryOfDerivedReferrerOption sdrOpFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
         /**
          * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
@@ -373,7 +374,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
          */
         public HpSDRFunction<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnCQ> derivedVendorTheLongAndWindingTableAndColumnRef() {
             assertDerived("vendorTheLongAndWindingTableAndColumnRefList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnCQ>() {
                 public void setup(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> sq, VendorTheLongAndWindingTableAndColumnCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsderiveVendorTheLongAndWindingTableAndColumnRefList(fn, sq, al, op); } }, _dbmetaProvider);
         }
@@ -383,7 +384,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
          */
         public HpSDRFunction<VendorTheLongAndWindingTableAndColumnCB, VendorTheLongAndWindingTableAndColumnCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<VendorTheLongAndWindingTableAndColumnCB, VendorTheLongAndWindingTableAndColumnCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorTheLongAndWindingTableAndColumnCB, VendorTheLongAndWindingTableAndColumnCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorTheLongAndWindingTableAndColumnCB, VendorTheLongAndWindingTableAndColumnCQ>() {
                 public void setup(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnCB> sq, VendorTheLongAndWindingTableAndColumnCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }

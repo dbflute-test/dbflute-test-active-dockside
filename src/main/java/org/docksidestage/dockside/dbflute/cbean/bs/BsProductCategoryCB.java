@@ -330,7 +330,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
                 public boolean has() { return true; }
                 public ProductCategoryCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider()); }
+            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
         return _specification;
     }
 
@@ -345,8 +345,9 @@ public class BsProductCategoryCB extends AbstractConditionBean {
     public static class HpSpecification extends HpAbstractSpecification<ProductCategoryCQ> {
         protected ProductCategoryCB.HpSpecification _productCategorySelf;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<ProductCategoryCQ> qyCall
-                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
-        { super(baseCB, qyCall, purpose, dbmetaProvider); }
+                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
+                             , FactoryOfDerivedReferrerOption sdrOpFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
         /**
          * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
          * @return The information object of specified column. (NotNull)
@@ -385,7 +386,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
                 _productCategorySelf = new ProductCategoryCB.HpSpecification(_baseCB, new HpSpQyCall<ProductCategoryCQ>() {
                     public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryProductCategorySelf(); }
                     public ProductCategoryCQ qy() { return _qyCall.qy().queryProductCategorySelf(); } }
-                    , _purpose, _dbmetaProvider);
+                    , _purpose, _dbmetaProvider, xgetFofSDROp());
                 if (xhasSyncQyCall()) { // inherits it
                     _productCategorySelf.xsetSyncQyCall(new HpSpQyCall<ProductCategoryCQ>() {
                         public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryProductCategorySelf(); }
@@ -411,7 +412,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
          */
         public HpSDRFunction<ProductCB, ProductCategoryCQ> derivedProduct() {
             assertDerived("productList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<ProductCB, ProductCategoryCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<ProductCB, ProductCategoryCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<ProductCB, ProductCategoryCQ>() {
                 public void setup(String fn, SubQuery<ProductCB> sq, ProductCategoryCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsderiveProductList(fn, sq, al, op); } }, _dbmetaProvider);
         }
@@ -431,7 +432,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
          */
         public HpSDRFunction<ProductCategoryCB, ProductCategoryCQ> derivedProductCategorySelf() {
             assertDerived("productCategorySelfList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<ProductCategoryCB, ProductCategoryCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<ProductCategoryCB, ProductCategoryCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<ProductCategoryCB, ProductCategoryCQ>() {
                 public void setup(String fn, SubQuery<ProductCategoryCB> sq, ProductCategoryCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsderiveProductCategorySelfList(fn, sq, al, op); } }, _dbmetaProvider);
         }
@@ -441,7 +442,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
          */
         public HpSDRFunction<ProductCategoryCB, ProductCategoryCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<ProductCategoryCB, ProductCategoryCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<ProductCategoryCB, ProductCategoryCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<ProductCategoryCB, ProductCategoryCQ>() {
                 public void setup(String fn, SubQuery<ProductCategoryCB> sq, ProductCategoryCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }

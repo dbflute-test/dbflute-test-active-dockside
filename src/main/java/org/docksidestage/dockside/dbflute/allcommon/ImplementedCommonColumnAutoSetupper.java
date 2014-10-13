@@ -15,8 +15,8 @@
  */
 package org.docksidestage.dockside.dbflute.allcommon;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.dbflute.Entity;
 import org.dbflute.hook.CommonColumnAutoSetupper;
@@ -30,8 +30,8 @@ public class ImplementedCommonColumnAutoSetupper implements CommonColumnAutoSetu
     // =====================================================================================
     //                                                                            Definition
     //                                                                            ==========
-    /** Log instance. */
-    private static final Log _log = LogFactory.getLog(ImplementedCommonColumnAutoSetupper.class);
+    /** The logger instance for this class. (NotNull) */
+    private static final Logger _log = LoggerFactory.getLogger(ImplementedCommonColumnAutoSetupper.class);
 
     // =====================================================================================
     //                                                                             Attribute

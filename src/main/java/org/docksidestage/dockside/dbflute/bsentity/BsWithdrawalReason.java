@@ -74,7 +74,7 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
-    /** Serial version UID. (Default) */
+    /** The serial version UID for object serialization. (Default) */
     private static final long serialVersionUID = 1L;
 
     // ===================================================================================

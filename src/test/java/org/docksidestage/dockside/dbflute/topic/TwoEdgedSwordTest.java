@@ -122,7 +122,7 @@ public class TwoEdgedSwordTest extends UnitContainerTestCase {
         Class<SimpleMember> entityType = SimpleMember.class;
 
         // ## Act ##
-        List<SimpleMember> resultList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+        List<SimpleMember> resultList = memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, entityType);
 
         // ## Assert ##
         assertNotSame(0, resultList.size());
@@ -182,7 +182,7 @@ public class TwoEdgedSwordTest extends UnitContainerTestCase {
 
         // ## Act ##
         // SQL実行！
-        List<SimpleMember> memberList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+        List<SimpleMember> memberList = memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, entityType);
 
         // ## Assert ##
         assertNotNull(memberList);

@@ -4,10 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.exception.EntityAlreadyExistsException;
 import org.dbflute.exception.SQLFailureException;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -185,11 +183,7 @@ public class VendorConstraintTest extends UnitContainerTestCase {
 
         // ## Act & Assert ##
         try {
-            memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnMemberAccount();
-                }
-            });
+            memberBhv.batchUpdate(memberList);
             fail();
         } catch (EntityAlreadyExistsException e) {
             SQLException cause = e.getSQLException();
@@ -218,11 +212,7 @@ public class VendorConstraintTest extends UnitContainerTestCase {
 
         // ## Act & Assert ##
         try {
-            memberBhv.batchUpdateNonstrict(memberList, new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnMemberAccount();
-                }
-            });
+            memberBhv.batchUpdateNonstrict(memberList);
             fail();
         } catch (EntityAlreadyExistsException e) {
             SQLException cause = e.getSQLException();

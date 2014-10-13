@@ -326,15 +326,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     }
 
     /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_PrefixSearch(String memberName) {
-        setMemberName_LikeSearch(memberName, cLSOP().likePrefix());
-    }
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * MEMBER_NAME: {VARCHAR(200)}
      */
@@ -487,15 +478,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void setWithdrawalReasonCode_NotLikeSearch(String withdrawalReasonCode, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(withdrawalReasonCode), getCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonCode_PrefixSearch(String withdrawalReasonCode) {
-        setWithdrawalReasonCode_LikeSearch(withdrawalReasonCode, cLSOP().likePrefix());
     }
 
     /**
@@ -654,15 +636,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     }
 
     /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_PrefixSearch(String withdrawalReasonText) {
-        setWithdrawalReasonText_LikeSearch(withdrawalReasonText, cLSOP().likePrefix());
-    }
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
      */
@@ -818,15 +791,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     }
 
     /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_PrefixSearch(String withdrawalReasonInputText) {
-        setWithdrawalReasonInputText_LikeSearch(withdrawalReasonInputText, cLSOP().likePrefix());
-    }
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
      */
@@ -917,21 +881,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void setWithdrawalDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME", fromToOption);
-    }
-
-    /**
-     * DateFromTo. (Date means yyyy/MM/dd) {fromDate &lt;= column &lt; toDate + 1 day} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
-     * <pre>
-     * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
-     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #DD4747">&lt; '2007/04/17 00:00:00'</span>
-     * </pre>
-     * @param fromDate The from-date(yyyy/MM/dd) of withdrawalDatetime. (NullAllowed: if null, no from-condition)
-     * @param toDate The to-date(yyyy/MM/dd) of withdrawalDatetime. (NullAllowed: if null, no to-condition)
-     */
-    public void setWithdrawalDatetime_DateFromTo(Date fromDate, Date toDate) {
-        setWithdrawalDatetime_FromTo(fromDate, toDate, cFTOP().compareAsDate());
     }
 
     /**
@@ -1081,15 +1030,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void setMemberStatusCode_NotLikeSearch(String memberStatusCode, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(memberStatusCode), getCValueMemberStatusCode(), "MEMBER_STATUS_CODE", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCode The value of memberStatusCode as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusCode_PrefixSearch(String memberStatusCode) {
-        setMemberStatusCode_LikeSearch(memberStatusCode, cLSOP().likePrefix());
     }
 
     /**
@@ -1245,15 +1185,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void setMemberStatusName_NotLikeSearch(String memberStatusName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(memberStatusName), getCValueMemberStatusName(), "MEMBER_STATUS_NAME", likeSearchOption);
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusName_PrefixSearch(String memberStatusName) {
-        setMemberStatusName_LikeSearch(memberStatusName, cLSOP().likePrefix());
     }
 
     /**
@@ -1615,4 +1546,5 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     protected String xabCQ() { return SummaryWithdrawalCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSCP() { return SubQuery.class.getName(); }
 }

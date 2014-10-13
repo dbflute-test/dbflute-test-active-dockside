@@ -471,7 +471,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
                             public void handle(LoaderOfMemberLogin loader) {
                                 loader.pulloutMemberStatus().loadMember(new ConditionBeanSetupper<MemberCB>() {
                                     public void setup(MemberCB referrerCB) {
-                                        referrerCB.query().setMemberName_PrefixSearch("S");
+                                        referrerCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
                                     }
                                 });
                             }
@@ -588,7 +588,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
                     public void handle(LoaderOfMemberLogin loader) {
                         loader.pulloutMemberStatus().loadMember(new ConditionBeanSetupper<MemberCB>() {
                             public void setup(MemberCB referrerCB) {
-                                referrerCB.query().setMemberName_PrefixSearch("S");
+                                referrerCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
                             }
                         });
                     }

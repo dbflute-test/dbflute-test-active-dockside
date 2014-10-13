@@ -18,7 +18,6 @@ import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.result.PagingResultBean;
 import org.dbflute.cbean.result.grouping.GroupingListDeterminer;
 import org.dbflute.cbean.result.grouping.GroupingListRowResource;
-import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.exception.OutsideSqlNotFoundException;
 import org.dbflute.jdbc.StatementConfig;
 import org.dbflute.twowaysql.exception.BindVariableCommentNotFoundPropertyException;
@@ -227,7 +226,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
         // ## Act ##
         memberStatusBhv.loadMember(memberStatusList, loadReferrerOption);
-        
+
         // ## Assert ##
         boolean existsPurchase = false;
         assertNotSame(0, memberStatusList.size());
@@ -294,12 +293,10 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
     public void test_LoadReferrer_ousdieSql_paging() {
         // ## Arrange ##
-        String path = MemberBhv.PATH_selectUnpaidSummaryMember;
         UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
         pmb.paging(8, 2);
-        Class<UnpaidSummaryMember> entityType = UnpaidSummaryMember.class;
 
-        PagingResultBean<UnpaidSummaryMember> memberPage = memberBhv.outsideSql().autoPaging().selectPage(path, pmb, entityType);
+        PagingResultBean<UnpaidSummaryMember> memberPage = memberBhv.outsideSql().selectPage(pmb);
         List<Member> domainList = new ArrayList<Member>();
         for (UnpaidSummaryMember member : memberPage) {
             domainList.add(member.prepareDomain());
@@ -391,11 +388,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        int[] result = memberBhv.batchUpdate(memberList, new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().everyColumn();
-            }
-        });
+        int[] result = memberBhv.batchUpdate(memberList);
 
         // ## Assert ##
         assertEquals(3, result.length);
@@ -422,11 +415,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             ++count;
         }
         // ## Act ##
-        int[] result = memberBhv.batchUpdateNonstrict(memberList, new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().everyColumn();
-            }
-        });
+        int[] result = memberBhv.batchUpdateNonstrict(memberList);
 
         // ## Assert ##
         assertEquals(3, result.length);
@@ -526,19 +515,11 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_outsideSql_selectList_selectSubDirectory() {
         // ## Arrange ##
-        // SQLのパス
-        String path = MemberBhv.PATH_subdirectory_selectSubDirectoryCheck;
-
-        // 検索条件
         SimpleMemberPmb pmb = new SimpleMemberPmb();
         pmb.setMemberName_PrefixSearch("S");
 
-        // 戻り値Entityの型
-        Class<SimpleMember> entityType = SimpleMember.class;
-
         // ## Act ##
-        // SQL実行！
-        List<SimpleMember> resultList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+        List<SimpleMember> resultList = memberBhv.outsideSql().selectList(pmb);
 
         // ## Assert ##
         assertNotSame(0, resultList.size());
@@ -585,13 +566,12 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_outsideSql_forComment_nextAnd() {
         // ## Arrange ##
-        String path = MemberBhv.PATH_selectPurchaseSummaryMember;
         PurchaseSummaryMemberPmb pmb = new PurchaseSummaryMemberPmb();
         pmb.setMemberNameList_ContainSearch(DfCollectionUtil.newArrayList("S", "v"));
 
         // ## Act & Assert ##
         final Set<String> existsSet = DfCollectionUtil.newHashSet();
-        memberBhv.outsideSql().cursorHandling().selectCursor(path, pmb, new PurchaseSummaryMemberCursorHandler() {
+        memberBhv.outsideSql().selectCursor(pmb, new PurchaseSummaryMemberCursorHandler() {
             public Object fetchCursor(PurchaseSummaryMemberCursor cursor) throws SQLException {
                 while (cursor.next()) {
                     existsSet.add("exists");
@@ -616,18 +596,13 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_outsideSql_forComment_nextOr() {
         // ## Arrange ##
-        String path = MemberBhv.PATH_selectPurchaseMaxPriceMember;
-
         PurchaseMaxPriceMemberPmb pmb = new PurchaseMaxPriceMemberPmb();
-        //pmb.setMemberId(3);
         pmb.setMemberNameList_PrefixSearch(DfCollectionUtil.newArrayList("S", "M"));
-
-        Class<PurchaseMaxPriceMember> entityType = PurchaseMaxPriceMember.class;
 
         // ## Act ##
         int pageSize = 3;
         pmb.paging(pageSize, 1); // 1st page
-        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().manualPaging().selectPage(path, pmb, entityType);
+        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().selectPage(pmb);
 
         // ## Assert ##
         assertNotSame(0, page1.size());
@@ -649,22 +624,12 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_outsideSql_configure() {
         // ## Arrange ##
-        // SQLのパス
-        String path = MemberBhv.PATH_selectSimpleMember;
-
-        // 検索条件
         SimpleMemberPmb pmb = new SimpleMemberPmb();
         pmb.setMemberName_PrefixSearch("S");
-
-        // 戻り値Entityの型
-        Class<SimpleMember> entityType = SimpleMember.class;
-
-        // コンフィグ
         StatementConfig statementConfig = new StatementConfig().typeForwardOnly().queryTimeout(7).maxRows(2);
 
         // ## Act ##
-        // SQL実行！
-        List<SimpleMember> memberList = memberBhv.outsideSql().configure(statementConfig).selectList(path, pmb, entityType);
+        List<SimpleMember> memberList = memberBhv.outsideSql().configure(statementConfig).selectList(pmb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -703,7 +668,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
         // ## Act ##ß
         // SQL実行！
-        List<Member> memberList = memberBhv.outsideSql().selectList(path, pmb, entityType);
+        List<Member> memberList = memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, entityType);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -728,7 +693,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_outsideSql_NotFound() {
         try {
-            memberBhv.outsideSql().selectList("sql/noexist/selectByNoExistSql.sql", null, Member.class);
+            memberBhv.outsideSql().traditionalStyle().selectList("sql/noexist/selectByNoExistSql.sql", null, Member.class);
             fail();
         } catch (OutsideSqlNotFoundException e) {
             log(e.getMessage());
@@ -747,7 +712,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             String path = MemberBhv.PATH_whitebox_wrongexample_selectBindVariableNotFoundProperty;
             UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
             pmb.setMemberName_PrefixSearch("S");
-            memberBhv.outsideSql().selectList(path, pmb, Member.class);
+            memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, Member.class);
             fail();
         } catch (BindVariableCommentNotFoundPropertyException e) {
             log(e.getMessage());
@@ -764,7 +729,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             String path = MemberBhv.PATH_whitebox_wrongexample_selectEndCommentNotFound;
             UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
             pmb.setMemberName_PrefixSearch("S");
-            memberBhv.outsideSql().selectList(path, pmb, Member.class);
+            memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, Member.class);
             fail();
         } catch (EndCommentNotFoundException e) {
             log(e.getMessage());
@@ -780,7 +745,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             String path = MemberBhv.PATH_whitebox_wrongexample_selectIfCommentNotBooleanResult;
             UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
             pmb.setMemberName_PrefixSearch("S");
-            memberBhv.outsideSql().selectList(path, pmb, Member.class);
+            memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, Member.class);
             fail();
         } catch (IfCommentNotBooleanResultException e) {
             log(e.getMessage());
@@ -796,7 +761,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             String path = MemberBhv.PATH_whitebox_wrongexample_selectIfCommentWrongExpression;
             UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
             pmb.setMemberName_PrefixSearch("S");
-            memberBhv.outsideSql().selectList(path, pmb, Member.class);
+            memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, Member.class);
             fail();
         } catch (IfCommentNotFoundPropertyException e) {
             log(e.getMessage());
@@ -877,22 +842,14 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_outsideSql_paging_disablePagingReSelect() {
         // ## Arrange ##
-        // SQLのパス
-        String path = MemberBhv.PATH_selectUnpaidSummaryMember;
-
-        // 検索条件
         UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
-        pmb.setMemberStatusCode_Formalized();// 正式会員
+        pmb.setMemberStatusCode_Formalized();
         pmb.disablePagingReSelect();
-
-        // 戻り値Entityの型
-        Class<UnpaidSummaryMember> entityType = UnpaidSummaryMember.class;
-
-        // ## Act ##
-        // SQL実行！
         int pageSize = 3;
         pmb.paging(pageSize, 99999);
-        PagingResultBean<UnpaidSummaryMember> page99999 = memberBhv.outsideSql().autoPaging().selectPage(path, pmb, entityType);
+
+        // ## Act ##
+        PagingResultBean<UnpaidSummaryMember> page99999 = memberBhv.outsideSql().selectPage(pmb);
 
         // ## Assert ##
         assertTrue(page99999.isEmpty());

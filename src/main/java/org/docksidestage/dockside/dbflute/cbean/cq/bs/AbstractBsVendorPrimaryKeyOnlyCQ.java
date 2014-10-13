@@ -447,4 +447,5 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     protected String xabCQ() { return VendorPrimaryKeyOnlyCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSCP() { return SubQuery.class.getName(); }
 }

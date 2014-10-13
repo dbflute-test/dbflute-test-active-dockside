@@ -301,7 +301,7 @@ public class BsVendorPrimaryKeyOnlyCB extends AbstractConditionBean {
                 public boolean has() { return true; }
                 public VendorPrimaryKeyOnlyCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider()); }
+            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
         return _specification;
     }
 
@@ -315,8 +315,9 @@ public class BsVendorPrimaryKeyOnlyCB extends AbstractConditionBean {
 
     public static class HpSpecification extends HpAbstractSpecification<VendorPrimaryKeyOnlyCQ> {
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<VendorPrimaryKeyOnlyCQ> qyCall
-                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
-        { super(baseCB, qyCall, purpose, dbmetaProvider); }
+                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
+                             , FactoryOfDerivedReferrerOption sdrOpFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
         /**
          * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
@@ -336,7 +337,7 @@ public class BsVendorPrimaryKeyOnlyCB extends AbstractConditionBean {
          */
         public HpSDRFunction<VendorPrimaryKeyOnlyCB, VendorPrimaryKeyOnlyCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<VendorPrimaryKeyOnlyCB, VendorPrimaryKeyOnlyCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorPrimaryKeyOnlyCB, VendorPrimaryKeyOnlyCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorPrimaryKeyOnlyCB, VendorPrimaryKeyOnlyCQ>() {
                 public void setup(String fn, SubQuery<VendorPrimaryKeyOnlyCB> sq, VendorPrimaryKeyOnlyCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }

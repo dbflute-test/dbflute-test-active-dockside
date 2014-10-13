@@ -313,7 +313,7 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
                 public boolean has() { return true; }
                 public WithdrawalReasonCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider()); }
+            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
         return _specification;
     }
 
@@ -327,8 +327,9 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
 
     public static class HpSpecification extends HpAbstractSpecification<WithdrawalReasonCQ> {
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<WithdrawalReasonCQ> qyCall
-                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
-        { super(baseCB, qyCall, purpose, dbmetaProvider); }
+                             , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
+                             , FactoryOfDerivedReferrerOption sdrOpFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
         /**
          * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
          * @return The information object of specified column. (NotNull)
@@ -368,7 +369,7 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
          */
         public HpSDRFunction<MemberWithdrawalCB, WithdrawalReasonCQ> derivedMemberWithdrawal() {
             assertDerived("memberWithdrawalList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<MemberWithdrawalCB, WithdrawalReasonCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberWithdrawalCB, WithdrawalReasonCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberWithdrawalCB, WithdrawalReasonCQ>() {
                 public void setup(String fn, SubQuery<MemberWithdrawalCB> sq, WithdrawalReasonCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsderiveMemberWithdrawalList(fn, sq, al, op); } }, _dbmetaProvider);
         }
@@ -378,7 +379,7 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
          */
         public HpSDRFunction<WithdrawalReasonCB, WithdrawalReasonCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return new HpSDRFunction<WithdrawalReasonCB, WithdrawalReasonCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<WithdrawalReasonCB, WithdrawalReasonCQ>() {
+            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<WithdrawalReasonCB, WithdrawalReasonCQ>() {
                 public void setup(String fn, SubQuery<WithdrawalReasonCB> sq, WithdrawalReasonCQ cq, String al, DerivedReferrerOption op) {
                     cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }

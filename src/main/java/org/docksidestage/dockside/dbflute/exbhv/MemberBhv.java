@@ -42,8 +42,7 @@ public class MemberBhv extends BsMemberBhv {
     //                                                                          CSV Output
     //                                                                          ==========
     public void makeCsvPurchaseSummaryMember(PurchaseSummaryMemberPmb pmb) {
-        String path = PATH_selectPurchaseSummaryMember;
-        outsideSql().cursorHandling().selectCursor(path, pmb, new PurchaseSummaryMemberCursorHandler() {
+        outsideSql().selectCursor(pmb, new PurchaseSummaryMemberCursorHandler() {
             public Object fetchCursor(PurchaseSummaryMemberCursor cursor) throws SQLException {
                 while (cursor.next()) {
                     final Integer memberId = cursor.getMemberId();

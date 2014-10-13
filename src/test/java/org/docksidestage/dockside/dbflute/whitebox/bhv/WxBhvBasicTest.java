@@ -122,7 +122,6 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_outsideSql_selectCursor_handling() throws Exception {
         // ## Arrange ##
-        String path = MemberBhv.PATH_selectPurchaseSummaryMember;
         PurchaseSummaryMemberPmb pmb = new PurchaseSummaryMemberPmb();
         pmb.setMemberStatusCode_Formalized();
         final Set<String> markSet = new HashSet<String>();
@@ -144,7 +143,7 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
         };
 
         // ## Act ##
-        memberBhv.outsideSql().cursorHandling().selectCursor(path, pmb, handler);
+        memberBhv.outsideSql().selectCursor(pmb, handler);
 
         // ## Assert ##
         assertTrue(markSet.contains("cursor.next()"));
@@ -154,7 +153,6 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
     public void test_outsideSql_selectCursor_initialized() throws Exception {
         // ## Arrange ##
         behaviorCommandInvoker.clearExecutionCache();
-        String path = MemberBhv.PATH_selectPurchaseSummaryMember;
         PurchaseSummaryMemberPmb pmb = new PurchaseSummaryMemberPmb();
         pmb.setMemberStatusCode_Formalized();
         PurchaseSummaryMemberCursorHandler handler = new PurchaseSummaryMemberCursorHandler() {
@@ -165,9 +163,9 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
         };
 
         // ## Act & Assert ##
-        memberBhv.outsideSql().cursorHandling().selectCursor(path, pmb, handler);
+        memberBhv.outsideSql().selectCursor(pmb, handler);
         assertEquals(1, behaviorCommandInvoker.getExecutionCacheSize());
-        memberBhv.outsideSql().cursorHandling().selectCursor(path, pmb, handler);
+        memberBhv.outsideSql().selectCursor(pmb, handler);
         assertEquals(1, behaviorCommandInvoker.getExecutionCacheSize()); // should be reused!
     }
 
