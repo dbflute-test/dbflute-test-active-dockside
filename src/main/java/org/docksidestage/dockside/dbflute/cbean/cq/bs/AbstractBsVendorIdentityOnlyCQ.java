@@ -133,8 +133,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setIdentityOnlyId_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setIdentityOnlyId_RangeOf(minNumber, maxNumber, op);
+        setIdentityOnlyId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**

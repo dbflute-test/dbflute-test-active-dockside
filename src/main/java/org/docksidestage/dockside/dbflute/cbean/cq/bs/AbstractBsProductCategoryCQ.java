@@ -157,8 +157,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setProductCategoryCode_LikeSearch(String productCategoryCode, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setProductCategoryCode_LikeSearch(productCategoryCode, op);
+        setProductCategoryCode_LikeSearch(productCategoryCode, xcLSOP(opLambda));
     }
 
     /**
@@ -180,8 +179,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setProductCategoryCode_NotLikeSearch(String productCategoryCode, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setProductCategoryCode_NotLikeSearch(productCategoryCode, op);
+        setProductCategoryCode_NotLikeSearch(productCategoryCode, xcLSOP(opLambda));
     }
 
     /**
@@ -476,8 +474,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setProductCategoryName_LikeSearch(String productCategoryName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setProductCategoryName_LikeSearch(productCategoryName, op);
+        setProductCategoryName_LikeSearch(productCategoryName, xcLSOP(opLambda));
     }
 
     /**
@@ -499,8 +496,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setProductCategoryName_NotLikeSearch(String productCategoryName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setProductCategoryName_NotLikeSearch(productCategoryName, op);
+        setProductCategoryName_NotLikeSearch(productCategoryName, xcLSOP(opLambda));
     }
 
     /**
@@ -613,8 +609,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setParentCategoryCode_LikeSearch(String parentCategoryCode, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setParentCategoryCode_LikeSearch(parentCategoryCode, op);
+        setParentCategoryCode_LikeSearch(parentCategoryCode, xcLSOP(opLambda));
     }
 
     /**
@@ -636,8 +631,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setParentCategoryCode_NotLikeSearch(String parentCategoryCode, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setParentCategoryCode_NotLikeSearch(parentCategoryCode, op);
+        setParentCategoryCode_NotLikeSearch(parentCategoryCode, xcLSOP(opLambda));
     }
 
     /**

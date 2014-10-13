@@ -133,8 +133,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setProductId_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setProductId_RangeOf(minNumber, maxNumber, op);
+        setProductId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -372,8 +371,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setProductName_LikeSearch(String productName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setProductName_LikeSearch(productName, op);
+        setProductName_LikeSearch(productName, xcLSOP(opLambda));
     }
 
     /**
@@ -395,8 +393,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setProductName_NotLikeSearch(String productName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setProductName_NotLikeSearch(productName, op);
+        setProductName_NotLikeSearch(productName, xcLSOP(opLambda));
     }
 
     /**
@@ -527,8 +524,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setProductHandleCode_LikeSearch(String productHandleCode, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setProductHandleCode_LikeSearch(productHandleCode, op);
+        setProductHandleCode_LikeSearch(productHandleCode, xcLSOP(opLambda));
     }
 
     /**
@@ -550,8 +546,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setProductHandleCode_NotLikeSearch(String productHandleCode, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setProductHandleCode_NotLikeSearch(productHandleCode, op);
+        setProductHandleCode_NotLikeSearch(productHandleCode, xcLSOP(opLambda));
     }
 
     /**
@@ -802,8 +797,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setLatestPurchaseDatetime_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setLatestPurchaseDatetime_FromTo(fromDatetime, toDatetime, op);
+        setLatestPurchaseDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**

@@ -133,8 +133,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTheLongAndWindingTableAndColumnRefId_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTheLongAndWindingTableAndColumnRefId_RangeOf(minNumber, maxNumber, op);
+        setTheLongAndWindingTableAndColumnRefId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -263,8 +262,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTheLongAndWindingTableAndColumnId_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTheLongAndWindingTableAndColumnId_RangeOf(minNumber, maxNumber, op);
+        setTheLongAndWindingTableAndColumnId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -364,8 +362,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setTheLongAndWindingTableAndColumnRefDate_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setTheLongAndWindingTableAndColumnRefDate_FromTo(fromDatetime, toDatetime, op);
+        setTheLongAndWindingTableAndColumnRefDate_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**
@@ -439,8 +436,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setShortDate_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setShortDate_FromTo(fromDatetime, toDatetime, op);
+        setShortDate_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**

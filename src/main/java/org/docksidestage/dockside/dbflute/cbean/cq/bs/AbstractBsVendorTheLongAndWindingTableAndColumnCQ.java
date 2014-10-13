@@ -133,8 +133,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTheLongAndWindingTableAndColumnId_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTheLongAndWindingTableAndColumnId_RangeOf(minNumber, maxNumber, op);
+        setTheLongAndWindingTableAndColumnId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -372,8 +371,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTheLongAndWindingTableAndColumnName_LikeSearch(String theLongAndWindingTableAndColumnName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTheLongAndWindingTableAndColumnName_LikeSearch(theLongAndWindingTableAndColumnName, op);
+        setTheLongAndWindingTableAndColumnName_LikeSearch(theLongAndWindingTableAndColumnName, xcLSOP(opLambda));
     }
 
     /**
@@ -395,8 +393,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTheLongAndWindingTableAndColumnName_NotLikeSearch(String theLongAndWindingTableAndColumnName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTheLongAndWindingTableAndColumnName_NotLikeSearch(theLongAndWindingTableAndColumnName, op);
+        setTheLongAndWindingTableAndColumnName_NotLikeSearch(theLongAndWindingTableAndColumnName, xcLSOP(opLambda));
     }
 
     /**
@@ -509,8 +506,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setShortName_LikeSearch(String shortName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setShortName_LikeSearch(shortName, op);
+        setShortName_LikeSearch(shortName, xcLSOP(opLambda));
     }
 
     /**
@@ -532,8 +528,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setShortName_NotLikeSearch(String shortName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setShortName_NotLikeSearch(shortName, op);
+        setShortName_NotLikeSearch(shortName, xcLSOP(opLambda));
     }
 
     /**
@@ -622,8 +617,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setShortSize_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setShortSize_RangeOf(minNumber, maxNumber, op);
+        setShortSize_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**

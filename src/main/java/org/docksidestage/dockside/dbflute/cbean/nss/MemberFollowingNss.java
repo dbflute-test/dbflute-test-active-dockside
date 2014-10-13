@@ -40,7 +40,7 @@ public class MemberFollowingNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMemberByMyMemberId() {
-        _query.doNss(new MemberFollowingCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberByMyMemberId(); }});
+        _query.xdoNss(new MemberFollowingCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberByMyMemberId(); }});
         return new MemberNss(_query.queryMemberByMyMemberId());
     }
     /**
@@ -49,7 +49,7 @@ public class MemberFollowingNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMemberByYourMemberId() {
-        _query.doNss(new MemberFollowingCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberByYourMemberId(); }});
+        _query.xdoNss(new MemberFollowingCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberByYourMemberId(); }});
         return new MemberNss(_query.queryMemberByYourMemberId());
     }
 }

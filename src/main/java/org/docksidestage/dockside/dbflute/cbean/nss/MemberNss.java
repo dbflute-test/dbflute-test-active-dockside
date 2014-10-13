@@ -39,7 +39,7 @@ public class MemberNss {
      * (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
      */
     public void withMemberStatus() {
-        _query.doNss(new MemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberStatus(); }});
+        _query.xdoNss(new MemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberStatus(); }});
     }
     /**
      * With nested relation columns to select clause. <br />
@@ -49,7 +49,7 @@ public class MemberNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberAddressNss withMemberAddressAsValid(final java.util.Date targetDate) {
-        _query.doNss(new MemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberAddressAsValid(targetDate); }});
+        _query.xdoNss(new MemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberAddressAsValid(targetDate); }});
         return new MemberAddressNss(_query.queryMemberAddressAsValid(targetDate));
     }
     /**
@@ -59,7 +59,7 @@ public class MemberNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberLoginNss withMemberLoginAsLatest() {
-        _query.doNss(new MemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberLoginAsLatest(); }});
+        _query.xdoNss(new MemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberLoginAsLatest(); }});
         return new MemberLoginNss(_query.queryMemberLoginAsLatest());
     }
     /**
@@ -68,7 +68,7 @@ public class MemberNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberSecurityNss withMemberSecurityAsOne() {
-        _query.doNss(new MemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberSecurityAsOne(); }});
+        _query.xdoNss(new MemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberSecurityAsOne(); }});
         return new MemberSecurityNss(_query.queryMemberSecurityAsOne());
     }
     /**
@@ -77,7 +77,7 @@ public class MemberNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberServiceNss withMemberServiceAsOne() {
-        _query.doNss(new MemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberServiceAsOne(); }});
+        _query.xdoNss(new MemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberServiceAsOne(); }});
         return new MemberServiceNss(_query.queryMemberServiceAsOne());
     }
     /**
@@ -86,7 +86,7 @@ public class MemberNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberWithdrawalNss withMemberWithdrawalAsOne() {
-        _query.doNss(new MemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberWithdrawalAsOne(); }});
+        _query.xdoNss(new MemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberWithdrawalAsOne(); }});
         return new MemberWithdrawalNss(_query.queryMemberWithdrawalAsOne());
     }
 }

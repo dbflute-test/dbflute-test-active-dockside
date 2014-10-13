@@ -40,7 +40,7 @@ public class ProductCategoryNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public ProductCategoryNss withProductCategorySelf() {
-        _query.doNss(new ProductCategoryCQ.NssCall() { public ConditionQuery qf() { return _query.queryProductCategorySelf(); }});
+        _query.xdoNss(new ProductCategoryCQ.NssCall() { public ConditionQuery qf() { return _query.queryProductCategorySelf(); }});
         return new ProductCategoryNss(_query.queryProductCategorySelf());
     }
 }

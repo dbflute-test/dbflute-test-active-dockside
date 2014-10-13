@@ -133,8 +133,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setMemberId_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setMemberId_RangeOf(minNumber, maxNumber, op);
+        setMemberId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -464,8 +463,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonInputText_LikeSearch(String withdrawalReasonInputText, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setWithdrawalReasonInputText_LikeSearch(withdrawalReasonInputText, op);
+        setWithdrawalReasonInputText_LikeSearch(withdrawalReasonInputText, xcLSOP(opLambda));
     }
 
     /**
@@ -487,8 +485,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonInputText_NotLikeSearch(String withdrawalReasonInputText, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setWithdrawalReasonInputText_NotLikeSearch(withdrawalReasonInputText, op);
+        setWithdrawalReasonInputText_NotLikeSearch(withdrawalReasonInputText, xcLSOP(opLambda));
     }
 
     /**
@@ -578,8 +575,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setWithdrawalDatetime_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setWithdrawalDatetime_FromTo(fromDatetime, toDatetime, op);
+        setWithdrawalDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**
@@ -653,8 +649,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setRegisterDatetime_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setRegisterDatetime_FromTo(fromDatetime, toDatetime, op);
+        setRegisterDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**
@@ -769,8 +764,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setRegisterUser_LikeSearch(String registerUser, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setRegisterUser_LikeSearch(registerUser, op);
+        setRegisterUser_LikeSearch(registerUser, xcLSOP(opLambda));
     }
 
     /**
@@ -792,8 +786,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setRegisterUser_NotLikeSearch(String registerUser, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setRegisterUser_NotLikeSearch(registerUser, op);
+        setRegisterUser_NotLikeSearch(registerUser, xcLSOP(opLambda));
     }
 
     /**
@@ -865,8 +858,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setUpdateDatetime_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setUpdateDatetime_FromTo(fromDatetime, toDatetime, op);
+        setUpdateDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**
@@ -981,8 +973,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setUpdateUser_LikeSearch(String updateUser, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setUpdateUser_LikeSearch(updateUser, op);
+        setUpdateUser_LikeSearch(updateUser, xcLSOP(opLambda));
     }
 
     /**
@@ -1004,8 +995,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setUpdateUser_NotLikeSearch(String updateUser, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setUpdateUser_NotLikeSearch(updateUser, op);
+        setUpdateUser_NotLikeSearch(updateUser, xcLSOP(opLambda));
     }
 
     /**
@@ -1094,8 +1084,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setVersionNo_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setVersionNo_RangeOf(minNumber, maxNumber, op);
+        setVersionNo_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**

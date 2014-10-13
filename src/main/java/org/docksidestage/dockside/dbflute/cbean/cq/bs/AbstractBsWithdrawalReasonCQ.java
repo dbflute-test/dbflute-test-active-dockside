@@ -413,8 +413,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonText_LikeSearch(String withdrawalReasonText, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setWithdrawalReasonText_LikeSearch(withdrawalReasonText, op);
+        setWithdrawalReasonText_LikeSearch(withdrawalReasonText, xcLSOP(opLambda));
     }
 
     /**
@@ -436,8 +435,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonText_NotLikeSearch(String withdrawalReasonText, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setWithdrawalReasonText_NotLikeSearch(withdrawalReasonText, op);
+        setWithdrawalReasonText_NotLikeSearch(withdrawalReasonText, xcLSOP(opLambda));
     }
 
     /**
@@ -526,8 +524,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setDisplayOrder_RangeOf(minNumber, maxNumber, op);
+        setDisplayOrder_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**

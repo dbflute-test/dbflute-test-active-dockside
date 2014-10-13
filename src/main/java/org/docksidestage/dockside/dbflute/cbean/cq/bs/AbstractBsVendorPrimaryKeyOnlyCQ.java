@@ -133,8 +133,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setPrimaryKeyOnlyId_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setPrimaryKeyOnlyId_RangeOf(minNumber, maxNumber, op);
+        setPrimaryKeyOnlyId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**

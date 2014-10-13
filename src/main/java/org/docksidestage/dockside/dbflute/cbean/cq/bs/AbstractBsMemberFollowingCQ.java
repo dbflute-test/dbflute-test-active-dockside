@@ -133,8 +133,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setMemberFollowingId_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setMemberFollowingId_RangeOf(minNumber, maxNumber, op);
+        setMemberFollowingId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -263,8 +262,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setMyMemberId_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setMyMemberId_RangeOf(minNumber, maxNumber, op);
+        setMyMemberId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -381,8 +379,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setYourMemberId_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setYourMemberId_RangeOf(minNumber, maxNumber, op);
+        setYourMemberId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -482,8 +479,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setFollowDatetime_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setFollowDatetime_FromTo(fromDatetime, toDatetime, op);
+        setFollowDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**

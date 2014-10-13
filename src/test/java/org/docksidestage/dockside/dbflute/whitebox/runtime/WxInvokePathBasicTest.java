@@ -3,13 +3,13 @@ package org.docksidestage.dockside.dbflute.whitebox.runtime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dbflute.QLog;
-import org.dbflute.XLog;
 import org.dbflute.bhv.core.BehaviorCommandMeta;
 import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlLogHandler;
 import org.dbflute.hook.SqlLogInfo;
 import org.dbflute.hook.SqlStringFilter;
+import org.dbflute.system.QLog;
+import org.dbflute.system.XLog;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 

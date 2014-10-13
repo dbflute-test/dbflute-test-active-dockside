@@ -3,12 +3,12 @@ package org.docksidestage.dockside.dbflute.whitebox.runtime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dbflute.XLog;
 import org.dbflute.bhv.writable.QueryInsertSetupper;
 import org.dbflute.cbean.ConditionBean;
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.exception.EntityAlreadyExistsException;
 import org.dbflute.exception.SQLFailureException;
+import org.dbflute.system.XLog;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberWithdrawalCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;

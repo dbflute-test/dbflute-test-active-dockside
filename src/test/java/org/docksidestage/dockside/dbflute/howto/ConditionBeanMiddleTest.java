@@ -1294,7 +1294,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         cb.query().addOrderBy_Birthdate_Desc().addOrderBy_MemberId_Asc();
         cb.lockForUpdate();
         cb.fetchFirst(2);
-        cb.fetchPage(3);
+        cb.xfetchPage(3);
         String displaySql = cb.toDisplaySql();// *Point!
 
         // ## Assert ##

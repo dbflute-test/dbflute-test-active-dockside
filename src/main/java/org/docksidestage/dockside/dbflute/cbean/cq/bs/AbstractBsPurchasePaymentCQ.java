@@ -133,8 +133,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setPurchasePaymentId_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setPurchasePaymentId_RangeOf(minNumber, maxNumber, op);
+        setPurchasePaymentId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -263,8 +262,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setPurchaseId_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setPurchaseId_RangeOf(minNumber, maxNumber, op);
+        setPurchaseId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -381,8 +379,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setPaymentAmount_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setPaymentAmount_RangeOf(minNumber, maxNumber, op);
+        setPaymentAmount_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -482,8 +479,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setPaymentDatetime_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setPaymentDatetime_FromTo(fromDatetime, toDatetime, op);
+        setPaymentDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**
@@ -710,8 +706,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setRegisterDatetime_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setRegisterDatetime_FromTo(fromDatetime, toDatetime, op);
+        setRegisterDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**
@@ -826,8 +821,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setRegisterUser_LikeSearch(String registerUser, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setRegisterUser_LikeSearch(registerUser, op);
+        setRegisterUser_LikeSearch(registerUser, xcLSOP(opLambda));
     }
 
     /**
@@ -849,8 +843,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setRegisterUser_NotLikeSearch(String registerUser, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setRegisterUser_NotLikeSearch(registerUser, op);
+        setRegisterUser_NotLikeSearch(registerUser, xcLSOP(opLambda));
     }
 
     /**
@@ -922,8 +915,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setUpdateDatetime_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setUpdateDatetime_FromTo(fromDatetime, toDatetime, op);
+        setUpdateDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**
@@ -1038,8 +1030,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setUpdateUser_LikeSearch(String updateUser, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setUpdateUser_LikeSearch(updateUser, op);
+        setUpdateUser_LikeSearch(updateUser, xcLSOP(opLambda));
     }
 
     /**
@@ -1061,8 +1052,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setUpdateUser_NotLikeSearch(String updateUser, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setUpdateUser_NotLikeSearch(updateUser, op);
+        setUpdateUser_NotLikeSearch(updateUser, xcLSOP(opLambda));
     }
 
     /**

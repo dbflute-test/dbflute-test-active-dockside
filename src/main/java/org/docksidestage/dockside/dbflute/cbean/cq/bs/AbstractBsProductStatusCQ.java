@@ -482,8 +482,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setProductStatusName_LikeSearch(String productStatusName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setProductStatusName_LikeSearch(productStatusName, op);
+        setProductStatusName_LikeSearch(productStatusName, xcLSOP(opLambda));
     }
 
     /**
@@ -505,8 +504,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setProductStatusName_NotLikeSearch(String productStatusName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setProductStatusName_NotLikeSearch(productStatusName, op);
+        setProductStatusName_NotLikeSearch(productStatusName, xcLSOP(opLambda));
     }
 
     /**
@@ -595,8 +593,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setDisplayOrder_RangeOf(minNumber, maxNumber, op);
+        setDisplayOrder_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**

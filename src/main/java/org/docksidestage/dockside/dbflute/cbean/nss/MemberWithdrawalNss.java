@@ -40,7 +40,7 @@ public class MemberWithdrawalNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMember() {
-        _query.doNss(new MemberWithdrawalCQ.NssCall() { public ConditionQuery qf() { return _query.queryMember(); }});
+        _query.xdoNss(new MemberWithdrawalCQ.NssCall() { public ConditionQuery qf() { return _query.queryMember(); }});
         return new MemberNss(_query.queryMember());
     }
     /**
@@ -48,6 +48,6 @@ public class MemberWithdrawalNss {
      * (退会理由)WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
      */
     public void withWithdrawalReason() {
-        _query.doNss(new MemberWithdrawalCQ.NssCall() { public ConditionQuery qf() { return _query.queryWithdrawalReason(); }});
+        _query.xdoNss(new MemberWithdrawalCQ.NssCall() { public ConditionQuery qf() { return _query.queryWithdrawalReason(); }});
     }
 }

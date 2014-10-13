@@ -133,8 +133,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setVendor$DollarId_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setVendor$DollarId_RangeOf(minNumber, maxNumber, op);
+        setVendor$DollarId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -287,8 +286,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setVendor$DollarName_LikeSearch(String vendor$DollarName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setVendor$DollarName_LikeSearch(vendor$DollarName, op);
+        setVendor$DollarName_LikeSearch(vendor$DollarName, xcLSOP(opLambda));
     }
 
     /**
@@ -310,8 +308,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setVendor$DollarName_NotLikeSearch(String vendor$DollarName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setVendor$DollarName_NotLikeSearch(vendor$DollarName, op);
+        setVendor$DollarName_NotLikeSearch(vendor$DollarName, xcLSOP(opLambda));
     }
 
     /**

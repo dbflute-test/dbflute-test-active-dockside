@@ -40,7 +40,7 @@ public class ProductNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public ProductCategoryNss withProductCategory() {
-        _query.doNss(new ProductCQ.NssCall() { public ConditionQuery qf() { return _query.queryProductCategory(); }});
+        _query.xdoNss(new ProductCQ.NssCall() { public ConditionQuery qf() { return _query.queryProductCategory(); }});
         return new ProductCategoryNss(_query.queryProductCategory());
     }
     /**
@@ -48,6 +48,6 @@ public class ProductNss {
      * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      */
     public void withProductStatus() {
-        _query.doNss(new ProductCQ.NssCall() { public ConditionQuery qf() { return _query.queryProductStatus(); }});
+        _query.xdoNss(new ProductCQ.NssCall() { public ConditionQuery qf() { return _query.queryProductStatus(); }});
     }
 }

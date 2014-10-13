@@ -413,8 +413,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setRegionName_LikeSearch(String regionName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setRegionName_LikeSearch(regionName, op);
+        setRegionName_LikeSearch(regionName, xcLSOP(opLambda));
     }
 
     /**
@@ -436,8 +435,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setRegionName_NotLikeSearch(String regionName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setRegionName_NotLikeSearch(regionName, op);
+        setRegionName_NotLikeSearch(regionName, xcLSOP(opLambda));
     }
 
     /**

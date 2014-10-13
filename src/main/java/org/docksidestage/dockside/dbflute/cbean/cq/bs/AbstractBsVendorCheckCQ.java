@@ -133,8 +133,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setVendorCheckId_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setVendorCheckId_RangeOf(minNumber, maxNumber, op);
+        setVendorCheckId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -287,8 +286,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTypeOfChar_LikeSearch(String typeOfChar, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTypeOfChar_LikeSearch(typeOfChar, op);
+        setTypeOfChar_LikeSearch(typeOfChar, xcLSOP(opLambda));
     }
 
     /**
@@ -310,8 +308,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTypeOfChar_NotLikeSearch(String typeOfChar, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTypeOfChar_NotLikeSearch(typeOfChar, op);
+        setTypeOfChar_NotLikeSearch(typeOfChar, xcLSOP(opLambda));
     }
 
     /**
@@ -442,8 +439,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTypeOfVarchar_LikeSearch(String typeOfVarchar, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTypeOfVarchar_LikeSearch(typeOfVarchar, op);
+        setTypeOfVarchar_LikeSearch(typeOfVarchar, xcLSOP(opLambda));
     }
 
     /**
@@ -465,8 +461,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTypeOfVarchar_NotLikeSearch(String typeOfVarchar, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTypeOfVarchar_NotLikeSearch(typeOfVarchar, op);
+        setTypeOfVarchar_NotLikeSearch(typeOfVarchar, xcLSOP(opLambda));
     }
 
     /**
@@ -597,8 +592,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTypeOfClob_LikeSearch(String typeOfClob, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTypeOfClob_LikeSearch(typeOfClob, op);
+        setTypeOfClob_LikeSearch(typeOfClob, xcLSOP(opLambda));
     }
 
     /**
@@ -620,8 +614,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTypeOfClob_NotLikeSearch(String typeOfClob, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTypeOfClob_NotLikeSearch(typeOfClob, op);
+        setTypeOfClob_NotLikeSearch(typeOfClob, xcLSOP(opLambda));
     }
 
     /**
@@ -752,8 +745,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTypeOfText_LikeSearch(String typeOfText, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTypeOfText_LikeSearch(typeOfText, op);
+        setTypeOfText_LikeSearch(typeOfText, xcLSOP(opLambda));
     }
 
     /**
@@ -775,8 +767,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTypeOfText_NotLikeSearch(String typeOfText, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTypeOfText_NotLikeSearch(typeOfText, op);
+        setTypeOfText_NotLikeSearch(typeOfText, xcLSOP(opLambda));
     }
 
     /**
@@ -883,8 +874,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTypeOfNumericInteger_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTypeOfNumericInteger_RangeOf(minNumber, maxNumber, op);
+        setTypeOfNumericInteger_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -1013,8 +1003,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTypeOfNumericBigint_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTypeOfNumericBigint_RangeOf(minNumber, maxNumber, op);
+        setTypeOfNumericBigint_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -1143,8 +1132,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTypeOfNumericDecimal_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTypeOfNumericDecimal_RangeOf(minNumber, maxNumber, op);
+        setTypeOfNumericDecimal_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -1273,8 +1261,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTypeOfNumericIntegerMin_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTypeOfNumericIntegerMin_RangeOf(minNumber, maxNumber, op);
+        setTypeOfNumericIntegerMin_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -1403,8 +1390,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTypeOfNumericIntegerMax_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTypeOfNumericIntegerMax_RangeOf(minNumber, maxNumber, op);
+        setTypeOfNumericIntegerMax_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -1533,8 +1519,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTypeOfNumericBigintMin_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTypeOfNumericBigintMin_RangeOf(minNumber, maxNumber, op);
+        setTypeOfNumericBigintMin_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -1663,8 +1648,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTypeOfNumericBigintMax_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTypeOfNumericBigintMax_RangeOf(minNumber, maxNumber, op);
+        setTypeOfNumericBigintMax_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -1793,8 +1777,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTypeOfNumericSuperintMin_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTypeOfNumericSuperintMin_RangeOf(minNumber, maxNumber, op);
+        setTypeOfNumericSuperintMin_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -1923,8 +1906,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTypeOfNumericSuperintMax_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTypeOfNumericSuperintMax_RangeOf(minNumber, maxNumber, op);
+        setTypeOfNumericSuperintMax_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -2053,8 +2035,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTypeOfNumericMaxdecimal_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTypeOfNumericMaxdecimal_RangeOf(minNumber, maxNumber, op);
+        setTypeOfNumericMaxdecimal_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -2183,8 +2164,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTypeOfInteger_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTypeOfInteger_RangeOf(minNumber, maxNumber, op);
+        setTypeOfInteger_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -2313,8 +2293,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTypeOfBigint_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setTypeOfBigint_RangeOf(minNumber, maxNumber, op);
+        setTypeOfBigint_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -2426,8 +2405,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setTypeOfDate_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setTypeOfDate_FromTo(fromDatetime, toDatetime, op);
+        setTypeOfDate_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**
@@ -2513,8 +2491,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setTypeOfTimestamp_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setTypeOfTimestamp_FromTo(fromDatetime, toDatetime, op);
+        setTypeOfTimestamp_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**
@@ -2773,8 +2750,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTypeOfArray_LikeSearch(String typeOfArray, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTypeOfArray_LikeSearch(typeOfArray, op);
+        setTypeOfArray_LikeSearch(typeOfArray, xcLSOP(opLambda));
     }
 
     /**
@@ -2796,8 +2772,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTypeOfArray_NotLikeSearch(String typeOfArray, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTypeOfArray_NotLikeSearch(typeOfArray, op);
+        setTypeOfArray_NotLikeSearch(typeOfArray, xcLSOP(opLambda));
     }
 
     /**
@@ -2928,8 +2903,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTypeOfOther_LikeSearch(String typeOfOther, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTypeOfOther_LikeSearch(typeOfOther, op);
+        setTypeOfOther_LikeSearch(typeOfOther, xcLSOP(opLambda));
     }
 
     /**
@@ -2951,8 +2925,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTypeOfOther_NotLikeSearch(String typeOfOther, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setTypeOfOther_NotLikeSearch(typeOfOther, op);
+        setTypeOfOther_NotLikeSearch(typeOfOther, xcLSOP(opLambda));
     }
 
     /**
@@ -3083,8 +3056,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setJAVABeansProperty_LikeSearch(String jAVABeansProperty, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setJAVABeansProperty_LikeSearch(jAVABeansProperty, op);
+        setJAVABeansProperty_LikeSearch(jAVABeansProperty, xcLSOP(opLambda));
     }
 
     /**
@@ -3106,8 +3078,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setJAVABeansProperty_NotLikeSearch(String jAVABeansProperty, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setJAVABeansProperty_NotLikeSearch(jAVABeansProperty, op);
+        setJAVABeansProperty_NotLikeSearch(jAVABeansProperty, xcLSOP(opLambda));
     }
 
     /**
@@ -3238,8 +3209,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setJPopBeansProperty_LikeSearch(String jPopBeansProperty, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setJPopBeansProperty_LikeSearch(jPopBeansProperty, op);
+        setJPopBeansProperty_LikeSearch(jPopBeansProperty, xcLSOP(opLambda));
     }
 
     /**
@@ -3261,8 +3231,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setJPopBeansProperty_NotLikeSearch(String jPopBeansProperty, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setJPopBeansProperty_NotLikeSearch(jPopBeansProperty, op);
+        setJPopBeansProperty_NotLikeSearch(jPopBeansProperty, xcLSOP(opLambda));
     }
 
     /**

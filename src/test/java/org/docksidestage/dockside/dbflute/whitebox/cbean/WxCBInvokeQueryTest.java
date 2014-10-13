@@ -248,10 +248,11 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         List<Date> fromOnlyList = newArrayList(date, null);
         List<Date> toOnlyList = newArrayList(null, date);
         List<Date> nullNullList = newArrayList(null, null);
-        cb.localCQ().invokeQuery(name, "DateFromTo", bothList);
-        cb.localCQ().invokeQuery(name, "DateFromTo", fromOnlyList);
-        cb.localCQ().invokeQuery(name, "DateFromTo", toOnlyList);
-        cb.localCQ().invokeQuery(name, "DateFromTo", nullNullList);
+        FromToOption option = new FromToOption().compareAsDate();
+        cb.localCQ().invokeQuery(name, "FromTo", bothList, option);
+        cb.localCQ().invokeQuery(name, "FromTo", fromOnlyList, option);
+        cb.localCQ().invokeQuery(name, "FromTo", toOnlyList, option);
+        cb.localCQ().invokeQuery(name, "FromTo", nullNullList, option);
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());

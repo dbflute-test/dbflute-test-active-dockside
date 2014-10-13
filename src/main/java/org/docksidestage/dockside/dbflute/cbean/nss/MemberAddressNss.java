@@ -40,7 +40,7 @@ public class MemberAddressNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMember() {
-        _query.doNss(new MemberAddressCQ.NssCall() { public ConditionQuery qf() { return _query.queryMember(); }});
+        _query.xdoNss(new MemberAddressCQ.NssCall() { public ConditionQuery qf() { return _query.queryMember(); }});
         return new MemberNss(_query.queryMember());
     }
     /**
@@ -48,6 +48,6 @@ public class MemberAddressNss {
      * (地域)REGION by my REGION_ID, named 'region'.
      */
     public void withRegion() {
-        _query.doNss(new MemberAddressCQ.NssCall() { public ConditionQuery qf() { return _query.queryRegion(); }});
+        _query.xdoNss(new MemberAddressCQ.NssCall() { public ConditionQuery qf() { return _query.queryRegion(); }});
     }
 }

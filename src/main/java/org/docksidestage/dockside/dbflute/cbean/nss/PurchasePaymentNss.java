@@ -40,7 +40,7 @@ public class PurchasePaymentNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public PurchaseNss withPurchase() {
-        _query.doNss(new PurchasePaymentCQ.NssCall() { public ConditionQuery qf() { return _query.queryPurchase(); }});
+        _query.xdoNss(new PurchasePaymentCQ.NssCall() { public ConditionQuery qf() { return _query.queryPurchase(); }});
         return new PurchaseNss(_query.queryPurchase());
     }
 }

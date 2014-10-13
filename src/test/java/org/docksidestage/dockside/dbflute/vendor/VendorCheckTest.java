@@ -59,6 +59,8 @@ public class VendorCheckTest extends UnitContainerTestCase {
             member.setBirthdate(currentTimestamp());
             if (count == 1) {
                 member.setVersionNo(999999999L);
+            } else {
+                member.setVersionNo(member.getVersionNo());
             }
             ++count;
         }
@@ -105,6 +107,8 @@ public class VendorCheckTest extends UnitContainerTestCase {
             member.setBirthdate(currentTimestamp());
             if (count == 1) {
                 member.setMemberId(9999999);
+            } else {
+                member.setMemberId(member.getMemberId());
             }
             ++count;
         }

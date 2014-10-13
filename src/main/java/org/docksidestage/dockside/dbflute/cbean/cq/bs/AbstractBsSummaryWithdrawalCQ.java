@@ -133,8 +133,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setMemberId_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setMemberId_RangeOf(minNumber, maxNumber, op);
+        setMemberId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -287,8 +286,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setMemberName_LikeSearch(String memberName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setMemberName_LikeSearch(memberName, op);
+        setMemberName_LikeSearch(memberName, xcLSOP(opLambda));
     }
 
     /**
@@ -310,8 +308,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setMemberName_NotLikeSearch(String memberName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setMemberName_NotLikeSearch(memberName, op);
+        setMemberName_NotLikeSearch(memberName, xcLSOP(opLambda));
     }
 
     /**
@@ -442,8 +439,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonCode_LikeSearch(String withdrawalReasonCode, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setWithdrawalReasonCode_LikeSearch(withdrawalReasonCode, op);
+        setWithdrawalReasonCode_LikeSearch(withdrawalReasonCode, xcLSOP(opLambda));
     }
 
     /**
@@ -465,8 +461,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonCode_NotLikeSearch(String withdrawalReasonCode, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setWithdrawalReasonCode_NotLikeSearch(withdrawalReasonCode, op);
+        setWithdrawalReasonCode_NotLikeSearch(withdrawalReasonCode, xcLSOP(opLambda));
     }
 
     /**
@@ -597,8 +592,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonText_LikeSearch(String withdrawalReasonText, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setWithdrawalReasonText_LikeSearch(withdrawalReasonText, op);
+        setWithdrawalReasonText_LikeSearch(withdrawalReasonText, xcLSOP(opLambda));
     }
 
     /**
@@ -620,8 +614,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonText_NotLikeSearch(String withdrawalReasonText, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setWithdrawalReasonText_NotLikeSearch(withdrawalReasonText, op);
+        setWithdrawalReasonText_NotLikeSearch(withdrawalReasonText, xcLSOP(opLambda));
     }
 
     /**
@@ -752,8 +745,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonInputText_LikeSearch(String withdrawalReasonInputText, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setWithdrawalReasonInputText_LikeSearch(withdrawalReasonInputText, op);
+        setWithdrawalReasonInputText_LikeSearch(withdrawalReasonInputText, xcLSOP(opLambda));
     }
 
     /**
@@ -775,8 +767,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonInputText_NotLikeSearch(String withdrawalReasonInputText, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setWithdrawalReasonInputText_NotLikeSearch(withdrawalReasonInputText, op);
+        setWithdrawalReasonInputText_NotLikeSearch(withdrawalReasonInputText, xcLSOP(opLambda));
     }
 
     /**
@@ -866,8 +857,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setWithdrawalDatetime_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setWithdrawalDatetime_FromTo(fromDatetime, toDatetime, op);
+        setWithdrawalDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**
@@ -994,8 +984,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setMemberStatusCode_LikeSearch(String memberStatusCode, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setMemberStatusCode_LikeSearch(memberStatusCode, op);
+        setMemberStatusCode_LikeSearch(memberStatusCode, xcLSOP(opLambda));
     }
 
     /**
@@ -1017,8 +1006,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setMemberStatusCode_NotLikeSearch(String memberStatusCode, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setMemberStatusCode_NotLikeSearch(memberStatusCode, op);
+        setMemberStatusCode_NotLikeSearch(memberStatusCode, xcLSOP(opLambda));
     }
 
     /**
@@ -1149,8 +1137,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setMemberStatusName_LikeSearch(String memberStatusName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setMemberStatusName_LikeSearch(memberStatusName, op);
+        setMemberStatusName_LikeSearch(memberStatusName, xcLSOP(opLambda));
     }
 
     /**
@@ -1172,8 +1159,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setMemberStatusName_NotLikeSearch(String memberStatusName, COptionCall<LikeSearchOption> opLambda) {
-        LikeSearchOption op = cLSOP(); opLambda.callback(op);
-        setMemberStatusName_NotLikeSearch(memberStatusName, op);
+        setMemberStatusName_NotLikeSearch(memberStatusName, xcLSOP(opLambda));
     }
 
     /**
@@ -1280,8 +1266,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setMaxPurchasePrice_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setMaxPurchasePrice_RangeOf(minNumber, maxNumber, op);
+        setMaxPurchasePrice_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**

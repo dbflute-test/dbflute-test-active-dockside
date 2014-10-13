@@ -133,8 +133,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setMemberLoginId_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setMemberLoginId_RangeOf(minNumber, maxNumber, op);
+        setMemberLoginId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -263,8 +262,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setMemberId_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
-        RangeOfOption op = cROOP(); opLambda.callback(op);
-        setMemberId_RangeOf(minNumber, maxNumber, op);
+        setMemberId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
@@ -364,8 +362,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setLoginDatetime_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
-        FromToOption op = cFTOP(); opLambda.callback(op);
-        setLoginDatetime_FromTo(fromDatetime, toDatetime, op);
+        setLoginDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**
