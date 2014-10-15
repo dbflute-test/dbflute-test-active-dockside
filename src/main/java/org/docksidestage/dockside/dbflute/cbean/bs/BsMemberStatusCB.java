@@ -248,7 +248,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;MemberStatusCB&gt;() {
+     * cb.query().<span style="color: #CC4747">union</span>(new UnionQuery&lt;MemberStatusCB&gt;() {
      *     public void query(MemberStatusCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -267,7 +267,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;MemberStatusCB&gt;() {
+     * cb.query().<span style="color: #CC4747">unionAll</span>(new UnionQuery&lt;MemberStatusCB&gt;() {
      *     public void query(MemberStatusCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -313,7 +313,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
                 public boolean has() { return true; }
                 public MemberStatusCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
+            , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
 
@@ -328,8 +328,8 @@ public class BsMemberStatusCB extends AbstractConditionBean {
     public static class HpSpecification extends HpAbstractSpecification<MemberStatusCQ> {
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<MemberStatusCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
-                             , FactoryOfDerivedReferrerOption sdrOpFactory)
-        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
+                             , HpSDRFunctionFactory sdrFuncFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
          * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
          * @return The information object of specified column. (NotNull)
@@ -363,12 +363,10 @@ public class BsMemberStatusCB extends AbstractConditionBean {
          * {select max(FOO) from MEMBER where ...) as FOO_MAX} <br />
          * (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
          * <pre>
-         * cb.specify().<span style="color: #DD4747">derivedMember()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberCB&gt;() {
-         *     public void query(MemberCB subCB) {
-         *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
-         *     }
-         * }, Member.<span style="color: #DD4747">ALIAS_foo...</span>);
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(memberCB -&gt; {
+         *     memberCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     memberCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, Member.<span style="color: #CC4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
@@ -383,12 +381,10 @@ public class BsMemberStatusCB extends AbstractConditionBean {
          * {select max(FOO) from MEMBER_LOGIN where ...) as FOO_MAX} <br />
          * (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
          * <pre>
-         * cb.specify().<span style="color: #DD4747">derivedMemberLogin()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberLoginCB&gt;() {
-         *     public void query(MemberLoginCB subCB) {
-         *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
-         *     }
-         * }, MemberLogin.<span style="color: #DD4747">ALIAS_foo...</span>);
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(loginCB -&gt; {
+         *     loginCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     loginCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, MemberLogin.<span style="color: #CC4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
@@ -418,13 +414,13 @@ public class BsMemberStatusCB extends AbstractConditionBean {
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;MemberStatusCB&gt;() {
+     * cb.<span style="color: #CC4747">columnQuery</span>(new SpecifyQuery&lt;MemberStatusCB&gt;() {
      *     public void query(MemberStatusCB cb) {
-     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #CC4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;MemberStatusCB&gt;() {
      *     public void query(MemberStatusCB cb) {
-     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #CC4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -472,7 +468,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;MemberStatusCB&gt;() {
+     * cb.<span style="color: #CC4747">orScopeQuery</span>(new OrQuery&lt;MemberStatusCB&gt;() {
      *     public void query(MemberStatusCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -495,10 +491,10 @@ public class BsMemberStatusCB extends AbstractConditionBean {
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;MemberStatusCB&gt;() {
+     * cb.<span style="color: #CC4747">orScopeQuery</span>(new OrQuery&lt;MemberStatusCB&gt;() {
      *     public void query(MemberStatusCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;MemberStatusCB&gt;() {
+     *         orCB.<span style="color: #CC4747">orScopeQueryAndPart</span>(new AndQuery&lt;MemberStatusCB&gt;() {
      *             public void query(MemberStatusCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...

@@ -248,7 +248,7 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;WithdrawalReasonCB&gt;() {
+     * cb.query().<span style="color: #CC4747">union</span>(new UnionQuery&lt;WithdrawalReasonCB&gt;() {
      *     public void query(WithdrawalReasonCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -267,7 +267,7 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;WithdrawalReasonCB&gt;() {
+     * cb.query().<span style="color: #CC4747">unionAll</span>(new UnionQuery&lt;WithdrawalReasonCB&gt;() {
      *     public void query(WithdrawalReasonCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -313,7 +313,7 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
                 public boolean has() { return true; }
                 public WithdrawalReasonCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
+            , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
 
@@ -328,8 +328,8 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
     public static class HpSpecification extends HpAbstractSpecification<WithdrawalReasonCQ> {
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<WithdrawalReasonCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
-                             , FactoryOfDerivedReferrerOption sdrOpFactory)
-        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
+                             , HpSDRFunctionFactory sdrFuncFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
          * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
          * @return The information object of specified column. (NotNull)
@@ -358,12 +358,10 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
          * {select max(FOO) from MEMBER_WITHDRAWAL where ...) as FOO_MAX} <br />
          * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
          * <pre>
-         * cb.specify().<span style="color: #DD4747">derivedMemberWithdrawal()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MemberWithdrawalCB&gt;() {
-         *     public void query(MemberWithdrawalCB subCB) {
-         *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
-         *     }
-         * }, MemberWithdrawal.<span style="color: #DD4747">ALIAS_foo...</span>);
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(withdrawalCB -&gt; {
+         *     withdrawalCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     withdrawalCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, MemberWithdrawal.<span style="color: #CC4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
@@ -393,13 +391,13 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;WithdrawalReasonCB&gt;() {
+     * cb.<span style="color: #CC4747">columnQuery</span>(new SpecifyQuery&lt;WithdrawalReasonCB&gt;() {
      *     public void query(WithdrawalReasonCB cb) {
-     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #CC4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;WithdrawalReasonCB&gt;() {
      *     public void query(WithdrawalReasonCB cb) {
-     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #CC4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -447,7 +445,7 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;WithdrawalReasonCB&gt;() {
+     * cb.<span style="color: #CC4747">orScopeQuery</span>(new OrQuery&lt;WithdrawalReasonCB&gt;() {
      *     public void query(WithdrawalReasonCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -470,10 +468,10 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;WithdrawalReasonCB&gt;() {
+     * cb.<span style="color: #CC4747">orScopeQuery</span>(new OrQuery&lt;WithdrawalReasonCB&gt;() {
      *     public void query(WithdrawalReasonCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;WithdrawalReasonCB&gt;() {
+     *         orCB.<span style="color: #CC4747">orScopeQueryAndPart</span>(new AndQuery&lt;WithdrawalReasonCB&gt;() {
      *             public void query(WithdrawalReasonCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...

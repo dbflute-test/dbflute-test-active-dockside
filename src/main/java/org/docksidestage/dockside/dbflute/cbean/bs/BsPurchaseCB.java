@@ -251,7 +251,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;PurchaseCB&gt;() {
+     * cb.query().<span style="color: #CC4747">union</span>(new UnionQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -270,7 +270,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;PurchaseCB&gt;() {
+     * cb.query().<span style="color: #CC4747">unionAll</span>(new UnionQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -297,10 +297,10 @@ public class BsPurchaseCB extends AbstractConditionBean {
      * (会員)MEMBER by my MEMBER_ID, named 'member'.
      * <pre>
      * PurchaseCB cb = new PurchaseCB();
-     * cb.<span style="color: #DD4747">setupSelect_Member()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #CC4747">setupSelect_Member()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * Purchase purchase = purchaseBhv.selectEntityWithDeletedCheck(cb);
-     * ... = purchase.<span style="color: #DD4747">getMember()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = purchase.<span style="color: #CC4747">getMember()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
@@ -325,10 +325,10 @@ public class BsPurchaseCB extends AbstractConditionBean {
      * (商品)PRODUCT by my PRODUCT_ID, named 'product'.
      * <pre>
      * PurchaseCB cb = new PurchaseCB();
-     * cb.<span style="color: #DD4747">setupSelect_Product()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #CC4747">setupSelect_Product()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * Purchase purchase = purchaseBhv.selectEntityWithDeletedCheck(cb);
-     * ... = purchase.<span style="color: #DD4747">getProduct()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = purchase.<span style="color: #CC4747">getProduct()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
@@ -353,10 +353,10 @@ public class BsPurchaseCB extends AbstractConditionBean {
      * SUMMARY_PRODUCT by my PRODUCT_ID, named 'summaryProduct'.
      * <pre>
      * PurchaseCB cb = new PurchaseCB();
-     * cb.<span style="color: #DD4747">setupSelect_SummaryProduct()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #CC4747">setupSelect_SummaryProduct()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * Purchase purchase = purchaseBhv.selectEntityWithDeletedCheck(cb);
-     * ... = purchase.<span style="color: #DD4747">getSummaryProduct()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = purchase.<span style="color: #CC4747">getSummaryProduct()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
@@ -400,7 +400,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
                 public boolean has() { return true; }
                 public PurchaseCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
+            , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
 
@@ -418,8 +418,8 @@ public class BsPurchaseCB extends AbstractConditionBean {
         protected SummaryProductCB.HpSpecification _summaryProduct;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<PurchaseCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
-                             , FactoryOfDerivedReferrerOption sdrOpFactory)
-        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
+                             , HpSDRFunctionFactory sdrFuncFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
          * PURCHASE_ID: {PK, ID, NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
@@ -511,7 +511,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
                 _member = new MemberCB.HpSpecification(_baseCB, new HpSpQyCall<MemberCQ>() {
                     public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryMember(); }
                     public MemberCQ qy() { return _qyCall.qy().queryMember(); } }
-                    , _purpose, _dbmetaProvider, xgetFofSDROp());
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
                     _member.xsetSyncQyCall(new HpSpQyCall<MemberCQ>() {
                         public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMember(); }
@@ -532,7 +532,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
                 _product = new ProductCB.HpSpecification(_baseCB, new HpSpQyCall<ProductCQ>() {
                     public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryProduct(); }
                     public ProductCQ qy() { return _qyCall.qy().queryProduct(); } }
-                    , _purpose, _dbmetaProvider, xgetFofSDROp());
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
                     _product.xsetSyncQyCall(new HpSpQyCall<ProductCQ>() {
                         public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryProduct(); }
@@ -553,7 +553,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
                 _summaryProduct = new SummaryProductCB.HpSpecification(_baseCB, new HpSpQyCall<SummaryProductCQ>() {
                     public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQuerySummaryProduct(); }
                     public SummaryProductCQ qy() { return _qyCall.qy().querySummaryProduct(); } }
-                    , _purpose, _dbmetaProvider, xgetFofSDROp());
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
                     _summaryProduct.xsetSyncQyCall(new HpSpQyCall<SummaryProductCQ>() {
                         public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQuerySummaryProduct(); }
@@ -568,12 +568,10 @@ public class BsPurchaseCB extends AbstractConditionBean {
          * {select max(FOO) from PURCHASE_PAYMENT where ...) as FOO_MAX} <br />
          * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
          * <pre>
-         * cb.specify().<span style="color: #DD4747">derivedPurchasePayment()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;PurchasePaymentCB&gt;() {
-         *     public void query(PurchasePaymentCB subCB) {
-         *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
-         *     }
-         * }, PurchasePayment.<span style="color: #DD4747">ALIAS_foo...</span>);
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(paymentCB -&gt; {
+         *     paymentCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     paymentCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, PurchasePayment.<span style="color: #CC4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
@@ -603,13 +601,13 @@ public class BsPurchaseCB extends AbstractConditionBean {
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;PurchaseCB&gt;() {
+     * cb.<span style="color: #CC4747">columnQuery</span>(new SpecifyQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB cb) {
-     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #CC4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB cb) {
-     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #CC4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -657,7 +655,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;PurchaseCB&gt;() {
+     * cb.<span style="color: #CC4747">orScopeQuery</span>(new OrQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -680,10 +678,10 @@ public class BsPurchaseCB extends AbstractConditionBean {
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;PurchaseCB&gt;() {
+     * cb.<span style="color: #CC4747">orScopeQuery</span>(new OrQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;PurchaseCB&gt;() {
+     *         orCB.<span style="color: #CC4747">orScopeQueryAndPart</span>(new AndQuery&lt;PurchaseCB&gt;() {
      *             public void query(PurchaseCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...

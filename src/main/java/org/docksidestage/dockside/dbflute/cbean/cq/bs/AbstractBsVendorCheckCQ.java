@@ -132,7 +132,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of vendorCheckId. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setVendorCheckId_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
+    public void setVendorCheckId_RangeOf(Long minNumber, Long maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setVendorCheckId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -281,18 +281,18 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * TYPE_OF_CHAR: {CHAR(3)} <br />
-     * <pre>e.g. setTypeOfChar_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setTypeOfChar_LikeSearch("xxx", op -&gt; op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param typeOfChar The value of typeOfChar as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setTypeOfChar_LikeSearch(String typeOfChar, COptionCall<LikeSearchOption> opLambda) {
+    public void setTypeOfChar_LikeSearch(String typeOfChar, ConditionOptionCall<LikeSearchOption> opLambda) {
         setTypeOfChar_LikeSearch(typeOfChar, xcLSOP(opLambda));
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * TYPE_OF_CHAR: {CHAR(3)} <br />
-     * <pre>e.g. setTypeOfChar_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setTypeOfChar_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param typeOfChar The value of typeOfChar as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -307,7 +307,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param typeOfChar The value of typeOfChar as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setTypeOfChar_NotLikeSearch(String typeOfChar, COptionCall<LikeSearchOption> opLambda) {
+    public void setTypeOfChar_NotLikeSearch(String typeOfChar, ConditionOptionCall<LikeSearchOption> opLambda) {
         setTypeOfChar_NotLikeSearch(typeOfChar, xcLSOP(opLambda));
     }
 
@@ -434,18 +434,18 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * TYPE_OF_VARCHAR: {VARCHAR(32)} <br />
-     * <pre>e.g. setTypeOfVarchar_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setTypeOfVarchar_LikeSearch("xxx", op -&gt; op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param typeOfVarchar The value of typeOfVarchar as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setTypeOfVarchar_LikeSearch(String typeOfVarchar, COptionCall<LikeSearchOption> opLambda) {
+    public void setTypeOfVarchar_LikeSearch(String typeOfVarchar, ConditionOptionCall<LikeSearchOption> opLambda) {
         setTypeOfVarchar_LikeSearch(typeOfVarchar, xcLSOP(opLambda));
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * TYPE_OF_VARCHAR: {VARCHAR(32)} <br />
-     * <pre>e.g. setTypeOfVarchar_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setTypeOfVarchar_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param typeOfVarchar The value of typeOfVarchar as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -460,7 +460,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param typeOfVarchar The value of typeOfVarchar as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setTypeOfVarchar_NotLikeSearch(String typeOfVarchar, COptionCall<LikeSearchOption> opLambda) {
+    public void setTypeOfVarchar_NotLikeSearch(String typeOfVarchar, ConditionOptionCall<LikeSearchOption> opLambda) {
         setTypeOfVarchar_NotLikeSearch(typeOfVarchar, xcLSOP(opLambda));
     }
 
@@ -587,18 +587,18 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * TYPE_OF_CLOB: {CLOB(2147483647)} <br />
-     * <pre>e.g. setTypeOfClob_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setTypeOfClob_LikeSearch("xxx", op -&gt; op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param typeOfClob The value of typeOfClob as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setTypeOfClob_LikeSearch(String typeOfClob, COptionCall<LikeSearchOption> opLambda) {
+    public void setTypeOfClob_LikeSearch(String typeOfClob, ConditionOptionCall<LikeSearchOption> opLambda) {
         setTypeOfClob_LikeSearch(typeOfClob, xcLSOP(opLambda));
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * TYPE_OF_CLOB: {CLOB(2147483647)} <br />
-     * <pre>e.g. setTypeOfClob_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setTypeOfClob_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param typeOfClob The value of typeOfClob as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -613,7 +613,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param typeOfClob The value of typeOfClob as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setTypeOfClob_NotLikeSearch(String typeOfClob, COptionCall<LikeSearchOption> opLambda) {
+    public void setTypeOfClob_NotLikeSearch(String typeOfClob, ConditionOptionCall<LikeSearchOption> opLambda) {
         setTypeOfClob_NotLikeSearch(typeOfClob, xcLSOP(opLambda));
     }
 
@@ -740,18 +740,18 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * TYPE_OF_TEXT: {CLOB(2147483647)} <br />
-     * <pre>e.g. setTypeOfText_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setTypeOfText_LikeSearch("xxx", op -&gt; op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param typeOfText The value of typeOfText as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setTypeOfText_LikeSearch(String typeOfText, COptionCall<LikeSearchOption> opLambda) {
+    public void setTypeOfText_LikeSearch(String typeOfText, ConditionOptionCall<LikeSearchOption> opLambda) {
         setTypeOfText_LikeSearch(typeOfText, xcLSOP(opLambda));
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * TYPE_OF_TEXT: {CLOB(2147483647)} <br />
-     * <pre>e.g. setTypeOfText_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setTypeOfText_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param typeOfText The value of typeOfText as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -766,7 +766,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param typeOfText The value of typeOfText as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setTypeOfText_NotLikeSearch(String typeOfText, COptionCall<LikeSearchOption> opLambda) {
+    public void setTypeOfText_NotLikeSearch(String typeOfText, ConditionOptionCall<LikeSearchOption> opLambda) {
         setTypeOfText_NotLikeSearch(typeOfText, xcLSOP(opLambda));
     }
 
@@ -873,7 +873,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of typeOfNumericInteger. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setTypeOfNumericInteger_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
+    public void setTypeOfNumericInteger_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setTypeOfNumericInteger_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -1002,7 +1002,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of typeOfNumericBigint. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setTypeOfNumericBigint_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
+    public void setTypeOfNumericBigint_RangeOf(Long minNumber, Long maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setTypeOfNumericBigint_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -1131,7 +1131,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of typeOfNumericDecimal. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setTypeOfNumericDecimal_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, COptionCall<RangeOfOption> opLambda) {
+    public void setTypeOfNumericDecimal_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setTypeOfNumericDecimal_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -1260,7 +1260,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of typeOfNumericIntegerMin. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setTypeOfNumericIntegerMin_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
+    public void setTypeOfNumericIntegerMin_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setTypeOfNumericIntegerMin_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -1389,7 +1389,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of typeOfNumericIntegerMax. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setTypeOfNumericIntegerMax_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
+    public void setTypeOfNumericIntegerMax_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setTypeOfNumericIntegerMax_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -1518,7 +1518,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of typeOfNumericBigintMin. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setTypeOfNumericBigintMin_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
+    public void setTypeOfNumericBigintMin_RangeOf(Long minNumber, Long maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setTypeOfNumericBigintMin_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -1647,7 +1647,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of typeOfNumericBigintMax. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setTypeOfNumericBigintMax_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
+    public void setTypeOfNumericBigintMax_RangeOf(Long minNumber, Long maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setTypeOfNumericBigintMax_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -1776,7 +1776,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of typeOfNumericSuperintMin. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setTypeOfNumericSuperintMin_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, COptionCall<RangeOfOption> opLambda) {
+    public void setTypeOfNumericSuperintMin_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setTypeOfNumericSuperintMin_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -1905,7 +1905,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of typeOfNumericSuperintMax. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setTypeOfNumericSuperintMax_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, COptionCall<RangeOfOption> opLambda) {
+    public void setTypeOfNumericSuperintMax_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setTypeOfNumericSuperintMax_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -2034,7 +2034,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of typeOfNumericMaxdecimal. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setTypeOfNumericMaxdecimal_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, COptionCall<RangeOfOption> opLambda) {
+    public void setTypeOfNumericMaxdecimal_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setTypeOfNumericMaxdecimal_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -2163,7 +2163,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of typeOfInteger. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setTypeOfInteger_RangeOf(Integer minNumber, Integer maxNumber, COptionCall<RangeOfOption> opLambda) {
+    public void setTypeOfInteger_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setTypeOfInteger_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -2292,7 +2292,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of typeOfBigint. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setTypeOfBigint_RangeOf(Long minNumber, Long maxNumber, COptionCall<RangeOfOption> opLambda) {
+    public void setTypeOfBigint_RangeOf(Long minNumber, Long maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setTypeOfBigint_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -2399,12 +2399,12 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_DATE: {DATE(8)}
-     * <pre>e.g. setTypeOfDate_FromTo(fromDate, toDate, new <span style="color: #DD4747">FromToOption</span>().compareAsDate());</pre>
+     * <pre>e.g. setTypeOfDate_FromTo(fromDate, toDate, op -&gt; op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of typeOfDate. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of typeOfDate. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of from-to. (NotNull)
      */
-    public void setTypeOfDate_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
+    public void setTypeOfDate_FromTo(Date fromDatetime, Date toDatetime, ConditionOptionCall<FromToOption> opLambda) {
         setTypeOfDate_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
@@ -2412,7 +2412,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_DATE: {DATE(8)}
-     * <pre>e.g. setTypeOfDate_FromTo(fromDate, toDate, new <span style="color: #DD4747">FromToOption</span>().compareAsDate());</pre>
+     * <pre>e.g. setTypeOfDate_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of typeOfDate. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of typeOfDate. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
@@ -2485,12 +2485,12 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
-     * <pre>e.g. setTypeOfTimestamp_FromTo(fromDate, toDate, new <span style="color: #DD4747">FromToOption</span>().compareAsDate());</pre>
+     * <pre>e.g. setTypeOfTimestamp_FromTo(fromDate, toDate, op -&gt; op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of typeOfTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of typeOfTimestamp. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of from-to. (NotNull)
      */
-    public void setTypeOfTimestamp_FromTo(Date fromDatetime, Date toDatetime, COptionCall<FromToOption> opLambda) {
+    public void setTypeOfTimestamp_FromTo(Date fromDatetime, Date toDatetime, ConditionOptionCall<FromToOption> opLambda) {
         setTypeOfTimestamp_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
@@ -2498,7 +2498,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
-     * <pre>e.g. setTypeOfTimestamp_FromTo(fromDate, toDate, new <span style="color: #DD4747">FromToOption</span>().compareAsDate());</pre>
+     * <pre>e.g. setTypeOfTimestamp_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of typeOfTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of typeOfTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
@@ -2745,18 +2745,18 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * TYPE_OF_ARRAY: {ARRAY} <br />
-     * <pre>e.g. setTypeOfArray_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setTypeOfArray_LikeSearch("xxx", op -&gt; op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param typeOfArray The value of typeOfArray as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setTypeOfArray_LikeSearch(String typeOfArray, COptionCall<LikeSearchOption> opLambda) {
+    public void setTypeOfArray_LikeSearch(String typeOfArray, ConditionOptionCall<LikeSearchOption> opLambda) {
         setTypeOfArray_LikeSearch(typeOfArray, xcLSOP(opLambda));
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * TYPE_OF_ARRAY: {ARRAY} <br />
-     * <pre>e.g. setTypeOfArray_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setTypeOfArray_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param typeOfArray The value of typeOfArray as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -2771,7 +2771,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param typeOfArray The value of typeOfArray as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setTypeOfArray_NotLikeSearch(String typeOfArray, COptionCall<LikeSearchOption> opLambda) {
+    public void setTypeOfArray_NotLikeSearch(String typeOfArray, ConditionOptionCall<LikeSearchOption> opLambda) {
         setTypeOfArray_NotLikeSearch(typeOfArray, xcLSOP(opLambda));
     }
 
@@ -2898,18 +2898,18 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * TYPE_OF_OTHER: {OTHER(2147483647)} <br />
-     * <pre>e.g. setTypeOfOther_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setTypeOfOther_LikeSearch("xxx", op -&gt; op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param typeOfOther The value of typeOfOther as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setTypeOfOther_LikeSearch(String typeOfOther, COptionCall<LikeSearchOption> opLambda) {
+    public void setTypeOfOther_LikeSearch(String typeOfOther, ConditionOptionCall<LikeSearchOption> opLambda) {
         setTypeOfOther_LikeSearch(typeOfOther, xcLSOP(opLambda));
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * TYPE_OF_OTHER: {OTHER(2147483647)} <br />
-     * <pre>e.g. setTypeOfOther_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setTypeOfOther_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param typeOfOther The value of typeOfOther as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -2924,7 +2924,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param typeOfOther The value of typeOfOther as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setTypeOfOther_NotLikeSearch(String typeOfOther, COptionCall<LikeSearchOption> opLambda) {
+    public void setTypeOfOther_NotLikeSearch(String typeOfOther, ConditionOptionCall<LikeSearchOption> opLambda) {
         setTypeOfOther_NotLikeSearch(typeOfOther, xcLSOP(opLambda));
     }
 
@@ -3051,18 +3051,18 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)} <br />
-     * <pre>e.g. setJAVABeansProperty_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setJAVABeansProperty_LikeSearch("xxx", op -&gt; op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param jAVABeansProperty The value of jAVABeansProperty as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setJAVABeansProperty_LikeSearch(String jAVABeansProperty, COptionCall<LikeSearchOption> opLambda) {
+    public void setJAVABeansProperty_LikeSearch(String jAVABeansProperty, ConditionOptionCall<LikeSearchOption> opLambda) {
         setJAVABeansProperty_LikeSearch(jAVABeansProperty, xcLSOP(opLambda));
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * J_A_V_A_BEANS_PROPERTY: {VARCHAR(10)} <br />
-     * <pre>e.g. setJAVABeansProperty_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setJAVABeansProperty_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param jAVABeansProperty The value of jAVABeansProperty as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -3077,7 +3077,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param jAVABeansProperty The value of jAVABeansProperty as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setJAVABeansProperty_NotLikeSearch(String jAVABeansProperty, COptionCall<LikeSearchOption> opLambda) {
+    public void setJAVABeansProperty_NotLikeSearch(String jAVABeansProperty, ConditionOptionCall<LikeSearchOption> opLambda) {
         setJAVABeansProperty_NotLikeSearch(jAVABeansProperty, xcLSOP(opLambda));
     }
 
@@ -3204,18 +3204,18 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * J_POP_BEANS_PROPERTY: {VARCHAR(10)} <br />
-     * <pre>e.g. setJPopBeansProperty_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setJPopBeansProperty_LikeSearch("xxx", op -&gt; op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param jPopBeansProperty The value of jPopBeansProperty as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setJPopBeansProperty_LikeSearch(String jPopBeansProperty, COptionCall<LikeSearchOption> opLambda) {
+    public void setJPopBeansProperty_LikeSearch(String jPopBeansProperty, ConditionOptionCall<LikeSearchOption> opLambda) {
         setJPopBeansProperty_LikeSearch(jPopBeansProperty, xcLSOP(opLambda));
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * J_POP_BEANS_PROPERTY: {VARCHAR(10)} <br />
-     * <pre>e.g. setJPopBeansProperty_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setJPopBeansProperty_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param jPopBeansProperty The value of jPopBeansProperty as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -3230,7 +3230,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param jPopBeansProperty The value of jPopBeansProperty as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setJPopBeansProperty_NotLikeSearch(String jPopBeansProperty, COptionCall<LikeSearchOption> opLambda) {
+    public void setJPopBeansProperty_NotLikeSearch(String jPopBeansProperty, ConditionOptionCall<LikeSearchOption> opLambda) {
         setJPopBeansProperty_NotLikeSearch(jPopBeansProperty, xcLSOP(opLambda));
     }
 
@@ -3273,7 +3273,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as equal. <br />
      * {where FOO = (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #DD4747">scalar_Equal()</span>.max(new SubQuery&lt;VendorCheckCB&gt;() {
+     * cb.query().<span style="color: #CC4747">scalar_Equal()</span>.max(new SubQuery&lt;VendorCheckCB&gt;() {
      *     public void query(VendorCheckCB subCB) {
      *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setYyy...
@@ -3290,7 +3290,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as equal. <br />
      * {where FOO &lt;&gt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #DD4747">scalar_NotEqual()</span>.max(new SubQuery&lt;VendorCheckCB&gt;() {
+     * cb.query().<span style="color: #CC4747">scalar_NotEqual()</span>.max(new SubQuery&lt;VendorCheckCB&gt;() {
      *     public void query(VendorCheckCB subCB) {
      *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setYyy...
@@ -3307,7 +3307,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as greaterThan. <br />
      * {where FOO &gt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #DD4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;VendorCheckCB&gt;() {
+     * cb.query().<span style="color: #CC4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;VendorCheckCB&gt;() {
      *     public void query(VendorCheckCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -3324,7 +3324,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as lessThan. <br />
      * {where FOO &lt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #DD4747">scalar_LessThan()</span>.max(new SubQuery&lt;VendorCheckCB&gt;() {
+     * cb.query().<span style="color: #CC4747">scalar_LessThan()</span>.max(new SubQuery&lt;VendorCheckCB&gt;() {
      *     public void query(VendorCheckCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -3341,7 +3341,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as greaterEqual. <br />
      * {where FOO &gt;= (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #DD4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;VendorCheckCB&gt;() {
+     * cb.query().<span style="color: #CC4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;VendorCheckCB&gt;() {
      *     public void query(VendorCheckCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -3358,7 +3358,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as lessEqual. <br />
      * {where FOO &lt;= (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #DD4747">scalar_LessEqual()</span>.max(new SubQuery&lt;VendorCheckCB&gt;() {
+     * cb.query().<span style="color: #CC4747">scalar_LessEqual()</span>.max(new SubQuery&lt;VendorCheckCB&gt;() {
      *     public void query(VendorCheckCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -3445,8 +3445,8 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * <pre>
      * MemberCB cb = new MemberCB();
      * ManualOrderBean mob = new ManualOrderBean();
-     * mob.<span style="color: #DD4747">when_GreaterEqual</span>(priorityDate); <span style="color: #3F7E5E">// e.g. 2000/01/01</span>
-     * cb.query().addOrderBy_Birthdate_Asc().<span style="color: #DD4747">withManualOrder(mob)</span>;
+     * mob.<span style="color: #CC4747">when_GreaterEqual</span>(priorityDate); <span style="color: #3F7E5E">// e.g. 2000/01/01</span>
+     * cb.query().addOrderBy_Birthdate_Asc().<span style="color: #CC4747">withManualOrder(mob)</span>;
      * <span style="color: #3F7E5E">// order by </span>
      * <span style="color: #3F7E5E">//   case</span>
      * <span style="color: #3F7E5E">//     when BIRTHDATE &gt;= '2000/01/01' then 0</span>
@@ -3455,10 +3455,10 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      *
      * MemberCB cb = new MemberCB();
      * ManualOrderBean mob = new ManualOrderBean();
-     * mob.<span style="color: #DD4747">when_Equal</span>(CDef.MemberStatus.Withdrawal);
-     * mob.<span style="color: #DD4747">when_Equal</span>(CDef.MemberStatus.Formalized);
-     * mob.<span style="color: #DD4747">when_Equal</span>(CDef.MemberStatus.Provisional);
-     * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #DD4747">withManualOrder(mob)</span>;
+     * mob.<span style="color: #CC4747">when_Equal</span>(CDef.MemberStatus.Withdrawal);
+     * mob.<span style="color: #CC4747">when_Equal</span>(CDef.MemberStatus.Formalized);
+     * mob.<span style="color: #CC4747">when_Equal</span>(CDef.MemberStatus.Provisional);
+     * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #CC4747">withManualOrder(mob)</span>;
      * <span style="color: #3F7E5E">// order by </span>
      * <span style="color: #3F7E5E">//   case</span>
      * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'WDL' then 0</span>
@@ -3488,7 +3488,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * orderValueList.add(CDef.MemberStatus.Withdrawal);
      * orderValueList.add(CDef.MemberStatus.Formalized);
      * orderValueList.add(CDef.MemberStatus.Provisional);
-     * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #DD4747">withManualOrder(orderValueList)</span>;
+     * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #CC4747">withManualOrder(orderValueList)</span>;
      * <span style="color: #3F7E5E">// order by </span>
      * <span style="color: #3F7E5E">//   case</span>
      * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'WDL' then 0</span>

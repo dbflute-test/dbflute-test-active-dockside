@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import org.dbflute.bhv.writable.UpdateOption;
-import org.dbflute.bhv.writable.WOptionCall;
+import org.dbflute.bhv.writable.WritableOptionCall;
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.exception.QueryIllegalPurposeException;
 import org.dbflute.exception.SpecifyRelationIllegalPurposeException;
@@ -181,7 +181,7 @@ public class WxBhvVaryingUpdateTest extends UnitContainerTestCase {
         purchase.setVersionNo(before.getVersionNo());
         // ## Act ##
         try {
-            WOptionCall<PurchaseCB, UpdateOption<PurchaseCB>> opCall = op -> op.self(new SpecifyQuery<PurchaseCB>() {
+            WritableOptionCall<PurchaseCB, UpdateOption<PurchaseCB>> opCall = op -> op.self(new SpecifyQuery<PurchaseCB>() {
                 public void specify(PurchaseCB cb) {
                     cb.specify().columnPurchaseCount();
                 }

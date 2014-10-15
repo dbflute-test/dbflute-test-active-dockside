@@ -236,7 +236,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
+     * cb.query().<span style="color: #CC4747">union</span>(new UnionQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
      *     public void query(VendorTheLongAndWindingTableAndColumnRefCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -255,7 +255,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
+     * cb.query().<span style="color: #CC4747">unionAll</span>(new UnionQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
      *     public void query(VendorTheLongAndWindingTableAndColumnRefCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -277,10 +277,10 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
      * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'.
      * <pre>
      * VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB();
-     * cb.<span style="color: #DD4747">setupSelect_VendorTheLongAndWindingTableAndColumn()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #CC4747">setupSelect_VendorTheLongAndWindingTableAndColumn()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef = vendorTheLongAndWindingTableAndColumnRefBhv.selectEntityWithDeletedCheck(cb);
-     * ... = vendorTheLongAndWindingTableAndColumnRef.<span style="color: #DD4747">getVendorTheLongAndWindingTableAndColumn()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = vendorTheLongAndWindingTableAndColumnRef.<span style="color: #CC4747">getVendorTheLongAndWindingTableAndColumn()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      */
     public void setupSelect_VendorTheLongAndWindingTableAndColumn() {
@@ -320,7 +320,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
                 public boolean has() { return true; }
                 public VendorTheLongAndWindingTableAndColumnRefCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
+            , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
 
@@ -336,8 +336,8 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
         protected VendorTheLongAndWindingTableAndColumnCB.HpSpecification _vendorTheLongAndWindingTableAndColumn;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<VendorTheLongAndWindingTableAndColumnRefCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
-                             , FactoryOfDerivedReferrerOption sdrOpFactory)
-        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
+                             , HpSDRFunctionFactory sdrFuncFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
          * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
@@ -381,7 +381,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
                 _vendorTheLongAndWindingTableAndColumn = new VendorTheLongAndWindingTableAndColumnCB.HpSpecification(_baseCB, new HpSpQyCall<VendorTheLongAndWindingTableAndColumnCQ>() {
                     public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryVendorTheLongAndWindingTableAndColumn(); }
                     public VendorTheLongAndWindingTableAndColumnCQ qy() { return _qyCall.qy().queryVendorTheLongAndWindingTableAndColumn(); } }
-                    , _purpose, _dbmetaProvider, xgetFofSDROp());
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
                     _vendorTheLongAndWindingTableAndColumn.xsetSyncQyCall(new HpSpQyCall<VendorTheLongAndWindingTableAndColumnCQ>() {
                         public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryVendorTheLongAndWindingTableAndColumn(); }
@@ -411,13 +411,13 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
+     * cb.<span style="color: #CC4747">columnQuery</span>(new SpecifyQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
      *     public void query(VendorTheLongAndWindingTableAndColumnRefCB cb) {
-     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #CC4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
      *     public void query(VendorTheLongAndWindingTableAndColumnRefCB cb) {
-     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #CC4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -465,7 +465,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
+     * cb.<span style="color: #CC4747">orScopeQuery</span>(new OrQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
      *     public void query(VendorTheLongAndWindingTableAndColumnRefCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -488,10 +488,10 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
+     * cb.<span style="color: #CC4747">orScopeQuery</span>(new OrQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
      *     public void query(VendorTheLongAndWindingTableAndColumnRefCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
+     *         orCB.<span style="color: #CC4747">orScopeQueryAndPart</span>(new AndQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
      *             public void query(VendorTheLongAndWindingTableAndColumnRefCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...

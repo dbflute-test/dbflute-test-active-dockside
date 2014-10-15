@@ -250,7 +250,7 @@ public class BsMemberLoginCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;MemberLoginCB&gt;() {
+     * cb.query().<span style="color: #CC4747">union</span>(new UnionQuery&lt;MemberLoginCB&gt;() {
      *     public void query(MemberLoginCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -269,7 +269,7 @@ public class BsMemberLoginCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;MemberLoginCB&gt;() {
+     * cb.query().<span style="color: #CC4747">unionAll</span>(new UnionQuery&lt;MemberLoginCB&gt;() {
      *     public void query(MemberLoginCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -291,10 +291,10 @@ public class BsMemberLoginCB extends AbstractConditionBean {
      * (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
      * <pre>
      * MemberLoginCB cb = new MemberLoginCB();
-     * cb.<span style="color: #DD4747">setupSelect_MemberStatus()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #CC4747">setupSelect_MemberStatus()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * MemberLogin memberLogin = memberLoginBhv.selectEntityWithDeletedCheck(cb);
-     * ... = memberLogin.<span style="color: #DD4747">getMemberStatus()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = memberLogin.<span style="color: #CC4747">getMemberStatus()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      */
     public void setupSelect_MemberStatus() {
@@ -315,10 +315,10 @@ public class BsMemberLoginCB extends AbstractConditionBean {
      * (会員)MEMBER by my MEMBER_ID, named 'member'.
      * <pre>
      * MemberLoginCB cb = new MemberLoginCB();
-     * cb.<span style="color: #DD4747">setupSelect_Member()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #CC4747">setupSelect_Member()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * MemberLogin memberLogin = memberLoginBhv.selectEntityWithDeletedCheck(cb);
-     * ... = memberLogin.<span style="color: #DD4747">getMember()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = memberLogin.<span style="color: #CC4747">getMember()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
@@ -362,7 +362,7 @@ public class BsMemberLoginCB extends AbstractConditionBean {
                 public boolean has() { return true; }
                 public MemberLoginCQ qy() { return getConditionQuery(); }
             }
-            , _purpose, getDBMetaProvider(), xcFofSDROp()); }
+            , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
 
@@ -379,8 +379,8 @@ public class BsMemberLoginCB extends AbstractConditionBean {
         protected MemberCB.HpSpecification _member;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<MemberLoginCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
-                             , FactoryOfDerivedReferrerOption sdrOpFactory)
-        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrOpFactory); }
+                             , HpSDRFunctionFactory sdrFuncFactory)
+        { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
          * (会員ログインID)MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
@@ -433,7 +433,7 @@ public class BsMemberLoginCB extends AbstractConditionBean {
                 _memberStatus = new MemberStatusCB.HpSpecification(_baseCB, new HpSpQyCall<MemberStatusCQ>() {
                     public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryMemberStatus(); }
                     public MemberStatusCQ qy() { return _qyCall.qy().queryMemberStatus(); } }
-                    , _purpose, _dbmetaProvider, xgetFofSDROp());
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
                     _memberStatus.xsetSyncQyCall(new HpSpQyCall<MemberStatusCQ>() {
                         public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMemberStatus(); }
@@ -454,7 +454,7 @@ public class BsMemberLoginCB extends AbstractConditionBean {
                 _member = new MemberCB.HpSpecification(_baseCB, new HpSpQyCall<MemberCQ>() {
                     public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryMember(); }
                     public MemberCQ qy() { return _qyCall.qy().queryMember(); } }
-                    , _purpose, _dbmetaProvider, xgetFofSDROp());
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
                     _member.xsetSyncQyCall(new HpSpQyCall<MemberCQ>() {
                         public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMember(); }
@@ -484,13 +484,13 @@ public class BsMemberLoginCB extends AbstractConditionBean {
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;MemberLoginCB&gt;() {
+     * cb.<span style="color: #CC4747">columnQuery</span>(new SpecifyQuery&lt;MemberLoginCB&gt;() {
      *     public void query(MemberLoginCB cb) {
-     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #CC4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;MemberLoginCB&gt;() {
      *     public void query(MemberLoginCB cb) {
-     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #CC4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -538,7 +538,7 @@ public class BsMemberLoginCB extends AbstractConditionBean {
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;MemberLoginCB&gt;() {
+     * cb.<span style="color: #CC4747">orScopeQuery</span>(new OrQuery&lt;MemberLoginCB&gt;() {
      *     public void query(MemberLoginCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -561,10 +561,10 @@ public class BsMemberLoginCB extends AbstractConditionBean {
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;MemberLoginCB&gt;() {
+     * cb.<span style="color: #CC4747">orScopeQuery</span>(new OrQuery&lt;MemberLoginCB&gt;() {
      *     public void query(MemberLoginCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;MemberLoginCB&gt;() {
+     *         orCB.<span style="color: #CC4747">orScopeQueryAndPart</span>(new AndQuery&lt;MemberLoginCB&gt;() {
      *             public void query(MemberLoginCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...
