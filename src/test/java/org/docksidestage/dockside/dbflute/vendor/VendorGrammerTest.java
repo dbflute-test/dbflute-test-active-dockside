@@ -10,7 +10,6 @@ import java.util.Set;
 
 import org.dbflute.bhv.writable.QueryInsertSetupper;
 import org.dbflute.cbean.ConditionBean;
-import org.dbflute.cbean.ordering.ManualOrderOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.hook.AccessContext;
@@ -271,11 +270,12 @@ public class VendorGrammerTest extends UnitContainerTestCase {
             // H2 needs to suppress either 'then' or 'else' binding
             // she said 'Unknown data type' (why?)
             // (cannot judge order column type by all binding?)
-                ManualOrderOption mob = new ManualOrderOption().suppressElseBinding();
-                mob.when_Equal(CDef.MemberStatus.Formalized).then(3);
-                mob.when_Equal(CDef.MemberStatus.Provisional).then(4);
-                mob.elseEnd(2);
-                cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
+                cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(op -> {
+                    op.suppressElseBinding();
+                    op.when_Equal(CDef.MemberStatus.Formalized).then(3);
+                    op.when_Equal(CDef.MemberStatus.Provisional).then(4);
+                    op.elseEnd(2);
+                });
                 pushCB(cb);
             });
 

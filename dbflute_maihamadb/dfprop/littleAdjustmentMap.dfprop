@@ -47,8 +47,8 @@ map:{
     ; isCompatibleSelectByPKPlainReturn = true
     ; isCompatibleSelectByPKWithDeletedCheck = true
     ; isMakeConditionQueryExistsReferrerToOne = true
-    ; isMakeConditionQueryInScopeRelationToOne = true
-    ; isMakeConditionQueryPlainListManualOrder = true
+    ; isMakeConditionQueryInScopeRelationToOne = false
+    ; isMakeConditionQueryPlainListManualOrder = false
     ; isMakeDirectConditionBeanSetup = false
     ; isMakeBatchUpdateSpecifyColumn = false
     ; isAvailableSelectEntityPlainReturn = true
@@ -56,7 +56,7 @@ map:{
     ; isMakeConditionQueryPrefixSearch = false
     ; isMakeConditionQueryDateFromTo = false
     ; isMakeDirectConditionOptionSetup = true
-    ; isMakeDirectConditionManualOrder = true
+    ; isMakeDirectConditionManualOrder = false
     ; isMakeClassificationNativeTypeSetter = true
     ; isCompatibleNewMyEntityConditionBean = true
     ; isCompatibleDeleteNonstrictIgnoreDeleted = true
@@ -71,7 +71,7 @@ map:{
     ; isMakeCallbackConditionBeanSetup = true
     ; isEntityDerivedMappable = false
     ; isMakeCallbackConditionOptionSetup = true
-    ; isMakeCallbackConditionManualOrder = false
+    ; isMakeCallbackConditionManualOrder = true
     ; isAvailableJava8TimeLocalDateEntity = false
 
     # runtime compatible (true if compatible)

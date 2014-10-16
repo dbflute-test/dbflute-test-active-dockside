@@ -3,11 +3,7 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.orderby;
 import java.util.Arrays;
 
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.cbean.scoping.SubQuery;
-import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.util.Srl;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -30,7 +26,9 @@ public class WxCBNullsFirstLastTest extends UnitContainerTestCase {
         // ## Arrange ##
         memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(Arrays.asList("FML"));
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(op -> {
+                op.acceptOrderValueList(Arrays.asList("FML"));
+            });
             cb.query().withNullsFirst();
             pushCB(cb);
         }); // expects no exception
@@ -45,22 +43,12 @@ public class WxCBNullsFirstLastTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
-                public void query(MemberLoginCB subCB) {
-                    subCB.specify().columnLoginDatetime();
-                    subCB.query().setMobileLoginFlg_Equal_True();
-                    subCB.union(new UnionQuery<MemberLoginCB>() {
-                        public void query(MemberLoginCB unionCB) {
-                            unionCB.query().setMobileLoginFlg_Equal_False();
-                        }
-                    });
-                }
+            cb.specify().derivedMemberLogin().max(loginCB -> {
+                loginCB.specify().columnLoginDatetime();
+                loginCB.query().setMobileLoginFlg_Equal_True();
+                loginCB.union(unionCB -> unionCB.query().setMobileLoginFlg_Equal_False());
             }, Member.ALIAS_latestLoginDatetime);
-            cb.union(new UnionQuery<MemberCB>() {
-                public void query(MemberCB unionCB) {
-                    unionCB.query().setMemberStatusCode_Equal_Withdrawal();
-                }
-            });
+            cb.union(unionCB -> unionCB.query().setMemberStatusCode_Equal_Withdrawal());
             cb.query().addSpecifiedDerivedOrderBy_Asc(Member.ALIAS_latestLoginDatetime).withNullsFirst();
             pushCB(cb);
         });

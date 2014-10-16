@@ -356,7 +356,9 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             manualValueList.add(CDef.MemberStatus.Withdrawal);
             manualValueList.add(CDef.MemberStatus.Formalized);
             manualValueList.add(CDef.MemberStatus.Provisional);
-            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(manualValueList);
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(op -> {
+                op.acceptOrderValueList(manualValueList);
+            });
             cb.query().addOrderBy_Birthdate_Desc().withNullsLast();
             cb.query().addOrderBy_MemberName_Asc();
             pushCB(cb);

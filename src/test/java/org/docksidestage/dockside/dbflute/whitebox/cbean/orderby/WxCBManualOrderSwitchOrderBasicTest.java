@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.dbflute.cbean.ordering.ManualOrderOption;
+import org.dbflute.cbean.chelper.HpSpecifiedColumn;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.exception.IllegalConditionBeanOperationException;
 import org.dbflute.util.Srl;
@@ -35,21 +35,22 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
     public void test_SwitchOrder_DreamCruise() {
         // ## Arrange ##
         adjustMemberStatusCount();
-        ListResultBean<Member> memberList =
-                memberBhv.selectList(cb -> {
-                    /* ## Act ## */
-                    cb.setupSelect_MemberSecurityAsOne();
-                    cb.setupSelect_MemberServiceAsOne();
-                    MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-                    cb.query().addOrderBy_MemberStatusCode_Asc();
-                    ManualOrderOption mob = new ManualOrderOption();
-                    mob.when_Equal(CDef.MemberStatus.Formalized).then(dreamCruiseCB.specify().columnMemberId());
-                    mob.when_Equal(CDef.MemberStatus.Provisional).then(
-                            dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-                    mob.elseEnd(dreamCruiseCB.specify().specifyMemberSecurityAsOne().columnReminderUseCount());
-                    cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
-                    pushCB(cb);
-                });
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberSecurityAsOne();
+            cb.setupSelect_MemberServiceAsOne();
+            MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            cb.query().addOrderBy_MemberStatusCode_Asc();
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(op -> {
+                HpSpecifiedColumn memberId = dreamCruiseCB.specify().columnMemberId();
+                HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                HpSpecifiedColumn reminderUseCount = dreamCruiseCB.specify().specifyMemberSecurityAsOne().columnReminderUseCount();
+                op.when_Equal(CDef.MemberStatus.Formalized).then(memberId);
+                op.when_Equal(CDef.MemberStatus.Provisional).then(servicePointCount);
+                op.elseEnd(reminderUseCount);
+            });
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -123,16 +124,17 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
         adjustMemberStatusCount();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            // H2 needs to suppress either 'then' or 'else' binding (why?)
-            // she said 'Unknown data type' (why?)
-            // (cannot judge order column type by all binding?)
-                ManualOrderOption mob = new ManualOrderOption().suppressElseBinding();
+            /* H2 needs to suppress either 'then' or 'else' binding (why?)
+             * she said 'Unknown data type' (why?)
+             * (cannot judge order column type by all binding?)
+             */
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob -> {
                 mob.when_Equal(CDef.MemberStatus.Formalized).then(3);
                 mob.when_Equal(CDef.MemberStatus.Provisional).then(4);
                 mob.elseEnd(2);
-                cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
-                pushCB(cb);
             });
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
@@ -160,11 +162,11 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
         adjustMemberStatusCount();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            ManualOrderOption mob = new ManualOrderOption().suppressThenBinding().suppressElseBinding();
-            mob.when_Equal(CDef.MemberStatus.Formalized).then(3);
-            mob.when_Equal(CDef.MemberStatus.Provisional).then(4);
-            mob.elseEnd(2);
-            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(op -> {
+                op.when_Equal(CDef.MemberStatus.Formalized).then(3);
+                op.when_Equal(CDef.MemberStatus.Provisional).then(4);
+                op.elseEnd(2);
+            });
             pushCB(cb);
         });
 
@@ -188,11 +190,12 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
         adjustMemberStatusCount();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            ManualOrderOption mob = new ManualOrderOption().suppressThenBinding().suppressElseBinding();
-            mob.when_Equal(CDef.MemberStatus.Formalized).then(toDate("2012/10/31"));
-            mob.when_Equal(CDef.MemberStatus.Provisional).then(toDate("2001/10/31"));
-            mob.elseEnd(toDate("2007/10/31"));
-            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(op -> {
+                op.suppressThenBinding().suppressElseBinding();
+                op.when_Equal(CDef.MemberStatus.Formalized).then(toDate("2012/10/31"));
+                op.when_Equal(CDef.MemberStatus.Provisional).then(toDate("2001/10/31"));
+                op.elseEnd(toDate("2007/10/31"));
+            });
             pushCB(cb);
         });
 
@@ -215,14 +218,15 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.setupSelect_MemberServiceAsOne();
-        ManualOrderOption mob = new ManualOrderOption().suppressThenBinding().suppressElseBinding();
-        mob.when_Equal(CDef.ServiceRank.Gold).then(CDef.ServiceRank.Plastic);
-        mob.when_Equal(CDef.ServiceRank.Plastic).then(CDef.ServiceRank.Silver);
-        mob.when_Equal(CDef.ServiceRank.Bronze).then(CDef.ServiceRank.Platinum);
-        mob.when_Equal(CDef.ServiceRank.Silver).then(CDef.ServiceRank.Gold);
-        mob.elseEnd(CDef.ServiceRank.Bronze);
         try {
-            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(mob);
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(op -> {
+                op.suppressThenBinding().suppressElseBinding();
+                op.when_Equal(CDef.ServiceRank.Gold).then(CDef.ServiceRank.Plastic);
+                op.when_Equal(CDef.ServiceRank.Plastic).then(CDef.ServiceRank.Silver);
+                op.when_Equal(CDef.ServiceRank.Bronze).then(CDef.ServiceRank.Platinum);
+                op.when_Equal(CDef.ServiceRank.Silver).then(CDef.ServiceRank.Gold);
+                op.elseEnd(CDef.ServiceRank.Bronze);
+            });
 
             // ## Assert ##
             fail();
@@ -236,11 +240,12 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<MemberAddress> addressList = memberAddressBhv.selectList(cb -> {
             /* ## Act ## */
-            ManualOrderOption mob = new ManualOrderOption().suppressThenBinding().suppressElseBinding();
-            mob.when_Equal(CDef.Region.Chiba).then(CDef.Region.America);
-            mob.when_Equal(CDef.Region.America).then(CDef.Region.China);
-            mob.elseEnd(CDef.Region.Canada);
-            cb.query().addOrderBy_RegionId_Asc().withManualOrder(mob);
+            cb.query().addOrderBy_RegionId_Asc().withManualOrder(op -> {
+                op.suppressThenBinding().suppressElseBinding();
+                op.when_Equal(CDef.Region.Chiba).then(CDef.Region.America);
+                op.when_Equal(CDef.Region.America).then(CDef.Region.China);
+                op.elseEnd(CDef.Region.Canada);
+            });
             pushCB(cb);
         });
 
