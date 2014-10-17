@@ -234,6 +234,9 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
         return facadeSelectList(createCB(cbLambda));
     }
 
+    @Override
+    protected boolean isEntityDerivedMappable() { return true; }
+
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

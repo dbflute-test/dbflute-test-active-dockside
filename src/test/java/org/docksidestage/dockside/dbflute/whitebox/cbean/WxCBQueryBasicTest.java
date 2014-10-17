@@ -5,17 +5,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 
-import org.dbflute.cbean.coption.FromToOption;
-import org.dbflute.cbean.coption.LikeSearchOption;
-import org.dbflute.cbean.scoping.AndQuery;
-import org.dbflute.cbean.scoping.OrQuery;
-import org.dbflute.cbean.scoping.SpecifyQuery;
-import org.dbflute.cbean.scoping.SubQuery;
-import org.dbflute.util.DfCollectionUtil;
 import org.dbflute.util.DfTypeUtil;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
-import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
@@ -42,100 +34,93 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
         cb.query().setMemberId_LessThan(4);
         cb.query().setMemberId_GreaterEqual(5);
         cb.query().setMemberId_LessEqual(99);
-        cb.query().setMemberId_LessEqual(6); // override
+        cb.enableOverridingQuery(() -> {
+            cb.query().setMemberId_LessEqual(6);
+        });
         cb.query().setMemberId_IsNotNull();
         cb.query().setMemberId_IsNull();
-        cb.query().setMemberId_IsNotNull(); // ignored
-        cb.query().setMemberId_IsNull(); // ignored
-        cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(1, 2, 3));
-        cb.query().setMemberId_InScope(DfCollectionUtil.newArrayList(4, 5, 6)); // append
-        cb.query().setMemberId_NotInScope(DfCollectionUtil.newArrayList(7, 8, 9));
+        cb.enableOverridingQuery(() -> {
+            cb.query().setMemberId_IsNotNull(); // ignored
+            cb.query().setMemberId_IsNull(); // ignored
+        });
+        cb.query().setMemberId_InScope(newArrayList(1, 2, 3));
+        cb.query().setMemberId_InScope(newArrayList(4, 5, 6)); // append
+        cb.query().setMemberId_NotInScope(newArrayList(7, 8, 9));
         cb.query().setMemberName_Equal("Foo");
         cb.query().setMemberName_LikeSearch("A", op -> op.likePrefix());
-        cb.query().setMemberName_LikeSearch("B%|B", new LikeSearchOption().likeSuffix());
-        cb.query().setMemberName_LikeSearch("C", new LikeSearchOption().likeContain()); // append
-        cb.query().inline().setBirthdate_Equal(DfTypeUtil.toDate("2099/07/08"));
-        cb.query().inline().setBirthdate_Equal(DfTypeUtil.toDate("2010/07/08")); // override
+        cb.query().setMemberName_LikeSearch("B%|B", op -> op.likeSuffix());
+        cb.query().setMemberName_LikeSearch("C", op -> op.likeContain()); // append
+        cb.query().inline().setBirthdate_Equal(toDate("2099/07/08"));
+        cb.enableOverridingQuery(() -> {
+            cb.query().inline().setBirthdate_Equal(toDate("2010/07/08"));
+        });
         cb.query().inline().setMemberId_NotEqual(72); // independent
         cb.query().inline().setMemberId_GreaterEqual(75); // independent
-        cb.query().setBirthdate_Equal(DfTypeUtil.toDate("2010/07/08")); // ignored
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberId_Equal(11);
-                orCB.query().setMemberId_Equal(12);
-                orCB.query().setMemberId_Equal(13);
-                orCB.query().setMemberId_NotEqual(21);
-                orCB.query().setMemberId_NotEqual(22);
-                orCB.query().setMemberId_NotEqual(23);
-                orCB.query().setMemberName_LikeSearch("X", op -> op.likePrefix());
-                orCB.query().setMemberName_LikeSearch("Y", new LikeSearchOption().likeSuffix());
-                orCB.query().setMemberName_LikeSearch("Z%|Z", new LikeSearchOption().likeContain()); // append
-                orCB.orScopeQueryAndPart(new AndQuery<MemberCB>() {
-                    public void query(MemberCB andCB) {
-                        andCB.query().setMemberId_Equal(31);
-                        andCB.query().setMemberId_Equal(32);
-                    }
+        cb.query().setBirthdate_Equal(toDate("2010/07/08")); // ignored
+        cb.orScopeQuery(orCB -> {
+            orCB.query().setMemberId_Equal(11);
+            orCB.query().setMemberId_Equal(12);
+            orCB.query().setMemberId_Equal(13);
+            orCB.query().setMemberId_NotEqual(21);
+            orCB.query().setMemberId_NotEqual(22);
+            orCB.query().setMemberId_NotEqual(23);
+            orCB.query().setMemberName_LikeSearch("X", op -> op.likePrefix());
+            orCB.query().setMemberName_LikeSearch("Y", op -> op.likeSuffix());
+            orCB.query().setMemberName_LikeSearch("Z%|Z", op -> op.likeContain()); // append
+            orCB.orScopeQueryAndPart(andCB -> {
+                andCB.query().setMemberId_Equal(31);
+                andCB.query().setMemberId_Equal(32);
+            });
+            orCB.orScopeQueryAndPart(andCB -> {
+                andCB.query().setMemberId_Equal(33);
+                andCB.query().setMemberId_Equal(34);
+            });
+            orCB.query().setMemberId_GreaterThan(41);
+            orCB.query().setMemberId_LessThan(42);
+            orCB.query().setMemberId_GreaterEqual(43);
+            orCB.query().setMemberId_LessEqual(44);
+            orCB.orScopeQueryAndPart(andCB -> {
+                andCB.query().setMemberId_Equal(35);
+                andCB.query().setMemberId_Equal(36);
+                andCB.query().existsPurchase(purchaseCB -> {
+                    purchaseCB.query().setPurchaseId_Equal(99L);
+                    purchaseCB.enableOverridingQuery(() -> {
+                        purchaseCB.query().setPurchaseId_Equal(3L);
+                    });
+                    purchaseCB.orScopeQuery(purchaseOrCB -> {
+                        purchaseOrCB.query().setPurchaseCount_Equal(81);
+                        purchaseOrCB.query().setPurchaseCount_Equal(82);
+                    });
                 });
-                orCB.orScopeQueryAndPart(new AndQuery<MemberCB>() {
-                    public void query(MemberCB andCB) {
-                        andCB.query().setMemberId_Equal(33);
-                        andCB.query().setMemberId_Equal(34);
-                    }
-                });
-                orCB.query().setMemberId_GreaterThan(41);
-                orCB.query().setMemberId_LessThan(42);
-                orCB.query().setMemberId_GreaterEqual(43);
-                orCB.query().setMemberId_LessEqual(44);
-                orCB.orScopeQueryAndPart(new AndQuery<MemberCB>() {
-                    public void query(MemberCB andCB) {
-                        andCB.query().setMemberId_Equal(35);
-                        andCB.query().setMemberId_Equal(36);
-                        andCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
-                            public void query(PurchaseCB subCB) {
-                                subCB.query().setPurchaseId_Equal(99L);
-                                subCB.query().setPurchaseId_Equal(3L); // override
-                                subCB.orScopeQuery(new OrQuery<PurchaseCB>() {
-                                    public void query(PurchaseCB orCB) {
-                                        orCB.query().setPurchaseCount_Equal(81);
-                                        orCB.query().setPurchaseCount_Equal(82);
-                                    }
-                                });
-                            }
-                        });
-                        andCB.query().setMemberId_Equal(37);
-                        andCB.query().setMemberId_Equal(38);
-                    }
-                });
-                orCB.query().setBirthdate_Equal(DfTypeUtil.toDate("2010/08/01"));
-                orCB.query().inline().setBirthdate_Equal(DfTypeUtil.toDate("2010/07/09"));
-                orCB.query().inline().setBirthdate_Equal(DfTypeUtil.toDate("2010/07/10"));
-            }
+                andCB.query().setMemberId_Equal(37);
+                andCB.query().setMemberId_Equal(38);
+            });
+            orCB.query().setBirthdate_Equal(toDate("2010/08/01"));
+            orCB.query().inline().setBirthdate_Equal(toDate("2010/07/09"));
+            orCB.query().inline().setBirthdate_Equal(toDate("2010/07/10"));
         });
         cb.query().queryMemberStatus().setDisplayOrder_Equal(50);
         cb.query().queryMemberStatus().on().setDisplayOrder_Equal(99); // independent
-        cb.query().queryMemberStatus().on().setDisplayOrder_Equal(60); // override
-        cb.columnQuery(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberId();
-            }
-        }).lessThan(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().specifyMemberStatus().columnDisplayOrder();
-            }
-        }).plus(3);
-        cb.orScopeQuery(new OrQuery<MemberCB>() {
-            public void query(MemberCB orCB) {
-                orCB.query().setMemberAccount_Equal("O");
-                orCB.query().setMemberAccount_Equal("P");
-                orCB.query().setMemberAccount_Equal("P"); // duplicate (by or-scope's specification)
-                orCB.query().setFormalizedDatetime_IsNotNull();
-                orCB.query().setFormalizedDatetime_IsNotNull(); // duplicate (by or-scope's specification)
-                orCB.query().setMemberId_Equal(88);
-            }
+        cb.enableOverridingQuery(() -> {
+            cb.query().queryMemberStatus().on().setDisplayOrder_Equal(60); // override
         });
-        String sql = cb.toDisplaySql();
+        cb.disableOverridingQuery();
+        cb.columnQuery(colCB -> {
+            colCB.specify().columnMemberId();
+        }).lessThan(colCB -> {
+            colCB.specify().specifyMemberStatus().columnDisplayOrder();
+        }).plus(3);
+        cb.orScopeQuery(orCB -> {
+            orCB.query().setMemberAccount_Equal("O");
+            orCB.query().setMemberAccount_Equal("P");
+            orCB.query().setMemberAccount_Equal("P"); // duplicate (by or-scope's specification)
+            orCB.query().setFormalizedDatetime_IsNotNull();
+            orCB.query().setFormalizedDatetime_IsNotNull(); // duplicate (by or-scope's specification)
+            orCB.query().setMemberId_Equal(88);
+        });
 
         // ## Assert ##
+        String sql = cb.toDisplaySql();
         log(ln() + sql);
         assertTrue(sql.contains(" where dfloc.MEMBER_ID = 1"));
         assertTrue(sql.contains("   and dfloc.MEMBER_ID <> 2"));
@@ -209,6 +194,7 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
     public void test_query_nullOrEmpty() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
+        cb.ignoreNullOrEmptyQuery();
         cb.query().setMemberId_Equal(null);
         cb.query().setMemberId_GreaterEqual(null);
         cb.query().setMemberId_GreaterThan(null);
@@ -226,14 +212,14 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
         cb.query().setMemberName_InScope(new ArrayList<String>());
         cb.query().setMemberName_InScope(new HashSet<String>());
         cb.query().setMemberName_InScope(Arrays.asList(new String[] { "", null, "" }));
-        cb.query().setMemberName_LikeSearch(null, new LikeSearchOption());
-        cb.query().setMemberName_LikeSearch("", new LikeSearchOption());
+        cb.query().setMemberName_LikeSearch(null, op -> {});
+        cb.query().setMemberName_LikeSearch("", op -> {});
         cb.query().setBirthdate_Equal(null);
         cb.query().setBirthdate_GreaterEqual(null);
         cb.query().setBirthdate_GreaterThan(null);
         cb.query().setBirthdate_LessThan(null);
         cb.query().setBirthdate_LessEqual(null);
-        cb.query().setBirthdate_FromTo(null, null, new FromToOption());
+        cb.query().setBirthdate_FromTo(null, null, op -> {});
 
         // ## Assert ##
         String actual = cb.toDisplaySql();

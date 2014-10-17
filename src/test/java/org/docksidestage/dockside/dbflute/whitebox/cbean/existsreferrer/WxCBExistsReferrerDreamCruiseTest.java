@@ -2,7 +2,7 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.existsreferrer;
 
 import java.util.List;
 
-import org.dbflute.cbean.chelper.HpSpecifiedColumn;
+import org.dbflute.cbean.dream.SpecifiedColumn;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.cbean.scoping.SubQuery;
@@ -40,7 +40,7 @@ public class WxCBExistsReferrerDreamCruiseTest extends UnitContainerTestCase {
             ListResultBean<Member> memberList = memberBhv.selectPage(cb -> {
                 /* ## Act ## */
                 MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-                final HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                final SpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
                 cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
@@ -90,7 +90,7 @@ public class WxCBExistsReferrerDreamCruiseTest extends UnitContainerTestCase {
             ListResultBean<Member> memberList = memberBhv.selectPage(cb -> {
                 /* ## Act ## */
                 MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-                final HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                final SpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
                 cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {

@@ -850,11 +850,6 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                    Small Adjustment
     //                                                                    ================
-    @Override
-    protected void filterFromToOption(String columnDbName, FromToOption option) {
-        option.allowOneSide();
-    }
-
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============

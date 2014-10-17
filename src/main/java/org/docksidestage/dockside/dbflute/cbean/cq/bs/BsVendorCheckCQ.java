@@ -732,7 +732,7 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return VendorCheckCB.class.getName(); }
     protected String xCQ() { return VendorCheckCQ.class.getName(); }
-    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCHp() { return HpQDRFunction.class.getName(); }
     protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

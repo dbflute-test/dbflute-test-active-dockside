@@ -20,6 +20,7 @@ import org.dbflute.cbean.ConditionBean;
 import org.dbflute.cbean.ConditionQuery;
 import org.dbflute.cbean.chelper.*;
 import org.dbflute.cbean.coption.*;
+import org.dbflute.cbean.dream.*;
 import org.dbflute.cbean.sqlclause.SqlClause;
 import org.dbflute.cbean.sqlclause.SqlClauseCreator;
 import org.dbflute.cbean.scoping.*;
@@ -424,62 +425,62 @@ public class BsPurchaseCB extends AbstractConditionBean {
          * PURCHASE_ID: {PK, ID, NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnPurchaseId() { return doColumn("PURCHASE_ID"); }
+        public SpecifiedColumn columnPurchaseId() { return doColumn("PURCHASE_ID"); }
         /**
          * (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnMemberId() { return doColumn("MEMBER_ID"); }
+        public SpecifiedColumn columnMemberId() { return doColumn("MEMBER_ID"); }
         /**
          * (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnProductId() { return doColumn("PRODUCT_ID"); }
+        public SpecifiedColumn columnProductId() { return doColumn("PRODUCT_ID"); }
         /**
          * (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnPurchaseDatetime() { return doColumn("PURCHASE_DATETIME"); }
+        public SpecifiedColumn columnPurchaseDatetime() { return doColumn("PURCHASE_DATETIME"); }
         /**
          * (購入数量)PURCHASE_COUNT: {NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnPurchaseCount() { return doColumn("PURCHASE_COUNT"); }
+        public SpecifiedColumn columnPurchaseCount() { return doColumn("PURCHASE_COUNT"); }
         /**
          * (購入価格)PURCHASE_PRICE: {IX, NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnPurchasePrice() { return doColumn("PURCHASE_PRICE"); }
+        public SpecifiedColumn columnPurchasePrice() { return doColumn("PURCHASE_PRICE"); }
         /**
          * (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnPaymentCompleteFlg() { return doColumn("PAYMENT_COMPLETE_FLG"); }
+        public SpecifiedColumn columnPaymentCompleteFlg() { return doColumn("PAYMENT_COMPLETE_FLG"); }
         /**
          * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnRegisterDatetime() { return doColumn("REGISTER_DATETIME"); }
+        public SpecifiedColumn columnRegisterDatetime() { return doColumn("REGISTER_DATETIME"); }
         /**
          * REGISTER_USER: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnRegisterUser() { return doColumn("REGISTER_USER"); }
+        public SpecifiedColumn columnRegisterUser() { return doColumn("REGISTER_USER"); }
         /**
          * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnUpdateDatetime() { return doColumn("UPDATE_DATETIME"); }
+        public SpecifiedColumn columnUpdateDatetime() { return doColumn("UPDATE_DATETIME"); }
         /**
          * UPDATE_USER: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnUpdateUser() { return doColumn("UPDATE_USER"); }
+        public SpecifiedColumn columnUpdateUser() { return doColumn("UPDATE_USER"); }
         /**
          * VERSION_NO: {NotNull, BIGINT(19)}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnVersionNo() { return doColumn("VERSION_NO"); }
+        public SpecifiedColumn columnVersionNo() { return doColumn("VERSION_NO"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
@@ -616,7 +617,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
      */
     public HpColQyOperand<PurchaseCB> columnQuery(final SpecifyQuery<PurchaseCB> colCBLambda) {
         return xcreateColQyOperand(new HpColQyHandler<PurchaseCB>() {
-            public HpCalculator handle(SpecifyQuery<PurchaseCB> rightSp, String operand) {
+            public ColumnCalculator handle(SpecifyQuery<PurchaseCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
             }
         });
@@ -668,11 +669,6 @@ public class BsPurchaseCB extends AbstractConditionBean {
         xorSQ((PurchaseCB)this, orCBLambda);
     }
 
-    @Override
-    protected HpCBPurpose xhandleOrSQPurposeChange() {
-        return null; // means no check
-    }
-
     /**
      * Set up the and-part of or-scope. <br />
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
@@ -694,99 +690,6 @@ public class BsPurchaseCB extends AbstractConditionBean {
      */
     public void orScopeQueryAndPart(AndQuery<PurchaseCB> andCBLambda) {
         xorSQAP((PurchaseCB)this, andCBLambda);
-    }
-
-    /**
-     * Check invalid query when query is set. <br />
-     * (it throws an exception if set query is invalid) <br />
-     * You should call this before registrations of where clause and other queries. <br />
-     * Union and SubQuery and other sub condition-bean inherit this. <br />
-     * 
-     * <p>renamed to checkNullOrEmptyQuery() since 1.1,
-     * but not deprecated because it might have many use.</p>
-     * 
-     * #java8 compatible option
-     */
-    public void checkInvalidQuery() {
-        checkNullOrEmptyQuery();
-    }
-
-    /**
-     * Accept (no check) an invalid query when a query is set. <br />
-     * (no condition if a set query is invalid) <br />
-     * You should call this before registrations of where clause and other queries. <br />
-     * Union and SubQuery and other sub condition-bean inherit this.
-     * @deprecated use ignoreNullOrEmptyQuery()
-     */
-    public void acceptInvalidQuery() {
-        getSqlClause().ignoreNullOrEmptyQuery();
-    }
-
-    /**
-     * Allow to auto-detect joins that can be inner-join. <br />
-     * <pre>
-     * o You should call this before registrations of where clause.
-     * o Union and SubQuery and other sub condition-bean inherit this.
-     * o You should confirm your SQL on the log to be tuned by inner-join correctly.
-     * </pre>
-     * @deprecated use enableInnerJoinAutoDetect()
-     */
-    public void allowInnerJoinAutoDetect() {
-        enableInnerJoinAutoDetect();
-    }
-
-    /**
-     * Suppress auto-detecting inner-join. <br />
-     * You should call this before registrations of where clause.
-     * @deprecated use disableInnerJoinAutoDetect()
-     */
-    public void suppressInnerJoinAutoDetect() {
-        disableInnerJoinAutoDetect();
-    }
-
-    /**
-     * Allow an empty string for query. <br />
-     * (you can use an empty string as condition) <br />
-     * You should call this before registrations of where clause and other queries. <br />
-     * Union and SubQuery and other sub condition-bean inherit this.
-     * @deprecated use enableEmptyStringQuery()
-     */
-    public void allowEmptyStringQuery() {
-        enableEmptyStringQuery();
-    }
-
-    /**
-     * Enable checking record count before QueryUpdate (contains QueryDelete). (default is disabled) <br />
-     * No query update if zero count. (basically for MySQL's deadlock by next-key lock)
-     * @deprecated use enableQueryUpdateCountPreCheck()
-     */
-    public void enableCheckCountBeforeQueryUpdate() {
-        enableQueryUpdateCountPreCheck();
-    }
-
-    /**
-     * Disable checking record count before QueryUpdate (contains QueryDelete). (back to default) <br />
-     * Executes query update even if zero count. (normal specification)
-     * @deprecated use disableQueryUpdateCountPreCheck()
-     */
-    public void disableCheckCountBeforeQueryUpdate() {
-        disableQueryUpdateCountPreCheck();
-    }
-
-    /**
-     * Allow "that's bad timing" check.
-     * @deprecated use enableThatsBadTiming()
-     */
-    public void allowThatsBadTiming() {
-        enableThatsBadTiming();
-    }
-
-    /**
-     * Suppress "that's bad timing" check.
-     * @deprecated use disableThatsBadTiming()
-     */
-    public void suppressThatsBadTiming() {
-        disableThatsBadTiming();
     }
 
     // ===================================================================================

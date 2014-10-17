@@ -2,7 +2,7 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.columnquery;
 
 import java.util.List;
 
-import org.dbflute.cbean.chelper.HpSpecifiedColumn;
+import org.dbflute.cbean.dream.SpecifiedColumn;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.cbean.scoping.SubQuery;
@@ -79,7 +79,7 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
                 public void query(PurchaseCB subCB) {
                     subCB.query().queryProduct().notExistsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
-                            HpSpecifiedColumn pointColumn = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                            SpecifiedColumn pointColumn = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
                             subCB.columnQuery(new SpecifyQuery<PurchaseCB>() {
                                 public void specify(PurchaseCB cb) {
                                     cb.specify().columnMemberId();

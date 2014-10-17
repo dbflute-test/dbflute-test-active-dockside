@@ -73,11 +73,11 @@ public class DBFluteConfig {
     protected boolean _pagingCountLater = true;
     protected boolean _pagingCountLeastJoin = true;
     protected boolean _innerJoinAutoDetect = true;
-    protected boolean _thatsBadTimingDetect = false;
-    protected boolean _nullOrEmptyQueryAllowed = true;
+    protected boolean _thatsBadTimingDetect = true;
+    protected boolean _nullOrEmptyQueryAllowed = false;
     protected boolean _emptyStringQueryAllowed;
     protected boolean _emptyStringParameterAllowed;
-    protected boolean _overridingQueryAllowed = true;
+    protected boolean _overridingQueryAllowed = false;
     protected boolean _disableSelectIndex;
     protected boolean _queryUpdateCountPreCheck = false;
 
@@ -223,10 +223,6 @@ public class DBFluteConfig {
             _log.info("...Setting nullOrEmptyQueryAllowed: " + nullOrEmptyQueryAllowed);
         }
         _nullOrEmptyQueryAllowed = nullOrEmptyQueryAllowed;
-    }
-
-    public void setInvalidQueryChecked(boolean invalidQueryChecked) { // for compatible
-        setNullOrEmptyQueryAllowed(!invalidQueryChecked);
     }
 
     public boolean isEmptyStringQueryAllowed() {

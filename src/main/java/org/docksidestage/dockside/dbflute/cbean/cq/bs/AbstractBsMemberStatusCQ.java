@@ -995,11 +995,6 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                    Small Adjustment
     //                                                                    ================
-    @Override
-    protected void filterFromToOption(String columnDbName, FromToOption option) {
-        option.allowOneSide();
-    }
-
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============

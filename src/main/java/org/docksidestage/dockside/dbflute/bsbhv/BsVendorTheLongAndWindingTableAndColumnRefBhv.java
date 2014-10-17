@@ -234,6 +234,9 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
         return facadeSelectList(createCB(cbLambda));
     }
 
+    @Override
+    protected boolean isEntityDerivedMappable() { return true; }
+
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

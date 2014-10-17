@@ -234,6 +234,9 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
         return facadeSelectList(createCB(cbLambda));
     }
 
+    @Override
+    protected boolean isEntityDerivedMappable() { return true; }
+
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

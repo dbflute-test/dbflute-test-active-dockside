@@ -239,6 +239,9 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
         return facadeSelectList(createCB(cbLambda));
     }
 
+    @Override
+    protected boolean isEntityDerivedMappable() { return true; }
+
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

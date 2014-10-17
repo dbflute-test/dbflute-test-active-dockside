@@ -64,6 +64,7 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.ignoreNullOrEmptyQuery();
             cb.query().setMemberStatusCode_Equal_AsMemberStatus(null);
         });
 
@@ -109,6 +110,7 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.ignoreNullOrEmptyQuery();
             cb.query().setMemberStatusCode_NotEqual_AsMemberStatus(null);
         });
 
@@ -172,6 +174,7 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.ignoreNullOrEmptyQuery();
             cb.query().setMemberStatusCode_InScope_AsMemberStatus(null);
         });
 
@@ -223,6 +226,7 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.ignoreNullOrEmptyQuery();
             cb.query().setMemberStatusCode_NotInScope_AsMemberStatus(null);
         });
 
@@ -271,6 +275,7 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
         // ## Act ##
         ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            cb.ignoreNullOrEmptyQuery();
             cb.query().setMobileLoginFlg_Equal_AsFlg(null);
         });
 
@@ -302,6 +307,7 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
         // ## Act ##
         ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            cb.ignoreNullOrEmptyQuery();
             cb.query().setMobileLoginFlg_NotEqual_AsFlg(null);
         });
 
@@ -352,6 +358,7 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
         // ## Act ##
         ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            cb.ignoreNullOrEmptyQuery();
             cb.query().setMobileLoginFlg_InScope_AsFlg(null);
         });
 
@@ -402,6 +409,7 @@ public class WxCBClassificationTest extends UnitContainerTestCase {
 
         // ## Act ##
         ListResultBean<MemberLogin> loginList = memberLoginBhv.selectList(cb -> {
+            cb.ignoreNullOrEmptyQuery();
             cb.query().setMobileLoginFlg_NotInScope_AsFlg(null);
         });
 

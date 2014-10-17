@@ -2,7 +2,7 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.innerjoin;
 
 import java.util.List;
 
-import org.dbflute.cbean.chelper.HpSpecifiedColumn;
+import org.dbflute.cbean.dream.SpecifiedColumn;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.cbean.scoping.SubQuery;
@@ -174,7 +174,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
                 /* ## Act ## */
                 MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-                HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                SpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
                 cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
                         PurchaseCB dreamCruiseCB = subCB.dreamCruiseCB();
@@ -358,13 +358,12 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         }
     }
 
-    @SuppressWarnings("deprecation")
     public void test_innerJoin_ColumnQuery_DerivedReferrer() {
         // ## Arrange ##
         int expectedCount;
         {
             expectedCount = memberBhv.selectCount(cb -> {
-                cb.suppressInnerJoinAutoDetect();
+                cb.disableInnerJoinAutoDetect();
                 cb.columnQuery(new SpecifyQuery<MemberCB>() {
                     public void specify(MemberCB cb) {
                         cb.specify().specifyMemberStatus().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
@@ -387,7 +386,7 @@ public class WxCBInnerJoinWhereUsedDetailTest extends UnitContainerTestCase {
         }
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.suppressInnerJoinAutoDetect();
+            cb.disableInnerJoinAutoDetect();
             cb.getSqlClause().enableWhereUsedInnerJoin();
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {

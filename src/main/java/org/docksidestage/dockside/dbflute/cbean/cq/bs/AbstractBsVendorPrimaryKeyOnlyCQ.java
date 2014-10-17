@@ -402,11 +402,6 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     // ===================================================================================
     //                                                                    Small Adjustment
     //                                                                    ================
-    @Override
-    protected void filterFromToOption(String columnDbName, FromToOption option) {
-        option.allowOneSide();
-    }
-
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============

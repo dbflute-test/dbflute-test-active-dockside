@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.dbflute.cbean.chelper.HpSpecifiedColumn;
+import org.dbflute.cbean.dream.SpecifiedColumn;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.exception.IllegalConditionBeanOperationException;
 import org.dbflute.util.Srl;
@@ -42,9 +42,9 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
             cb.query().addOrderBy_MemberStatusCode_Asc();
             cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(op -> {
-                HpSpecifiedColumn memberId = dreamCruiseCB.specify().columnMemberId();
-                HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                HpSpecifiedColumn reminderUseCount = dreamCruiseCB.specify().specifyMemberSecurityAsOne().columnReminderUseCount();
+                SpecifiedColumn memberId = dreamCruiseCB.specify().columnMemberId();
+                SpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                SpecifiedColumn reminderUseCount = dreamCruiseCB.specify().specifyMemberSecurityAsOne().columnReminderUseCount();
                 op.when_Equal(CDef.MemberStatus.Formalized).then(memberId);
                 op.when_Equal(CDef.MemberStatus.Provisional).then(servicePointCount);
                 op.elseEnd(reminderUseCount);

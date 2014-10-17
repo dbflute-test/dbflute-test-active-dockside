@@ -20,6 +20,7 @@ import org.dbflute.cbean.ConditionBean;
 import org.dbflute.cbean.ConditionQuery;
 import org.dbflute.cbean.chelper.*;
 import org.dbflute.cbean.coption.*;
+import org.dbflute.cbean.dream.*;
 import org.dbflute.cbean.sqlclause.SqlClause;
 import org.dbflute.cbean.sqlclause.SqlClauseCreator;
 import org.dbflute.cbean.scoping.*;
@@ -322,12 +323,12 @@ public class BsVendor$DollarCB extends AbstractConditionBean {
          * VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnVendor$DollarId() { return doColumn("VENDOR_$_DOLLAR_ID"); }
+        public SpecifiedColumn columnVendor$DollarId() { return doColumn("VENDOR_$_DOLLAR_ID"); }
         /**
          * VENDOR_$_DOLLAR_NAME: {VARCHAR(32)}
          * @return The information object of specified column. (NotNull)
          */
-        public HpSpecifiedColumn columnVendor$DollarName() { return doColumn("VENDOR_$_DOLLAR_NAME"); }
+        public SpecifiedColumn columnVendor$DollarName() { return doColumn("VENDOR_$_DOLLAR_NAME"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
@@ -371,7 +372,7 @@ public class BsVendor$DollarCB extends AbstractConditionBean {
      */
     public HpColQyOperand<Vendor$DollarCB> columnQuery(final SpecifyQuery<Vendor$DollarCB> colCBLambda) {
         return xcreateColQyOperand(new HpColQyHandler<Vendor$DollarCB>() {
-            public HpCalculator handle(SpecifyQuery<Vendor$DollarCB> rightSp, String operand) {
+            public ColumnCalculator handle(SpecifyQuery<Vendor$DollarCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
             }
         });
@@ -423,11 +424,6 @@ public class BsVendor$DollarCB extends AbstractConditionBean {
         xorSQ((Vendor$DollarCB)this, orCBLambda);
     }
 
-    @Override
-    protected HpCBPurpose xhandleOrSQPurposeChange() {
-        return null; // means no check
-    }
-
     /**
      * Set up the and-part of or-scope. <br />
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
@@ -449,99 +445,6 @@ public class BsVendor$DollarCB extends AbstractConditionBean {
      */
     public void orScopeQueryAndPart(AndQuery<Vendor$DollarCB> andCBLambda) {
         xorSQAP((Vendor$DollarCB)this, andCBLambda);
-    }
-
-    /**
-     * Check invalid query when query is set. <br />
-     * (it throws an exception if set query is invalid) <br />
-     * You should call this before registrations of where clause and other queries. <br />
-     * Union and SubQuery and other sub condition-bean inherit this. <br />
-     * 
-     * <p>renamed to checkNullOrEmptyQuery() since 1.1,
-     * but not deprecated because it might have many use.</p>
-     * 
-     * #java8 compatible option
-     */
-    public void checkInvalidQuery() {
-        checkNullOrEmptyQuery();
-    }
-
-    /**
-     * Accept (no check) an invalid query when a query is set. <br />
-     * (no condition if a set query is invalid) <br />
-     * You should call this before registrations of where clause and other queries. <br />
-     * Union and SubQuery and other sub condition-bean inherit this.
-     * @deprecated use ignoreNullOrEmptyQuery()
-     */
-    public void acceptInvalidQuery() {
-        getSqlClause().ignoreNullOrEmptyQuery();
-    }
-
-    /**
-     * Allow to auto-detect joins that can be inner-join. <br />
-     * <pre>
-     * o You should call this before registrations of where clause.
-     * o Union and SubQuery and other sub condition-bean inherit this.
-     * o You should confirm your SQL on the log to be tuned by inner-join correctly.
-     * </pre>
-     * @deprecated use enableInnerJoinAutoDetect()
-     */
-    public void allowInnerJoinAutoDetect() {
-        enableInnerJoinAutoDetect();
-    }
-
-    /**
-     * Suppress auto-detecting inner-join. <br />
-     * You should call this before registrations of where clause.
-     * @deprecated use disableInnerJoinAutoDetect()
-     */
-    public void suppressInnerJoinAutoDetect() {
-        disableInnerJoinAutoDetect();
-    }
-
-    /**
-     * Allow an empty string for query. <br />
-     * (you can use an empty string as condition) <br />
-     * You should call this before registrations of where clause and other queries. <br />
-     * Union and SubQuery and other sub condition-bean inherit this.
-     * @deprecated use enableEmptyStringQuery()
-     */
-    public void allowEmptyStringQuery() {
-        enableEmptyStringQuery();
-    }
-
-    /**
-     * Enable checking record count before QueryUpdate (contains QueryDelete). (default is disabled) <br />
-     * No query update if zero count. (basically for MySQL's deadlock by next-key lock)
-     * @deprecated use enableQueryUpdateCountPreCheck()
-     */
-    public void enableCheckCountBeforeQueryUpdate() {
-        enableQueryUpdateCountPreCheck();
-    }
-
-    /**
-     * Disable checking record count before QueryUpdate (contains QueryDelete). (back to default) <br />
-     * Executes query update even if zero count. (normal specification)
-     * @deprecated use disableQueryUpdateCountPreCheck()
-     */
-    public void disableCheckCountBeforeQueryUpdate() {
-        disableQueryUpdateCountPreCheck();
-    }
-
-    /**
-     * Allow "that's bad timing" check.
-     * @deprecated use enableThatsBadTiming()
-     */
-    public void allowThatsBadTiming() {
-        enableThatsBadTiming();
-    }
-
-    /**
-     * Suppress "that's bad timing" check.
-     * @deprecated use disableThatsBadTiming()
-     */
-    public void suppressThatsBadTiming() {
-        disableThatsBadTiming();
     }
 
     // ===================================================================================

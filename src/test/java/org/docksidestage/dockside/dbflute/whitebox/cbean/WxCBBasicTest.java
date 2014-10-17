@@ -138,24 +138,27 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     public void test_metaHandling() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
+
+        // ## Act ##
         // ## Assert ##
         assertFalse(cb.hasWhereClauseOnBaseQuery());
         assertFalse(cb.hasOrderByClause());
         assertFalse(cb.hasUnionQueryOrUnionAllQuery());
+
+        cb.ignoreNullOrEmptyQuery();
         cb.query().setMemberAccount_Equal(null);
         assertFalse(cb.hasWhereClauseOnBaseQuery());
         cb.query().setMemberAccount_Equal("");
         assertFalse(cb.hasWhereClauseOnBaseQuery());
+        cb.checkNullOrEmptyQuery();
+
         cb.query().setMemberAccount_Equal(" ");
         assertTrue(cb.hasWhereClauseOnBaseQuery());
         assertFalse(cb.hasOrderByClause());
         cb.query().addOrderBy_Birthdate_Asc();
         assertTrue(cb.hasOrderByClause());
         assertFalse(cb.hasUnionQueryOrUnionAllQuery());
-        cb.union(new UnionQuery<MemberCB>() {
-            public void query(MemberCB unionCB) {
-            }
-        });
+        cb.union(unionCB -> {});
         assertTrue(cb.hasUnionQueryOrUnionAllQuery());
         cb.clearWhereClauseOnBaseQuery();
         assertFalse(cb.hasWhereClauseOnBaseQuery());
@@ -278,10 +281,12 @@ public class WxCBBasicTest extends UnitContainerTestCase {
             assertNull(fixed.get("lessEqual"));
         }
         cb.query().setBirthdate_Equal(timestamp);
-        cb.query().setBirthdate_GreaterEqual(timestamp);
-        cb.query().setBirthdate_GreaterThan(timestamp);
-        cb.query().setBirthdate_LessEqual(timestamp);
-        cb.query().setBirthdate_LessThan(timestamp);
+        cb.enableOverridingQuery(() -> {
+            cb.query().setBirthdate_GreaterEqual(timestamp);
+            cb.query().setBirthdate_GreaterThan(timestamp);
+            cb.query().setBirthdate_LessEqual(timestamp);
+            cb.query().setBirthdate_LessThan(timestamp);
+        });
 
         // ## Assert ##
         {

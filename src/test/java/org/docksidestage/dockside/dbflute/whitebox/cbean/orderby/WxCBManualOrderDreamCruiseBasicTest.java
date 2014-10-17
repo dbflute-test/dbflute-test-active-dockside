@@ -3,7 +3,7 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.orderby;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.dbflute.cbean.chelper.HpSpecifiedColumn;
+import org.dbflute.cbean.dream.SpecifiedColumn;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.exception.SQLFailureException;
 import org.dbflute.util.Srl;
@@ -71,8 +71,8 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
             cb.query().addOrderBy_MemberId_Asc().withManualOrder(op -> {
-                HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                HpSpecifiedColumn versionNo = dreamCruiseCB.specify().columnVersionNo();
+                SpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                SpecifiedColumn versionNo = dreamCruiseCB.specify().columnVersionNo();
                 op.when_GreaterEqual(servicePointCount.plus(versionNo));
             });
             pushCB(cb);
@@ -90,8 +90,8 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
             cb.query().addOrderBy_MemberId_Asc().withManualOrder(op -> {
-                HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                HpSpecifiedColumn versionNo = dreamCruiseCB.specify().columnVersionNo();
+                SpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                SpecifiedColumn versionNo = dreamCruiseCB.specify().columnVersionNo();
                 op.when_GreaterEqual(servicePointCount.plus(versionNo).convert(cv -> cv.round(1)));
             });
             pushCB(cb);
@@ -109,17 +109,17 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
             cb.query().addOrderBy_MemberId_Asc().withManualOrder(op -> {
-                HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                HpSpecifiedColumn versionNo = dreamCruiseCB.specify().columnVersionNo();
-                HpSpecifiedColumn reminderUseCount = dreamCruiseCB.specify().specifyMemberSecurityAsOne().columnReminderUseCount();
+                SpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                SpecifiedColumn versionNo = dreamCruiseCB.specify().columnVersionNo();
+                SpecifiedColumn reminderUseCount = dreamCruiseCB.specify().specifyMemberSecurityAsOne().columnReminderUseCount();
                 op.when_GreaterEqual(servicePointCount.multiply(versionNo.plus(1)).convert(convOp -> {
                     convOp.round(2);
                 }));
                 op.multiply(reminderUseCount);
             });
             cb.query().addOrderBy_Birthdate_Asc().withManualOrder(op -> {
-                HpSpecifiedColumn formalizedDatetime = dreamCruiseCB.specify().columnFormalizedDatetime();
-                HpSpecifiedColumn updateDatetime = dreamCruiseCB.specify().columnUpdateDatetime();
+                SpecifiedColumn formalizedDatetime = dreamCruiseCB.specify().columnFormalizedDatetime();
+                SpecifiedColumn updateDatetime = dreamCruiseCB.specify().columnUpdateDatetime();
                 op.convert(convOp -> convOp.addDay(4));
                 op.when_GreaterEqual(formalizedDatetime.convert(convOp -> convOp.addDay(3))).or_GreaterThan(updateDatetime);
             });
@@ -380,8 +380,8 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
                 cb.union(unionCB -> {});
                 MemberCB dreamCruiseCB = cb.dreamCruiseCB();
                 cb.query().addOrderBy_MemberId_Asc().withManualOrder(op -> {
-                    HpSpecifiedColumn versionNo = dreamCruiseCB.specify().columnVersionNo();
-                    HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                    SpecifiedColumn versionNo = dreamCruiseCB.specify().columnVersionNo();
+                    SpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
                     op.multiply(versionNo).multiply(servicePointCount);
                 });
                 pushCB(cb);
@@ -441,7 +441,7 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
             cb.query().addOrderBy_MemberId_Asc().withManualOrder(op -> {
                 op.convert(cv -> cv.coalesce(1));
-                HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                SpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
                 op.multiply(servicePointCount.convert(conv -> conv.coalesce(2)));
                 op.convert(cv -> cv.coalesce(3));
             });
@@ -468,8 +468,8 @@ public class WxCBManualOrderDreamCruiseBasicTest extends UnitContainerTestCase {
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
             cb.query().addOrderBy_MemberId_Asc().withManualOrder(op -> {
                 op.convert(cv -> cv.coalesce(1));
-                HpSpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                HpSpecifiedColumn reminderUseCount = dreamCruiseCB.specify().specifyMemberSecurityAsOne().columnReminderUseCount();
+                SpecifiedColumn servicePointCount = dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                SpecifiedColumn reminderUseCount = dreamCruiseCB.specify().specifyMemberSecurityAsOne().columnReminderUseCount();
                 op.multiply(servicePointCount.convert(cv -> cv.coalesce(2)).plus(reminderUseCount));
                 op.convert(cv -> cv.coalesce(3));
             });

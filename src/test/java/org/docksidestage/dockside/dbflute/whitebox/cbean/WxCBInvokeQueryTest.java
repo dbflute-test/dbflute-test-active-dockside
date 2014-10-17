@@ -7,12 +7,12 @@ import java.util.List;
 import org.dbflute.Entity;
 import org.dbflute.cbean.ConditionBean;
 import org.dbflute.cbean.ConditionQuery;
-import org.dbflute.cbean.chelper.HpSpecifiedColumn;
 import org.dbflute.cbean.ckey.ConditionKey;
 import org.dbflute.cbean.coption.FromToOption;
 import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.coption.RangeOfOption;
 import org.dbflute.cbean.cvalue.ConditionValue;
+import org.dbflute.cbean.dream.SpecifiedColumn;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.exception.ConditionInvokingFailureException;
 import org.dbflute.util.DfCollectionUtil;
@@ -106,7 +106,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
     public void test_invokeSpecifyColumn_basic() throws Exception {
         // ## Arrange ##
         ConditionBean cb = memberBhv.newConditionBean();
-        HpSpecifiedColumn specifiedColumn = cb.invokeSpecifyColumn("memberAccount");
+        SpecifiedColumn specifiedColumn = cb.invokeSpecifyColumn("memberAccount");
 
         // ## Act ##
         ListResultBean<Entity> entityList = memberBhv.readList(cb);
@@ -126,7 +126,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         // ## Arrange ##
         ConditionBean cb = memberBhv.newConditionBean();
         cb.invokeSetupSelect("memberStatus");
-        HpSpecifiedColumn specifiedColumn = cb.invokeSpecifyColumn("memberStatus.displayOrder");
+        SpecifiedColumn specifiedColumn = cb.invokeSpecifyColumn("memberStatus.displayOrder");
 
         // ## Act ##
         ListResultBean<Entity> entityList = memberBhv.readList(cb);
@@ -214,26 +214,30 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         // ## Arrange ##
         ConditionBean cb = memberBhv.newConditionBean();
         String name = MemberDbm.getInstance().columnBirthdate().getColumnDbName();
-        Date date = DfTypeUtil.toDate("2011/08/23");
 
         // ## Act ##
-        cb.localCQ().invokeQuery(name, ConditionKey.CK_EQUAL.getConditionKey(), date);
-        List<Date> bothList = DfCollectionUtil.newArrayList(date, date);
-        List<Date> fromOnlyList = DfCollectionUtil.newArrayList(date, null);
-        List<Date> toOnlyList = DfCollectionUtil.newArrayList(null, date);
+        cb.localCQ().invokeQuery(name, ConditionKey.CK_EQUAL.getConditionKey(), toDate("2011/08/22"));
+        List<Date> bothList = DfCollectionUtil.newArrayList(toDate("2011/08/23"), toDate("2011/08/24"));
+        List<Date> fromOnlyList = DfCollectionUtil.newArrayList(toDate("2011/08/25"), null);
+        List<Date> toOnlyList = DfCollectionUtil.newArrayList(null, toDate("2011/08/26"));
         List<Date> nullNullList = DfCollectionUtil.newArrayList(null, null);
         cb.localCQ().invokeQuery(name, "FromTo", bothList, new FromToOption().compareAsDate());
-        cb.localCQ().invokeQuery(name, "FromTo", fromOnlyList, new FromToOption().compareAsDate());
-        cb.localCQ().invokeQuery(name, "FromTo", toOnlyList, new FromToOption().compareAsDate());
-        cb.localCQ().invokeQuery(name, "FromTo", nullNullList, new FromToOption().compareAsDate());
+        cb.enableOverridingQuery(() -> {
+            cb.localCQ().invokeQuery(name, "FromTo", fromOnlyList, new FromToOption().compareAsDate().allowOneSide());
+            cb.localCQ().invokeQuery(name, "FromTo", toOnlyList, new FromToOption().compareAsDate().allowOneSide());
+            cb.ignoreNullOrEmptyQuery();
+            cb.localCQ().invokeQuery(name, "FromTo", nullNullList, new FromToOption().compareAsDate());
+        });
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
         String sql = cb.toDisplaySql();
         log(ln() + sql);
-        assertTrue(sql.contains(" = '2011-08-23'"));
-        assertTrue(sql.contains(" >= '2011-08-23'"));
-        assertTrue(sql.contains(" < '2011-08-24'"));
+        assertTrue(sql.contains(" = '2011-08-22'"));
+        assertFalse(sql.contains(" >= '2011-08-23'")); // overridden
+        assertFalse(sql.contains(" < '2011-08-25'")); // overridden
+        assertTrue(sql.contains(" >= '2011-08-25'"));
+        assertTrue(sql.contains(" < '2011-08-27'"));
     }
 
     public void test_invokeQuery_DateFromTo() {
@@ -250,9 +254,12 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         List<Date> nullNullList = newArrayList(null, null);
         FromToOption option = new FromToOption().compareAsDate();
         cb.localCQ().invokeQuery(name, "FromTo", bothList, option);
-        cb.localCQ().invokeQuery(name, "FromTo", fromOnlyList, option);
-        cb.localCQ().invokeQuery(name, "FromTo", toOnlyList, option);
-        cb.localCQ().invokeQuery(name, "FromTo", nullNullList, option);
+        cb.enableOverridingQuery(() -> {
+            cb.localCQ().invokeQuery(name, "FromTo", fromOnlyList, option.allowOneSide());
+            cb.localCQ().invokeQuery(name, "FromTo", toOnlyList, option.allowOneSide());
+            cb.ignoreNullOrEmptyQuery();
+            cb.localCQ().invokeQuery(name, "FromTo", nullNullList, option);
+        });
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
@@ -280,9 +287,12 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         List<Integer> toOnlyList = newArrayList(null, max);
         List<Integer> nullNullList = newArrayList(null, null);
         cb.localCQ().invokeQuery(name, "RangeOf", bothList, new RangeOfOption());
-        cb.localCQ().invokeQuery(name, "RangeOf", fromOnlyList, new RangeOfOption().greaterThan());
-        cb.localCQ().invokeQuery(name, "RangeOf", toOnlyList, new RangeOfOption().lessThan());
-        cb.localCQ().invokeQuery(name, "RangeOf", nullNullList, new RangeOfOption());
+        cb.enableOverridingQuery(() -> {
+            cb.localCQ().invokeQuery(name, "RangeOf", fromOnlyList, new RangeOfOption().greaterThan().allowOneSide());
+            cb.localCQ().invokeQuery(name, "RangeOf", toOnlyList, new RangeOfOption().lessThan().allowOneSide());
+            cb.ignoreNullOrEmptyQuery();
+            cb.localCQ().invokeQuery(name, "RangeOf", nullNullList, new RangeOfOption());
+        });
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
@@ -338,6 +348,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
     public void test_invokeQuery_emptyString() {
         // ## Arrange ##
         ConditionBean cb = memberBhv.newConditionBean();
+        cb.ignoreNullOrEmptyQuery();
         String columnDbName = MemberDbm.getInstance().columnMemberName().getColumnDbName();
         String keyName = ConditionKey.CK_EQUAL.getConditionKey();
 

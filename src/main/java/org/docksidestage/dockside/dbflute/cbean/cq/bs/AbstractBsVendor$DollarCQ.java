@@ -555,11 +555,6 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                    Small Adjustment
     //                                                                    ================
-    @Override
-    protected void filterFromToOption(String columnDbName, FromToOption option) {
-        option.allowOneSide();
-    }
-
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============

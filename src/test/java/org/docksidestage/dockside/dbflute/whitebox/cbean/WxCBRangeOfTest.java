@@ -2,7 +2,7 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean;
 
 import java.math.BigDecimal;
 
-import org.dbflute.cbean.coption.RangeOfOption;
+import org.dbflute.cbean.dream.SpecifiedColumn;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
@@ -33,34 +33,18 @@ public class WxCBRangeOfTest extends UnitContainerTestCase {
         preparePrice(0, onePrice);
 
         // ## Act & Assert ##
-        {
-            assertEquals(1, purchaseBhv.selectCount(cb -> {
-                cb.query().setPurchasePrice_RangeOf(onePrice, null, new RangeOfOption());
-                pushCB(cb);
-            }));
-
-        }
-        {
-            assertEquals(1, purchaseBhv.selectCount(cb -> {
-                cb.query().setPurchasePrice_RangeOf(onePrice, onePrice, new RangeOfOption());
-                pushCB(cb);
-            }));
-
-        }
-        {
-            assertEquals(0, purchaseBhv.selectCount(cb -> {
-                cb.query().setPurchasePrice_RangeOf(onePrice, null, new RangeOfOption().greaterThan());
-                pushCB(cb);
-            }));
-
-        }
-        {
-            assertEquals(1, purchaseBhv.selectCount(cb -> {
-                cb.query().setPurchasePrice_RangeOf(onePrice - 1, null, new RangeOfOption().greaterThan());
-                pushCB(cb);
-            }));
-
-        }
+        assertEquals(1, purchaseBhv.selectCount(cb -> {
+            cb.query().setPurchasePrice_RangeOf(onePrice, null, op -> op.allowOneSide());
+        }));
+        assertEquals(1, purchaseBhv.selectCount(cb -> {
+            cb.query().setPurchasePrice_RangeOf(onePrice, onePrice, op -> {});
+        }));
+        assertEquals(0, purchaseBhv.selectCount(cb -> {
+            cb.query().setPurchasePrice_RangeOf(onePrice, null, op -> op.greaterThan().allowOneSide());
+        }));
+        assertEquals(1, purchaseBhv.selectCount(cb -> {
+            cb.query().setPurchasePrice_RangeOf(onePrice - 1, null, op -> op.greaterThan().allowOneSide());
+        }));
     }
 
     public void test_RangeOf_less() throws Exception {
@@ -69,34 +53,18 @@ public class WxCBRangeOfTest extends UnitContainerTestCase {
         preparePrice(9999999, onePrice);
 
         // ## Act & Assert ##
-        {
-            assertEquals(1, purchaseBhv.selectCount(cb -> {
-                cb.query().setPurchasePrice_RangeOf(null, onePrice, new RangeOfOption());
-                pushCB(cb);
-            }));
-
-        }
-        {
-            assertEquals(1, purchaseBhv.selectCount(cb -> {
-                cb.query().setPurchasePrice_RangeOf(onePrice, onePrice, new RangeOfOption());
-                pushCB(cb);
-            }));
-
-        }
-        {
-            assertEquals(0, purchaseBhv.selectCount(cb -> {
-                cb.query().setPurchasePrice_RangeOf(null, onePrice, new RangeOfOption().lessThan());
-                pushCB(cb);
-            }));
-
-        }
-        {
-            assertEquals(1, purchaseBhv.selectCount(cb -> {
-                cb.query().setPurchasePrice_RangeOf(null, onePrice + 1, new RangeOfOption().lessThan());
-                pushCB(cb);
-            }));
-
-        }
+        assertEquals(1, purchaseBhv.selectCount(cb -> {
+            cb.query().setPurchasePrice_RangeOf(null, onePrice, op -> op.allowOneSide());
+        }));
+        assertEquals(1, purchaseBhv.selectCount(cb -> {
+            cb.query().setPurchasePrice_RangeOf(onePrice, onePrice, op -> op.allowOneSide());
+        }));
+        assertEquals(0, purchaseBhv.selectCount(cb -> {
+            cb.query().setPurchasePrice_RangeOf(null, onePrice, op -> op.lessThan().allowOneSide());
+        }));
+        assertEquals(1, purchaseBhv.selectCount(cb -> {
+            cb.query().setPurchasePrice_RangeOf(null, onePrice + 1, op -> op.lessThan().allowOneSide());
+        }));
     }
 
     // ===================================================================================
@@ -112,7 +80,7 @@ public class WxCBRangeOfTest extends UnitContainerTestCase {
             ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
                 cb.setupSelect_Member();
                 cb.query().queryMember().inline().setMemberId_InScope(newArrayList(2, 5, 7, 11, 16, 19));
-                cb.query().queryMember().setMemberId_RangeOf(5, 7, new RangeOfOption().orIsNull());
+                cb.query().queryMember().setMemberId_RangeOf(5, 7, op -> op.orIsNull());
                 pushCB(cb);
             });
 
@@ -135,8 +103,7 @@ public class WxCBRangeOfTest extends UnitContainerTestCase {
             ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
                 cb.setupSelect_Member();
                 cb.query().queryMember().inline().setMemberId_InScope(newArrayList(2, 5, 7, 11, 16, 19));
-                RangeOfOption option = new RangeOfOption().orIsNull().greaterThan().lessThan();
-                cb.query().queryMember().setMemberId_RangeOf(2, 11, option);
+                cb.query().queryMember().setMemberId_RangeOf(2, 11, op -> op.orIsNull().greaterThan().lessThan());
                 pushCB(cb);
             });
 
@@ -166,10 +133,8 @@ public class WxCBRangeOfTest extends UnitContainerTestCase {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            RangeOfOption option = new RangeOfOption();
-            option.plus(dreamCruiseCB.specify().specifyMemberStatus().columnDisplayOrder()).divide(2);
-            cb.query().setMemberId_RangeOf(6, null, option.greaterThan());
-            pushCB(cb);
+            SpecifiedColumn displayOrder = dreamCruiseCB.specify().specifyMemberStatus().columnDisplayOrder();
+            cb.query().setMemberId_RangeOf(6, null, op -> op.greaterThan().allowOneSide().plus(displayOrder).divide(2));
         });
 
         // ## Assert ##
@@ -185,16 +150,16 @@ public class WxCBRangeOfTest extends UnitContainerTestCase {
 
     public void test_RangeOf_Calculation_convert() throws Exception {
         // ## Arrange ##
-        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            /* ## Act ## */
-            cb.setupSelect_MemberStatus();
-            MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            RangeOfOption option = new RangeOfOption();
-            option.plus(dreamCruiseCB.specify().specifyMemberStatus().columnDisplayOrder()).divide(2);
-            option.convert(op -> op.round(1));
-            cb.query().setMemberId_RangeOf(6, null, option.greaterThan());
-            pushCB(cb);
-        });
+        ListResultBean<Member> memberList =
+                memberBhv.selectList(cb -> {
+                    /* ## Act ## */
+                    cb.setupSelect_MemberStatus();
+                    MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+                    SpecifiedColumn displayOrder = dreamCruiseCB.specify().specifyMemberStatus().columnDisplayOrder();
+                    cb.query().setMemberId_RangeOf(6, null,
+                            op -> op.greaterThan().allowOneSide().plus(displayOrder).divide(2).convert(cv -> cv.round(1)));
+                    pushCB(cb);
+                });
 
         // ## Assert ##
         assertHasAnyElement(memberList);

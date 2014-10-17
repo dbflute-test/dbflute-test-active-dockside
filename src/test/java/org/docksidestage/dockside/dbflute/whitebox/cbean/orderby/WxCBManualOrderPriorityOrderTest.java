@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.dbflute.cbean.ordering.ManualOrderOption;
+import org.dbflute.cbean.ordering.ManualOrderOptionCall;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.exception.IllegalConditionBeanOperationException;
@@ -274,16 +275,14 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
 
     public void test_duplicateUse() {
         // ## Arrange ##
-        MemberCB cb = new MemberCB();
-        cb.query().addOrderBy_Birthdate_Asc().withManualOrder(op -> op.plus(3));
-        try {
-            cb.query().addOrderBy_MemberId_Asc().withManualOrder(op -> op.plus(3));
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            ManualOrderOptionCall opCall = op -> op.plus(3);
+            cb.query().addOrderBy_Birthdate_Asc().withManualOrder(opCall);
+            cb.query().addOrderBy_MemberId_Asc().withManualOrder(opCall);
+        }); // expects no exception
 
-            // ## Assert ##
-            fail();
-        } catch (IllegalConditionBeanOperationException e) {
-            // OK
-            log(e.getMessage());
-        }
+        // ## Assert ##
+        assertHasAnyElement(memberList);
     }
 }

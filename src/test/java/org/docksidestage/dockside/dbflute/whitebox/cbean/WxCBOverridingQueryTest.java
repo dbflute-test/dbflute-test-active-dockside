@@ -20,8 +20,8 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.query().setMemberName_Equal("land");
-        cb.disableOverridingQuery();
 
+        // ## Act ##
         try {
             cb.query().setMemberName_Equal("sea");
             // ## Assert ##
@@ -36,19 +36,25 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         } catch (QueryAlreadyRegisteredException e) {
             log(e.getMessage());
         }
-        cb.enableOverridingQuery();
+
         // ## Assert ##
-        cb.query().setMemberName_Equal("sea");
+        cb.enableOverridingQuery(() -> {
+            cb.query().setMemberName_Equal("sea");
+        });
         String sql = cb.toDisplaySql();
         assertNotContains(sql, "land");
         assertContains(sql, "sea");
     }
 
-    public void test_OverridingQuery_default() {
+    public void test_OverridingQuery_enabled() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.query().setMemberName_Equal("land");
-        cb.query().setMemberName_Equal("sea");
+
+        // ## Act ##
+        cb.enableOverridingQuery(() -> {
+            cb.query().setMemberName_Equal("sea");
+        });
 
         // ## Assert ##
         String sql = cb.toDisplaySql();
@@ -63,12 +69,13 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
     public void test_OverridingQuery_subquery_enabled() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.enableOverridingQuery();
         cb.query().setMemberName_Equal("land");
         cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-07"));
-                subCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-08"));
+            public void query(PurchaseCB purchaseCB) {
+                purchaseCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-07"));
+                purchaseCB.enableOverridingQuery(() -> {
+                    purchaseCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-08"));
+                });
             }
         });
 
@@ -98,8 +105,8 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         String sql = cb.toDisplaySql();
-        assertNotContains(sql, "2014-08-08");
-        assertContains(sql, "2014-08-07");
+        assertNotContains(sql, "2014-08-07");
+        assertContains(sql, "2014-08-08"); // because of exception after overriding
         assertMarked("exists");
     }
 
@@ -109,10 +116,11 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         cb.disableOverridingQuery();
         cb.query().setMemberName_Equal("land");
         cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.enableOverridingQuery();
-                subCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-07"));
-                subCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-08"));
+            public void query(PurchaseCB purchaseCB) {
+                purchaseCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-07"));
+                purchaseCB.enableOverridingQuery(() -> {
+                    purchaseCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-08"));
+                });
             }
         });
         try {
@@ -126,8 +134,8 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         String sql = cb.toDisplaySql();
         assertNotContains(sql, "2014-08-07");
         assertContains(sql, "2014-08-08");
-        assertNotContains(sql, "sea");
-        assertContains(sql, "land");
+        assertNotContains(sql, "land");
+        assertContains(sql, "sea"); // because of exception after overriding
     }
 
     // ===================================================================================

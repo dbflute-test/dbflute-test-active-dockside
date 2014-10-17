@@ -1,8 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean;
 
-import org.dbflute.cbean.scoping.SubQuery;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
-import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -17,11 +15,14 @@ public class WxCBEmptyStringQueryTest extends UnitContainerTestCase {
     public void test_enableEmptyStringQuery_basic() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
+        cb.ignoreNullOrEmptyQuery();
         cb.query().setMemberName_Equal("");
-        cb.enableEmptyStringQuery();
+        cb.checkNullOrEmptyQuery();
+        cb.enableEmptyStringQuery(() -> {
+            cb.query().setMemberAccount_Equal("");
+        });
 
         // ## Assert ##
-        cb.query().setMemberAccount_Equal("");
         String sql = cb.toDisplaySql();
         log(ln() + sql);
         assertFalse(sql.contains(" dfloc.MEMBER_NAME = ''"));
@@ -31,16 +32,14 @@ public class WxCBEmptyStringQueryTest extends UnitContainerTestCase {
     public void test_enableEmptyStringQuery_subquery() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryProduct().setProductHandleCode_Equal("");
-            }
+        cb.query().existsPurchase(purchaseCB -> {
+            purchaseCB.ignoreNullOrEmptyQuery();
+            purchaseCB.query().queryProduct().setProductHandleCode_Equal("");
         });
-        cb.enableEmptyStringQuery();
-        cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
-            public void query(PurchaseCB subCB) {
-                subCB.query().queryProduct().setProductStatusCode_Equal("");
-            }
+        cb.enableEmptyStringQuery(() -> {
+            cb.query().existsPurchase(purchaseCB -> {
+                purchaseCB.query().queryProduct().setProductStatusCode_Equal("");
+            });
         });
 
         // ## Assert ##

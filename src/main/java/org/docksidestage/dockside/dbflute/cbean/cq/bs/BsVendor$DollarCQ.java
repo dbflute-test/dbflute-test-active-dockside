@@ -212,7 +212,7 @@ public class BsVendor$DollarCQ extends AbstractBsVendor$DollarCQ {
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return Vendor$DollarCB.class.getName(); }
     protected String xCQ() { return Vendor$DollarCQ.class.getName(); }
-    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCHp() { return HpQDRFunction.class.getName(); }
     protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

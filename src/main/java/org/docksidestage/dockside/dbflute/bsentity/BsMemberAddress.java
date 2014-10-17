@@ -24,6 +24,7 @@ import java.util.TimeZone;
 
 import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
+import org.dbflute.dbmeta.derived.DerivedMappable;
 import org.docksidestage.dockside.dbflute.allcommon.EntityDefinedCommonColumn;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
@@ -90,7 +91,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Serializable, Cloneable {
+public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Serializable, Cloneable, DerivedMappable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -145,6 +146,9 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
 
     /** Is common column auto set up effective? */
     protected boolean __canCommonColumnAutoSetup = true;
@@ -438,6 +442,41 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     }
 
     // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * <pre>
+     * mapping type:
+     *  count()      : Integer
+     *  max(), min() : (same as property type of the column)
+     *  sum(), avg() : BigDecimal
+     *
+     * e.g. use count()
+     *  Integer loginCount = member.derived("$LOGIN_COUNT");
+     * </pre>
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
+    }
+
+    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
     /**
@@ -686,6 +725,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
      * @param regionId The value of the column 'REGION_ID'. (basically NotNull if update: for the constraint)
      */
     public void setRegionId(Integer regionId) {
+        checkClassificationCode("REGION_ID", CDef.DefMeta.Region, regionId);
         __modifiedProperties.addPropertyName("regionId");
         _regionId = regionId;
     }
@@ -773,5 +813,9 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     public void setVersionNo(Long versionNo) {
         __modifiedProperties.addPropertyName("versionNo");
         _versionNo = versionNo;
+    }
+
+    protected void checkClassificationCode(String columnDbName, CDef.DefMeta meta, Object value) {
+        FunCustodial.checkClassificationCode(this, columnDbName, meta, value);
     }
 }

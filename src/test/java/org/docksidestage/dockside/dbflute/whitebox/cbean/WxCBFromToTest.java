@@ -7,6 +7,7 @@ import org.dbflute.cbean.coption.FromToOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.AndQuery;
 import org.dbflute.cbean.scoping.OrQuery;
+import org.dbflute.exception.InvalidQueryRegisteredException;
 import org.dbflute.helper.HandyDate;
 import org.dbflute.util.DfTypeUtil;
 import org.dbflute.util.Srl;
@@ -225,7 +226,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     public void test_DateFromTo_eitherOr_from() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().setBirthdate_FromTo(DfTypeUtil.toDate("2011-01-21"), null, op -> op.compareAsDate());
+        cb.query().setBirthdate_FromTo(DfTypeUtil.toDate("2011-01-21"), null, op -> op.compareAsDate().allowOneSide());
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
@@ -237,7 +238,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     public void test_DateFromTo_eitherOr_to() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().setBirthdate_FromTo(null, DfTypeUtil.toDate("2011-01-21"), op -> op.compareAsDate());
+        cb.query().setBirthdate_FromTo(null, DfTypeUtil.toDate("2011-01-21"), op -> op.compareAsDate().allowOneSide());
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
@@ -249,10 +250,45 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                            No Query
     //                                                                            ========
-    public void test_DateFromTo_noQuery() {
+    public void test_DateFromTo_noQuery_basic() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().setBirthdate_FromTo(null, null, op -> op.compareAsDate());
+
+        // ## Act ##
+        try {
+            cb.query().setBirthdate_FromTo(null, null, op -> op.compareAsDate().allowOneSide());
+            fail();
+        } catch (InvalidQueryRegisteredException e) {
+            log(e.getMessage());
+        }
+
+        // ## Assert ##
+        assertFalse(cb.hasWhereClauseOnBaseQuery());
+    }
+
+    public void test_DateFromTo_noQuery_allowOneSide() {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+
+        // ## Act ##
+        try {
+            cb.query().setBirthdate_FromTo(null, null, op -> op.compareAsDate().allowOneSide());
+            fail();
+        } catch (InvalidQueryRegisteredException e) {
+            log(e.getMessage());
+        }
+
+        // ## Assert ##
+        assertFalse(cb.hasWhereClauseOnBaseQuery());
+    }
+
+    public void test_DateFromTo_noQuery_ignore() {
+        // ## Arrange ##
+        MemberCB cb = new MemberCB();
+        cb.ignoreNullOrEmptyQuery();
+
+        // ## Act ##
+        cb.query().setBirthdate_FromTo(null, null, op -> op.compareAsDate()); // expects no exception
 
         // ## Assert ##
         assertFalse(cb.hasWhereClauseOnBaseQuery());
@@ -269,7 +305,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.query().setBirthdate_FromTo(date.getDate(), null, new FromToOption().orIsNull());
+            cb.query().setBirthdate_FromTo(date.getDate(), null, new FromToOption().orIsNull().allowOneSide());
             pushCB(cb);
         });
 
@@ -303,7 +339,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.query().setBirthdate_FromTo(null, date.getDate(), new FromToOption().orIsNull());
+            cb.query().setBirthdate_FromTo(null, date.getDate(), new FromToOption().orIsNull().allowOneSide());
             pushCB(cb);
         });
 
@@ -367,7 +403,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.orScopeQuery(new OrQuery<MemberCB>() {
             public void query(MemberCB orCB) {
-                final FromToOption option = new FromToOption().orIsNull().greaterThan().lessThan();
+                final FromToOption option = new FromToOption().orIsNull().greaterThan().lessThan().allowOneSide();
                 orCB.query().setBirthdate_FromTo(null, date.getDate(), option);
                 orCB.orScopeQueryAndPart(new AndQuery<MemberCB>() {
                     public void query(MemberCB andCB) {

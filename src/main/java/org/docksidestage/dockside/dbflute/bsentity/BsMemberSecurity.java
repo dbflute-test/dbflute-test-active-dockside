@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
+import org.dbflute.dbmeta.derived.DerivedMappable;
 import org.docksidestage.dockside.dbflute.allcommon.EntityDefinedCommonColumn;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.exentity.*;
@@ -83,7 +84,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsMemberSecurity implements EntityDefinedCommonColumn, Serializable, Cloneable {
+public abstract class BsMemberSecurity implements EntityDefinedCommonColumn, Serializable, Cloneable, DerivedMappable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -135,6 +136,9 @@ public abstract class BsMemberSecurity implements EntityDefinedCommonColumn, Ser
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
 
     /** Is common column auto set up effective? */
     protected boolean __canCommonColumnAutoSetup = true;
@@ -287,6 +291,41 @@ public abstract class BsMemberSecurity implements EntityDefinedCommonColumn, Ser
      */
     public boolean canCommonColumnAutoSetup() {
         return __canCommonColumnAutoSetup;
+    }
+
+    // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * <pre>
+     * mapping type:
+     *  count()      : Integer
+     *  max(), min() : (same as property type of the column)
+     *  sum(), avg() : BigDecimal
+     *
+     * e.g. use count()
+     *  Integer loginCount = member.derived("$LOGIN_COUNT");
+     * </pre>
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
     }
 
     // ===================================================================================

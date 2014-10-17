@@ -239,57 +239,33 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         assertEquals("Pixy", member.getMemberAccount());
     }
 
-    /**
-     * 条件にnullを設定: setXxx_Equal(null).
-     * 会員IDにnullを設定。
-     * その条件指定は無効となる。
-     */
     public void test_query_Equal_ArgumentNull() {
         // ## Arrange ##
         try {
+            // ## Act ##
             memberBhv.selectEntityWithDeletedCheck(cb -> {
-                cb.query().setMemberId_Equal(null);// *Point!
-
-                    // ## Act & Assert ##
-                });
-
+                cb.ignoreNullOrEmptyQuery();
+                cb.query().setMemberId_Equal(null);
+            });
+            // ## Assert ##
             fail();
         } catch (SelectEntityConditionNotFoundException e) {
-            // OK
             log(e.getMessage());
         }
-
-        // [Description]
-        // A. nullのものを検索したい場合は、setXxx_IsNull()を利用。
     }
 
-    /**
-     * 条件に空文字を設定: setXxx_Equal("").
-     * 会員名称に空文字を設定。
-     * その条件指定は無効となる。
-     */
     public void test_query_Equal_ArgumentEmptyString() {
         // ## Arrange ##
         int count = memberBhv.selectCount(cb -> {
             /* ## Act ## */
-            cb.query().setMemberName_Equal("");// *Point!
-            });
+            cb.ignoreNullOrEmptyQuery();
+            cb.query().setMemberName_Equal("");
+        });
 
         // ## Assert ##
-        assertEquals("条件なしの件数と同じであること", memberBhv.selectCount(cb -> {}), count);
-
-        // [Description]
-        // A. 空文字で検索したい場合は、setXxx_Equal_EmptyString()を利用。
-        //    --> デフォルトでは生成されないので、ビルドプロパティに
-        //        「torque.isMakeConditionQueryEqualEmptyString = true」
-        //        を追加して再自動生成。(但し、需要は少ないと思われる)
+        assertEquals(memberBhv.selectCount(cb -> {}), count);
     }
 
-    /**
-     * 同じ条件を別の値で二回設定(Override): setXxx_Equal(3), setXxx_Equal(4).
-     * 会員ID「3」の設定をした後、会員ID「4」を設定。
-     * 後勝ちになる。
-     */
     public void test_query_Equal_OverrideCondition() {
         // ## Arrange ##
         Integer beforeMemberId = 3;
@@ -297,19 +273,16 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             cb.query().setMemberId_Equal(beforeMemberId);
-            cb.query().setMemberId_Equal(afterMemberId);// *Point!
+            cb.enableOverridingQuery(() -> {
+                cb.query().setMemberId_Equal(afterMemberId);
             });
+        });
 
         // ## Assert ##
         assertNotNull(member);
-        assertEquals("後に設定した値が有効になること", afterMemberId, member.getMemberId());
+        assertEquals(afterMemberId, member.getMemberId());
     }
 
-    /**
-     * 同じ条件を同じ値で二回設定(Warn): setXxx_Equal(3), setXxx_Equal(3).
-     * 会員ID「3」の設定をした後、会員ID「3」を設定。
-     * Warningが出る。
-     */
     public void test_query_Equal_AbsolutelySameCondition() {
         // ## Arrange ##
         Integer beforeMemberId = 3;
@@ -317,24 +290,22 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             cb.query().setMemberId_Equal(beforeMemberId);
-            cb.query().setMemberId_Equal(afterMemberId);// *Point!
+            cb.enableOverridingQuery(() -> {
+                cb.query().setMemberId_Equal(afterMemberId);
             });
+        });
 
         // ## Assert ##
         assertNotNull(member);
         assertEquals(beforeMemberId, member.getMemberId());
     }
 
-    /**
-     * 親テーブルの条件で絞り込み検索: queryXxx().setXxx_Equal().
-     * 関連する会員退会情報の退会理由コードが'PRD'の会員を検索。
-     */
     public void test_query_queryForeign_Equal() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_Equal("PRD");// *Point!
-            });
+            cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_Equal("PRD");
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());

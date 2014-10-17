@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
+import org.dbflute.dbmeta.derived.DerivedMappable;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
@@ -72,7 +73,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsSummaryProduct implements Entity, Serializable, Cloneable {
+public abstract class BsSummaryProduct implements Entity, Serializable, Cloneable, DerivedMappable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -109,6 +110,9 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
 
     /** Is the entity created by DBFlute select process? */
     protected boolean __createdBySelect;
@@ -344,6 +348,41 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     }
 
     // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * <pre>
+     * mapping type:
+     *  count()      : Integer
+     *  max(), min() : (same as property type of the column)
+     *  sum(), avg() : BigDecimal
+     *
+     * e.g. use count()
+     *  Integer loginCount = member.derived("$LOGIN_COUNT");
+     * </pre>
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
+    }
+
+    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
     /**
@@ -524,6 +563,7 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
      * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setProductStatusCode(String productStatusCode) {
+        checkClassificationCode("PRODUCT_STATUS_CODE", CDef.DefMeta.ProductStatus, productStatusCode);
         __modifiedProperties.addPropertyName("productStatusCode");
         _productStatusCode = productStatusCode;
     }
@@ -543,5 +583,9 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     public void setLatestPurchaseDatetime(java.sql.Timestamp latestPurchaseDatetime) {
         __modifiedProperties.addPropertyName("latestPurchaseDatetime");
         _latestPurchaseDatetime = latestPurchaseDatetime;
+    }
+
+    protected void checkClassificationCode(String columnDbName, CDef.DefMeta meta, Object value) {
+        FunCustodial.checkClassificationCode(this, columnDbName, meta, value);
     }
 }

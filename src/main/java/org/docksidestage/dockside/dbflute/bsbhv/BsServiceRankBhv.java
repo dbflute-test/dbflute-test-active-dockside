@@ -259,6 +259,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
         return facadeSelectList(createCB(cbLambda));
     }
 
+    @Override
+    protected boolean isEntityDerivedMappable() { return true; }
+
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

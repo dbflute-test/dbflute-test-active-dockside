@@ -179,7 +179,12 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
             cb.enableThatsBadTiming();
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
-                    cb.setupSelect_MemberStatus(); // no check (can't be helped)
+                    try {
+                        cb.setupSelect_MemberStatus(); // no check (can't be helped)
+                        fail();
+                    } catch (SetupSelectIllegalPurposeException e) {
+                        log(e.getMessage());
+                    }
                 }
             });
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
@@ -256,11 +261,15 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         }
         memberBhv.selectList(cb -> {
             cb.enableThatsBadTiming();
-            cb.orScopeQuery(new OrQuery<MemberCB>() {
-                public void query(MemberCB orCB) {
-                    cb.specify().columnBirthdate(); // no check (can't be helped)
-                }
-            });
+            try {
+                cb.orScopeQuery(orCB -> {
+                    cb.specify().columnBirthdate(); // checked by purpose
+                });
+                // ## Assert ##
+                fail();
+            } catch (SpecifyIllegalPurposeException e) {
+                log(e.getMessage());
+            }
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().columnBirthdate();
@@ -348,11 +357,17 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
         }
         memberBhv.selectList(cb -> {
             cb.enableThatsBadTiming();
-            cb.orScopeQuery(new OrQuery<MemberCB>() {
-                public void query(MemberCB orCB) {
-                    cb.query().addOrderBy_Birthdate_Asc(); // no check (can't be helped)
-                }
-            });
+            try {
+                cb.orScopeQuery(new OrQuery<MemberCB>() {
+                    public void query(MemberCB orCB) {
+                        cb.query().addOrderBy_Birthdate_Asc(); // checked by purpose
+                    }
+                });
+                // ## Assert ##
+                fail();
+            } catch (OrderByIllegalPurposeException e) {
+                log(e.getMessage());
+            }
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().columnBirthdate();

@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
+import org.dbflute.dbmeta.derived.DerivedMappable;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
@@ -69,7 +70,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsWithdrawalReason implements Entity, Serializable, Cloneable {
+public abstract class BsWithdrawalReason implements Entity, Serializable, Cloneable, DerivedMappable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -100,6 +101,9 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
 
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
+
+    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
+    protected EntityDerivedMap __derivedMap;
 
     /** Is the entity created by DBFlute select process? */
     protected boolean __createdBySelect;
@@ -346,6 +350,41 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
     }
 
     // ===================================================================================
+    //                                                                    Derived Mappable
+    //                                                                    ================
+    /**
+     * {@inheritDoc}
+     */
+    public void registerDerivedValue(String aliasName, Object selectedValue) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        __derivedMap.registerDerivedValue(aliasName, selectedValue);
+    }
+
+    /**
+     * Find the derived value from derived map.
+     * <pre>
+     * mapping type:
+     *  count()      : Integer
+     *  max(), min() : (same as property type of the column)
+     *  sum(), avg() : BigDecimal
+     *
+     * e.g. use count()
+     *  Integer loginCount = member.derived("$LOGIN_COUNT");
+     * </pre>
+     * @param <VALUE> The type of the value.
+     * @param aliasName The alias name of derived-referrer. (NotNull)
+     * @return The derived value found in the map. (NullAllowed: when null selected)
+     */
+    public <VALUE> VALUE derived(String aliasName) {
+        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
+        return __derivedMap.findDerivedValue(aliasName);
+    }
+
+    protected EntityDerivedMap newDerivedMap() {
+        return new EntityDerivedMap();
+    }
+
+    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
     /**
@@ -470,6 +509,7 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
      * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (basically NotNull if update: for the constraint)
      */
     public void setWithdrawalReasonCode(String withdrawalReasonCode) {
+        checkClassificationCode("WITHDRAWAL_REASON_CODE", CDef.DefMeta.WithdrawalReason, withdrawalReasonCode);
         __modifiedProperties.addPropertyName("withdrawalReasonCode");
         _withdrawalReasonCode = withdrawalReasonCode;
     }
@@ -510,5 +550,9 @@ public abstract class BsWithdrawalReason implements Entity, Serializable, Clonea
     public void setDisplayOrder(Integer displayOrder) {
         __modifiedProperties.addPropertyName("displayOrder");
         _displayOrder = displayOrder;
+    }
+
+    protected void checkClassificationCode(String columnDbName, CDef.DefMeta meta, Object value) {
+        FunCustodial.checkClassificationCode(this, columnDbName, meta, value);
     }
 }

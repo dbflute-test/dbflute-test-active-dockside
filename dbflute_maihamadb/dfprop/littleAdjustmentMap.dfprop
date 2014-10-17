@@ -61,28 +61,28 @@ map:{
     ; isCompatibleNewMyEntityConditionBean = true
     ; isCompatibleDeleteNonstrictIgnoreDeleted = true
     ; isCompatibleLoadReferrerOldOption = true
-    ; isCompatibleConditionBeanAcceptPKOldStyle = true
-    ; isCompatibleConditionBeanOldNamingCheckInvalid = true
-    ; isCompatibleConditionBeanOldNamingOption = true
+    ; isCompatibleConditionBeanAcceptPKOldStyle = false
+    ; isCompatibleConditionBeanOldNamingCheckInvalid = false
+    ; isCompatibleConditionBeanOldNamingOption = false
     ; isCompatibleBizOneToOneImplicitReverseFkAllowed = true
     ; isCompatibleOutsideSqlFacadeChainOldStyle = false
 
     # compile compatible (false if compatible)
     ; isMakeCallbackConditionBeanSetup = true
-    ; isEntityDerivedMappable = false
+    ; isEntityDerivedMappable = true
     ; isMakeCallbackConditionOptionSetup = true
     ; isMakeCallbackConditionManualOrder = true
     ; isAvailableJava8TimeLocalDateEntity = false
 
     # runtime compatible (true if compatible)
-    ; isNullOrEmptyQueryAllowed = true
-    ; isOverridingQueryAllowed = true
-    ; isCompatibleConditionBeanFromToOneSideAllowed = true
-    ; isCompatibleOrScopeQueryPurposeNoCheck = true
-    ; isSuppressDefaultCheckClassificationCode = true
+    ; isNullOrEmptyQueryAllowed = false
+    ; isOverridingQueryAllowed = false
+    ; isCompatibleConditionBeanFromToOneSideAllowed = false
+    ; isCompatibleOrScopeQueryPurposeNoCheck = false
+    ; isSuppressDefaultCheckClassificationCode = false
 
     # runtime compatible (false if compatible)
-    ; isThatsBadTimingDetect = false
+    ; isThatsBadTimingDetect = true
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableAddingSchemaToTableSqlName: (NotRequired - Default false)

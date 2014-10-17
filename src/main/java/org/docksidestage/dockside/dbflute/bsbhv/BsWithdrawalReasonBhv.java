@@ -259,6 +259,9 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
         return facadeSelectList(createCB(cbLambda));
     }
 
+    @Override
+    protected boolean isEntityDerivedMappable() { return true; }
+
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========

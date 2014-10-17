@@ -16,6 +16,9 @@ import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.exception.OrScopeQueryAndPartAlreadySetupException;
 import org.dbflute.exception.OrScopeQueryAndPartUnsupportedOperationException;
+import org.dbflute.exception.OrderByIllegalPurposeException;
+import org.dbflute.exception.SetupSelectIllegalPurposeException;
+import org.dbflute.exception.SpecifyIllegalPurposeException;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
@@ -98,10 +101,9 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.orScopeQuery(new OrQuery<MemberCB>() {
-                public void query(MemberCB orCB) {
-                    orCB.query().setMemberName_LikeSearch(null, op -> op.likePrefix());
-                }
+            cb.ignoreNullOrEmptyQuery();
+            cb.orScopeQuery(orCB -> {
+                orCB.query().setMemberName_LikeSearch(null, op -> op.likePrefix());
             });
         });
 
@@ -118,6 +120,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
             /* ## Act ## */
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
+                    orCB.ignoreNullOrEmptyQuery();
                     orCB.query().setMemberName_LikeSearch(null, op -> op.likePrefix());
                     orCB.query().setMemberId_Equal(3);
                 }
@@ -456,8 +459,10 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                 });
                 orCB.orScopeQueryAndPart(new AndQuery<MemberCB>() {
                     public void query(MemberCB andCB) {
-                        andCB.query().setMemberId_Equal(4);
-                        andCB.query().setBirthdate_IsNotNull();
+                        cb.enableOverridingQuery(() -> {
+                            andCB.query().setMemberId_Equal(4); // normally non-sense (test only)
+                            andCB.query().setBirthdate_IsNotNull();
+                        });
                         andCB.query().setFormalizedDatetime_IsNotNull();
                     }
                 });
@@ -591,7 +596,6 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                     orCB.query().setMemberName_LikeSearch("OR SPLIT", new LikeSearchOption().likePrefix().splitBySpace().asOrSplit());
                     orCB.orScopeQuery(new OrQuery<MemberCB>() {
                         public void query(MemberCB orCB) {
-                            orCB.query().setMemberName_LikeSearch(null, op -> op.likePrefix());
                             orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
                             orCB.query().setMemberName_LikeSearch("J", op -> op.likePrefix());
                             orCB.query().setMemberName_LikeSearch("AND SPLIT", new LikeSearchOption().likePrefix().splitBySpace());
@@ -600,7 +604,6 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                     });
                     orCB.orScopeQuery(new OrQuery<MemberCB>() {
                         public void query(MemberCB orCB) {
-                            orCB.query().setMemberName_LikeSearch(null, op -> op.likePrefix());
                             orCB.query().setMemberName_LikeSearch("KI", op -> op.likePrefix());
                             orCB.query().setMemberName_LikeSearch("OP", op -> op.likePrefix());
                         }
@@ -691,60 +694,37 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
             /* ## Act ## */
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
-                    orCB.setupSelect_MemberStatus();
+                    try {
+                        orCB.setupSelect_MemberStatus();
+                        // ## Assert ##
+                        fail();
+                    } catch (SetupSelectIllegalPurposeException e) {
+                        log(e.getMessage());
+                    }
                 }
             });
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
-                    orCB.specify();
+                    try {
+                        orCB.specify();
+                        // ## Assert ##
+                        fail();
+                    } catch (SpecifyIllegalPurposeException e) {
+                        log(e.getMessage());
+                    }
                 }
             });
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
-                    orCB.query().addOrderBy_Birthdate_Asc();
+                    try {
+                        orCB.query().addOrderBy_Birthdate_Asc();
+                        // ## Assert ##
+                        fail();
+                    } catch (OrderByIllegalPurposeException e) {
+                        log(e.getMessage());
+                    }
                 }
             });
-
-            // ## Assert ##
-                pushCB(cb);
-            }); // expects no exception
-
-        // until Java8
-        //try {
-        //    // ## Act ##
-        //    cb.orScopeQuery(new OrQuery<MemberCB>() {
-        //        public void query(MemberCB orCB) {
-        //            orCB.setupSelect_MemberStatus();
-        //        }
-        //    });
-        //    // ## Assert ##
-        //    fail();
-        //} catch (SetupSelectIllegalPurposeException e) {
-        //    log(e.getMessage());
-        //}
-        //try {
-        //    // ## Act ##
-        //    cb.orScopeQuery(new OrQuery<MemberCB>() {
-        //        public void query(MemberCB orCB) {
-        //            orCB.specify();
-        //        }
-        //    });
-        //    // ## Assert ##
-        //    fail();
-        //} catch (SpecifyIllegalPurposeException e) {
-        //    log(e.getMessage());
-        //}
-        //try {
-        //    // ## Act ##
-        //    cb.orScopeQuery(new OrQuery<MemberCB>() {
-        //        public void query(MemberCB orCB) {
-        //            orCB.query().addOrderBy_Birthdate_Asc();
-        //        }
-        //    });
-        //    // ## Assert ##
-        //    fail();
-        //} catch (OrderByIllegalPurposeException e) {
-        //    log(e.getMessage());
-        //}
+        }); // expects no exception
     }
 }

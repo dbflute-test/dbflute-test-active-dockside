@@ -83,6 +83,7 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
         // ## Act ##
         try {
             memberBhv.selectEntity(cb -> {
+                cb.ignoreNullOrEmptyQuery();
                 cb.query().setMemberId_Equal(null);
             });
 
@@ -183,9 +184,8 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
 
         Timestamp expected2 = memberBhv.selectEntityWithDeletedCheck(cb -> {
             cb.specify().columnRegisterDatetime();
-            cb.query().setMemberStatusCode_Equal_Formalized();
-            cb.query().addOrderBy_RegisterDatetime_Desc();
             cb.query().setMemberStatusCode_Equal_Withdrawal();
+            cb.query().addOrderBy_RegisterDatetime_Desc();
             cb.fetchFirst(1);
         }).getRegisterDatetime();
         Timestamp expected = expected1.compareTo(expected2) > 0 ? expected1 : expected2;

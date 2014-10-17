@@ -32,7 +32,7 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
         final StatementConfig config = new StatementConfig();
         DBFluteConfig.getInstance().setEmptyStringQueryAllowed(true);
         DBFluteConfig.getInstance().setEmptyStringParameterAllowed(true);
-        DBFluteConfig.getInstance().setInvalidQueryChecked(true);
+        DBFluteConfig.getInstance().setNullOrEmptyQueryAllowed(true);
         config.typeForwardOnly().queryTimeout(10).fetchSize(7).maxRows(3);
         DBFluteConfig.getInstance().setDefaultStatementConfig(config);
         DBFluteConfig.getInstance().setInternalDebug(true);
@@ -51,7 +51,7 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
         DBFluteConfig.getInstance().unlock();
         DBFluteConfig.getInstance().setEmptyStringQueryAllowed(false);
         DBFluteConfig.getInstance().setEmptyStringParameterAllowed(false);
-        DBFluteConfig.getInstance().setInvalidQueryChecked(false);
+        DBFluteConfig.getInstance().setNullOrEmptyQueryAllowed(false);
         DBFluteConfig.getInstance().setDefaultStatementConfig(null);
         DBFluteConfig.getInstance().setInternalDebug(false);
         DBFluteConfig.getInstance().lock();
@@ -63,12 +63,26 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
     public void test_invalidQuery_emptyStringQueryAllowed_basic() throws Exception {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.checkInvalidQuery();
         cb.query().setMemberName_Equal(""); // expects no exception
 
+        // ## Act ##
         // ## Assert ##
         assertTrue(Srl.contains(cb.toDisplaySql(), "MEMBER_NAME = ''"));
-        cb.enableEmptyStringQuery(); // expects no exception
+        cb.disableEmptyStringQuery(); // expects no exception
+        cb.query().setMemberAccount_Equal(""); // expects no exception
+        cb.enableOverridingQuery(() -> {
+            cb.query().setMemberName_Equal(""); // expects no exception
+            cb.query().setMemberAccount_Equal(""); // expects no exception
+        });
+        try {
+            cb.enableOverridingQuery(() -> {
+                cb.checkNullOrEmptyQuery();
+                cb.query().setMemberAccount_Equal("");
+            });
+            fail();
+        } catch (InvalidQueryRegisteredException e) {
+            log(e.getMessage());
+        }
     }
 
     public void test_invalidQuery_emptyStringParameterAllowed_basic() throws Exception {
@@ -86,6 +100,8 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
     public void test_invalidQuery_invalidQueryChecked_basic() throws Exception {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
+        cb.query().setMemberName_Equal(null);
+        cb.checkNullOrEmptyQuery();
         try {
             cb.query().setMemberName_Equal(null);
 
@@ -95,7 +111,6 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
             // OK
             log(e.getMessage());
         }
-        cb.checkInvalidQuery(); // expects no exception
     }
 
     // ===================================================================================
