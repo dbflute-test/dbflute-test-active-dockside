@@ -43,7 +43,7 @@ public class VendorJDBCTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_ThreadSafe_update_sameExecution() { // uses original transactions
         final int memberId = 3;
-        final Member before = memberBhv.selectByPKValue(memberId);
+        final Member before = memberBhv.selectByPK(memberId).get();
         final Long versionNo = before.getVersionNo();
         final Set<String> markSet = DfCollectionUtil.newHashSet();
 

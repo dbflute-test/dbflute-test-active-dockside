@@ -15,6 +15,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.dbflute.helper.HandyDate;
 import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -53,7 +54,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
         memberBhv.update(member);
 
         // ## Assert ##
-        Member actual = memberBhv.selectByPKValue(member.getMemberId());
+        Member actual = memberBhv.selectByPK(member.getMemberId()).get();
         DateFormat df = new SimpleDateFormat("Gyyyy/MM/dd");
         log(df.format(actual.getBirthdate()));
         assertTrue(DfTypeUtil.isDateBC(actual.getBirthdate()));
@@ -75,7 +76,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
         memberBhv.update(member);
 
         // ## Assert ##
-        Member actual = memberBhv.selectByPKValue(member.getMemberId());
+        Member actual = memberBhv.selectByPK(member.getMemberId()).get();
         DateFormat df = new SimpleDateFormat("Gyyyy/MM/dd HH:mm:dd.SSS");
         log(df.format(actual.getFormalizedDatetime()));
         assertTrue(DfTypeUtil.isDateBC(actual.getFormalizedDatetime()));
@@ -102,8 +103,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
         assertEquals(GregorianCalendar.AD, afterEra);
         assertTrue("before=" + before.getTime(), DfTypeUtil.isDateBC(before));
         assertFalse("after=" + after.getTime(), DfTypeUtil.isDateBC(after));
-        DfTypeUtil.addDateMillisecond(before, 1);
-        assertEquals(after.getTime(), before.getTime());
+        assertEquals(after.getTime(), new HandyDate(before).addMillisecond(1).getDate().getTime());
     }
 
     // ===================================================================================

@@ -80,20 +80,11 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
     /** {@inheritDoc} */
     public VendorIdentityOnlyDbm getDBMeta() { return VendorIdentityOnlyDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public VendorIdentityOnlyDbm getMyDBMeta() { return VendorIdentityOnlyDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public VendorIdentityOnlyCB newConditionBean() { return new VendorIdentityOnlyCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public VendorIdentityOnly newMyEntity() { return new VendorIdentityOnly(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public VendorIdentityOnlyCB newMyConditionBean() { return new VendorIdentityOnlyCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
     /**
      * Select the entity by the primary-key value.
      * @param identityOnlyId : PK, ID, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public VendorIdentityOnly selectByPKValue(Long identityOnlyId) {
-        return facadeSelectByPKValue(identityOnlyId);
+    public OptionalEntity<VendorIdentityOnly> selectByPK(Long identityOnlyId) {
+        return facadeSelectByPK(identityOnlyId);
     }
 
-    protected VendorIdentityOnly facadeSelectByPKValue(Long identityOnlyId) {
-        return doSelectByPK(identityOnlyId, typeOfSelectedEntity());
+    protected OptionalEntity<VendorIdentityOnly> facadeSelectByPK(Long identityOnlyId) {
+        return doSelectOptionalByPK(identityOnlyId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends VendorIdentityOnly> ENTITY doSelectByPK(Long identityOnlyId, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
 
     protected <ENTITY extends VendorIdentityOnly> OptionalEntity<ENTITY> doSelectOptionalByPK(Long identityOnlyId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(identityOnlyId, tp), identityOnlyId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param identityOnlyId : PK, ID, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public VendorIdentityOnly selectByPKValueWithDeletedCheck(Long identityOnlyId) {
-        return doSelectByPKWithDeletedCheck(identityOnlyId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends VendorIdentityOnly> ENTITY doSelectByPKWithDeletedCheck(Long identityOnlyId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(identityOnlyId), tp);
     }
 
     protected VendorIdentityOnlyCB xprepareCBAsPK(Long identityOnlyId) {

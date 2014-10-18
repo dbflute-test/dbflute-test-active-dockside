@@ -90,7 +90,7 @@ public class ThreadSafeTest extends UnitContainerTestCase {
     //                                                                              ======
     public void test_ThreadSafe_update_sameExecution() {
         final int memberId = 3;
-        final Member before = memberBhv.selectByPKValueWithDeletedCheck(memberId);
+        final Member before = memberBhv.selectByPK(memberId).get();
         final Long versionNo = before.getVersionNo();
         final Set<String> markSet = DfCollectionUtil.newHashSet();
         cannonball(new CannonballRun() {
@@ -120,7 +120,7 @@ public class ThreadSafeTest extends UnitContainerTestCase {
 
     public void test_ThreadSafe_update_after_insert() {
         final int memberId = 3;
-        final Member before = memberBhv.selectByPKValue(memberId);
+        final Member before = memberBhv.selectByPK(memberId).get();
         final Long versionNo = before.getVersionNo();
         final Set<String> markSet = DfCollectionUtil.newHashSet();
         cannonball(new CannonballRun() {

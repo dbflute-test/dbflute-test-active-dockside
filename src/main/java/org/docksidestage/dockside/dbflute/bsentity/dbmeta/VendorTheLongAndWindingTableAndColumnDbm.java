@@ -179,7 +179,6 @@ public class VendorTheLongAndWindingTableAndColumnDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public VendorTheLongAndWindingTableAndColumn newEntity() { return new VendorTheLongAndWindingTableAndColumn(); }
-    public VendorTheLongAndWindingTableAndColumn newMyEntity() { return new VendorTheLongAndWindingTableAndColumn(); }
 
     // ===================================================================================
     //                                                                   Map Communication

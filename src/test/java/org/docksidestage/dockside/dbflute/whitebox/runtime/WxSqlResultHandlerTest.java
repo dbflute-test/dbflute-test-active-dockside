@@ -206,7 +206,7 @@ public class WxSqlResultHandlerTest extends UnitContainerTestCase {
 
     public void test_EntityUpdate_insertOrUpdate_onParade_withOptimisticLock() {
         // ## Arrange ##
-        Member before = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member before = memberBhv.selectByPK(3).get();
         Member member = new Member();
         member.setMemberId(99999);
         member.setMemberName("$name");

@@ -103,16 +103,6 @@ public class BsMemberStatusCB extends AbstractConditionBean {
     }
 
     /**
-     * Accept the query condition of primary key as equal. (old style)
-     * @param memberStatusCode (会員ステータスコード): PK, NotNull, CHAR(3), classification=MemberStatus. (NotNull)
-     */
-    public void acceptPrimaryKey(String memberStatusCode) {
-        assertObjectNotNull("memberStatusCode", memberStatusCode);
-        BsMemberStatusCB cb = this;
-        cb.query().setMemberStatusCode_Equal(memberStatusCode);
-    }
-
-    /**
      * Accept the query condition of unique key as equal.
      * @param displayOrder (表示順): UQ, NotNull, INTEGER(10). (NotNull)
      * @return this. (NotNull)

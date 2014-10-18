@@ -79,20 +79,11 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
     /** {@inheritDoc} */
     public SummaryWithdrawalDbm getDBMeta() { return SummaryWithdrawalDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public SummaryWithdrawalDbm getMyDBMeta() { return SummaryWithdrawalDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public SummaryWithdrawalCB newConditionBean() { return new SummaryWithdrawalCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public SummaryWithdrawal newMyEntity() { return new SummaryWithdrawal(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public SummaryWithdrawalCB newMyConditionBean() { return new SummaryWithdrawalCB(); }
 
     // ===================================================================================
     //                                                                        Count Select

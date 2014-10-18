@@ -80,20 +80,11 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
     /** {@inheritDoc} */
     public ProductStatusDbm getDBMeta() { return ProductStatusDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public ProductStatusDbm getMyDBMeta() { return ProductStatusDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public ProductStatusCB newConditionBean() { return new ProductStatusCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public ProductStatus newMyEntity() { return new ProductStatus(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public ProductStatusCB newMyConditionBean() { return new ProductStatusCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
     /**
      * Select the entity by the primary-key value.
      * @param productStatusCode (商品ステータスコード): PK, NotNull, CHAR(3), classification=ProductStatus. (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ProductStatus selectByPKValue(String productStatusCode) {
-        return facadeSelectByPKValue(productStatusCode);
+    public OptionalEntity<ProductStatus> selectByPK(String productStatusCode) {
+        return facadeSelectByPK(productStatusCode);
     }
 
-    protected ProductStatus facadeSelectByPKValue(String productStatusCode) {
-        return doSelectByPK(productStatusCode, typeOfSelectedEntity());
+    protected OptionalEntity<ProductStatus> facadeSelectByPK(String productStatusCode) {
+        return doSelectOptionalByPK(productStatusCode, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends ProductStatus> ENTITY doSelectByPK(String productStatusCode, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
 
     protected <ENTITY extends ProductStatus> OptionalEntity<ENTITY> doSelectOptionalByPK(String productStatusCode, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(productStatusCode, tp), productStatusCode);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param productStatusCode (商品ステータスコード): PK, NotNull, CHAR(3), classification=ProductStatus. (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public ProductStatus selectByPKValueWithDeletedCheck(String productStatusCode) {
-        return doSelectByPKWithDeletedCheck(productStatusCode, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends ProductStatus> ENTITY doSelectByPKWithDeletedCheck(String productStatusCode, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(productStatusCode), tp);
     }
 
     protected ProductStatusCB xprepareCBAsPK(String productStatusCode) {

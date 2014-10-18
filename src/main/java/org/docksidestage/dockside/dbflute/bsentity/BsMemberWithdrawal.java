@@ -307,7 +307,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
     protected Member _member;
 
     /**
-     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'. <br />
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public Member getMember() {
@@ -326,7 +326,7 @@ public abstract class BsMemberWithdrawal implements EntityDefinedCommonColumn, S
     protected WithdrawalReason _withdrawalReason;
 
     /**
-     * [get] (退会理由)WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
+     * [get] (退会理由)WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'. <br />
      * @return The entity of foreign property 'withdrawalReason'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public WithdrawalReason getWithdrawalReason() {

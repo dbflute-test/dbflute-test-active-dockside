@@ -103,16 +103,6 @@ public class BsPurchasePaymentCB extends AbstractConditionBean {
         return (PurchasePaymentCB)this;
     }
 
-    /**
-     * Accept the query condition of primary key as equal. (old style)
-     * @param purchasePaymentId (購入支払ID): PK, ID, NotNull, BIGINT(19). (NotNull)
-     */
-    public void acceptPrimaryKey(Long purchasePaymentId) {
-        assertObjectNotNull("purchasePaymentId", purchasePaymentId);
-        BsPurchasePaymentCB cb = this;
-        cb.query().setPurchasePaymentId_Equal(purchasePaymentId);
-    }
-
     public ConditionBean addOrderBy_PK_Asc() {
         query().addOrderBy_PurchasePaymentId_Asc();
         return this;

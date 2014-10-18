@@ -331,7 +331,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     protected Member _member;
 
     /**
-     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'. <br />
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public Member getMember() {
@@ -350,7 +350,7 @@ public abstract class BsMemberAddress implements EntityDefinedCommonColumn, Seri
     protected Region _region;
 
     /**
-     * [get] (地域)REGION by my REGION_ID, named 'region'.
+     * [get] (地域)REGION by my REGION_ID, named 'region'. <br />
      * @return The entity of foreign property 'region'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public Region getRegion() {

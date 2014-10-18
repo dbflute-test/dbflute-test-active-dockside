@@ -80,20 +80,11 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
     /** {@inheritDoc} */
     public VendorTheLongAndWindingTableAndColumnRefDbm getDBMeta() { return VendorTheLongAndWindingTableAndColumnRefDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public VendorTheLongAndWindingTableAndColumnRefDbm getMyDBMeta() { return VendorTheLongAndWindingTableAndColumnRefDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public VendorTheLongAndWindingTableAndColumnRefCB newConditionBean() { return new VendorTheLongAndWindingTableAndColumnRefCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public VendorTheLongAndWindingTableAndColumnRef newMyEntity() { return new VendorTheLongAndWindingTableAndColumnRef(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public VendorTheLongAndWindingTableAndColumnRefCB newMyConditionBean() { return new VendorTheLongAndWindingTableAndColumnRefCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
     /**
      * Select the entity by the primary-key value.
      * @param theLongAndWindingTableAndColumnRefId : PK, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public VendorTheLongAndWindingTableAndColumnRef selectByPKValue(Long theLongAndWindingTableAndColumnRefId) {
-        return facadeSelectByPKValue(theLongAndWindingTableAndColumnRefId);
+    public OptionalEntity<VendorTheLongAndWindingTableAndColumnRef> selectByPK(Long theLongAndWindingTableAndColumnRefId) {
+        return facadeSelectByPK(theLongAndWindingTableAndColumnRefId);
     }
 
-    protected VendorTheLongAndWindingTableAndColumnRef facadeSelectByPKValue(Long theLongAndWindingTableAndColumnRefId) {
-        return doSelectByPK(theLongAndWindingTableAndColumnRefId, typeOfSelectedEntity());
+    protected OptionalEntity<VendorTheLongAndWindingTableAndColumnRef> facadeSelectByPK(Long theLongAndWindingTableAndColumnRefId) {
+        return doSelectOptionalByPK(theLongAndWindingTableAndColumnRefId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> ENTITY doSelectByPK(Long theLongAndWindingTableAndColumnRefId, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
 
     protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> OptionalEntity<ENTITY> doSelectOptionalByPK(Long theLongAndWindingTableAndColumnRefId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(theLongAndWindingTableAndColumnRefId, tp), theLongAndWindingTableAndColumnRefId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param theLongAndWindingTableAndColumnRefId : PK, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public VendorTheLongAndWindingTableAndColumnRef selectByPKValueWithDeletedCheck(Long theLongAndWindingTableAndColumnRefId) {
-        return doSelectByPKWithDeletedCheck(theLongAndWindingTableAndColumnRefId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends VendorTheLongAndWindingTableAndColumnRef> ENTITY doSelectByPKWithDeletedCheck(Long theLongAndWindingTableAndColumnRefId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(theLongAndWindingTableAndColumnRefId), tp);
     }
 
     protected VendorTheLongAndWindingTableAndColumnRefCB xprepareCBAsPK(Long theLongAndWindingTableAndColumnRefId) {

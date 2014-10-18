@@ -104,16 +104,6 @@ public class BsProductCB extends AbstractConditionBean {
     }
 
     /**
-     * Accept the query condition of primary key as equal. (old style)
-     * @param productId : PK, ID, NotNull, INTEGER(10). (NotNull)
-     */
-    public void acceptPrimaryKey(Integer productId) {
-        assertObjectNotNull("productId", productId);
-        BsProductCB cb = this;
-        cb.query().setProductId_Equal(productId);
-    }
-
-    /**
      * Accept the query condition of unique key as equal.
      * @param productHandleCode (商品ハンドルコード): UQ, NotNull, VARCHAR(100). (NotNull)
      * @return this. (NotNull)

@@ -82,20 +82,11 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
     /** {@inheritDoc} */
     public PurchaseDbm getDBMeta() { return PurchaseDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public PurchaseDbm getMyDBMeta() { return PurchaseDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public PurchaseCB newConditionBean() { return new PurchaseCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public Purchase newMyEntity() { return new Purchase(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public PurchaseCB newMyConditionBean() { return new PurchaseCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -173,16 +164,17 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
     /**
      * Select the entity by the primary-key value.
      * @param purchaseId : PK, ID, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public Purchase selectByPKValue(Long purchaseId) {
-        return facadeSelectByPKValue(purchaseId);
+    public OptionalEntity<Purchase> selectByPK(Long purchaseId) {
+        return facadeSelectByPK(purchaseId);
     }
 
-    protected Purchase facadeSelectByPKValue(Long purchaseId) {
-        return doSelectByPK(purchaseId, typeOfSelectedEntity());
+    protected OptionalEntity<Purchase> facadeSelectByPK(Long purchaseId) {
+        return doSelectOptionalByPK(purchaseId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Purchase> ENTITY doSelectByPK(Long purchaseId, Class<? extends ENTITY> tp) {
@@ -191,22 +183,6 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
 
     protected <ENTITY extends Purchase> OptionalEntity<ENTITY> doSelectOptionalByPK(Long purchaseId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(purchaseId, tp), purchaseId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param purchaseId : PK, ID, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public Purchase selectByPKValueWithDeletedCheck(Long purchaseId) {
-        return doSelectByPKWithDeletedCheck(purchaseId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends Purchase> ENTITY doSelectByPKWithDeletedCheck(Long purchaseId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(purchaseId), tp);
     }
 
     protected PurchaseCB xprepareCBAsPK(Long purchaseId) {
@@ -684,28 +660,6 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      */
     public void deleteNonstrict(Purchase purchase) {
         doDeleteNonstrict(purchase, null);
-    }
-
-    /**
-     * Delete the entity non-strictly ignoring deleted. {ZeroUpdateException, NonExclusiveControl}
-     * <pre>
-     * Purchase purchase = new Purchase();
-     * purchase.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
-     * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
-     * <span style="color: #3F7E5E">//purchase.setVersionNo(value);</span>
-     * purchaseBhv.<span style="color: #CC4747">deleteNonstrictIgnoreDeleted</span>(purchase);
-     * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
-     * </pre>
-     * @param purchase The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     */
-    public void deleteNonstrictIgnoreDeleted(Purchase purchase) {
-        doDeleteNonstrictIgnoreDeleted(purchase, null);
-    }
-
-    protected void doDeleteNonstrictIgnoreDeleted(Purchase et, final DeleteOption<PurchaseCB> op) {
-        assertObjectNotNull("purchase", et); prepareDeleteOption(op); helpDeleteNonstrictIgnoreDeletedInternally(et, op);
     }
 
     // ===================================================================================

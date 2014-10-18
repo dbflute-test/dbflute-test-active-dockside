@@ -104,16 +104,6 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
     }
 
     /**
-     * Accept the query condition of primary key as equal. (old style)
-     * @param memberFollowingId (会員フォローイングID): PK, ID, NotNull, BIGINT(19). (NotNull)
-     */
-    public void acceptPrimaryKey(Long memberFollowingId) {
-        assertObjectNotNull("memberFollowingId", memberFollowingId);
-        BsMemberFollowingCB cb = this;
-        cb.query().setMemberFollowingId_Equal(memberFollowingId);
-    }
-
-    /**
      * Accept the query condition of unique key as equal.
      * @param myMemberId (わたし): UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @param yourMemberId (あなた): +UQ, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)

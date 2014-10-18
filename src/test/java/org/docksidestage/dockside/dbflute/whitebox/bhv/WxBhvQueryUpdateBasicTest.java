@@ -210,7 +210,7 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
             cb.query().setMemberLoginId_Equal(3L);
         });
         assertNull(deleted);
-        MemberLogin actual = memberLoginBhv.selectByPKValueWithDeletedCheck(99999L);
+        MemberLogin actual = memberLoginBhv.selectByPK(99999L).get();
         assertTrue(actual.isLoginMemberStatusCodeWithdrawal());
     }
 

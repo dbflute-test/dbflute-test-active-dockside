@@ -80,20 +80,11 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
     /** {@inheritDoc} */
     public Vendor$DollarDbm getDBMeta() { return Vendor$DollarDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public Vendor$DollarDbm getMyDBMeta() { return Vendor$DollarDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public Vendor$DollarCB newConditionBean() { return new Vendor$DollarCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public Vendor$Dollar newMyEntity() { return new Vendor$Dollar(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public Vendor$DollarCB newMyConditionBean() { return new Vendor$DollarCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
     /**
      * Select the entity by the primary-key value.
      * @param vendor$DollarId : PK, NotNull, INTEGER(10). (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public Vendor$Dollar selectByPKValue(Integer vendor$DollarId) {
-        return facadeSelectByPKValue(vendor$DollarId);
+    public OptionalEntity<Vendor$Dollar> selectByPK(Integer vendor$DollarId) {
+        return facadeSelectByPK(vendor$DollarId);
     }
 
-    protected Vendor$Dollar facadeSelectByPKValue(Integer vendor$DollarId) {
-        return doSelectByPK(vendor$DollarId, typeOfSelectedEntity());
+    protected OptionalEntity<Vendor$Dollar> facadeSelectByPK(Integer vendor$DollarId) {
+        return doSelectOptionalByPK(vendor$DollarId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Vendor$Dollar> ENTITY doSelectByPK(Integer vendor$DollarId, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
 
     protected <ENTITY extends Vendor$Dollar> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer vendor$DollarId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(vendor$DollarId, tp), vendor$DollarId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param vendor$DollarId : PK, NotNull, INTEGER(10). (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public Vendor$Dollar selectByPKValueWithDeletedCheck(Integer vendor$DollarId) {
-        return doSelectByPKWithDeletedCheck(vendor$DollarId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends Vendor$Dollar> ENTITY doSelectByPKWithDeletedCheck(Integer vendor$DollarId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(vendor$DollarId), tp);
     }
 
     protected Vendor$DollarCB xprepareCBAsPK(Integer vendor$DollarId) {

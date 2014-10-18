@@ -80,20 +80,11 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
     /** {@inheritDoc} */
     public MemberLoginDbm getDBMeta() { return MemberLoginDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public MemberLoginDbm getMyDBMeta() { return MemberLoginDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public MemberLoginCB newConditionBean() { return new MemberLoginCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public MemberLogin newMyEntity() { return new MemberLogin(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public MemberLoginCB newMyConditionBean() { return new MemberLoginCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
     /**
      * Select the entity by the primary-key value.
      * @param memberLoginId (会員ログインID): PK, ID, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public MemberLogin selectByPKValue(Long memberLoginId) {
-        return facadeSelectByPKValue(memberLoginId);
+    public OptionalEntity<MemberLogin> selectByPK(Long memberLoginId) {
+        return facadeSelectByPK(memberLoginId);
     }
 
-    protected MemberLogin facadeSelectByPKValue(Long memberLoginId) {
-        return doSelectByPK(memberLoginId, typeOfSelectedEntity());
+    protected OptionalEntity<MemberLogin> facadeSelectByPK(Long memberLoginId) {
+        return doSelectOptionalByPK(memberLoginId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberLogin> ENTITY doSelectByPK(Long memberLoginId, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
 
     protected <ENTITY extends MemberLogin> OptionalEntity<ENTITY> doSelectOptionalByPK(Long memberLoginId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(memberLoginId, tp), memberLoginId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param memberLoginId (会員ログインID): PK, ID, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public MemberLogin selectByPKValueWithDeletedCheck(Long memberLoginId) {
-        return doSelectByPKWithDeletedCheck(memberLoginId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends MemberLogin> ENTITY doSelectByPKWithDeletedCheck(Long memberLoginId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberLoginId), tp);
     }
 
     protected MemberLoginCB xprepareCBAsPK(Long memberLoginId) {

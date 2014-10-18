@@ -260,7 +260,7 @@ public abstract class BsSummaryProduct implements Entity, Serializable, Cloneabl
     protected ProductStatus _productStatus;
 
     /**
-     * [get] (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * [get] (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br />
      * @return The entity of foreign property 'productStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public ProductStatus getProductStatus() {

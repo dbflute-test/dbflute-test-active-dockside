@@ -104,16 +104,6 @@ public class BsMemberServiceCB extends AbstractConditionBean {
     }
 
     /**
-     * Accept the query condition of primary key as equal. (old style)
-     * @param memberServiceId (会員サービスID): PK, ID, NotNull, INTEGER(10). (NotNull)
-     */
-    public void acceptPrimaryKey(Integer memberServiceId) {
-        assertObjectNotNull("memberServiceId", memberServiceId);
-        BsMemberServiceCB cb = this;
-        cb.query().setMemberServiceId_Equal(memberServiceId);
-    }
-
-    /**
      * Accept the query condition of unique key as equal.
      * @param memberId (会員ID): UQ, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @return this. (NotNull)

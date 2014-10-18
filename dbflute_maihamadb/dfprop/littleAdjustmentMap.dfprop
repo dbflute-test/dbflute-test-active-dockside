@@ -43,9 +43,9 @@ map:{
     # http://d.hatena.ne.jp/jflute/20140530/java8
     # _/_/_/_/_/_/_/_/_/
     # compile compatible (true if compatible)
-    ; isCompatibleSelectByPKOldStyle = true
-    ; isCompatibleSelectByPKPlainReturn = true
-    ; isCompatibleSelectByPKWithDeletedCheck = true
+    ; isCompatibleSelectByPKOldStyle = false
+    ; isCompatibleSelectByPKPlainReturn = false
+    ; isCompatibleSelectByPKWithDeletedCheck = false
     ; isMakeConditionQueryExistsReferrerToOne = true
     ; isMakeConditionQueryInScopeRelationToOne = false
     ; isMakeConditionQueryPlainListManualOrder = false
@@ -58,13 +58,13 @@ map:{
     ; isMakeDirectConditionOptionSetup = true
     ; isMakeDirectConditionManualOrder = false
     ; isMakeClassificationNativeTypeSetter = true
-    ; isCompatibleNewMyEntityConditionBean = true
-    ; isCompatibleDeleteNonstrictIgnoreDeleted = true
+    ; isCompatibleNewMyEntityConditionBean = false
+    ; isCompatibleDeleteNonstrictIgnoreDeleted = false
     ; isCompatibleLoadReferrerOldOption = true
     ; isCompatibleConditionBeanAcceptPKOldStyle = false
     ; isCompatibleConditionBeanOldNamingCheckInvalid = false
     ; isCompatibleConditionBeanOldNamingOption = false
-    ; isCompatibleBizOneToOneImplicitReverseFkAllowed = true
+    ; isCompatibleBizOneToOneImplicitReverseFkAllowed = false
     ; isCompatibleOutsideSqlFacadeChainOldStyle = false
 
     # compile compatible (false if compatible)

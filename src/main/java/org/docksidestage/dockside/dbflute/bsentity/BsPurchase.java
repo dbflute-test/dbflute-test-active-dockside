@@ -328,7 +328,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     protected Member _member;
 
     /**
-     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'. <br />
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public Member getMember() {
@@ -347,7 +347,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     protected Product _product;
 
     /**
-     * [get] (商品)PRODUCT by my PRODUCT_ID, named 'product'.
+     * [get] (商品)PRODUCT by my PRODUCT_ID, named 'product'. <br />
      * @return The entity of foreign property 'product'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public Product getProduct() {
@@ -366,7 +366,7 @@ public abstract class BsPurchase implements EntityDefinedCommonColumn, Serializa
     protected SummaryProduct _summaryProduct;
 
     /**
-     * [get] SUMMARY_PRODUCT by my PRODUCT_ID, named 'summaryProduct'.
+     * [get] SUMMARY_PRODUCT by my PRODUCT_ID, named 'summaryProduct'. <br />
      * @return The entity of foreign property 'summaryProduct'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public SummaryProduct getSummaryProduct() {

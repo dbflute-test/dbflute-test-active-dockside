@@ -80,20 +80,11 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
     /** {@inheritDoc} */
     public PurchasePaymentDbm getDBMeta() { return PurchasePaymentDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public PurchasePaymentDbm getMyDBMeta() { return PurchasePaymentDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public PurchasePaymentCB newConditionBean() { return new PurchasePaymentCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public PurchasePayment newMyEntity() { return new PurchasePayment(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public PurchasePaymentCB newMyConditionBean() { return new PurchasePaymentCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
     /**
      * Select the entity by the primary-key value.
      * @param purchasePaymentId (購入支払ID): PK, ID, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public PurchasePayment selectByPKValue(Long purchasePaymentId) {
-        return facadeSelectByPKValue(purchasePaymentId);
+    public OptionalEntity<PurchasePayment> selectByPK(Long purchasePaymentId) {
+        return facadeSelectByPK(purchasePaymentId);
     }
 
-    protected PurchasePayment facadeSelectByPKValue(Long purchasePaymentId) {
-        return doSelectByPK(purchasePaymentId, typeOfSelectedEntity());
+    protected OptionalEntity<PurchasePayment> facadeSelectByPK(Long purchasePaymentId) {
+        return doSelectOptionalByPK(purchasePaymentId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends PurchasePayment> ENTITY doSelectByPK(Long purchasePaymentId, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
 
     protected <ENTITY extends PurchasePayment> OptionalEntity<ENTITY> doSelectOptionalByPK(Long purchasePaymentId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(purchasePaymentId, tp), purchasePaymentId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param purchasePaymentId (購入支払ID): PK, ID, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public PurchasePayment selectByPKValueWithDeletedCheck(Long purchasePaymentId) {
-        return doSelectByPKWithDeletedCheck(purchasePaymentId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends PurchasePayment> ENTITY doSelectByPKWithDeletedCheck(Long purchasePaymentId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(purchasePaymentId), tp);
     }
 
     protected PurchasePaymentCB xprepareCBAsPK(Long purchasePaymentId) {

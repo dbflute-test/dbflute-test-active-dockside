@@ -305,7 +305,7 @@ public abstract class BsProduct implements EntityDefinedCommonColumn, Serializab
     protected ProductCategory _productCategory;
 
     /**
-     * [get] (商品カテゴリ)PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
+     * [get] (商品カテゴリ)PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'. <br />
      * @return The entity of foreign property 'productCategory'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public ProductCategory getProductCategory() {
@@ -324,7 +324,7 @@ public abstract class BsProduct implements EntityDefinedCommonColumn, Serializab
     protected ProductStatus _productStatus;
 
     /**
-     * [get] (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * [get] (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br />
      * @return The entity of foreign property 'productStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public ProductStatus getProductStatus() {

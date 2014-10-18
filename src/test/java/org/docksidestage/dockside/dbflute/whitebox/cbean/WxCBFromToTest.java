@@ -208,8 +208,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         Date expectedFromDate = cal.getTime();
         cal.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
         cal.add(Calendar.DATE, 1);
-        Date expectedEndDate = cal.getTime();
-        DfTypeUtil.addDateDay(expectedEndDate, 1);
+        Date expectedEndDate = new HandyDate(cal.getTime()).addDay(1).getDate();
 
         log("[" + toString(targetDate, fmt) + "]");
         log(toString(expectedFromDate, fmt) + " = " + toString(fromDate, fmt));

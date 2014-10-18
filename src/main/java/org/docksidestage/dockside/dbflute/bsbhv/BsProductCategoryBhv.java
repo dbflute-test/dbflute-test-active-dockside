@@ -80,20 +80,11 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
     /** {@inheritDoc} */
     public ProductCategoryDbm getDBMeta() { return ProductCategoryDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public ProductCategoryDbm getMyDBMeta() { return ProductCategoryDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public ProductCategoryCB newConditionBean() { return new ProductCategoryCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public ProductCategory newMyEntity() { return new ProductCategory(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public ProductCategoryCB newMyConditionBean() { return new ProductCategoryCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
     /**
      * Select the entity by the primary-key value.
      * @param productCategoryCode (商品カテゴリコード): PK, NotNull, CHAR(3). (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ProductCategory selectByPKValue(String productCategoryCode) {
-        return facadeSelectByPKValue(productCategoryCode);
+    public OptionalEntity<ProductCategory> selectByPK(String productCategoryCode) {
+        return facadeSelectByPK(productCategoryCode);
     }
 
-    protected ProductCategory facadeSelectByPKValue(String productCategoryCode) {
-        return doSelectByPK(productCategoryCode, typeOfSelectedEntity());
+    protected OptionalEntity<ProductCategory> facadeSelectByPK(String productCategoryCode) {
+        return doSelectOptionalByPK(productCategoryCode, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends ProductCategory> ENTITY doSelectByPK(String productCategoryCode, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
 
     protected <ENTITY extends ProductCategory> OptionalEntity<ENTITY> doSelectOptionalByPK(String productCategoryCode, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(productCategoryCode, tp), productCategoryCode);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param productCategoryCode (商品カテゴリコード): PK, NotNull, CHAR(3). (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public ProductCategory selectByPKValueWithDeletedCheck(String productCategoryCode) {
-        return doSelectByPKWithDeletedCheck(productCategoryCode, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends ProductCategory> ENTITY doSelectByPKWithDeletedCheck(String productCategoryCode, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(productCategoryCode), tp);
     }
 
     protected ProductCategoryCB xprepareCBAsPK(String productCategoryCode) {

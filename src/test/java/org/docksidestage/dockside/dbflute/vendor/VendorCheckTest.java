@@ -298,7 +298,7 @@ public class VendorCheckTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_repeat_select_after_select_and_update() {
         // ## Arrange ##
-        Member beforeMember = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member beforeMember = memberBhv.selectByPK(3).get();
         Long versionNo = beforeMember.getVersionNo();
 
         Member member = new Member();
@@ -312,7 +312,7 @@ public class VendorCheckTest extends UnitContainerTestCase {
         // ## Assert ##
         // Repeat the member as same local table
         {
-            Member actual = memberBhv.selectByPKValueWithDeletedCheck(3);
+            Member actual = memberBhv.selectByPK(3).get();
             log("local actual=" + actual);
             assertEquals("testName", actual.getMemberName());
         }
@@ -339,7 +339,7 @@ public class VendorCheckTest extends UnitContainerTestCase {
         // ## Assert ##
         // Repeat the member as same local table
         {
-            Member actual = memberBhv.selectByPKValueWithDeletedCheck(3);
+            Member actual = memberBhv.selectByPK(3).get();
             log("local actual=" + actual);
             assertEquals("testName", actual.getMemberName());
         }

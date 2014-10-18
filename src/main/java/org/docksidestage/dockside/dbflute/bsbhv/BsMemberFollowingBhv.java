@@ -80,20 +80,11 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable<Memb
     /** {@inheritDoc} */
     public MemberFollowingDbm getDBMeta() { return MemberFollowingDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public MemberFollowingDbm getMyDBMeta() { return MemberFollowingDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public MemberFollowingCB newConditionBean() { return new MemberFollowingCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public MemberFollowing newMyEntity() { return new MemberFollowing(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public MemberFollowingCB newMyConditionBean() { return new MemberFollowingCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable<Memb
     /**
      * Select the entity by the primary-key value.
      * @param memberFollowingId (会員フォローイングID): PK, ID, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public MemberFollowing selectByPKValue(Long memberFollowingId) {
-        return facadeSelectByPKValue(memberFollowingId);
+    public OptionalEntity<MemberFollowing> selectByPK(Long memberFollowingId) {
+        return facadeSelectByPK(memberFollowingId);
     }
 
-    protected MemberFollowing facadeSelectByPKValue(Long memberFollowingId) {
-        return doSelectByPK(memberFollowingId, typeOfSelectedEntity());
+    protected OptionalEntity<MemberFollowing> facadeSelectByPK(Long memberFollowingId) {
+        return doSelectOptionalByPK(memberFollowingId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberFollowing> ENTITY doSelectByPK(Long memberFollowingId, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsMemberFollowingBhv extends AbstractBehaviorWritable<Memb
 
     protected <ENTITY extends MemberFollowing> OptionalEntity<ENTITY> doSelectOptionalByPK(Long memberFollowingId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(memberFollowingId, tp), memberFollowingId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param memberFollowingId (会員フォローイングID): PK, ID, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public MemberFollowing selectByPKValueWithDeletedCheck(Long memberFollowingId) {
-        return doSelectByPKWithDeletedCheck(memberFollowingId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends MemberFollowing> ENTITY doSelectByPKWithDeletedCheck(Long memberFollowingId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberFollowingId), tp);
     }
 
     protected MemberFollowingCB xprepareCBAsPK(Long memberFollowingId) {

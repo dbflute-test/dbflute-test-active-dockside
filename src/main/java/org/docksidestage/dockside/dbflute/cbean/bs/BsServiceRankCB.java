@@ -103,16 +103,6 @@ public class BsServiceRankCB extends AbstractConditionBean {
     }
 
     /**
-     * Accept the query condition of primary key as equal. (old style)
-     * @param serviceRankCode (サービスランクコード): PK, NotNull, CHAR(3), classification=ServiceRank. (NotNull)
-     */
-    public void acceptPrimaryKey(String serviceRankCode) {
-        assertObjectNotNull("serviceRankCode", serviceRankCode);
-        BsServiceRankCB cb = this;
-        cb.query().setServiceRankCode_Equal(serviceRankCode);
-    }
-
-    /**
      * Accept the query condition of unique key as equal.
      * @param displayOrder (表示順): UQ, NotNull, INTEGER(10). (NotNull)
      * @return this. (NotNull)

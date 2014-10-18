@@ -163,7 +163,7 @@ public abstract class BsProductCategory implements Entity, Serializable, Cloneab
     protected ProductCategory _productCategorySelf;
 
     /**
-     * [get] (商品カテゴリ)PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
+     * [get] (商品カテゴリ)PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'. <br />
      * @return The entity of foreign property 'productCategorySelf'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public ProductCategory getProductCategorySelf() {

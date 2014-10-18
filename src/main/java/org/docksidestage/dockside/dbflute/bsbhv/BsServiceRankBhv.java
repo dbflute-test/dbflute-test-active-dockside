@@ -80,20 +80,11 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
     /** {@inheritDoc} */
     public ServiceRankDbm getDBMeta() { return ServiceRankDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public ServiceRankDbm getMyDBMeta() { return ServiceRankDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public ServiceRankCB newConditionBean() { return new ServiceRankCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public ServiceRank newMyEntity() { return new ServiceRank(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public ServiceRankCB newMyConditionBean() { return new ServiceRankCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
     /**
      * Select the entity by the primary-key value.
      * @param serviceRankCode (サービスランクコード): PK, NotNull, CHAR(3), classification=ServiceRank. (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public ServiceRank selectByPKValue(String serviceRankCode) {
-        return facadeSelectByPKValue(serviceRankCode);
+    public OptionalEntity<ServiceRank> selectByPK(String serviceRankCode) {
+        return facadeSelectByPK(serviceRankCode);
     }
 
-    protected ServiceRank facadeSelectByPKValue(String serviceRankCode) {
-        return doSelectByPK(serviceRankCode, typeOfSelectedEntity());
+    protected OptionalEntity<ServiceRank> facadeSelectByPK(String serviceRankCode) {
+        return doSelectOptionalByPK(serviceRankCode, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends ServiceRank> ENTITY doSelectByPK(String serviceRankCode, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
 
     protected <ENTITY extends ServiceRank> OptionalEntity<ENTITY> doSelectOptionalByPK(String serviceRankCode, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(serviceRankCode, tp), serviceRankCode);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param serviceRankCode (サービスランクコード): PK, NotNull, CHAR(3), classification=ServiceRank. (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public ServiceRank selectByPKValueWithDeletedCheck(String serviceRankCode) {
-        return doSelectByPKWithDeletedCheck(serviceRankCode, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends ServiceRank> ENTITY doSelectByPKWithDeletedCheck(String serviceRankCode, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(serviceRankCode), tp);
     }
 
     protected ServiceRankCB xprepareCBAsPK(String serviceRankCode) {

@@ -76,7 +76,7 @@ public class VendorIdentityOnlyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnIdentityOnlyId = cci("IDENTITY_ONLY_ID", "IDENTITY_ONLY_ID", null, null, Long.class, "identityOnlyId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6EC6CD26_D3D5_4B59_94A5_2BD61B517F34", false, null, null, null, null, null);
+    protected final ColumnInfo _columnIdentityOnlyId = cci("IDENTITY_ONLY_ID", "IDENTITY_ONLY_ID", null, null, Long.class, "identityOnlyId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_779D8A99_3E8D_4D17_A33D_E4FC50669043", false, null, null, null, null, null);
 
     /**
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
@@ -136,7 +136,6 @@ public class VendorIdentityOnlyDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public VendorIdentityOnly newEntity() { return new VendorIdentityOnly(); }
-    public VendorIdentityOnly newMyEntity() { return new VendorIdentityOnly(); }
 
     // ===================================================================================
     //                                                                   Map Communication

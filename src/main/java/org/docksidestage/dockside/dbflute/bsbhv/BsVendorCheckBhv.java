@@ -85,20 +85,11 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
     /** {@inheritDoc} */
     public VendorCheckDbm getDBMeta() { return VendorCheckDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public VendorCheckDbm getMyDBMeta() { return VendorCheckDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public VendorCheckCB newConditionBean() { return new VendorCheckCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public VendorCheck newMyEntity() { return new VendorCheck(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public VendorCheckCB newMyConditionBean() { return new VendorCheckCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -176,16 +167,17 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
     /**
      * Select the entity by the primary-key value.
      * @param vendorCheckId : PK, NotNull, DECIMAL(16). (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public VendorCheck selectByPKValue(Long vendorCheckId) {
-        return facadeSelectByPKValue(vendorCheckId);
+    public OptionalEntity<VendorCheck> selectByPK(Long vendorCheckId) {
+        return facadeSelectByPK(vendorCheckId);
     }
 
-    protected VendorCheck facadeSelectByPKValue(Long vendorCheckId) {
-        return doSelectByPK(vendorCheckId, typeOfSelectedEntity());
+    protected OptionalEntity<VendorCheck> facadeSelectByPK(Long vendorCheckId) {
+        return doSelectOptionalByPK(vendorCheckId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends VendorCheck> ENTITY doSelectByPK(Long vendorCheckId, Class<? extends ENTITY> tp) {
@@ -194,22 +186,6 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
 
     protected <ENTITY extends VendorCheck> OptionalEntity<ENTITY> doSelectOptionalByPK(Long vendorCheckId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(vendorCheckId, tp), vendorCheckId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param vendorCheckId : PK, NotNull, DECIMAL(16). (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public VendorCheck selectByPKValueWithDeletedCheck(Long vendorCheckId) {
-        return doSelectByPKWithDeletedCheck(vendorCheckId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends VendorCheck> ENTITY doSelectByPKWithDeletedCheck(Long vendorCheckId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(vendorCheckId), tp);
     }
 
     protected VendorCheckCB xprepareCBAsPK(Long vendorCheckId) {

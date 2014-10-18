@@ -42,7 +42,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_ExistsReferrer_nested() {
         // ## Arrange ##
-        final Member member = memberBhv.selectByPKValueWithDeletedCheck(3);
+        final Member member = memberBhv.selectByPK(3).get();
         MemberStatus status = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             cb.query().existsMember(new SubQuery<MemberCB>() {

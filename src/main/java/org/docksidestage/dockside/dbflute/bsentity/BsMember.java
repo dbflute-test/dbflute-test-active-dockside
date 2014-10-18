@@ -320,7 +320,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     protected MemberStatus _memberStatus;
 
     /**
-     * [get] (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
+     * [get] (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'. <br />
      * @return The entity of foreign property 'memberStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public MemberStatus getMemberStatus() {
@@ -340,7 +340,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
 
     /**
      * [get] (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br />
-     * Member's address at the target date.
+     * Member's address at the target date. <br />
      * @return The entity of foreign property 'memberAddressAsValid'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public MemberAddress getMemberAddressAsValid() {
@@ -361,7 +361,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
 
     /**
      * [get] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
-     * Member's lastest login
+     * Member's lastest login <br />
      * @return The entity of foreign property 'memberLoginAsLatest'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public MemberLogin getMemberLoginAsLatest() {

@@ -59,7 +59,7 @@ public class WxOutsideSqlEntityTest extends UnitContainerTestCase {
     //                                                                              ======
     public void test_outsideSql_selectEntity_scalar_typed() {
         // ## Arrange ##
-        Member member = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member member = memberBhv.selectByPK(3).get();
         MemberNamePmb pmb = new MemberNamePmb();
         pmb.setMemberId(3);
 

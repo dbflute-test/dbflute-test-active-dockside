@@ -159,7 +159,6 @@ public class RegionDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public Region newEntity() { return new Region(); }
-    public Region newMyEntity() { return new Region(); }
 
     // ===================================================================================
     //                                                                   Map Communication

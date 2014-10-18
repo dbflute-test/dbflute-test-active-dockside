@@ -375,7 +375,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable, 
     protected MemberStatus _memberStatus;
 
     /**
-     * [get] (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
+     * [get] (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'. <br />
      * @return The entity of foreign property 'memberStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public MemberStatus getMemberStatus() {
@@ -394,7 +394,7 @@ public abstract class BsMemberLogin implements Entity, Serializable, Cloneable, 
     protected Member _member;
 
     /**
-     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'. <br />
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public Member getMember() {

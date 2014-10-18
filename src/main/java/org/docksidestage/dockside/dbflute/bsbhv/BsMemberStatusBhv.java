@@ -82,20 +82,11 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
     /** {@inheritDoc} */
     public MemberStatusDbm getDBMeta() { return MemberStatusDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public MemberStatusDbm getMyDBMeta() { return MemberStatusDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public MemberStatusCB newConditionBean() { return new MemberStatusCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public MemberStatus newMyEntity() { return new MemberStatus(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public MemberStatusCB newMyConditionBean() { return new MemberStatusCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -173,16 +164,17 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
     /**
      * Select the entity by the primary-key value.
      * @param memberStatusCode (会員ステータスコード): PK, NotNull, CHAR(3), classification=MemberStatus. (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public MemberStatus selectByPKValue(String memberStatusCode) {
-        return facadeSelectByPKValue(memberStatusCode);
+    public OptionalEntity<MemberStatus> selectByPK(String memberStatusCode) {
+        return facadeSelectByPK(memberStatusCode);
     }
 
-    protected MemberStatus facadeSelectByPKValue(String memberStatusCode) {
-        return doSelectByPK(memberStatusCode, typeOfSelectedEntity());
+    protected OptionalEntity<MemberStatus> facadeSelectByPK(String memberStatusCode) {
+        return doSelectOptionalByPK(memberStatusCode, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberStatus> ENTITY doSelectByPK(String memberStatusCode, Class<? extends ENTITY> tp) {
@@ -191,22 +183,6 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
 
     protected <ENTITY extends MemberStatus> OptionalEntity<ENTITY> doSelectOptionalByPK(String memberStatusCode, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(memberStatusCode, tp), memberStatusCode);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param memberStatusCode (会員ステータスコード): PK, NotNull, CHAR(3), classification=MemberStatus. (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public MemberStatus selectByPKValueWithDeletedCheck(String memberStatusCode) {
-        return doSelectByPKWithDeletedCheck(memberStatusCode, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends MemberStatus> ENTITY doSelectByPKWithDeletedCheck(String memberStatusCode, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberStatusCode), tp);
     }
 
     protected MemberStatusCB xprepareCBAsPK(String memberStatusCode) {

@@ -72,7 +72,7 @@ public class WxCBMyselfInScopeTest extends UnitContainerTestCase {
     //                                                                             =======
     public void test_myselfExists_specify_basic() {
         // ## Arrange ##
-        String memberStatusCode = memberBhv.selectByPKValueWithDeletedCheck(3).getMemberStatusCode();
+        String memberStatusCode = memberBhv.selectByPK(3).get().getMemberStatusCode();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
@@ -95,7 +95,7 @@ public class WxCBMyselfInScopeTest extends UnitContainerTestCase {
 
     public void test_myselfExists_specify_nested() {
         // ## Arrange ##
-        String memberStatusCode = memberBhv.selectByPKValueWithDeletedCheck(3).getMemberStatusCode();
+        String memberStatusCode = memberBhv.selectByPK(3).get().getMemberStatusCode();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();

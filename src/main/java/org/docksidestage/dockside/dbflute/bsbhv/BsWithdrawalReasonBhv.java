@@ -80,20 +80,11 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
     /** {@inheritDoc} */
     public WithdrawalReasonDbm getDBMeta() { return WithdrawalReasonDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public WithdrawalReasonDbm getMyDBMeta() { return WithdrawalReasonDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public WithdrawalReasonCB newConditionBean() { return new WithdrawalReasonCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public WithdrawalReason newMyEntity() { return new WithdrawalReason(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public WithdrawalReasonCB newMyConditionBean() { return new WithdrawalReasonCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
     /**
      * Select the entity by the primary-key value.
      * @param withdrawalReasonCode (退会理由コード): PK, NotNull, CHAR(3), classification=WithdrawalReason. (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public WithdrawalReason selectByPKValue(String withdrawalReasonCode) {
-        return facadeSelectByPKValue(withdrawalReasonCode);
+    public OptionalEntity<WithdrawalReason> selectByPK(String withdrawalReasonCode) {
+        return facadeSelectByPK(withdrawalReasonCode);
     }
 
-    protected WithdrawalReason facadeSelectByPKValue(String withdrawalReasonCode) {
-        return doSelectByPK(withdrawalReasonCode, typeOfSelectedEntity());
+    protected OptionalEntity<WithdrawalReason> facadeSelectByPK(String withdrawalReasonCode) {
+        return doSelectOptionalByPK(withdrawalReasonCode, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends WithdrawalReason> ENTITY doSelectByPK(String withdrawalReasonCode, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
 
     protected <ENTITY extends WithdrawalReason> OptionalEntity<ENTITY> doSelectOptionalByPK(String withdrawalReasonCode, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(withdrawalReasonCode, tp), withdrawalReasonCode);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param withdrawalReasonCode (退会理由コード): PK, NotNull, CHAR(3), classification=WithdrawalReason. (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public WithdrawalReason selectByPKValueWithDeletedCheck(String withdrawalReasonCode) {
-        return doSelectByPKWithDeletedCheck(withdrawalReasonCode, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends WithdrawalReason> ENTITY doSelectByPKWithDeletedCheck(String withdrawalReasonCode, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(withdrawalReasonCode), tp);
     }
 
     protected WithdrawalReasonCB xprepareCBAsPK(String withdrawalReasonCode) {

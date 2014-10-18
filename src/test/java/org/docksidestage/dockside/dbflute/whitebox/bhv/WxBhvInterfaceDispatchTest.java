@@ -70,20 +70,20 @@ public class WxBhvInterfaceDispatchTest extends UnitContainerTestCase {
         memberBhv.create(member, null);
 
         // ## Assert ##
-        Member actual = memberBhv.selectByPKValueWithDeletedCheck(member.getMemberId());
+        Member actual = memberBhv.selectByPK(member.getMemberId()).get();
         assertEquals("foo", actual.getMemberName());
     }
 
     public void test_modify_basic() {
         // ## Arrange ##
-        Member member = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member member = memberBhv.selectByPK(3).get();
         member.setMemberName("foo");
 
         // ## Act ##
         memberBhv.modify(member, null);
 
         // ## Assert ##
-        Member actual = memberBhv.selectByPKValueWithDeletedCheck(member.getMemberId());
+        Member actual = memberBhv.selectByPK(member.getMemberId()).get();
         assertEquals("foo", actual.getMemberName());
     }
 
@@ -99,14 +99,14 @@ public class WxBhvInterfaceDispatchTest extends UnitContainerTestCase {
         memberBhv.modifyNonstrict(member, null);
 
         // ## Assert ##
-        Member actual = memberBhv.selectByPKValueWithDeletedCheck(member.getMemberId());
+        Member actual = memberBhv.selectByPK(member.getMemberId()).get();
         assertEquals("foo", actual.getMemberName());
         assertEquals("bar", actual.getMemberAccount());
     }
 
     public void test_modifyNonstrict_specify() {
         // ## Arrange ##
-        Member member = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member member = memberBhv.selectByPK(3).get();
         member.setMemberName("foo");
         String preAccount = member.getMemberAccount();
         member.setMemberAccount("bar");
@@ -122,7 +122,7 @@ public class WxBhvInterfaceDispatchTest extends UnitContainerTestCase {
         memberBhv.modifyNonstrict(member, option);
 
         // ## Assert ##
-        Member actual = memberBhv.selectByPKValueWithDeletedCheck(member.getMemberId());
+        Member actual = memberBhv.selectByPK(member.getMemberId()).get();
         assertEquals("foo", actual.getMemberName());
         assertEquals(preAccount, actual.getMemberAccount());
     }
@@ -139,7 +139,7 @@ public class WxBhvInterfaceDispatchTest extends UnitContainerTestCase {
 
         // ## Assert ##
         {
-            Member actual = memberBhv.selectByPKValueWithDeletedCheck(member.getMemberId());
+            Member actual = memberBhv.selectByPK(member.getMemberId()).get();
             assertEquals("foo", actual.getMemberName());
         }
 
@@ -149,7 +149,7 @@ public class WxBhvInterfaceDispatchTest extends UnitContainerTestCase {
 
         // ## Assert ##
         {
-            Member actual = memberBhv.selectByPKValueWithDeletedCheck(member.getMemberId());
+            Member actual = memberBhv.selectByPK(member.getMemberId()).get();
             assertEquals("qux", actual.getMemberName());
         }
     }
@@ -166,7 +166,7 @@ public class WxBhvInterfaceDispatchTest extends UnitContainerTestCase {
 
         // ## Assert ##
         {
-            Member actual = memberBhv.selectByPKValueWithDeletedCheck(member.getMemberId());
+            Member actual = memberBhv.selectByPK(member.getMemberId()).get();
             assertEquals("foo", actual.getMemberName());
         }
 
@@ -177,14 +177,14 @@ public class WxBhvInterfaceDispatchTest extends UnitContainerTestCase {
 
         // ## Assert ##
         {
-            Member actual = memberBhv.selectByPKValueWithDeletedCheck(member.getMemberId());
+            Member actual = memberBhv.selectByPK(member.getMemberId()).get();
             assertEquals("qux", actual.getMemberName());
         }
     }
 
     public void test_createOrModifyNonstrict_specify() {
         // ## Arrange ##
-        Member member = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member member = memberBhv.selectByPK(3).get();
         member.setMemberName("foo");
         String preAccount = member.getMemberAccount();
         member.setMemberAccount("bar");
@@ -201,7 +201,7 @@ public class WxBhvInterfaceDispatchTest extends UnitContainerTestCase {
 
         // ## Assert ##
         {
-            Member actual = memberBhv.selectByPKValueWithDeletedCheck(member.getMemberId());
+            Member actual = memberBhv.selectByPK(member.getMemberId()).get();
             assertEquals("foo", actual.getMemberName());
             assertEquals(preAccount, actual.getMemberAccount());
         }

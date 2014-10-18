@@ -80,20 +80,11 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
     /** {@inheritDoc} */
     public SummaryProductDbm getDBMeta() { return SummaryProductDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public SummaryProductDbm getMyDBMeta() { return SummaryProductDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public SummaryProductCB newConditionBean() { return new SummaryProductCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public SummaryProduct newMyEntity() { return new SummaryProduct(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public SummaryProductCB newMyConditionBean() { return new SummaryProductCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
     /**
      * Select the entity by the primary-key value.
      * @param productId : PK, INTEGER(10). (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public SummaryProduct selectByPKValue(Integer productId) {
-        return facadeSelectByPKValue(productId);
+    public OptionalEntity<SummaryProduct> selectByPK(Integer productId) {
+        return facadeSelectByPK(productId);
     }
 
-    protected SummaryProduct facadeSelectByPKValue(Integer productId) {
-        return doSelectByPK(productId, typeOfSelectedEntity());
+    protected OptionalEntity<SummaryProduct> facadeSelectByPK(Integer productId) {
+        return doSelectOptionalByPK(productId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends SummaryProduct> ENTITY doSelectByPK(Integer productId, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
 
     protected <ENTITY extends SummaryProduct> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer productId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(productId, tp), productId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param productId : PK, INTEGER(10). (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public SummaryProduct selectByPKValueWithDeletedCheck(Integer productId) {
-        return doSelectByPKWithDeletedCheck(productId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends SummaryProduct> ENTITY doSelectByPKWithDeletedCheck(Integer productId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(productId), tp);
     }
 
     protected SummaryProductCB xprepareCBAsPK(Integer productId) {

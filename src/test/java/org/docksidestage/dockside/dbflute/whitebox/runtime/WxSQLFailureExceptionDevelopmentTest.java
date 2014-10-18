@@ -90,7 +90,7 @@ public class WxSQLFailureExceptionDevelopmentTest extends UnitContainerTestCase 
 
     public void test_insert_alreadyExists() throws Exception {
         // ## Arrange ##
-        Member member = memberBhv.selectByPKValueWithDeletedCheck(1);
+        Member member = memberBhv.selectByPK(1).get();
 
         try {
             // ## Act ##
@@ -162,7 +162,7 @@ public class WxSQLFailureExceptionDevelopmentTest extends UnitContainerTestCase 
 
     public void test_delete_basic() throws Exception {
         // ## Arrange ##
-        Member member = memberBhv.selectByPKValueWithDeletedCheck(1);
+        Member member = memberBhv.selectByPK(1).get();
 
         try {
             // ## Act ##
@@ -212,7 +212,7 @@ public class WxSQLFailureExceptionDevelopmentTest extends UnitContainerTestCase 
     public void test_batchUpdate_basic() throws Exception {
         // ## Arrange ##
         List<Member> memberList = new ArrayList<Member>();
-        Member member = memberBhv.selectByPKValueWithDeletedCheck(1);
+        Member member = memberBhv.selectByPK(1).get();
         member.setMemberName("batch update exception");
         member.setMemberAccount(null);
         memberList.add(member);
@@ -238,7 +238,7 @@ public class WxSQLFailureExceptionDevelopmentTest extends UnitContainerTestCase 
     public void test_batchDelete_basic() throws Exception {
         // ## Arrange ##
         List<Member> memberList = new ArrayList<Member>();
-        Member member = memberBhv.selectByPKValueWithDeletedCheck(1);
+        Member member = memberBhv.selectByPK(1).get();
         memberList.add(member);
 
         try {

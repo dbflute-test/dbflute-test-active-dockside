@@ -22,7 +22,7 @@ public class WxBhvVaryingUpdateDreamCruiseTest extends UnitContainerTestCase {
     //                                                                  ==================
     public void test_varyingUpdateNonstrict_DreamCruise_OptionCalculation_basic() throws Exception {
         // ## Arrange ##
-        Purchase before = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
+        Purchase before = purchaseBhv.selectByPK(3L).get();
         Integer purchaseCount = before.getPurchaseCount();
         Purchase purchase = new Purchase();
         purchase.setPurchaseId(3L);
@@ -35,13 +35,13 @@ public class WxBhvVaryingUpdateDreamCruiseTest extends UnitContainerTestCase {
         }).plus(purchaseCB.dreamCruiseCB().specify().columnPurchasePrice()));
 
         // ## Assert ##
-        Purchase actual = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
+        Purchase actual = purchaseBhv.selectByPK(3L).get();
         assertEquals(Integer.valueOf(purchaseCount + actual.getPurchasePrice()), actual.getPurchaseCount());
     }
 
     public void test_varyingUpdateNonstrict_DreamCruise_OptionCalculation_chain() throws Exception {
         // ## Arrange ##
-        Purchase before = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
+        Purchase before = purchaseBhv.selectByPK(3L).get();
         Integer purchaseCount = before.getPurchaseCount();
         Purchase purchase = new Purchase();
         purchase.setPurchaseId(3L);
@@ -54,7 +54,7 @@ public class WxBhvVaryingUpdateDreamCruiseTest extends UnitContainerTestCase {
         }).multiply(3).plus(purchaseCB.dreamCruiseCB().specify().columnPurchasePrice()));
 
         // ## Assert ##
-        Purchase actual = purchaseBhv.selectByPKValueWithDeletedCheck(3L);
+        Purchase actual = purchaseBhv.selectByPK(3L).get();
         assertEquals(Integer.valueOf((purchaseCount * 3) + actual.getPurchasePrice()), actual.getPurchaseCount());
     }
 

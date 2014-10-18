@@ -80,20 +80,11 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
     /** {@inheritDoc} */
     public MemberWithdrawalDbm getDBMeta() { return MemberWithdrawalDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public MemberWithdrawalDbm getMyDBMeta() { return MemberWithdrawalDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public MemberWithdrawalCB newConditionBean() { return new MemberWithdrawalCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public MemberWithdrawal newMyEntity() { return new MemberWithdrawal(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public MemberWithdrawalCB newMyConditionBean() { return new MemberWithdrawalCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
     /**
      * Select the entity by the primary-key value.
      * @param memberId : PK, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public MemberWithdrawal selectByPKValue(Integer memberId) {
-        return facadeSelectByPKValue(memberId);
+    public OptionalEntity<MemberWithdrawal> selectByPK(Integer memberId) {
+        return facadeSelectByPK(memberId);
     }
 
-    protected MemberWithdrawal facadeSelectByPKValue(Integer memberId) {
-        return doSelectByPK(memberId, typeOfSelectedEntity());
+    protected OptionalEntity<MemberWithdrawal> facadeSelectByPK(Integer memberId) {
+        return doSelectOptionalByPK(memberId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends MemberWithdrawal> ENTITY doSelectByPK(Integer memberId, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
 
     protected <ENTITY extends MemberWithdrawal> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(memberId, tp), memberId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param memberId : PK, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public MemberWithdrawal selectByPKValueWithDeletedCheck(Integer memberId) {
-        return doSelectByPKWithDeletedCheck(memberId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends MemberWithdrawal> ENTITY doSelectByPKWithDeletedCheck(Integer memberId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberId), tp);
     }
 
     protected MemberWithdrawalCB xprepareCBAsPK(Integer memberId) {
@@ -559,28 +535,6 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      */
     public void deleteNonstrict(MemberWithdrawal memberWithdrawal) {
         doDeleteNonstrict(memberWithdrawal, null);
-    }
-
-    /**
-     * Delete the entity non-strictly ignoring deleted. {ZeroUpdateException, NonExclusiveControl}
-     * <pre>
-     * MemberWithdrawal memberWithdrawal = new MemberWithdrawal();
-     * memberWithdrawal.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
-     * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
-     * <span style="color: #3F7E5E">//memberWithdrawal.setVersionNo(value);</span>
-     * memberWithdrawalBhv.<span style="color: #CC4747">deleteNonstrictIgnoreDeleted</span>(memberWithdrawal);
-     * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
-     * </pre>
-     * @param memberWithdrawal The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     */
-    public void deleteNonstrictIgnoreDeleted(MemberWithdrawal memberWithdrawal) {
-        doDeleteNonstrictIgnoreDeleted(memberWithdrawal, null);
-    }
-
-    protected void doDeleteNonstrictIgnoreDeleted(MemberWithdrawal et, final DeleteOption<MemberWithdrawalCB> op) {
-        assertObjectNotNull("memberWithdrawal", et); prepareDeleteOption(op); helpDeleteNonstrictIgnoreDeletedInternally(et, op);
     }
 
     // ===================================================================================

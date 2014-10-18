@@ -80,20 +80,11 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
     /** {@inheritDoc} */
     public RegionDbm getDBMeta() { return RegionDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public RegionDbm getMyDBMeta() { return RegionDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public RegionCB newConditionBean() { return new RegionCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public Region newMyEntity() { return new Region(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public RegionCB newMyConditionBean() { return new RegionCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
     /**
      * Select the entity by the primary-key value.
      * @param regionId (地域ID): PK, NotNull, INTEGER(10), classification=Region. (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public Region selectByPKValue(Integer regionId) {
-        return facadeSelectByPKValue(regionId);
+    public OptionalEntity<Region> selectByPK(Integer regionId) {
+        return facadeSelectByPK(regionId);
     }
 
-    protected Region facadeSelectByPKValue(Integer regionId) {
-        return doSelectByPK(regionId, typeOfSelectedEntity());
+    protected OptionalEntity<Region> facadeSelectByPK(Integer regionId) {
+        return doSelectOptionalByPK(regionId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Region> ENTITY doSelectByPK(Integer regionId, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
 
     protected <ENTITY extends Region> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer regionId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(regionId, tp), regionId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param regionId (地域ID): PK, NotNull, INTEGER(10), classification=Region. (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public Region selectByPKValueWithDeletedCheck(Integer regionId) {
-        return doSelectByPKWithDeletedCheck(regionId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends Region> ENTITY doSelectByPKWithDeletedCheck(Integer regionId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(regionId), tp);
     }
 
     protected RegionCB xprepareCBAsPK(Integer regionId) {

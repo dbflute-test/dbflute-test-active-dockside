@@ -179,7 +179,6 @@ public class ProductStatusDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public ProductStatus newEntity() { return new ProductStatus(); }
-    public ProductStatus newMyEntity() { return new ProductStatus(); }
 
     // ===================================================================================
     //                                                                   Map Communication

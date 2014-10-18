@@ -201,7 +201,6 @@ public class ProductCategoryDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public ProductCategory newEntity() { return new ProductCategory(); }
-    public ProductCategory newMyEntity() { return new ProductCategory(); }
 
     // ===================================================================================
     //                                                                   Map Communication

@@ -103,16 +103,6 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
     }
 
     /**
-     * Accept the query condition of primary key as equal. (old style)
-     * @param theLongAndWindingTableAndColumnId : PK, NotNull, BIGINT(19). (NotNull)
-     */
-    public void acceptPrimaryKey(Long theLongAndWindingTableAndColumnId) {
-        assertObjectNotNull("theLongAndWindingTableAndColumnId", theLongAndWindingTableAndColumnId);
-        BsVendorTheLongAndWindingTableAndColumnCB cb = this;
-        cb.query().setTheLongAndWindingTableAndColumnId_Equal(theLongAndWindingTableAndColumnId);
-    }
-
-    /**
      * Accept the query condition of unique key as equal.
      * @param theLongAndWindingTableAndColumnName : UQ, NotNull, VARCHAR(200). (NotNull)
      * @return this. (NotNull)

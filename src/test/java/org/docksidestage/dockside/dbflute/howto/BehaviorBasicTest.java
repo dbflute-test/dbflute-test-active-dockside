@@ -200,177 +200,83 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
     // -----------------------------------------------------
     //                                                Update
     //                                                ------
-    /**
-     * 排他制御ありの一件更新: update().
-     * 会員ID'3'の会員の名称を'testName'に更新
-     */
     public void test_update() {
         // ## Arrange ##
-        Member beforeMember = memberBhv.selectByPKValueWithDeletedCheck(3);
-        Long versionNo = beforeMember.getVersionNo();// 排他制御のためにVersionNoを取得
+        Member beforeMember = memberBhv.selectByPK(3).get();
+        Long versionNo = beforeMember.getVersionNo();
 
         Member member = new Member();
-        member.setMemberId(3);// 更新したい会員の会員ID
+        member.setMemberId(3);
         member.setMemberName("testName");
-        member.setVersionNo(versionNo);// 排他制御カラムの設定
+        member.setVersionNo(versionNo);
 
         // ## Act ##
         memberBhv.update(member);
 
         // ## Assert ##
-        Member afterMember = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member afterMember = memberBhv.selectByPK(3).get();
         log("onDatabase = " + afterMember.toString());
         log("onMemory   = " + member.toString());
         assertEquals(Long.valueOf(versionNo + 1), member.getVersionNo());
         assertEquals(afterMember.getVersionNo(), member.getVersionNo());
-
-        // 【Description】
-        // A. Setterが呼び出された項目(と自動設定項目)だけ更新
-        // update MEMBER set MEMBER_NAME = 'testName' where ...
-        // 
-        // B. 共通カラムは設定不要。
-        // member.setRegisterDatetime(registerDatetime); 
-        // member.setUpdateUser(updateUser);
-        //   ※事前にDBFluteの「共通カラム自動設定」機能の準備すること
-        //   --> dbflute_exampledb/dfprop/commonColumnMap.dfprop
-        // 
-        // C. 排他制御カラム(VERSION_NOなど)が定義されていない場合は、排他制御なし更新になる。
-        // D. すれ違いが発生した場合は例外発生。{EntityAlreadyUpdatedException}
-        // E. 存在しないPK値を指定された場合はすれ違いが発生した場合と同じ。
-        //    --> 排他制御の仕組み上、区別が付かないため
-        // 
-        // F. 更新後のEntityにはOnMemoryでインクリメントされたVersionNoが格納される。
-        // 
-        // G. 一意制約違反のときは、EntityAlreadyExistsExceptionが発生。(DBFlute-0.7.7より)
-        //   ※JDBCドライバ依存であることに注意
-        //   ※UniqueConstraintTest参考
     }
 
-    /**
-     * 排他制御なし一件更新: updateNonstrict().
-     * 会員ID'3'の会員の名称を'testName'に更新
-     */
     public void test_updateNonstrict() {
         // ## Arrange ##
         Member member = new Member();
-        member.setMemberId(3);// 更新したい会員の会員ID
+        member.setMemberId(3);
         member.setMemberName("testName");
 
         // ## Act ##
         memberBhv.updateNonstrict(member);
 
         // ## Assert ##
-        Member afterMember = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member afterMember = memberBhv.selectByPK(3).get();
         log("onDatabase = " + afterMember.toString());
         log("onMemory   = " + member.toString());
         assertNull(member.getVersionNo());
         assertNotNull(afterMember.getVersionNo());
-
-        // 【Description】
-        // A. Setterが呼び出された項目(と自動設定項目)だけ更新
-        // update MEMBER set MEMBER_NAME = 'testName' where ...
-        // 
-        // B. 共通カラムは設定不要。
-        // member.setRegisterDatetime(registerDatetime); 
-        // member.setUpdateUser(updateUser);
-        //   ※事前にDBFluteの「共通カラム自動設定」機能の準備すること
-        //   --> dbflute_exampledb/dfprop/commonColumnMap.dfprop
-        // 
-        // C. 存在しないPK値を指定された場合は例外発生。{EntityAlreadyDeletedException}
-        // 
-        // D. バージョンNOは設定不要(OnQueryでインクリメント「VERSION_NO = VERSION + 1」)
-        // member.setVersionNo(versionNo);
-        // 
-        // E. 更新後のEntityのVersionNoは更新前と全く同じ値がそのまま保持される。
-        // 
-        // F. 一意制約違反のときは、EntityAlreadyExistsExceptionが発生。(DBFlute-0.7.7より)
-        //   ※JDBCドライバ依存であることに注意
-        //   ※UniqueConstraintTest参考
     }
 
     // -----------------------------------------------------
     //                                                Delete
     //                                                ------
-    /**
-     * 排他制御あり一件削除: delete().
-     * 会員ID'3'の会員を削除。
-     */
     public void test_delete() {
         // ## Arrange ##
-        deleteMemberReferrer();// テストのためにReferrerを全部消す
-
-        Member beforeMember = memberBhv.selectByPKValueWithDeletedCheck(3);
-        Long versionNo = beforeMember.getVersionNo();// 排他制御のためにVersionNoを取得
+        deleteMemberReferrer();
+        Member beforeMember = memberBhv.selectByPK(3).get();
+        Long versionNo = beforeMember.getVersionNo();
 
         Member member = new Member();
-        member.setMemberId(3);// 削除したい会員の会員ID
-        member.setVersionNo(versionNo);// 排他制御カラムの設定
+        member.setMemberId(3);
+        member.setVersionNo(versionNo);
 
         // ## Act ##
         memberBhv.delete(member);
 
         // ## Assert ##
         try {
-            memberBhv.selectByPKValueWithDeletedCheck(3);
+            memberBhv.selectByPK(3).get();
             fail();
         } catch (EntityAlreadyDeletedException e) {
-            // OK
             log(e.getMessage());
         }
-
-        // [Description]
-        // A. PKとVersionNoのみ評価されるため、他のカラムはnullでもよい。
-        // B. すれ違いが発生した場合は例外発生。{EntityAlreadyUpdatedException}
-        // C. 存在しないPK値を指定された場合はすれ違いが発生した場合と同じ。
-        //    --> 排他制御の仕組み上、区別が付かないため
     }
 
-    /**
-     * 排他制御なし一件削除: deleteNonstrict(). 
-     * 会員ID'3'の会員を削除。
-     */
     public void test_deleteNonstrict() {
         // ## Arrange ##
-        deleteMemberReferrer();// テストのためにReferrerを全部消す
-
+        deleteMemberReferrer();
         Member member = new Member();
-        member.setMemberId(3);// 削除したい会員の会員ID
+        member.setMemberId(3);
 
         // ## Act ##
         memberBhv.deleteNonstrict(member);
 
         // ## Assert ##
         try {
-            memberBhv.selectByPKValueWithDeletedCheck(3);
+            memberBhv.selectByPK(3).get();
             fail();
         } catch (EntityAlreadyDeletedException e) {
-            // OK
-            log(e.getMessage());
-        }
-
-        // [Description]
-        // A. PKのみ評価されるため、他のカラムはnullでもよい。
-        // B. 存在しないPK値を指定された場合は例外発生。{EntityAlreadyDeletedException}
-    }
-
-    /**
-     * 既に削除済みであれば素通りする排他制御なし一件削除: deleteNonstrictIgnoreDeleted().
-     * 存在しない会員ID'99999'の会員を削除。
-     */
-    public void test_deleteNonstrictIgnoreDeleted() {
-        // ## Arrange ##
-        Member member = new Member();
-        member.setMemberId(99999);// 存在しない会員の会員ID(既に削除されたと仮定)
-
-        // ## Act ##
-        memberBhv.deleteNonstrictIgnoreDeleted(member);// 例外は発生しない
-
-        // ## Assert ##
-        try {
-            memberBhv.selectByPKValueWithDeletedCheck(99999);
-            fail();
-        } catch (EntityAlreadyDeletedException e) {
-            // OK
             log(e.getMessage());
         }
     }

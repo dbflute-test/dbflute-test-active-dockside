@@ -119,20 +119,11 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     /** {@inheritDoc} */
     public MemberDbm getDBMeta() { return MemberDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public MemberDbm getMyDBMeta() { return MemberDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public MemberCB newConditionBean() { return new MemberCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public Member newMyEntity() { return new Member(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public MemberCB newMyConditionBean() { return new MemberCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -210,16 +201,17 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     /**
      * Select the entity by the primary-key value.
      * @param memberId (会員ID): PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS. (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public Member selectByPKValue(Integer memberId) {
-        return facadeSelectByPKValue(memberId);
+    public OptionalEntity<Member> selectByPK(Integer memberId) {
+        return facadeSelectByPK(memberId);
     }
 
-    protected Member facadeSelectByPKValue(Integer memberId) {
-        return doSelectByPK(memberId, typeOfSelectedEntity());
+    protected OptionalEntity<Member> facadeSelectByPK(Integer memberId) {
+        return doSelectOptionalByPK(memberId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Member> ENTITY doSelectByPK(Integer memberId, Class<? extends ENTITY> tp) {
@@ -228,22 +220,6 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
 
     protected <ENTITY extends Member> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(memberId, tp), memberId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param memberId (会員ID): PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS. (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public Member selectByPKValueWithDeletedCheck(Integer memberId) {
-        return doSelectByPKWithDeletedCheck(memberId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends Member> ENTITY doSelectByPKWithDeletedCheck(Integer memberId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberId), tp);
     }
 
     protected MemberCB xprepareCBAsPK(Integer memberId) {
@@ -1103,28 +1079,6 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      */
     public void deleteNonstrict(Member member) {
         doDeleteNonstrict(member, null);
-    }
-
-    /**
-     * Delete the entity non-strictly ignoring deleted. {ZeroUpdateException, NonExclusiveControl}
-     * <pre>
-     * Member member = new Member();
-     * member.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
-     * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
-     * <span style="color: #3F7E5E">//member.setVersionNo(value);</span>
-     * memberBhv.<span style="color: #CC4747">deleteNonstrictIgnoreDeleted</span>(member);
-     * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
-     * </pre>
-     * @param member The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     */
-    public void deleteNonstrictIgnoreDeleted(Member member) {
-        doDeleteNonstrictIgnoreDeleted(member, null);
-    }
-
-    protected void doDeleteNonstrictIgnoreDeleted(Member et, final DeleteOption<MemberCB> op) {
-        assertObjectNotNull("member", et); prepareDeleteOption(op); helpDeleteNonstrictIgnoreDeletedInternally(et, op);
     }
 
     // ===================================================================================

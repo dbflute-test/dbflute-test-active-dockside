@@ -169,7 +169,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef implements Enti
     protected VendorTheLongAndWindingTableAndColumn _vendorTheLongAndWindingTableAndColumn;
 
     /**
-     * [get] VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'.
+     * [get] VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'. <br />
      * @return The entity of foreign property 'vendorTheLongAndWindingTableAndColumn'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public VendorTheLongAndWindingTableAndColumn getVendorTheLongAndWindingTableAndColumn() {

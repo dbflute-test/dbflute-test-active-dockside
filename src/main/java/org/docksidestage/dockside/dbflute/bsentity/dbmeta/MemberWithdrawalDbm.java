@@ -279,7 +279,6 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public MemberWithdrawal newEntity() { return new MemberWithdrawal(); }
-    public MemberWithdrawal newMyEntity() { return new MemberWithdrawal(); }
 
     // ===================================================================================
     //                                                                   Map Communication

@@ -171,7 +171,6 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public WithdrawalReason newEntity() { return new WithdrawalReason(); }
-    public WithdrawalReason newMyEntity() { return new WithdrawalReason(); }
 
     // ===================================================================================
     //                                                                   Map Communication

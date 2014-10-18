@@ -335,7 +335,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
     protected Member _member;
 
     /**
-     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'. <br />
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public Member getMember() {
@@ -354,7 +354,7 @@ public abstract class BsMemberService implements EntityDefinedCommonColumn, Seri
     protected ServiceRank _serviceRank;
 
     /**
-     * [get] (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
+     * [get] (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'. <br />
      * @return The entity of foreign property 'serviceRank'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public ServiceRank getServiceRank() {

@@ -141,7 +141,7 @@ public class WxSqlLogHandlerTest extends UnitContainerTestCase {
 
     public void test_EntityUpdate_insertOrUpdate_updateOnly() {
         // ## Arrange ##
-        Member before = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member before = memberBhv.selectByPK(3).get();
         Member member = new Member();
         member.setMemberId(before.getMemberId());
         member.setMemberName("$name");
@@ -173,7 +173,7 @@ public class WxSqlLogHandlerTest extends UnitContainerTestCase {
 
     public void test_EntityUpdate_insertOrUpdate_onParade() {
         // ## Arrange ##
-        Member before = memberBhv.selectByPKValueWithDeletedCheck(3);
+        Member before = memberBhv.selectByPK(3).get();
         Member member = new Member();
         member.setMemberId(99999);
         member.setMemberName("$name");

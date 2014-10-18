@@ -80,20 +80,11 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     /** {@inheritDoc} */
     public VendorPrimaryKeyOnlyDbm getDBMeta() { return VendorPrimaryKeyOnlyDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public VendorPrimaryKeyOnlyDbm getMyDBMeta() { return VendorPrimaryKeyOnlyDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public VendorPrimaryKeyOnlyCB newConditionBean() { return new VendorPrimaryKeyOnlyCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public VendorPrimaryKeyOnly newMyEntity() { return new VendorPrimaryKeyOnly(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public VendorPrimaryKeyOnlyCB newMyConditionBean() { return new VendorPrimaryKeyOnlyCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     /**
      * Select the entity by the primary-key value.
      * @param primaryKeyOnlyId : PK, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public VendorPrimaryKeyOnly selectByPKValue(Long primaryKeyOnlyId) {
-        return facadeSelectByPKValue(primaryKeyOnlyId);
+    public OptionalEntity<VendorPrimaryKeyOnly> selectByPK(Long primaryKeyOnlyId) {
+        return facadeSelectByPK(primaryKeyOnlyId);
     }
 
-    protected VendorPrimaryKeyOnly facadeSelectByPKValue(Long primaryKeyOnlyId) {
-        return doSelectByPK(primaryKeyOnlyId, typeOfSelectedEntity());
+    protected OptionalEntity<VendorPrimaryKeyOnly> facadeSelectByPK(Long primaryKeyOnlyId) {
+        return doSelectOptionalByPK(primaryKeyOnlyId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends VendorPrimaryKeyOnly> ENTITY doSelectByPK(Long primaryKeyOnlyId, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
 
     protected <ENTITY extends VendorPrimaryKeyOnly> OptionalEntity<ENTITY> doSelectOptionalByPK(Long primaryKeyOnlyId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(primaryKeyOnlyId, tp), primaryKeyOnlyId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param primaryKeyOnlyId : PK, NotNull, BIGINT(19). (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public VendorPrimaryKeyOnly selectByPKValueWithDeletedCheck(Long primaryKeyOnlyId) {
-        return doSelectByPKWithDeletedCheck(primaryKeyOnlyId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends VendorPrimaryKeyOnly> ENTITY doSelectByPKWithDeletedCheck(Long primaryKeyOnlyId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(primaryKeyOnlyId), tp);
     }
 
     protected VendorPrimaryKeyOnlyCB xprepareCBAsPK(Long primaryKeyOnlyId) {

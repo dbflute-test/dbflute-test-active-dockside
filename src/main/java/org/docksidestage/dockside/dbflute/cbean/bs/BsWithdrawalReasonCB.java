@@ -103,16 +103,6 @@ public class BsWithdrawalReasonCB extends AbstractConditionBean {
     }
 
     /**
-     * Accept the query condition of primary key as equal. (old style)
-     * @param withdrawalReasonCode (退会理由コード): PK, NotNull, CHAR(3), classification=WithdrawalReason. (NotNull)
-     */
-    public void acceptPrimaryKey(String withdrawalReasonCode) {
-        assertObjectNotNull("withdrawalReasonCode", withdrawalReasonCode);
-        BsWithdrawalReasonCB cb = this;
-        cb.query().setWithdrawalReasonCode_Equal(withdrawalReasonCode);
-    }
-
-    /**
      * Accept the query condition of unique key as equal.
      * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
      * @return this. (NotNull)

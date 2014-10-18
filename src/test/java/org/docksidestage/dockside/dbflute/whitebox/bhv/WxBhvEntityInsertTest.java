@@ -61,7 +61,7 @@ public class WxBhvEntityInsertTest extends UnitContainerTestCase {
         // ## Assert ##
         Integer memberId = member.getMemberId();
         log(memberId);
-        Member actual = memberBhv.selectByPKValueWithDeletedCheck(memberId);
+        Member actual = memberBhv.selectByPK(memberId).get();
         assertEquals("testName", actual.getMemberName());
         assertEquals("testAccount", member.getMemberAccount());
         assertNull(member.getBirthdate());
@@ -93,7 +93,7 @@ public class WxBhvEntityInsertTest extends UnitContainerTestCase {
         // ## Assert ##
         Integer memberId = member.getMemberId();
         log(memberId);
-        Member actual = memberBhv.selectByPKValueWithDeletedCheck(memberId);
+        Member actual = memberBhv.selectByPK(memberId).get();
         assertEquals("testName", actual.getMemberName());
         assertEquals("testAccount", member.getMemberAccount());
         assertNull(member.getBirthdate());
@@ -128,7 +128,7 @@ public class WxBhvEntityInsertTest extends UnitContainerTestCase {
         // ## Assert ##
         Integer memberId = member.getMemberId();
         log(memberId);
-        Member actual = memberBhv.selectByPKValueWithDeletedCheck(memberId);
+        Member actual = memberBhv.selectByPK(memberId).get();
         assertEquals("testName", actual.getMemberName());
         assertEquals("testAccount", member.getMemberAccount());
         assertNull(member.getBirthdate());
@@ -163,7 +163,7 @@ public class WxBhvEntityInsertTest extends UnitContainerTestCase {
         // ## Assert ##
         Integer memberId = member.getMemberId();
         log(memberId);
-        Member actual = memberBhv.selectByPKValueWithDeletedCheck(memberId);
+        Member actual = memberBhv.selectByPK(memberId).get();
         assertEquals("testName", actual.getMemberName());
         assertEquals("testAccount", member.getMemberAccount());
         assertNull(member.getBirthdate());

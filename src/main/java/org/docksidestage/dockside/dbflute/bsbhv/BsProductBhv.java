@@ -80,20 +80,11 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
     /** {@inheritDoc} */
     public ProductDbm getDBMeta() { return ProductDbm.getInstance(); }
 
-    /** @return The instance of DBMeta as my table type. (NotNull) */
-    public ProductDbm getMyDBMeta() { return ProductDbm.getInstance(); }
-
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
     public ProductCB newConditionBean() { return new ProductCB(); }
-
-    /** @return The instance of new entity as my table type. (NotNull) */
-    public Product newMyEntity() { return new Product(); }
-
-    /** @return The instance of new condition-bean as my table type. (NotNull) */
-    public ProductCB newMyConditionBean() { return new ProductCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -171,16 +162,17 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
     /**
      * Select the entity by the primary-key value.
      * @param productId : PK, ID, NotNull, INTEGER(10). (NotNull)
-     * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
+     * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public Product selectByPKValue(Integer productId) {
-        return facadeSelectByPKValue(productId);
+    public OptionalEntity<Product> selectByPK(Integer productId) {
+        return facadeSelectByPK(productId);
     }
 
-    protected Product facadeSelectByPKValue(Integer productId) {
-        return doSelectByPK(productId, typeOfSelectedEntity());
+    protected OptionalEntity<Product> facadeSelectByPK(Integer productId) {
+        return doSelectOptionalByPK(productId, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends Product> ENTITY doSelectByPK(Integer productId, Class<? extends ENTITY> tp) {
@@ -189,22 +181,6 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
 
     protected <ENTITY extends Product> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer productId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(productId, tp), productId);
-    }
-
-    /**
-     * Select the entity by the primary-key value with deleted check.
-     * @param productId : PK, ID, NotNull, INTEGER(10). (NotNull)
-     * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public Product selectByPKValueWithDeletedCheck(Integer productId) {
-        return doSelectByPKWithDeletedCheck(productId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends Product> ENTITY doSelectByPKWithDeletedCheck(Integer productId, Class<ENTITY> tp) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(productId), tp);
     }
 
     protected ProductCB xprepareCBAsPK(Integer productId) {
@@ -680,28 +656,6 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      */
     public void deleteNonstrict(Product product) {
         doDeleteNonstrict(product, null);
-    }
-
-    /**
-     * Delete the entity non-strictly ignoring deleted. {ZeroUpdateException, NonExclusiveControl}
-     * <pre>
-     * Product product = new Product();
-     * product.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
-     * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
-     * <span style="color: #3F7E5E">//product.setVersionNo(value);</span>
-     * productBhv.<span style="color: #CC4747">deleteNonstrictIgnoreDeleted</span>(product);
-     * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
-     * </pre>
-     * @param product The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     */
-    public void deleteNonstrictIgnoreDeleted(Product product) {
-        doDeleteNonstrictIgnoreDeleted(product, null);
-    }
-
-    protected void doDeleteNonstrictIgnoreDeleted(Product et, final DeleteOption<ProductCB> op) {
-        assertObjectNotNull("product", et); prepareDeleteOption(op); helpDeleteNonstrictIgnoreDeletedInternally(et, op);
     }
 
     // ===================================================================================
