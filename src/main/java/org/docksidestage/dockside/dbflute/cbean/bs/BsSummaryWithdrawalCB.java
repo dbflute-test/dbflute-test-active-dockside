@@ -179,10 +179,14 @@ public class BsSummaryWithdrawalCB extends AbstractConditionBean {
      */
     public SummaryWithdrawalCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
-    public SummaryWithdrawalCQ getConditionQuery() { // public for parameter comment and internal
+    public SummaryWithdrawalCQ xdfgetConditionQuery() { // public for parameter comment and internal
+        return doGetConditionQuery();
+    }
+
+    protected SummaryWithdrawalCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
@@ -203,8 +207,11 @@ public class BsSummaryWithdrawalCB extends AbstractConditionBean {
         return new SummaryWithdrawalCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public ConditionQuery localCQ() {
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
     // ===================================================================================
@@ -278,7 +285,7 @@ public class BsSummaryWithdrawalCB extends AbstractConditionBean {
         if (_specification == null) { _specification = new HpSpecification(this
             , new HpSpQyCall<SummaryWithdrawalCQ>() {
                 public boolean has() { return true; }
-                public SummaryWithdrawalCQ qy() { return getConditionQuery(); }
+                public SummaryWithdrawalCQ qy() { return xdfgetConditionQuery(); }
             }
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
@@ -492,8 +499,8 @@ public class BsSummaryWithdrawalCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String getConditionBeanClassNameInternally() { return SummaryWithdrawalCB.class.getName(); }
-    protected String getConditionQueryClassNameInternally() { return SummaryWithdrawalCQ.class.getName(); }
-    protected String getSubQueryClassNameInternally() { return SubQuery.class.getName(); }
-    protected String getConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return SummaryWithdrawalCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return SummaryWithdrawalCQ.class.getName(); }
+    protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
+    protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

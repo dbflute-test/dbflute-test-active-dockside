@@ -76,17 +76,15 @@ public class LoaderOfMemberWithdrawal {
     //                                                                    ================
     protected LoaderOfMember _foreignMemberLoader;
     public LoaderOfMember pulloutMember() {
-        if (_foreignMemberLoader != null) { return _foreignMemberLoader; }
-        List<Member> pulledList = myBhv().pulloutMember(_selectedList);
-        _foreignMemberLoader = new LoaderOfMember().ready(pulledList, _selector);
+        if (_foreignMemberLoader == null)
+        { _foreignMemberLoader = new LoaderOfMember().ready(myBhv().pulloutMember(_selectedList), _selector); }
         return _foreignMemberLoader;
     }
 
     protected LoaderOfWithdrawalReason _foreignWithdrawalReasonLoader;
     public LoaderOfWithdrawalReason pulloutWithdrawalReason() {
-        if (_foreignWithdrawalReasonLoader != null) { return _foreignWithdrawalReasonLoader; }
-        List<WithdrawalReason> pulledList = myBhv().pulloutWithdrawalReason(_selectedList);
-        _foreignWithdrawalReasonLoader = new LoaderOfWithdrawalReason().ready(pulledList, _selector);
+        if (_foreignWithdrawalReasonLoader == null)
+        { _foreignWithdrawalReasonLoader = new LoaderOfWithdrawalReason().ready(myBhv().pulloutWithdrawalReason(_selectedList), _selector); }
         return _foreignWithdrawalReasonLoader;
     }
 

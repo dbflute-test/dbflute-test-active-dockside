@@ -76,7 +76,7 @@ public class MemberStatusCIQ extends AbstractBsMemberStatusCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueMemberStatusCode() { return _myCQ.getMemberStatusCode(); }
+    protected ConditionValue xgetCValueMemberStatusCode() { return _myCQ.xdfgetMemberStatusCode(); }
     public String keepMemberStatusCode_ExistsReferrer_MemberList(MemberCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepMemberStatusCode_ExistsReferrer_MemberLoginList(MemberLoginCQ sq)
@@ -97,9 +97,9 @@ public class MemberStatusCIQ extends AbstractBsMemberStatusCQ {
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepMemberStatusCode_QueryDerivedReferrer_MemberLoginListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    protected ConditionValue getCValueMemberStatusName() { return _myCQ.getMemberStatusName(); }
-    protected ConditionValue getCValueDescription() { return _myCQ.getDescription(); }
-    protected ConditionValue getCValueDisplayOrder() { return _myCQ.getDisplayOrder(); }
+    protected ConditionValue xgetCValueMemberStatusName() { return _myCQ.xdfgetMemberStatusName(); }
+    protected ConditionValue xgetCValueDescription() { return _myCQ.xdfgetDescription(); }
+    protected ConditionValue xgetCValueDisplayOrder() { return _myCQ.xdfgetDisplayOrder(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(MemberStatusCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

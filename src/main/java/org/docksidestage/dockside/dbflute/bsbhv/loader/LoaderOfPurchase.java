@@ -78,14 +78,8 @@ public class LoaderOfPurchase {
     //                                                                       =============
     protected List<PurchasePayment> _referrerPurchasePayment;
     public NestedReferrerLoaderGateway<LoaderOfPurchasePayment> loadPurchasePayment(ConditionBeanSetupper<PurchasePaymentCB> refCBLambda) {
-        myBhv().loadPurchasePayment(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<PurchasePayment>() {
-            public void handle(List<PurchasePayment> referrerList) { _referrerPurchasePayment = referrerList; }
-        });
-        return new NestedReferrerLoaderGateway<LoaderOfPurchasePayment>() {
-            public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfPurchasePayment> handler) {
-                handler.handle(new LoaderOfPurchasePayment().ready(_referrerPurchasePayment, _selector));
-            }
-        };
+        myBhv().loadPurchasePayment(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerPurchasePayment = refLs);
+        return hd -> hd.handle(new LoaderOfPurchasePayment().ready(_referrerPurchasePayment, _selector));
     }
 
     // ===================================================================================
@@ -93,25 +87,22 @@ public class LoaderOfPurchase {
     //                                                                    ================
     protected LoaderOfMember _foreignMemberLoader;
     public LoaderOfMember pulloutMember() {
-        if (_foreignMemberLoader != null) { return _foreignMemberLoader; }
-        List<Member> pulledList = myBhv().pulloutMember(_selectedList);
-        _foreignMemberLoader = new LoaderOfMember().ready(pulledList, _selector);
+        if (_foreignMemberLoader == null)
+        { _foreignMemberLoader = new LoaderOfMember().ready(myBhv().pulloutMember(_selectedList), _selector); }
         return _foreignMemberLoader;
     }
 
     protected LoaderOfProduct _foreignProductLoader;
     public LoaderOfProduct pulloutProduct() {
-        if (_foreignProductLoader != null) { return _foreignProductLoader; }
-        List<Product> pulledList = myBhv().pulloutProduct(_selectedList);
-        _foreignProductLoader = new LoaderOfProduct().ready(pulledList, _selector);
+        if (_foreignProductLoader == null)
+        { _foreignProductLoader = new LoaderOfProduct().ready(myBhv().pulloutProduct(_selectedList), _selector); }
         return _foreignProductLoader;
     }
 
     protected LoaderOfSummaryProduct _foreignSummaryProductLoader;
     public LoaderOfSummaryProduct pulloutSummaryProduct() {
-        if (_foreignSummaryProductLoader != null) { return _foreignSummaryProductLoader; }
-        List<SummaryProduct> pulledList = myBhv().pulloutSummaryProduct(_selectedList);
-        _foreignSummaryProductLoader = new LoaderOfSummaryProduct().ready(pulledList, _selector);
+        if (_foreignSummaryProductLoader == null)
+        { _foreignSummaryProductLoader = new LoaderOfSummaryProduct().ready(myBhv().pulloutSummaryProduct(_selectedList), _selector); }
         return _foreignSummaryProductLoader;
     }
 

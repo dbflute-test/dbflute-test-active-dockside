@@ -76,9 +76,8 @@ public class LoaderOfVendorTheLongAndWindingTableAndColumnRef {
     //                                                                    ================
     protected LoaderOfVendorTheLongAndWindingTableAndColumn _foreignVendorTheLongAndWindingTableAndColumnLoader;
     public LoaderOfVendorTheLongAndWindingTableAndColumn pulloutVendorTheLongAndWindingTableAndColumn() {
-        if (_foreignVendorTheLongAndWindingTableAndColumnLoader != null) { return _foreignVendorTheLongAndWindingTableAndColumnLoader; }
-        List<VendorTheLongAndWindingTableAndColumn> pulledList = myBhv().pulloutVendorTheLongAndWindingTableAndColumn(_selectedList);
-        _foreignVendorTheLongAndWindingTableAndColumnLoader = new LoaderOfVendorTheLongAndWindingTableAndColumn().ready(pulledList, _selector);
+        if (_foreignVendorTheLongAndWindingTableAndColumnLoader == null)
+        { _foreignVendorTheLongAndWindingTableAndColumnLoader = new LoaderOfVendorTheLongAndWindingTableAndColumn().ready(myBhv().pulloutVendorTheLongAndWindingTableAndColumn(_selectedList), _selector); }
         return _foreignVendorTheLongAndWindingTableAndColumnLoader;
     }
 

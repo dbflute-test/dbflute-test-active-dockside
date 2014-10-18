@@ -76,7 +76,7 @@ public class ProductCategoryCIQ extends AbstractBsProductCategoryCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueProductCategoryCode() { return _myCQ.getProductCategoryCode(); }
+    protected ConditionValue xgetCValueProductCategoryCode() { return _myCQ.xdfgetProductCategoryCode(); }
     public String keepProductCategoryCode_ExistsReferrer_ProductList(ProductCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepProductCategoryCode_ExistsReferrer_ProductCategorySelfList(ProductCategoryCQ sq)
@@ -97,8 +97,8 @@ public class ProductCategoryCIQ extends AbstractBsProductCategoryCQ {
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    protected ConditionValue getCValueProductCategoryName() { return _myCQ.getProductCategoryName(); }
-    protected ConditionValue getCValueParentCategoryCode() { return _myCQ.getParentCategoryCode(); }
+    protected ConditionValue xgetCValueProductCategoryName() { return _myCQ.xdfgetProductCategoryName(); }
+    protected ConditionValue xgetCValueParentCategoryCode() { return _myCQ.xdfgetParentCategoryCode(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(ProductCategoryCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

@@ -149,7 +149,6 @@ public class PmCommentEmbeddedDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public PmCommentEmbedded newEntity() { return new PmCommentEmbedded(); }
-    public PmCommentEmbedded newMyEntity() { return new PmCommentEmbedded(); }
 
     // ===================================================================================
     //                                                                   Map Communication

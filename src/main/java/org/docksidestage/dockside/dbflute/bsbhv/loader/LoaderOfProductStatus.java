@@ -78,26 +78,14 @@ public class LoaderOfProductStatus {
     //                                                                       =============
     protected List<Product> _referrerProduct;
     public NestedReferrerLoaderGateway<LoaderOfProduct> loadProduct(ConditionBeanSetupper<ProductCB> refCBLambda) {
-        myBhv().loadProduct(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<Product>() {
-            public void handle(List<Product> referrerList) { _referrerProduct = referrerList; }
-        });
-        return new NestedReferrerLoaderGateway<LoaderOfProduct>() {
-            public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfProduct> handler) {
-                handler.handle(new LoaderOfProduct().ready(_referrerProduct, _selector));
-            }
-        };
+        myBhv().loadProduct(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerProduct = refLs);
+        return hd -> hd.handle(new LoaderOfProduct().ready(_referrerProduct, _selector));
     }
 
     protected List<SummaryProduct> _referrerSummaryProduct;
     public NestedReferrerLoaderGateway<LoaderOfSummaryProduct> loadSummaryProduct(ConditionBeanSetupper<SummaryProductCB> refCBLambda) {
-        myBhv().loadSummaryProduct(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<SummaryProduct>() {
-            public void handle(List<SummaryProduct> referrerList) { _referrerSummaryProduct = referrerList; }
-        });
-        return new NestedReferrerLoaderGateway<LoaderOfSummaryProduct>() {
-            public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfSummaryProduct> handler) {
-                handler.handle(new LoaderOfSummaryProduct().ready(_referrerSummaryProduct, _selector));
-            }
-        };
+        myBhv().loadSummaryProduct(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerSummaryProduct = refLs);
+        return hd -> hd.handle(new LoaderOfSummaryProduct().ready(_referrerSummaryProduct, _selector));
     }
 
     // ===================================================================================

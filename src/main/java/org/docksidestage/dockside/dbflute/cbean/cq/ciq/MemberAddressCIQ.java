@@ -76,17 +76,17 @@ public class MemberAddressCIQ extends AbstractBsMemberAddressCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueMemberAddressId() { return _myCQ.getMemberAddressId(); }
-    protected ConditionValue getCValueMemberId() { return _myCQ.getMemberId(); }
-    protected ConditionValue getCValueValidBeginDate() { return _myCQ.getValidBeginDate(); }
-    protected ConditionValue getCValueValidEndDate() { return _myCQ.getValidEndDate(); }
-    protected ConditionValue getCValueAddress() { return _myCQ.getAddress(); }
-    protected ConditionValue getCValueRegionId() { return _myCQ.getRegionId(); }
-    protected ConditionValue getCValueRegisterDatetime() { return _myCQ.getRegisterDatetime(); }
-    protected ConditionValue getCValueRegisterUser() { return _myCQ.getRegisterUser(); }
-    protected ConditionValue getCValueUpdateDatetime() { return _myCQ.getUpdateDatetime(); }
-    protected ConditionValue getCValueUpdateUser() { return _myCQ.getUpdateUser(); }
-    protected ConditionValue getCValueVersionNo() { return _myCQ.getVersionNo(); }
+    protected ConditionValue xgetCValueMemberAddressId() { return _myCQ.xdfgetMemberAddressId(); }
+    protected ConditionValue xgetCValueMemberId() { return _myCQ.xdfgetMemberId(); }
+    protected ConditionValue xgetCValueValidBeginDate() { return _myCQ.xdfgetValidBeginDate(); }
+    protected ConditionValue xgetCValueValidEndDate() { return _myCQ.xdfgetValidEndDate(); }
+    protected ConditionValue xgetCValueAddress() { return _myCQ.xdfgetAddress(); }
+    protected ConditionValue xgetCValueRegionId() { return _myCQ.xdfgetRegionId(); }
+    protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
+    protected ConditionValue xgetCValueRegisterUser() { return _myCQ.xdfgetRegisterUser(); }
+    protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
+    protected ConditionValue xgetCValueUpdateUser() { return _myCQ.xdfgetUpdateUser(); }
+    protected ConditionValue xgetCValueVersionNo() { return _myCQ.xdfgetVersionNo(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(MemberAddressCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

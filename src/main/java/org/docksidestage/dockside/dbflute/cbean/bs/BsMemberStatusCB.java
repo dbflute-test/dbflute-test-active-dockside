@@ -203,10 +203,14 @@ public class BsMemberStatusCB extends AbstractConditionBean {
      */
     public MemberStatusCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
-    public MemberStatusCQ getConditionQuery() { // public for parameter comment and internal
+    public MemberStatusCQ xdfgetConditionQuery() { // public for parameter comment and internal
+        return doGetConditionQuery();
+    }
+
+    protected MemberStatusCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
@@ -227,8 +231,11 @@ public class BsMemberStatusCB extends AbstractConditionBean {
         return new MemberStatusCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public ConditionQuery localCQ() {
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
     // ===================================================================================
@@ -302,7 +309,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
         if (_specification == null) { _specification = new HpSpecification(this
             , new HpSpQyCall<MemberStatusCQ>() {
                 public boolean has() { return true; }
-                public MemberStatusCQ qy() { return getConditionQuery(); }
+                public MemberStatusCQ qy() { return xdfgetConditionQuery(); }
             }
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
@@ -538,8 +545,8 @@ public class BsMemberStatusCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String getConditionBeanClassNameInternally() { return MemberStatusCB.class.getName(); }
-    protected String getConditionQueryClassNameInternally() { return MemberStatusCQ.class.getName(); }
-    protected String getSubQueryClassNameInternally() { return SubQuery.class.getName(); }
-    protected String getConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return MemberStatusCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return MemberStatusCQ.class.getName(); }
+    protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
+    protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

@@ -89,10 +89,10 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _memberAddressId;
-    public ConditionValue getMemberAddressId()
+    public ConditionValue xdfgetMemberAddressId()
     { if (_memberAddressId == null) { _memberAddressId = nCV(); }
       return _memberAddressId; }
-    protected ConditionValue getCValueMemberAddressId() { return getMemberAddressId(); }
+    protected ConditionValue xgetCValueMemberAddressId() { return xdfgetMemberAddressId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -109,10 +109,10 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     public BsMemberAddressCQ addOrderBy_MemberAddressId_Desc() { regOBD("MEMBER_ADDRESS_ID"); return this; }
 
     protected ConditionValue _memberId;
-    public ConditionValue getMemberId()
+    public ConditionValue xdfgetMemberId()
     { if (_memberId == null) { _memberId = nCV(); }
       return _memberId; }
-    protected ConditionValue getCValueMemberId() { return getMemberId(); }
+    protected ConditionValue xgetCValueMemberId() { return xdfgetMemberId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -129,10 +129,10 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     public BsMemberAddressCQ addOrderBy_MemberId_Desc() { regOBD("MEMBER_ID"); return this; }
 
     protected ConditionValue _validBeginDate;
-    public ConditionValue getValidBeginDate()
+    public ConditionValue xdfgetValidBeginDate()
     { if (_validBeginDate == null) { _validBeginDate = nCV(); }
       return _validBeginDate; }
-    protected ConditionValue getCValueValidBeginDate() { return getValidBeginDate(); }
+    protected ConditionValue xgetCValueValidBeginDate() { return xdfgetValidBeginDate(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -149,10 +149,10 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     public BsMemberAddressCQ addOrderBy_ValidBeginDate_Desc() { regOBD("VALID_BEGIN_DATE"); return this; }
 
     protected ConditionValue _validEndDate;
-    public ConditionValue getValidEndDate()
+    public ConditionValue xdfgetValidEndDate()
     { if (_validEndDate == null) { _validEndDate = nCV(); }
       return _validEndDate; }
-    protected ConditionValue getCValueValidEndDate() { return getValidEndDate(); }
+    protected ConditionValue xgetCValueValidEndDate() { return xdfgetValidEndDate(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -169,10 +169,10 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     public BsMemberAddressCQ addOrderBy_ValidEndDate_Desc() { regOBD("VALID_END_DATE"); return this; }
 
     protected ConditionValue _address;
-    public ConditionValue getAddress()
+    public ConditionValue xdfgetAddress()
     { if (_address == null) { _address = nCV(); }
       return _address; }
-    protected ConditionValue getCValueAddress() { return getAddress(); }
+    protected ConditionValue xgetCValueAddress() { return xdfgetAddress(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -189,10 +189,10 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     public BsMemberAddressCQ addOrderBy_Address_Desc() { regOBD("ADDRESS"); return this; }
 
     protected ConditionValue _regionId;
-    public ConditionValue getRegionId()
+    public ConditionValue xdfgetRegionId()
     { if (_regionId == null) { _regionId = nCV(); }
       return _regionId; }
-    protected ConditionValue getCValueRegionId() { return getRegionId(); }
+    protected ConditionValue xgetCValueRegionId() { return xdfgetRegionId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -209,10 +209,10 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     public BsMemberAddressCQ addOrderBy_RegionId_Desc() { regOBD("REGION_ID"); return this; }
 
     protected ConditionValue _registerDatetime;
-    public ConditionValue getRegisterDatetime()
+    public ConditionValue xdfgetRegisterDatetime()
     { if (_registerDatetime == null) { _registerDatetime = nCV(); }
       return _registerDatetime; }
-    protected ConditionValue getCValueRegisterDatetime() { return getRegisterDatetime(); }
+    protected ConditionValue xgetCValueRegisterDatetime() { return xdfgetRegisterDatetime(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -229,10 +229,10 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     public BsMemberAddressCQ addOrderBy_RegisterDatetime_Desc() { regOBD("REGISTER_DATETIME"); return this; }
 
     protected ConditionValue _registerUser;
-    public ConditionValue getRegisterUser()
+    public ConditionValue xdfgetRegisterUser()
     { if (_registerUser == null) { _registerUser = nCV(); }
       return _registerUser; }
-    protected ConditionValue getCValueRegisterUser() { return getRegisterUser(); }
+    protected ConditionValue xgetCValueRegisterUser() { return xdfgetRegisterUser(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -249,10 +249,10 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     public BsMemberAddressCQ addOrderBy_RegisterUser_Desc() { regOBD("REGISTER_USER"); return this; }
 
     protected ConditionValue _updateDatetime;
-    public ConditionValue getUpdateDatetime()
+    public ConditionValue xdfgetUpdateDatetime()
     { if (_updateDatetime == null) { _updateDatetime = nCV(); }
       return _updateDatetime; }
-    protected ConditionValue getCValueUpdateDatetime() { return getUpdateDatetime(); }
+    protected ConditionValue xgetCValueUpdateDatetime() { return xdfgetUpdateDatetime(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -269,10 +269,10 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     public BsMemberAddressCQ addOrderBy_UpdateDatetime_Desc() { regOBD("UPDATE_DATETIME"); return this; }
 
     protected ConditionValue _updateUser;
-    public ConditionValue getUpdateUser()
+    public ConditionValue xdfgetUpdateUser()
     { if (_updateUser == null) { _updateUser = nCV(); }
       return _updateUser; }
-    protected ConditionValue getCValueUpdateUser() { return getUpdateUser(); }
+    protected ConditionValue xgetCValueUpdateUser() { return xdfgetUpdateUser(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -289,10 +289,10 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     public BsMemberAddressCQ addOrderBy_UpdateUser_Desc() { regOBD("UPDATE_USER"); return this; }
 
     protected ConditionValue _versionNo;
-    public ConditionValue getVersionNo()
+    public ConditionValue xdfgetVersionNo()
     { if (_versionNo == null) { _versionNo = nCV(); }
       return _versionNo; }
-    protected ConditionValue getCValueVersionNo() { return getVersionNo(); }
+    protected ConditionValue xgetCValueVersionNo() { return xdfgetVersionNo(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -366,9 +366,9 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
      * @return The instance of condition-query. (NotNull)
      */
     public MemberCQ queryMember() {
-        return getConditionQueryMember();
+        return xdfgetConditionQueryMember();
     }
-    public MemberCQ getConditionQueryMember() {
+    public MemberCQ xdfgetConditionQueryMember() {
         String prop = "member";
         if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMember()); xsetupOuterJoinMember(); }
         return xgetQueRlMap(prop);
@@ -386,9 +386,9 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
      * @return The instance of condition-query. (NotNull)
      */
     public RegionCQ queryRegion() {
-        return getConditionQueryRegion();
+        return xdfgetConditionQueryRegion();
     }
-    public RegionCQ getConditionQueryRegion() {
+    public RegionCQ xdfgetConditionQueryRegion() {
         String prop = "region";
         if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryRegion()); xsetupOuterJoinRegion(); }
         return xgetQueRlMap(prop);
@@ -407,31 +407,31 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, MemberAddressCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public Map<String, MemberAddressCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
     public String keepScalarCondition(MemberAddressCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, MemberAddressCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public Map<String, MemberAddressCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
     public String keepSpecifyMyselfDerived(MemberAddressCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, MemberAddressCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public Map<String, MemberAddressCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerived(MemberAddressCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, MemberAddressCQ> _myselfExistsMap;
-    public Map<String, MemberAddressCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public Map<String, MemberAddressCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
     public String keepMyselfExists(MemberAddressCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, MemberAddressCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public Map<String, MemberAddressCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
     public String keepMyselfInScope(MemberAddressCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================

@@ -206,10 +206,14 @@ public class BsPurchaseCB extends AbstractConditionBean {
      */
     public PurchaseCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
-    public PurchaseCQ getConditionQuery() { // public for parameter comment and internal
+    public PurchaseCQ xdfgetConditionQuery() { // public for parameter comment and internal
+        return doGetConditionQuery();
+    }
+
+    protected PurchaseCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
@@ -230,8 +234,11 @@ public class BsPurchaseCB extends AbstractConditionBean {
         return new PurchaseCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public ConditionQuery localCQ() {
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
     // ===================================================================================
@@ -279,7 +286,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
     //                                                                         SetupSelect
     //                                                                         ===========
     protected MemberNss _nssMember;
-    public MemberNss getNssMember() {
+    public MemberNss xdfgetNssMember() {
         if (_nssMember == null) { _nssMember = new MemberNss(null); }
         return _nssMember;
     }
@@ -307,7 +314,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
     }
 
     protected ProductNss _nssProduct;
-    public ProductNss getNssProduct() {
+    public ProductNss xdfgetNssProduct() {
         if (_nssProduct == null) { _nssProduct = new ProductNss(null); }
         return _nssProduct;
     }
@@ -335,7 +342,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
     }
 
     protected SummaryProductNss _nssSummaryProduct;
-    public SummaryProductNss getNssSummaryProduct() {
+    public SummaryProductNss xdfgetNssSummaryProduct() {
         if (_nssSummaryProduct == null) { _nssSummaryProduct = new SummaryProductNss(null); }
         return _nssSummaryProduct;
     }
@@ -389,7 +396,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
         if (_specification == null) { _specification = new HpSpecification(this
             , new HpSpQyCall<PurchaseCQ>() {
                 public boolean has() { return true; }
-                public PurchaseCQ qy() { return getConditionQuery(); }
+                public PurchaseCQ qy() { return xdfgetConditionQuery(); }
             }
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
@@ -725,8 +732,8 @@ public class BsPurchaseCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String getConditionBeanClassNameInternally() { return PurchaseCB.class.getName(); }
-    protected String getConditionQueryClassNameInternally() { return PurchaseCQ.class.getName(); }
-    protected String getSubQueryClassNameInternally() { return SubQuery.class.getName(); }
-    protected String getConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return PurchaseCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return PurchaseCQ.class.getName(); }
+    protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
+    protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

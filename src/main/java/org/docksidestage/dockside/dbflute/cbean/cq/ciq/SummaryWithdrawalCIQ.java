@@ -76,15 +76,15 @@ public class SummaryWithdrawalCIQ extends AbstractBsSummaryWithdrawalCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueMemberId() { return _myCQ.getMemberId(); }
-    protected ConditionValue getCValueMemberName() { return _myCQ.getMemberName(); }
-    protected ConditionValue getCValueWithdrawalReasonCode() { return _myCQ.getWithdrawalReasonCode(); }
-    protected ConditionValue getCValueWithdrawalReasonText() { return _myCQ.getWithdrawalReasonText(); }
-    protected ConditionValue getCValueWithdrawalReasonInputText() { return _myCQ.getWithdrawalReasonInputText(); }
-    protected ConditionValue getCValueWithdrawalDatetime() { return _myCQ.getWithdrawalDatetime(); }
-    protected ConditionValue getCValueMemberStatusCode() { return _myCQ.getMemberStatusCode(); }
-    protected ConditionValue getCValueMemberStatusName() { return _myCQ.getMemberStatusName(); }
-    protected ConditionValue getCValueMaxPurchasePrice() { return _myCQ.getMaxPurchasePrice(); }
+    protected ConditionValue xgetCValueMemberId() { return _myCQ.xdfgetMemberId(); }
+    protected ConditionValue xgetCValueMemberName() { return _myCQ.xdfgetMemberName(); }
+    protected ConditionValue xgetCValueWithdrawalReasonCode() { return _myCQ.xdfgetWithdrawalReasonCode(); }
+    protected ConditionValue xgetCValueWithdrawalReasonText() { return _myCQ.xdfgetWithdrawalReasonText(); }
+    protected ConditionValue xgetCValueWithdrawalReasonInputText() { return _myCQ.xdfgetWithdrawalReasonInputText(); }
+    protected ConditionValue xgetCValueWithdrawalDatetime() { return _myCQ.xdfgetWithdrawalDatetime(); }
+    protected ConditionValue xgetCValueMemberStatusCode() { return _myCQ.xdfgetMemberStatusCode(); }
+    protected ConditionValue xgetCValueMemberStatusName() { return _myCQ.xdfgetMemberStatusName(); }
+    protected ConditionValue xgetCValueMaxPurchasePrice() { return _myCQ.xdfgetMaxPurchasePrice(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(SummaryWithdrawalCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

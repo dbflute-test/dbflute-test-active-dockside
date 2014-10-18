@@ -192,10 +192,14 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
      */
     public MemberWithdrawalCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
-    public MemberWithdrawalCQ getConditionQuery() { // public for parameter comment and internal
+    public MemberWithdrawalCQ xdfgetConditionQuery() { // public for parameter comment and internal
+        return doGetConditionQuery();
+    }
+
+    protected MemberWithdrawalCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
@@ -216,8 +220,11 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
         return new MemberWithdrawalCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public ConditionQuery localCQ() {
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
     // ===================================================================================
@@ -265,7 +272,7 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
     //                                                                         SetupSelect
     //                                                                         ===========
     protected MemberNss _nssMember;
-    public MemberNss getNssMember() {
+    public MemberNss xdfgetNssMember() {
         if (_nssMember == null) { _nssMember = new MemberNss(null); }
         return _nssMember;
     }
@@ -335,7 +342,7 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
         if (_specification == null) { _specification = new HpSpecification(this
             , new HpSpQyCall<MemberWithdrawalCQ>() {
                 public boolean has() { return true; }
-                public MemberWithdrawalCQ qy() { return getConditionQuery(); }
+                public MemberWithdrawalCQ qy() { return xdfgetConditionQuery(); }
             }
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
@@ -608,8 +615,8 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String getConditionBeanClassNameInternally() { return MemberWithdrawalCB.class.getName(); }
-    protected String getConditionQueryClassNameInternally() { return MemberWithdrawalCQ.class.getName(); }
-    protected String getSubQueryClassNameInternally() { return SubQuery.class.getName(); }
-    protected String getConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return MemberWithdrawalCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return MemberWithdrawalCQ.class.getName(); }
+    protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
+    protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

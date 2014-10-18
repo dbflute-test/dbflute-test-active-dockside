@@ -76,15 +76,15 @@ public class MemberServiceCIQ extends AbstractBsMemberServiceCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueMemberServiceId() { return _myCQ.getMemberServiceId(); }
-    protected ConditionValue getCValueMemberId() { return _myCQ.getMemberId(); }
-    protected ConditionValue getCValueServicePointCount() { return _myCQ.getServicePointCount(); }
-    protected ConditionValue getCValueServiceRankCode() { return _myCQ.getServiceRankCode(); }
-    protected ConditionValue getCValueRegisterDatetime() { return _myCQ.getRegisterDatetime(); }
-    protected ConditionValue getCValueRegisterUser() { return _myCQ.getRegisterUser(); }
-    protected ConditionValue getCValueUpdateDatetime() { return _myCQ.getUpdateDatetime(); }
-    protected ConditionValue getCValueUpdateUser() { return _myCQ.getUpdateUser(); }
-    protected ConditionValue getCValueVersionNo() { return _myCQ.getVersionNo(); }
+    protected ConditionValue xgetCValueMemberServiceId() { return _myCQ.xdfgetMemberServiceId(); }
+    protected ConditionValue xgetCValueMemberId() { return _myCQ.xdfgetMemberId(); }
+    protected ConditionValue xgetCValueServicePointCount() { return _myCQ.xdfgetServicePointCount(); }
+    protected ConditionValue xgetCValueServiceRankCode() { return _myCQ.xdfgetServiceRankCode(); }
+    protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
+    protected ConditionValue xgetCValueRegisterUser() { return _myCQ.xdfgetRegisterUser(); }
+    protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
+    protected ConditionValue xgetCValueUpdateUser() { return _myCQ.xdfgetUpdateUser(); }
+    protected ConditionValue xgetCValueVersionNo() { return _myCQ.xdfgetVersionNo(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(MemberServiceCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

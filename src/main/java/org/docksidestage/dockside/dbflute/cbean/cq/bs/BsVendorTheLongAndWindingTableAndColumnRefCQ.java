@@ -89,10 +89,10 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _theLongAndWindingTableAndColumnRefId;
-    public ConditionValue getTheLongAndWindingTableAndColumnRefId()
+    public ConditionValue xdfgetTheLongAndWindingTableAndColumnRefId()
     { if (_theLongAndWindingTableAndColumnRefId == null) { _theLongAndWindingTableAndColumnRefId = nCV(); }
       return _theLongAndWindingTableAndColumnRefId; }
-    protected ConditionValue getCValueTheLongAndWindingTableAndColumnRefId() { return getTheLongAndWindingTableAndColumnRefId(); }
+    protected ConditionValue xgetCValueTheLongAndWindingTableAndColumnRefId() { return xdfgetTheLongAndWindingTableAndColumnRefId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -109,10 +109,10 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     public BsVendorTheLongAndWindingTableAndColumnRefCQ addOrderBy_TheLongAndWindingTableAndColumnRefId_Desc() { regOBD("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID"); return this; }
 
     protected ConditionValue _theLongAndWindingTableAndColumnId;
-    public ConditionValue getTheLongAndWindingTableAndColumnId()
+    public ConditionValue xdfgetTheLongAndWindingTableAndColumnId()
     { if (_theLongAndWindingTableAndColumnId == null) { _theLongAndWindingTableAndColumnId = nCV(); }
       return _theLongAndWindingTableAndColumnId; }
-    protected ConditionValue getCValueTheLongAndWindingTableAndColumnId() { return getTheLongAndWindingTableAndColumnId(); }
+    protected ConditionValue xgetCValueTheLongAndWindingTableAndColumnId() { return xdfgetTheLongAndWindingTableAndColumnId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -129,10 +129,10 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     public BsVendorTheLongAndWindingTableAndColumnRefCQ addOrderBy_TheLongAndWindingTableAndColumnId_Desc() { regOBD("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID"); return this; }
 
     protected ConditionValue _theLongAndWindingTableAndColumnRefDate;
-    public ConditionValue getTheLongAndWindingTableAndColumnRefDate()
+    public ConditionValue xdfgetTheLongAndWindingTableAndColumnRefDate()
     { if (_theLongAndWindingTableAndColumnRefDate == null) { _theLongAndWindingTableAndColumnRefDate = nCV(); }
       return _theLongAndWindingTableAndColumnRefDate; }
-    protected ConditionValue getCValueTheLongAndWindingTableAndColumnRefDate() { return getTheLongAndWindingTableAndColumnRefDate(); }
+    protected ConditionValue xgetCValueTheLongAndWindingTableAndColumnRefDate() { return xdfgetTheLongAndWindingTableAndColumnRefDate(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -149,10 +149,10 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     public BsVendorTheLongAndWindingTableAndColumnRefCQ addOrderBy_TheLongAndWindingTableAndColumnRefDate_Desc() { regOBD("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE"); return this; }
 
     protected ConditionValue _shortDate;
-    public ConditionValue getShortDate()
+    public ConditionValue xdfgetShortDate()
     { if (_shortDate == null) { _shortDate = nCV(); }
       return _shortDate; }
-    protected ConditionValue getCValueShortDate() { return getShortDate(); }
+    protected ConditionValue xgetCValueShortDate() { return xdfgetShortDate(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -223,9 +223,9 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
      * @return The instance of condition-query. (NotNull)
      */
     public VendorTheLongAndWindingTableAndColumnCQ queryVendorTheLongAndWindingTableAndColumn() {
-        return getConditionQueryVendorTheLongAndWindingTableAndColumn();
+        return xdfgetConditionQueryVendorTheLongAndWindingTableAndColumn();
     }
-    public VendorTheLongAndWindingTableAndColumnCQ getConditionQueryVendorTheLongAndWindingTableAndColumn() {
+    public VendorTheLongAndWindingTableAndColumnCQ xdfgetConditionQueryVendorTheLongAndWindingTableAndColumn() {
         String prop = "vendorTheLongAndWindingTableAndColumn";
         if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryVendorTheLongAndWindingTableAndColumn()); xsetupOuterJoinVendorTheLongAndWindingTableAndColumn(); }
         return xgetQueRlMap(prop);
@@ -244,31 +244,31 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
     public String keepScalarCondition(VendorTheLongAndWindingTableAndColumnRefCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
     public String keepSpecifyMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerived(VendorTheLongAndWindingTableAndColumnRefCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> _myselfExistsMap;
-    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
     public String keepMyselfExists(VendorTheLongAndWindingTableAndColumnRefCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public Map<String, VendorTheLongAndWindingTableAndColumnRefCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
     public String keepMyselfInScope(VendorTheLongAndWindingTableAndColumnRefCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================

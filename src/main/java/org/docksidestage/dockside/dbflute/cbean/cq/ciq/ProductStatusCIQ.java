@@ -76,7 +76,7 @@ public class ProductStatusCIQ extends AbstractBsProductStatusCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueProductStatusCode() { return _myCQ.getProductStatusCode(); }
+    protected ConditionValue xgetCValueProductStatusCode() { return _myCQ.xdfgetProductStatusCode(); }
     public String keepProductStatusCode_ExistsReferrer_ProductList(ProductCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepProductStatusCode_ExistsReferrer_SummaryProductList(SummaryProductCQ sq)
@@ -97,8 +97,8 @@ public class ProductStatusCIQ extends AbstractBsProductStatusCQ {
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepProductStatusCode_QueryDerivedReferrer_SummaryProductListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    protected ConditionValue getCValueProductStatusName() { return _myCQ.getProductStatusName(); }
-    protected ConditionValue getCValueDisplayOrder() { return _myCQ.getDisplayOrder(); }
+    protected ConditionValue xgetCValueProductStatusName() { return _myCQ.xdfgetProductStatusName(); }
+    protected ConditionValue xgetCValueDisplayOrder() { return _myCQ.xdfgetDisplayOrder(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(ProductStatusCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

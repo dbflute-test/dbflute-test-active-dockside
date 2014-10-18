@@ -27,12 +27,6 @@ import org.dbflute.cbean.ordering.*;
 import org.dbflute.cbean.scoping.*;
 import org.dbflute.cbean.sqlclause.SqlClause;
 import org.dbflute.dbmeta.DBMetaProvider;
-#if ($database.isAvailableJodaTimeLocalDateEntity())
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-import org.joda.time.ReadableInstant;
-import org.joda.time.ReadablePartial;
-#end
 import ${glPackageBaseCommon}.*;
 import ${glPackageCB}.*;
 import ${glPackageCQ}.*;
@@ -290,7 +284,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
 #end
 
     protected void doSet${tmpJavaName}_InScope(Collection<${col.javaNative}> ${tmpUncapitalisedJavaName}List) {
-        regINS(CK_INS, cTL(${tmpUncapitalisedJavaName}List), getCValue${tmpJavaName}(), "${col.name}");
+        regINS(CK_INS, cTL(${tmpUncapitalisedJavaName}List), xgetCValue${tmpJavaName}(), "${col.name}");
     }
 #end
 #if (${col.isAvailableStringNotInScope()})
@@ -320,7 +314,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
 #end
 
     protected void doSet${tmpJavaName}_NotInScope(Collection<${col.javaNative}> ${tmpUncapitalisedJavaName}List) {
-        regINS(CK_NINS, cTL(${tmpUncapitalisedJavaName}List), getCValue${tmpJavaName}(), "${col.name}");
+        regINS(CK_NINS, cTL(${tmpUncapitalisedJavaName}List), xgetCValue${tmpJavaName}(), "${col.name}");
     }
 #end
 #if (${col.isAvailableStringLikeSearch()})
@@ -346,7 +340,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     ${table.directConditionOptionMethodModifier} void set${tmpJavaName}_LikeSearch(${col.javaNative} ${tmpUncapitalisedJavaName}, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(${tmpUncapitalisedJavaName}), getCValue${tmpJavaName}(), "${col.name}", likeSearchOption);
+        regLSQ(CK_LS, fRES(${tmpUncapitalisedJavaName}), xgetCValue${tmpJavaName}(), "${col.name}", likeSearchOption);
     }
 #end
 #if (${col.isAvailableStringNotLikeSearch()})
@@ -372,7 +366,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     ${table.directConditionOptionMethodModifier} void set${tmpJavaName}_NotLikeSearch(${col.javaNative} ${tmpUncapitalisedJavaName}, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(${tmpUncapitalisedJavaName}), getCValue${tmpJavaName}(), "${col.name}", likeSearchOption);
+        regLSQ(CK_NLS, fRES(${tmpUncapitalisedJavaName}), xgetCValue${tmpJavaName}(), "${col.name}", likeSearchOption);
     }
 #end
 #if (${col.isAvailableStringPrefixSearch()})
@@ -690,7 +684,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     ${table.directConditionOptionMethodModifier} void set${tmpJavaName}_RangeOf(${col.javaNative} minNumber, ${col.javaNative} maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, getCValue${tmpJavaName}(), "${col.name}", rangeOfOption);
+        regROO(minNumber, maxNumber, xgetCValue${tmpJavaName}(), "${col.name}", rangeOfOption);
     }
 #end
 #if (${col.isAvailableNumberInScope()})
@@ -736,7 +730,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
 #end
 
     protected void doSet${tmpJavaName}_InScope(Collection<${col.javaNative}> ${tmpUncapitalisedJavaName}List) {
-        regINS(CK_INS, cTL(${tmpUncapitalisedJavaName}List), getCValue${tmpJavaName}(), "${col.name}");
+        regINS(CK_INS, cTL(${tmpUncapitalisedJavaName}List), xgetCValue${tmpJavaName}(), "${col.name}");
     }
 #end
 #if (${col.isAvailableNumberNotInScope()})
@@ -766,7 +760,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
 #end
 
     protected void doSet${tmpJavaName}_NotInScope(Collection<${col.javaNative}> ${tmpUncapitalisedJavaName}List) {
-        regINS(CK_NINS, cTL(${tmpUncapitalisedJavaName}List), getCValue${tmpJavaName}(), "${col.name}");
+        regINS(CK_NINS, cTL(${tmpUncapitalisedJavaName}List), xgetCValue${tmpJavaName}(), "${col.name}");
     }
 #end
 #foreach ($referrer in $col.existsReferrerReferrers)
@@ -994,12 +988,12 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
      */
     ${table.directConditionOptionMethodModifier} void set${tmpJavaName}_FromTo(${col.fromToJavaNativeDate} fromDatetime, ${col.fromToJavaNativeDate} toDatetime, FromToOption fromToOption) {
 #if ($col.isJavaNativeUtilDate())
-        regFTQ(fCTPD(fromDatetime), fCTPD(toDatetime), getCValue${tmpJavaName}(), "${col.name}", fromToOption);
+        regFTQ(fCTPD(fromDatetime), fCTPD(toDatetime), xgetCValue${tmpJavaName}(), "${col.name}", fromToOption);
 #elseif ($col.isJavaNativeNextTimeLocal())
         String nm = "${col.name}"; FromToOption op = fromToOption;
-        regFTQ(xfFTHD(fromDatetime, nm, op), xfFTHD(toDatetime, nm, op), getCValue${tmpJavaName}(), nm, op);
+        regFTQ(xfFTHD(fromDatetime, nm, op), xfFTHD(toDatetime, nm, op), xgetCValue${tmpJavaName}(), nm, op);
 #else
-        regFTQ((fromDatetime != null ? new ${col.javaNative}(fromDatetime.getTime()) : null), (toDatetime != null ? new ${col.javaNative}(toDatetime.getTime()) : null), getCValue${tmpJavaName}(), "${col.name}", fromToOption);
+        regFTQ((fromDatetime != null ? new ${col.javaNative}(fromDatetime.getTime()) : null), (toDatetime != null ? new ${col.javaNative}(toDatetime.getTime()) : null), xgetCValue${tmpJavaName}(), "${col.name}", fromToOption);
 #end
     }
 #end
@@ -1032,7 +1026,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     }
 
     protected void doSet${tmpJavaName}_InScope(Collection<${col.javaNative}> ${tmpUncapitalisedJavaName}List) {
-        regINS(CK_INS, cTL(${tmpUncapitalisedJavaName}List), getCValue${tmpJavaName}(), "${col.name}");
+        regINS(CK_INS, cTL(${tmpUncapitalisedJavaName}List), xgetCValue${tmpJavaName}(), "${col.name}");
     }
 #end
 #if (${col.isAvailableDateNotInScope()})
@@ -1047,7 +1041,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     }
 
     protected void doSet${tmpJavaName}_NotInScope(Collection<${col.javaNative}> ${tmpUncapitalisedJavaName}List) {
-        regINS(CK_NINS, cTL(${tmpUncapitalisedJavaName}List), getCValue${tmpJavaName}(), "${col.name}");
+        regINS(CK_NINS, cTL(${tmpUncapitalisedJavaName}List), xgetCValue${tmpJavaName}(), "${col.name}");
     }
 #end
 #end
@@ -1093,7 +1087,7 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
      * @param ${tmpUncapitalisedJavaName}List The collection of ${col.uncapitalisedJavaName} as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void set${tmpJavaName}_InScope(Collection<${col.javaNative}> ${tmpUncapitalisedJavaName}List) {
-        regINS(CK_INS, cTL(${tmpUncapitalisedJavaName}List), getCValue${tmpJavaName}(), "${col.name}");
+        regINS(CK_INS, cTL(${tmpUncapitalisedJavaName}List), xgetCValue${tmpJavaName}(), "${col.name}");
     }
 #end
 #end
@@ -1126,8 +1120,8 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
 #end
 #end
 
-    protected void reg${tmpJavaName}(ConditionKey ky, Object vl) { regQ(ky, vl, getCValue${tmpJavaName}(), "${col.name}"); }
-    protected abstract ConditionValue getCValue${tmpJavaName}();
+    protected void reg${tmpJavaName}(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValue${tmpJavaName}(), "${col.name}"); }
+    protected abstract ConditionValue xgetCValue${tmpJavaName}();
 #set ($columnLoopIndex = $columnLoopIndex + 1)
 #end
 #if ($table.isAvailableMyselfScalarCondition())
@@ -1532,48 +1526,6 @@ public abstract class ${myClassName} extends AbstractConditionQuery {
     @Override
     protected void filterFromToOption(String columnDbName, FromToOption option) {
         option.allowOneSide();
-    }
-
-#end
-#if ($database.isAvailableJodaTimeLocalDateEntity())
-    @Override
-    protected Date xtoFromToUtilDate(Object date, String columnDbName, FromToOption option) {
-        if (date != null && date instanceof ReadablePartial) {
-            return new java.sql.Timestamp(((ReadablePartial) date).toDateTime(null).getMillis());
-        } else if (date != null && date instanceof ReadableInstant) {
-            return new java.sql.Timestamp(((ReadableInstant) date).getMillis());
-        }
-        return DfTypeUtil.toTimestamp(date);
-    }
-
-    @Override
-    protected Timestamp xtoFromToTimestamp(Object date, String columnDbName, FromToOption option) {
-        if (date != null && date instanceof ReadablePartial) {
-            return new java.sql.Timestamp(((ReadablePartial) date).toDateTime(null).getMillis());
-        } else if (date != null && date instanceof ReadableInstant) {
-            return new java.sql.Timestamp(((ReadableInstant) date).getMillis());
-        }
-        return DfTypeUtil.toTimestamp(date);
-    }
-
-    @Override
-    protected Object xtoFromToLocalDate(Object date, String columnDbName, FromToOption option) {
-        return LocalDate.fromDateFields(date);
-    }
-
-    @Override
-    protected Object xtoFromToLocalDateTime(Object date, String columnDbName, FromToOption option) {
-        return LocalDateTime.fromDateFields(date);
-    }
-
-    @Override
-    protected boolean xisNextTimeLocalDate(Class<?> nativeType) {
-        return LocalDate.class.isAssignableFrom(nativeType);
-    }
-
-    @Override
-    protected boolean xisNextTimeLocalDateTime(Class<?> nativeType) {
-        return LocalDateTime.class.isAssignableFrom(nativeType);
     }
 
 #end

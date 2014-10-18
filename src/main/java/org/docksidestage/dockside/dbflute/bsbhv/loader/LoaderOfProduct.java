@@ -78,14 +78,8 @@ public class LoaderOfProduct {
     //                                                                       =============
     protected List<Purchase> _referrerPurchase;
     public NestedReferrerLoaderGateway<LoaderOfPurchase> loadPurchase(ConditionBeanSetupper<PurchaseCB> refCBLambda) {
-        myBhv().loadPurchase(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<Purchase>() {
-            public void handle(List<Purchase> referrerList) { _referrerPurchase = referrerList; }
-        });
-        return new NestedReferrerLoaderGateway<LoaderOfPurchase>() {
-            public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfPurchase> handler) {
-                handler.handle(new LoaderOfPurchase().ready(_referrerPurchase, _selector));
-            }
-        };
+        myBhv().loadPurchase(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerPurchase = refLs);
+        return hd -> hd.handle(new LoaderOfPurchase().ready(_referrerPurchase, _selector));
     }
 
     // ===================================================================================
@@ -93,17 +87,15 @@ public class LoaderOfProduct {
     //                                                                    ================
     protected LoaderOfProductCategory _foreignProductCategoryLoader;
     public LoaderOfProductCategory pulloutProductCategory() {
-        if (_foreignProductCategoryLoader != null) { return _foreignProductCategoryLoader; }
-        List<ProductCategory> pulledList = myBhv().pulloutProductCategory(_selectedList);
-        _foreignProductCategoryLoader = new LoaderOfProductCategory().ready(pulledList, _selector);
+        if (_foreignProductCategoryLoader == null)
+        { _foreignProductCategoryLoader = new LoaderOfProductCategory().ready(myBhv().pulloutProductCategory(_selectedList), _selector); }
         return _foreignProductCategoryLoader;
     }
 
     protected LoaderOfProductStatus _foreignProductStatusLoader;
     public LoaderOfProductStatus pulloutProductStatus() {
-        if (_foreignProductStatusLoader != null) { return _foreignProductStatusLoader; }
-        List<ProductStatus> pulledList = myBhv().pulloutProductStatus(_selectedList);
-        _foreignProductStatusLoader = new LoaderOfProductStatus().ready(pulledList, _selector);
+        if (_foreignProductStatusLoader == null)
+        { _foreignProductStatusLoader = new LoaderOfProductStatus().ready(myBhv().pulloutProductStatus(_selectedList), _selector); }
         return _foreignProductStatusLoader;
     }
 

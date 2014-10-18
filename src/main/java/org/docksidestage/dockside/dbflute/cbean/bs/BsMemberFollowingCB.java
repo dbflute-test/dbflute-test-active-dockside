@@ -205,10 +205,14 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
      */
     public MemberFollowingCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
-    public MemberFollowingCQ getConditionQuery() { // public for parameter comment and internal
+    public MemberFollowingCQ xdfgetConditionQuery() { // public for parameter comment and internal
+        return doGetConditionQuery();
+    }
+
+    protected MemberFollowingCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
@@ -229,8 +233,11 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
         return new MemberFollowingCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public ConditionQuery localCQ() {
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
     // ===================================================================================
@@ -278,7 +285,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
     //                                                                         SetupSelect
     //                                                                         ===========
     protected MemberNss _nssMemberByMyMemberId;
-    public MemberNss getNssMemberByMyMemberId() {
+    public MemberNss xdfgetNssMemberByMyMemberId() {
         if (_nssMemberByMyMemberId == null) { _nssMemberByMyMemberId = new MemberNss(null); }
         return _nssMemberByMyMemberId;
     }
@@ -306,7 +313,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
     }
 
     protected MemberNss _nssMemberByYourMemberId;
-    public MemberNss getNssMemberByYourMemberId() {
+    public MemberNss xdfgetNssMemberByYourMemberId() {
         if (_nssMemberByYourMemberId == null) { _nssMemberByYourMemberId = new MemberNss(null); }
         return _nssMemberByYourMemberId;
     }
@@ -360,7 +367,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
         if (_specification == null) { _specification = new HpSpecification(this
             , new HpSpQyCall<MemberFollowingCQ>() {
                 public boolean has() { return true; }
-                public MemberFollowingCQ qy() { return getConditionQuery(); }
+                public MemberFollowingCQ qy() { return xdfgetConditionQuery(); }
             }
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
@@ -612,8 +619,8 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String getConditionBeanClassNameInternally() { return MemberFollowingCB.class.getName(); }
-    protected String getConditionQueryClassNameInternally() { return MemberFollowingCQ.class.getName(); }
-    protected String getSubQueryClassNameInternally() { return SubQuery.class.getName(); }
-    protected String getConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return MemberFollowingCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return MemberFollowingCQ.class.getName(); }
+    protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
+    protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

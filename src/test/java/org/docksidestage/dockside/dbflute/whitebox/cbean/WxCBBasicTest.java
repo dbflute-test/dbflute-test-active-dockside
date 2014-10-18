@@ -274,7 +274,7 @@ public class WxCBBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         {
-            Map<String, Object> fixed = cb.query().getBirthdate().getFixedQuery();
+            Map<String, Object> fixed = cb.query().xdfgetBirthdate().getFixedQuery();
             assertEquals(java.util.Date.class, fixed.get("greaterEqual").getClass());
             assertEquals(java.util.Date.class, fixed.get("lessThan").getClass());
             assertNull(fixed.get("greaterThan"));
@@ -290,7 +290,7 @@ public class WxCBBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         {
-            Map<String, Object> fixed = cb.query().getBirthdate().getFixedQuery();
+            Map<String, Object> fixed = cb.query().xdfgetBirthdate().getFixedQuery();
             assertEquals(java.util.Date.class, fixed.get("equal").getClass());
             assertEquals(java.util.Date.class, fixed.get("greaterEqual").getClass());
             assertEquals(java.util.Date.class, fixed.get("greaterThan").getClass());
@@ -306,7 +306,7 @@ public class WxCBBasicTest extends UnitContainerTestCase {
         cb.query().queryMemberAddressAsValid(timestamp);
 
         // ## Assert ##
-        Object object = cb.query().getParameterMapMemberAddressAsValid().get("targetDate");
+        Object object = cb.query().xdfgetParameterMapMemberAddressAsValid().get("targetDate");
         assertEquals(java.util.Date.class, object.getClass());
     }
 

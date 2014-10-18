@@ -78,14 +78,8 @@ public class LoaderOfSummaryProduct {
     //                                                                       =============
     protected List<Purchase> _referrerPurchase;
     public NestedReferrerLoaderGateway<LoaderOfPurchase> loadPurchase(ConditionBeanSetupper<PurchaseCB> refCBLambda) {
-        myBhv().loadPurchase(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<Purchase>() {
-            public void handle(List<Purchase> referrerList) { _referrerPurchase = referrerList; }
-        });
-        return new NestedReferrerLoaderGateway<LoaderOfPurchase>() {
-            public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfPurchase> handler) {
-                handler.handle(new LoaderOfPurchase().ready(_referrerPurchase, _selector));
-            }
-        };
+        myBhv().loadPurchase(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerPurchase = refLs);
+        return hd -> hd.handle(new LoaderOfPurchase().ready(_referrerPurchase, _selector));
     }
 
     // ===================================================================================
@@ -93,9 +87,8 @@ public class LoaderOfSummaryProduct {
     //                                                                    ================
     protected LoaderOfProductStatus _foreignProductStatusLoader;
     public LoaderOfProductStatus pulloutProductStatus() {
-        if (_foreignProductStatusLoader != null) { return _foreignProductStatusLoader; }
-        List<ProductStatus> pulledList = myBhv().pulloutProductStatus(_selectedList);
-        _foreignProductStatusLoader = new LoaderOfProductStatus().ready(pulledList, _selector);
+        if (_foreignProductStatusLoader == null)
+        { _foreignProductStatusLoader = new LoaderOfProductStatus().ready(myBhv().pulloutProductStatus(_selectedList), _selector); }
         return _foreignProductStatusLoader;
     }
 

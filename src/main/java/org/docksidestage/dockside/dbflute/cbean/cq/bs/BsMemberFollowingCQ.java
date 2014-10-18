@@ -89,10 +89,10 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _memberFollowingId;
-    public ConditionValue getMemberFollowingId()
+    public ConditionValue xdfgetMemberFollowingId()
     { if (_memberFollowingId == null) { _memberFollowingId = nCV(); }
       return _memberFollowingId; }
-    protected ConditionValue getCValueMemberFollowingId() { return getMemberFollowingId(); }
+    protected ConditionValue xgetCValueMemberFollowingId() { return xdfgetMemberFollowingId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -109,10 +109,10 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     public BsMemberFollowingCQ addOrderBy_MemberFollowingId_Desc() { regOBD("MEMBER_FOLLOWING_ID"); return this; }
 
     protected ConditionValue _myMemberId;
-    public ConditionValue getMyMemberId()
+    public ConditionValue xdfgetMyMemberId()
     { if (_myMemberId == null) { _myMemberId = nCV(); }
       return _myMemberId; }
-    protected ConditionValue getCValueMyMemberId() { return getMyMemberId(); }
+    protected ConditionValue xgetCValueMyMemberId() { return xdfgetMyMemberId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -129,10 +129,10 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     public BsMemberFollowingCQ addOrderBy_MyMemberId_Desc() { regOBD("MY_MEMBER_ID"); return this; }
 
     protected ConditionValue _yourMemberId;
-    public ConditionValue getYourMemberId()
+    public ConditionValue xdfgetYourMemberId()
     { if (_yourMemberId == null) { _yourMemberId = nCV(); }
       return _yourMemberId; }
-    protected ConditionValue getCValueYourMemberId() { return getYourMemberId(); }
+    protected ConditionValue xgetCValueYourMemberId() { return xdfgetYourMemberId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -149,10 +149,10 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     public BsMemberFollowingCQ addOrderBy_YourMemberId_Desc() { regOBD("YOUR_MEMBER_ID"); return this; }
 
     protected ConditionValue _followDatetime;
-    public ConditionValue getFollowDatetime()
+    public ConditionValue xdfgetFollowDatetime()
     { if (_followDatetime == null) { _followDatetime = nCV(); }
       return _followDatetime; }
-    protected ConditionValue getCValueFollowDatetime() { return getFollowDatetime(); }
+    protected ConditionValue xgetCValueFollowDatetime() { return xdfgetFollowDatetime(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -226,9 +226,9 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
      * @return The instance of condition-query. (NotNull)
      */
     public MemberCQ queryMemberByMyMemberId() {
-        return getConditionQueryMemberByMyMemberId();
+        return xdfgetConditionQueryMemberByMyMemberId();
     }
-    public MemberCQ getConditionQueryMemberByMyMemberId() {
+    public MemberCQ xdfgetConditionQueryMemberByMyMemberId() {
         String prop = "memberByMyMemberId";
         if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMemberByMyMemberId()); xsetupOuterJoinMemberByMyMemberId(); }
         return xgetQueRlMap(prop);
@@ -246,9 +246,9 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
      * @return The instance of condition-query. (NotNull)
      */
     public MemberCQ queryMemberByYourMemberId() {
-        return getConditionQueryMemberByYourMemberId();
+        return xdfgetConditionQueryMemberByYourMemberId();
     }
-    public MemberCQ getConditionQueryMemberByYourMemberId() {
+    public MemberCQ xdfgetConditionQueryMemberByYourMemberId() {
         String prop = "memberByYourMemberId";
         if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMemberByYourMemberId()); xsetupOuterJoinMemberByYourMemberId(); }
         return xgetQueRlMap(prop);
@@ -267,31 +267,31 @@ public class BsMemberFollowingCQ extends AbstractBsMemberFollowingCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, MemberFollowingCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public Map<String, MemberFollowingCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
     public String keepScalarCondition(MemberFollowingCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, MemberFollowingCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public Map<String, MemberFollowingCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
     public String keepSpecifyMyselfDerived(MemberFollowingCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, MemberFollowingCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public Map<String, MemberFollowingCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerived(MemberFollowingCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, MemberFollowingCQ> _myselfExistsMap;
-    public Map<String, MemberFollowingCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public Map<String, MemberFollowingCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
     public String keepMyselfExists(MemberFollowingCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, MemberFollowingCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public Map<String, MemberFollowingCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
     public String keepMyselfInScope(MemberFollowingCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================

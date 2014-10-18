@@ -20,7 +20,6 @@ import java.util.*;
 import org.dbflute.outsidesql.typed.*;
 import org.dbflute.jdbc.*;
 import org.dbflute.outsidesql.PmbCustodial;
-import org.dbflute.outsidesql.PmbCustodial.ShortCharHandlingMode;
 import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.allcommon.*;
 import org.docksidestage.dockside.dbflute.exbhv.*;
@@ -126,9 +125,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     /**
      * {@inheritDoc}
      */
-    public String getOutsideSqlPath() {
-        return "whitebox:pmbean:selectResolvedPackageName";
-    }
+    public String getOutsideSqlPath() { return "whitebox:pmbean:selectResolvedPackageName"; }
 
     // ===================================================================================
     //                                                                       Safety Result
@@ -153,72 +150,23 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     // -----------------------------------------------------
     //                                                String
     //                                                ------
-    protected String filterStringParameter(String value) {
-        return isEmptyStringParameterAllowed() ? value : convertEmptyToNull(value);
-    }
-
-    protected boolean isEmptyStringParameterAllowed() {
-	    return DBFluteConfig.getInstance().isEmptyStringParameterAllowed();
-    }
-
-    protected String convertEmptyToNull(String value) {
-	    return PmbCustodial.convertEmptyToNull(value);
-    }
-
-    protected String handleShortChar(String propertyName, String value, Integer size) {
-        ShortCharHandlingMode mode = chooseShortCharHandlingMode(propertyName, value, size);
-        return PmbCustodial.handleShortChar(propertyName, value, size, mode);
-    }
-
-    protected ShortCharHandlingMode chooseShortCharHandlingMode(String propertyName, String value, Integer size) {
-        return ShortCharHandlingMode.NONE;
-    }
-
+    protected String filterStringParameter(String value) { return isEmptyStringParameterAllowed() ? value : convertEmptyToNull(value); }
+    protected boolean isEmptyStringParameterAllowed() { return DBFluteConfig.getInstance().isEmptyStringParameterAllowed(); }
+    protected String convertEmptyToNull(String value) { return PmbCustodial.convertEmptyToNull(value); }
+    
     // -----------------------------------------------------
     //                                                  Date
     //                                                  ----
-    protected Date toUtilDate(Object date) {
-        return PmbCustodial.toUtilDate(date, _timeZone);
-    }
-
-    protected String formatUtilDate(Date date) {
-        String pattern = "yyyy-MM-dd";
-        return PmbCustodial.formatUtilDate(date, pattern, _timeZone);
-    }
-
-    protected TimeZone chooseRealTimeZone() {
-        return PmbCustodial.chooseRealTimeZone(_timeZone);
-    }
-
-    /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
-     * (DBFlute system's time-zone is used as default)
-     * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
-     */
-    public void zone(TimeZone timeZone) {
-        _timeZone = timeZone;
-    }
+    protected Date toUtilDate(Object date) { return PmbCustodial.toUtilDate(date, _timeZone); }
 
     // -----------------------------------------------------
-    //                                               Various
-    //                                               -------
-    protected <NUMBER extends Number> NUMBER toNumber(Object obj, Class<NUMBER> type) { // might be called by option handling
-        return PmbCustodial.toNumber(obj, type);
-    }
-
-    protected Boolean toBoolean(Object obj) {
-        return PmbCustodial.toBoolean(obj);
-    }
-
-    protected String formatByteArray(byte[] bytes) {
-        return PmbCustodial.formatByteArray(bytes);
-    }
-
+    //                                    by Option Handling
+    //                                    ------------------
+    // might be called by option handling
+    protected <NUMBER extends Number> NUMBER toNumber(Object obj, Class<NUMBER> type) { return PmbCustodial.toNumber(obj, type); }
+    protected Boolean toBoolean(Object obj) { return PmbCustodial.toBoolean(obj); }
     @SuppressWarnings("unchecked")
-    protected <ELEMENT> ArrayList<ELEMENT> newArrayList(ELEMENT... elements) { // might be called by option handling
-        return PmbCustodial.newArrayList(elements);
-    }
+    protected <ELEMENT> ArrayList<ELEMENT> newArrayList(ELEMENT... elements) { return PmbCustodial.newArrayList(elements); }
 
     // ===================================================================================
     //                                                                      Basic Override
@@ -240,8 +188,8 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
         sb.append(dm).append(_integer1);
         sb.append(dm).append(_bigDecimal1);
         sb.append(dm).append(_bigDecimal2);
-        sb.append(dm).append(formatUtilDate(_date1));
-        sb.append(dm).append(formatUtilDate(_date2));
+        sb.append(dm).append(PmbCustodial.formatUtilDate(_date1, "yyyy-MM-dd", _timeZone));
+        sb.append(dm).append(PmbCustodial.formatUtilDate(_date2, "yyyy-MM-dd", _timeZone));
         sb.append(dm).append(_date3);
         sb.append(dm).append(_time1);
         sb.append(dm).append(_time2);
@@ -251,7 +199,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
         sb.append(dm).append(_list2);
         sb.append(dm).append(_map1);
         sb.append(dm).append(_map2);
-        sb.append(dm).append(formatByteArray(_bytes));
+        sb.append(dm).append(PmbCustodial.formatByteArray(_bytes));
         sb.append(dm).append(_cdef);
         sb.append(dm).append(_cdefFlg);
         sb.append(dm).append(_cdefList);

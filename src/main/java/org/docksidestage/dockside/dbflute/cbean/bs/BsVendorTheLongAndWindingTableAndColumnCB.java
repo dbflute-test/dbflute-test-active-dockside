@@ -203,10 +203,14 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
      */
     public VendorTheLongAndWindingTableAndColumnCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
-    public VendorTheLongAndWindingTableAndColumnCQ getConditionQuery() { // public for parameter comment and internal
+    public VendorTheLongAndWindingTableAndColumnCQ xdfgetConditionQuery() { // public for parameter comment and internal
+        return doGetConditionQuery();
+    }
+
+    protected VendorTheLongAndWindingTableAndColumnCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
@@ -227,8 +231,11 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
         return new VendorTheLongAndWindingTableAndColumnCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public ConditionQuery localCQ() {
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
     // ===================================================================================
@@ -302,7 +309,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
         if (_specification == null) { _specification = new HpSpecification(this
             , new HpSpQyCall<VendorTheLongAndWindingTableAndColumnCQ>() {
                 public boolean has() { return true; }
-                public VendorTheLongAndWindingTableAndColumnCQ qy() { return getConditionQuery(); }
+                public VendorTheLongAndWindingTableAndColumnCQ qy() { return xdfgetConditionQuery(); }
             }
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
@@ -520,8 +527,8 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String getConditionBeanClassNameInternally() { return VendorTheLongAndWindingTableAndColumnCB.class.getName(); }
-    protected String getConditionQueryClassNameInternally() { return VendorTheLongAndWindingTableAndColumnCQ.class.getName(); }
-    protected String getSubQueryClassNameInternally() { return SubQuery.class.getName(); }
-    protected String getConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return VendorTheLongAndWindingTableAndColumnCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return VendorTheLongAndWindingTableAndColumnCQ.class.getName(); }
+    protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
+    protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

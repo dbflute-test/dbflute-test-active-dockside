@@ -4,10 +4,8 @@ import java.util.Date;
 
 import org.dbflute.cbean.coption.FromToOption;
 import org.dbflute.cbean.coption.LikeSearchOption;
-import org.dbflute.exception.CharParameterShortSizeException;
 import org.dbflute.exception.IllegalOutsideSqlOperationException;
 import org.dbflute.exception.RequiredOptionNotFoundException;
-import org.dbflute.outsidesql.PmbCustodial.ShortCharHandlingMode;
 import org.dbflute.utflute.core.PlainTestCase;
 import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.CompareDatePmb;
@@ -55,12 +53,7 @@ public class WxParameterBeanBasicTest extends PlainTestCase {
 
     public void test_spaceRemains() {
         // ## Arrange ##
-        OptionMemberPmb pmb = new OptionMemberPmb() {
-            @Override
-            protected String handleShortChar(String propertyName, String value, Integer size) {
-                return value; // for not depending on shortCharHandlngMode
-            }
-        };
+        OptionMemberPmb pmb = new OptionMemberPmb();
 
         // ## Act ##
         pmb.setMemberStatusCode(" ");
@@ -73,12 +66,7 @@ public class WxParameterBeanBasicTest extends PlainTestCase {
 
     public void test_nullRemains() {
         // ## Arrange ##
-        OptionMemberPmb pmb = new OptionMemberPmb() {
-            @Override
-            protected String handleShortChar(String propertyName, String value, Integer size) {
-                return value; // for not depending on shortCharHandlngMode
-            }
-        };
+        OptionMemberPmb pmb = new OptionMemberPmb();
 
         // ## Act ##
         pmb.setMemberStatusCode(null);
@@ -141,96 +129,97 @@ public class WxParameterBeanBasicTest extends PlainTestCase {
     // ===================================================================================
     //                                                                          Short Char
     //                                                                          ==========
-    public void test_handleShortChar_RFILL_shortChar() {
-        // ## Arrange ##
-        OptionMemberPmb pmb = new OptionMemberPmb() {
-            @Override
-            protected ShortCharHandlingMode chooseShortCharHandlingMode(String propertyName, String value, Integer size) {
-                return ShortCharHandlingMode.RFILL;
-            }
-
-            @Override
-            public String toString() {
-                return handleShortChar("test", "AB", 3);
-            }
-        };
-
-        // ## Act ##
-        String actual = pmb.toString();
-
-        // ## Assert ##
-        assertEquals("AB ", actual);
-    }
-
-    public void test_handleShortChar_LFILL_shortChar() {
-        // ## Arrange ##
-        OptionMemberPmb pmb = new OptionMemberPmb() {
-            @Override
-            protected ShortCharHandlingMode chooseShortCharHandlingMode(String propertyName, String value, Integer size) {
-                return ShortCharHandlingMode.LFILL;
-            }
-
-            @Override
-            public String toString() {
-                return handleShortChar("test", "AB", 3);
-            }
-        };
-
-        // ## Act ##
-        String actual = pmb.toString();
-
-        // ## Assert ##
-        assertEquals(" AB", actual);
-    }
-
-    public void test_handleShortChar_EXCEPTION_shortChar() {
-        // ## Arrange ##
-        OptionMemberPmb pmb = new OptionMemberPmb() {
-            @Override
-            protected ShortCharHandlingMode chooseShortCharHandlingMode(String propertyName, String value, Integer size) {
-                return ShortCharHandlingMode.EXCEPTION;
-            }
-
-            @Override
-            public String toString() {
-                return handleShortChar("test", "AB", 3);
-            }
-        };
-
-        // ## Act ##
-        try {
-            pmb.toString();
-
-            // ## Assert ##
-            fail();
-        } catch (CharParameterShortSizeException e) {
-            // OK
-            log(e.getMessage());
-        }
-    }
-
-    public void test_handleShortChar_EXCEPTION_overChar() {
-        // ## Arrange ##
-        OptionMemberPmb pmb = new OptionMemberPmb() {
-            @Override
-            protected ShortCharHandlingMode chooseShortCharHandlingMode(String propertyName, String value, Integer size) {
-                return ShortCharHandlingMode.EXCEPTION;
-            }
-
-            @Override
-            public String toString() {
-                return handleShortChar("test", "ABCD", 3);
-            }
-        };
-
-        // ## Act ##
-        String actual = pmb.toString();
-
-        // ## Assert ##
-        assertEquals("ABCD", actual);
-
-        // *The overSize is out of scope in spite of CHAR type.
-    }
+    // cannot test here, because of no option at dock-side
+    //public void test_handleShortChar_RFILL_shortChar() {
+    //    // ## Arrange ##
+    //    OptionMemberPmb pmb = new OptionMemberPmb() {
+    //        @Override
+    //        protected PmbShortCharHandlingMode chooseShortCharHandlingMode(String propertyName, String value, Integer size) {
+    //            return PmbShortCharHandlingMode.RFILL;
+    //        }
+    //
+    //        @Override
+    //        public String toString() {
+    //            return handleShortChar("test", "AB", 3);
+    //        }
+    //    };
+    //
+    //    // ## Act ##
+    //    String actual = pmb.toString();
+    //
+    //    // ## Assert ##
+    //    assertEquals("AB ", actual);
+    //}
+    //
+    //public void test_handleShortChar_LFILL_shortChar() {
+    //    // ## Arrange ##
+    //    OptionMemberPmb pmb = new OptionMemberPmb() {
+    //        @Override
+    //        protected PmbShortCharHandlingMode chooseShortCharHandlingMode(String propertyName, String value, Integer size) {
+    //            return PmbShortCharHandlingMode.LFILL;
+    //        }
+    //
+    //        @Override
+    //        public String toString() {
+    //            return handleShortChar("test", "AB", 3);
+    //        }
+    //    };
+    //
+    //    // ## Act ##
+    //    String actual = pmb.toString();
+    //
+    //    // ## Assert ##
+    //    assertEquals(" AB", actual);
+    //}
+    //
+    //public void test_handleShortChar_EXCEPTION_shortChar() {
+    //    // ## Arrange ##
+    //    OptionMemberPmb pmb = new OptionMemberPmb() {
+    //        @Override
+    //        protected PmbShortCharHandlingMode choosePmbShortCharHandlingMode(String propertyName, String value, Integer size) {
+    //            return PmbShortCharHandlingMode.EXCEPTION;
+    //        }
+    //
+    //        @Override
+    //        public String toString() {
+    //            return handleShortChar("test", "AB", 3);
+    //        }
+    //    };
+    //
+    //    // ## Act ##
+    //    try {
+    //        pmb.toString();
+    //
+    //        // ## Assert ##
+    //        fail();
+    //    } catch (CharParameterShortSizeException e) {
+    //        // OK
+    //        log(e.getMessage());
+    //    }
+    //}
+    //
+    //public void test_handleShortChar_EXCEPTION_overChar() {
+    //    // ## Arrange ##
+    //    OptionMemberPmb pmb = new OptionMemberPmb() {
+    //        @Override
+    //        protected PmbShortCharHandlingMode chooseShortCharHandlingMode(String propertyName, String value, Integer size) {
+    //            return PmbShortCharHandlingMode.EXCEPTION;
+    //        }
+    //
+    //        @Override
+    //        public String toString() {
+    //            return handleShortChar("test", "ABCD", 3);
+    //        }
+    //    };
+    //
+    //    // ## Act ##
+    //    String actual = pmb.toString();
+    //
+    //    // ## Assert ##
+    //    assertEquals("ABCD", actual);
+    //
+    //    // *The overSize is out of scope in spite of CHAR type.
+    //}
 
     // ===================================================================================
     //                                                                         Date FromTo

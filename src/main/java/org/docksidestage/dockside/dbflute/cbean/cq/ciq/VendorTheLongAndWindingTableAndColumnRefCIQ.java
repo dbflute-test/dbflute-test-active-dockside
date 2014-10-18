@@ -76,10 +76,10 @@ public class VendorTheLongAndWindingTableAndColumnRefCIQ extends AbstractBsVendo
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueTheLongAndWindingTableAndColumnRefId() { return _myCQ.getTheLongAndWindingTableAndColumnRefId(); }
-    protected ConditionValue getCValueTheLongAndWindingTableAndColumnId() { return _myCQ.getTheLongAndWindingTableAndColumnId(); }
-    protected ConditionValue getCValueTheLongAndWindingTableAndColumnRefDate() { return _myCQ.getTheLongAndWindingTableAndColumnRefDate(); }
-    protected ConditionValue getCValueShortDate() { return _myCQ.getShortDate(); }
+    protected ConditionValue xgetCValueTheLongAndWindingTableAndColumnRefId() { return _myCQ.xdfgetTheLongAndWindingTableAndColumnRefId(); }
+    protected ConditionValue xgetCValueTheLongAndWindingTableAndColumnId() { return _myCQ.xdfgetTheLongAndWindingTableAndColumnId(); }
+    protected ConditionValue xgetCValueTheLongAndWindingTableAndColumnRefDate() { return _myCQ.xdfgetTheLongAndWindingTableAndColumnRefDate(); }
+    protected ConditionValue xgetCValueShortDate() { return _myCQ.xdfgetShortDate(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(VendorTheLongAndWindingTableAndColumnRefCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

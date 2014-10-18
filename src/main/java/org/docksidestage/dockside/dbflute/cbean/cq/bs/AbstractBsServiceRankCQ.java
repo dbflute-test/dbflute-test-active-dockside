@@ -207,7 +207,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     protected void doSetServiceRankCode_InScope(Collection<String> serviceRankCodeList) {
-        regINS(CK_INS, cTL(serviceRankCodeList), getCValueServiceRankCode(), "SERVICE_RANK_CODE");
+        regINS(CK_INS, cTL(serviceRankCodeList), xgetCValueServiceRankCode(), "SERVICE_RANK_CODE");
     }
 
     /**
@@ -230,7 +230,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     protected void doSetServiceRankCode_NotInScope(Collection<String> serviceRankCodeList) {
-        regINS(CK_NINS, cTL(serviceRankCodeList), getCValueServiceRankCode(), "SERVICE_RANK_CODE");
+        regINS(CK_NINS, cTL(serviceRankCodeList), xgetCValueServiceRankCode(), "SERVICE_RANK_CODE");
     }
 
     /**
@@ -330,8 +330,8 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      */
     public void setServiceRankCode_IsNotNull() { regServiceRankCode(CK_ISNN, DOBJ); }
 
-    protected void regServiceRankCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueServiceRankCode(), "SERVICE_RANK_CODE"); }
-    protected abstract ConditionValue getCValueServiceRankCode();
+    protected void regServiceRankCode(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueServiceRankCode(), "SERVICE_RANK_CODE"); }
+    protected abstract ConditionValue xgetCValueServiceRankCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -405,7 +405,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     protected void doSetServiceRankName_InScope(Collection<String> serviceRankNameList) {
-        regINS(CK_INS, cTL(serviceRankNameList), getCValueServiceRankName(), "SERVICE_RANK_NAME");
+        regINS(CK_INS, cTL(serviceRankNameList), xgetCValueServiceRankName(), "SERVICE_RANK_NAME");
     }
 
     /**
@@ -418,7 +418,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     protected void doSetServiceRankName_NotInScope(Collection<String> serviceRankNameList) {
-        regINS(CK_NINS, cTL(serviceRankNameList), getCValueServiceRankName(), "SERVICE_RANK_NAME");
+        regINS(CK_NINS, cTL(serviceRankNameList), xgetCValueServiceRankName(), "SERVICE_RANK_NAME");
     }
 
     /**
@@ -440,7 +440,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     public void setServiceRankName_LikeSearch(String serviceRankName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(serviceRankName), getCValueServiceRankName(), "SERVICE_RANK_NAME", likeSearchOption);
+        regLSQ(CK_LS, fRES(serviceRankName), xgetCValueServiceRankName(), "SERVICE_RANK_NAME", likeSearchOption);
     }
 
     /**
@@ -462,11 +462,11 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     public void setServiceRankName_NotLikeSearch(String serviceRankName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(serviceRankName), getCValueServiceRankName(), "SERVICE_RANK_NAME", likeSearchOption);
+        regLSQ(CK_NLS, fRES(serviceRankName), xgetCValueServiceRankName(), "SERVICE_RANK_NAME", likeSearchOption);
     }
 
-    protected void regServiceRankName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueServiceRankName(), "SERVICE_RANK_NAME"); }
-    protected abstract ConditionValue getCValueServiceRankName();
+    protected void regServiceRankName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueServiceRankName(), "SERVICE_RANK_NAME"); }
+    protected abstract ConditionValue xgetCValueServiceRankName();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -553,7 +553,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     public void setServicePointIncidence_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, getCValueServicePointIncidence(), "SERVICE_POINT_INCIDENCE", rangeOfOption);
+        regROO(minNumber, maxNumber, xgetCValueServicePointIncidence(), "SERVICE_POINT_INCIDENCE", rangeOfOption);
     }
 
     /**
@@ -566,7 +566,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     protected void doSetServicePointIncidence_InScope(Collection<java.math.BigDecimal> servicePointIncidenceList) {
-        regINS(CK_INS, cTL(servicePointIncidenceList), getCValueServicePointIncidence(), "SERVICE_POINT_INCIDENCE");
+        regINS(CK_INS, cTL(servicePointIncidenceList), xgetCValueServicePointIncidence(), "SERVICE_POINT_INCIDENCE");
     }
 
     /**
@@ -579,11 +579,11 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     protected void doSetServicePointIncidence_NotInScope(Collection<java.math.BigDecimal> servicePointIncidenceList) {
-        regINS(CK_NINS, cTL(servicePointIncidenceList), getCValueServicePointIncidence(), "SERVICE_POINT_INCIDENCE");
+        regINS(CK_NINS, cTL(servicePointIncidenceList), xgetCValueServicePointIncidence(), "SERVICE_POINT_INCIDENCE");
     }
 
-    protected void regServicePointIncidence(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueServicePointIncidence(), "SERVICE_POINT_INCIDENCE"); }
-    protected abstract ConditionValue getCValueServicePointIncidence();
+    protected void regServicePointIncidence(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueServicePointIncidence(), "SERVICE_POINT_INCIDENCE"); }
+    protected abstract ConditionValue xgetCValueServicePointIncidence();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -693,7 +693,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     protected void doSetNewAcceptableFlg_InScope(Collection<Integer> newAcceptableFlgList) {
-        regINS(CK_INS, cTL(newAcceptableFlgList), getCValueNewAcceptableFlg(), "NEW_ACCEPTABLE_FLG");
+        regINS(CK_INS, cTL(newAcceptableFlgList), xgetCValueNewAcceptableFlg(), "NEW_ACCEPTABLE_FLG");
     }
 
     /**
@@ -716,11 +716,11 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     protected void doSetNewAcceptableFlg_NotInScope(Collection<Integer> newAcceptableFlgList) {
-        regINS(CK_NINS, cTL(newAcceptableFlgList), getCValueNewAcceptableFlg(), "NEW_ACCEPTABLE_FLG");
+        regINS(CK_NINS, cTL(newAcceptableFlgList), xgetCValueNewAcceptableFlg(), "NEW_ACCEPTABLE_FLG");
     }
 
-    protected void regNewAcceptableFlg(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueNewAcceptableFlg(), "NEW_ACCEPTABLE_FLG"); }
-    protected abstract ConditionValue getCValueNewAcceptableFlg();
+    protected void regNewAcceptableFlg(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueNewAcceptableFlg(), "NEW_ACCEPTABLE_FLG"); }
+    protected abstract ConditionValue xgetCValueNewAcceptableFlg();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -794,7 +794,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     protected void doSetDescription_InScope(Collection<String> descriptionList) {
-        regINS(CK_INS, cTL(descriptionList), getCValueDescription(), "DESCRIPTION");
+        regINS(CK_INS, cTL(descriptionList), xgetCValueDescription(), "DESCRIPTION");
     }
 
     /**
@@ -807,7 +807,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     protected void doSetDescription_NotInScope(Collection<String> descriptionList) {
-        regINS(CK_NINS, cTL(descriptionList), getCValueDescription(), "DESCRIPTION");
+        regINS(CK_NINS, cTL(descriptionList), xgetCValueDescription(), "DESCRIPTION");
     }
 
     /**
@@ -829,7 +829,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     public void setDescription_LikeSearch(String description, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(description), getCValueDescription(), "DESCRIPTION", likeSearchOption);
+        regLSQ(CK_LS, fRES(description), xgetCValueDescription(), "DESCRIPTION", likeSearchOption);
     }
 
     /**
@@ -851,11 +851,11 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     public void setDescription_NotLikeSearch(String description, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(description), getCValueDescription(), "DESCRIPTION", likeSearchOption);
+        regLSQ(CK_NLS, fRES(description), xgetCValueDescription(), "DESCRIPTION", likeSearchOption);
     }
 
-    protected void regDescription(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueDescription(), "DESCRIPTION"); }
-    protected abstract ConditionValue getCValueDescription();
+    protected void regDescription(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueDescription(), "DESCRIPTION"); }
+    protected abstract ConditionValue xgetCValueDescription();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -942,7 +942,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     public void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, getCValueDisplayOrder(), "DISPLAY_ORDER", rangeOfOption);
+        regROO(minNumber, maxNumber, xgetCValueDisplayOrder(), "DISPLAY_ORDER", rangeOfOption);
     }
 
     /**
@@ -955,7 +955,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     protected void doSetDisplayOrder_InScope(Collection<Integer> displayOrderList) {
-        regINS(CK_INS, cTL(displayOrderList), getCValueDisplayOrder(), "DISPLAY_ORDER");
+        regINS(CK_INS, cTL(displayOrderList), xgetCValueDisplayOrder(), "DISPLAY_ORDER");
     }
 
     /**
@@ -968,11 +968,11 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     protected void doSetDisplayOrder_NotInScope(Collection<Integer> displayOrderList) {
-        regINS(CK_NINS, cTL(displayOrderList), getCValueDisplayOrder(), "DISPLAY_ORDER");
+        regINS(CK_NINS, cTL(displayOrderList), xgetCValueDisplayOrder(), "DISPLAY_ORDER");
     }
 
-    protected void regDisplayOrder(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueDisplayOrder(), "DISPLAY_ORDER"); }
-    protected abstract ConditionValue getCValueDisplayOrder();
+    protected void regDisplayOrder(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueDisplayOrder(), "DISPLAY_ORDER"); }
+    protected abstract ConditionValue xgetCValueDisplayOrder();
 
     // ===================================================================================
     //                                                                     ScalarCondition

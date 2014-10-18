@@ -76,7 +76,7 @@ public class ProductCIQ extends AbstractBsProductCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueProductId() { return _myCQ.getProductId(); }
+    protected ConditionValue xgetCValueProductId() { return _myCQ.xdfgetProductId(); }
     public String keepProductId_ExistsReferrer_PurchaseList(PurchaseCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepProductId_NotExistsReferrer_PurchaseList(PurchaseCQ sq)
@@ -87,16 +87,16 @@ public class ProductCIQ extends AbstractBsProductCQ {
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepProductId_QueryDerivedReferrer_PurchaseListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    protected ConditionValue getCValueProductName() { return _myCQ.getProductName(); }
-    protected ConditionValue getCValueProductHandleCode() { return _myCQ.getProductHandleCode(); }
-    protected ConditionValue getCValueProductCategoryCode() { return _myCQ.getProductCategoryCode(); }
-    protected ConditionValue getCValueProductStatusCode() { return _myCQ.getProductStatusCode(); }
-    protected ConditionValue getCValueRegularPrice() { return _myCQ.getRegularPrice(); }
-    protected ConditionValue getCValueRegisterDatetime() { return _myCQ.getRegisterDatetime(); }
-    protected ConditionValue getCValueRegisterUser() { return _myCQ.getRegisterUser(); }
-    protected ConditionValue getCValueUpdateDatetime() { return _myCQ.getUpdateDatetime(); }
-    protected ConditionValue getCValueUpdateUser() { return _myCQ.getUpdateUser(); }
-    protected ConditionValue getCValueVersionNo() { return _myCQ.getVersionNo(); }
+    protected ConditionValue xgetCValueProductName() { return _myCQ.xdfgetProductName(); }
+    protected ConditionValue xgetCValueProductHandleCode() { return _myCQ.xdfgetProductHandleCode(); }
+    protected ConditionValue xgetCValueProductCategoryCode() { return _myCQ.xdfgetProductCategoryCode(); }
+    protected ConditionValue xgetCValueProductStatusCode() { return _myCQ.xdfgetProductStatusCode(); }
+    protected ConditionValue xgetCValueRegularPrice() { return _myCQ.xdfgetRegularPrice(); }
+    protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
+    protected ConditionValue xgetCValueRegisterUser() { return _myCQ.xdfgetRegisterUser(); }
+    protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
+    protected ConditionValue xgetCValueUpdateUser() { return _myCQ.xdfgetUpdateUser(); }
+    protected ConditionValue xgetCValueVersionNo() { return _myCQ.xdfgetVersionNo(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(ProductCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

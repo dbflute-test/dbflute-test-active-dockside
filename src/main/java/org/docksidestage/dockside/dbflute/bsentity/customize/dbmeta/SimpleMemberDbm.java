@@ -173,7 +173,6 @@ public class SimpleMemberDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public SimpleMember newEntity() { return new SimpleMember(); }
-    public SimpleMember newMyEntity() { return new SimpleMember(); }
 
     // ===================================================================================
     //                                                                   Map Communication

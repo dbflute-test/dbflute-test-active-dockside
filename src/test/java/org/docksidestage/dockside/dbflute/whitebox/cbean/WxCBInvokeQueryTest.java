@@ -202,7 +202,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         cb.query().invokeQuery(propertyName, "inScope", list);
 
         // ## Assert ##
-        final ConditionValue value = cb.query().getMemberName();
+        final ConditionValue value = cb.query().xdfgetMemberName();
         log("conditionValue=" + value);
         assertEquals(list, value.getVarying().get("inScope").get("inScope0"));
     }
@@ -399,7 +399,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         cb.query().invokeQuery(propertyName, "Equal", "testValue");
 
         // ## Assert ##
-        final ConditionValue value = cb.query().getMemberName();
+        final ConditionValue value = cb.query().xdfgetMemberName();
         log("conditionValue=" + value);
         assertEquals("testValue", value.getFixedQuery().get("equal"));
     }
@@ -411,7 +411,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         cb.query().invokeQuery(propertyName, "Equal", "testValue");
 
         // ## Assert ##
-        final ConditionValue value = cb.query().getMemberName();
+        final ConditionValue value = cb.query().xdfgetMemberName();
         log("conditionValue=" + value);
         assertEquals("testValue", value.getFixedQuery().get("equal"));
     }
@@ -427,7 +427,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         cb.query().invokeQuery(foreingPropertyName + "." + propertyName, "Equal", "testValue");
 
         // ## Assert ##
-        final ConditionValue value = cb.query().queryMemberStatus().getMemberStatusName();
+        final ConditionValue value = cb.query().queryMemberStatus().xdfgetMemberStatusName();
         log("conditionValue=" + value);
         assertEquals("testValue", value.getFixedQuery().get("equal"));
     }
@@ -445,7 +445,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         cb.query().invokeQuery(targetName, "Equal", "testValue");
 
         // ## Assert ##
-        final ConditionValue value = cb.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().getWithdrawalReasonText();
+        final ConditionValue value = cb.query().queryMemberWithdrawalAsOne().queryWithdrawalReason().xdfgetWithdrawalReasonText();
         log("conditionValue=" + value);
         assertEquals("testValue", value.getFixedQuery().get("equal"));
     }

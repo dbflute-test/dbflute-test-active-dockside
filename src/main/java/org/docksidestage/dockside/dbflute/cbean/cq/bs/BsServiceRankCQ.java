@@ -89,23 +89,23 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _serviceRankCode;
-    public ConditionValue getServiceRankCode()
+    public ConditionValue xdfgetServiceRankCode()
     { if (_serviceRankCode == null) { _serviceRankCode = nCV(); }
       return _serviceRankCode; }
-    protected ConditionValue getCValueServiceRankCode() { return getServiceRankCode(); }
+    protected ConditionValue xgetCValueServiceRankCode() { return xdfgetServiceRankCode(); }
 
-    public Map<String, MemberServiceCQ> getServiceRankCode_ExistsReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_ExistsReferrer_MemberServiceList"); }
+    public Map<String, MemberServiceCQ> xdfgetServiceRankCode_ExistsReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_ExistsReferrer_MemberServiceList"); }
     public String keepServiceRankCode_ExistsReferrer_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_ExistsReferrer_MemberServiceList", sq); }
 
-    public Map<String, MemberServiceCQ> getServiceRankCode_NotExistsReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_NotExistsReferrer_MemberServiceList"); }
+    public Map<String, MemberServiceCQ> xdfgetServiceRankCode_NotExistsReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_NotExistsReferrer_MemberServiceList"); }
     public String keepServiceRankCode_NotExistsReferrer_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_NotExistsReferrer_MemberServiceList", sq); }
 
-    public Map<String, MemberServiceCQ> getServiceRankCode_SpecifyDerivedReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_SpecifyDerivedReferrer_MemberServiceList"); }
+    public Map<String, MemberServiceCQ> xdfgetServiceRankCode_SpecifyDerivedReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_SpecifyDerivedReferrer_MemberServiceList"); }
     public String keepServiceRankCode_SpecifyDerivedReferrer_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_SpecifyDerivedReferrer_MemberServiceList", sq); }
 
-    public Map<String, MemberServiceCQ> getServiceRankCode_QueryDerivedReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_QueryDerivedReferrer_MemberServiceList"); }
+    public Map<String, MemberServiceCQ> xdfgetServiceRankCode_QueryDerivedReferrer_MemberServiceList() { return xgetSQueMap("serviceRankCode_QueryDerivedReferrer_MemberServiceList"); }
     public String keepServiceRankCode_QueryDerivedReferrer_MemberServiceList(MemberServiceCQ sq) { return xkeepSQue("serviceRankCode_QueryDerivedReferrer_MemberServiceList", sq); }
-    public Map<String, Object> getServiceRankCode_QueryDerivedReferrer_MemberServiceListParameter() { return xgetSQuePmMap("serviceRankCode_QueryDerivedReferrer_MemberServiceList"); }
+    public Map<String, Object> xdfgetServiceRankCode_QueryDerivedReferrer_MemberServiceListParameter() { return xgetSQuePmMap("serviceRankCode_QueryDerivedReferrer_MemberServiceList"); }
     public String keepServiceRankCode_QueryDerivedReferrer_MemberServiceListParameter(Object pm) { return xkeepSQuePm("serviceRankCode_QueryDerivedReferrer_MemberServiceList", pm); }
 
     /** 
@@ -123,10 +123,10 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     public BsServiceRankCQ addOrderBy_ServiceRankCode_Desc() { regOBD("SERVICE_RANK_CODE"); return this; }
 
     protected ConditionValue _serviceRankName;
-    public ConditionValue getServiceRankName()
+    public ConditionValue xdfgetServiceRankName()
     { if (_serviceRankName == null) { _serviceRankName = nCV(); }
       return _serviceRankName; }
-    protected ConditionValue getCValueServiceRankName() { return getServiceRankName(); }
+    protected ConditionValue xgetCValueServiceRankName() { return xdfgetServiceRankName(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -143,10 +143,10 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     public BsServiceRankCQ addOrderBy_ServiceRankName_Desc() { regOBD("SERVICE_RANK_NAME"); return this; }
 
     protected ConditionValue _servicePointIncidence;
-    public ConditionValue getServicePointIncidence()
+    public ConditionValue xdfgetServicePointIncidence()
     { if (_servicePointIncidence == null) { _servicePointIncidence = nCV(); }
       return _servicePointIncidence; }
-    protected ConditionValue getCValueServicePointIncidence() { return getServicePointIncidence(); }
+    protected ConditionValue xgetCValueServicePointIncidence() { return xdfgetServicePointIncidence(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -163,10 +163,10 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     public BsServiceRankCQ addOrderBy_ServicePointIncidence_Desc() { regOBD("SERVICE_POINT_INCIDENCE"); return this; }
 
     protected ConditionValue _newAcceptableFlg;
-    public ConditionValue getNewAcceptableFlg()
+    public ConditionValue xdfgetNewAcceptableFlg()
     { if (_newAcceptableFlg == null) { _newAcceptableFlg = nCV(); }
       return _newAcceptableFlg; }
-    protected ConditionValue getCValueNewAcceptableFlg() { return getNewAcceptableFlg(); }
+    protected ConditionValue xgetCValueNewAcceptableFlg() { return xdfgetNewAcceptableFlg(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -183,10 +183,10 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     public BsServiceRankCQ addOrderBy_NewAcceptableFlg_Desc() { regOBD("NEW_ACCEPTABLE_FLG"); return this; }
 
     protected ConditionValue _description;
-    public ConditionValue getDescription()
+    public ConditionValue xdfgetDescription()
     { if (_description == null) { _description = nCV(); }
       return _description; }
-    protected ConditionValue getCValueDescription() { return getDescription(); }
+    protected ConditionValue xgetCValueDescription() { return xdfgetDescription(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -203,10 +203,10 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     public BsServiceRankCQ addOrderBy_Description_Desc() { regOBD("DESCRIPTION"); return this; }
 
     protected ConditionValue _displayOrder;
-    public ConditionValue getDisplayOrder()
+    public ConditionValue xdfgetDisplayOrder()
     { if (_displayOrder == null) { _displayOrder = nCV(); }
       return _displayOrder; }
-    protected ConditionValue getCValueDisplayOrder() { return getDisplayOrder(); }
+    protected ConditionValue xgetCValueDisplayOrder() { return xdfgetDisplayOrder(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -273,31 +273,31 @@ public class BsServiceRankCQ extends AbstractBsServiceRankCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, ServiceRankCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public Map<String, ServiceRankCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
     public String keepScalarCondition(ServiceRankCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, ServiceRankCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public Map<String, ServiceRankCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
     public String keepSpecifyMyselfDerived(ServiceRankCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, ServiceRankCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public Map<String, ServiceRankCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerived(ServiceRankCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, ServiceRankCQ> _myselfExistsMap;
-    public Map<String, ServiceRankCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public Map<String, ServiceRankCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
     public String keepMyselfExists(ServiceRankCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, ServiceRankCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public Map<String, ServiceRankCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
     public String keepMyselfInScope(ServiceRankCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================

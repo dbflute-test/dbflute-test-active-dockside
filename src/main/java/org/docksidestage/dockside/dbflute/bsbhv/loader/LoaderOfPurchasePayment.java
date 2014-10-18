@@ -76,9 +76,8 @@ public class LoaderOfPurchasePayment {
     //                                                                    ================
     protected LoaderOfPurchase _foreignPurchaseLoader;
     public LoaderOfPurchase pulloutPurchase() {
-        if (_foreignPurchaseLoader != null) { return _foreignPurchaseLoader; }
-        List<Purchase> pulledList = myBhv().pulloutPurchase(_selectedList);
-        _foreignPurchaseLoader = new LoaderOfPurchase().ready(pulledList, _selector);
+        if (_foreignPurchaseLoader == null)
+        { _foreignPurchaseLoader = new LoaderOfPurchase().ready(myBhv().pulloutPurchase(_selectedList), _selector); }
         return _foreignPurchaseLoader;
     }
 

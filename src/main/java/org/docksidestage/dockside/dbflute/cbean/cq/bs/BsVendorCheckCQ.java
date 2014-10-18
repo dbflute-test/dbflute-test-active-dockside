@@ -89,10 +89,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _vendorCheckId;
-    public ConditionValue getVendorCheckId()
+    public ConditionValue xdfgetVendorCheckId()
     { if (_vendorCheckId == null) { _vendorCheckId = nCV(); }
       return _vendorCheckId; }
-    protected ConditionValue getCValueVendorCheckId() { return getVendorCheckId(); }
+    protected ConditionValue xgetCValueVendorCheckId() { return xdfgetVendorCheckId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -109,10 +109,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_VendorCheckId_Desc() { regOBD("VENDOR_CHECK_ID"); return this; }
 
     protected ConditionValue _typeOfChar;
-    public ConditionValue getTypeOfChar()
+    public ConditionValue xdfgetTypeOfChar()
     { if (_typeOfChar == null) { _typeOfChar = nCV(); }
       return _typeOfChar; }
-    protected ConditionValue getCValueTypeOfChar() { return getTypeOfChar(); }
+    protected ConditionValue xgetCValueTypeOfChar() { return xdfgetTypeOfChar(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -129,10 +129,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfChar_Desc() { regOBD("TYPE_OF_CHAR"); return this; }
 
     protected ConditionValue _typeOfVarchar;
-    public ConditionValue getTypeOfVarchar()
+    public ConditionValue xdfgetTypeOfVarchar()
     { if (_typeOfVarchar == null) { _typeOfVarchar = nCV(); }
       return _typeOfVarchar; }
-    protected ConditionValue getCValueTypeOfVarchar() { return getTypeOfVarchar(); }
+    protected ConditionValue xgetCValueTypeOfVarchar() { return xdfgetTypeOfVarchar(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -149,10 +149,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfVarchar_Desc() { regOBD("TYPE_OF_VARCHAR"); return this; }
 
     protected ConditionValue _typeOfClob;
-    public ConditionValue getTypeOfClob()
+    public ConditionValue xdfgetTypeOfClob()
     { if (_typeOfClob == null) { _typeOfClob = nCV(); }
       return _typeOfClob; }
-    protected ConditionValue getCValueTypeOfClob() { return getTypeOfClob(); }
+    protected ConditionValue xgetCValueTypeOfClob() { return xdfgetTypeOfClob(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -169,10 +169,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfClob_Desc() { regOBD("TYPE_OF_CLOB"); return this; }
 
     protected ConditionValue _typeOfText;
-    public ConditionValue getTypeOfText()
+    public ConditionValue xdfgetTypeOfText()
     { if (_typeOfText == null) { _typeOfText = nCV(); }
       return _typeOfText; }
-    protected ConditionValue getCValueTypeOfText() { return getTypeOfText(); }
+    protected ConditionValue xgetCValueTypeOfText() { return xdfgetTypeOfText(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -189,10 +189,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfText_Desc() { regOBD("TYPE_OF_TEXT"); return this; }
 
     protected ConditionValue _typeOfNumericInteger;
-    public ConditionValue getTypeOfNumericInteger()
+    public ConditionValue xdfgetTypeOfNumericInteger()
     { if (_typeOfNumericInteger == null) { _typeOfNumericInteger = nCV(); }
       return _typeOfNumericInteger; }
-    protected ConditionValue getCValueTypeOfNumericInteger() { return getTypeOfNumericInteger(); }
+    protected ConditionValue xgetCValueTypeOfNumericInteger() { return xdfgetTypeOfNumericInteger(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -209,10 +209,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfNumericInteger_Desc() { regOBD("TYPE_OF_NUMERIC_INTEGER"); return this; }
 
     protected ConditionValue _typeOfNumericBigint;
-    public ConditionValue getTypeOfNumericBigint()
+    public ConditionValue xdfgetTypeOfNumericBigint()
     { if (_typeOfNumericBigint == null) { _typeOfNumericBigint = nCV(); }
       return _typeOfNumericBigint; }
-    protected ConditionValue getCValueTypeOfNumericBigint() { return getTypeOfNumericBigint(); }
+    protected ConditionValue xgetCValueTypeOfNumericBigint() { return xdfgetTypeOfNumericBigint(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -229,10 +229,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfNumericBigint_Desc() { regOBD("TYPE_OF_NUMERIC_BIGINT"); return this; }
 
     protected ConditionValue _typeOfNumericDecimal;
-    public ConditionValue getTypeOfNumericDecimal()
+    public ConditionValue xdfgetTypeOfNumericDecimal()
     { if (_typeOfNumericDecimal == null) { _typeOfNumericDecimal = nCV(); }
       return _typeOfNumericDecimal; }
-    protected ConditionValue getCValueTypeOfNumericDecimal() { return getTypeOfNumericDecimal(); }
+    protected ConditionValue xgetCValueTypeOfNumericDecimal() { return xdfgetTypeOfNumericDecimal(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -249,10 +249,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfNumericDecimal_Desc() { regOBD("TYPE_OF_NUMERIC_DECIMAL"); return this; }
 
     protected ConditionValue _typeOfNumericIntegerMin;
-    public ConditionValue getTypeOfNumericIntegerMin()
+    public ConditionValue xdfgetTypeOfNumericIntegerMin()
     { if (_typeOfNumericIntegerMin == null) { _typeOfNumericIntegerMin = nCV(); }
       return _typeOfNumericIntegerMin; }
-    protected ConditionValue getCValueTypeOfNumericIntegerMin() { return getTypeOfNumericIntegerMin(); }
+    protected ConditionValue xgetCValueTypeOfNumericIntegerMin() { return xdfgetTypeOfNumericIntegerMin(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -269,10 +269,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfNumericIntegerMin_Desc() { regOBD("TYPE_OF_NUMERIC_INTEGER_MIN"); return this; }
 
     protected ConditionValue _typeOfNumericIntegerMax;
-    public ConditionValue getTypeOfNumericIntegerMax()
+    public ConditionValue xdfgetTypeOfNumericIntegerMax()
     { if (_typeOfNumericIntegerMax == null) { _typeOfNumericIntegerMax = nCV(); }
       return _typeOfNumericIntegerMax; }
-    protected ConditionValue getCValueTypeOfNumericIntegerMax() { return getTypeOfNumericIntegerMax(); }
+    protected ConditionValue xgetCValueTypeOfNumericIntegerMax() { return xdfgetTypeOfNumericIntegerMax(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -289,10 +289,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfNumericIntegerMax_Desc() { regOBD("TYPE_OF_NUMERIC_INTEGER_MAX"); return this; }
 
     protected ConditionValue _typeOfNumericBigintMin;
-    public ConditionValue getTypeOfNumericBigintMin()
+    public ConditionValue xdfgetTypeOfNumericBigintMin()
     { if (_typeOfNumericBigintMin == null) { _typeOfNumericBigintMin = nCV(); }
       return _typeOfNumericBigintMin; }
-    protected ConditionValue getCValueTypeOfNumericBigintMin() { return getTypeOfNumericBigintMin(); }
+    protected ConditionValue xgetCValueTypeOfNumericBigintMin() { return xdfgetTypeOfNumericBigintMin(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -309,10 +309,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfNumericBigintMin_Desc() { regOBD("TYPE_OF_NUMERIC_BIGINT_MIN"); return this; }
 
     protected ConditionValue _typeOfNumericBigintMax;
-    public ConditionValue getTypeOfNumericBigintMax()
+    public ConditionValue xdfgetTypeOfNumericBigintMax()
     { if (_typeOfNumericBigintMax == null) { _typeOfNumericBigintMax = nCV(); }
       return _typeOfNumericBigintMax; }
-    protected ConditionValue getCValueTypeOfNumericBigintMax() { return getTypeOfNumericBigintMax(); }
+    protected ConditionValue xgetCValueTypeOfNumericBigintMax() { return xdfgetTypeOfNumericBigintMax(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -329,10 +329,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfNumericBigintMax_Desc() { regOBD("TYPE_OF_NUMERIC_BIGINT_MAX"); return this; }
 
     protected ConditionValue _typeOfNumericSuperintMin;
-    public ConditionValue getTypeOfNumericSuperintMin()
+    public ConditionValue xdfgetTypeOfNumericSuperintMin()
     { if (_typeOfNumericSuperintMin == null) { _typeOfNumericSuperintMin = nCV(); }
       return _typeOfNumericSuperintMin; }
-    protected ConditionValue getCValueTypeOfNumericSuperintMin() { return getTypeOfNumericSuperintMin(); }
+    protected ConditionValue xgetCValueTypeOfNumericSuperintMin() { return xdfgetTypeOfNumericSuperintMin(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -349,10 +349,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfNumericSuperintMin_Desc() { regOBD("TYPE_OF_NUMERIC_SUPERINT_MIN"); return this; }
 
     protected ConditionValue _typeOfNumericSuperintMax;
-    public ConditionValue getTypeOfNumericSuperintMax()
+    public ConditionValue xdfgetTypeOfNumericSuperintMax()
     { if (_typeOfNumericSuperintMax == null) { _typeOfNumericSuperintMax = nCV(); }
       return _typeOfNumericSuperintMax; }
-    protected ConditionValue getCValueTypeOfNumericSuperintMax() { return getTypeOfNumericSuperintMax(); }
+    protected ConditionValue xgetCValueTypeOfNumericSuperintMax() { return xdfgetTypeOfNumericSuperintMax(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -369,10 +369,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfNumericSuperintMax_Desc() { regOBD("TYPE_OF_NUMERIC_SUPERINT_MAX"); return this; }
 
     protected ConditionValue _typeOfNumericMaxdecimal;
-    public ConditionValue getTypeOfNumericMaxdecimal()
+    public ConditionValue xdfgetTypeOfNumericMaxdecimal()
     { if (_typeOfNumericMaxdecimal == null) { _typeOfNumericMaxdecimal = nCV(); }
       return _typeOfNumericMaxdecimal; }
-    protected ConditionValue getCValueTypeOfNumericMaxdecimal() { return getTypeOfNumericMaxdecimal(); }
+    protected ConditionValue xgetCValueTypeOfNumericMaxdecimal() { return xdfgetTypeOfNumericMaxdecimal(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -389,10 +389,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfNumericMaxdecimal_Desc() { regOBD("TYPE_OF_NUMERIC_MAXDECIMAL"); return this; }
 
     protected ConditionValue _typeOfInteger;
-    public ConditionValue getTypeOfInteger()
+    public ConditionValue xdfgetTypeOfInteger()
     { if (_typeOfInteger == null) { _typeOfInteger = nCV(); }
       return _typeOfInteger; }
-    protected ConditionValue getCValueTypeOfInteger() { return getTypeOfInteger(); }
+    protected ConditionValue xgetCValueTypeOfInteger() { return xdfgetTypeOfInteger(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -409,10 +409,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfInteger_Desc() { regOBD("TYPE_OF_INTEGER"); return this; }
 
     protected ConditionValue _typeOfBigint;
-    public ConditionValue getTypeOfBigint()
+    public ConditionValue xdfgetTypeOfBigint()
     { if (_typeOfBigint == null) { _typeOfBigint = nCV(); }
       return _typeOfBigint; }
-    protected ConditionValue getCValueTypeOfBigint() { return getTypeOfBigint(); }
+    protected ConditionValue xgetCValueTypeOfBigint() { return xdfgetTypeOfBigint(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -429,10 +429,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfBigint_Desc() { regOBD("TYPE_OF_BIGINT"); return this; }
 
     protected ConditionValue _typeOfDate;
-    public ConditionValue getTypeOfDate()
+    public ConditionValue xdfgetTypeOfDate()
     { if (_typeOfDate == null) { _typeOfDate = nCV(); }
       return _typeOfDate; }
-    protected ConditionValue getCValueTypeOfDate() { return getTypeOfDate(); }
+    protected ConditionValue xgetCValueTypeOfDate() { return xdfgetTypeOfDate(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -449,10 +449,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfDate_Desc() { regOBD("TYPE_OF_DATE"); return this; }
 
     protected ConditionValue _typeOfTimestamp;
-    public ConditionValue getTypeOfTimestamp()
+    public ConditionValue xdfgetTypeOfTimestamp()
     { if (_typeOfTimestamp == null) { _typeOfTimestamp = nCV(); }
       return _typeOfTimestamp; }
-    protected ConditionValue getCValueTypeOfTimestamp() { return getTypeOfTimestamp(); }
+    protected ConditionValue xgetCValueTypeOfTimestamp() { return xdfgetTypeOfTimestamp(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -469,10 +469,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfTimestamp_Desc() { regOBD("TYPE_OF_TIMESTAMP"); return this; }
 
     protected ConditionValue _typeOfTime;
-    public ConditionValue getTypeOfTime()
+    public ConditionValue xdfgetTypeOfTime()
     { if (_typeOfTime == null) { _typeOfTime = nCV(); }
       return _typeOfTime; }
-    protected ConditionValue getCValueTypeOfTime() { return getTypeOfTime(); }
+    protected ConditionValue xgetCValueTypeOfTime() { return xdfgetTypeOfTime(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -489,10 +489,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfTime_Desc() { regOBD("TYPE_OF_TIME"); return this; }
 
     protected ConditionValue _typeOfBoolean;
-    public ConditionValue getTypeOfBoolean()
+    public ConditionValue xdfgetTypeOfBoolean()
     { if (_typeOfBoolean == null) { _typeOfBoolean = nCV(); }
       return _typeOfBoolean; }
-    protected ConditionValue getCValueTypeOfBoolean() { return getTypeOfBoolean(); }
+    protected ConditionValue xgetCValueTypeOfBoolean() { return xdfgetTypeOfBoolean(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -509,10 +509,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfBoolean_Desc() { regOBD("TYPE_OF_BOOLEAN"); return this; }
 
     protected ConditionValue _typeOfBinary;
-    public ConditionValue getTypeOfBinary()
+    public ConditionValue xdfgetTypeOfBinary()
     { if (_typeOfBinary == null) { _typeOfBinary = nCV(); }
       return _typeOfBinary; }
-    protected ConditionValue getCValueTypeOfBinary() { return getTypeOfBinary(); }
+    protected ConditionValue xgetCValueTypeOfBinary() { return xdfgetTypeOfBinary(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -529,10 +529,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfBinary_Desc() { regOBD("TYPE_OF_BINARY"); return this; }
 
     protected ConditionValue _typeOfBlob;
-    public ConditionValue getTypeOfBlob()
+    public ConditionValue xdfgetTypeOfBlob()
     { if (_typeOfBlob == null) { _typeOfBlob = nCV(); }
       return _typeOfBlob; }
-    protected ConditionValue getCValueTypeOfBlob() { return getTypeOfBlob(); }
+    protected ConditionValue xgetCValueTypeOfBlob() { return xdfgetTypeOfBlob(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -549,10 +549,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfBlob_Desc() { regOBD("TYPE_OF_BLOB"); return this; }
 
     protected ConditionValue _typeOfUuid;
-    public ConditionValue getTypeOfUuid()
+    public ConditionValue xdfgetTypeOfUuid()
     { if (_typeOfUuid == null) { _typeOfUuid = nCV(); }
       return _typeOfUuid; }
-    protected ConditionValue getCValueTypeOfUuid() { return getTypeOfUuid(); }
+    protected ConditionValue xgetCValueTypeOfUuid() { return xdfgetTypeOfUuid(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -569,10 +569,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfUuid_Desc() { regOBD("TYPE_OF_UUID"); return this; }
 
     protected ConditionValue _typeOfArray;
-    public ConditionValue getTypeOfArray()
+    public ConditionValue xdfgetTypeOfArray()
     { if (_typeOfArray == null) { _typeOfArray = nCV(); }
       return _typeOfArray; }
-    protected ConditionValue getCValueTypeOfArray() { return getTypeOfArray(); }
+    protected ConditionValue xgetCValueTypeOfArray() { return xdfgetTypeOfArray(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -589,10 +589,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfArray_Desc() { regOBD("TYPE_OF_ARRAY"); return this; }
 
     protected ConditionValue _typeOfOther;
-    public ConditionValue getTypeOfOther()
+    public ConditionValue xdfgetTypeOfOther()
     { if (_typeOfOther == null) { _typeOfOther = nCV(); }
       return _typeOfOther; }
-    protected ConditionValue getCValueTypeOfOther() { return getTypeOfOther(); }
+    protected ConditionValue xgetCValueTypeOfOther() { return xdfgetTypeOfOther(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -609,10 +609,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_TypeOfOther_Desc() { regOBD("TYPE_OF_OTHER"); return this; }
 
     protected ConditionValue _jAVABeansProperty;
-    public ConditionValue getJAVABeansProperty()
+    public ConditionValue xdfgetJAVABeansProperty()
     { if (_jAVABeansProperty == null) { _jAVABeansProperty = nCV(); }
       return _jAVABeansProperty; }
-    protected ConditionValue getCValueJAVABeansProperty() { return getJAVABeansProperty(); }
+    protected ConditionValue xgetCValueJAVABeansProperty() { return xdfgetJAVABeansProperty(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -629,10 +629,10 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     public BsVendorCheckCQ addOrderBy_JAVABeansProperty_Desc() { regOBD("J_A_V_A_BEANS_PROPERTY"); return this; }
 
     protected ConditionValue _jPopBeansProperty;
-    public ConditionValue getJPopBeansProperty()
+    public ConditionValue xdfgetJPopBeansProperty()
     { if (_jPopBeansProperty == null) { _jPopBeansProperty = nCV(); }
       return _jPopBeansProperty; }
-    protected ConditionValue getCValueJPopBeansProperty() { return getJPopBeansProperty(); }
+    protected ConditionValue xgetCValueJPopBeansProperty() { return xdfgetJPopBeansProperty(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -699,31 +699,31 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, VendorCheckCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public Map<String, VendorCheckCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
     public String keepScalarCondition(VendorCheckCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, VendorCheckCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public Map<String, VendorCheckCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
     public String keepSpecifyMyselfDerived(VendorCheckCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, VendorCheckCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public Map<String, VendorCheckCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerived(VendorCheckCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, VendorCheckCQ> _myselfExistsMap;
-    public Map<String, VendorCheckCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public Map<String, VendorCheckCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
     public String keepMyselfExists(VendorCheckCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, VendorCheckCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public Map<String, VendorCheckCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
     public String keepMyselfInScope(VendorCheckCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================

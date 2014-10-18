@@ -191,10 +191,14 @@ public class BsVendorCheckCB extends AbstractConditionBean {
      */
     public VendorCheckCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
-    public VendorCheckCQ getConditionQuery() { // public for parameter comment and internal
+    public VendorCheckCQ xdfgetConditionQuery() { // public for parameter comment and internal
+        return doGetConditionQuery();
+    }
+
+    protected VendorCheckCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
@@ -215,8 +219,11 @@ public class BsVendorCheckCB extends AbstractConditionBean {
         return new VendorCheckCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public ConditionQuery localCQ() {
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
     // ===================================================================================
@@ -290,7 +297,7 @@ public class BsVendorCheckCB extends AbstractConditionBean {
         if (_specification == null) { _specification = new HpSpecification(this
             , new HpSpQyCall<VendorCheckCQ>() {
                 public boolean has() { return true; }
-                public VendorCheckCQ qy() { return getConditionQuery(); }
+                public VendorCheckCQ qy() { return xdfgetConditionQuery(); }
             }
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
@@ -610,8 +617,8 @@ public class BsVendorCheckCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String getConditionBeanClassNameInternally() { return VendorCheckCB.class.getName(); }
-    protected String getConditionQueryClassNameInternally() { return VendorCheckCQ.class.getName(); }
-    protected String getSubQueryClassNameInternally() { return SubQuery.class.getName(); }
-    protected String getConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return VendorCheckCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return VendorCheckCQ.class.getName(); }
+    protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
+    protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

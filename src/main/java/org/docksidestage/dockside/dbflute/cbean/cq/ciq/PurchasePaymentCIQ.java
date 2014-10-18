@@ -76,15 +76,15 @@ public class PurchasePaymentCIQ extends AbstractBsPurchasePaymentCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValuePurchasePaymentId() { return _myCQ.getPurchasePaymentId(); }
-    protected ConditionValue getCValuePurchaseId() { return _myCQ.getPurchaseId(); }
-    protected ConditionValue getCValuePaymentAmount() { return _myCQ.getPaymentAmount(); }
-    protected ConditionValue getCValuePaymentDatetime() { return _myCQ.getPaymentDatetime(); }
-    protected ConditionValue getCValuePaymentMethodCode() { return _myCQ.getPaymentMethodCode(); }
-    protected ConditionValue getCValueRegisterDatetime() { return _myCQ.getRegisterDatetime(); }
-    protected ConditionValue getCValueRegisterUser() { return _myCQ.getRegisterUser(); }
-    protected ConditionValue getCValueUpdateDatetime() { return _myCQ.getUpdateDatetime(); }
-    protected ConditionValue getCValueUpdateUser() { return _myCQ.getUpdateUser(); }
+    protected ConditionValue xgetCValuePurchasePaymentId() { return _myCQ.xdfgetPurchasePaymentId(); }
+    protected ConditionValue xgetCValuePurchaseId() { return _myCQ.xdfgetPurchaseId(); }
+    protected ConditionValue xgetCValuePaymentAmount() { return _myCQ.xdfgetPaymentAmount(); }
+    protected ConditionValue xgetCValuePaymentDatetime() { return _myCQ.xdfgetPaymentDatetime(); }
+    protected ConditionValue xgetCValuePaymentMethodCode() { return _myCQ.xdfgetPaymentMethodCode(); }
+    protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
+    protected ConditionValue xgetCValueRegisterUser() { return _myCQ.xdfgetRegisterUser(); }
+    protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
+    protected ConditionValue xgetCValueUpdateUser() { return _myCQ.xdfgetUpdateUser(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(PurchasePaymentCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

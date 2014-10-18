@@ -76,17 +76,15 @@ public class LoaderOfMemberAddress {
     //                                                                    ================
     protected LoaderOfMember _foreignMemberLoader;
     public LoaderOfMember pulloutMember() {
-        if (_foreignMemberLoader != null) { return _foreignMemberLoader; }
-        List<Member> pulledList = myBhv().pulloutMember(_selectedList);
-        _foreignMemberLoader = new LoaderOfMember().ready(pulledList, _selector);
+        if (_foreignMemberLoader == null)
+        { _foreignMemberLoader = new LoaderOfMember().ready(myBhv().pulloutMember(_selectedList), _selector); }
         return _foreignMemberLoader;
     }
 
     protected LoaderOfRegion _foreignRegionLoader;
     public LoaderOfRegion pulloutRegion() {
-        if (_foreignRegionLoader != null) { return _foreignRegionLoader; }
-        List<Region> pulledList = myBhv().pulloutRegion(_selectedList);
-        _foreignRegionLoader = new LoaderOfRegion().ready(pulledList, _selector);
+        if (_foreignRegionLoader == null)
+        { _foreignRegionLoader = new LoaderOfRegion().ready(myBhv().pulloutRegion(_selectedList), _selector); }
         return _foreignRegionLoader;
     }
 

@@ -76,34 +76,34 @@ public class VendorCheckCIQ extends AbstractBsVendorCheckCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueVendorCheckId() { return _myCQ.getVendorCheckId(); }
-    protected ConditionValue getCValueTypeOfChar() { return _myCQ.getTypeOfChar(); }
-    protected ConditionValue getCValueTypeOfVarchar() { return _myCQ.getTypeOfVarchar(); }
-    protected ConditionValue getCValueTypeOfClob() { return _myCQ.getTypeOfClob(); }
-    protected ConditionValue getCValueTypeOfText() { return _myCQ.getTypeOfText(); }
-    protected ConditionValue getCValueTypeOfNumericInteger() { return _myCQ.getTypeOfNumericInteger(); }
-    protected ConditionValue getCValueTypeOfNumericBigint() { return _myCQ.getTypeOfNumericBigint(); }
-    protected ConditionValue getCValueTypeOfNumericDecimal() { return _myCQ.getTypeOfNumericDecimal(); }
-    protected ConditionValue getCValueTypeOfNumericIntegerMin() { return _myCQ.getTypeOfNumericIntegerMin(); }
-    protected ConditionValue getCValueTypeOfNumericIntegerMax() { return _myCQ.getTypeOfNumericIntegerMax(); }
-    protected ConditionValue getCValueTypeOfNumericBigintMin() { return _myCQ.getTypeOfNumericBigintMin(); }
-    protected ConditionValue getCValueTypeOfNumericBigintMax() { return _myCQ.getTypeOfNumericBigintMax(); }
-    protected ConditionValue getCValueTypeOfNumericSuperintMin() { return _myCQ.getTypeOfNumericSuperintMin(); }
-    protected ConditionValue getCValueTypeOfNumericSuperintMax() { return _myCQ.getTypeOfNumericSuperintMax(); }
-    protected ConditionValue getCValueTypeOfNumericMaxdecimal() { return _myCQ.getTypeOfNumericMaxdecimal(); }
-    protected ConditionValue getCValueTypeOfInteger() { return _myCQ.getTypeOfInteger(); }
-    protected ConditionValue getCValueTypeOfBigint() { return _myCQ.getTypeOfBigint(); }
-    protected ConditionValue getCValueTypeOfDate() { return _myCQ.getTypeOfDate(); }
-    protected ConditionValue getCValueTypeOfTimestamp() { return _myCQ.getTypeOfTimestamp(); }
-    protected ConditionValue getCValueTypeOfTime() { return _myCQ.getTypeOfTime(); }
-    protected ConditionValue getCValueTypeOfBoolean() { return _myCQ.getTypeOfBoolean(); }
-    protected ConditionValue getCValueTypeOfBinary() { return _myCQ.getTypeOfBinary(); }
-    protected ConditionValue getCValueTypeOfBlob() { return _myCQ.getTypeOfBlob(); }
-    protected ConditionValue getCValueTypeOfUuid() { return _myCQ.getTypeOfUuid(); }
-    protected ConditionValue getCValueTypeOfArray() { return _myCQ.getTypeOfArray(); }
-    protected ConditionValue getCValueTypeOfOther() { return _myCQ.getTypeOfOther(); }
-    protected ConditionValue getCValueJAVABeansProperty() { return _myCQ.getJAVABeansProperty(); }
-    protected ConditionValue getCValueJPopBeansProperty() { return _myCQ.getJPopBeansProperty(); }
+    protected ConditionValue xgetCValueVendorCheckId() { return _myCQ.xdfgetVendorCheckId(); }
+    protected ConditionValue xgetCValueTypeOfChar() { return _myCQ.xdfgetTypeOfChar(); }
+    protected ConditionValue xgetCValueTypeOfVarchar() { return _myCQ.xdfgetTypeOfVarchar(); }
+    protected ConditionValue xgetCValueTypeOfClob() { return _myCQ.xdfgetTypeOfClob(); }
+    protected ConditionValue xgetCValueTypeOfText() { return _myCQ.xdfgetTypeOfText(); }
+    protected ConditionValue xgetCValueTypeOfNumericInteger() { return _myCQ.xdfgetTypeOfNumericInteger(); }
+    protected ConditionValue xgetCValueTypeOfNumericBigint() { return _myCQ.xdfgetTypeOfNumericBigint(); }
+    protected ConditionValue xgetCValueTypeOfNumericDecimal() { return _myCQ.xdfgetTypeOfNumericDecimal(); }
+    protected ConditionValue xgetCValueTypeOfNumericIntegerMin() { return _myCQ.xdfgetTypeOfNumericIntegerMin(); }
+    protected ConditionValue xgetCValueTypeOfNumericIntegerMax() { return _myCQ.xdfgetTypeOfNumericIntegerMax(); }
+    protected ConditionValue xgetCValueTypeOfNumericBigintMin() { return _myCQ.xdfgetTypeOfNumericBigintMin(); }
+    protected ConditionValue xgetCValueTypeOfNumericBigintMax() { return _myCQ.xdfgetTypeOfNumericBigintMax(); }
+    protected ConditionValue xgetCValueTypeOfNumericSuperintMin() { return _myCQ.xdfgetTypeOfNumericSuperintMin(); }
+    protected ConditionValue xgetCValueTypeOfNumericSuperintMax() { return _myCQ.xdfgetTypeOfNumericSuperintMax(); }
+    protected ConditionValue xgetCValueTypeOfNumericMaxdecimal() { return _myCQ.xdfgetTypeOfNumericMaxdecimal(); }
+    protected ConditionValue xgetCValueTypeOfInteger() { return _myCQ.xdfgetTypeOfInteger(); }
+    protected ConditionValue xgetCValueTypeOfBigint() { return _myCQ.xdfgetTypeOfBigint(); }
+    protected ConditionValue xgetCValueTypeOfDate() { return _myCQ.xdfgetTypeOfDate(); }
+    protected ConditionValue xgetCValueTypeOfTimestamp() { return _myCQ.xdfgetTypeOfTimestamp(); }
+    protected ConditionValue xgetCValueTypeOfTime() { return _myCQ.xdfgetTypeOfTime(); }
+    protected ConditionValue xgetCValueTypeOfBoolean() { return _myCQ.xdfgetTypeOfBoolean(); }
+    protected ConditionValue xgetCValueTypeOfBinary() { return _myCQ.xdfgetTypeOfBinary(); }
+    protected ConditionValue xgetCValueTypeOfBlob() { return _myCQ.xdfgetTypeOfBlob(); }
+    protected ConditionValue xgetCValueTypeOfUuid() { return _myCQ.xdfgetTypeOfUuid(); }
+    protected ConditionValue xgetCValueTypeOfArray() { return _myCQ.xdfgetTypeOfArray(); }
+    protected ConditionValue xgetCValueTypeOfOther() { return _myCQ.xdfgetTypeOfOther(); }
+    protected ConditionValue xgetCValueJAVABeansProperty() { return _myCQ.xdfgetJAVABeansProperty(); }
+    protected ConditionValue xgetCValueJPopBeansProperty() { return _myCQ.xdfgetJPopBeansProperty(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(VendorCheckCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

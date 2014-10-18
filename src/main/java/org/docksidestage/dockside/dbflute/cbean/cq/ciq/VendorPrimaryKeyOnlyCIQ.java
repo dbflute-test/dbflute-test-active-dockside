@@ -76,7 +76,7 @@ public class VendorPrimaryKeyOnlyCIQ extends AbstractBsVendorPrimaryKeyOnlyCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValuePrimaryKeyOnlyId() { return _myCQ.getPrimaryKeyOnlyId(); }
+    protected ConditionValue xgetCValuePrimaryKeyOnlyId() { return _myCQ.xdfgetPrimaryKeyOnlyId(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(VendorPrimaryKeyOnlyCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

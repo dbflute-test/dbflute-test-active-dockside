@@ -20,9 +20,7 @@ import java.util.*;
 import org.dbflute.outsidesql.typed.*;
 import org.dbflute.jdbc.*;
 import org.dbflute.cbean.coption.LikeSearchOption;
-import org.dbflute.exception.*;
 import org.dbflute.outsidesql.PmbCustodial;
-import org.dbflute.outsidesql.PmbCustodial.ShortCharHandlingMode;
 import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.allcommon.*;
 import org.docksidestage.dockside.dbflute.exbhv.*;
@@ -71,17 +69,13 @@ public class BsPurchaseSummaryMemberPmb implements CursorHandlingPmb<MemberBhv, 
     /**
      * {@inheritDoc}
      */
-    public String getOutsideSqlPath() {
-        return "selectPurchaseSummaryMember";
-    }
+    public String getOutsideSqlPath() { return "selectPurchaseSummaryMember"; }
 
     /**
      * Get the type of an entity for result. (implementation)
      * @return The type instance of an entity, cursor handling. (NotNull)
      */
-    public Class<Void> getEntityType() {
-        return Void.class;
-    }
+    public Class<Void> getEntityType() { return Void.class; }
 
     // ===================================================================================
     //                                                                       Safety Result
@@ -106,84 +100,25 @@ public class BsPurchaseSummaryMemberPmb implements CursorHandlingPmb<MemberBhv, 
     // -----------------------------------------------------
     //                                                String
     //                                                ------
-    protected String filterStringParameter(String value) {
-        return isEmptyStringParameterAllowed() ? value : convertEmptyToNull(value);
-    }
-
-    protected boolean isEmptyStringParameterAllowed() {
-	    return DBFluteConfig.getInstance().isEmptyStringParameterAllowed();
-    }
-
-    protected String convertEmptyToNull(String value) {
-	    return PmbCustodial.convertEmptyToNull(value);
-    }
-
-    protected String handleShortChar(String propertyName, String value, Integer size) {
-        ShortCharHandlingMode mode = chooseShortCharHandlingMode(propertyName, value, size);
-        return PmbCustodial.handleShortChar(propertyName, value, size, mode);
-    }
-
-    protected ShortCharHandlingMode chooseShortCharHandlingMode(String propertyName, String value, Integer size) {
-        return ShortCharHandlingMode.NONE;
-    }
-
-    protected void assertLikeSearchOptionValid(String name, LikeSearchOption option) {
-        if (option == null) {
-            String msg = "The like-search option is required!";
-            throw new RequiredOptionNotFoundException(msg);
-        }
-        if (option.isSplit()) {
-            String msg = "The split of like-search is NOT available on parameter-bean.";
-            msg = msg + " Don't use splitByXxx(): " + option;
-            throw new IllegalOutsideSqlOperationException(msg);
-        }
-    }
+    protected String filterStringParameter(String value) { return isEmptyStringParameterAllowed() ? value : convertEmptyToNull(value); }
+    protected boolean isEmptyStringParameterAllowed() { return DBFluteConfig.getInstance().isEmptyStringParameterAllowed(); }
+    protected String convertEmptyToNull(String value) { return PmbCustodial.convertEmptyToNull(value); }
+    
+    protected void assertLikeSearchOptionValid(String name, LikeSearchOption option) { PmbCustodial.assertLikeSearchOptionValid(name, option); }
 
     // -----------------------------------------------------
     //                                                  Date
     //                                                  ----
-    protected Date toUtilDate(Object date) {
-        return PmbCustodial.toUtilDate(date, _timeZone);
-    }
-
-    protected String formatUtilDate(Date date) {
-        String pattern = "yyyy-MM-dd";
-        return PmbCustodial.formatUtilDate(date, pattern, _timeZone);
-    }
-
-    protected TimeZone chooseRealTimeZone() {
-        return PmbCustodial.chooseRealTimeZone(_timeZone);
-    }
-
-    /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
-     * (DBFlute system's time-zone is used as default)
-     * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
-     */
-    public void zone(TimeZone timeZone) {
-        _timeZone = timeZone;
-    }
+    protected Date toUtilDate(Object date) { return PmbCustodial.toUtilDate(date, _timeZone); }
 
     // -----------------------------------------------------
-    //                                               Various
-    //                                               -------
-    protected <NUMBER extends Number> NUMBER toNumber(Object obj, Class<NUMBER> type) { // might be called by option handling
-        return PmbCustodial.toNumber(obj, type);
-    }
-
-    protected Boolean toBoolean(Object obj) {
-        return PmbCustodial.toBoolean(obj);
-    }
-
-    protected String formatByteArray(byte[] bytes) {
-        return PmbCustodial.formatByteArray(bytes);
-    }
-
+    //                                    by Option Handling
+    //                                    ------------------
+    // might be called by option handling
+    protected <NUMBER extends Number> NUMBER toNumber(Object obj, Class<NUMBER> type) { return PmbCustodial.toNumber(obj, type); }
+    protected Boolean toBoolean(Object obj) { return PmbCustodial.toBoolean(obj); }
     @SuppressWarnings("unchecked")
-    protected <ELEMENT> ArrayList<ELEMENT> newArrayList(ELEMENT... elements) { // might be called by option handling
-        return PmbCustodial.newArrayList(elements);
-    }
+    protected <ELEMENT> ArrayList<ELEMENT> newArrayList(ELEMENT... elements) { return PmbCustodial.newArrayList(elements); }
 
     // ===================================================================================
     //                                                                      Basic Override

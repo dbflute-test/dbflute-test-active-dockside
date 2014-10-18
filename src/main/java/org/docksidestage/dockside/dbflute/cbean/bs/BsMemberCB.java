@@ -204,10 +204,14 @@ public class BsMemberCB extends AbstractConditionBean {
      */
     public MemberCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
-    public MemberCQ getConditionQuery() { // public for parameter comment and internal
+    public MemberCQ xdfgetConditionQuery() { // public for parameter comment and internal
+        return doGetConditionQuery();
+    }
+
+    protected MemberCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
@@ -228,8 +232,11 @@ public class BsMemberCB extends AbstractConditionBean {
         return new MemberCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public ConditionQuery localCQ() {
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
     // ===================================================================================
@@ -296,7 +303,7 @@ public class BsMemberCB extends AbstractConditionBean {
     }
 
     protected MemberAddressNss _nssMemberAddressAsValid;
-    public MemberAddressNss getNssMemberAddressAsValid() {
+    public MemberAddressNss xdfgetNssMemberAddressAsValid() {
         if (_nssMemberAddressAsValid == null) { _nssMemberAddressAsValid = new MemberAddressNss(null); }
         return _nssMemberAddressAsValid;
     }
@@ -323,7 +330,7 @@ public class BsMemberCB extends AbstractConditionBean {
     }
 
     protected MemberLoginNss _nssMemberLoginAsLatest;
-    public MemberLoginNss getNssMemberLoginAsLatest() {
+    public MemberLoginNss xdfgetNssMemberLoginAsLatest() {
         if (_nssMemberLoginAsLatest == null) { _nssMemberLoginAsLatest = new MemberLoginNss(null); }
         return _nssMemberLoginAsLatest;
     }
@@ -349,7 +356,7 @@ public class BsMemberCB extends AbstractConditionBean {
     }
 
     protected MemberSecurityNss _nssMemberSecurityAsOne;
-    public MemberSecurityNss getNssMemberSecurityAsOne() {
+    public MemberSecurityNss xdfgetNssMemberSecurityAsOne() {
         if (_nssMemberSecurityAsOne == null) { _nssMemberSecurityAsOne = new MemberSecurityNss(null); }
         return _nssMemberSecurityAsOne;
     }
@@ -373,7 +380,7 @@ public class BsMemberCB extends AbstractConditionBean {
     }
 
     protected MemberServiceNss _nssMemberServiceAsOne;
-    public MemberServiceNss getNssMemberServiceAsOne() {
+    public MemberServiceNss xdfgetNssMemberServiceAsOne() {
         if (_nssMemberServiceAsOne == null) { _nssMemberServiceAsOne = new MemberServiceNss(null); }
         return _nssMemberServiceAsOne;
     }
@@ -397,7 +404,7 @@ public class BsMemberCB extends AbstractConditionBean {
     }
 
     protected MemberWithdrawalNss _nssMemberWithdrawalAsOne;
-    public MemberWithdrawalNss getNssMemberWithdrawalAsOne() {
+    public MemberWithdrawalNss xdfgetNssMemberWithdrawalAsOne() {
         if (_nssMemberWithdrawalAsOne == null) { _nssMemberWithdrawalAsOne = new MemberWithdrawalNss(null); }
         return _nssMemberWithdrawalAsOne;
     }
@@ -447,7 +454,7 @@ public class BsMemberCB extends AbstractConditionBean {
         if (_specification == null) { _specification = new HpSpecification(this
             , new HpSpQyCall<MemberCQ>() {
                 public boolean has() { return true; }
-                public MemberCQ qy() { return getConditionQuery(); }
+                public MemberCQ qy() { return xdfgetConditionQuery(); }
             }
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
@@ -594,12 +601,12 @@ public class BsMemberCB extends AbstractConditionBean {
             if (_memberAddressAsValid == null) {
                 _memberAddressAsValid = new MemberAddressCB.HpSpecification(_baseCB, new HpSpQyCall<MemberAddressCQ>() {
                     public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryMemberAddressAsValid(); }
-                    public MemberAddressCQ qy() { return _qyCall.qy().getConditionQueryMemberAddressAsValid(); } }
+                    public MemberAddressCQ qy() { return _qyCall.qy().xdfgetConditionQueryMemberAddressAsValid(); } }
                     , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
                     _memberAddressAsValid.xsetSyncQyCall(new HpSpQyCall<MemberAddressCQ>() {
                         public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMemberAddressAsValid(); }
-                        public MemberAddressCQ qy() { return xsyncQyCall().qy().getConditionQueryMemberAddressAsValid(); }
+                        public MemberAddressCQ qy() { return xsyncQyCall().qy().xdfgetConditionQueryMemberAddressAsValid(); }
                     });
                 }
             }
@@ -933,8 +940,8 @@ public class BsMemberCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String getConditionBeanClassNameInternally() { return MemberCB.class.getName(); }
-    protected String getConditionQueryClassNameInternally() { return MemberCQ.class.getName(); }
-    protected String getSubQueryClassNameInternally() { return SubQuery.class.getName(); }
-    protected String getConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return MemberCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return MemberCQ.class.getName(); }
+    protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
+    protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

@@ -76,17 +76,15 @@ public class LoaderOfMemberFollowing {
     //                                                                    ================
     protected LoaderOfMember _foreignMemberByMyMemberIdLoader;
     public LoaderOfMember pulloutMemberByMyMemberId() {
-        if (_foreignMemberByMyMemberIdLoader != null) { return _foreignMemberByMyMemberIdLoader; }
-        List<Member> pulledList = myBhv().pulloutMemberByMyMemberId(_selectedList);
-        _foreignMemberByMyMemberIdLoader = new LoaderOfMember().ready(pulledList, _selector);
+        if (_foreignMemberByMyMemberIdLoader == null)
+        { _foreignMemberByMyMemberIdLoader = new LoaderOfMember().ready(myBhv().pulloutMemberByMyMemberId(_selectedList), _selector); }
         return _foreignMemberByMyMemberIdLoader;
     }
 
     protected LoaderOfMember _foreignMemberByYourMemberIdLoader;
     public LoaderOfMember pulloutMemberByYourMemberId() {
-        if (_foreignMemberByYourMemberIdLoader != null) { return _foreignMemberByYourMemberIdLoader; }
-        List<Member> pulledList = myBhv().pulloutMemberByYourMemberId(_selectedList);
-        _foreignMemberByYourMemberIdLoader = new LoaderOfMember().ready(pulledList, _selector);
+        if (_foreignMemberByYourMemberIdLoader == null)
+        { _foreignMemberByYourMemberIdLoader = new LoaderOfMember().ready(myBhv().pulloutMemberByYourMemberId(_selectedList), _selector); }
         return _foreignMemberByYourMemberIdLoader;
     }
 

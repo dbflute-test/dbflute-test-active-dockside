@@ -149,7 +149,6 @@ public class PmCommentCollectionDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public PmCommentCollection newEntity() { return new PmCommentCollection(); }
-    public PmCommentCollection newMyEntity() { return new PmCommentCollection(); }
 
     // ===================================================================================
     //                                                                   Map Communication

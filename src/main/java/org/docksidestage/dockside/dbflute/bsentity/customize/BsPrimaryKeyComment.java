@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
+import org.dbflute.FunCustodial;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.derived.DerivedMappable;
 import org.docksidestage.dockside.dbflute.allcommon.EntityDefinedCommonColumn;

@@ -89,10 +89,10 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _memberId;
-    public ConditionValue getMemberId()
+    public ConditionValue xdfgetMemberId()
     { if (_memberId == null) { _memberId = nCV(); }
       return _memberId; }
-    protected ConditionValue getCValueMemberId() { return getMemberId(); }
+    protected ConditionValue xgetCValueMemberId() { return xdfgetMemberId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -109,10 +109,10 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_MemberId_Desc() { regOBD("MEMBER_ID"); return this; }
 
     protected ConditionValue _memberName;
-    public ConditionValue getMemberName()
+    public ConditionValue xdfgetMemberName()
     { if (_memberName == null) { _memberName = nCV(); }
       return _memberName; }
-    protected ConditionValue getCValueMemberName() { return getMemberName(); }
+    protected ConditionValue xgetCValueMemberName() { return xdfgetMemberName(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -129,10 +129,10 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_MemberName_Desc() { regOBD("MEMBER_NAME"); return this; }
 
     protected ConditionValue _withdrawalReasonCode;
-    public ConditionValue getWithdrawalReasonCode()
+    public ConditionValue xdfgetWithdrawalReasonCode()
     { if (_withdrawalReasonCode == null) { _withdrawalReasonCode = nCV(); }
       return _withdrawalReasonCode; }
-    protected ConditionValue getCValueWithdrawalReasonCode() { return getWithdrawalReasonCode(); }
+    protected ConditionValue xgetCValueWithdrawalReasonCode() { return xdfgetWithdrawalReasonCode(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -149,10 +149,10 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalReasonCode_Desc() { regOBD("WITHDRAWAL_REASON_CODE"); return this; }
 
     protected ConditionValue _withdrawalReasonText;
-    public ConditionValue getWithdrawalReasonText()
+    public ConditionValue xdfgetWithdrawalReasonText()
     { if (_withdrawalReasonText == null) { _withdrawalReasonText = nCV(); }
       return _withdrawalReasonText; }
-    protected ConditionValue getCValueWithdrawalReasonText() { return getWithdrawalReasonText(); }
+    protected ConditionValue xgetCValueWithdrawalReasonText() { return xdfgetWithdrawalReasonText(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -169,10 +169,10 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalReasonText_Desc() { regOBD("WITHDRAWAL_REASON_TEXT"); return this; }
 
     protected ConditionValue _withdrawalReasonInputText;
-    public ConditionValue getWithdrawalReasonInputText()
+    public ConditionValue xdfgetWithdrawalReasonInputText()
     { if (_withdrawalReasonInputText == null) { _withdrawalReasonInputText = nCV(); }
       return _withdrawalReasonInputText; }
-    protected ConditionValue getCValueWithdrawalReasonInputText() { return getWithdrawalReasonInputText(); }
+    protected ConditionValue xgetCValueWithdrawalReasonInputText() { return xdfgetWithdrawalReasonInputText(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -189,10 +189,10 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalReasonInputText_Desc() { regOBD("WITHDRAWAL_REASON_INPUT_TEXT"); return this; }
 
     protected ConditionValue _withdrawalDatetime;
-    public ConditionValue getWithdrawalDatetime()
+    public ConditionValue xdfgetWithdrawalDatetime()
     { if (_withdrawalDatetime == null) { _withdrawalDatetime = nCV(); }
       return _withdrawalDatetime; }
-    protected ConditionValue getCValueWithdrawalDatetime() { return getWithdrawalDatetime(); }
+    protected ConditionValue xgetCValueWithdrawalDatetime() { return xdfgetWithdrawalDatetime(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -209,10 +209,10 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalDatetime_Desc() { regOBD("WITHDRAWAL_DATETIME"); return this; }
 
     protected ConditionValue _memberStatusCode;
-    public ConditionValue getMemberStatusCode()
+    public ConditionValue xdfgetMemberStatusCode()
     { if (_memberStatusCode == null) { _memberStatusCode = nCV(); }
       return _memberStatusCode; }
-    protected ConditionValue getCValueMemberStatusCode() { return getMemberStatusCode(); }
+    protected ConditionValue xgetCValueMemberStatusCode() { return xdfgetMemberStatusCode(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -229,10 +229,10 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_MemberStatusCode_Desc() { regOBD("MEMBER_STATUS_CODE"); return this; }
 
     protected ConditionValue _memberStatusName;
-    public ConditionValue getMemberStatusName()
+    public ConditionValue xdfgetMemberStatusName()
     { if (_memberStatusName == null) { _memberStatusName = nCV(); }
       return _memberStatusName; }
-    protected ConditionValue getCValueMemberStatusName() { return getMemberStatusName(); }
+    protected ConditionValue xgetCValueMemberStatusName() { return xdfgetMemberStatusName(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -249,10 +249,10 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     public BsSummaryWithdrawalCQ addOrderBy_MemberStatusName_Desc() { regOBD("MEMBER_STATUS_NAME"); return this; }
 
     protected ConditionValue _maxPurchasePrice;
-    public ConditionValue getMaxPurchasePrice()
+    public ConditionValue xdfgetMaxPurchasePrice()
     { if (_maxPurchasePrice == null) { _maxPurchasePrice = nCV(); }
       return _maxPurchasePrice; }
-    protected ConditionValue getCValueMaxPurchasePrice() { return getMaxPurchasePrice(); }
+    protected ConditionValue xgetCValueMaxPurchasePrice() { return xdfgetMaxPurchasePrice(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -319,7 +319,7 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, SummaryWithdrawalCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public Map<String, SummaryWithdrawalCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
     public String keepScalarCondition(SummaryWithdrawalCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================

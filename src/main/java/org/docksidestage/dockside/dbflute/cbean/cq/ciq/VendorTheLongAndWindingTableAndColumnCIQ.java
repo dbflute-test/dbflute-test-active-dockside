@@ -76,7 +76,7 @@ public class VendorTheLongAndWindingTableAndColumnCIQ extends AbstractBsVendorTh
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueTheLongAndWindingTableAndColumnId() { return _myCQ.getTheLongAndWindingTableAndColumnId(); }
+    protected ConditionValue xgetCValueTheLongAndWindingTableAndColumnId() { return _myCQ.xdfgetTheLongAndWindingTableAndColumnId(); }
     public String keepTheLongAndWindingTableAndColumnId_ExistsReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepTheLongAndWindingTableAndColumnId_NotExistsReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ sq)
@@ -87,9 +87,9 @@ public class VendorTheLongAndWindingTableAndColumnCIQ extends AbstractBsVendorTh
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    protected ConditionValue getCValueTheLongAndWindingTableAndColumnName() { return _myCQ.getTheLongAndWindingTableAndColumnName(); }
-    protected ConditionValue getCValueShortName() { return _myCQ.getShortName(); }
-    protected ConditionValue getCValueShortSize() { return _myCQ.getShortSize(); }
+    protected ConditionValue xgetCValueTheLongAndWindingTableAndColumnName() { return _myCQ.xdfgetTheLongAndWindingTableAndColumnName(); }
+    protected ConditionValue xgetCValueShortName() { return _myCQ.xdfgetShortName(); }
+    protected ConditionValue xgetCValueShortSize() { return _myCQ.xdfgetShortSize(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(VendorTheLongAndWindingTableAndColumnCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

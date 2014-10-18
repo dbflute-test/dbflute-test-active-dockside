@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import org.dbflute.Entity;
+import org.dbflute.FunCustodial;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.derived.DerivedMappable;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;

@@ -89,10 +89,10 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _memberLoginId;
-    public ConditionValue getMemberLoginId()
+    public ConditionValue xdfgetMemberLoginId()
     { if (_memberLoginId == null) { _memberLoginId = nCV(); }
       return _memberLoginId; }
-    protected ConditionValue getCValueMemberLoginId() { return getMemberLoginId(); }
+    protected ConditionValue xgetCValueMemberLoginId() { return xdfgetMemberLoginId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -109,10 +109,10 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
     public BsMemberLoginCQ addOrderBy_MemberLoginId_Desc() { regOBD("MEMBER_LOGIN_ID"); return this; }
 
     protected ConditionValue _memberId;
-    public ConditionValue getMemberId()
+    public ConditionValue xdfgetMemberId()
     { if (_memberId == null) { _memberId = nCV(); }
       return _memberId; }
-    protected ConditionValue getCValueMemberId() { return getMemberId(); }
+    protected ConditionValue xgetCValueMemberId() { return xdfgetMemberId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -129,10 +129,10 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
     public BsMemberLoginCQ addOrderBy_MemberId_Desc() { regOBD("MEMBER_ID"); return this; }
 
     protected ConditionValue _loginDatetime;
-    public ConditionValue getLoginDatetime()
+    public ConditionValue xdfgetLoginDatetime()
     { if (_loginDatetime == null) { _loginDatetime = nCV(); }
       return _loginDatetime; }
-    protected ConditionValue getCValueLoginDatetime() { return getLoginDatetime(); }
+    protected ConditionValue xgetCValueLoginDatetime() { return xdfgetLoginDatetime(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -149,10 +149,10 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
     public BsMemberLoginCQ addOrderBy_LoginDatetime_Desc() { regOBD("LOGIN_DATETIME"); return this; }
 
     protected ConditionValue _mobileLoginFlg;
-    public ConditionValue getMobileLoginFlg()
+    public ConditionValue xdfgetMobileLoginFlg()
     { if (_mobileLoginFlg == null) { _mobileLoginFlg = nCV(); }
       return _mobileLoginFlg; }
-    protected ConditionValue getCValueMobileLoginFlg() { return getMobileLoginFlg(); }
+    protected ConditionValue xgetCValueMobileLoginFlg() { return xdfgetMobileLoginFlg(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -169,10 +169,10 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
     public BsMemberLoginCQ addOrderBy_MobileLoginFlg_Desc() { regOBD("MOBILE_LOGIN_FLG"); return this; }
 
     protected ConditionValue _loginMemberStatusCode;
-    public ConditionValue getLoginMemberStatusCode()
+    public ConditionValue xdfgetLoginMemberStatusCode()
     { if (_loginMemberStatusCode == null) { _loginMemberStatusCode = nCV(); }
       return _loginMemberStatusCode; }
-    protected ConditionValue getCValueLoginMemberStatusCode() { return getLoginMemberStatusCode(); }
+    protected ConditionValue xgetCValueLoginMemberStatusCode() { return xdfgetLoginMemberStatusCode(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -246,9 +246,9 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
      * @return The instance of condition-query. (NotNull)
      */
     public MemberStatusCQ queryMemberStatus() {
-        return getConditionQueryMemberStatus();
+        return xdfgetConditionQueryMemberStatus();
     }
-    public MemberStatusCQ getConditionQueryMemberStatus() {
+    public MemberStatusCQ xdfgetConditionQueryMemberStatus() {
         String prop = "memberStatus";
         if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMemberStatus()); xsetupOuterJoinMemberStatus(); }
         return xgetQueRlMap(prop);
@@ -266,9 +266,9 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
      * @return The instance of condition-query. (NotNull)
      */
     public MemberCQ queryMember() {
-        return getConditionQueryMember();
+        return xdfgetConditionQueryMember();
     }
-    public MemberCQ getConditionQueryMember() {
+    public MemberCQ xdfgetConditionQueryMember() {
         String prop = "member";
         if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMember()); xsetupOuterJoinMember(); }
         return xgetQueRlMap(prop);
@@ -287,31 +287,31 @@ public class BsMemberLoginCQ extends AbstractBsMemberLoginCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, MemberLoginCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public Map<String, MemberLoginCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
     public String keepScalarCondition(MemberLoginCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, MemberLoginCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public Map<String, MemberLoginCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
     public String keepSpecifyMyselfDerived(MemberLoginCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, MemberLoginCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public Map<String, MemberLoginCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerived(MemberLoginCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, MemberLoginCQ> _myselfExistsMap;
-    public Map<String, MemberLoginCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public Map<String, MemberLoginCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
     public String keepMyselfExists(MemberLoginCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, MemberLoginCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public Map<String, MemberLoginCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
     public String keepMyselfInScope(MemberLoginCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================

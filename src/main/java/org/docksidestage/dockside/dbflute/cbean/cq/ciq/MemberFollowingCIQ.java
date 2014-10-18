@@ -76,10 +76,10 @@ public class MemberFollowingCIQ extends AbstractBsMemberFollowingCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueMemberFollowingId() { return _myCQ.getMemberFollowingId(); }
-    protected ConditionValue getCValueMyMemberId() { return _myCQ.getMyMemberId(); }
-    protected ConditionValue getCValueYourMemberId() { return _myCQ.getYourMemberId(); }
-    protected ConditionValue getCValueFollowDatetime() { return _myCQ.getFollowDatetime(); }
+    protected ConditionValue xgetCValueMemberFollowingId() { return _myCQ.xdfgetMemberFollowingId(); }
+    protected ConditionValue xgetCValueMyMemberId() { return _myCQ.xdfgetMyMemberId(); }
+    protected ConditionValue xgetCValueYourMemberId() { return _myCQ.xdfgetYourMemberId(); }
+    protected ConditionValue xgetCValueFollowDatetime() { return _myCQ.xdfgetFollowDatetime(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(MemberFollowingCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

@@ -78,14 +78,8 @@ public class LoaderOfRegion {
     //                                                                       =============
     protected List<MemberAddress> _referrerMemberAddress;
     public NestedReferrerLoaderGateway<LoaderOfMemberAddress> loadMemberAddress(ConditionBeanSetupper<MemberAddressCB> refCBLambda) {
-        myBhv().loadMemberAddress(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<MemberAddress>() {
-            public void handle(List<MemberAddress> referrerList) { _referrerMemberAddress = referrerList; }
-        });
-        return new NestedReferrerLoaderGateway<LoaderOfMemberAddress>() {
-            public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfMemberAddress> handler) {
-                handler.handle(new LoaderOfMemberAddress().ready(_referrerMemberAddress, _selector));
-            }
-        };
+        myBhv().loadMemberAddress(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerMemberAddress = refLs);
+        return hd -> hd.handle(new LoaderOfMemberAddress().ready(_referrerMemberAddress, _selector));
     }
 
     // ===================================================================================

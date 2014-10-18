@@ -137,7 +137,6 @@ public class VendorNumericIntegerSumDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public VendorNumericIntegerSum newEntity() { return new VendorNumericIntegerSum(); }
-    public VendorNumericIntegerSum newMyEntity() { return new VendorNumericIntegerSum(); }
 
     // ===================================================================================
     //                                                                   Map Communication

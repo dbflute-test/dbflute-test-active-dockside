@@ -137,7 +137,6 @@ public class ForcedTypeDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public ForcedType newEntity() { return new ForcedType(); }
-    public ForcedType newMyEntity() { return new ForcedType(); }
 
     // ===================================================================================
     //                                                                   Map Communication

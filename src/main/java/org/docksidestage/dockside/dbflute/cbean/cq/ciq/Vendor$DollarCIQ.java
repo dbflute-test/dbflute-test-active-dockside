@@ -76,8 +76,8 @@ public class Vendor$DollarCIQ extends AbstractBsVendor$DollarCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueVendor$DollarId() { return _myCQ.getVendor$DollarId(); }
-    protected ConditionValue getCValueVendor$DollarName() { return _myCQ.getVendor$DollarName(); }
+    protected ConditionValue xgetCValueVendor$DollarId() { return _myCQ.xdfgetVendor$DollarId(); }
+    protected ConditionValue xgetCValueVendor$DollarName() { return _myCQ.xdfgetVendor$DollarName(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(Vendor$DollarCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

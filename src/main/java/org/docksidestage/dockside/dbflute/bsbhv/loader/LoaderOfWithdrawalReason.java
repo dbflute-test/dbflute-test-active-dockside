@@ -78,14 +78,8 @@ public class LoaderOfWithdrawalReason {
     //                                                                       =============
     protected List<MemberWithdrawal> _referrerMemberWithdrawal;
     public NestedReferrerLoaderGateway<LoaderOfMemberWithdrawal> loadMemberWithdrawal(ConditionBeanSetupper<MemberWithdrawalCB> refCBLambda) {
-        myBhv().loadMemberWithdrawal(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<MemberWithdrawal>() {
-            public void handle(List<MemberWithdrawal> referrerList) { _referrerMemberWithdrawal = referrerList; }
-        });
-        return new NestedReferrerLoaderGateway<LoaderOfMemberWithdrawal>() {
-            public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfMemberWithdrawal> handler) {
-                handler.handle(new LoaderOfMemberWithdrawal().ready(_referrerMemberWithdrawal, _selector));
-            }
-        };
+        myBhv().loadMemberWithdrawal(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerMemberWithdrawal = refLs);
+        return hd -> hd.handle(new LoaderOfMemberWithdrawal().ready(_referrerMemberWithdrawal, _selector));
     }
 
     // ===================================================================================

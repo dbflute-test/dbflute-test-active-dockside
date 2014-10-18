@@ -21,9 +21,7 @@ import org.dbflute.outsidesql.typed.*;
 import org.dbflute.jdbc.*;
 import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.coption.FromToOption;
-import org.dbflute.exception.*;
 import org.dbflute.outsidesql.PmbCustodial;
-import org.dbflute.outsidesql.PmbCustodial.ShortCharHandlingMode;
 import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.allcommon.*;
 import org.docksidestage.dockside.dbflute.exbhv.*;
@@ -115,17 +113,13 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /**
      * {@inheritDoc}
      */
-    public String getOutsideSqlPath() {
-        return "selectOptionMember";
-    }
+    public String getOutsideSqlPath() { return "selectOptionMember"; }
 
     /**
      * Get the type of an entity for result. (implementation)
      * @return The type instance of an entity, customize entity. (NotNull)
      */
-    public Class<OptionMember> getEntityType() {
-        return OptionMember.class;
-    }
+    public Class<OptionMember> getEntityType() { return OptionMember.class; }
 
     // ===================================================================================
     //                                                                       Safety Result
@@ -150,92 +144,28 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     // -----------------------------------------------------
     //                                                String
     //                                                ------
-    protected String filterStringParameter(String value) {
-        return isEmptyStringParameterAllowed() ? value : convertEmptyToNull(value);
-    }
-
-    protected boolean isEmptyStringParameterAllowed() {
-	    return DBFluteConfig.getInstance().isEmptyStringParameterAllowed();
-    }
-
-    protected String convertEmptyToNull(String value) {
-	    return PmbCustodial.convertEmptyToNull(value);
-    }
-
-    protected String handleShortChar(String propertyName, String value, Integer size) {
-        ShortCharHandlingMode mode = chooseShortCharHandlingMode(propertyName, value, size);
-        return PmbCustodial.handleShortChar(propertyName, value, size, mode);
-    }
-
-    protected ShortCharHandlingMode chooseShortCharHandlingMode(String propertyName, String value, Integer size) {
-        return ShortCharHandlingMode.NONE;
-    }
-
-    protected void assertLikeSearchOptionValid(String name, LikeSearchOption option) {
-        if (option == null) {
-            String msg = "The like-search option is required!";
-            throw new RequiredOptionNotFoundException(msg);
-        }
-        if (option.isSplit()) {
-            String msg = "The split of like-search is NOT available on parameter-bean.";
-            msg = msg + " Don't use splitByXxx(): " + option;
-            throw new IllegalOutsideSqlOperationException(msg);
-        }
-    }
+    protected String filterStringParameter(String value) { return isEmptyStringParameterAllowed() ? value : convertEmptyToNull(value); }
+    protected boolean isEmptyStringParameterAllowed() { return DBFluteConfig.getInstance().isEmptyStringParameterAllowed(); }
+    protected String convertEmptyToNull(String value) { return PmbCustodial.convertEmptyToNull(value); }
+    
+    protected void assertLikeSearchOptionValid(String name, LikeSearchOption option) { PmbCustodial.assertLikeSearchOptionValid(name, option); }
 
     // -----------------------------------------------------
     //                                                  Date
     //                                                  ----
-    protected Date toUtilDate(Object date) {
-        return PmbCustodial.toUtilDate(date, _timeZone);
-    }
+    protected Date toUtilDate(Object date) { return PmbCustodial.toUtilDate(date, _timeZone); }
 
-    protected String formatUtilDate(Date date) {
-        String pattern = "yyyy-MM-dd";
-        return PmbCustodial.formatUtilDate(date, pattern, _timeZone);
-    }
-
-    protected void assertFromToOptionValid(String name, FromToOption option) {
-        PmbCustodial.assertFromToOptionValid(name, option);
-    }
-
-    protected FromToOption createFromToOption() {
-        return PmbCustodial.createFromToOption(_timeZone);
-    }
-
-    protected TimeZone chooseRealTimeZone() {
-        return PmbCustodial.chooseRealTimeZone(_timeZone);
-    }
-
-    /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
-     * (DBFlute system's time-zone is used as default)
-     * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
-     */
-    public void zone(TimeZone timeZone) {
-        _timeZone = timeZone;
-    }
+    protected void assertFromToOptionValid(String name, FromToOption option) { PmbCustodial.assertFromToOptionValid(name, option); }
+    protected FromToOption createFromToOption() { return PmbCustodial.createFromToOption(_timeZone); }
 
     // -----------------------------------------------------
-    //                                               Various
-    //                                               -------
-    protected <NUMBER extends Number> NUMBER toNumber(Object obj, Class<NUMBER> type) { // might be called by option handling
-        return PmbCustodial.toNumber(obj, type);
-    }
-
-    protected Boolean toBoolean(Object obj) {
-        return PmbCustodial.toBoolean(obj);
-    }
-
-    protected String formatByteArray(byte[] bytes) {
-        return PmbCustodial.formatByteArray(bytes);
-    }
-
+    //                                    by Option Handling
+    //                                    ------------------
+    // might be called by option handling
+    protected <NUMBER extends Number> NUMBER toNumber(Object obj, Class<NUMBER> type) { return PmbCustodial.toNumber(obj, type); }
+    protected Boolean toBoolean(Object obj) { return PmbCustodial.toBoolean(obj); }
     @SuppressWarnings("unchecked")
-    protected <ELEMENT> ArrayList<ELEMENT> newArrayList(ELEMENT... elements) { // might be called by option handling
-        return PmbCustodial.newArrayList(elements);
-    }
+    protected <ELEMENT> ArrayList<ELEMENT> newArrayList(ELEMENT... elements) { return PmbCustodial.newArrayList(elements); }
 
     // ===================================================================================
     //                                                                      Basic Override
@@ -256,13 +186,13 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
         sb.append(dm).append(_memberId);
         sb.append(dm).append(_memberName);
         sb.append(dm).append(_memberAccount);
-        sb.append(dm).append(formatUtilDate(_fromFormalizedDate));
-        sb.append(dm).append(formatUtilDate(_toFormalizedDate));
+        sb.append(dm).append(PmbCustodial.formatUtilDate(_fromFormalizedDate, "yyyy-MM-dd", _timeZone));
+        sb.append(dm).append(PmbCustodial.formatUtilDate(_toFormalizedDate, "yyyy-MM-dd", _timeZone));
         sb.append(dm).append(_fromFormalizedMonth);
         sb.append(dm).append(_toFormalizedMonth);
         sb.append(dm).append(_memberStatusCode);
         sb.append(dm).append(_displayOrder);
-        sb.append(dm).append(formatUtilDate(_birthdate));
+        sb.append(dm).append(PmbCustodial.formatUtilDate(_birthdate, "yyyy-MM-dd", _timeZone));
         sb.append(dm).append(_status);
         sb.append(dm).append(_statusFormalized);
         sb.append(dm).append(_statusList);

@@ -146,7 +146,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     public void setTheLongAndWindingTableAndColumnId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, getCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", rangeOfOption);
+        regROO(minNumber, maxNumber, xgetCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", rangeOfOption);
     }
 
     /**
@@ -159,7 +159,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     protected void doSetTheLongAndWindingTableAndColumnId_InScope(Collection<Long> theLongAndWindingTableAndColumnIdList) {
-        regINS(CK_INS, cTL(theLongAndWindingTableAndColumnIdList), getCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID");
+        regINS(CK_INS, cTL(theLongAndWindingTableAndColumnIdList), xgetCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID");
     }
 
     /**
@@ -172,7 +172,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     protected void doSetTheLongAndWindingTableAndColumnId_NotInScope(Collection<Long> theLongAndWindingTableAndColumnIdList) {
-        regINS(CK_NINS, cTL(theLongAndWindingTableAndColumnIdList), getCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID");
+        regINS(CK_NINS, cTL(theLongAndWindingTableAndColumnIdList), xgetCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID");
     }
 
     /**
@@ -270,8 +270,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      */
     public void setTheLongAndWindingTableAndColumnId_IsNotNull() { regTheLongAndWindingTableAndColumnId(CK_ISNN, DOBJ); }
 
-    protected void regTheLongAndWindingTableAndColumnId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID"); }
-    protected abstract ConditionValue getCValueTheLongAndWindingTableAndColumnId();
+    protected void regTheLongAndWindingTableAndColumnId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID"); }
+    protected abstract ConditionValue xgetCValueTheLongAndWindingTableAndColumnId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -345,7 +345,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     protected void doSetTheLongAndWindingTableAndColumnName_InScope(Collection<String> theLongAndWindingTableAndColumnNameList) {
-        regINS(CK_INS, cTL(theLongAndWindingTableAndColumnNameList), getCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME");
+        regINS(CK_INS, cTL(theLongAndWindingTableAndColumnNameList), xgetCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME");
     }
 
     /**
@@ -358,7 +358,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     protected void doSetTheLongAndWindingTableAndColumnName_NotInScope(Collection<String> theLongAndWindingTableAndColumnNameList) {
-        regINS(CK_NINS, cTL(theLongAndWindingTableAndColumnNameList), getCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME");
+        regINS(CK_NINS, cTL(theLongAndWindingTableAndColumnNameList), xgetCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME");
     }
 
     /**
@@ -380,7 +380,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     public void setTheLongAndWindingTableAndColumnName_LikeSearch(String theLongAndWindingTableAndColumnName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(theLongAndWindingTableAndColumnName), getCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME", likeSearchOption);
+        regLSQ(CK_LS, fRES(theLongAndWindingTableAndColumnName), xgetCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME", likeSearchOption);
     }
 
     /**
@@ -402,11 +402,11 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     public void setTheLongAndWindingTableAndColumnName_NotLikeSearch(String theLongAndWindingTableAndColumnName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(theLongAndWindingTableAndColumnName), getCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME", likeSearchOption);
+        regLSQ(CK_NLS, fRES(theLongAndWindingTableAndColumnName), xgetCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME", likeSearchOption);
     }
 
-    protected void regTheLongAndWindingTableAndColumnName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME"); }
-    protected abstract ConditionValue getCValueTheLongAndWindingTableAndColumnName();
+    protected void regTheLongAndWindingTableAndColumnName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME"); }
+    protected abstract ConditionValue xgetCValueTheLongAndWindingTableAndColumnName();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -480,7 +480,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     protected void doSetShortName_InScope(Collection<String> shortNameList) {
-        regINS(CK_INS, cTL(shortNameList), getCValueShortName(), "SHORT_NAME");
+        regINS(CK_INS, cTL(shortNameList), xgetCValueShortName(), "SHORT_NAME");
     }
 
     /**
@@ -493,7 +493,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     protected void doSetShortName_NotInScope(Collection<String> shortNameList) {
-        regINS(CK_NINS, cTL(shortNameList), getCValueShortName(), "SHORT_NAME");
+        regINS(CK_NINS, cTL(shortNameList), xgetCValueShortName(), "SHORT_NAME");
     }
 
     /**
@@ -515,7 +515,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     public void setShortName_LikeSearch(String shortName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(shortName), getCValueShortName(), "SHORT_NAME", likeSearchOption);
+        regLSQ(CK_LS, fRES(shortName), xgetCValueShortName(), "SHORT_NAME", likeSearchOption);
     }
 
     /**
@@ -537,11 +537,11 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     public void setShortName_NotLikeSearch(String shortName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(shortName), getCValueShortName(), "SHORT_NAME", likeSearchOption);
+        regLSQ(CK_NLS, fRES(shortName), xgetCValueShortName(), "SHORT_NAME", likeSearchOption);
     }
 
-    protected void regShortName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueShortName(), "SHORT_NAME"); }
-    protected abstract ConditionValue getCValueShortName();
+    protected void regShortName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueShortName(), "SHORT_NAME"); }
+    protected abstract ConditionValue xgetCValueShortName();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -628,7 +628,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     public void setShortSize_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, getCValueShortSize(), "SHORT_SIZE", rangeOfOption);
+        regROO(minNumber, maxNumber, xgetCValueShortSize(), "SHORT_SIZE", rangeOfOption);
     }
 
     /**
@@ -641,7 +641,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     protected void doSetShortSize_InScope(Collection<Integer> shortSizeList) {
-        regINS(CK_INS, cTL(shortSizeList), getCValueShortSize(), "SHORT_SIZE");
+        regINS(CK_INS, cTL(shortSizeList), xgetCValueShortSize(), "SHORT_SIZE");
     }
 
     /**
@@ -654,11 +654,11 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     protected void doSetShortSize_NotInScope(Collection<Integer> shortSizeList) {
-        regINS(CK_NINS, cTL(shortSizeList), getCValueShortSize(), "SHORT_SIZE");
+        regINS(CK_NINS, cTL(shortSizeList), xgetCValueShortSize(), "SHORT_SIZE");
     }
 
-    protected void regShortSize(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueShortSize(), "SHORT_SIZE"); }
-    protected abstract ConditionValue getCValueShortSize();
+    protected void regShortSize(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueShortSize(), "SHORT_SIZE"); }
+    protected abstract ConditionValue xgetCValueShortSize();
 
     // ===================================================================================
     //                                                                     ScalarCondition

@@ -197,7 +197,6 @@ public class CommonColumnMemberDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public CommonColumnMember newEntity() { return new CommonColumnMember(); }
-    public CommonColumnMember newMyEntity() { return new CommonColumnMember(); }
 
     // ===================================================================================
     //                                                                   Map Communication

@@ -76,17 +76,15 @@ public class LoaderOfMemberService {
     //                                                                    ================
     protected LoaderOfMember _foreignMemberLoader;
     public LoaderOfMember pulloutMember() {
-        if (_foreignMemberLoader != null) { return _foreignMemberLoader; }
-        List<Member> pulledList = myBhv().pulloutMember(_selectedList);
-        _foreignMemberLoader = new LoaderOfMember().ready(pulledList, _selector);
+        if (_foreignMemberLoader == null)
+        { _foreignMemberLoader = new LoaderOfMember().ready(myBhv().pulloutMember(_selectedList), _selector); }
         return _foreignMemberLoader;
     }
 
     protected LoaderOfServiceRank _foreignServiceRankLoader;
     public LoaderOfServiceRank pulloutServiceRank() {
-        if (_foreignServiceRankLoader != null) { return _foreignServiceRankLoader; }
-        List<ServiceRank> pulledList = myBhv().pulloutServiceRank(_selectedList);
-        _foreignServiceRankLoader = new LoaderOfServiceRank().ready(pulledList, _selector);
+        if (_foreignServiceRankLoader == null)
+        { _foreignServiceRankLoader = new LoaderOfServiceRank().ready(myBhv().pulloutServiceRank(_selectedList), _selector); }
         return _foreignServiceRankLoader;
     }
 

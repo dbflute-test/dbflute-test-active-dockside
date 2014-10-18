@@ -76,7 +76,7 @@ public class RegionCIQ extends AbstractBsRegionCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueRegionId() { return _myCQ.getRegionId(); }
+    protected ConditionValue xgetCValueRegionId() { return _myCQ.xdfgetRegionId(); }
     public String keepRegionId_ExistsReferrer_MemberAddressList(MemberAddressCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepRegionId_NotExistsReferrer_MemberAddressList(MemberAddressCQ sq)
@@ -87,7 +87,7 @@ public class RegionCIQ extends AbstractBsRegionCQ {
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepRegionId_QueryDerivedReferrer_MemberAddressListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    protected ConditionValue getCValueRegionName() { return _myCQ.getRegionName(); }
+    protected ConditionValue xgetCValueRegionName() { return _myCQ.xdfgetRegionName(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(RegionCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

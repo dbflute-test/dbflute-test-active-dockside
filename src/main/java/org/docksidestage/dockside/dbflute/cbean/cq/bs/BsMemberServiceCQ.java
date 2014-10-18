@@ -89,10 +89,10 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _memberServiceId;
-    public ConditionValue getMemberServiceId()
+    public ConditionValue xdfgetMemberServiceId()
     { if (_memberServiceId == null) { _memberServiceId = nCV(); }
       return _memberServiceId; }
-    protected ConditionValue getCValueMemberServiceId() { return getMemberServiceId(); }
+    protected ConditionValue xgetCValueMemberServiceId() { return xdfgetMemberServiceId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -109,10 +109,10 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_MemberServiceId_Desc() { regOBD("MEMBER_SERVICE_ID"); return this; }
 
     protected ConditionValue _memberId;
-    public ConditionValue getMemberId()
+    public ConditionValue xdfgetMemberId()
     { if (_memberId == null) { _memberId = nCV(); }
       return _memberId; }
-    protected ConditionValue getCValueMemberId() { return getMemberId(); }
+    protected ConditionValue xgetCValueMemberId() { return xdfgetMemberId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -129,10 +129,10 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_MemberId_Desc() { regOBD("MEMBER_ID"); return this; }
 
     protected ConditionValue _servicePointCount;
-    public ConditionValue getServicePointCount()
+    public ConditionValue xdfgetServicePointCount()
     { if (_servicePointCount == null) { _servicePointCount = nCV(); }
       return _servicePointCount; }
-    protected ConditionValue getCValueServicePointCount() { return getServicePointCount(); }
+    protected ConditionValue xgetCValueServicePointCount() { return xdfgetServicePointCount(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -149,10 +149,10 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_ServicePointCount_Desc() { regOBD("SERVICE_POINT_COUNT"); return this; }
 
     protected ConditionValue _serviceRankCode;
-    public ConditionValue getServiceRankCode()
+    public ConditionValue xdfgetServiceRankCode()
     { if (_serviceRankCode == null) { _serviceRankCode = nCV(); }
       return _serviceRankCode; }
-    protected ConditionValue getCValueServiceRankCode() { return getServiceRankCode(); }
+    protected ConditionValue xgetCValueServiceRankCode() { return xdfgetServiceRankCode(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -169,10 +169,10 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_ServiceRankCode_Desc() { regOBD("SERVICE_RANK_CODE"); return this; }
 
     protected ConditionValue _registerDatetime;
-    public ConditionValue getRegisterDatetime()
+    public ConditionValue xdfgetRegisterDatetime()
     { if (_registerDatetime == null) { _registerDatetime = nCV(); }
       return _registerDatetime; }
-    protected ConditionValue getCValueRegisterDatetime() { return getRegisterDatetime(); }
+    protected ConditionValue xgetCValueRegisterDatetime() { return xdfgetRegisterDatetime(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -189,10 +189,10 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_RegisterDatetime_Desc() { regOBD("REGISTER_DATETIME"); return this; }
 
     protected ConditionValue _registerUser;
-    public ConditionValue getRegisterUser()
+    public ConditionValue xdfgetRegisterUser()
     { if (_registerUser == null) { _registerUser = nCV(); }
       return _registerUser; }
-    protected ConditionValue getCValueRegisterUser() { return getRegisterUser(); }
+    protected ConditionValue xgetCValueRegisterUser() { return xdfgetRegisterUser(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -209,10 +209,10 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_RegisterUser_Desc() { regOBD("REGISTER_USER"); return this; }
 
     protected ConditionValue _updateDatetime;
-    public ConditionValue getUpdateDatetime()
+    public ConditionValue xdfgetUpdateDatetime()
     { if (_updateDatetime == null) { _updateDatetime = nCV(); }
       return _updateDatetime; }
-    protected ConditionValue getCValueUpdateDatetime() { return getUpdateDatetime(); }
+    protected ConditionValue xgetCValueUpdateDatetime() { return xdfgetUpdateDatetime(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -229,10 +229,10 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_UpdateDatetime_Desc() { regOBD("UPDATE_DATETIME"); return this; }
 
     protected ConditionValue _updateUser;
-    public ConditionValue getUpdateUser()
+    public ConditionValue xdfgetUpdateUser()
     { if (_updateUser == null) { _updateUser = nCV(); }
       return _updateUser; }
-    protected ConditionValue getCValueUpdateUser() { return getUpdateUser(); }
+    protected ConditionValue xgetCValueUpdateUser() { return xdfgetUpdateUser(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -249,10 +249,10 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     public BsMemberServiceCQ addOrderBy_UpdateUser_Desc() { regOBD("UPDATE_USER"); return this; }
 
     protected ConditionValue _versionNo;
-    public ConditionValue getVersionNo()
+    public ConditionValue xdfgetVersionNo()
     { if (_versionNo == null) { _versionNo = nCV(); }
       return _versionNo; }
-    protected ConditionValue getCValueVersionNo() { return getVersionNo(); }
+    protected ConditionValue xgetCValueVersionNo() { return xdfgetVersionNo(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -326,9 +326,9 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
      * @return The instance of condition-query. (NotNull)
      */
     public MemberCQ queryMember() {
-        return getConditionQueryMember();
+        return xdfgetConditionQueryMember();
     }
-    public MemberCQ getConditionQueryMember() {
+    public MemberCQ xdfgetConditionQueryMember() {
         String prop = "member";
         if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMember()); xsetupOuterJoinMember(); }
         return xgetQueRlMap(prop);
@@ -346,9 +346,9 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
      * @return The instance of condition-query. (NotNull)
      */
     public ServiceRankCQ queryServiceRank() {
-        return getConditionQueryServiceRank();
+        return xdfgetConditionQueryServiceRank();
     }
-    public ServiceRankCQ getConditionQueryServiceRank() {
+    public ServiceRankCQ xdfgetConditionQueryServiceRank() {
         String prop = "serviceRank";
         if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryServiceRank()); xsetupOuterJoinServiceRank(); }
         return xgetQueRlMap(prop);
@@ -367,31 +367,31 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, MemberServiceCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public Map<String, MemberServiceCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
     public String keepScalarCondition(MemberServiceCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, MemberServiceCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public Map<String, MemberServiceCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
     public String keepSpecifyMyselfDerived(MemberServiceCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, MemberServiceCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public Map<String, MemberServiceCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerived(MemberServiceCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, MemberServiceCQ> _myselfExistsMap;
-    public Map<String, MemberServiceCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public Map<String, MemberServiceCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
     public String keepMyselfExists(MemberServiceCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, MemberServiceCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public Map<String, MemberServiceCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
     public String keepMyselfInScope(MemberServiceCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================

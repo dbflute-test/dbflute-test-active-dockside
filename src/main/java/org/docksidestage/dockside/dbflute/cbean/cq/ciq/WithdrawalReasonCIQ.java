@@ -76,7 +76,7 @@ public class WithdrawalReasonCIQ extends AbstractBsWithdrawalReasonCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueWithdrawalReasonCode() { return _myCQ.getWithdrawalReasonCode(); }
+    protected ConditionValue xgetCValueWithdrawalReasonCode() { return _myCQ.xdfgetWithdrawalReasonCode(); }
     public String keepWithdrawalReasonCode_ExistsReferrer_MemberWithdrawalList(MemberWithdrawalCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepWithdrawalReasonCode_NotExistsReferrer_MemberWithdrawalList(MemberWithdrawalCQ sq)
@@ -87,8 +87,8 @@ public class WithdrawalReasonCIQ extends AbstractBsWithdrawalReasonCQ {
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepWithdrawalReasonCode_QueryDerivedReferrer_MemberWithdrawalListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    protected ConditionValue getCValueWithdrawalReasonText() { return _myCQ.getWithdrawalReasonText(); }
-    protected ConditionValue getCValueDisplayOrder() { return _myCQ.getDisplayOrder(); }
+    protected ConditionValue xgetCValueWithdrawalReasonText() { return _myCQ.xdfgetWithdrawalReasonText(); }
+    protected ConditionValue xgetCValueDisplayOrder() { return _myCQ.xdfgetDisplayOrder(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(WithdrawalReasonCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

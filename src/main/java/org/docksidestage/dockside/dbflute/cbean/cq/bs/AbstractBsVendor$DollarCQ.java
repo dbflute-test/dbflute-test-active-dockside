@@ -146,7 +146,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     public void setVendor$DollarId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, getCValueVendor$DollarId(), "VENDOR_$_DOLLAR_ID", rangeOfOption);
+        regROO(minNumber, maxNumber, xgetCValueVendor$DollarId(), "VENDOR_$_DOLLAR_ID", rangeOfOption);
     }
 
     /**
@@ -159,7 +159,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     }
 
     protected void doSetVendor$DollarId_InScope(Collection<Integer> vendor$DollarIdList) {
-        regINS(CK_INS, cTL(vendor$DollarIdList), getCValueVendor$DollarId(), "VENDOR_$_DOLLAR_ID");
+        regINS(CK_INS, cTL(vendor$DollarIdList), xgetCValueVendor$DollarId(), "VENDOR_$_DOLLAR_ID");
     }
 
     /**
@@ -172,7 +172,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     }
 
     protected void doSetVendor$DollarId_NotInScope(Collection<Integer> vendor$DollarIdList) {
-        regINS(CK_NINS, cTL(vendor$DollarIdList), getCValueVendor$DollarId(), "VENDOR_$_DOLLAR_ID");
+        regINS(CK_NINS, cTL(vendor$DollarIdList), xgetCValueVendor$DollarId(), "VENDOR_$_DOLLAR_ID");
     }
 
     /**
@@ -187,8 +187,8 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      */
     public void setVendor$DollarId_IsNotNull() { regVendor$DollarId(CK_ISNN, DOBJ); }
 
-    protected void regVendor$DollarId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueVendor$DollarId(), "VENDOR_$_DOLLAR_ID"); }
-    protected abstract ConditionValue getCValueVendor$DollarId();
+    protected void regVendor$DollarId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueVendor$DollarId(), "VENDOR_$_DOLLAR_ID"); }
+    protected abstract ConditionValue xgetCValueVendor$DollarId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -262,7 +262,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     }
 
     protected void doSetVendor$DollarName_InScope(Collection<String> vendor$DollarNameList) {
-        regINS(CK_INS, cTL(vendor$DollarNameList), getCValueVendor$DollarName(), "VENDOR_$_DOLLAR_NAME");
+        regINS(CK_INS, cTL(vendor$DollarNameList), xgetCValueVendor$DollarName(), "VENDOR_$_DOLLAR_NAME");
     }
 
     /**
@@ -275,7 +275,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     }
 
     protected void doSetVendor$DollarName_NotInScope(Collection<String> vendor$DollarNameList) {
-        regINS(CK_NINS, cTL(vendor$DollarNameList), getCValueVendor$DollarName(), "VENDOR_$_DOLLAR_NAME");
+        regINS(CK_NINS, cTL(vendor$DollarNameList), xgetCValueVendor$DollarName(), "VENDOR_$_DOLLAR_NAME");
     }
 
     /**
@@ -297,7 +297,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     public void setVendor$DollarName_LikeSearch(String vendor$DollarName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(vendor$DollarName), getCValueVendor$DollarName(), "VENDOR_$_DOLLAR_NAME", likeSearchOption);
+        regLSQ(CK_LS, fRES(vendor$DollarName), xgetCValueVendor$DollarName(), "VENDOR_$_DOLLAR_NAME", likeSearchOption);
     }
 
     /**
@@ -319,7 +319,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     public void setVendor$DollarName_NotLikeSearch(String vendor$DollarName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(vendor$DollarName), getCValueVendor$DollarName(), "VENDOR_$_DOLLAR_NAME", likeSearchOption);
+        regLSQ(CK_NLS, fRES(vendor$DollarName), xgetCValueVendor$DollarName(), "VENDOR_$_DOLLAR_NAME", likeSearchOption);
     }
 
     /**
@@ -340,8 +340,8 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
      */
     public void setVendor$DollarName_IsNotNull() { regVendor$DollarName(CK_ISNN, DOBJ); }
 
-    protected void regVendor$DollarName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueVendor$DollarName(), "VENDOR_$_DOLLAR_NAME"); }
-    protected abstract ConditionValue getCValueVendor$DollarName();
+    protected void regVendor$DollarName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueVendor$DollarName(), "VENDOR_$_DOLLAR_NAME"); }
+    protected abstract ConditionValue xgetCValueVendor$DollarName();
 
     // ===================================================================================
     //                                                                     ScalarCondition

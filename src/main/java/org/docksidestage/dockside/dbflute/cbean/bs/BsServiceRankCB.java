@@ -203,10 +203,14 @@ public class BsServiceRankCB extends AbstractConditionBean {
      */
     public ServiceRankCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
-    public ServiceRankCQ getConditionQuery() { // public for parameter comment and internal
+    public ServiceRankCQ xdfgetConditionQuery() { // public for parameter comment and internal
+        return doGetConditionQuery();
+    }
+
+    protected ServiceRankCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
@@ -227,8 +231,11 @@ public class BsServiceRankCB extends AbstractConditionBean {
         return new ServiceRankCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public ConditionQuery localCQ() {
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
     // ===================================================================================
@@ -302,7 +309,7 @@ public class BsServiceRankCB extends AbstractConditionBean {
         if (_specification == null) { _specification = new HpSpecification(this
             , new HpSpQyCall<ServiceRankCQ>() {
                 public boolean has() { return true; }
-                public ServiceRankCQ qy() { return getConditionQuery(); }
+                public ServiceRankCQ qy() { return xdfgetConditionQuery(); }
             }
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
@@ -530,8 +537,8 @@ public class BsServiceRankCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String getConditionBeanClassNameInternally() { return ServiceRankCB.class.getName(); }
-    protected String getConditionQueryClassNameInternally() { return ServiceRankCQ.class.getName(); }
-    protected String getSubQueryClassNameInternally() { return SubQuery.class.getName(); }
-    protected String getConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return ServiceRankCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return ServiceRankCQ.class.getName(); }
+    protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
+    protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

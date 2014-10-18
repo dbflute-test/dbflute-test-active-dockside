@@ -76,7 +76,7 @@ public class VendorIdentityOnlyCIQ extends AbstractBsVendorIdentityOnlyCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueIdentityOnlyId() { return _myCQ.getIdentityOnlyId(); }
+    protected ConditionValue xgetCValueIdentityOnlyId() { return _myCQ.xdfgetIdentityOnlyId(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(VendorIdentityOnlyCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

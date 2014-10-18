@@ -89,10 +89,10 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _purchasePaymentId;
-    public ConditionValue getPurchasePaymentId()
+    public ConditionValue xdfgetPurchasePaymentId()
     { if (_purchasePaymentId == null) { _purchasePaymentId = nCV(); }
       return _purchasePaymentId; }
-    protected ConditionValue getCValuePurchasePaymentId() { return getPurchasePaymentId(); }
+    protected ConditionValue xgetCValuePurchasePaymentId() { return xdfgetPurchasePaymentId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -109,10 +109,10 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
     public BsPurchasePaymentCQ addOrderBy_PurchasePaymentId_Desc() { regOBD("PURCHASE_PAYMENT_ID"); return this; }
 
     protected ConditionValue _purchaseId;
-    public ConditionValue getPurchaseId()
+    public ConditionValue xdfgetPurchaseId()
     { if (_purchaseId == null) { _purchaseId = nCV(); }
       return _purchaseId; }
-    protected ConditionValue getCValuePurchaseId() { return getPurchaseId(); }
+    protected ConditionValue xgetCValuePurchaseId() { return xdfgetPurchaseId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -129,10 +129,10 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
     public BsPurchasePaymentCQ addOrderBy_PurchaseId_Desc() { regOBD("PURCHASE_ID"); return this; }
 
     protected ConditionValue _paymentAmount;
-    public ConditionValue getPaymentAmount()
+    public ConditionValue xdfgetPaymentAmount()
     { if (_paymentAmount == null) { _paymentAmount = nCV(); }
       return _paymentAmount; }
-    protected ConditionValue getCValuePaymentAmount() { return getPaymentAmount(); }
+    protected ConditionValue xgetCValuePaymentAmount() { return xdfgetPaymentAmount(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -149,10 +149,10 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
     public BsPurchasePaymentCQ addOrderBy_PaymentAmount_Desc() { regOBD("PAYMENT_AMOUNT"); return this; }
 
     protected ConditionValue _paymentDatetime;
-    public ConditionValue getPaymentDatetime()
+    public ConditionValue xdfgetPaymentDatetime()
     { if (_paymentDatetime == null) { _paymentDatetime = nCV(); }
       return _paymentDatetime; }
-    protected ConditionValue getCValuePaymentDatetime() { return getPaymentDatetime(); }
+    protected ConditionValue xgetCValuePaymentDatetime() { return xdfgetPaymentDatetime(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -169,10 +169,10 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
     public BsPurchasePaymentCQ addOrderBy_PaymentDatetime_Desc() { regOBD("PAYMENT_DATETIME"); return this; }
 
     protected ConditionValue _paymentMethodCode;
-    public ConditionValue getPaymentMethodCode()
+    public ConditionValue xdfgetPaymentMethodCode()
     { if (_paymentMethodCode == null) { _paymentMethodCode = nCV(); }
       return _paymentMethodCode; }
-    protected ConditionValue getCValuePaymentMethodCode() { return getPaymentMethodCode(); }
+    protected ConditionValue xgetCValuePaymentMethodCode() { return xdfgetPaymentMethodCode(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -189,10 +189,10 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
     public BsPurchasePaymentCQ addOrderBy_PaymentMethodCode_Desc() { regOBD("PAYMENT_METHOD_CODE"); return this; }
 
     protected ConditionValue _registerDatetime;
-    public ConditionValue getRegisterDatetime()
+    public ConditionValue xdfgetRegisterDatetime()
     { if (_registerDatetime == null) { _registerDatetime = nCV(); }
       return _registerDatetime; }
-    protected ConditionValue getCValueRegisterDatetime() { return getRegisterDatetime(); }
+    protected ConditionValue xgetCValueRegisterDatetime() { return xdfgetRegisterDatetime(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -209,10 +209,10 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
     public BsPurchasePaymentCQ addOrderBy_RegisterDatetime_Desc() { regOBD("REGISTER_DATETIME"); return this; }
 
     protected ConditionValue _registerUser;
-    public ConditionValue getRegisterUser()
+    public ConditionValue xdfgetRegisterUser()
     { if (_registerUser == null) { _registerUser = nCV(); }
       return _registerUser; }
-    protected ConditionValue getCValueRegisterUser() { return getRegisterUser(); }
+    protected ConditionValue xgetCValueRegisterUser() { return xdfgetRegisterUser(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -229,10 +229,10 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
     public BsPurchasePaymentCQ addOrderBy_RegisterUser_Desc() { regOBD("REGISTER_USER"); return this; }
 
     protected ConditionValue _updateDatetime;
-    public ConditionValue getUpdateDatetime()
+    public ConditionValue xdfgetUpdateDatetime()
     { if (_updateDatetime == null) { _updateDatetime = nCV(); }
       return _updateDatetime; }
-    protected ConditionValue getCValueUpdateDatetime() { return getUpdateDatetime(); }
+    protected ConditionValue xgetCValueUpdateDatetime() { return xdfgetUpdateDatetime(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -249,10 +249,10 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
     public BsPurchasePaymentCQ addOrderBy_UpdateDatetime_Desc() { regOBD("UPDATE_DATETIME"); return this; }
 
     protected ConditionValue _updateUser;
-    public ConditionValue getUpdateUser()
+    public ConditionValue xdfgetUpdateUser()
     { if (_updateUser == null) { _updateUser = nCV(); }
       return _updateUser; }
-    protected ConditionValue getCValueUpdateUser() { return getUpdateUser(); }
+    protected ConditionValue xgetCValueUpdateUser() { return xdfgetUpdateUser(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -323,9 +323,9 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
      * @return The instance of condition-query. (NotNull)
      */
     public PurchaseCQ queryPurchase() {
-        return getConditionQueryPurchase();
+        return xdfgetConditionQueryPurchase();
     }
-    public PurchaseCQ getConditionQueryPurchase() {
+    public PurchaseCQ xdfgetConditionQueryPurchase() {
         String prop = "purchase";
         if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryPurchase()); xsetupOuterJoinPurchase(); }
         return xgetQueRlMap(prop);
@@ -344,31 +344,31 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, PurchasePaymentCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public Map<String, PurchasePaymentCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
     public String keepScalarCondition(PurchasePaymentCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, PurchasePaymentCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public Map<String, PurchasePaymentCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
     public String keepSpecifyMyselfDerived(PurchasePaymentCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, PurchasePaymentCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public Map<String, PurchasePaymentCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerived(PurchasePaymentCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, PurchasePaymentCQ> _myselfExistsMap;
-    public Map<String, PurchasePaymentCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public Map<String, PurchasePaymentCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
     public String keepMyselfExists(PurchasePaymentCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, PurchasePaymentCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public Map<String, PurchasePaymentCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
     public String keepMyselfInScope(PurchasePaymentCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================

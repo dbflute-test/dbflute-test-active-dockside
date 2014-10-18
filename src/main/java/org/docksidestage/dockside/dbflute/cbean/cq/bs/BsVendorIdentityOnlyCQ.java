@@ -89,10 +89,10 @@ public class BsVendorIdentityOnlyCQ extends AbstractBsVendorIdentityOnlyCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _identityOnlyId;
-    public ConditionValue getIdentityOnlyId()
+    public ConditionValue xdfgetIdentityOnlyId()
     { if (_identityOnlyId == null) { _identityOnlyId = nCV(); }
       return _identityOnlyId; }
-    protected ConditionValue getCValueIdentityOnlyId() { return getIdentityOnlyId(); }
+    protected ConditionValue xgetCValueIdentityOnlyId() { return xdfgetIdentityOnlyId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -159,31 +159,31 @@ public class BsVendorIdentityOnlyCQ extends AbstractBsVendorIdentityOnlyCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, VendorIdentityOnlyCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public Map<String, VendorIdentityOnlyCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
     public String keepScalarCondition(VendorIdentityOnlyCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, VendorIdentityOnlyCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public Map<String, VendorIdentityOnlyCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
     public String keepSpecifyMyselfDerived(VendorIdentityOnlyCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, VendorIdentityOnlyCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public Map<String, VendorIdentityOnlyCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerived(VendorIdentityOnlyCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, VendorIdentityOnlyCQ> _myselfExistsMap;
-    public Map<String, VendorIdentityOnlyCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public Map<String, VendorIdentityOnlyCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
     public String keepMyselfExists(VendorIdentityOnlyCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, VendorIdentityOnlyCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public Map<String, VendorIdentityOnlyCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
     public String keepMyselfInScope(VendorIdentityOnlyCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================

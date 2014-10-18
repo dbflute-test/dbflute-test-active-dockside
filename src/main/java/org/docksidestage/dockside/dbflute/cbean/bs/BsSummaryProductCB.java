@@ -191,10 +191,14 @@ public class BsSummaryProductCB extends AbstractConditionBean {
      */
     public SummaryProductCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
-    public SummaryProductCQ getConditionQuery() { // public for parameter comment and internal
+    public SummaryProductCQ xdfgetConditionQuery() { // public for parameter comment and internal
+        return doGetConditionQuery();
+    }
+
+    protected SummaryProductCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
@@ -215,8 +219,11 @@ public class BsSummaryProductCB extends AbstractConditionBean {
         return new SummaryProductCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public ConditionQuery localCQ() {
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
     // ===================================================================================
@@ -309,7 +316,7 @@ public class BsSummaryProductCB extends AbstractConditionBean {
         if (_specification == null) { _specification = new HpSpecification(this
             , new HpSpQyCall<SummaryProductCQ>() {
                 public boolean has() { return true; }
-                public SummaryProductCQ qy() { return getConditionQuery(); }
+                public SummaryProductCQ qy() { return xdfgetConditionQuery(); }
             }
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
@@ -558,8 +565,8 @@ public class BsSummaryProductCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String getConditionBeanClassNameInternally() { return SummaryProductCB.class.getName(); }
-    protected String getConditionQueryClassNameInternally() { return SummaryProductCQ.class.getName(); }
-    protected String getSubQueryClassNameInternally() { return SubQuery.class.getName(); }
-    protected String getConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return SummaryProductCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return SummaryProductCQ.class.getName(); }
+    protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
+    protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

@@ -175,7 +175,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     }
 
     protected void doSetProductStatusCode_InScope(Collection<String> productStatusCodeList) {
-        regINS(CK_INS, cTL(productStatusCodeList), getCValueProductStatusCode(), "PRODUCT_STATUS_CODE");
+        regINS(CK_INS, cTL(productStatusCodeList), xgetCValueProductStatusCode(), "PRODUCT_STATUS_CODE");
     }
 
     /**
@@ -198,7 +198,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     }
 
     protected void doSetProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
-        regINS(CK_NINS, cTL(productStatusCodeList), getCValueProductStatusCode(), "PRODUCT_STATUS_CODE");
+        regINS(CK_NINS, cTL(productStatusCodeList), xgetCValueProductStatusCode(), "PRODUCT_STATUS_CODE");
     }
 
     /**
@@ -383,8 +383,8 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      */
     public void setProductStatusCode_IsNotNull() { regProductStatusCode(CK_ISNN, DOBJ); }
 
-    protected void regProductStatusCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductStatusCode(), "PRODUCT_STATUS_CODE"); }
-    protected abstract ConditionValue getCValueProductStatusCode();
+    protected void regProductStatusCode(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueProductStatusCode(), "PRODUCT_STATUS_CODE"); }
+    protected abstract ConditionValue xgetCValueProductStatusCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -458,7 +458,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     }
 
     protected void doSetProductStatusName_InScope(Collection<String> productStatusNameList) {
-        regINS(CK_INS, cTL(productStatusNameList), getCValueProductStatusName(), "PRODUCT_STATUS_NAME");
+        regINS(CK_INS, cTL(productStatusNameList), xgetCValueProductStatusName(), "PRODUCT_STATUS_NAME");
     }
 
     /**
@@ -471,7 +471,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     }
 
     protected void doSetProductStatusName_NotInScope(Collection<String> productStatusNameList) {
-        regINS(CK_NINS, cTL(productStatusNameList), getCValueProductStatusName(), "PRODUCT_STATUS_NAME");
+        regINS(CK_NINS, cTL(productStatusNameList), xgetCValueProductStatusName(), "PRODUCT_STATUS_NAME");
     }
 
     /**
@@ -493,7 +493,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     public void setProductStatusName_LikeSearch(String productStatusName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(productStatusName), getCValueProductStatusName(), "PRODUCT_STATUS_NAME", likeSearchOption);
+        regLSQ(CK_LS, fRES(productStatusName), xgetCValueProductStatusName(), "PRODUCT_STATUS_NAME", likeSearchOption);
     }
 
     /**
@@ -515,11 +515,11 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     public void setProductStatusName_NotLikeSearch(String productStatusName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(productStatusName), getCValueProductStatusName(), "PRODUCT_STATUS_NAME", likeSearchOption);
+        regLSQ(CK_NLS, fRES(productStatusName), xgetCValueProductStatusName(), "PRODUCT_STATUS_NAME", likeSearchOption);
     }
 
-    protected void regProductStatusName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductStatusName(), "PRODUCT_STATUS_NAME"); }
-    protected abstract ConditionValue getCValueProductStatusName();
+    protected void regProductStatusName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueProductStatusName(), "PRODUCT_STATUS_NAME"); }
+    protected abstract ConditionValue xgetCValueProductStatusName();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -606,7 +606,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     public void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, getCValueDisplayOrder(), "DISPLAY_ORDER", rangeOfOption);
+        regROO(minNumber, maxNumber, xgetCValueDisplayOrder(), "DISPLAY_ORDER", rangeOfOption);
     }
 
     /**
@@ -619,7 +619,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     }
 
     protected void doSetDisplayOrder_InScope(Collection<Integer> displayOrderList) {
-        regINS(CK_INS, cTL(displayOrderList), getCValueDisplayOrder(), "DISPLAY_ORDER");
+        regINS(CK_INS, cTL(displayOrderList), xgetCValueDisplayOrder(), "DISPLAY_ORDER");
     }
 
     /**
@@ -632,11 +632,11 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     }
 
     protected void doSetDisplayOrder_NotInScope(Collection<Integer> displayOrderList) {
-        regINS(CK_NINS, cTL(displayOrderList), getCValueDisplayOrder(), "DISPLAY_ORDER");
+        regINS(CK_NINS, cTL(displayOrderList), xgetCValueDisplayOrder(), "DISPLAY_ORDER");
     }
 
-    protected void regDisplayOrder(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueDisplayOrder(), "DISPLAY_ORDER"); }
-    protected abstract ConditionValue getCValueDisplayOrder();
+    protected void regDisplayOrder(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueDisplayOrder(), "DISPLAY_ORDER"); }
+    protected abstract ConditionValue xgetCValueDisplayOrder();
 
     // ===================================================================================
     //                                                                     ScalarCondition

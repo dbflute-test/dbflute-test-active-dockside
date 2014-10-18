@@ -89,37 +89,37 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _productCategoryCode;
-    public ConditionValue getProductCategoryCode()
+    public ConditionValue xdfgetProductCategoryCode()
     { if (_productCategoryCode == null) { _productCategoryCode = nCV(); }
       return _productCategoryCode; }
-    protected ConditionValue getCValueProductCategoryCode() { return getProductCategoryCode(); }
+    protected ConditionValue xgetCValueProductCategoryCode() { return xdfgetProductCategoryCode(); }
 
-    public Map<String, ProductCQ> getProductCategoryCode_ExistsReferrer_ProductList() { return xgetSQueMap("productCategoryCode_ExistsReferrer_ProductList"); }
+    public Map<String, ProductCQ> xdfgetProductCategoryCode_ExistsReferrer_ProductList() { return xgetSQueMap("productCategoryCode_ExistsReferrer_ProductList"); }
     public String keepProductCategoryCode_ExistsReferrer_ProductList(ProductCQ sq) { return xkeepSQue("productCategoryCode_ExistsReferrer_ProductList", sq); }
 
-    public Map<String, ProductCategoryCQ> getProductCategoryCode_ExistsReferrer_ProductCategorySelfList() { return xgetSQueMap("productCategoryCode_ExistsReferrer_ProductCategorySelfList"); }
+    public Map<String, ProductCategoryCQ> xdfgetProductCategoryCode_ExistsReferrer_ProductCategorySelfList() { return xgetSQueMap("productCategoryCode_ExistsReferrer_ProductCategorySelfList"); }
     public String keepProductCategoryCode_ExistsReferrer_ProductCategorySelfList(ProductCategoryCQ sq) { return xkeepSQue("productCategoryCode_ExistsReferrer_ProductCategorySelfList", sq); }
 
-    public Map<String, ProductCQ> getProductCategoryCode_NotExistsReferrer_ProductList() { return xgetSQueMap("productCategoryCode_NotExistsReferrer_ProductList"); }
+    public Map<String, ProductCQ> xdfgetProductCategoryCode_NotExistsReferrer_ProductList() { return xgetSQueMap("productCategoryCode_NotExistsReferrer_ProductList"); }
     public String keepProductCategoryCode_NotExistsReferrer_ProductList(ProductCQ sq) { return xkeepSQue("productCategoryCode_NotExistsReferrer_ProductList", sq); }
 
-    public Map<String, ProductCategoryCQ> getProductCategoryCode_NotExistsReferrer_ProductCategorySelfList() { return xgetSQueMap("productCategoryCode_NotExistsReferrer_ProductCategorySelfList"); }
+    public Map<String, ProductCategoryCQ> xdfgetProductCategoryCode_NotExistsReferrer_ProductCategorySelfList() { return xgetSQueMap("productCategoryCode_NotExistsReferrer_ProductCategorySelfList"); }
     public String keepProductCategoryCode_NotExistsReferrer_ProductCategorySelfList(ProductCategoryCQ sq) { return xkeepSQue("productCategoryCode_NotExistsReferrer_ProductCategorySelfList", sq); }
 
-    public Map<String, ProductCQ> getProductCategoryCode_SpecifyDerivedReferrer_ProductList() { return xgetSQueMap("productCategoryCode_SpecifyDerivedReferrer_ProductList"); }
+    public Map<String, ProductCQ> xdfgetProductCategoryCode_SpecifyDerivedReferrer_ProductList() { return xgetSQueMap("productCategoryCode_SpecifyDerivedReferrer_ProductList"); }
     public String keepProductCategoryCode_SpecifyDerivedReferrer_ProductList(ProductCQ sq) { return xkeepSQue("productCategoryCode_SpecifyDerivedReferrer_ProductList", sq); }
 
-    public Map<String, ProductCategoryCQ> getProductCategoryCode_SpecifyDerivedReferrer_ProductCategorySelfList() { return xgetSQueMap("productCategoryCode_SpecifyDerivedReferrer_ProductCategorySelfList"); }
+    public Map<String, ProductCategoryCQ> xdfgetProductCategoryCode_SpecifyDerivedReferrer_ProductCategorySelfList() { return xgetSQueMap("productCategoryCode_SpecifyDerivedReferrer_ProductCategorySelfList"); }
     public String keepProductCategoryCode_SpecifyDerivedReferrer_ProductCategorySelfList(ProductCategoryCQ sq) { return xkeepSQue("productCategoryCode_SpecifyDerivedReferrer_ProductCategorySelfList", sq); }
 
-    public Map<String, ProductCQ> getProductCategoryCode_QueryDerivedReferrer_ProductList() { return xgetSQueMap("productCategoryCode_QueryDerivedReferrer_ProductList"); }
+    public Map<String, ProductCQ> xdfgetProductCategoryCode_QueryDerivedReferrer_ProductList() { return xgetSQueMap("productCategoryCode_QueryDerivedReferrer_ProductList"); }
     public String keepProductCategoryCode_QueryDerivedReferrer_ProductList(ProductCQ sq) { return xkeepSQue("productCategoryCode_QueryDerivedReferrer_ProductList", sq); }
-    public Map<String, Object> getProductCategoryCode_QueryDerivedReferrer_ProductListParameter() { return xgetSQuePmMap("productCategoryCode_QueryDerivedReferrer_ProductList"); }
+    public Map<String, Object> xdfgetProductCategoryCode_QueryDerivedReferrer_ProductListParameter() { return xgetSQuePmMap("productCategoryCode_QueryDerivedReferrer_ProductList"); }
     public String keepProductCategoryCode_QueryDerivedReferrer_ProductListParameter(Object pm) { return xkeepSQuePm("productCategoryCode_QueryDerivedReferrer_ProductList", pm); }
 
-    public Map<String, ProductCategoryCQ> getProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfList() { return xgetSQueMap("productCategoryCode_QueryDerivedReferrer_ProductCategorySelfList"); }
+    public Map<String, ProductCategoryCQ> xdfgetProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfList() { return xgetSQueMap("productCategoryCode_QueryDerivedReferrer_ProductCategorySelfList"); }
     public String keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfList(ProductCategoryCQ sq) { return xkeepSQue("productCategoryCode_QueryDerivedReferrer_ProductCategorySelfList", sq); }
-    public Map<String, Object> getProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfListParameter() { return xgetSQuePmMap("productCategoryCode_QueryDerivedReferrer_ProductCategorySelfList"); }
+    public Map<String, Object> xdfgetProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfListParameter() { return xgetSQuePmMap("productCategoryCode_QueryDerivedReferrer_ProductCategorySelfList"); }
     public String keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfListParameter(Object pm) { return xkeepSQuePm("productCategoryCode_QueryDerivedReferrer_ProductCategorySelfList", pm); }
 
     /** 
@@ -137,10 +137,10 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
     public BsProductCategoryCQ addOrderBy_ProductCategoryCode_Desc() { regOBD("PRODUCT_CATEGORY_CODE"); return this; }
 
     protected ConditionValue _productCategoryName;
-    public ConditionValue getProductCategoryName()
+    public ConditionValue xdfgetProductCategoryName()
     { if (_productCategoryName == null) { _productCategoryName = nCV(); }
       return _productCategoryName; }
-    protected ConditionValue getCValueProductCategoryName() { return getProductCategoryName(); }
+    protected ConditionValue xgetCValueProductCategoryName() { return xdfgetProductCategoryName(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -157,10 +157,10 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
     public BsProductCategoryCQ addOrderBy_ProductCategoryName_Desc() { regOBD("PRODUCT_CATEGORY_NAME"); return this; }
 
     protected ConditionValue _parentCategoryCode;
-    public ConditionValue getParentCategoryCode()
+    public ConditionValue xdfgetParentCategoryCode()
     { if (_parentCategoryCode == null) { _parentCategoryCode = nCV(); }
       return _parentCategoryCode; }
-    protected ConditionValue getCValueParentCategoryCode() { return getParentCategoryCode(); }
+    protected ConditionValue xgetCValueParentCategoryCode() { return xdfgetParentCategoryCode(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -231,9 +231,9 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
      * @return The instance of condition-query. (NotNull)
      */
     public ProductCategoryCQ queryProductCategorySelf() {
-        return getConditionQueryProductCategorySelf();
+        return xdfgetConditionQueryProductCategorySelf();
     }
-    public ProductCategoryCQ getConditionQueryProductCategorySelf() {
+    public ProductCategoryCQ xdfgetConditionQueryProductCategorySelf() {
         String prop = "productCategorySelf";
         if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryProductCategorySelf()); xsetupOuterJoinProductCategorySelf(); }
         return xgetQueRlMap(prop);
@@ -252,31 +252,31 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, ProductCategoryCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public Map<String, ProductCategoryCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
     public String keepScalarCondition(ProductCategoryCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, ProductCategoryCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public Map<String, ProductCategoryCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
     public String keepSpecifyMyselfDerived(ProductCategoryCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, ProductCategoryCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public Map<String, ProductCategoryCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerived(ProductCategoryCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, ProductCategoryCQ> _myselfExistsMap;
-    public Map<String, ProductCategoryCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public Map<String, ProductCategoryCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
     public String keepMyselfExists(ProductCategoryCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, ProductCategoryCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public Map<String, ProductCategoryCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
     public String keepMyselfInScope(ProductCategoryCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================

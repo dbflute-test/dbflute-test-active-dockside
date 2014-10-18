@@ -78,26 +78,14 @@ public class LoaderOfMemberStatus {
     //                                                                       =============
     protected List<Member> _referrerMember;
     public NestedReferrerLoaderGateway<LoaderOfMember> loadMember(ConditionBeanSetupper<MemberCB> refCBLambda) {
-        myBhv().loadMember(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<Member>() {
-            public void handle(List<Member> referrerList) { _referrerMember = referrerList; }
-        });
-        return new NestedReferrerLoaderGateway<LoaderOfMember>() {
-            public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfMember> handler) {
-                handler.handle(new LoaderOfMember().ready(_referrerMember, _selector));
-            }
-        };
+        myBhv().loadMember(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerMember = refLs);
+        return hd -> hd.handle(new LoaderOfMember().ready(_referrerMember, _selector));
     }
 
     protected List<MemberLogin> _referrerMemberLogin;
     public NestedReferrerLoaderGateway<LoaderOfMemberLogin> loadMemberLogin(ConditionBeanSetupper<MemberLoginCB> refCBLambda) {
-        myBhv().loadMemberLogin(_selectedList, refCBLambda).withNestedReferrer(new ReferrerListHandler<MemberLogin>() {
-            public void handle(List<MemberLogin> referrerList) { _referrerMemberLogin = referrerList; }
-        });
-        return new NestedReferrerLoaderGateway<LoaderOfMemberLogin>() {
-            public void withNestedReferrer(ReferrerLoaderHandler<LoaderOfMemberLogin> handler) {
-                handler.handle(new LoaderOfMemberLogin().ready(_referrerMemberLogin, _selector));
-            }
-        };
+        myBhv().loadMemberLogin(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerMemberLogin = refLs);
+        return hd -> hd.handle(new LoaderOfMemberLogin().ready(_referrerMemberLogin, _selector));
     }
 
     // ===================================================================================

@@ -192,10 +192,14 @@ public class BsProductCategoryCB extends AbstractConditionBean {
      */
     public ProductCategoryCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
-    public ProductCategoryCQ getConditionQuery() { // public for parameter comment and internal
+    public ProductCategoryCQ xdfgetConditionQuery() { // public for parameter comment and internal
+        return doGetConditionQuery();
+    }
+
+    protected ProductCategoryCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
@@ -216,8 +220,11 @@ public class BsProductCategoryCB extends AbstractConditionBean {
         return new ProductCategoryCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public ConditionQuery localCQ() {
-        return getConditionQuery();
+        return doGetConditionQuery();
     }
 
     // ===================================================================================
@@ -265,7 +272,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
     //                                                                         SetupSelect
     //                                                                         ===========
     protected ProductCategoryNss _nssProductCategorySelf;
-    public ProductCategoryNss getNssProductCategorySelf() {
+    public ProductCategoryNss xdfgetNssProductCategorySelf() {
         if (_nssProductCategorySelf == null) { _nssProductCategorySelf = new ProductCategoryNss(null); }
         return _nssProductCategorySelf;
     }
@@ -319,7 +326,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
         if (_specification == null) { _specification = new HpSpecification(this
             , new HpSpQyCall<ProductCategoryCQ>() {
                 public boolean has() { return true; }
-                public ProductCategoryCQ qy() { return getConditionQuery(); }
+                public ProductCategoryCQ qy() { return xdfgetConditionQuery(); }
             }
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
@@ -576,8 +583,8 @@ public class BsProductCategoryCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String getConditionBeanClassNameInternally() { return ProductCategoryCB.class.getName(); }
-    protected String getConditionQueryClassNameInternally() { return ProductCategoryCQ.class.getName(); }
-    protected String getSubQueryClassNameInternally() { return SubQuery.class.getName(); }
-    protected String getConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return ProductCategoryCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return ProductCategoryCQ.class.getName(); }
+    protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
+    protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

@@ -76,7 +76,7 @@ public class ServiceRankCIQ extends AbstractBsServiceRankCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue getCValueServiceRankCode() { return _myCQ.getServiceRankCode(); }
+    protected ConditionValue xgetCValueServiceRankCode() { return _myCQ.xdfgetServiceRankCode(); }
     public String keepServiceRankCode_ExistsReferrer_MemberServiceList(MemberServiceCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepServiceRankCode_NotExistsReferrer_MemberServiceList(MemberServiceCQ sq)
@@ -87,11 +87,11 @@ public class ServiceRankCIQ extends AbstractBsServiceRankCQ {
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepServiceRankCode_QueryDerivedReferrer_MemberServiceListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    protected ConditionValue getCValueServiceRankName() { return _myCQ.getServiceRankName(); }
-    protected ConditionValue getCValueServicePointIncidence() { return _myCQ.getServicePointIncidence(); }
-    protected ConditionValue getCValueNewAcceptableFlg() { return _myCQ.getNewAcceptableFlg(); }
-    protected ConditionValue getCValueDescription() { return _myCQ.getDescription(); }
-    protected ConditionValue getCValueDisplayOrder() { return _myCQ.getDisplayOrder(); }
+    protected ConditionValue xgetCValueServiceRankName() { return _myCQ.xdfgetServiceRankName(); }
+    protected ConditionValue xgetCValueServicePointIncidence() { return _myCQ.xdfgetServicePointIncidence(); }
+    protected ConditionValue xgetCValueNewAcceptableFlg() { return _myCQ.xdfgetNewAcceptableFlg(); }
+    protected ConditionValue xgetCValueDescription() { return _myCQ.xdfgetDescription(); }
+    protected ConditionValue xgetCValueDisplayOrder() { return _myCQ.xdfgetDisplayOrder(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(ServiceRankCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

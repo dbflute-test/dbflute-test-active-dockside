@@ -89,10 +89,10 @@ public class BsVendorPrimaryKeyOnlyCQ extends AbstractBsVendorPrimaryKeyOnlyCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _primaryKeyOnlyId;
-    public ConditionValue getPrimaryKeyOnlyId()
+    public ConditionValue xdfgetPrimaryKeyOnlyId()
     { if (_primaryKeyOnlyId == null) { _primaryKeyOnlyId = nCV(); }
       return _primaryKeyOnlyId; }
-    protected ConditionValue getCValuePrimaryKeyOnlyId() { return getPrimaryKeyOnlyId(); }
+    protected ConditionValue xgetCValuePrimaryKeyOnlyId() { return xdfgetPrimaryKeyOnlyId(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -159,31 +159,31 @@ public class BsVendorPrimaryKeyOnlyCQ extends AbstractBsVendorPrimaryKeyOnlyCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, VendorPrimaryKeyOnlyCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public Map<String, VendorPrimaryKeyOnlyCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
     public String keepScalarCondition(VendorPrimaryKeyOnlyCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, VendorPrimaryKeyOnlyCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public Map<String, VendorPrimaryKeyOnlyCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
     public String keepSpecifyMyselfDerived(VendorPrimaryKeyOnlyCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, VendorPrimaryKeyOnlyCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public Map<String, VendorPrimaryKeyOnlyCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerived(VendorPrimaryKeyOnlyCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, VendorPrimaryKeyOnlyCQ> _myselfExistsMap;
-    public Map<String, VendorPrimaryKeyOnlyCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public Map<String, VendorPrimaryKeyOnlyCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
     public String keepMyselfExists(VendorPrimaryKeyOnlyCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, VendorPrimaryKeyOnlyCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public Map<String, VendorPrimaryKeyOnlyCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
     public String keepMyselfInScope(VendorPrimaryKeyOnlyCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================

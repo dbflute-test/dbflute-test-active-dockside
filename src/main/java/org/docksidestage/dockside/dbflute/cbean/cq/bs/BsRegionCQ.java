@@ -89,23 +89,23 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _regionId;
-    public ConditionValue getRegionId()
+    public ConditionValue xdfgetRegionId()
     { if (_regionId == null) { _regionId = nCV(); }
       return _regionId; }
-    protected ConditionValue getCValueRegionId() { return getRegionId(); }
+    protected ConditionValue xgetCValueRegionId() { return xdfgetRegionId(); }
 
-    public Map<String, MemberAddressCQ> getRegionId_ExistsReferrer_MemberAddressList() { return xgetSQueMap("regionId_ExistsReferrer_MemberAddressList"); }
+    public Map<String, MemberAddressCQ> xdfgetRegionId_ExistsReferrer_MemberAddressList() { return xgetSQueMap("regionId_ExistsReferrer_MemberAddressList"); }
     public String keepRegionId_ExistsReferrer_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_ExistsReferrer_MemberAddressList", sq); }
 
-    public Map<String, MemberAddressCQ> getRegionId_NotExistsReferrer_MemberAddressList() { return xgetSQueMap("regionId_NotExistsReferrer_MemberAddressList"); }
+    public Map<String, MemberAddressCQ> xdfgetRegionId_NotExistsReferrer_MemberAddressList() { return xgetSQueMap("regionId_NotExistsReferrer_MemberAddressList"); }
     public String keepRegionId_NotExistsReferrer_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_NotExistsReferrer_MemberAddressList", sq); }
 
-    public Map<String, MemberAddressCQ> getRegionId_SpecifyDerivedReferrer_MemberAddressList() { return xgetSQueMap("regionId_SpecifyDerivedReferrer_MemberAddressList"); }
+    public Map<String, MemberAddressCQ> xdfgetRegionId_SpecifyDerivedReferrer_MemberAddressList() { return xgetSQueMap("regionId_SpecifyDerivedReferrer_MemberAddressList"); }
     public String keepRegionId_SpecifyDerivedReferrer_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_SpecifyDerivedReferrer_MemberAddressList", sq); }
 
-    public Map<String, MemberAddressCQ> getRegionId_QueryDerivedReferrer_MemberAddressList() { return xgetSQueMap("regionId_QueryDerivedReferrer_MemberAddressList"); }
+    public Map<String, MemberAddressCQ> xdfgetRegionId_QueryDerivedReferrer_MemberAddressList() { return xgetSQueMap("regionId_QueryDerivedReferrer_MemberAddressList"); }
     public String keepRegionId_QueryDerivedReferrer_MemberAddressList(MemberAddressCQ sq) { return xkeepSQue("regionId_QueryDerivedReferrer_MemberAddressList", sq); }
-    public Map<String, Object> getRegionId_QueryDerivedReferrer_MemberAddressListParameter() { return xgetSQuePmMap("regionId_QueryDerivedReferrer_MemberAddressList"); }
+    public Map<String, Object> xdfgetRegionId_QueryDerivedReferrer_MemberAddressListParameter() { return xgetSQuePmMap("regionId_QueryDerivedReferrer_MemberAddressList"); }
     public String keepRegionId_QueryDerivedReferrer_MemberAddressListParameter(Object pm) { return xkeepSQuePm("regionId_QueryDerivedReferrer_MemberAddressList", pm); }
 
     /** 
@@ -123,10 +123,10 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     public BsRegionCQ addOrderBy_RegionId_Desc() { regOBD("REGION_ID"); return this; }
 
     protected ConditionValue _regionName;
-    public ConditionValue getRegionName()
+    public ConditionValue xdfgetRegionName()
     { if (_regionName == null) { _regionName = nCV(); }
       return _regionName; }
-    protected ConditionValue getCValueRegionName() { return getRegionName(); }
+    protected ConditionValue xgetCValueRegionName() { return xdfgetRegionName(); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -193,31 +193,31 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, RegionCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public Map<String, RegionCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
     public String keepScalarCondition(RegionCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, RegionCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public Map<String, RegionCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
     public String keepSpecifyMyselfDerived(RegionCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, RegionCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public Map<String, RegionCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerived(RegionCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, RegionCQ> _myselfExistsMap;
-    public Map<String, RegionCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public Map<String, RegionCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
     public String keepMyselfExists(RegionCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, RegionCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public Map<String, RegionCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
     public String keepMyselfInScope(RegionCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================

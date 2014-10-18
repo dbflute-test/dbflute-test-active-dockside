@@ -197,7 +197,6 @@ public class PaymentCompletePurchaseDbm extends AbstractDBMeta {
     //                                                                     Object Instance
     //                                                                     ===============
     public PaymentCompletePurchase newEntity() { return new PaymentCompletePurchase(); }
-    public PaymentCompletePurchase newMyEntity() { return new PaymentCompletePurchase(); }
 
     // ===================================================================================
     //                                                                   Map Communication

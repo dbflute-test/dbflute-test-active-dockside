@@ -21,7 +21,7 @@ public class WxCBPrimaryKeyTest extends UnitContainerTestCase {
         cb.acceptPK(3);
 
         // ## Assert ##
-        assertEquals(3, cb.query().getMemberId().getFixedQuery().get("equal"));
+        assertEquals(3, cb.query().xdfgetMemberId().getFixedQuery().get("equal"));
     }
 
     // ===================================================================================

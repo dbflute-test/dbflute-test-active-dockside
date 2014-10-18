@@ -191,7 +191,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     }
 
     protected void doSetRegionId_InScope(Collection<Integer> regionIdList) {
-        regINS(CK_INS, cTL(regionIdList), getCValueRegionId(), "REGION_ID");
+        regINS(CK_INS, cTL(regionIdList), xgetCValueRegionId(), "REGION_ID");
     }
 
     /**
@@ -214,7 +214,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     }
 
     protected void doSetRegionId_NotInScope(Collection<Integer> regionIdList) {
-        regINS(CK_NINS, cTL(regionIdList), getCValueRegionId(), "REGION_ID");
+        regINS(CK_NINS, cTL(regionIdList), xgetCValueRegionId(), "REGION_ID");
     }
 
     /**
@@ -312,8 +312,8 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      */
     public void setRegionId_IsNotNull() { regRegionId(CK_ISNN, DOBJ); }
 
-    protected void regRegionId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegionId(), "REGION_ID"); }
-    protected abstract ConditionValue getCValueRegionId();
+    protected void regRegionId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueRegionId(), "REGION_ID"); }
+    protected abstract ConditionValue xgetCValueRegionId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -387,7 +387,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     }
 
     protected void doSetRegionName_InScope(Collection<String> regionNameList) {
-        regINS(CK_INS, cTL(regionNameList), getCValueRegionName(), "REGION_NAME");
+        regINS(CK_INS, cTL(regionNameList), xgetCValueRegionName(), "REGION_NAME");
     }
 
     /**
@@ -400,7 +400,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     }
 
     protected void doSetRegionName_NotInScope(Collection<String> regionNameList) {
-        regINS(CK_NINS, cTL(regionNameList), getCValueRegionName(), "REGION_NAME");
+        regINS(CK_NINS, cTL(regionNameList), xgetCValueRegionName(), "REGION_NAME");
     }
 
     /**
@@ -422,7 +422,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     public void setRegionName_LikeSearch(String regionName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(regionName), getCValueRegionName(), "REGION_NAME", likeSearchOption);
+        regLSQ(CK_LS, fRES(regionName), xgetCValueRegionName(), "REGION_NAME", likeSearchOption);
     }
 
     /**
@@ -444,11 +444,11 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     public void setRegionName_NotLikeSearch(String regionName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(regionName), getCValueRegionName(), "REGION_NAME", likeSearchOption);
+        regLSQ(CK_NLS, fRES(regionName), xgetCValueRegionName(), "REGION_NAME", likeSearchOption);
     }
 
-    protected void regRegionName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegionName(), "REGION_NAME"); }
-    protected abstract ConditionValue getCValueRegionName();
+    protected void regRegionName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueRegionName(), "REGION_NAME"); }
+    protected abstract ConditionValue xgetCValueRegionName();
 
     // ===================================================================================
     //                                                                     ScalarCondition

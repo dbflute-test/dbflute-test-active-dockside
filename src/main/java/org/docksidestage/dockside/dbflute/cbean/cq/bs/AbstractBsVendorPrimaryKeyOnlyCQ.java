@@ -146,7 +146,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     public void setPrimaryKeyOnlyId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, getCValuePrimaryKeyOnlyId(), "PRIMARY_KEY_ONLY_ID", rangeOfOption);
+        regROO(minNumber, maxNumber, xgetCValuePrimaryKeyOnlyId(), "PRIMARY_KEY_ONLY_ID", rangeOfOption);
     }
 
     /**
@@ -159,7 +159,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     }
 
     protected void doSetPrimaryKeyOnlyId_InScope(Collection<Long> primaryKeyOnlyIdList) {
-        regINS(CK_INS, cTL(primaryKeyOnlyIdList), getCValuePrimaryKeyOnlyId(), "PRIMARY_KEY_ONLY_ID");
+        regINS(CK_INS, cTL(primaryKeyOnlyIdList), xgetCValuePrimaryKeyOnlyId(), "PRIMARY_KEY_ONLY_ID");
     }
 
     /**
@@ -172,7 +172,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     }
 
     protected void doSetPrimaryKeyOnlyId_NotInScope(Collection<Long> primaryKeyOnlyIdList) {
-        regINS(CK_NINS, cTL(primaryKeyOnlyIdList), getCValuePrimaryKeyOnlyId(), "PRIMARY_KEY_ONLY_ID");
+        regINS(CK_NINS, cTL(primaryKeyOnlyIdList), xgetCValuePrimaryKeyOnlyId(), "PRIMARY_KEY_ONLY_ID");
     }
 
     /**
@@ -187,8 +187,8 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      */
     public void setPrimaryKeyOnlyId_IsNotNull() { regPrimaryKeyOnlyId(CK_ISNN, DOBJ); }
 
-    protected void regPrimaryKeyOnlyId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValuePrimaryKeyOnlyId(), "PRIMARY_KEY_ONLY_ID"); }
-    protected abstract ConditionValue getCValuePrimaryKeyOnlyId();
+    protected void regPrimaryKeyOnlyId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValuePrimaryKeyOnlyId(), "PRIMARY_KEY_ONLY_ID"); }
+    protected abstract ConditionValue xgetCValuePrimaryKeyOnlyId();
 
     // ===================================================================================
     //                                                                     ScalarCondition

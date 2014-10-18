@@ -28,6 +28,7 @@ import java.util.TimeZone;
 #if (!$table.hasAllCommonColumn() || $table.hasRelation())
 import org.dbflute.Entity;
 #end
+import org.dbflute.FunCustodial;
 import org.dbflute.dbmeta.DBMeta;
 #if ($table.needsMappingValueType())
 import org.dbflute.dbmeta.MappingValueType;
@@ -768,11 +769,7 @@ public abstract class $myClassName implements ${myEntityInterfaceName}, Serializ
         return FunCustodial.toStringDate(date, xgDP(), mytimeZone());
     }
     protected String xgDP() { // getDatePattern()
-#if ($database.isDatabaseOracle())
-        return "yyyy-MM-dd HH:mm:ss"; // time parts for Oracle only
-#else
-        return "yyyy-MM-dd";
-#end
+        return "${database.utilDateDisplayPattern}";
     }
     protected TimeZone mytimeZone() {
         return null; // as default
