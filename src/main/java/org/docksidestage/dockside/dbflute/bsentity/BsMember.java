@@ -15,17 +15,11 @@
  */
 package org.docksidestage.dockside.dbflute.bsentity;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.Date;
-import java.util.TimeZone;
 
-import org.dbflute.Entity;
-import org.dbflute.FunCustodial;
 import org.dbflute.dbmeta.DBMeta;
-import org.dbflute.dbmeta.derived.DerivedMappable;
+import org.dbflute.dbmeta.AbstractEntity;
 import org.docksidestage.dockside.dbflute.allcommon.EntityDefinedCommonColumn;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
@@ -92,7 +86,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsMember implements EntityDefinedCommonColumn, Serializable, Cloneable, DerivedMappable {
+public abstract class BsMember extends AbstractEntity implements EntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -103,9 +97,6 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // -----------------------------------------------------
-    //                                                Column
-    //                                                ------
     /** (会員ID)MEMBER_ID: {PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS} */
     protected Integer _memberId;
 
@@ -139,47 +130,24 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     /** (バージョンNO)VERSION_NO: {NotNull, BIGINT(19)} */
     protected Long _versionNo;
 
-    // -----------------------------------------------------
-    //                                              Internal
-    //                                              --------
-    /** The unique-driven properties for this entity. (NotNull) */
-    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
-
-    /** The modified properties for this entity. (NotNull) */
-    protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
-
-    /** The map of derived value, key is alias name. (NullAllowed: lazy-loaded) */
-    protected EntityDerivedMap __derivedMap;
-
-    /** Is common column auto set up effective? */
-    protected boolean __canCommonColumnAutoSetup = true;
-
-    /** Is the entity created by DBFlute select process? */
-    protected boolean __createdBySelect;
 
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public String getTableDbName() {
         return "MEMBER";
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public String getTablePropertyName() { // according to Java Beans rule
+    /** {@inheritDoc} */
+    public String getTablePropertyName() {
         return "member";
     }
 
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() {
         return DBMetaInstanceHandler.findDBMeta(getTableDbName());
     }
@@ -187,11 +155,9 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     // ===================================================================================
     //                                                                         Primary Key
     //                                                                         ===========
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
-        if (getMemberId() == null) { return false; }
+        if (_memberId == null) { return false; }
         return true;
     }
 
@@ -204,17 +170,6 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("memberAccount");
         setMemberAccount(memberAccount);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> myuniqueDrivenProperties() {
-        return __uniqueDrivenProperties.getPropertyNames();
-    }
-
-    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
-        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -362,7 +317,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
 
     /**
      * [get] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
-     * Member's lastest login <br />
+     * Member's latest login <br />
      * @return The entity of foreign property 'memberLoginAsLatest'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public MemberLogin getMemberLoginAsLatest() {
@@ -371,7 +326,7 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
 
     /**
      * [set] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
-     * Member's lastest login
+     * Member's latest login
      * @param memberLoginAsLatest The entity of foreign property 'memberLoginAsLatest'. (NullAllowed)
      */
     public void setMemberLoginAsLatest(MemberLogin memberLoginAsLatest) {
@@ -543,164 +498,30 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     }
 
     // ===================================================================================
-    //                                                                 Modified Properties
-    //                                                                 ===================
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> modifiedProperties() {
-        return __modifiedProperties.getPropertyNames();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void clearModifiedInfo() {
-        __modifiedProperties.clear();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean hasModification() {
-        return !__modifiedProperties.isEmpty();
-    }
-
-    protected EntityModifiedProperties newModifiedProperties() {
-        return new EntityModifiedProperties();
-    }
-
-    // ===================================================================================
-    //                                                                     Birthplace Mark
-    //                                                                     ===============
-    /**
-     * {@inheritDoc}
-     */
-    public void markAsSelect() {
-        __createdBySelect = true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean createdBySelect() {
-        return __createdBySelect;
-    }
-
-    // ===================================================================================
-    //                                                                       Common Column
-    //                                                                       =============
-    /**
-     * {@inheritDoc}
-     */
-    public void enableCommonColumnAutoSetup() {
-        __canCommonColumnAutoSetup = true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void disableCommonColumnAutoSetup() {
-        __canCommonColumnAutoSetup = false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean canCommonColumnAutoSetup() {
-        return __canCommonColumnAutoSetup;
-    }
-
-    // ===================================================================================
-    //                                                                    Derived Mappable
-    //                                                                    ================
-    /**
-     * {@inheritDoc}
-     */
-    public void registerDerivedValue(String aliasName, Object selectedValue) {
-        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
-        __derivedMap.registerDerivedValue(aliasName, selectedValue);
-    }
-
-    /**
-     * Find the derived value from derived map.
-     * <pre>
-     * mapping type:
-     *  count()      : Integer
-     *  max(), min() : (same as property type of the column)
-     *  sum(), avg() : BigDecimal
-     *
-     * e.g. use count()
-     *  Integer loginCount = member.derived("$LOGIN_COUNT");
-     * </pre>
-     * @param <VALUE> The type of the value.
-     * @param aliasName The alias name of derived-referrer. (NotNull)
-     * @return The derived value found in the map. (NullAllowed: when null selected)
-     */
-    public <VALUE> VALUE derived(String aliasName) {
-        if (__derivedMap == null) { __derivedMap = newDerivedMap(); }
-        return __derivedMap.findDerivedValue(aliasName);
-    }
-
-    protected EntityDerivedMap newDerivedMap() {
-        return new EntityDerivedMap();
-    }
-
-    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
-    /**
-     * Determine the object is equal with this. <br />
-     * If primary-keys or columns of the other are same as this one, returns true.
-     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
-     * @return Comparing result.
-     */
-    public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof BsMember)) { return false; }
-        BsMember other = (BsMember)obj;
-        if (!xSV(getMemberId(), other.getMemberId())) { return false; }
-        return true;
-    }
-    protected boolean xSV(Object v1, Object v2) {
-        return FunCustodial.isSameValue(v1, v2);
+    @Override
+    protected boolean doEquals(Object obj) {
+        if (obj instanceof BsMember) {
+            BsMember other = (BsMember)obj;
+            if (!xSV(_memberId, other._memberId)) { return false; }
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    /**
-     * Calculate the hash-code from primary-keys or columns.
-     * @return The hash-code from primary-key or columns.
-     */
-    public int hashCode() {
-        int hs = 17;
+    @Override
+    protected int doHashCode(int initial) {
+        int hs = initial;
         hs = xCH(hs, getTableDbName());
-        hs = xCH(hs, getMemberId());
+        hs = xCH(hs, _memberId);
         return hs;
     }
-    protected int xCH(int hs, Object vl) {
-        return FunCustodial.calculateHashcode(hs, vl);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    public int instanceHash() {
-        return super.hashCode();
-    }
-
-    /**
-     * Convert to display string of entity's data. (no relation data)
-     * @return The display string of all columns and relation existences. (NotNull)
-     */
-    public String toString() {
-        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String toStringWithRelation() {
+    @Override
+    protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        sb.append(toString());
-        String li = "\n  ";
         if (_memberStatus != null)
         { sb.append(li).append(xbRDS(_memberStatus, "memberStatus")); }
         if (_memberAddressAsValid != null)
@@ -713,97 +534,68 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
         { sb.append(li).append(xbRDS(_memberServiceAsOne, "memberServiceAsOne")); }
         if (_memberWithdrawalAsOne != null)
         { sb.append(li).append(xbRDS(_memberWithdrawalAsOne, "memberWithdrawalAsOne")); }
-        if (_memberAddressList != null) { for (Entity et : _memberAddressList)
+        if (_memberAddressList != null) { for (MemberAddress et : _memberAddressList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "memberAddressList")); } } }
-        if (_memberFollowingByMyMemberIdList != null) { for (Entity et : _memberFollowingByMyMemberIdList)
+        if (_memberFollowingByMyMemberIdList != null) { for (MemberFollowing et : _memberFollowingByMyMemberIdList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "memberFollowingByMyMemberIdList")); } } }
-        if (_memberFollowingByYourMemberIdList != null) { for (Entity et : _memberFollowingByYourMemberIdList)
+        if (_memberFollowingByYourMemberIdList != null) { for (MemberFollowing et : _memberFollowingByYourMemberIdList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "memberFollowingByYourMemberIdList")); } } }
-        if (_memberLoginList != null) { for (Entity et : _memberLoginList)
+        if (_memberLoginList != null) { for (MemberLogin et : _memberLoginList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "memberLoginList")); } } }
-        if (_purchaseList != null) { for (Entity et : _purchaseList)
+        if (_purchaseList != null) { for (Purchase et : _purchaseList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "purchaseList")); } } }
         return sb.toString();
     }
-    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
-        return et.buildDisplayString(name, true, true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    public String buildDisplayString(String name, boolean column, boolean relation) {
+    @Override
+    protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (name != null) { sb.append(name).append(column || relation ? ":" : ""); }
-        if (column) { sb.append(buildColumnString()); }
-        if (relation) { sb.append(buildRelationString()); }
-        sb.append("@").append(Integer.toHexString(hashCode()));
-        return sb.toString();
-    }
-    protected String buildColumnString() {
-        StringBuilder sb = new StringBuilder();
-        String dm = ", ";
-        sb.append(dm).append(getMemberId());
-        sb.append(dm).append(getMemberName());
-        sb.append(dm).append(getMemberAccount());
-        sb.append(dm).append(getMemberStatusCode());
-        sb.append(dm).append(getFormalizedDatetime());
-        sb.append(dm).append(xfUD(getBirthdate()));
-        sb.append(dm).append(getRegisterDatetime());
-        sb.append(dm).append(getRegisterUser());
-        sb.append(dm).append(getUpdateDatetime());
-        sb.append(dm).append(getUpdateUser());
-        sb.append(dm).append(getVersionNo());
+        sb.append(dm).append(_memberId);
+        sb.append(dm).append(_memberName);
+        sb.append(dm).append(_memberAccount);
+        sb.append(dm).append(_memberStatusCode);
+        sb.append(dm).append(_formalizedDatetime);
+        sb.append(dm).append(xfUD(_birthdate));
+        sb.append(dm).append(_registerDatetime);
+        sb.append(dm).append(_registerUser);
+        sb.append(dm).append(_updateDatetime);
+        sb.append(dm).append(_updateUser);
+        sb.append(dm).append(_versionNo);
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
-    protected String xfUD(Date date) { // formatUtilDate()
-        return FunCustodial.toStringDate(date, xgDP(), mytimeZone());
-    }
-    protected String xgDP() { // getDatePattern()
-        return "yyyy-MM-dd";
-    }
-    protected TimeZone mytimeZone() {
-        return null; // as default
-    }
-    protected String buildRelationString() {
+
+    @Override
+    protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        String cm = ",";
-        if (_memberStatus != null) { sb.append(cm).append("memberStatus"); }
-        if (_memberAddressAsValid != null) { sb.append(cm).append("memberAddressAsValid"); }
-        if (_memberLoginAsLatest != null) { sb.append(cm).append("memberLoginAsLatest"); }
-        if (_memberSecurityAsOne != null) { sb.append(cm).append("memberSecurityAsOne"); }
-        if (_memberServiceAsOne != null) { sb.append(cm).append("memberServiceAsOne"); }
-        if (_memberWithdrawalAsOne != null) { sb.append(cm).append("memberWithdrawalAsOne"); }
+        if (_memberStatus != null) { sb.append(dm).append("memberStatus"); }
+        if (_memberAddressAsValid != null) { sb.append(dm).append("memberAddressAsValid"); }
+        if (_memberLoginAsLatest != null) { sb.append(dm).append("memberLoginAsLatest"); }
+        if (_memberSecurityAsOne != null) { sb.append(dm).append("memberSecurityAsOne"); }
+        if (_memberServiceAsOne != null) { sb.append(dm).append("memberServiceAsOne"); }
+        if (_memberWithdrawalAsOne != null) { sb.append(dm).append("memberWithdrawalAsOne"); }
         if (_memberAddressList != null && !_memberAddressList.isEmpty())
-        { sb.append(cm).append("memberAddressList"); }
+        { sb.append(dm).append("memberAddressList"); }
         if (_memberFollowingByMyMemberIdList != null && !_memberFollowingByMyMemberIdList.isEmpty())
-        { sb.append(cm).append("memberFollowingByMyMemberIdList"); }
+        { sb.append(dm).append("memberFollowingByMyMemberIdList"); }
         if (_memberFollowingByYourMemberIdList != null && !_memberFollowingByYourMemberIdList.isEmpty())
-        { sb.append(cm).append("memberFollowingByYourMemberIdList"); }
+        { sb.append(dm).append("memberFollowingByYourMemberIdList"); }
         if (_memberLoginList != null && !_memberLoginList.isEmpty())
-        { sb.append(cm).append("memberLoginList"); }
+        { sb.append(dm).append("memberLoginList"); }
         if (_purchaseList != null && !_purchaseList.isEmpty())
-        { sb.append(cm).append("purchaseList"); }
-        if (sb.length() > cm.length()) {
-            sb.delete(0, cm.length()).insert(0, "(").append(")");
+        { sb.append(dm).append("purchaseList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }
 
-    /**
-     * Clone entity instance using super.clone(). (shallow copy) 
-     * @return The cloned instance of this entity. (NotNull)
-     */
+    @Override
     public Member clone() {
-        try {
-            return (Member)super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new IllegalStateException("Failed to clone the entity: " + toString(), e);
-        }
+        return (Member)super.clone();
     }
 
     // ===================================================================================
@@ -1037,9 +829,5 @@ public abstract class BsMember implements EntityDefinedCommonColumn, Serializabl
     public void setVersionNo(Long versionNo) {
         __modifiedProperties.addPropertyName("versionNo");
         _versionNo = versionNo;
-    }
-
-    protected void checkClassificationCode(String columnDbName, CDef.DefMeta meta, Object value) {
-        FunCustodial.checkClassificationCode(this, columnDbName, meta, value);
     }
 }

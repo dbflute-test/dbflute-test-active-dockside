@@ -337,7 +337,7 @@ public class BsMemberCB extends AbstractConditionBean {
     /**
      * Set up relation columns to select clause. <br />
      * (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
-     * Member's lastest login
+     * Member's latest login
      * <pre>
      * MemberCB cb = new MemberCB();
      * cb.<span style="color: #CC4747">setupSelect_MemberLoginAsLatest()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -615,7 +615,7 @@ public class BsMemberCB extends AbstractConditionBean {
         /**
          * Prepare to specify functions about relation table. <br />
          * (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
-         * Member's lastest login
+         * Member's latest login
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public MemberLoginCB.HpSpecification specifyMemberLoginAsLatest() {

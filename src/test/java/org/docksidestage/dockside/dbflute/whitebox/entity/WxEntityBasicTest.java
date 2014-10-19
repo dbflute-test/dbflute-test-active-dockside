@@ -74,20 +74,21 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         assertFalse(member.hasModification());
     }
 
-    // ===================================================================================
-    //                                                              Common Column Handling
-    //                                                              ======================
-    public void test_commonColumnHandling_basic() {
-        // ## Arrange ##
-        Member member = new Member();
-
-        // ## Act & Assert ##
-        assertTrue(member.canCommonColumnAutoSetup());
-        member.disableCommonColumnAutoSetup();
-        assertFalse(member.canCommonColumnAutoSetup());
-        member.enableCommonColumnAutoSetup();
-        assertTrue(member.canCommonColumnAutoSetup());
-    }
+    // unsupported since 1.1, use varyingInsert()
+    //// ===================================================================================
+    ////                                                              Common Column Handling
+    ////                                                              ======================
+    //public void test_commonColumnHandling_basic() {
+    //    // ## Arrange ##
+    //    Member member = new Member();
+    //
+    //    // ## Act & Assert ##
+    //    assertTrue(member.canCommonColumnAutoSetup());
+    //    member.disableCommonColumnAutoSetup();
+    //    assertFalse(member.canCommonColumnAutoSetup());
+    //    member.enableCommonColumnAutoSetup();
+    //    assertTrue(member.canCommonColumnAutoSetup());
+    //}
 
     // ===================================================================================
     //                                                                            eqauls()

@@ -783,10 +783,9 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         member.setRegisterUser("suppressRegisterUser");
         member.setUpdateDatetime(expectedTimestamp);
         member.setUpdateUser("suppressUpdateUser");
-        member.disableCommonColumnAutoSetup();// *Point!
 
         // ## Act ##
-        memberBhv.insert(member);
+        memberBhv.varyingInsert(member, op -> op.disableCommonColumnAutoSetup());
 
         // ## Assert ##
         final Member actualMember = memberBhv.selectEntityWithDeletedCheck(cb -> {

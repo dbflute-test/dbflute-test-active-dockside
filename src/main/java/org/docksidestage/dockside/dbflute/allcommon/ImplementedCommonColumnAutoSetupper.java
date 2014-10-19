@@ -39,9 +39,7 @@ public class ImplementedCommonColumnAutoSetupper implements CommonColumnAutoSetu
     // =====================================================================================
     //                                                                                Set up
     //                                                                                ======
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public void handleCommonColumnOfInsertIfNeeds(Entity targetEntity) {
         final EntityDefinedCommonColumn entity = askIfEntitySetup(targetEntity);
         if (entity == null) {
@@ -64,9 +62,7 @@ public class ImplementedCommonColumnAutoSetupper implements CommonColumnAutoSetu
         entity.setUpdateUser(updateUser);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public void handleCommonColumnOfUpdateIfNeeds(Entity targetEntity) {
         final EntityDefinedCommonColumn entity = askIfEntitySetup(targetEntity);
         if (entity == null) {
@@ -92,19 +88,11 @@ public class ImplementedCommonColumnAutoSetupper implements CommonColumnAutoSetu
         if (!hasCommonColumn(targetEntity)) {
             return null;
         }
-        final EntityDefinedCommonColumn entity = downcastEntity(targetEntity);
-        if (!canCommonColumnAutoSetup(entity)) {
-            return null;
-        }
-        return entity;
+        return downcastEntity(targetEntity);
     }
 
     protected boolean hasCommonColumn(Entity targetEntity) {
         return targetEntity instanceof EntityDefinedCommonColumn;
-    }
-
-    protected boolean canCommonColumnAutoSetup(EntityDefinedCommonColumn entity) {
-        return entity.canCommonColumnAutoSetup();
     }
 
     protected EntityDefinedCommonColumn downcastEntity(Entity targetEntity) {

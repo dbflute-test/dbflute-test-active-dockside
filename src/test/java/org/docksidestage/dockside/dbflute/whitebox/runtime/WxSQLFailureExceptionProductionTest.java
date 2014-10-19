@@ -42,6 +42,7 @@ public class WxSQLFailureExceptionProductionTest extends UnitContainerTestCase {
     @Override
     public void tearDown() throws Exception {
         super.tearDown();
+        XLog.unlock();
         XLog.setLoggingInHolidayMood(false);
         XLog.lock();
     }

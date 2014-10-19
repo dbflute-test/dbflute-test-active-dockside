@@ -632,18 +632,16 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
                 member.setMemberAccount("testAccount" + count);
                 member.setMemberStatusCode_Provisional();
                 member.setUpdateUser("disable test");
-                member.disableCommonColumnAutoSetup();
                 expectedVersionNoList.add(member.getVersionNo());
                 ++count;
             }
         }
 
         // ## Act ##
-        int[] result = memberBhv.varyingBatchUpdate(memberList, op -> op.specify(new SpecifyQuery<MemberCB>() {
-            public void specify(MemberCB cb) {
-                cb.specify().columnMemberName();
-            }
-        }));
+        int[] result = memberBhv.varyingBatchUpdate(memberList, op -> {
+            op.disableCommonColumnAutoSetup();
+            op.specify(colCB -> colCB.specify().columnMemberName());
+        });
 
         // ## Assert ##
         assertEquals(3, result.length);

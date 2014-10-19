@@ -55,7 +55,7 @@ public class MemberNss {
     /**
      * With nested relation columns to select clause. <br />
      * (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
-     * Member's lastest login
+     * Member's latest login
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberLoginNss withMemberLoginAsLatest() {

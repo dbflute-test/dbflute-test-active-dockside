@@ -515,7 +515,7 @@ public class BsMemberCQ extends AbstractBsMemberCQ {
     /**
      * Get the condition-query for relation table. <br />
      * (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
-     * Member's lastest login
+     * Member's latest login
      * @return The instance of condition-query. (NotNull)
      */
     public MemberLoginCQ queryMemberLoginAsLatest() {

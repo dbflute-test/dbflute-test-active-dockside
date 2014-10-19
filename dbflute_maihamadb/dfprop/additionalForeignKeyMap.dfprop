@@ -56,7 +56,7 @@ select max(login.LOGIN_DATETIME)
  where login.MEMBER_ID = $$foreignAlias$$.MEMBER_ID
 )$$sqend$$
         ; fixedSuffix = AsLatest
-        ; comment = Member's lastest login
+        ; comment = Member's latest login
     }
 
     # ====================================================================================
