@@ -2,12 +2,10 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean;
 
 import java.util.Date;
 
-import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.OrQuery;
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.cbean.scoping.SubQuery;
-import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.exception.OrderByIllegalPurposeException;
 import org.dbflute.exception.QueryThatsBadTimingException;
 import org.dbflute.exception.SetupSelectIllegalPurposeException;
@@ -16,7 +14,6 @@ import org.dbflute.exception.SpecifyIllegalPurposeException;
 import org.dbflute.exception.SpecifyThatsBadTimingException;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberWithdrawalCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
@@ -84,16 +81,11 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
                             purchaseCB.query().setPurchaseCount_GreaterEqual(2);
                         }
                     });
-                    memberCB.query().existsMemberWithdrawalAsOne(new SubQuery<MemberWithdrawalCB>() {
-                        public void query(MemberWithdrawalCB subCB) {
-                            final LikeSearchOption option = new LikeSearchOption().likeContain().escapeByPipeLine();
-                            subCB.query().queryWithdrawalReason().setWithdrawalReasonText_LikeSearch("xxx", option);
-                            subCB.union(new UnionQuery<MemberWithdrawalCB>() {
-                                public void query(MemberWithdrawalCB unionCB) {
-                                    unionCB.query().setWithdrawalReasonInputText_IsNotNull();
-                                }
-                            });
-                        }
+                    memberCB.query().existsPurchase(purchaseCB -> {
+                        purchaseCB.query().setPaymentCompleteFlg_Equal_False();
+                        purchaseCB.union(unionCB -> {
+                            unionCB.query().setPurchasePrice_GreaterEqual(2000);
+                        });
                     });
                 }
             });

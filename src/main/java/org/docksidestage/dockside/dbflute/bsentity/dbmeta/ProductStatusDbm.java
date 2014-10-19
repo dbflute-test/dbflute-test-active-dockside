@@ -57,9 +57,17 @@ public class ProductStatusDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgProductStatusName(), "productStatusName");
         setupEpg(_epgMap, new EpgDisplayOrder(), "displayOrder");
     }
-    public static class EpgProductStatusCode implements PropertyGateway {
+    public class EpgProductStatusCode implements PropertyGateway {
         public Object read(Entity et) { return ((ProductStatus)et).getProductStatusCode(); }
-        public void write(Entity et, Object vl) { ((ProductStatus)et).setProductStatusCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnProductStatusCode();
+            CDef.ProductStatus cls = (CDef.ProductStatus)gcls(col, vl);
+            if (cls != null) {
+                ((ProductStatus)et).setProductStatusCodeAsProductStatus(cls);
+            } else {
+                ((ProductStatus)et).mynativeMappingProductStatusCode((String)vl);
+            }
+        }
     }
     public static class EpgProductStatusName implements PropertyGateway {
         public Object read(Entity et) { return ((ProductStatus)et).getProductStatusName(); }

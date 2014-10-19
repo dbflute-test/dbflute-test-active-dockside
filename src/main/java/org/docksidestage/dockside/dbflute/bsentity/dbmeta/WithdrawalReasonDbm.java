@@ -57,9 +57,17 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgWithdrawalReasonText(), "withdrawalReasonText");
         setupEpg(_epgMap, new EpgDisplayOrder(), "displayOrder");
     }
-    public static class EpgWithdrawalReasonCode implements PropertyGateway {
+    public class EpgWithdrawalReasonCode implements PropertyGateway {
         public Object read(Entity et) { return ((WithdrawalReason)et).getWithdrawalReasonCode(); }
-        public void write(Entity et, Object vl) { ((WithdrawalReason)et).setWithdrawalReasonCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnWithdrawalReasonCode();
+            CDef.WithdrawalReason cls = (CDef.WithdrawalReason)gcls(col, vl);
+            if (cls != null) {
+                ((WithdrawalReason)et).setWithdrawalReasonCodeAsWithdrawalReason(cls);
+            } else {
+                ((WithdrawalReason)et).mynativeMappingWithdrawalReasonCode((String)vl);
+            }
+        }
     }
     public static class EpgWithdrawalReasonText implements PropertyGateway {
         public Object read(Entity et) { return ((WithdrawalReason)et).getWithdrawalReasonText(); }

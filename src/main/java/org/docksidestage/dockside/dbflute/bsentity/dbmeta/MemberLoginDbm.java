@@ -71,13 +71,29 @@ public class MemberLoginDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberLogin)et).getLoginDatetime(); }
         public void write(Entity et, Object vl) { ((MemberLogin)et).setLoginDatetime((java.sql.Timestamp)vl); }
     }
-    public static class EpgMobileLoginFlg implements PropertyGateway {
+    public class EpgMobileLoginFlg implements PropertyGateway {
         public Object read(Entity et) { return ((MemberLogin)et).getMobileLoginFlg(); }
-        public void write(Entity et, Object vl) { ((MemberLogin)et).setMobileLoginFlg(cti(vl)); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnMobileLoginFlg();
+            CDef.Flg cls = (CDef.Flg)gcls(col, vl);
+            if (cls != null) {
+                ((MemberLogin)et).setMobileLoginFlgAsFlg(cls);
+            } else {
+                ((MemberLogin)et).mynativeMappingMobileLoginFlg(ctn(vl, Integer.class));
+            }
+        }
     }
-    public static class EpgLoginMemberStatusCode implements PropertyGateway {
+    public class EpgLoginMemberStatusCode implements PropertyGateway {
         public Object read(Entity et) { return ((MemberLogin)et).getLoginMemberStatusCode(); }
-        public void write(Entity et, Object vl) { ((MemberLogin)et).setLoginMemberStatusCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnLoginMemberStatusCode();
+            CDef.MemberStatus cls = (CDef.MemberStatus)gcls(col, vl);
+            if (cls != null) {
+                ((MemberLogin)et).setLoginMemberStatusCodeAsMemberStatus(cls);
+            } else {
+                ((MemberLogin)et).mynativeMappingLoginMemberStatusCode((String)vl);
+            }
+        }
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

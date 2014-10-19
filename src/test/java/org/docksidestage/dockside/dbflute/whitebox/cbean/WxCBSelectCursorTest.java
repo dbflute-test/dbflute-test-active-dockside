@@ -88,7 +88,7 @@ public class WxCBSelectCursorTest extends UnitContainerTestCase {
                 }
                 assertTrue(ConditionBeanContext.isExistConditionBeanOnThread());
                 String memberName = entity.getMemberName();
-                MemberStatus memberStatus = new MemberStatus();
+                MemberStatus status = new MemberStatus();
                 String memberStatusCode;
                 if (count >= 100) {
                     memberStatusCode = String.valueOf(count);
@@ -97,12 +97,12 @@ public class WxCBSelectCursorTest extends UnitContainerTestCase {
                 } else {
                     memberStatusCode = "00" + count;
                 }
-                memberStatus.setMemberStatusCode(memberStatusCode);
-                memberStatus.setMemberStatusName(memberName + count);
-                memberStatus.setDescription("foo");
-                memberStatus.setDisplayOrder(99999 + count);
-                memberStatusBhv.insert(memberStatus);
-                codeList.add(memberStatus.getMemberStatusCode());
+                status.xznocheckSetMemberStatusCode(memberStatusCode);
+                status.setMemberStatusName(memberName + count);
+                status.setDescription("foo");
+                status.setDisplayOrder(99999 + count);
+                memberStatusBhv.insert(status);
+                codeList.add(status.getMemberStatusCode());
                 assertTrue(ConditionBeanContext.isExistConditionBeanOnThread());
                 ++count;
             }

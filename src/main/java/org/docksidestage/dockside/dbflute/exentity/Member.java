@@ -18,6 +18,7 @@ package org.docksidestage.dockside.dbflute.exentity;
 import java.sql.Timestamp;
 
 import org.docksidestage.dockside.dbflute.bsentity.BsMember;
+import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 
 /**
  * The entity of MEMBER.
@@ -99,5 +100,13 @@ public class Member extends BsMember {
      */
     public void setTotalPaymentAmount(Integer totalPaymentAmount) {
         _totalPaymentAmount = totalPaymentAmount;
+    }
+
+    // ===================================================================================
+    //                                                            for test: Classification
+    //                                                            ========================
+    public void xznocheckSetMemberStatusCode(String code) {
+        __modifiedProperties.addPropertyName(MemberDbm.getInstance().columnMemberStatusCode().getPropertyName());
+        _memberStatusCode = code;
     }
 }

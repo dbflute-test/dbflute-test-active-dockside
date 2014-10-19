@@ -468,7 +468,7 @@ public abstract class BsServiceRank extends AbstractEntity {
      * サービスランクを識別するコード。
      * @param serviceRankCode The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if update: for the constraint)
      */
-    public void setServiceRankCode(String serviceRankCode) {
+    protected void setServiceRankCode(String serviceRankCode) {
         checkClassificationCode("SERVICE_RANK_CODE", CDef.DefMeta.ServiceRank, serviceRankCode);
         __modifiedProperties.addPropertyName("serviceRankCode");
         _serviceRankCode = serviceRankCode;
@@ -530,7 +530,7 @@ public abstract class BsServiceRank extends AbstractEntity {
      * このランクへの新規受け入れができるかどうか。
      * @param newAcceptableFlg The value of the column 'NEW_ACCEPTABLE_FLG'. (basically NotNull if update: for the constraint)
      */
-    public void setNewAcceptableFlg(Integer newAcceptableFlg) {
+    protected void setNewAcceptableFlg(Integer newAcceptableFlg) {
         checkClassificationCode("NEW_ACCEPTABLE_FLG", CDef.DefMeta.Flg, newAcceptableFlg);
         __modifiedProperties.addPropertyName("newAcceptableFlg");
         _newAcceptableFlg = newAcceptableFlg;
@@ -572,5 +572,21 @@ public abstract class BsServiceRank extends AbstractEntity {
     public void setDisplayOrder(Integer displayOrder) {
         __modifiedProperties.addPropertyName("displayOrder");
         _displayOrder = displayOrder;
+    }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param serviceRankCode The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingServiceRankCode(String serviceRankCode) {
+        setServiceRankCode(serviceRankCode);
+    }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param newAcceptableFlg The value of the column 'NEW_ACCEPTABLE_FLG'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingNewAcceptableFlg(Integer newAcceptableFlg) {
+        setNewAcceptableFlg(newAcceptableFlg);
     }
 }

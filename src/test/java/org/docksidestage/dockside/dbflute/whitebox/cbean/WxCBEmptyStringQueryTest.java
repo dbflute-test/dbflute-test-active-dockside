@@ -38,7 +38,7 @@ public class WxCBEmptyStringQueryTest extends UnitContainerTestCase {
         });
         cb.enableEmptyStringQuery(() -> {
             cb.query().existsPurchase(purchaseCB -> {
-                purchaseCB.query().queryProduct().setProductStatusCode_Equal("");
+                purchaseCB.query().queryProduct().xznocheckSetProductStatusCode_Equal("");
             });
         });
 

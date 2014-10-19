@@ -79,9 +79,17 @@ public class OptionMemberDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((OptionMember)et).getFormalizedDatetime(); }
         public void write(Entity et, Object vl) { ((OptionMember)et).setFormalizedDatetime((java.sql.Timestamp)vl); }
     }
-    public static class EpgMemberStatusCode implements PropertyGateway {
+    public class EpgMemberStatusCode implements PropertyGateway {
         public Object read(Entity et) { return ((OptionMember)et).getMemberStatusCode(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setMemberStatusCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnMemberStatusCode();
+            CDef.MemberStatus cls = (CDef.MemberStatus)gcls(col, vl);
+            if (cls != null) {
+                ((OptionMember)et).setMemberStatusCodeAsMemberStatus(cls);
+            } else {
+                ((OptionMember)et).mynativeMappingMemberStatusCode((String)vl);
+            }
+        }
     }
     public static class EpgMemberStatusName implements PropertyGateway {
         public Object read(Entity et) { return ((OptionMember)et).getMemberStatusName(); }
@@ -91,9 +99,17 @@ public class OptionMemberDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((OptionMember)et).getStatusDisplayOrder(); }
         public void write(Entity et, Object vl) { ((OptionMember)et).setStatusDisplayOrder(cti(vl)); }
     }
-    public static class EpgDummyFlg implements PropertyGateway {
+    public class EpgDummyFlg implements PropertyGateway {
         public Object read(Entity et) { return ((OptionMember)et).getDummyFlg(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setDummyFlg(cti(vl)); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnDummyFlg();
+            CDef.Flg cls = (CDef.Flg)gcls(col, vl);
+            if (cls != null) {
+                ((OptionMember)et).setDummyFlgAsFlg(cls);
+            } else {
+                ((OptionMember)et).mynativeMappingDummyFlg(ctn(vl, Integer.class));
+            }
+        }
     }
     public static class EpgDummyNoflg implements PropertyGateway {
         public Object read(Entity et) { return ((OptionMember)et).getDummyNoflg(); }

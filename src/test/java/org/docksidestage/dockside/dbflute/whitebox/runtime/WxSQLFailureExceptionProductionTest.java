@@ -365,7 +365,6 @@ public class WxSQLFailureExceptionProductionTest extends UnitContainerTestCase {
         // ## Arrange ##
         PurchaseChangedToPaymentCompletePmb pmb = new PurchaseChangedToPaymentCompletePmb();
         pmb.setMemberName_PrefixSearch("S");
-        pmb.setPaymentCompleteFlg(null);
 
         // ## Act ##
         try {

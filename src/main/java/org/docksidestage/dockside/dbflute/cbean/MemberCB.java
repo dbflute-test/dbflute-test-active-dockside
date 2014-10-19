@@ -34,8 +34,8 @@ import org.docksidestage.dockside.dbflute.cbean.bs.BsMemberCB;
 public class MemberCB extends BsMemberCB {
 
     // ===================================================================================
-    //                                                                       PagingInvoker
-    //                                                                       =============
+    //                                                             for test: PagingInvoker
+    //                                                             =======================
     // internal manipulation for test (don't mimic it)
     protected boolean _xzpagingInvocationMarking;
     protected boolean _xzpagingExecuteCountMarked;

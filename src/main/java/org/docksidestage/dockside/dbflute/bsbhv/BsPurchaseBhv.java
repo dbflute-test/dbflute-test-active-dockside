@@ -95,9 +95,9 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br />
      * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
      * <pre>
-     * PurchaseCB cb = new PurchaseCB();
-     * cb.query().setFoo...(value);
-     * int count = purchaseBhv.<span style="color: #CC4747">selectCount</span>(cb);
+     * int count = <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
      * </pre>
      * @param cbLambda The callback for condition-bean of Purchase. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -114,8 +114,8 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
-     * Purchase purchase = purchaseBhv.<span style="color: #CC4747">selectEntity</span>(cb -&gt; {
-     *     cb.query().set...
+     * Purchase purchase = <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
      * });
      * if (purchase != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = purchase.get...();
@@ -146,10 +146,8 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * Select the entity by the condition-bean with deleted check. <br />
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, this method is good.</span>
      * <pre>
-     * PurchaseCB cb = new PurchaseCB();
-     * cb.query().setFoo...(value);
-     * Purchase purchase = purchaseBhv.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb);
-     * ... = purchase.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
+     * Purchase <span style="color: #553000">purchase</span> = <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> cb.acceptPK(1));
+     * ... = <span style="color: #553000">purchase</span>.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cbLambda The callback for condition-bean of Purchase. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
@@ -223,12 +221,12 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
     /**
      * Select the list as result bean.
      * <pre>
-     * ListResultBean&lt;Purchase&gt; purchaseList = purchaseBhv.<span style="color: #CC4747">selectList</span>(cb -&gt; {
-     *     cb.query().set...;
-     *     cb.query().addOrderBy...;
+     * ListResultBean&lt;Purchase&gt; <span style="color: #553000">purchaseList</span> = <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">selectList</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...;
+     *     <span style="color: #553000">cb</span>.query().addOrderBy...;
      * });
-     * purchaseList.forEach(purchase -&gt; {
-     *     ... = purchase.get...();
+     * for (Purchase <span style="color: #553000">purchase</span> : <span style="color: #553000">purchaseList</span>) {
+     *     ... = <span style="color: #553000">purchase</span>.get...();
      * });
      * </pre>
      * @param cbLambda The callback for condition-bean of Purchase. (NotNull)
@@ -249,17 +247,17 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * Select the page as result bean. <br />
      * (both count-select and paging-select are executed)
      * <pre>
-     * PurchaseCB cb = new PurchaseCB();
-     * cb.query().setFoo...(value);
-     * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;Purchase&gt; page = purchaseBhv.<span style="color: #CC4747">selectPage</span>(cb);
-     * int allRecordCount = page.getAllRecordCount();
-     * int allPageCount = page.getAllPageCount();
-     * boolean isExistPrePage = page.isExistPrePage();
-     * boolean isExistNextPage = page.isExistNextPage();
+     * PagingResultBean&lt;Purchase&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">selectPage</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     *     <span style="color: #553000">cb</span>.query().addOrderBy...
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * });
+     * int allRecordCount = <span style="color: #553000">page</span>.getAllRecordCount();
+     * int allPageCount = <span style="color: #553000">page</span>.getAllPageCount();
+     * boolean isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
+     * boolean isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
      * ...
-     * for (Purchase purchase : page) {
+     * for (Purchase purchase : <span style="color: #553000">page</span>) {
      *     ... = purchase.get...();
      * }
      * </pre>
@@ -277,12 +275,10 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
     /**
      * Select the cursor by the condition-bean.
      * <pre>
-     * PurchaseCB cb = new PurchaseCB();
-     * cb.query().setFoo...(value);
-     * purchaseBhv.<span style="color: #CC4747">selectCursor</span>(cb, new EntityRowHandler&lt;Purchase&gt;() {
-     *     public void handle(Purchase entity) {
-     *         ... = entity.getFoo...();
-     *     }
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">selectCursor</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }, <span style="color: #553000">member</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">member</span>.getMemberName();
      * });
      * </pre>
      * @param cbLambda The callback for condition-bean of Purchase. (NotNull)
@@ -299,11 +295,9 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * purchaseBhv.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
-     *     public void query(PurchaseCB cb) {
-     *         cb.specify().<span style="color: #CC4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
-     *         cb.query().setBarName_PrefixSearch("S");
-     *     }
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...()</span>; <span style="color: #3F7E5E">// required for the function</span>
+     *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
      * @param <RESULT> The type of result.
@@ -329,23 +323,24 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
     /**
      * Load referrer by the the referrer loader. <br />
      * <pre>
-     * MemberCB cb = new MemberCB();
-     * cb.query().set...
-     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
-     * memberBhv.<span style="color: #CC4747">load</span>(memberList, loader -&gt; {
-     *     loader.<span style="color: #CC4747">loadPurchaseList</span>(purchaseCB -&gt; {
-     *         purchaseCB.query().set...
-     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     * List&lt;Member&gt; <span style="color: #553000">memberList</span> = <span style="color: #0000C0">memberBhv</span>.selectList(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
+     * memberBhv.<span style="color: #CC4747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">purchaseCB</span>.setupSelect...
+     *         <span style="color: #553000">purchaseCB</span>.query().set...
+     *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
-     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
      *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
      *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
-     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
-     * }
-     * for (Member member : memberList) {
+     *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
+     * });
+     * for (Member member : <span style="color: #553000">memberList</span>) {
      *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
      *     for (Purchase purchase : purchaseList) {
      *         ...
@@ -365,27 +360,24 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
     /**
      * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
      * <pre>
-     * MemberCB cb = new MemberCB();
-     * cb.query().set...
-     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
-     * memberBhv.<span style="color: #CC4747">load</span>(member, loader -&gt; {
-     *     loader.<span style="color: #CC4747">loadPurchaseList</span>(purchaseCB -&gt; {
-     *         purchaseCB.query().set...
-     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     * Member <span style="color: #553000">member</span> = <span style="color: #0000C0">memberBhv</span>.selectEntityWithDeletedCheck(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> <span style="color: #553000">cb</span>.acceptPK(1));
+     * <span style="color: #0000C0">memberBhv</span>.<span style="color: #CC4747">load</span>(<span style="color: #553000">member</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">purchaseCB</span>.setupSelect...
+     *         <span style="color: #553000">purchaseCB</span>.query().set...
+     *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
-     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
      *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
      *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
-     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
-     * }
-     * for (Member member : memberList) {
-     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
-     *     for (Purchase purchase : purchaseList) {
-     *         ...
-     *     }
+     *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
+     * });
+     * List&lt;Purchase&gt; purchaseList = <span style="color: #553000">member</span>.<span style="color: #CC4747">getPurchaseList()</span>;
+     * for (Purchase purchase : purchaseList) {
+     *     ...
      * }
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
@@ -402,15 +394,15 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * Load referrer of purchasePaymentList by the set-upper of referrer. <br />
      * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
      * <pre>
-     * purchaseBhv.<span style="color: #CC4747">loadPurchasePayment</span>(purchaseList, paymentCB -&gt; {
-     *     paymentCB.setupSelect...();
-     *     paymentCB.query().setFoo...(value);
-     *     paymentCB.query().addOrderBy_Bar...();
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">loadPurchasePayment</span>(<span style="color: #553000">purchaseList</span>, <span style="color: #553000">paymentCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">paymentCB</span>.setupSelect...
+     *     <span style="color: #553000">paymentCB</span>.query().set...
+     *     <span style="color: #553000">paymentCB</span>.query().addOrderBy...
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
-     * for (Purchase purchase : purchaseList) {
+     * for (Purchase purchase : <span style="color: #553000">purchaseList</span>) {
      *     ... = purchase.<span style="color: #CC4747">getPurchasePaymentList()</span>;
      * }
      * </pre>
@@ -424,7 +416,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<PurchasePayment> loadPurchasePayment(List<Purchase> purchaseList, ConditionBeanSetupper<PurchasePaymentCB> refCBLambda) {
+    public NestedReferrerListGateway<PurchasePayment> loadPurchasePayment(List<Purchase> purchaseList, ReferrerConditionSetupper<PurchasePaymentCB> refCBLambda) {
         xassLRArg(purchaseList, refCBLambda);
         return doLoadPurchasePayment(purchaseList, new LoadReferrerOption<PurchasePaymentCB, PurchasePayment>().xinit(refCBLambda));
     }
@@ -433,15 +425,15 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * Load referrer of purchasePaymentList by the set-upper of referrer. <br />
      * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
      * <pre>
-     * purchaseBhv.<span style="color: #CC4747">loadPurchasePayment</span>(purchaseList, paymentCB -&gt; {
-     *     paymentCB.setupSelect...();
-     *     paymentCB.query().setFoo...(value);
-     *     paymentCB.query().addOrderBy_Bar...();
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">loadPurchasePayment</span>(<span style="color: #553000">purchase</span>, <span style="color: #553000">paymentCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">paymentCB</span>.setupSelect...
+     *     <span style="color: #553000">paymentCB</span>.query().set...
+     *     <span style="color: #553000">paymentCB</span>.query().addOrderBy...
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
-     * ... = purchase.<span style="color: #CC4747">getPurchasePaymentList()</span>;
+     * ... = <span style="color: #553000">purchase</span>.<span style="color: #CC4747">getPurchasePaymentList()</span>;
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
@@ -453,33 +445,9 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<PurchasePayment> loadPurchasePayment(Purchase purchase, ConditionBeanSetupper<PurchasePaymentCB> refCBLambda) {
+    public NestedReferrerListGateway<PurchasePayment> loadPurchasePayment(Purchase purchase, ReferrerConditionSetupper<PurchasePaymentCB> refCBLambda) {
         xassLRArg(purchase, refCBLambda);
         return doLoadPurchasePayment(xnewLRLs(purchase), new LoadReferrerOption<PurchasePaymentCB, PurchasePayment>().xinit(refCBLambda));
-    }
-
-    /**
-     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
-     * @param purchase The entity of purchase. (NotNull)
-     * @param loadReferrerOption The option of load-referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerListGateway<PurchasePayment> loadPurchasePayment(Purchase purchase, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> loadReferrerOption) {
-        xassLRArg(purchase, loadReferrerOption);
-        return loadPurchasePayment(xnewLRLs(purchase), loadReferrerOption);
-    }
-
-    /**
-     * {Refer to overload method that has an argument of condition-bean set-upper} #beforejava8
-     * @param purchaseList The entity list of purchase. (NotNull)
-     * @param loadReferrerOption The option of load-referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    @SuppressWarnings("unchecked")
-    public NestedReferrerListGateway<PurchasePayment> loadPurchasePayment(List<Purchase> purchaseList, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> loadReferrerOption) {
-        xassLRArg(purchaseList, loadReferrerOption);
-        if (purchaseList.isEmpty()) { return (NestedReferrerListGateway<PurchasePayment>)EMPTY_NREF_LGWAY; }
-        return doLoadPurchasePayment(purchaseList, loadReferrerOption);
     }
 
     protected NestedReferrerListGateway<PurchasePayment> doLoadPurchasePayment(List<Purchase> purchaseList, LoadReferrerOption<PurchasePaymentCB, PurchasePayment> option) {
@@ -537,7 +505,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//purchase.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//purchase.set...;</span>
-     * purchaseBhv.<span style="color: #CC4747">insert</span>(purchase);
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">insert</span>(purchase);
      * ... = purchase.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
@@ -560,7 +528,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * purchase.<span style="color: #CC4747">setVersionNo</span>(value);
      * try {
-     *     purchaseBhv.<span style="color: #CC4747">update</span>(purchase);
+     *     <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">update</span>(purchase);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -586,7 +554,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//purchase.setVersionNo(value);</span>
-     * purchaseBhv.<span style="color: #CC4747">updateNonstrict</span>(purchase);
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">updateNonstrict</span>(purchase);
      * </pre>
      * @param purchase The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -631,7 +599,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * purchase.<span style="color: #CC4747">setVersionNo</span>(value);
      * try {
-     *     purchaseBhv.<span style="color: #CC4747">delete</span>(purchase);
+     *     <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">delete</span>(purchase);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -652,7 +620,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//purchase.setVersionNo(value);</span>
-     * purchaseBhv.<span style="color: #CC4747">deleteNonstrict</span>(purchase);
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">deleteNonstrict</span>(purchase);
      * </pre>
      * @param purchase The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -681,7 +649,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     purchaseList.add(purchase);
      * }
-     * purchaseBhv.<span style="color: #CC4747">batchInsert</span>(purchaseList);
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">batchInsert</span>(purchaseList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -711,7 +679,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     purchaseList.add(purchase);
      * }
-     * purchaseBhv.<span style="color: #CC4747">batchUpdate</span>(purchaseList);
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">batchUpdate</span>(purchaseList);
      * </pre>
      * @param purchaseList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
@@ -739,7 +707,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     purchaseList.add(purchase);
      * }
-     * purchaseBhv.<span style="color: #CC4747">batchUpdate</span>(purchaseList);
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">batchUpdate</span>(purchaseList);
      * </pre>
      * @param purchaseList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
@@ -777,7 +745,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * purchaseBhv.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;Purchase, PurchaseCB&gt;() {
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;Purchase, PurchaseCB&gt;() {
      *     public ConditionBean setup(Purchase entity, PurchaseCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -819,7 +787,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * <span style="color: #3F7E5E">//purchase.setVersionNo(value);</span>
      * PurchaseCB cb = new PurchaseCB();
      * cb.query().setFoo...(value);
-     * purchaseBhv.<span style="color: #CC4747">queryUpdate</span>(purchase, cb);
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">queryUpdate</span>(purchase, cb);
      * </pre>
      * @param purchase The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of Purchase. (NotNull)
@@ -835,7 +803,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * <pre>
      * PurchaseCB cb = new PurchaseCB();
      * cb.query().setFoo...(value);
-     * purchaseBhv.<span style="color: #CC4747">queryDelete</span>(purchase, cb);
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">queryDelete</span>(purchase, cb);
      * </pre>
      * @param cbLambda The callback for condition-bean of Purchase. (NotNull)
      * @return The deleted count.
@@ -863,7 +831,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * InsertOption<PurchaseCB> option = new InsertOption<PurchaseCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * purchaseBhv.<span style="color: #CC4747">varyingInsert</span>(purchase, option);
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">varyingInsert</span>(purchase, option);
      * ... = purchase.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param purchase The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
@@ -892,7 +860,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      *             cb.specify().<span style="color: #CC4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     purchaseBhv.<span style="color: #CC4747">varyingUpdate</span>(purchase, option);
+     *     <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(purchase, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -925,7 +893,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      *         cb.specify().<span style="color: #CC4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * purchaseBhv.<span style="color: #CC4747">varyingUpdateNonstrict</span>(purchase, option);
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">varyingUpdateNonstrict</span>(purchase, option);
      * </pre>
      * @param purchase The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
@@ -1094,7 +1062,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      *         cb.specify().<span style="color: #CC4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * purchaseBhv.<span style="color: #CC4747">varyingQueryUpdate</span>(purchase, cb, option);
+     * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(purchase, cb, option);
      * </pre>
      * @param purchase The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cbLambda The callback for condition-bean of Purchase. (NotNull)

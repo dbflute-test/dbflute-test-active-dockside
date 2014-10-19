@@ -34,17 +34,17 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
         // ## Arrange ##
         ForeignInfo foreignInfo = MemberDbm.getInstance().foreignMemberStatus();
         Member member = new Member();
-        MemberStatus memberStatus = new MemberStatus();
-        memberStatus.setMemberStatusCode("foo");
-        memberStatus.setMemberStatusName("bar");
-        member.setMemberStatus(memberStatus);
+        MemberStatus status = new MemberStatus();
+        status.xznocheckSetMemberStatusCode("foo");
+        status.setMemberStatusName("bar");
+        member.setMemberStatus(status);
 
         // ## Act ##
         MemberStatus actualStatus = (MemberStatus) foreignInfo.read(member);
 
         // ## Assert ##
         assertNotNull(actualStatus);
-        assertEquals(memberStatus, actualStatus);
+        assertEquals(status, actualStatus);
         assertEquals("foo", actualStatus.getMemberStatusCode());
         assertEquals("bar", actualStatus.getMemberStatusName());
     }
@@ -53,17 +53,17 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
         // ## Arrange ##
         ForeignInfo foreignInfo = MemberDbm.getInstance().foreignMemberStatus();
         Member member = new Member();
-        MemberStatus memberStatus = new MemberStatus();
-        memberStatus.setMemberStatusCode("foo");
-        memberStatus.setMemberStatusName("bar");
+        MemberStatus status = new MemberStatus();
+        status.xznocheckSetMemberStatusCode("foo");
+        status.setMemberStatusName("bar");
 
         // ## Act ##
-        foreignInfo.write(member, memberStatus);
+        foreignInfo.write(member, status);
 
         // ## Assert ##
         MemberStatus actualStatus = member.getMemberStatus();
         assertNotNull(actualStatus);
-        assertEquals(memberStatus, actualStatus);
+        assertEquals(status, actualStatus);
         assertEquals("foo", actualStatus.getMemberStatusCode());
         assertEquals("bar", actualStatus.getMemberStatusName());
     }

@@ -25,8 +25,8 @@ public class WxParameterBeanBasicTest extends PlainTestCase {
         OptionMemberPmb pmb = new OptionMemberPmb();
 
         // ## Act ##
-        pmb.setMemberStatusCode("");
-        pmb.setStatus("");
+        pmb.xznocheckSetMemberStatusCode_Equal("");
+        pmb.xznocheckSetStatus_Equal("");
 
         // ## Assert ##
         assertNull(pmb.getMemberStatusCode());
@@ -43,8 +43,8 @@ public class WxParameterBeanBasicTest extends PlainTestCase {
         };
 
         // ## Act ##
-        pmb.setMemberStatusCode("");
-        pmb.setStatus("");
+        pmb.xznocheckSetMemberStatusCode_Equal("");
+        pmb.xznocheckSetStatus_Equal("");
 
         // ## Assert ##
         assertEquals("", pmb.getMemberStatusCode());
@@ -56,8 +56,8 @@ public class WxParameterBeanBasicTest extends PlainTestCase {
         OptionMemberPmb pmb = new OptionMemberPmb();
 
         // ## Act ##
-        pmb.setMemberStatusCode(" ");
-        pmb.setStatus(" ");
+        pmb.xznocheckSetMemberStatusCode_Equal(" ");
+        pmb.xznocheckSetStatus_Equal(" ");
 
         // ## Assert ##
         assertEquals(" ", pmb.getMemberStatusCode());
@@ -69,8 +69,8 @@ public class WxParameterBeanBasicTest extends PlainTestCase {
         OptionMemberPmb pmb = new OptionMemberPmb();
 
         // ## Act ##
-        pmb.setMemberStatusCode(null);
-        pmb.setStatus(null);
+        pmb.xznocheckSetMemberStatusCode_Equal(null);
+        pmb.xznocheckSetStatus_Equal(null);
 
         // ## Assert ##
         assertNull(pmb.getMemberStatusCode());

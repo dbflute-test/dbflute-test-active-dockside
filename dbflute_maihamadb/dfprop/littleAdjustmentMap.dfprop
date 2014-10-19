@@ -46,7 +46,7 @@ map:{
     ; isCompatibleSelectByPKOldStyle = false
     ; isCompatibleSelectByPKPlainReturn = false
     ; isCompatibleSelectByPKWithDeletedCheck = false
-    ; isMakeConditionQueryExistsReferrerToOne = true
+    ; isMakeConditionQueryExistsReferrerToOne = false
     ; isMakeConditionQueryInScopeRelationToOne = false
     ; isMakeConditionQueryPlainListManualOrder = false
     ; isMakeDirectConditionBeanSetup = false
@@ -57,10 +57,10 @@ map:{
     ; isMakeConditionQueryDateFromTo = false
     ; isMakeDirectConditionOptionSetup = true
     ; isMakeDirectConditionManualOrder = false
-    ; isMakeClassificationNativeTypeSetter = true
+    ; isMakeClassificationNativeTypeSetter = false
     ; isCompatibleNewMyEntityConditionBean = false
     ; isCompatibleDeleteNonstrictIgnoreDeleted = false
-    ; isCompatibleLoadReferrerOldOption = true
+    ; isCompatibleLoadReferrerOldOption = false
     ; isCompatibleConditionBeanAcceptPKOldStyle = false
     ; isCompatibleConditionBeanOldNamingCheckInvalid = false
     ; isCompatibleConditionBeanOldNamingOption = false

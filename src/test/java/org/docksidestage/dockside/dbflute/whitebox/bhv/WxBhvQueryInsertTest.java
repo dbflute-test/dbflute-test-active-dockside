@@ -70,7 +70,7 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
         // ## Act ##
         int inserted = memberWithdrawalBhv.queryInsert(new QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB>() {
             public ConditionBean setup(MemberWithdrawal entity, MemberWithdrawalCB intoCB) {
-                entity.setWithdrawalReasonCode(firstReason.getWithdrawalReasonCode());
+                entity.setWithdrawalReasonCodeAsWithdrawalReason(firstReason.getWithdrawalReasonCodeAsWithdrawalReason());
                 MemberCB cb = new MemberCB();
                 intoCB.specify().columnMemberId().mappedFrom(cb.specify().columnMemberId());
                 intoCB.specify().columnWithdrawalDatetime().mappedFrom(cb.specify().columnFormalizedDatetime());
@@ -227,7 +227,7 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
             memberWithdrawalBhv.queryInsert(new QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB>() {
                 public ConditionBean setup(MemberWithdrawal entity, MemberWithdrawalCB intoCB) {
                     MemberCB cb = new MemberCB();
-                    entity.setWithdrawalReasonCode(null);
+                    entity.setWithdrawalReasonCodeAsWithdrawalReason(null);
                     entity.setRegisterUser("foo-bar-baz-qux-quux"); // overridden
                     entity.setVersionNo(9999999999L); // overridden in an internal process
                     intoCB.specify().columnMemberId().mappedFrom(cb.specify().columnMemberId());

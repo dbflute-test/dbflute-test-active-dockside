@@ -134,7 +134,7 @@ public class VendorGrammerTest extends UnitContainerTestCase {
         // ## Act ##
         int inserted = memberWithdrawalBhv.queryInsert(new QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB>() {
             public ConditionBean setup(MemberWithdrawal entity, MemberWithdrawalCB intoCB) {
-                entity.setWithdrawalReasonCode(firstReason.getWithdrawalReasonCode());
+                entity.setWithdrawalReasonCodeAsWithdrawalReason(firstReason.getWithdrawalReasonCodeAsWithdrawalReason());
                 MemberCB cb = new MemberCB();
                 intoCB.specify().columnMemberId().mappedFrom(cb.specify().columnMemberId());
                 intoCB.specify().columnWithdrawalDatetime().mappedFrom(cb.specify().columnFormalizedDatetime());

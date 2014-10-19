@@ -79,9 +79,17 @@ public class PurchasePaymentDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((PurchasePayment)et).getPaymentDatetime(); }
         public void write(Entity et, Object vl) { ((PurchasePayment)et).setPaymentDatetime((java.sql.Timestamp)vl); }
     }
-    public static class EpgPaymentMethodCode implements PropertyGateway {
+    public class EpgPaymentMethodCode implements PropertyGateway {
         public Object read(Entity et) { return ((PurchasePayment)et).getPaymentMethodCode(); }
-        public void write(Entity et, Object vl) { ((PurchasePayment)et).setPaymentMethodCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnPaymentMethodCode();
+            CDef.PaymentMethod cls = (CDef.PaymentMethod)gcls(col, vl);
+            if (cls != null) {
+                ((PurchasePayment)et).setPaymentMethodCodeAsPaymentMethod(cls);
+            } else {
+                ((PurchasePayment)et).mynativeMappingPaymentMethodCode((String)vl);
+            }
+        }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((PurchasePayment)et).getRegisterDatetime(); }

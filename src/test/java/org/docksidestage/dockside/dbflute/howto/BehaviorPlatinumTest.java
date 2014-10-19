@@ -10,8 +10,6 @@ import java.util.Set;
 
 import org.dbflute.bhv.readable.EntityRowHandler;
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
-import org.dbflute.bhv.referrer.EntityListSetupper;
-import org.dbflute.bhv.referrer.LoadReferrerOption;
 import org.dbflute.cbean.paging.numberlink.group.PageGroupBean;
 import org.dbflute.cbean.paging.numberlink.range.PageRangeBean;
 import org.dbflute.cbean.result.ListResultBean;
@@ -27,7 +25,6 @@ import org.dbflute.twowaysql.exception.IfCommentNotFoundPropertyException;
 import org.dbflute.util.DfCollectionUtil;
 import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -196,29 +193,17 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         // A base table is MemberStatus at this test case.
         ListResultBean<MemberStatus> memberStatusList = memberStatusBhv.selectList(cb -> {});
 
-        LoadReferrerOption<MemberCB, Member> loadReferrerOption = new LoadReferrerOption<MemberCB, Member>();
-
-        // Member
-        loadReferrerOption.setConditionBeanSetupper(new ConditionBeanSetupper<MemberCB>() {
-            public void setup(MemberCB cb) {
-                cb.query().addOrderBy_FormalizedDatetime_Desc();
-            }
-        });
-
-        // Purchase
-        loadReferrerOption.setEntityListSetupper(new EntityListSetupper<Member>() {
-            public void setup(List<Member> entityList) {
-                memberBhv.loadPurchase(entityList, new ConditionBeanSetupper<PurchaseCB>() {
-                    public void setup(PurchaseCB cb) {
-                        cb.query().addOrderBy_PurchaseCount_Desc();
-                        cb.query().addOrderBy_ProductId_Desc();
-                    }
-                });
-            }
-        });
-
         // ## Act ##
-        memberStatusBhv.loadMember(memberStatusList, loadReferrerOption);
+        memberStatusBhv.loadMember(memberStatusList, cb -> {
+            cb.query().addOrderBy_FormalizedDatetime_Desc();
+        }).withNestedReferrer(memberList -> {
+            memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+                public void setup(PurchaseCB cb) {
+                    cb.query().addOrderBy_PurchaseCount_Desc();
+                    cb.query().addOrderBy_ProductId_Desc();
+                }
+            });
+        });
 
         // ## Assert ##
         boolean existsPurchase = false;

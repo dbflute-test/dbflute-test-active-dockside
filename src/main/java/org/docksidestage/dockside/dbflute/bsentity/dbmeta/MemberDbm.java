@@ -77,9 +77,17 @@ public class MemberDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((Member)et).getMemberAccount(); }
         public void write(Entity et, Object vl) { ((Member)et).setMemberAccount((String)vl); }
     }
-    public static class EpgMemberStatusCode implements PropertyGateway {
+    public class EpgMemberStatusCode implements PropertyGateway {
         public Object read(Entity et) { return ((Member)et).getMemberStatusCode(); }
-        public void write(Entity et, Object vl) { ((Member)et).setMemberStatusCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnMemberStatusCode();
+            CDef.MemberStatus cls = (CDef.MemberStatus)gcls(col, vl);
+            if (cls != null) {
+                ((Member)et).setMemberStatusCodeAsMemberStatus(cls);
+            } else {
+                ((Member)et).mynativeMappingMemberStatusCode((String)vl);
+            }
+        }
     }
     public static class EpgFormalizedDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((Member)et).getFormalizedDatetime(); }

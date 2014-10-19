@@ -26,13 +26,14 @@ import org.docksidestage.dockside.dbflute.cbean.cq.bs.BsProductCQ;
  * This class remains when re-generating.
  * </p>
  * @author DBFlute(AutoGenerator)
+ * @author jflute
  */
 public class ProductCQ extends BsProductCQ {
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-	// You should NOT touch with this constructor.
+    // You should NOT touch with this constructor.
     /**
      * Constructor.
      * @param referrerQuery The instance of referrer query. (NullAllowed: If null, this is base query)
@@ -51,4 +52,11 @@ public class ProductCQ extends BsProductCQ {
     //public void arrangeXxx() {
     //    ...
     //}
+
+    // ===================================================================================
+    //                                                            for test: Classification
+    //                                                            ========================
+    public void xznocheckSetProductStatusCode_Equal(String code) {
+        doSetProductStatusCode_Equal(code);
+    }
 }

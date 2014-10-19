@@ -21,7 +21,6 @@ import org.docksidestage.dockside.dbflute.cbean.MemberAddressCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberStatusCB;
-import org.docksidestage.dockside.dbflute.cbean.MemberWithdrawalCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberWithdrawalBhv;
@@ -1325,16 +1324,11 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
                         purchaseCB.query().setPurchaseCount_GreaterEqual(2);
                     }
                 });
-                memberCB.query().existsMemberWithdrawalAsOne(new SubQuery<MemberWithdrawalCB>() {
-                    public void query(MemberWithdrawalCB subCB) {
-                        final LikeSearchOption option = new LikeSearchOption().likeContain().escapeByPipeLine();
-                        subCB.query().queryWithdrawalReason().setWithdrawalReasonText_LikeSearch("xxx", option);
-                        subCB.union(new UnionQuery<MemberWithdrawalCB>() {
-                            public void query(MemberWithdrawalCB unionCB) {
-                                unionCB.query().setWithdrawalReasonInputText_IsNotNull();
-                            }
-                        });
-                    }
+                memberCB.query().existsPurchase(purchaseCB -> {
+                    purchaseCB.query().setPaymentCompleteFlg_Equal_False();
+                    purchaseCB.union(unionCB -> {
+                        unionCB.query().setPurchasePrice_GreaterEqual(2000);
+                    });
                 });
             }
         });

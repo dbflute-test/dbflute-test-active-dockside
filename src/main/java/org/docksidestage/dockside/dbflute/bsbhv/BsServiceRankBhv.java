@@ -28,6 +28,7 @@ import org.dbflute.cbean.result.*;
 import org.dbflute.exception.*;
 import org.dbflute.optional.OptionalEntity;
 import org.dbflute.outsidesql.executor.*;
+import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.bsbhv.loader.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
@@ -93,9 +94,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br />
      * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
      * <pre>
-     * ServiceRankCB cb = new ServiceRankCB();
-     * cb.query().setFoo...(value);
-     * int count = serviceRankBhv.<span style="color: #CC4747">selectCount</span>(cb);
+     * int count = <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
      * </pre>
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -112,8 +113,8 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
-     * ServiceRank serviceRank = serviceRankBhv.<span style="color: #CC4747">selectEntity</span>(cb -&gt; {
-     *     cb.query().set...
+     * ServiceRank serviceRank = <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
      * });
      * if (serviceRank != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = serviceRank.get...();
@@ -144,10 +145,8 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * Select the entity by the condition-bean with deleted check. <br />
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, this method is good.</span>
      * <pre>
-     * ServiceRankCB cb = new ServiceRankCB();
-     * cb.query().setFoo...(value);
-     * ServiceRank serviceRank = serviceRankBhv.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb);
-     * ... = serviceRank.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
+     * ServiceRank <span style="color: #553000">serviceRank</span> = <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> cb.acceptPK(1));
+     * ... = <span style="color: #553000">serviceRank</span>.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
@@ -167,23 +166,23 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<ServiceRank> selectByPK(String serviceRankCode) {
+    public OptionalEntity<ServiceRank> selectByPK(CDef.ServiceRank serviceRankCode) {
         return facadeSelectByPK(serviceRankCode);
     }
 
-    protected OptionalEntity<ServiceRank> facadeSelectByPK(String serviceRankCode) {
+    protected OptionalEntity<ServiceRank> facadeSelectByPK(CDef.ServiceRank serviceRankCode) {
         return doSelectOptionalByPK(serviceRankCode, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends ServiceRank> ENTITY doSelectByPK(String serviceRankCode, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends ServiceRank> ENTITY doSelectByPK(CDef.ServiceRank serviceRankCode, Class<? extends ENTITY> tp) {
         return doSelectEntity(xprepareCBAsPK(serviceRankCode), tp);
     }
 
-    protected <ENTITY extends ServiceRank> OptionalEntity<ENTITY> doSelectOptionalByPK(String serviceRankCode, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends ServiceRank> OptionalEntity<ENTITY> doSelectOptionalByPK(CDef.ServiceRank serviceRankCode, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(serviceRankCode, tp), serviceRankCode);
     }
 
-    protected ServiceRankCB xprepareCBAsPK(String serviceRankCode) {
+    protected ServiceRankCB xprepareCBAsPK(CDef.ServiceRank serviceRankCode) {
         assertObjectNotNull("serviceRankCode", serviceRankCode);
         return newConditionBean().acceptPK(serviceRankCode);
     }
@@ -219,12 +218,12 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
     /**
      * Select the list as result bean.
      * <pre>
-     * ListResultBean&lt;ServiceRank&gt; serviceRankList = serviceRankBhv.<span style="color: #CC4747">selectList</span>(cb -&gt; {
-     *     cb.query().set...;
-     *     cb.query().addOrderBy...;
+     * ListResultBean&lt;ServiceRank&gt; <span style="color: #553000">serviceRankList</span> = <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">selectList</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...;
+     *     <span style="color: #553000">cb</span>.query().addOrderBy...;
      * });
-     * serviceRankList.forEach(serviceRank -&gt; {
-     *     ... = serviceRank.get...();
+     * for (ServiceRank <span style="color: #553000">serviceRank</span> : <span style="color: #553000">serviceRankList</span>) {
+     *     ... = <span style="color: #553000">serviceRank</span>.get...();
      * });
      * </pre>
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
@@ -245,17 +244,17 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * Select the page as result bean. <br />
      * (both count-select and paging-select are executed)
      * <pre>
-     * ServiceRankCB cb = new ServiceRankCB();
-     * cb.query().setFoo...(value);
-     * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;ServiceRank&gt; page = serviceRankBhv.<span style="color: #CC4747">selectPage</span>(cb);
-     * int allRecordCount = page.getAllRecordCount();
-     * int allPageCount = page.getAllPageCount();
-     * boolean isExistPrePage = page.isExistPrePage();
-     * boolean isExistNextPage = page.isExistNextPage();
+     * PagingResultBean&lt;ServiceRank&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">selectPage</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     *     <span style="color: #553000">cb</span>.query().addOrderBy...
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * });
+     * int allRecordCount = <span style="color: #553000">page</span>.getAllRecordCount();
+     * int allPageCount = <span style="color: #553000">page</span>.getAllPageCount();
+     * boolean isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
+     * boolean isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
      * ...
-     * for (ServiceRank serviceRank : page) {
+     * for (ServiceRank serviceRank : <span style="color: #553000">page</span>) {
      *     ... = serviceRank.get...();
      * }
      * </pre>
@@ -273,12 +272,10 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
     /**
      * Select the cursor by the condition-bean.
      * <pre>
-     * ServiceRankCB cb = new ServiceRankCB();
-     * cb.query().setFoo...(value);
-     * serviceRankBhv.<span style="color: #CC4747">selectCursor</span>(cb, new EntityRowHandler&lt;ServiceRank&gt;() {
-     *     public void handle(ServiceRank entity) {
-     *         ... = entity.getFoo...();
-     *     }
+     * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">selectCursor</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }, <span style="color: #553000">member</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">member</span>.getMemberName();
      * });
      * </pre>
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
@@ -295,11 +292,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * serviceRankBhv.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
-     *     public void query(ServiceRankCB cb) {
-     *         cb.specify().<span style="color: #CC4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
-     *         cb.query().setBarName_PrefixSearch("S");
-     *     }
+     * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...()</span>; <span style="color: #3F7E5E">// required for the function</span>
+     *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
      * @param <RESULT> The type of result.
@@ -325,23 +320,24 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
     /**
      * Load referrer by the the referrer loader. <br />
      * <pre>
-     * MemberCB cb = new MemberCB();
-     * cb.query().set...
-     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
-     * memberBhv.<span style="color: #CC4747">load</span>(memberList, loader -&gt; {
-     *     loader.<span style="color: #CC4747">loadPurchaseList</span>(purchaseCB -&gt; {
-     *         purchaseCB.query().set...
-     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     * List&lt;Member&gt; <span style="color: #553000">memberList</span> = <span style="color: #0000C0">memberBhv</span>.selectList(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
+     * memberBhv.<span style="color: #CC4747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">purchaseCB</span>.setupSelect...
+     *         <span style="color: #553000">purchaseCB</span>.query().set...
+     *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
-     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
      *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
      *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
-     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
-     * }
-     * for (Member member : memberList) {
+     *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
+     * });
+     * for (Member member : <span style="color: #553000">memberList</span>) {
      *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
      *     for (Purchase purchase : purchaseList) {
      *         ...
@@ -361,27 +357,24 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
     /**
      * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
      * <pre>
-     * MemberCB cb = new MemberCB();
-     * cb.query().set...
-     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
-     * memberBhv.<span style="color: #CC4747">load</span>(member, loader -&gt; {
-     *     loader.<span style="color: #CC4747">loadPurchaseList</span>(purchaseCB -&gt; {
-     *         purchaseCB.query().set...
-     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     * Member <span style="color: #553000">member</span> = <span style="color: #0000C0">memberBhv</span>.selectEntityWithDeletedCheck(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> <span style="color: #553000">cb</span>.acceptPK(1));
+     * <span style="color: #0000C0">memberBhv</span>.<span style="color: #CC4747">load</span>(<span style="color: #553000">member</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">purchaseCB</span>.setupSelect...
+     *         <span style="color: #553000">purchaseCB</span>.query().set...
+     *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
-     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
      *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
      *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
-     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
-     * }
-     * for (Member member : memberList) {
-     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
-     *     for (Purchase purchase : purchaseList) {
-     *         ...
-     *     }
+     *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
+     * });
+     * List&lt;Purchase&gt; purchaseList = <span style="color: #553000">member</span>.<span style="color: #CC4747">getPurchaseList()</span>;
+     * for (Purchase purchase : purchaseList) {
+     *     ...
      * }
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
@@ -398,15 +391,15 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * Load referrer of memberServiceList by the set-upper of referrer. <br />
      * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
      * <pre>
-     * serviceRankBhv.<span style="color: #CC4747">loadMemberService</span>(serviceRankList, serviceCB -&gt; {
-     *     serviceCB.setupSelect...();
-     *     serviceCB.query().setFoo...(value);
-     *     serviceCB.query().addOrderBy_Bar...();
+     * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">loadMemberService</span>(<span style="color: #553000">serviceRankList</span>, <span style="color: #553000">serviceCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">serviceCB</span>.setupSelect...
+     *     <span style="color: #553000">serviceCB</span>.query().set...
+     *     <span style="color: #553000">serviceCB</span>.query().addOrderBy...
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
-     * for (ServiceRank serviceRank : serviceRankList) {
+     * for (ServiceRank serviceRank : <span style="color: #553000">serviceRankList</span>) {
      *     ... = serviceRank.<span style="color: #CC4747">getMemberServiceList()</span>;
      * }
      * </pre>
@@ -420,7 +413,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberService> loadMemberService(List<ServiceRank> serviceRankList, ConditionBeanSetupper<MemberServiceCB> refCBLambda) {
+    public NestedReferrerListGateway<MemberService> loadMemberService(List<ServiceRank> serviceRankList, ReferrerConditionSetupper<MemberServiceCB> refCBLambda) {
         xassLRArg(serviceRankList, refCBLambda);
         return doLoadMemberService(serviceRankList, new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(refCBLambda));
     }
@@ -429,15 +422,15 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * Load referrer of memberServiceList by the set-upper of referrer. <br />
      * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
      * <pre>
-     * serviceRankBhv.<span style="color: #CC4747">loadMemberService</span>(serviceRankList, serviceCB -&gt; {
-     *     serviceCB.setupSelect...();
-     *     serviceCB.query().setFoo...(value);
-     *     serviceCB.query().addOrderBy_Bar...();
+     * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">loadMemberService</span>(<span style="color: #553000">serviceRank</span>, <span style="color: #553000">serviceCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">serviceCB</span>.setupSelect...
+     *     <span style="color: #553000">serviceCB</span>.query().set...
+     *     <span style="color: #553000">serviceCB</span>.query().addOrderBy...
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
-     * ... = serviceRank.<span style="color: #CC4747">getMemberServiceList()</span>;
+     * ... = <span style="color: #553000">serviceRank</span>.<span style="color: #CC4747">getMemberServiceList()</span>;
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
@@ -449,33 +442,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberService> loadMemberService(ServiceRank serviceRank, ConditionBeanSetupper<MemberServiceCB> refCBLambda) {
+    public NestedReferrerListGateway<MemberService> loadMemberService(ServiceRank serviceRank, ReferrerConditionSetupper<MemberServiceCB> refCBLambda) {
         xassLRArg(serviceRank, refCBLambda);
         return doLoadMemberService(xnewLRLs(serviceRank), new LoadReferrerOption<MemberServiceCB, MemberService>().xinit(refCBLambda));
-    }
-
-    /**
-     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
-     * @param serviceRank The entity of serviceRank. (NotNull)
-     * @param loadReferrerOption The option of load-referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerListGateway<MemberService> loadMemberService(ServiceRank serviceRank, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
-        xassLRArg(serviceRank, loadReferrerOption);
-        return loadMemberService(xnewLRLs(serviceRank), loadReferrerOption);
-    }
-
-    /**
-     * {Refer to overload method that has an argument of condition-bean set-upper} #beforejava8
-     * @param serviceRankList The entity list of serviceRank. (NotNull)
-     * @param loadReferrerOption The option of load-referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    @SuppressWarnings("unchecked")
-    public NestedReferrerListGateway<MemberService> loadMemberService(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> loadReferrerOption) {
-        xassLRArg(serviceRankList, loadReferrerOption);
-        if (serviceRankList.isEmpty()) { return (NestedReferrerListGateway<MemberService>)EMPTY_NREF_LGWAY; }
-        return doLoadMemberService(serviceRankList, loadReferrerOption);
     }
 
     protected NestedReferrerListGateway<MemberService> doLoadMemberService(List<ServiceRank> serviceRankList, LoadReferrerOption<MemberServiceCB, MemberService> option) {
@@ -517,7 +486,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//serviceRank.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//serviceRank.set...;</span>
-     * serviceRankBhv.<span style="color: #CC4747">insert</span>(serviceRank);
+     * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">insert</span>(serviceRank);
      * ... = serviceRank.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
@@ -540,7 +509,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * serviceRank.<span style="color: #CC4747">setVersionNo</span>(value);
      * try {
-     *     serviceRankBhv.<span style="color: #CC4747">update</span>(serviceRank);
+     *     <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">update</span>(serviceRank);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -575,7 +544,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * serviceRank.<span style="color: #CC4747">setVersionNo</span>(value);
      * try {
-     *     serviceRankBhv.<span style="color: #CC4747">delete</span>(serviceRank);
+     *     <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">delete</span>(serviceRank);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -607,7 +576,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     serviceRankList.add(serviceRank);
      * }
-     * serviceRankBhv.<span style="color: #CC4747">batchInsert</span>(serviceRankList);
+     * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">batchInsert</span>(serviceRankList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -637,7 +606,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     serviceRankList.add(serviceRank);
      * }
-     * serviceRankBhv.<span style="color: #CC4747">batchUpdate</span>(serviceRankList);
+     * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">batchUpdate</span>(serviceRankList);
      * </pre>
      * @param serviceRankList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
@@ -664,7 +633,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * serviceRankBhv.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;ServiceRank, ServiceRankCB&gt;() {
+     * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;ServiceRank, ServiceRankCB&gt;() {
      *     public ConditionBean setup(ServiceRank entity, ServiceRankCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -706,7 +675,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * <span style="color: #3F7E5E">//serviceRank.setVersionNo(value);</span>
      * ServiceRankCB cb = new ServiceRankCB();
      * cb.query().setFoo...(value);
-     * serviceRankBhv.<span style="color: #CC4747">queryUpdate</span>(serviceRank, cb);
+     * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">queryUpdate</span>(serviceRank, cb);
      * </pre>
      * @param serviceRank The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
@@ -722,7 +691,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * <pre>
      * ServiceRankCB cb = new ServiceRankCB();
      * cb.query().setFoo...(value);
-     * serviceRankBhv.<span style="color: #CC4747">queryDelete</span>(serviceRank, cb);
+     * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">queryDelete</span>(serviceRank, cb);
      * </pre>
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The deleted count.
@@ -750,7 +719,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * InsertOption<ServiceRankCB> option = new InsertOption<ServiceRankCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * serviceRankBhv.<span style="color: #CC4747">varyingInsert</span>(serviceRank, option);
+     * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">varyingInsert</span>(serviceRank, option);
      * ... = serviceRank.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param serviceRank The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
@@ -779,7 +748,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      *             cb.specify().<span style="color: #CC4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     serviceRankBhv.<span style="color: #CC4747">varyingUpdate</span>(serviceRank, option);
+     *     <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(serviceRank, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -899,7 +868,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      *         cb.specify().<span style="color: #CC4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * serviceRankBhv.<span style="color: #CC4747">varyingQueryUpdate</span>(serviceRank, cb, option);
+     * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(serviceRank, cb, option);
      * </pre>
      * @param serviceRank The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)

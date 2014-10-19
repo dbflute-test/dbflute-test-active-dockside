@@ -77,13 +77,69 @@ public class LoaderOfProductCategory {
     //                                                                       Load Referrer
     //                                                                       =============
     protected List<Product> _referrerProduct;
-    public NestedReferrerLoaderGateway<LoaderOfProduct> loadProduct(ConditionBeanSetupper<ProductCB> refCBLambda) {
+
+    /**
+     * Load referrer of productList by the set-upper of referrer. <br />
+     * (商品)PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
+     * <pre>
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">productCategoryList</span>, <span style="color: #553000">categoryLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">categoryLoader</span>.<span style="color: #CC4747">loadProduct</span>(<span style="color: #553000">productCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">productCB</span>.setupSelect...
+     *         <span style="color: #553000">productCB</span>.query().set...
+     *         <span style="color: #553000">productCB</span>.query().addOrderBy...
+     *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">productLoader</span> -&gt {</span>
+     *     <span style="color: #3F7E5E">//    productLoader.load...</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     * });
+     * for (ProductCategory productCategory : <span style="color: #553000">productCategoryList</span>) {
+     *     ... = productCategory.<span style="color: #CC4747">getProductList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setProductCategoryCode_InScope(pkList);
+     * cb.query().addOrderBy_ProductCategoryCode_Asc();
+     * </pre>
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoaderGateway<LoaderOfProduct> loadProduct(ReferrerConditionSetupper<ProductCB> refCBLambda) {
         myBhv().loadProduct(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerProduct = refLs);
         return hd -> hd.handle(new LoaderOfProduct().ready(_referrerProduct, _selector));
     }
 
     protected List<ProductCategory> _referrerProductCategorySelf;
-    public NestedReferrerLoaderGateway<LoaderOfProductCategory> loadProductCategorySelf(ConditionBeanSetupper<ProductCategoryCB> refCBLambda) {
+
+    /**
+     * Load referrer of productCategorySelfList by the set-upper of referrer. <br />
+     * (商品カテゴリ)PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
+     * <pre>
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">productCategoryList</span>, <span style="color: #553000">categoryLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">categoryLoader</span>.<span style="color: #CC4747">loadProductCategorySelf</span>(<span style="color: #553000">categoryCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">categoryCB</span>.setupSelect...
+     *         <span style="color: #553000">categoryCB</span>.query().set...
+     *         <span style="color: #553000">categoryCB</span>.query().addOrderBy...
+     *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">categoryLoader</span> -&gt {</span>
+     *     <span style="color: #3F7E5E">//    categoryLoader.load...</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     * });
+     * for (ProductCategory productCategory : <span style="color: #553000">productCategoryList</span>) {
+     *     ... = productCategory.<span style="color: #CC4747">getProductCategorySelfList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setParentCategoryCode_InScope(pkList);
+     * cb.query().addOrderBy_ParentCategoryCode_Asc();
+     * </pre>
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoaderGateway<LoaderOfProductCategory> loadProductCategorySelf(ReferrerConditionSetupper<ProductCategoryCB> refCBLambda) {
         myBhv().loadProductCategorySelf(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerProductCategorySelf = refLs);
         return hd -> hd.handle(new LoaderOfProductCategory().ready(_referrerProductCategorySelf, _selector));
     }

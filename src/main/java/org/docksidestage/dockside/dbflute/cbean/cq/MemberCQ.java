@@ -62,4 +62,11 @@ public class MemberCQ extends BsMemberCQ {
             purCB.query().setProductId_Equal(specialProductId);
         });
     }
+
+    // ===================================================================================
+    //                                                            for test: Classification
+    //                                                            ========================
+    public void xznocheckSetMemberStatusCode_Equal(String code) {
+        doSetMemberStatusCode_Equal(code);
+    }
 }

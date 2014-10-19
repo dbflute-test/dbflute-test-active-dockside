@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
-import org.dbflute.bhv.referrer.EntityListSetupper;
-import org.dbflute.bhv.referrer.LoadReferrerOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
@@ -65,39 +63,26 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
     public void test_loadReferrer_loadReferrerReferrer() {
         // ## Arrange ##
         // A base table is MemberStatus at this test case.
-        MemberStatus memberStatus = memberStatusBhv.selectEntity(cb -> {
+        MemberStatus status = memberStatusBhv.selectEntity(cb -> {
             cb.query().setMemberStatusCode_Equal_Formalized();
-            pushCB(cb);
-        });
-
-        LoadReferrerOption<MemberCB, Member> loadReferrerOption = new LoadReferrerOption<MemberCB, Member>();
-
-        // Member
-        loadReferrerOption.setConditionBeanSetupper(new ConditionBeanSetupper<MemberCB>() {
-            public void setup(MemberCB cb) {
-                cb.query().addOrderBy_FormalizedDatetime_Desc();
-            }
-        });
-
-        // Purchase
-        loadReferrerOption.setEntityListSetupper(new EntityListSetupper<Member>() {
-            public void setup(List<Member> entityList) {
-                memberBhv.loadPurchase(entityList, new ConditionBeanSetupper<PurchaseCB>() {
-                    public void setup(PurchaseCB cb) {
-                        cb.query().addOrderBy_PurchaseCount_Desc();
-                        cb.query().addOrderBy_ProductId_Desc();
-                    }
-                });
-            }
         });
 
         // ## Act ##
-        memberStatusBhv.loadMember(memberStatus, loadReferrerOption);
+        memberStatusBhv.load(status, statusLoader -> {
+            statusLoader.loadMember(memberCB -> {
+                memberCB.query().addOrderBy_FormalizedDatetime_Desc();
+            }).withNestedReferrer(memberLoader -> {
+                memberLoader.loadPurchase(purchaseCB -> {
+                    purchaseCB.query().addOrderBy_PurchaseCount_Desc();
+                    purchaseCB.query().addOrderBy_ProductId_Desc();
+                });
+            });
+        });
 
         // ## Assert ##
         boolean existsPurchase = false;
-        List<Member> memberList = memberStatus.getMemberList();
-        log("[MEMBER_STATUS]: " + memberStatus.getMemberStatusName());
+        List<Member> memberList = status.getMemberList();
+        log("[MEMBER_STATUS]: " + status.getMemberStatusName());
         for (Member member : memberList) {
             List<Purchase> purchaseList = member.getPurchaseList();
             log("    [MEMBER]: " + member.getMemberName() + ", " + member.getFormalizedDatetime());
@@ -167,12 +152,12 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         List<MemberStatus> statusList = new ArrayList<MemberStatus>();
         {
             MemberStatus status = new MemberStatus();
-            status.setMemberStatusCode("fml");
+            status.xznocheckSetMemberStatusCode("fml");
             statusList.add(status);
         }
         {
             MemberStatus status = new MemberStatus();
-            status.setMemberStatusCode("FML");
+            status.xznocheckSetMemberStatusCode("FML");
             statusList.add(status);
         }
 

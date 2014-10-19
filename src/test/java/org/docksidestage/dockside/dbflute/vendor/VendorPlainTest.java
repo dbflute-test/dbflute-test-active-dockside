@@ -116,7 +116,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
         String name = "ShortTest";
         Integer order = 96473;
         MemberStatus memberStatus = new MemberStatus();
-        memberStatus.setMemberStatusCode(code); // char
+        memberStatus.xznocheckSetMemberStatusCode(code); // char
         memberStatus.setMemberStatusName(name); // varchar
         memberStatus.setDescription("foo");
         memberStatus.setDisplayOrder(order);
@@ -124,7 +124,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
 
         MemberStatus actual = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
-            cb.query().setMemberStatusCode_Equal(code + " ");
+            cb.query().xznocheckSetMemberStatusCode_Equal(code + " ");
             pushCB(cb);
         });
 
@@ -140,7 +140,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
         String name = "ShortTest";
         Integer order = 96473;
         MemberStatus memberStatus = new MemberStatus();
-        memberStatus.setMemberStatusCode(code); // char
+        memberStatus.xznocheckSetMemberStatusCode(code); // char
         memberStatus.setMemberStatusName(name); // varchar
         memberStatus.setDescription("foo");
         memberStatus.setDisplayOrder(order);
@@ -148,7 +148,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
 
         MemberStatus actual = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
-            cb.query().setMemberStatusCode_Equal(code);
+            cb.query().xznocheckSetMemberStatusCode_Equal(code);
             pushCB(cb);
         });
 
@@ -164,7 +164,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
         String name = "ShortTest";
         Integer order = 96473; // should be unique order
         MemberStatus memberStatus = new MemberStatus();
-        memberStatus.setMemberStatusCode(code); // char
+        memberStatus.xznocheckSetMemberStatusCode(code); // char
         memberStatus.setMemberStatusName(name); // varchar
         memberStatus.setDescription("foo");
         memberStatus.setDisplayOrder(order);
@@ -173,7 +173,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
         MemberStatus actual = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             cb.xzdisableShortCharHandling();
-            cb.query().setMemberStatusCode_Equal(code.trim());
+            cb.query().xznocheckSetMemberStatusCode_Equal(code.trim());
             pushCB(cb);
         });
 

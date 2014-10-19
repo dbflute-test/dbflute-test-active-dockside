@@ -28,6 +28,18 @@ import org.docksidestage.dockside.dbflute.bsbhv.pmbean.BsOptionMemberPmb;
  * This class remains when re-generating.
  * </p>
  * @author DBFlute(AutoGenerator)
+ * @author jflute
  */
 public class OptionMemberPmb extends BsOptionMemberPmb {
+    
+    // ===================================================================================
+    //                                                            for test: Classification
+    //                                                            ========================
+    public void xznocheckSetMemberStatusCode_Equal(String code) {
+        _memberStatusCode = code;
+    }
+
+    public void xznocheckSetStatus_Equal(String code) {
+        _status = code;
+    }
 }

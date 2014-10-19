@@ -28,6 +28,7 @@ import org.dbflute.cbean.result.*;
 import org.dbflute.exception.*;
 import org.dbflute.optional.OptionalEntity;
 import org.dbflute.outsidesql.executor.*;
+import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.bsbhv.loader.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
@@ -93,9 +94,9 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br />
      * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
      * <pre>
-     * RegionCB cb = new RegionCB();
-     * cb.query().setFoo...(value);
-     * int count = regionBhv.<span style="color: #CC4747">selectCount</span>(cb);
+     * int count = <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
      * </pre>
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -112,8 +113,8 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
-     * Region region = regionBhv.<span style="color: #CC4747">selectEntity</span>(cb -&gt; {
-     *     cb.query().set...
+     * Region region = <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
      * });
      * if (region != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = region.get...();
@@ -144,10 +145,8 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * Select the entity by the condition-bean with deleted check. <br />
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, this method is good.</span>
      * <pre>
-     * RegionCB cb = new RegionCB();
-     * cb.query().setFoo...(value);
-     * Region region = regionBhv.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb);
-     * ... = region.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
+     * Region <span style="color: #553000">region</span> = <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> cb.acceptPK(1));
+     * ... = <span style="color: #553000">region</span>.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
@@ -167,23 +166,23 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<Region> selectByPK(Integer regionId) {
+    public OptionalEntity<Region> selectByPK(CDef.Region regionId) {
         return facadeSelectByPK(regionId);
     }
 
-    protected OptionalEntity<Region> facadeSelectByPK(Integer regionId) {
+    protected OptionalEntity<Region> facadeSelectByPK(CDef.Region regionId) {
         return doSelectOptionalByPK(regionId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends Region> ENTITY doSelectByPK(Integer regionId, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends Region> ENTITY doSelectByPK(CDef.Region regionId, Class<? extends ENTITY> tp) {
         return doSelectEntity(xprepareCBAsPK(regionId), tp);
     }
 
-    protected <ENTITY extends Region> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer regionId, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends Region> OptionalEntity<ENTITY> doSelectOptionalByPK(CDef.Region regionId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(regionId, tp), regionId);
     }
 
-    protected RegionCB xprepareCBAsPK(Integer regionId) {
+    protected RegionCB xprepareCBAsPK(CDef.Region regionId) {
         assertObjectNotNull("regionId", regionId);
         return newConditionBean().acceptPK(regionId);
     }
@@ -194,12 +193,12 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
     /**
      * Select the list as result bean.
      * <pre>
-     * ListResultBean&lt;Region&gt; regionList = regionBhv.<span style="color: #CC4747">selectList</span>(cb -&gt; {
-     *     cb.query().set...;
-     *     cb.query().addOrderBy...;
+     * ListResultBean&lt;Region&gt; <span style="color: #553000">regionList</span> = <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">selectList</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...;
+     *     <span style="color: #553000">cb</span>.query().addOrderBy...;
      * });
-     * regionList.forEach(region -&gt; {
-     *     ... = region.get...();
+     * for (Region <span style="color: #553000">region</span> : <span style="color: #553000">regionList</span>) {
+     *     ... = <span style="color: #553000">region</span>.get...();
      * });
      * </pre>
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
@@ -220,17 +219,17 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * Select the page as result bean. <br />
      * (both count-select and paging-select are executed)
      * <pre>
-     * RegionCB cb = new RegionCB();
-     * cb.query().setFoo...(value);
-     * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;Region&gt; page = regionBhv.<span style="color: #CC4747">selectPage</span>(cb);
-     * int allRecordCount = page.getAllRecordCount();
-     * int allPageCount = page.getAllPageCount();
-     * boolean isExistPrePage = page.isExistPrePage();
-     * boolean isExistNextPage = page.isExistNextPage();
+     * PagingResultBean&lt;Region&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">selectPage</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     *     <span style="color: #553000">cb</span>.query().addOrderBy...
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * });
+     * int allRecordCount = <span style="color: #553000">page</span>.getAllRecordCount();
+     * int allPageCount = <span style="color: #553000">page</span>.getAllPageCount();
+     * boolean isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
+     * boolean isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
      * ...
-     * for (Region region : page) {
+     * for (Region region : <span style="color: #553000">page</span>) {
      *     ... = region.get...();
      * }
      * </pre>
@@ -248,12 +247,10 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
     /**
      * Select the cursor by the condition-bean.
      * <pre>
-     * RegionCB cb = new RegionCB();
-     * cb.query().setFoo...(value);
-     * regionBhv.<span style="color: #CC4747">selectCursor</span>(cb, new EntityRowHandler&lt;Region&gt;() {
-     *     public void handle(Region entity) {
-     *         ... = entity.getFoo...();
-     *     }
+     * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">selectCursor</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }, <span style="color: #553000">member</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">member</span>.getMemberName();
      * });
      * </pre>
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
@@ -270,11 +267,9 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * regionBhv.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
-     *     public void query(RegionCB cb) {
-     *         cb.specify().<span style="color: #CC4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
-     *         cb.query().setBarName_PrefixSearch("S");
-     *     }
+     * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...()</span>; <span style="color: #3F7E5E">// required for the function</span>
+     *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
      * @param <RESULT> The type of result.
@@ -300,23 +295,24 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
     /**
      * Load referrer by the the referrer loader. <br />
      * <pre>
-     * MemberCB cb = new MemberCB();
-     * cb.query().set...
-     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
-     * memberBhv.<span style="color: #CC4747">load</span>(memberList, loader -&gt; {
-     *     loader.<span style="color: #CC4747">loadPurchaseList</span>(purchaseCB -&gt; {
-     *         purchaseCB.query().set...
-     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     * List&lt;Member&gt; <span style="color: #553000">memberList</span> = <span style="color: #0000C0">memberBhv</span>.selectList(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
+     * memberBhv.<span style="color: #CC4747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">purchaseCB</span>.setupSelect...
+     *         <span style="color: #553000">purchaseCB</span>.query().set...
+     *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
-     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
      *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
      *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
-     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
-     * }
-     * for (Member member : memberList) {
+     *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
+     * });
+     * for (Member member : <span style="color: #553000">memberList</span>) {
      *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
      *     for (Purchase purchase : purchaseList) {
      *         ...
@@ -336,27 +332,24 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
     /**
      * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
      * <pre>
-     * MemberCB cb = new MemberCB();
-     * cb.query().set...
-     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
-     * memberBhv.<span style="color: #CC4747">load</span>(member, loader -&gt; {
-     *     loader.<span style="color: #CC4747">loadPurchaseList</span>(purchaseCB -&gt; {
-     *         purchaseCB.query().set...
-     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     * Member <span style="color: #553000">member</span> = <span style="color: #0000C0">memberBhv</span>.selectEntityWithDeletedCheck(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> <span style="color: #553000">cb</span>.acceptPK(1));
+     * <span style="color: #0000C0">memberBhv</span>.<span style="color: #CC4747">load</span>(<span style="color: #553000">member</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">purchaseCB</span>.setupSelect...
+     *         <span style="color: #553000">purchaseCB</span>.query().set...
+     *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
-     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
      *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
      *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
-     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
-     * }
-     * for (Member member : memberList) {
-     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
-     *     for (Purchase purchase : purchaseList) {
-     *         ...
-     *     }
+     *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
+     * });
+     * List&lt;Purchase&gt; purchaseList = <span style="color: #553000">member</span>.<span style="color: #CC4747">getPurchaseList()</span>;
+     * for (Purchase purchase : purchaseList) {
+     *     ...
      * }
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
@@ -373,15 +366,15 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * Load referrer of memberAddressList by the set-upper of referrer. <br />
      * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * <pre>
-     * regionBhv.<span style="color: #CC4747">loadMemberAddress</span>(regionList, addressCB -&gt; {
-     *     addressCB.setupSelect...();
-     *     addressCB.query().setFoo...(value);
-     *     addressCB.query().addOrderBy_Bar...();
+     * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">loadMemberAddress</span>(<span style="color: #553000">regionList</span>, <span style="color: #553000">addressCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">addressCB</span>.setupSelect...
+     *     <span style="color: #553000">addressCB</span>.query().set...
+     *     <span style="color: #553000">addressCB</span>.query().addOrderBy...
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
-     * for (Region region : regionList) {
+     * for (Region region : <span style="color: #553000">regionList</span>) {
      *     ... = region.<span style="color: #CC4747">getMemberAddressList()</span>;
      * }
      * </pre>
@@ -395,7 +388,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(List<Region> regionList, ConditionBeanSetupper<MemberAddressCB> refCBLambda) {
+    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(List<Region> regionList, ReferrerConditionSetupper<MemberAddressCB> refCBLambda) {
         xassLRArg(regionList, refCBLambda);
         return doLoadMemberAddress(regionList, new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(refCBLambda));
     }
@@ -404,15 +397,15 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * Load referrer of memberAddressList by the set-upper of referrer. <br />
      * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * <pre>
-     * regionBhv.<span style="color: #CC4747">loadMemberAddress</span>(regionList, addressCB -&gt; {
-     *     addressCB.setupSelect...();
-     *     addressCB.query().setFoo...(value);
-     *     addressCB.query().addOrderBy_Bar...();
+     * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">loadMemberAddress</span>(<span style="color: #553000">region</span>, <span style="color: #553000">addressCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">addressCB</span>.setupSelect...
+     *     <span style="color: #553000">addressCB</span>.query().set...
+     *     <span style="color: #553000">addressCB</span>.query().addOrderBy...
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
-     * ... = region.<span style="color: #CC4747">getMemberAddressList()</span>;
+     * ... = <span style="color: #553000">region</span>.<span style="color: #CC4747">getMemberAddressList()</span>;
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
@@ -424,33 +417,9 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(Region region, ConditionBeanSetupper<MemberAddressCB> refCBLambda) {
+    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(Region region, ReferrerConditionSetupper<MemberAddressCB> refCBLambda) {
         xassLRArg(region, refCBLambda);
         return doLoadMemberAddress(xnewLRLs(region), new LoadReferrerOption<MemberAddressCB, MemberAddress>().xinit(refCBLambda));
-    }
-
-    /**
-     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
-     * @param region The entity of region. (NotNull)
-     * @param loadReferrerOption The option of load-referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(Region region, LoadReferrerOption<MemberAddressCB, MemberAddress> loadReferrerOption) {
-        xassLRArg(region, loadReferrerOption);
-        return loadMemberAddress(xnewLRLs(region), loadReferrerOption);
-    }
-
-    /**
-     * {Refer to overload method that has an argument of condition-bean set-upper} #beforejava8
-     * @param regionList The entity list of region. (NotNull)
-     * @param loadReferrerOption The option of load-referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    @SuppressWarnings("unchecked")
-    public NestedReferrerListGateway<MemberAddress> loadMemberAddress(List<Region> regionList, LoadReferrerOption<MemberAddressCB, MemberAddress> loadReferrerOption) {
-        xassLRArg(regionList, loadReferrerOption);
-        if (regionList.isEmpty()) { return (NestedReferrerListGateway<MemberAddress>)EMPTY_NREF_LGWAY; }
-        return doLoadMemberAddress(regionList, loadReferrerOption);
     }
 
     protected NestedReferrerListGateway<MemberAddress> doLoadMemberAddress(List<Region> regionList, LoadReferrerOption<MemberAddressCB, MemberAddress> option) {
@@ -484,7 +453,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//region.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//region.set...;</span>
-     * regionBhv.<span style="color: #CC4747">insert</span>(region);
+     * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">insert</span>(region);
      * ... = region.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
@@ -507,7 +476,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * region.<span style="color: #CC4747">setVersionNo</span>(value);
      * try {
-     *     regionBhv.<span style="color: #CC4747">update</span>(region);
+     *     <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">update</span>(region);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -542,7 +511,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * region.<span style="color: #CC4747">setVersionNo</span>(value);
      * try {
-     *     regionBhv.<span style="color: #CC4747">delete</span>(region);
+     *     <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">delete</span>(region);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -574,7 +543,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     regionList.add(region);
      * }
-     * regionBhv.<span style="color: #CC4747">batchInsert</span>(regionList);
+     * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">batchInsert</span>(regionList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -604,7 +573,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     regionList.add(region);
      * }
-     * regionBhv.<span style="color: #CC4747">batchUpdate</span>(regionList);
+     * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">batchUpdate</span>(regionList);
      * </pre>
      * @param regionList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
@@ -631,7 +600,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * regionBhv.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;Region, RegionCB&gt;() {
+     * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;Region, RegionCB&gt;() {
      *     public ConditionBean setup(Region entity, RegionCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -673,7 +642,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * <span style="color: #3F7E5E">//region.setVersionNo(value);</span>
      * RegionCB cb = new RegionCB();
      * cb.query().setFoo...(value);
-     * regionBhv.<span style="color: #CC4747">queryUpdate</span>(region, cb);
+     * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">queryUpdate</span>(region, cb);
      * </pre>
      * @param region The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
@@ -689,7 +658,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * <pre>
      * RegionCB cb = new RegionCB();
      * cb.query().setFoo...(value);
-     * regionBhv.<span style="color: #CC4747">queryDelete</span>(region, cb);
+     * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">queryDelete</span>(region, cb);
      * </pre>
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The deleted count.
@@ -717,7 +686,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * InsertOption<RegionCB> option = new InsertOption<RegionCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * regionBhv.<span style="color: #CC4747">varyingInsert</span>(region, option);
+     * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">varyingInsert</span>(region, option);
      * ... = region.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param region The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
@@ -746,7 +715,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      *             cb.specify().<span style="color: #CC4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     regionBhv.<span style="color: #CC4747">varyingUpdate</span>(region, option);
+     *     <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(region, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -866,7 +835,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      *         cb.specify().<span style="color: #CC4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * regionBhv.<span style="color: #CC4747">varyingQueryUpdate</span>(region, cb, option);
+     * <span style="color: #0000C0">regionBhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(region, cb, option);
      * </pre>
      * @param region The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cbLambda The callback for condition-bean of Region. (NotNull)

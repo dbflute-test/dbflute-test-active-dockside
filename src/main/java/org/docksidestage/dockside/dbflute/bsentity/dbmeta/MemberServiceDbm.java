@@ -75,9 +75,17 @@ public class MemberServiceDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((MemberService)et).getServicePointCount(); }
         public void write(Entity et, Object vl) { ((MemberService)et).setServicePointCount(cti(vl)); }
     }
-    public static class EpgServiceRankCode implements PropertyGateway {
+    public class EpgServiceRankCode implements PropertyGateway {
         public Object read(Entity et) { return ((MemberService)et).getServiceRankCode(); }
-        public void write(Entity et, Object vl) { ((MemberService)et).setServiceRankCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnServiceRankCode();
+            CDef.ServiceRank cls = (CDef.ServiceRank)gcls(col, vl);
+            if (cls != null) {
+                ((MemberService)et).setServiceRankCodeAsServiceRank(cls);
+            } else {
+                ((MemberService)et).mynativeMappingServiceRankCode((String)vl);
+            }
+        }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((MemberService)et).getRegisterDatetime(); }

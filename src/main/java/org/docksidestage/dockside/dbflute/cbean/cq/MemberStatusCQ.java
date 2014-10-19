@@ -26,6 +26,7 @@ import org.docksidestage.dockside.dbflute.cbean.cq.bs.BsMemberStatusCQ;
  * This class remains when re-generating.
  * </p>
  * @author DBFlute(AutoGenerator)
+ * @author jflute
  */
 public class MemberStatusCQ extends BsMemberStatusCQ {
 
@@ -51,4 +52,11 @@ public class MemberStatusCQ extends BsMemberStatusCQ {
     //public void arrangeXxx() {
     //    ...
     //}
+
+    // ===================================================================================
+    //                                                            for test: Classification
+    //                                                            ========================
+    public void xznocheckSetMemberStatusCode_Equal(String code) {
+        doSetMemberStatusCode_Equal(code);
+    }
 }

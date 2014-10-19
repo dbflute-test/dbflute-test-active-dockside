@@ -82,21 +82,21 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
                 int count = 0;
                 while (cursor.next()) {
                     final String memberName = cursor.getMemberName();
-                    MemberStatus memberStatus = new MemberStatus();
-                    String memberStatusCode;
+                    MemberStatus status = new MemberStatus();
+                    String statusCode;
                     if (count >= 100) {
-                        memberStatusCode = String.valueOf(count);
+                        statusCode = String.valueOf(count);
                     } else if (count >= 10) {
-                        memberStatusCode = "0" + count;
+                        statusCode = "0" + count;
                     } else {
-                        memberStatusCode = "00" + count;
+                        statusCode = "00" + count;
                     }
-                    memberStatus.setMemberStatusCode(memberStatusCode);
-                    memberStatus.setMemberStatusName(memberName + count);
-                    memberStatus.setDescription("foo");
-                    memberStatus.setDisplayOrder(99999 + count);
-                    memberStatusBhv.insert(memberStatus);
-                    codeList.add(memberStatus.getMemberStatusCode());
+                    status.xznocheckSetMemberStatusCode(statusCode);
+                    status.setMemberStatusName(memberName + count);
+                    status.setDescription("foo");
+                    status.setDisplayOrder(99999 + count);
+                    memberStatusBhv.insert(status);
+                    codeList.add(status.getMemberStatusCode());
                     ++count;
                 }
                 return null;

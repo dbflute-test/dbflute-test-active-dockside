@@ -81,9 +81,17 @@ public class ProductDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((Product)et).getProductCategoryCode(); }
         public void write(Entity et, Object vl) { ((Product)et).setProductCategoryCode((String)vl); }
     }
-    public static class EpgProductStatusCode implements PropertyGateway {
+    public class EpgProductStatusCode implements PropertyGateway {
         public Object read(Entity et) { return ((Product)et).getProductStatusCode(); }
-        public void write(Entity et, Object vl) { ((Product)et).setProductStatusCode((String)vl); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnProductStatusCode();
+            CDef.ProductStatus cls = (CDef.ProductStatus)gcls(col, vl);
+            if (cls != null) {
+                ((Product)et).setProductStatusCodeAsProductStatus(cls);
+            } else {
+                ((Product)et).mynativeMappingProductStatusCode((String)vl);
+            }
+        }
     }
     public static class EpgRegularPrice implements PropertyGateway {
         public Object read(Entity et) { return ((Product)et).getRegularPrice(); }

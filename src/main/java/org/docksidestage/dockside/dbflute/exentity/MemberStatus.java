@@ -16,10 +16,12 @@
 package org.docksidestage.dockside.dbflute.exentity;
 
 import org.docksidestage.dockside.dbflute.bsentity.BsMemberStatus;
+import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 
 /**
  * The entity of MEMBER_STATUS.
  * @author DBFlute(AutoGenerator)
+ * @author jflute
  */
 public class MemberStatus extends BsMemberStatus {
 
@@ -55,5 +57,13 @@ public class MemberStatus extends BsMemberStatus {
 
     public void setMaxPurchasePrice(Integer maxPurchasePrice) {
         this._maxPurchasePrice = maxPurchasePrice;
+    }
+
+    // ===================================================================================
+    //                                                            for test: Classification
+    //                                                            ========================
+    public void xznocheckSetMemberStatusCode(String code) {
+        __modifiedProperties.addPropertyName(MemberDbm.getInstance().columnMemberStatusCode().getPropertyName());
+        _memberStatusCode = code;
     }
 }

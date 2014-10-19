@@ -1,11 +1,14 @@
 package org.docksidestage.dockside.dbflute.vendor;
 
+import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.dbflute.exception.EntityAlreadyExistsException;
 import org.dbflute.exception.SQLFailureException;
+import org.dbflute.util.DfReflectionUtil;
+import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -257,7 +260,9 @@ public class VendorConstraintTest extends UnitContainerTestCase {
         Member member = new Member();
         member.setMemberName("testName");
         member.setMemberAccount("testAccount");
-        member.setMemberStatusCode("NO_EXIST");
+        Method writeMethod = MemberDbm.getInstance().columnMemberStatusCode().getWriteMethod();
+        DfReflectionUtil.invokeForcedly(writeMethod, member, new Object[] { "NO_EXIST" });
+        assertEquals("NO_EXIST", member.getMemberStatusCode());
 
         // ## Act & Assert ##
         try {

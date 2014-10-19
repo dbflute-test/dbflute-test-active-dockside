@@ -304,7 +304,7 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_Equal("PRD");
+            cb.query().queryMemberWithdrawalAsOne().setWithdrawalReasonCode_Equal_Prd();
         });
 
         // ## Assert ##

@@ -90,9 +90,17 @@ public class PurchaseDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((Purchase)et).getPurchasePrice(); }
         public void write(Entity et, Object vl) { ((Purchase)et).setPurchasePrice(cti(vl)); }
     }
-    public static class EpgPaymentCompleteFlg implements PropertyGateway {
+    public class EpgPaymentCompleteFlg implements PropertyGateway {
         public Object read(Entity et) { return ((Purchase)et).getPaymentCompleteFlg(); }
-        public void write(Entity et, Object vl) { ((Purchase)et).setPaymentCompleteFlg(cti(vl)); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnPaymentCompleteFlg();
+            CDef.Flg cls = (CDef.Flg)gcls(col, vl);
+            if (cls != null) {
+                ((Purchase)et).setPaymentCompleteFlgAsFlg(cls);
+            } else {
+                ((Purchase)et).mynativeMappingPaymentCompleteFlg(ctn(vl, Integer.class));
+            }
+        }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
         public Object read(Entity et) { return ((Purchase)et).getRegisterDatetime(); }

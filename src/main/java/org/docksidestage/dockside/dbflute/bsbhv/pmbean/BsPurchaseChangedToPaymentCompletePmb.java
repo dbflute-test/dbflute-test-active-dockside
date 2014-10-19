@@ -146,14 +146,6 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     }
 
     /**
-     * [set] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
-     * @param paymentCompleteFlg The value of paymentCompleteFlg. (NullAllowed)
-     */
-    public void setPaymentCompleteFlg(Integer paymentCompleteFlg) {
-        _paymentCompleteFlg = paymentCompleteFlg;
-    }
-
-    /**
      * [set as True] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
      * means yes
      */

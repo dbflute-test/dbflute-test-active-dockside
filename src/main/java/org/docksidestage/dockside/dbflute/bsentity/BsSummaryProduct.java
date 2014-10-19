@@ -393,7 +393,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * [set] PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} <br />
      * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setProductStatusCode(String productStatusCode) {
+    protected void setProductStatusCode(String productStatusCode) {
         checkClassificationCode("PRODUCT_STATUS_CODE", CDef.DefMeta.ProductStatus, productStatusCode);
         __modifiedProperties.addPropertyName("productStatusCode");
         _productStatusCode = productStatusCode;
@@ -414,5 +414,13 @@ public abstract class BsSummaryProduct extends AbstractEntity {
     public void setLatestPurchaseDatetime(java.sql.Timestamp latestPurchaseDatetime) {
         __modifiedProperties.addPropertyName("latestPurchaseDatetime");
         _latestPurchaseDatetime = latestPurchaseDatetime;
+    }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void mynativeMappingProductStatusCode(String productStatusCode) {
+        setProductStatusCode(productStatusCode);
     }
 }

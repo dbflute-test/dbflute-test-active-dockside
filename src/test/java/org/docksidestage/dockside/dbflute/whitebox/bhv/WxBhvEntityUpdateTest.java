@@ -70,7 +70,7 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
     public void test_update_nonOptimisticLockTable_deleted() throws Exception {
         // ## Arrange ##
         MemberStatus memberStatus = new MemberStatus();
-        memberStatus.setMemberStatusCode("NON");
+        memberStatus.xznocheckSetMemberStatusCode("NON");
         memberStatus.setDisplayOrder(8);
 
         // ## Act ##

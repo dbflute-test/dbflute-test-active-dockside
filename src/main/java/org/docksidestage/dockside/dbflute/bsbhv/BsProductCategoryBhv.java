@@ -93,9 +93,9 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br />
      * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
      * <pre>
-     * ProductCategoryCB cb = new ProductCategoryCB();
-     * cb.query().setFoo...(value);
-     * int count = productCategoryBhv.<span style="color: #CC4747">selectCount</span>(cb);
+     * int count = <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
      * </pre>
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -112,8 +112,8 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
-     * ProductCategory productCategory = productCategoryBhv.<span style="color: #CC4747">selectEntity</span>(cb -&gt; {
-     *     cb.query().set...
+     * ProductCategory productCategory = <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
      * });
      * if (productCategory != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = productCategory.get...();
@@ -144,10 +144,8 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * Select the entity by the condition-bean with deleted check. <br />
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, this method is good.</span>
      * <pre>
-     * ProductCategoryCB cb = new ProductCategoryCB();
-     * cb.query().setFoo...(value);
-     * ProductCategory productCategory = productCategoryBhv.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb);
-     * ... = productCategory.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
+     * ProductCategory <span style="color: #553000">productCategory</span> = <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> cb.acceptPK(1));
+     * ... = <span style="color: #553000">productCategory</span>.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
@@ -194,12 +192,12 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
     /**
      * Select the list as result bean.
      * <pre>
-     * ListResultBean&lt;ProductCategory&gt; productCategoryList = productCategoryBhv.<span style="color: #CC4747">selectList</span>(cb -&gt; {
-     *     cb.query().set...;
-     *     cb.query().addOrderBy...;
+     * ListResultBean&lt;ProductCategory&gt; <span style="color: #553000">productCategoryList</span> = <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">selectList</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...;
+     *     <span style="color: #553000">cb</span>.query().addOrderBy...;
      * });
-     * productCategoryList.forEach(productCategory -&gt; {
-     *     ... = productCategory.get...();
+     * for (ProductCategory <span style="color: #553000">productCategory</span> : <span style="color: #553000">productCategoryList</span>) {
+     *     ... = <span style="color: #553000">productCategory</span>.get...();
      * });
      * </pre>
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
@@ -220,17 +218,17 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * Select the page as result bean. <br />
      * (both count-select and paging-select are executed)
      * <pre>
-     * ProductCategoryCB cb = new ProductCategoryCB();
-     * cb.query().setFoo...(value);
-     * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;ProductCategory&gt; page = productCategoryBhv.<span style="color: #CC4747">selectPage</span>(cb);
-     * int allRecordCount = page.getAllRecordCount();
-     * int allPageCount = page.getAllPageCount();
-     * boolean isExistPrePage = page.isExistPrePage();
-     * boolean isExistNextPage = page.isExistNextPage();
+     * PagingResultBean&lt;ProductCategory&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">selectPage</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     *     <span style="color: #553000">cb</span>.query().addOrderBy...
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * });
+     * int allRecordCount = <span style="color: #553000">page</span>.getAllRecordCount();
+     * int allPageCount = <span style="color: #553000">page</span>.getAllPageCount();
+     * boolean isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
+     * boolean isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
      * ...
-     * for (ProductCategory productCategory : page) {
+     * for (ProductCategory productCategory : <span style="color: #553000">page</span>) {
      *     ... = productCategory.get...();
      * }
      * </pre>
@@ -248,12 +246,10 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
     /**
      * Select the cursor by the condition-bean.
      * <pre>
-     * ProductCategoryCB cb = new ProductCategoryCB();
-     * cb.query().setFoo...(value);
-     * productCategoryBhv.<span style="color: #CC4747">selectCursor</span>(cb, new EntityRowHandler&lt;ProductCategory&gt;() {
-     *     public void handle(ProductCategory entity) {
-     *         ... = entity.getFoo...();
-     *     }
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">selectCursor</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }, <span style="color: #553000">member</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">member</span>.getMemberName();
      * });
      * </pre>
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
@@ -270,11 +266,9 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * productCategoryBhv.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
-     *     public void query(ProductCategoryCB cb) {
-     *         cb.specify().<span style="color: #CC4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
-     *         cb.query().setBarName_PrefixSearch("S");
-     *     }
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...()</span>; <span style="color: #3F7E5E">// required for the function</span>
+     *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
      * @param <RESULT> The type of result.
@@ -300,23 +294,24 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
     /**
      * Load referrer by the the referrer loader. <br />
      * <pre>
-     * MemberCB cb = new MemberCB();
-     * cb.query().set...
-     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
-     * memberBhv.<span style="color: #CC4747">load</span>(memberList, loader -&gt; {
-     *     loader.<span style="color: #CC4747">loadPurchaseList</span>(purchaseCB -&gt; {
-     *         purchaseCB.query().set...
-     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     * List&lt;Member&gt; <span style="color: #553000">memberList</span> = <span style="color: #0000C0">memberBhv</span>.selectList(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
+     * memberBhv.<span style="color: #CC4747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">purchaseCB</span>.setupSelect...
+     *         <span style="color: #553000">purchaseCB</span>.query().set...
+     *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
-     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
      *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
      *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
-     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
-     * }
-     * for (Member member : memberList) {
+     *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
+     * });
+     * for (Member member : <span style="color: #553000">memberList</span>) {
      *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
      *     for (Purchase purchase : purchaseList) {
      *         ...
@@ -336,27 +331,24 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
     /**
      * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
      * <pre>
-     * MemberCB cb = new MemberCB();
-     * cb.query().set...
-     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
-     * memberBhv.<span style="color: #CC4747">load</span>(member, loader -&gt; {
-     *     loader.<span style="color: #CC4747">loadPurchaseList</span>(purchaseCB -&gt; {
-     *         purchaseCB.query().set...
-     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     * Member <span style="color: #553000">member</span> = <span style="color: #0000C0">memberBhv</span>.selectEntityWithDeletedCheck(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> <span style="color: #553000">cb</span>.acceptPK(1));
+     * <span style="color: #0000C0">memberBhv</span>.<span style="color: #CC4747">load</span>(<span style="color: #553000">member</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">purchaseCB</span>.setupSelect...
+     *         <span style="color: #553000">purchaseCB</span>.query().set...
+     *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
-     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
      *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
      *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
-     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
-     * }
-     * for (Member member : memberList) {
-     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
-     *     for (Purchase purchase : purchaseList) {
-     *         ...
-     *     }
+     *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
+     * });
+     * List&lt;Purchase&gt; purchaseList = <span style="color: #553000">member</span>.<span style="color: #CC4747">getPurchaseList()</span>;
+     * for (Purchase purchase : purchaseList) {
+     *     ...
      * }
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
@@ -373,15 +365,15 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * Load referrer of productList by the set-upper of referrer. <br />
      * (商品)PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
      * <pre>
-     * productCategoryBhv.<span style="color: #CC4747">loadProduct</span>(productCategoryList, productCB -&gt; {
-     *     productCB.setupSelect...();
-     *     productCB.query().setFoo...(value);
-     *     productCB.query().addOrderBy_Bar...();
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">loadProduct</span>(<span style="color: #553000">productCategoryList</span>, <span style="color: #553000">productCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">productCB</span>.setupSelect...
+     *     <span style="color: #553000">productCB</span>.query().set...
+     *     <span style="color: #553000">productCB</span>.query().addOrderBy...
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
-     * for (ProductCategory productCategory : productCategoryList) {
+     * for (ProductCategory productCategory : <span style="color: #553000">productCategoryList</span>) {
      *     ... = productCategory.<span style="color: #CC4747">getProductList()</span>;
      * }
      * </pre>
@@ -395,7 +387,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Product> loadProduct(List<ProductCategory> productCategoryList, ConditionBeanSetupper<ProductCB> refCBLambda) {
+    public NestedReferrerListGateway<Product> loadProduct(List<ProductCategory> productCategoryList, ReferrerConditionSetupper<ProductCB> refCBLambda) {
         xassLRArg(productCategoryList, refCBLambda);
         return doLoadProduct(productCategoryList, new LoadReferrerOption<ProductCB, Product>().xinit(refCBLambda));
     }
@@ -404,15 +396,15 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * Load referrer of productList by the set-upper of referrer. <br />
      * (商品)PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
      * <pre>
-     * productCategoryBhv.<span style="color: #CC4747">loadProduct</span>(productCategoryList, productCB -&gt; {
-     *     productCB.setupSelect...();
-     *     productCB.query().setFoo...(value);
-     *     productCB.query().addOrderBy_Bar...();
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">loadProduct</span>(<span style="color: #553000">productCategory</span>, <span style="color: #553000">productCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">productCB</span>.setupSelect...
+     *     <span style="color: #553000">productCB</span>.query().set...
+     *     <span style="color: #553000">productCB</span>.query().addOrderBy...
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
-     * ... = productCategory.<span style="color: #CC4747">getProductList()</span>;
+     * ... = <span style="color: #553000">productCategory</span>.<span style="color: #CC4747">getProductList()</span>;
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
@@ -424,33 +416,9 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<Product> loadProduct(ProductCategory productCategory, ConditionBeanSetupper<ProductCB> refCBLambda) {
+    public NestedReferrerListGateway<Product> loadProduct(ProductCategory productCategory, ReferrerConditionSetupper<ProductCB> refCBLambda) {
         xassLRArg(productCategory, refCBLambda);
         return doLoadProduct(xnewLRLs(productCategory), new LoadReferrerOption<ProductCB, Product>().xinit(refCBLambda));
-    }
-
-    /**
-     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
-     * @param productCategory The entity of productCategory. (NotNull)
-     * @param loadReferrerOption The option of load-referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerListGateway<Product> loadProduct(ProductCategory productCategory, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
-        xassLRArg(productCategory, loadReferrerOption);
-        return loadProduct(xnewLRLs(productCategory), loadReferrerOption);
-    }
-
-    /**
-     * {Refer to overload method that has an argument of condition-bean set-upper} #beforejava8
-     * @param productCategoryList The entity list of productCategory. (NotNull)
-     * @param loadReferrerOption The option of load-referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    @SuppressWarnings("unchecked")
-    public NestedReferrerListGateway<Product> loadProduct(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCB, Product> loadReferrerOption) {
-        xassLRArg(productCategoryList, loadReferrerOption);
-        if (productCategoryList.isEmpty()) { return (NestedReferrerListGateway<Product>)EMPTY_NREF_LGWAY; }
-        return doLoadProduct(productCategoryList, loadReferrerOption);
     }
 
     protected NestedReferrerListGateway<Product> doLoadProduct(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCB, Product> option) {
@@ -461,15 +429,15 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * Load referrer of productCategorySelfList by the set-upper of referrer. <br />
      * (商品カテゴリ)PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
      * <pre>
-     * productCategoryBhv.<span style="color: #CC4747">loadProductCategorySelf</span>(productCategoryList, categoryCB -&gt; {
-     *     categoryCB.setupSelect...();
-     *     categoryCB.query().setFoo...(value);
-     *     categoryCB.query().addOrderBy_Bar...();
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">loadProductCategorySelf</span>(<span style="color: #553000">productCategoryList</span>, <span style="color: #553000">categoryCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">categoryCB</span>.setupSelect...
+     *     <span style="color: #553000">categoryCB</span>.query().set...
+     *     <span style="color: #553000">categoryCB</span>.query().addOrderBy...
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
-     * for (ProductCategory productCategory : productCategoryList) {
+     * for (ProductCategory productCategory : <span style="color: #553000">productCategoryList</span>) {
      *     ... = productCategory.<span style="color: #CC4747">getProductCategorySelfList()</span>;
      * }
      * </pre>
@@ -483,7 +451,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelf(List<ProductCategory> productCategoryList, ConditionBeanSetupper<ProductCategoryCB> refCBLambda) {
+    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelf(List<ProductCategory> productCategoryList, ReferrerConditionSetupper<ProductCategoryCB> refCBLambda) {
         xassLRArg(productCategoryList, refCBLambda);
         return doLoadProductCategorySelf(productCategoryList, new LoadReferrerOption<ProductCategoryCB, ProductCategory>().xinit(refCBLambda));
     }
@@ -492,15 +460,15 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * Load referrer of productCategorySelfList by the set-upper of referrer. <br />
      * (商品カテゴリ)PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
      * <pre>
-     * productCategoryBhv.<span style="color: #CC4747">loadProductCategorySelf</span>(productCategoryList, categoryCB -&gt; {
-     *     categoryCB.setupSelect...();
-     *     categoryCB.query().setFoo...(value);
-     *     categoryCB.query().addOrderBy_Bar...();
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">loadProductCategorySelf</span>(<span style="color: #553000">productCategory</span>, <span style="color: #553000">categoryCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">categoryCB</span>.setupSelect...
+     *     <span style="color: #553000">categoryCB</span>.query().set...
+     *     <span style="color: #553000">categoryCB</span>.query().addOrderBy...
      * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
-     * ... = productCategory.<span style="color: #CC4747">getProductCategorySelfList()</span>;
+     * ... = <span style="color: #553000">productCategory</span>.<span style="color: #CC4747">getProductCategorySelfList()</span>;
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
@@ -512,33 +480,9 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelf(ProductCategory productCategory, ConditionBeanSetupper<ProductCategoryCB> refCBLambda) {
+    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelf(ProductCategory productCategory, ReferrerConditionSetupper<ProductCategoryCB> refCBLambda) {
         xassLRArg(productCategory, refCBLambda);
         return doLoadProductCategorySelf(xnewLRLs(productCategory), new LoadReferrerOption<ProductCategoryCB, ProductCategory>().xinit(refCBLambda));
-    }
-
-    /**
-     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
-     * @param productCategory The entity of productCategory. (NotNull)
-     * @param loadReferrerOption The option of load-referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelf(ProductCategory productCategory, LoadReferrerOption<ProductCategoryCB, ProductCategory> loadReferrerOption) {
-        xassLRArg(productCategory, loadReferrerOption);
-        return loadProductCategorySelf(xnewLRLs(productCategory), loadReferrerOption);
-    }
-
-    /**
-     * {Refer to overload method that has an argument of condition-bean set-upper} #beforejava8
-     * @param productCategoryList The entity list of productCategory. (NotNull)
-     * @param loadReferrerOption The option of load-referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    @SuppressWarnings("unchecked")
-    public NestedReferrerListGateway<ProductCategory> loadProductCategorySelf(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCategoryCB, ProductCategory> loadReferrerOption) {
-        xassLRArg(productCategoryList, loadReferrerOption);
-        if (productCategoryList.isEmpty()) { return (NestedReferrerListGateway<ProductCategory>)EMPTY_NREF_LGWAY; }
-        return doLoadProductCategorySelf(productCategoryList, loadReferrerOption);
     }
 
     protected NestedReferrerListGateway<ProductCategory> doLoadProductCategorySelf(List<ProductCategory> productCategoryList, LoadReferrerOption<ProductCategoryCB, ProductCategory> option) {
@@ -580,7 +524,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//productCategory.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//productCategory.set...;</span>
-     * productCategoryBhv.<span style="color: #CC4747">insert</span>(productCategory);
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">insert</span>(productCategory);
      * ... = productCategory.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
@@ -603,7 +547,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * productCategory.<span style="color: #CC4747">setVersionNo</span>(value);
      * try {
-     *     productCategoryBhv.<span style="color: #CC4747">update</span>(productCategory);
+     *     <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">update</span>(productCategory);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -638,7 +582,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * productCategory.<span style="color: #CC4747">setVersionNo</span>(value);
      * try {
-     *     productCategoryBhv.<span style="color: #CC4747">delete</span>(productCategory);
+     *     <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">delete</span>(productCategory);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -670,7 +614,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     productCategoryList.add(productCategory);
      * }
-     * productCategoryBhv.<span style="color: #CC4747">batchInsert</span>(productCategoryList);
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">batchInsert</span>(productCategoryList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -700,7 +644,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     productCategoryList.add(productCategory);
      * }
-     * productCategoryBhv.<span style="color: #CC4747">batchUpdate</span>(productCategoryList);
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">batchUpdate</span>(productCategoryList);
      * </pre>
      * @param productCategoryList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
@@ -727,7 +671,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * productCategoryBhv.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;ProductCategory, ProductCategoryCB&gt;() {
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;ProductCategory, ProductCategoryCB&gt;() {
      *     public ConditionBean setup(ProductCategory entity, ProductCategoryCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -769,7 +713,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * <span style="color: #3F7E5E">//productCategory.setVersionNo(value);</span>
      * ProductCategoryCB cb = new ProductCategoryCB();
      * cb.query().setFoo...(value);
-     * productCategoryBhv.<span style="color: #CC4747">queryUpdate</span>(productCategory, cb);
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">queryUpdate</span>(productCategory, cb);
      * </pre>
      * @param productCategory The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
@@ -785,7 +729,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * <pre>
      * ProductCategoryCB cb = new ProductCategoryCB();
      * cb.query().setFoo...(value);
-     * productCategoryBhv.<span style="color: #CC4747">queryDelete</span>(productCategory, cb);
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">queryDelete</span>(productCategory, cb);
      * </pre>
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
      * @return The deleted count.
@@ -813,7 +757,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * InsertOption<ProductCategoryCB> option = new InsertOption<ProductCategoryCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * productCategoryBhv.<span style="color: #CC4747">varyingInsert</span>(productCategory, option);
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">varyingInsert</span>(productCategory, option);
      * ... = productCategory.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param productCategory The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
@@ -842,7 +786,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      *             cb.specify().<span style="color: #CC4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     productCategoryBhv.<span style="color: #CC4747">varyingUpdate</span>(productCategory, option);
+     *     <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(productCategory, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -962,7 +906,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      *         cb.specify().<span style="color: #CC4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * productCategoryBhv.<span style="color: #CC4747">varyingQueryUpdate</span>(productCategory, cb, option);
+     * <span style="color: #0000C0">productCategoryBhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(productCategory, cb, option);
      * </pre>
      * @param productCategory The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)

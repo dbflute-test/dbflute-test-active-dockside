@@ -93,9 +93,9 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br />
      * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
      * <pre>
-     * MemberWithdrawalCB cb = new MemberWithdrawalCB();
-     * cb.query().setFoo...(value);
-     * int count = memberWithdrawalBhv.<span style="color: #CC4747">selectCount</span>(cb);
+     * int count = <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
      * </pre>
      * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -112,8 +112,8 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
-     * MemberWithdrawal memberWithdrawal = memberWithdrawalBhv.<span style="color: #CC4747">selectEntity</span>(cb -&gt; {
-     *     cb.query().set...
+     * MemberWithdrawal memberWithdrawal = <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
      * });
      * if (memberWithdrawal != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = memberWithdrawal.get...();
@@ -144,10 +144,8 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * Select the entity by the condition-bean with deleted check. <br />
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, this method is good.</span>
      * <pre>
-     * MemberWithdrawalCB cb = new MemberWithdrawalCB();
-     * cb.query().setFoo...(value);
-     * MemberWithdrawal memberWithdrawal = memberWithdrawalBhv.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb);
-     * ... = memberWithdrawal.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
+     * MemberWithdrawal <span style="color: #553000">memberWithdrawal</span> = <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> cb.acceptPK(1));
+     * ... = <span style="color: #553000">memberWithdrawal</span>.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
@@ -194,12 +192,12 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
     /**
      * Select the list as result bean.
      * <pre>
-     * ListResultBean&lt;MemberWithdrawal&gt; memberWithdrawalList = memberWithdrawalBhv.<span style="color: #CC4747">selectList</span>(cb -&gt; {
-     *     cb.query().set...;
-     *     cb.query().addOrderBy...;
+     * ListResultBean&lt;MemberWithdrawal&gt; <span style="color: #553000">memberWithdrawalList</span> = <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">selectList</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...;
+     *     <span style="color: #553000">cb</span>.query().addOrderBy...;
      * });
-     * memberWithdrawalList.forEach(memberWithdrawal -&gt; {
-     *     ... = memberWithdrawal.get...();
+     * for (MemberWithdrawal <span style="color: #553000">memberWithdrawal</span> : <span style="color: #553000">memberWithdrawalList</span>) {
+     *     ... = <span style="color: #553000">memberWithdrawal</span>.get...();
      * });
      * </pre>
      * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
@@ -220,17 +218,17 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * Select the page as result bean. <br />
      * (both count-select and paging-select are executed)
      * <pre>
-     * MemberWithdrawalCB cb = new MemberWithdrawalCB();
-     * cb.query().setFoo...(value);
-     * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;MemberWithdrawal&gt; page = memberWithdrawalBhv.<span style="color: #CC4747">selectPage</span>(cb);
-     * int allRecordCount = page.getAllRecordCount();
-     * int allPageCount = page.getAllPageCount();
-     * boolean isExistPrePage = page.isExistPrePage();
-     * boolean isExistNextPage = page.isExistNextPage();
+     * PagingResultBean&lt;MemberWithdrawal&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">selectPage</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     *     <span style="color: #553000">cb</span>.query().addOrderBy...
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * });
+     * int allRecordCount = <span style="color: #553000">page</span>.getAllRecordCount();
+     * int allPageCount = <span style="color: #553000">page</span>.getAllPageCount();
+     * boolean isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
+     * boolean isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
      * ...
-     * for (MemberWithdrawal memberWithdrawal : page) {
+     * for (MemberWithdrawal memberWithdrawal : <span style="color: #553000">page</span>) {
      *     ... = memberWithdrawal.get...();
      * }
      * </pre>
@@ -248,12 +246,10 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
     /**
      * Select the cursor by the condition-bean.
      * <pre>
-     * MemberWithdrawalCB cb = new MemberWithdrawalCB();
-     * cb.query().setFoo...(value);
-     * memberWithdrawalBhv.<span style="color: #CC4747">selectCursor</span>(cb, new EntityRowHandler&lt;MemberWithdrawal&gt;() {
-     *     public void handle(MemberWithdrawal entity) {
-     *         ... = entity.getFoo...();
-     *     }
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">selectCursor</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }, <span style="color: #553000">member</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">member</span>.getMemberName();
      * });
      * </pre>
      * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
@@ -270,11 +266,9 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * memberWithdrawalBhv.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
-     *     public void query(MemberWithdrawalCB cb) {
-     *         cb.specify().<span style="color: #CC4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
-     *         cb.query().setBarName_PrefixSearch("S");
-     *     }
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...()</span>; <span style="color: #3F7E5E">// required for the function</span>
+     *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
      * @param <RESULT> The type of result.
@@ -300,23 +294,24 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
     /**
      * Load referrer by the the referrer loader. <br />
      * <pre>
-     * MemberCB cb = new MemberCB();
-     * cb.query().set...
-     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
-     * memberBhv.<span style="color: #CC4747">load</span>(memberList, loader -&gt; {
-     *     loader.<span style="color: #CC4747">loadPurchaseList</span>(purchaseCB -&gt; {
-     *         purchaseCB.query().set...
-     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     * List&lt;Member&gt; <span style="color: #553000">memberList</span> = <span style="color: #0000C0">memberBhv</span>.selectList(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().set...
+     * });
+     * memberBhv.<span style="color: #CC4747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">purchaseCB</span>.setupSelect...
+     *         <span style="color: #553000">purchaseCB</span>.query().set...
+     *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
-     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
      *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
      *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
-     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
-     * }
-     * for (Member member : memberList) {
+     *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
+     * });
+     * for (Member member : <span style="color: #553000">memberList</span>) {
      *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
      *     for (Purchase purchase : purchaseList) {
      *         ...
@@ -336,27 +331,24 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
     /**
      * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
      * <pre>
-     * MemberCB cb = new MemberCB();
-     * cb.query().set...
-     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
-     * memberBhv.<span style="color: #CC4747">load</span>(member, loader -&gt; {
-     *     loader.<span style="color: #CC4747">loadPurchaseList</span>(purchaseCB -&gt; {
-     *         purchaseCB.query().set...
-     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     * Member <span style="color: #553000">member</span> = <span style="color: #0000C0">memberBhv</span>.selectEntityWithDeletedCheck(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> <span style="color: #553000">cb</span>.acceptPK(1));
+     * <span style="color: #0000C0">memberBhv</span>.<span style="color: #CC4747">load</span>(<span style="color: #553000">member</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">purchaseCB</span>.setupSelect...
+     *         <span style="color: #553000">purchaseCB</span>.query().set...
+     *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
-     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
      *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
      *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
-     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
-     * }
-     * for (Member member : memberList) {
-     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
-     *     for (Purchase purchase : purchaseList) {
-     *         ...
-     *     }
+     *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
+     * });
+     * List&lt;Purchase&gt; purchaseList = <span style="color: #553000">member</span>.<span style="color: #CC4747">getPurchaseList()</span>;
+     * for (Purchase purchase : purchaseList) {
+     *     ...
      * }
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
@@ -412,7 +404,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//memberWithdrawal.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//memberWithdrawal.set...;</span>
-     * memberWithdrawalBhv.<span style="color: #CC4747">insert</span>(memberWithdrawal);
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">insert</span>(memberWithdrawal);
      * ... = memberWithdrawal.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
@@ -435,7 +427,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * memberWithdrawal.<span style="color: #CC4747">setVersionNo</span>(value);
      * try {
-     *     memberWithdrawalBhv.<span style="color: #CC4747">update</span>(memberWithdrawal);
+     *     <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">update</span>(memberWithdrawal);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -461,7 +453,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//memberWithdrawal.setVersionNo(value);</span>
-     * memberWithdrawalBhv.<span style="color: #CC4747">updateNonstrict</span>(memberWithdrawal);
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">updateNonstrict</span>(memberWithdrawal);
      * </pre>
      * @param memberWithdrawal The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -506,7 +498,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * memberWithdrawal.<span style="color: #CC4747">setVersionNo</span>(value);
      * try {
-     *     memberWithdrawalBhv.<span style="color: #CC4747">delete</span>(memberWithdrawal);
+     *     <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">delete</span>(memberWithdrawal);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -527,7 +519,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//memberWithdrawal.setVersionNo(value);</span>
-     * memberWithdrawalBhv.<span style="color: #CC4747">deleteNonstrict</span>(memberWithdrawal);
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">deleteNonstrict</span>(memberWithdrawal);
      * </pre>
      * @param memberWithdrawal The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -556,7 +548,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     memberWithdrawalList.add(memberWithdrawal);
      * }
-     * memberWithdrawalBhv.<span style="color: #CC4747">batchInsert</span>(memberWithdrawalList);
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">batchInsert</span>(memberWithdrawalList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -586,7 +578,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     memberWithdrawalList.add(memberWithdrawal);
      * }
-     * memberWithdrawalBhv.<span style="color: #CC4747">batchUpdate</span>(memberWithdrawalList);
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">batchUpdate</span>(memberWithdrawalList);
      * </pre>
      * @param memberWithdrawalList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
@@ -614,7 +606,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     memberWithdrawalList.add(memberWithdrawal);
      * }
-     * memberWithdrawalBhv.<span style="color: #CC4747">batchUpdate</span>(memberWithdrawalList);
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">batchUpdate</span>(memberWithdrawalList);
      * </pre>
      * @param memberWithdrawalList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
@@ -652,7 +644,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * memberWithdrawalBhv.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;MemberWithdrawal, MemberWithdrawalCB&gt;() {
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;MemberWithdrawal, MemberWithdrawalCB&gt;() {
      *     public ConditionBean setup(MemberWithdrawal entity, MemberWithdrawalCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -694,7 +686,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * <span style="color: #3F7E5E">//memberWithdrawal.setVersionNo(value);</span>
      * MemberWithdrawalCB cb = new MemberWithdrawalCB();
      * cb.query().setFoo...(value);
-     * memberWithdrawalBhv.<span style="color: #CC4747">queryUpdate</span>(memberWithdrawal, cb);
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">queryUpdate</span>(memberWithdrawal, cb);
      * </pre>
      * @param memberWithdrawal The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
@@ -710,7 +702,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * <pre>
      * MemberWithdrawalCB cb = new MemberWithdrawalCB();
      * cb.query().setFoo...(value);
-     * memberWithdrawalBhv.<span style="color: #CC4747">queryDelete</span>(memberWithdrawal, cb);
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">queryDelete</span>(memberWithdrawal, cb);
      * </pre>
      * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)
      * @return The deleted count.
@@ -738,7 +730,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      * InsertOption<MemberWithdrawalCB> option = new InsertOption<MemberWithdrawalCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * memberWithdrawalBhv.<span style="color: #CC4747">varyingInsert</span>(memberWithdrawal, option);
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">varyingInsert</span>(memberWithdrawal, option);
      * ... = memberWithdrawal.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param memberWithdrawal The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
@@ -767,7 +759,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      *             cb.specify().<span style="color: #CC4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     memberWithdrawalBhv.<span style="color: #CC4747">varyingUpdate</span>(memberWithdrawal, option);
+     *     <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(memberWithdrawal, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
@@ -800,7 +792,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      *         cb.specify().<span style="color: #CC4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * memberWithdrawalBhv.<span style="color: #CC4747">varyingUpdateNonstrict</span>(memberWithdrawal, option);
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">varyingUpdateNonstrict</span>(memberWithdrawal, option);
      * </pre>
      * @param memberWithdrawal The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
@@ -969,7 +961,7 @@ public abstract class BsMemberWithdrawalBhv extends AbstractBehaviorWritable<Mem
      *         cb.specify().<span style="color: #CC4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * memberWithdrawalBhv.<span style="color: #CC4747">varyingQueryUpdate</span>(memberWithdrawal, cb, option);
+     * <span style="color: #0000C0">memberWithdrawalBhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(memberWithdrawal, cb, option);
      * </pre>
      * @param memberWithdrawal The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cbLambda The callback for condition-bean of MemberWithdrawal. (NotNull)

@@ -77,7 +77,35 @@ public class LoaderOfServiceRank {
     //                                                                       Load Referrer
     //                                                                       =============
     protected List<MemberService> _referrerMemberService;
-    public NestedReferrerLoaderGateway<LoaderOfMemberService> loadMemberService(ConditionBeanSetupper<MemberServiceCB> refCBLambda) {
+
+    /**
+     * Load referrer of memberServiceList by the set-upper of referrer. <br />
+     * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
+     * <pre>
+     * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">serviceRankList</span>, <span style="color: #553000">rankLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">rankLoader</span>.<span style="color: #CC4747">loadMemberService</span>(<span style="color: #553000">serviceCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">serviceCB</span>.setupSelect...
+     *         <span style="color: #553000">serviceCB</span>.query().set...
+     *         <span style="color: #553000">serviceCB</span>.query().addOrderBy...
+     *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">serviceLoader</span> -&gt {</span>
+     *     <span style="color: #3F7E5E">//    serviceLoader.load...</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     * });
+     * for (ServiceRank serviceRank : <span style="color: #553000">serviceRankList</span>) {
+     *     ... = serviceRank.<span style="color: #CC4747">getMemberServiceList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setServiceRankCode_InScope(pkList);
+     * cb.query().addOrderBy_ServiceRankCode_Asc();
+     * </pre>
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoaderGateway<LoaderOfMemberService> loadMemberService(ReferrerConditionSetupper<MemberServiceCB> refCBLambda) {
         myBhv().loadMemberService(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerMemberService = refLs);
         return hd -> hd.handle(new LoaderOfMemberService().ready(_referrerMemberService, _selector));
     }
