@@ -261,6 +261,7 @@ public abstract class BsProductCategory extends AbstractEntity {
      * @return The value of the column 'PRODUCT_CATEGORY_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getProductCategoryCode() {
+        checkSpecifiedProperty("productCategoryCode");
         return _productCategoryCode;
     }
 
@@ -270,7 +271,7 @@ public abstract class BsProductCategory extends AbstractEntity {
      * @param productCategoryCode The value of the column 'PRODUCT_CATEGORY_CODE'. (basically NotNull if update: for the constraint)
      */
     public void setProductCategoryCode(String productCategoryCode) {
-        __modifiedProperties.addPropertyName("productCategoryCode");
+        registerModifiedProperty("productCategoryCode");
         _productCategoryCode = productCategoryCode;
     }
 
@@ -279,6 +280,7 @@ public abstract class BsProductCategory extends AbstractEntity {
      * @return The value of the column 'PRODUCT_CATEGORY_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getProductCategoryName() {
+        checkSpecifiedProperty("productCategoryName");
         return _productCategoryName;
     }
 
@@ -287,7 +289,7 @@ public abstract class BsProductCategory extends AbstractEntity {
      * @param productCategoryName The value of the column 'PRODUCT_CATEGORY_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setProductCategoryName(String productCategoryName) {
-        __modifiedProperties.addPropertyName("productCategoryName");
+        registerModifiedProperty("productCategoryName");
         _productCategoryName = productCategoryName;
     }
 
@@ -297,6 +299,7 @@ public abstract class BsProductCategory extends AbstractEntity {
      * @return The value of the column 'PARENT_CATEGORY_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getParentCategoryCode() {
+        checkSpecifiedProperty("parentCategoryCode");
         return _parentCategoryCode;
     }
 
@@ -306,7 +309,7 @@ public abstract class BsProductCategory extends AbstractEntity {
      * @param parentCategoryCode The value of the column 'PARENT_CATEGORY_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setParentCategoryCode(String parentCategoryCode) {
-        __modifiedProperties.addPropertyName("parentCategoryCode");
+        registerModifiedProperty("parentCategoryCode");
         _parentCategoryCode = parentCategoryCode;
     }
 }

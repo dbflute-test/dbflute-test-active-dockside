@@ -338,6 +338,7 @@ public abstract class BsProductStatus extends AbstractEntity {
      * @return The value of the column 'PRODUCT_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getProductStatusCode() {
+        checkSpecifiedProperty("productStatusCode");
         return _productStatusCode;
     }
 
@@ -348,7 +349,7 @@ public abstract class BsProductStatus extends AbstractEntity {
      */
     protected void setProductStatusCode(String productStatusCode) {
         checkClassificationCode("PRODUCT_STATUS_CODE", CDef.DefMeta.ProductStatus, productStatusCode);
-        __modifiedProperties.addPropertyName("productStatusCode");
+        registerModifiedProperty("productStatusCode");
         _productStatusCode = productStatusCode;
     }
 
@@ -358,6 +359,7 @@ public abstract class BsProductStatus extends AbstractEntity {
      * @return The value of the column 'PRODUCT_STATUS_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getProductStatusName() {
+        checkSpecifiedProperty("productStatusName");
         return _productStatusName;
     }
 
@@ -367,7 +369,7 @@ public abstract class BsProductStatus extends AbstractEntity {
      * @param productStatusName The value of the column 'PRODUCT_STATUS_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setProductStatusName(String productStatusName) {
-        __modifiedProperties.addPropertyName("productStatusName");
+        registerModifiedProperty("productStatusName");
         _productStatusName = productStatusName;
     }
 
@@ -377,6 +379,7 @@ public abstract class BsProductStatus extends AbstractEntity {
      * @return The value of the column 'DISPLAY_ORDER'. (basically NotNull if selected: for the constraint)
      */
     public Integer getDisplayOrder() {
+        checkSpecifiedProperty("displayOrder");
         return _displayOrder;
     }
 
@@ -386,7 +389,7 @@ public abstract class BsProductStatus extends AbstractEntity {
      * @param displayOrder The value of the column 'DISPLAY_ORDER'. (basically NotNull if update: for the constraint)
      */
     public void setDisplayOrder(Integer displayOrder) {
-        __modifiedProperties.addPropertyName("displayOrder");
+        registerModifiedProperty("displayOrder");
         _displayOrder = displayOrder;
     }
 

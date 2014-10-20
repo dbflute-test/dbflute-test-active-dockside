@@ -103,8 +103,24 @@ public class Member extends BsMember {
     }
 
     // ===================================================================================
+    //                                                             for test: Non-Specified
+    //                                                             =======================
+    public String xznocheckGetMemberName() {
+        return _memberName;
+    }
+
+    public String xznocheckGetMemberAccount() {
+        return _memberAccount;
+    }
+
+    public String xznocheckGetMemberStatusCode() {
+        return _memberStatusCode;
+    }
+
+    // ===================================================================================
     //                                                            for test: Classification
     //                                                            ========================
+
     public void xznocheckSetMemberStatusCode(String code) {
         __modifiedProperties.addPropertyName(MemberDbm.getInstance().columnMemberStatusCode().getPropertyName());
         _memberStatusCode = code;

@@ -20,9 +20,9 @@ import java.util.Map;
 
 import org.dbflute.Entity;
 import org.dbflute.dbmeta.AbstractDBMeta;
-import org.dbflute.dbmeta.PropertyGateway;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
+import org.dbflute.dbmeta.property.PropertyGateway;
 import org.dbflute.dbway.DBDef;
 import org.docksidestage.dockside.dbflute.allcommon.*;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;

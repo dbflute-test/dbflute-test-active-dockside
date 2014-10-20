@@ -256,6 +256,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -265,7 +266,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param memberId The value of the column 'MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberId(Integer memberId) {
-        __modifiedProperties.addPropertyName("memberId");
+        registerModifiedProperty("memberId");
         _memberId = memberId;
     }
 
@@ -276,6 +277,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'LOGIN_PASSWORD'. (basically NotNull if selected: for the constraint)
      */
     public String getLoginPassword() {
+        checkSpecifiedProperty("loginPassword");
         return _loginPassword;
     }
 
@@ -286,7 +288,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param loginPassword The value of the column 'LOGIN_PASSWORD'. (basically NotNull if update: for the constraint)
      */
     public void setLoginPassword(String loginPassword) {
-        __modifiedProperties.addPropertyName("loginPassword");
+        registerModifiedProperty("loginPassword");
         _loginPassword = loginPassword;
     }
 
@@ -296,6 +298,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'REMINDER_QUESTION'. (basically NotNull if selected: for the constraint)
      */
     public String getReminderQuestion() {
+        checkSpecifiedProperty("reminderQuestion");
         return _reminderQuestion;
     }
 
@@ -305,7 +308,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param reminderQuestion The value of the column 'REMINDER_QUESTION'. (basically NotNull if update: for the constraint)
      */
     public void setReminderQuestion(String reminderQuestion) {
-        __modifiedProperties.addPropertyName("reminderQuestion");
+        registerModifiedProperty("reminderQuestion");
         _reminderQuestion = reminderQuestion;
     }
 
@@ -315,6 +318,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'REMINDER_ANSWER'. (basically NotNull if selected: for the constraint)
      */
     public String getReminderAnswer() {
+        checkSpecifiedProperty("reminderAnswer");
         return _reminderAnswer;
     }
 
@@ -324,7 +328,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param reminderAnswer The value of the column 'REMINDER_ANSWER'. (basically NotNull if update: for the constraint)
      */
     public void setReminderAnswer(String reminderAnswer) {
-        __modifiedProperties.addPropertyName("reminderAnswer");
+        registerModifiedProperty("reminderAnswer");
         _reminderAnswer = reminderAnswer;
     }
 
@@ -335,6 +339,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'REMINDER_USE_COUNT'. (basically NotNull if selected: for the constraint)
      */
     public Integer getReminderUseCount() {
+        checkSpecifiedProperty("reminderUseCount");
         return _reminderUseCount;
     }
 
@@ -345,7 +350,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param reminderUseCount The value of the column 'REMINDER_USE_COUNT'. (basically NotNull if update: for the constraint)
      */
     public void setReminderUseCount(Integer reminderUseCount) {
-        __modifiedProperties.addPropertyName("reminderUseCount");
+        registerModifiedProperty("reminderUseCount");
         _reminderUseCount = reminderUseCount;
     }
 
@@ -354,6 +359,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
 
@@ -362,7 +368,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
-        __modifiedProperties.addPropertyName("registerDatetime");
+        registerModifiedProperty("registerDatetime");
         _registerDatetime = registerDatetime;
     }
 
@@ -371,6 +377,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
         return _registerUser;
     }
 
@@ -379,7 +386,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param registerUser The value of the column 'REGISTER_USER'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterUser(String registerUser) {
-        __modifiedProperties.addPropertyName("registerUser");
+        registerModifiedProperty("registerUser");
         _registerUser = registerUser;
     }
 
@@ -388,6 +395,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
 
@@ -396,7 +404,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
-        __modifiedProperties.addPropertyName("updateDatetime");
+        registerModifiedProperty("updateDatetime");
         _updateDatetime = updateDatetime;
     }
 
@@ -405,6 +413,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
         return _updateUser;
     }
 
@@ -413,7 +422,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param updateUser The value of the column 'UPDATE_USER'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateUser(String updateUser) {
-        __modifiedProperties.addPropertyName("updateUser");
+        registerModifiedProperty("updateUser");
         _updateUser = updateUser;
     }
 
@@ -422,6 +431,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
     public Long getVersionNo() {
+        checkSpecifiedProperty("versionNo");
         return _versionNo;
     }
 
@@ -430,7 +440,7 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
      * @param versionNo The value of the column 'VERSION_NO'. (basically NotNull if update: for the constraint)
      */
     public void setVersionNo(Long versionNo) {
-        __modifiedProperties.addPropertyName("versionNo");
+        registerModifiedProperty("versionNo");
         _versionNo = versionNo;
     }
 }

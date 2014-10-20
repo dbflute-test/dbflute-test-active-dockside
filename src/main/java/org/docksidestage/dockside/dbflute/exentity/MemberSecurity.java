@@ -24,9 +24,21 @@ import org.docksidestage.dockside.dbflute.bsentity.BsMemberSecurity;
  * This class remains when re-generating.
  * </p>
  * @author DBFlute(AutoGenerator)
+ * @author jflute
  */
 public class MemberSecurity extends BsMemberSecurity {
 
     /** Serial version UID. (Default) */
     private static final long serialVersionUID = 1L;
+
+    // ===================================================================================
+    //                                                             for test: Non-Specified
+    //                                                             =======================
+    public String xznocheckGetLoginPassword() {
+        return _loginPassword;
+    }
+
+    public String xznocheckGetReminderQuestion() {
+        return _reminderQuestion;
+    }
 }

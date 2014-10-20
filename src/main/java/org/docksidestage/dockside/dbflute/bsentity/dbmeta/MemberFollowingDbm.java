@@ -20,9 +20,9 @@ import java.util.Map;
 
 import org.dbflute.Entity;
 import org.dbflute.dbmeta.AbstractDBMeta;
-import org.dbflute.dbmeta.PropertyGateway;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
+import org.dbflute.dbmeta.property.PropertyGateway;
 import org.dbflute.dbway.DBDef;
 import org.docksidestage.dockside.dbflute.allcommon.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
@@ -114,7 +114,7 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, "会員フォローイングID", Long.class, "memberFollowingId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_007B981C_DC54_4E98_A133_90985B531A17", false, null, "連番", null, null, null);
+    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, "会員フォローイングID", Long.class, "memberFollowingId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_09EE7607_5E59_4EB3_8A5A_1B3EC3FB573C", false, null, "連番", null, null, null);
     protected final ColumnInfo _columnMyMemberId = cci("MY_MEMBER_ID", "MY_MEMBER_ID", null, "わたし", Integer.class, "myMemberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, "気になった人がいて...勇気を振り絞った会員のID。", "memberByMyMemberId", null, null);
     protected final ColumnInfo _columnYourMemberId = cci("YOUR_MEMBER_ID", "YOUR_MEMBER_ID", null, "あなた", Integer.class, "yourMemberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, "いきなりのアクションに...ちょっと心揺らいだ会員のID。", "memberByYourMemberId", null, null);
     protected final ColumnInfo _columnFollowDatetime = cci("FOLLOW_DATETIME", "FOLLOW_DATETIME", null, "その瞬間", java.sql.Timestamp.class, "followDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, "ふりかえるとちょっと恥ずかしい気持ちになる日時", null, null, null);

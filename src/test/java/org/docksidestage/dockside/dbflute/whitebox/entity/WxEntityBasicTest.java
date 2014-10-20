@@ -60,17 +60,17 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         Member member = new Member();
 
         // ## Act & Assert ##
-        assertFalse(member.modifiedProperties().contains("birthdate"));
+        assertFalse(member.mymodifiedProperties().contains("birthdate"));
         member.setBirthdate(currentDate());
-        assertTrue(member.modifiedProperties().contains("birthdate"));
-        assertFalse(member.modifiedProperties().contains("memberAccount"));
+        assertTrue(member.mymodifiedProperties().contains("birthdate"));
+        assertFalse(member.mymodifiedProperties().contains("memberAccount"));
         member.setMemberAccount(null);
-        assertTrue(member.modifiedProperties().contains("memberAccount"));
-        log(member.modifiedProperties());
+        assertTrue(member.mymodifiedProperties().contains("memberAccount"));
+        log(member.mymodifiedProperties());
         assertTrue(member.hasModification());
 
         member.clearModifiedInfo();
-        assertFalse(member.modifiedProperties().contains("memberAccount"));
+        assertFalse(member.mymodifiedProperties().contains("memberAccount"));
         assertFalse(member.hasModification());
     }
 
@@ -709,17 +709,17 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         assertEquals(99999999, clone.getPurchaseList().get(0).getPurchasePrice());
         assertEquals(99999999, member.getPurchaseList().get(0).getPurchasePrice()); // shallow
 
-        assertEquals(member.modifiedProperties().size(), clone.modifiedProperties().size());
-        assertFalse(clone.modifiedProperties().contains("memberName"));
+        assertEquals(member.mymodifiedProperties().size(), clone.mymodifiedProperties().size());
+        assertFalse(clone.mymodifiedProperties().contains("memberName"));
         clone.setMemberName("test");
-        assertTrue(clone.modifiedProperties().contains("memberName"));
-        assertEquals(member.modifiedProperties().size(), clone.modifiedProperties().size()); // shallow
+        assertTrue(clone.mymodifiedProperties().contains("memberName"));
+        assertEquals(member.mymodifiedProperties().size(), clone.mymodifiedProperties().size()); // shallow
 
-        assertEquals(memberStatus.modifiedProperties().size(), cloneStatus.modifiedProperties().size());
-        assertFalse(cloneStatus.modifiedProperties().contains("memberName"));
+        assertEquals(memberStatus.mymodifiedProperties().size(), cloneStatus.mymodifiedProperties().size());
+        assertFalse(cloneStatus.mymodifiedProperties().contains("memberName"));
         cloneStatus.setMemberStatusName("test");
-        assertTrue(cloneStatus.modifiedProperties().contains("memberStatusName"));
-        assertEquals(memberStatus.modifiedProperties().size(), cloneStatus.modifiedProperties().size()); // shallow
+        assertTrue(cloneStatus.mymodifiedProperties().contains("memberStatusName"));
+        assertEquals(memberStatus.mymodifiedProperties().size(), cloneStatus.mymodifiedProperties().size()); // shallow
     }
 
     // ===================================================================================

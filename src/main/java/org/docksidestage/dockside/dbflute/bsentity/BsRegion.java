@@ -318,6 +318,7 @@ public abstract class BsRegion extends AbstractEntity {
      * @return The value of the column 'REGION_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getRegionId() {
+        checkSpecifiedProperty("regionId");
         return _regionId;
     }
 
@@ -329,7 +330,7 @@ public abstract class BsRegion extends AbstractEntity {
      */
     protected void setRegionId(Integer regionId) {
         checkClassificationCode("REGION_ID", CDef.DefMeta.Region, regionId);
-        __modifiedProperties.addPropertyName("regionId");
+        registerModifiedProperty("regionId");
         _regionId = regionId;
     }
 
@@ -339,6 +340,7 @@ public abstract class BsRegion extends AbstractEntity {
      * @return The value of the column 'REGION_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getRegionName() {
+        checkSpecifiedProperty("regionName");
         return _regionName;
     }
 
@@ -348,7 +350,7 @@ public abstract class BsRegion extends AbstractEntity {
      * @param regionName The value of the column 'REGION_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setRegionName(String regionName) {
-        __modifiedProperties.addPropertyName("regionName");
+        registerModifiedProperty("regionName");
         _regionName = regionName;
     }
 

@@ -172,6 +172,7 @@ public abstract class BsVendorIdentityOnly extends AbstractEntity {
      * @return The value of the column 'IDENTITY_ONLY_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getIdentityOnlyId() {
+        checkSpecifiedProperty("identityOnlyId");
         return _identityOnlyId;
     }
 
@@ -180,7 +181,7 @@ public abstract class BsVendorIdentityOnly extends AbstractEntity {
      * @param identityOnlyId The value of the column 'IDENTITY_ONLY_ID'. (basically NotNull if update: for the constraint)
      */
     public void setIdentityOnlyId(Long identityOnlyId) {
-        __modifiedProperties.addPropertyName("identityOnlyId");
+        registerModifiedProperty("identityOnlyId");
         _identityOnlyId = identityOnlyId;
     }
 }

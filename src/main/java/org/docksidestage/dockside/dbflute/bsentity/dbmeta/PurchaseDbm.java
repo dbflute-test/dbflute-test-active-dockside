@@ -20,9 +20,9 @@ import java.util.Map;
 
 import org.dbflute.Entity;
 import org.dbflute.dbmeta.AbstractDBMeta;
-import org.dbflute.dbmeta.PropertyGateway;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
+import org.dbflute.dbmeta.property.PropertyGateway;
 import org.dbflute.dbway.DBDef;
 import org.docksidestage.dockside.dbflute.allcommon.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
@@ -167,7 +167,7 @@ public class PurchaseDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, null, Long.class, "purchaseId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6AE424B3_557D_40FE_ABA2_E7F1B0D7201F", false, null, null, null, "purchasePaymentList", null);
+    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, null, Long.class, "purchaseId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_158F79CB_3D07_4C77_83F4_5E1BD778D057", false, null, null, null, "purchasePaymentList", null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, "会員を参照するID。\n購入を識別する自然キー(複合ユニーク制約)の筆頭要素。", "member", null, null);
     protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, "商品ID", Integer.class, "productId", null, false, false, true, "INTEGER", 10, 0, null, false, null, "あなたは何を買ったのか？", "product,summaryProduct", null, null);
     protected final ColumnInfo _columnPurchaseDatetime = cci("PURCHASE_DATETIME", "PURCHASE_DATETIME", null, "購入日時", java.sql.Timestamp.class, "purchaseDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, "購入した瞬間の日時。", null, null, null);

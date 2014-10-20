@@ -25,7 +25,7 @@ import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 #if ($table.needsMappingValueType())
-import org.dbflute.dbmeta.MappingValueType;
+import org.dbflute.dbmeta.accessory.MappingValueType;
 #end
 #if ($table.needsRelationOptionalEntityImport())
 import ${database.relationOptionalEntityClassName};
@@ -599,6 +599,7 @@ public abstract class $myClassName extends AbstractEntity${myEntityInterfaceDef}
     @MappingValueType(keyName = "bytesOidType")
 #end
     public ${col.javaNative} get${col.javaName}() {
+        checkSpecifiedProperty("${col.javaBeansRulePropertyName}");
 #if ($col.isEntityConvertEmptyStringToNull())
         return convertEmptyToNull(_${col.uncapitalisedJavaName});
 #else
@@ -621,7 +622,7 @@ public abstract class $myClassName extends AbstractEntity${myEntityInterfaceDef}
 #if ($col.hasCheckClassificationCodeOnEntity())
         checkClassificationCode("${col.name}", ${glCDef}.DefMeta.${col.classificationName}, ${col.uncapitalisedJavaName});
 #end
-        __modifiedProperties.addPropertyName("${col.javaBeansRulePropertyName}");
+        registerModifiedProperty("${col.javaBeansRulePropertyName}");
         _${col.uncapitalisedJavaName} = ${col.uncapitalisedJavaName};
     }
 #set ($propertyLoopIndex = $propertyLoopIndex + 1)
@@ -636,16 +637,12 @@ public abstract class $myClassName extends AbstractEntity${myEntityInterfaceDef}
 #set ($uncapitalisedJavaName = ${database.convertUncapitalisedJavaNameByJdbcNameAsColumn(${filteredColumnName})})
 #set ($targetJavaName = ${table.findTargetColumnJavaNameByCommonColumnName(${columnName})})
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public ${javaNative} get${javaName}() {
         return get${targetJavaName}();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public void set${javaName}(${javaNative} ${uncapitalisedJavaName}) {
         set${targetJavaName}(${uncapitalisedJavaName});
     }

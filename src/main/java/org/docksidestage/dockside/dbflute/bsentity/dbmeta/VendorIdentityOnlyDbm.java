@@ -20,9 +20,9 @@ import java.util.Map;
 
 import org.dbflute.Entity;
 import org.dbflute.dbmeta.AbstractDBMeta;
-import org.dbflute.dbmeta.PropertyGateway;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
+import org.dbflute.dbmeta.property.PropertyGateway;
 import org.dbflute.dbway.DBDef;
 import org.docksidestage.dockside.dbflute.allcommon.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
@@ -76,7 +76,7 @@ public class VendorIdentityOnlyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnIdentityOnlyId = cci("IDENTITY_ONLY_ID", "IDENTITY_ONLY_ID", null, null, Long.class, "identityOnlyId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_7F5A7C36_CA29_4CB4_AF2C_9C552FFB1D7A", false, null, null, null, null, null);
+    protected final ColumnInfo _columnIdentityOnlyId = cci("IDENTITY_ONLY_ID", "IDENTITY_ONLY_ID", null, null, Long.class, "identityOnlyId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_2C96D9AB_F550_4077_956C_9587BAB5F84E", false, null, null, null, null, null);
 
     /**
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}

@@ -235,6 +235,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -243,7 +244,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberId(Integer memberId) {
-        __modifiedProperties.addPropertyName("memberId");
+        registerModifiedProperty("memberId");
         _memberId = memberId;
     }
 
@@ -252,6 +253,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberName() {
+        checkSpecifiedProperty("memberName");
         return _memberName;
     }
 
@@ -260,7 +262,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberName(String memberName) {
-        __modifiedProperties.addPropertyName("memberName");
+        registerModifiedProperty("memberName");
         _memberName = memberName;
     }
 
@@ -269,6 +271,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @return The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getWithdrawalReasonCode() {
+        checkSpecifiedProperty("withdrawalReasonCode");
         return _withdrawalReasonCode;
     }
 
@@ -277,7 +280,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setWithdrawalReasonCode(String withdrawalReasonCode) {
-        __modifiedProperties.addPropertyName("withdrawalReasonCode");
+        registerModifiedProperty("withdrawalReasonCode");
         _withdrawalReasonCode = withdrawalReasonCode;
     }
 
@@ -286,6 +289,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @return The value of the column 'WITHDRAWAL_REASON_TEXT'. (NullAllowed even if selected: for no constraint)
      */
     public String getWithdrawalReasonText() {
+        checkSpecifiedProperty("withdrawalReasonText");
         return _withdrawalReasonText;
     }
 
@@ -294,7 +298,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @param withdrawalReasonText The value of the column 'WITHDRAWAL_REASON_TEXT'. (NullAllowed: null update allowed for no constraint)
      */
     public void setWithdrawalReasonText(String withdrawalReasonText) {
-        __modifiedProperties.addPropertyName("withdrawalReasonText");
+        registerModifiedProperty("withdrawalReasonText");
         _withdrawalReasonText = withdrawalReasonText;
     }
 
@@ -303,6 +307,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @return The value of the column 'WITHDRAWAL_REASON_INPUT_TEXT'. (NullAllowed even if selected: for no constraint)
      */
     public String getWithdrawalReasonInputText() {
+        checkSpecifiedProperty("withdrawalReasonInputText");
         return _withdrawalReasonInputText;
     }
 
@@ -311,7 +316,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @param withdrawalReasonInputText The value of the column 'WITHDRAWAL_REASON_INPUT_TEXT'. (NullAllowed: null update allowed for no constraint)
      */
     public void setWithdrawalReasonInputText(String withdrawalReasonInputText) {
-        __modifiedProperties.addPropertyName("withdrawalReasonInputText");
+        registerModifiedProperty("withdrawalReasonInputText");
         _withdrawalReasonInputText = withdrawalReasonInputText;
     }
 
@@ -320,6 +325,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @return The value of the column 'WITHDRAWAL_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public java.sql.Timestamp getWithdrawalDatetime() {
+        checkSpecifiedProperty("withdrawalDatetime");
         return _withdrawalDatetime;
     }
 
@@ -328,7 +334,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @param withdrawalDatetime The value of the column 'WITHDRAWAL_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setWithdrawalDatetime(java.sql.Timestamp withdrawalDatetime) {
-        __modifiedProperties.addPropertyName("withdrawalDatetime");
+        registerModifiedProperty("withdrawalDatetime");
         _withdrawalDatetime = withdrawalDatetime;
     }
 
@@ -337,6 +343,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @return The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberStatusCode() {
+        checkSpecifiedProperty("memberStatusCode");
         return _memberStatusCode;
     }
 
@@ -345,7 +352,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberStatusCode(String memberStatusCode) {
-        __modifiedProperties.addPropertyName("memberStatusCode");
+        registerModifiedProperty("memberStatusCode");
         _memberStatusCode = memberStatusCode;
     }
 
@@ -354,6 +361,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberStatusName() {
+        checkSpecifiedProperty("memberStatusName");
         return _memberStatusName;
     }
 
@@ -362,7 +370,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberStatusName(String memberStatusName) {
-        __modifiedProperties.addPropertyName("memberStatusName");
+        registerModifiedProperty("memberStatusName");
         _memberStatusName = memberStatusName;
     }
 
@@ -371,6 +379,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @return The value of the column 'MAX_PURCHASE_PRICE'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMaxPurchasePrice() {
+        checkSpecifiedProperty("maxPurchasePrice");
         return _maxPurchasePrice;
     }
 
@@ -379,7 +388,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * @param maxPurchasePrice The value of the column 'MAX_PURCHASE_PRICE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMaxPurchasePrice(Integer maxPurchasePrice) {
-        __modifiedProperties.addPropertyName("maxPurchasePrice");
+        registerModifiedProperty("maxPurchasePrice");
         _maxPurchasePrice = maxPurchasePrice;
     }
 }

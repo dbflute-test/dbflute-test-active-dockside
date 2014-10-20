@@ -187,6 +187,7 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
+        checkSpecifiedProperty("memberId");
         return _memberId;
     }
 
@@ -196,7 +197,7 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberId(Integer memberId) {
-        __modifiedProperties.addPropertyName("memberId");
+        registerModifiedProperty("memberId");
         _memberId = memberId;
     }
 
@@ -205,6 +206,7 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
      * @return The value of the column 'MEMBER_NAME_WITH_SPACE'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberNameWithSpace() {
+        checkSpecifiedProperty("memberNameWithSpace");
         return _memberNameWithSpace;
     }
 
@@ -213,7 +215,7 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
      * @param memberNameWithSpace The value of the column 'MEMBER_NAME_WITH_SPACE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberNameWithSpace(String memberNameWithSpace) {
-        __modifiedProperties.addPropertyName("memberNameWithSpace");
+        registerModifiedProperty("memberNameWithSpace");
         _memberNameWithSpace = memberNameWithSpace;
     }
 
@@ -224,6 +226,7 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
      * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberStatusName() {
+        checkSpecifiedProperty("memberStatusName");
         return _memberStatusName;
     }
 
@@ -234,7 +237,7 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
      * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberStatusName(String memberStatusName) {
-        __modifiedProperties.addPropertyName("memberStatusName");
+        registerModifiedProperty("memberStatusName");
         _memberStatusName = memberStatusName;
     }
 }

@@ -60,6 +60,17 @@ public class MemberStatus extends BsMemberStatus {
     }
 
     // ===================================================================================
+    //                                                             for test: Non-Specified
+    //                                                             =======================
+    public Integer xznocheckGetDisplayOrder() {
+        return _displayOrder;
+    }
+
+    public String xznocheckGetDescription() {
+        return _description;
+    }
+
+    // ===================================================================================
     //                                                            for test: Classification
     //                                                            ========================
     public void xznocheckSetMemberStatusCode(String code) {
