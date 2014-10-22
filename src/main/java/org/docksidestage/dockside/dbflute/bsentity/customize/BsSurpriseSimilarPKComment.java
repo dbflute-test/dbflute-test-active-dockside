@@ -99,7 +99,6 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity {
     /** (更新ユーザ)UPDATE_USER: {VARCHAR(200), refers to MEMBER.UPDATE_USER} */
     protected String _updateUser;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -179,12 +178,12 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_memberId);
-        sb.append(dm).append(_memberName);
-        sb.append(dm).append(_registerDatetime);
-        sb.append(dm).append(_registerUser);
-        sb.append(dm).append(_updateDatetime);
-        sb.append(dm).append(_updateUser);
+        sb.append(dm).append(xfND(_memberId));
+        sb.append(dm).append(xfND(_memberName));
+        sb.append(dm).append(xfND(_registerDatetime));
+        sb.append(dm).append(xfND(_registerUser));
+        sb.append(dm).append(xfND(_updateDatetime));
+        sb.append(dm).append(xfND(_updateUser));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

@@ -124,8 +124,8 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * </pre>
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Region selectEntity(CBCall<RegionCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
@@ -150,9 +150,9 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * </pre>
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Region selectEntityWithDeletedCheck(CBCall<RegionCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
@@ -162,9 +162,9 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * Select the entity by the primary-key value.
      * @param regionId (地域ID): PK, NotNull, INTEGER(10), classification=Region. (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<Region> selectByPK(CDef.Region regionId) {
         return facadeSelectByPK(regionId);
@@ -203,7 +203,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * </pre>
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<Region> selectList(CBCall<RegionCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
@@ -235,7 +235,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * </pre>
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<Region> selectPage(CBCall<RegionCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
@@ -458,7 +458,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param region The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(Region region) {
         doInsert(region, null);
@@ -482,9 +482,9 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * }
      * </pre>
      * @param region The entity of update. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(Region region) {
         doUpdate(region, null);
@@ -495,9 +495,9 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param region The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(Region region) {
         doInsertOrUpdate(region, null, null);
@@ -517,8 +517,8 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * }
      * </pre>
      * @param region The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(Region region) {
         doDelete(region, null);
@@ -577,7 +577,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * </pre>
      * @param regionList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<Region> regionList) {
         return doBatchUpdate(regionList, null);
@@ -588,7 +588,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param regionList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<Region> regionList) {
         return doBatchDelete(regionList, null);
@@ -647,7 +647,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * @param region The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(Region region, CBCall<RegionCB> cbLambda) {
         return doQueryUpdate(region, createCB(cbLambda), null);
@@ -662,7 +662,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * </pre>
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(CBCall<RegionCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
@@ -691,7 +691,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * </pre>
      * @param region The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(Region region, WritableOptionCall<RegionCB, InsertOption<RegionCB>> opLambda) {
         doInsert(region, createInsertOption(opLambda));
@@ -722,9 +722,9 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * </pre>
      * @param region The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(Region region, WritableOptionCall<RegionCB, UpdateOption<RegionCB>> opLambda) {
         doUpdate(region, createUpdateOption(opLambda));
@@ -736,9 +736,9 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * @param region The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(Region region, WritableOptionCall<RegionCB, InsertOption<RegionCB>> insertOpLambda, WritableOptionCall<RegionCB, UpdateOption<RegionCB>> updateOpLambda) {
         doInsertOrUpdate(region, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -750,8 +750,8 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * Other specifications are same as delete(entity).
      * @param region The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(Region region, WritableOptionCall<RegionCB, DeleteOption<RegionCB>> opLambda) {
         doDelete(region, createDeleteOption(opLambda));
@@ -841,7 +841,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(Region region, CBCall<RegionCB> cbLambda, WritableOptionCall<RegionCB, UpdateOption<RegionCB>> opLambda) {
         return doQueryUpdate(region, createCB(cbLambda), createUpdateOption(opLambda));
@@ -854,7 +854,7 @@ public abstract class BsRegionBhv extends AbstractBehaviorWritable<Region, Regio
      * @param cbLambda The callback for condition-bean of Region. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(CBCall<RegionCB> cbLambda, WritableOptionCall<RegionCB, DeleteOption<RegionCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));

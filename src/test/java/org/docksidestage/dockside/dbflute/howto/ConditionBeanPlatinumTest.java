@@ -690,31 +690,19 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         for (Member member : memberList) {
             assertNotNull(member.getMemberId()); // PK
             assertNotNull(member.getMemberName()); // Specified
-            assertNull(member.getMemberAccount());
-            assertNull(member.getBirthdate());
-            assertNull(member.getFormalizedDatetime());
-            assertNull(member.getRegisterDatetime());
-            assertNull(member.getRegisterUser());
-            assertNull(member.getUpdateDatetime());
-            assertNull(member.getUpdateUser());
-            assertNull(member.getVersionNo());
+            assertNonSpecifiedAccess(() -> member.getMemberAccount());
+            assertNonSpecifiedAccess(() -> member.getBirthdate());
+            assertNonSpecifiedAccess(() -> member.getFormalizedDatetime());
+            assertNonSpecifiedAccess(() -> member.getRegisterDatetime());
+            assertNonSpecifiedAccess(() -> member.getRegisterUser());
+            assertNonSpecifiedAccess(() -> member.getUpdateDatetime());
+            assertNonSpecifiedAccess(() -> member.getUpdateUser());
+            assertNonSpecifiedAccess(() -> member.getVersionNo());
             assertNotNull(member.getMemberStatusCode()); // SetupSelect FK
             assertNotNull(member.getMemberStatus().getMemberStatusCode()); // PK
             assertNotNull(member.getMemberStatus().getMemberStatusName()); // Specified
-            assertNull(member.getMemberStatus().getDisplayOrder());
+            assertNonSpecifiedAccess(() -> member.getMemberStatus().getDisplayOrder());
         }
-
-        // [Description]
-        // A. 結合先テーブルに関しては、setupSelect_Xxx()を呼び出すことに変わりはなく、
-        //    setupSelectしたテーブルの中から取得するカラムを指定する。
-        //    --> setupSelectしてないテーブルのカラムを指定すると例外となる。
-        // 
-        // B. カラムが指定されたテーブルのみカラムが絞り込まれ、カラムが指定されないテーブルは
-        //    通常通り全てのカラムが取得される。
-        //    --> 例えば、ある一つの結合先テーブルだけカラム指定にすることも可能
-        // 
-        // C. PKは、カラムが指定されなくても必ず取得される。(暗黙の指定カラム)
-        // D. SetupSelectされたFKは、カラムが指定されなくても必ず取得される。(暗黙の指定カラム)
     }
 
     // ===================================================================================

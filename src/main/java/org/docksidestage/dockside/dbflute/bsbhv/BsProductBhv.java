@@ -123,8 +123,8 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * </pre>
      * @param cbLambda The callback for condition-bean of Product. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Product selectEntity(CBCall<ProductCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
@@ -149,9 +149,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * </pre>
      * @param cbLambda The callback for condition-bean of Product. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Product selectEntityWithDeletedCheck(CBCall<ProductCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
@@ -161,9 +161,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * Select the entity by the primary-key value.
      * @param productId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<Product> selectByPK(Integer productId) {
         return facadeSelectByPK(productId);
@@ -190,9 +190,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * Select the entity by the unique-key value.
      * @param productHandleCode (商品ハンドルコード): UQ, NotNull, VARCHAR(100). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<Product> selectByUniqueOf(String productHandleCode) {
         return facadeSelectByUniqueOf(productHandleCode);
@@ -227,7 +227,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * </pre>
      * @param cbLambda The callback for condition-bean of Product. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<Product> selectList(CBCall<ProductCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
@@ -259,7 +259,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * </pre>
      * @param cbLambda The callback for condition-bean of Product. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<Product> selectPage(CBCall<ProductCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
@@ -506,7 +506,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param product The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(Product product) {
         doInsert(product, null);
@@ -530,9 +530,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * }
      * </pre>
      * @param product The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
-     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(Product product) {
         doUpdate(product, null);
@@ -553,9 +553,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">updateNonstrict</span>(product);
      * </pre>
      * @param product The entity of update. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void updateNonstrict(Product product) {
         doUpdateNonstrict(product, null);
@@ -566,9 +566,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param product The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(Product product) {
         doInsertOrUpdate(product, null, null);
@@ -579,9 +579,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param product The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(Product product) {
         doInsertOrUpdateNonstrict(product, null, null);
@@ -601,8 +601,8 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * }
      * </pre>
      * @param product The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
-     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(Product product) {
         doDelete(product, null);
@@ -619,8 +619,8 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">deleteNonstrict</span>(product);
      * </pre>
      * @param product The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrict(Product product) {
         doDeleteNonstrict(product, null);
@@ -679,7 +679,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * </pre>
      * @param productList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @throws BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<Product> productList) {
         return doBatchUpdate(productList, null);
@@ -707,7 +707,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * </pre>
      * @param productList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<Product> productList) {
         return doBatchUpdateNonstrict(productList, null);
@@ -718,7 +718,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param productList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @throws BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchDelete(List<Product> productList) {
         return doBatchDelete(productList, null);
@@ -729,7 +729,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param productList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDeleteNonstrict(List<Product> productList) {
         return doBatchDeleteNonstrict(productList, null);
@@ -788,7 +788,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * @param product The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of Product. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(Product product, CBCall<ProductCB> cbLambda) {
         return doQueryUpdate(product, createCB(cbLambda), null);
@@ -803,7 +803,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * </pre>
      * @param cbLambda The callback for condition-bean of Product. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(CBCall<ProductCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
@@ -832,7 +832,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * </pre>
      * @param product The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(Product product, WritableOptionCall<ProductCB, InsertOption<ProductCB>> opLambda) {
         doInsert(product, createInsertOption(opLambda));
@@ -863,9 +863,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * </pre>
      * @param product The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(Product product, WritableOptionCall<ProductCB, UpdateOption<ProductCB>> opLambda) {
         doUpdate(product, createUpdateOption(opLambda));
@@ -893,9 +893,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * </pre>
      * @param product The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdateNonstrict(Product product, WritableOptionCall<ProductCB, UpdateOption<ProductCB>> opLambda) {
         doUpdateNonstrict(product, createUpdateOption(opLambda));
@@ -907,9 +907,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * @param product The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(Product product, WritableOptionCall<ProductCB, InsertOption<ProductCB>> insertOpLambda, WritableOptionCall<ProductCB, UpdateOption<ProductCB>> updateOpLambda) {
         doInsertOrUpdate(product, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -921,9 +921,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * @param product The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdateNonstrict(Product product, WritableOptionCall<ProductCB, InsertOption<ProductCB>> insertOpLambda, WritableOptionCall<ProductCB, UpdateOption<ProductCB>> updateOpLambda) {
         doInsertOrUpdateNonstrict(product, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -935,8 +935,8 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * Other specifications are same as delete(entity).
      * @param product The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(Product product, WritableOptionCall<ProductCB, DeleteOption<ProductCB>> opLambda) {
         doDelete(product, createDeleteOption(opLambda));
@@ -948,8 +948,8 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * Other specifications are same as deleteNonstrict(entity).
      * @param product The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDeleteNonstrict(Product product, WritableOptionCall<ProductCB, DeleteOption<ProductCB>> opLambda) {
         doDeleteNonstrict(product, createDeleteOption(opLambda));
@@ -1064,7 +1064,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * @param cbLambda The callback for condition-bean of Product. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(Product product, CBCall<ProductCB> cbLambda, WritableOptionCall<ProductCB, UpdateOption<ProductCB>> opLambda) {
         return doQueryUpdate(product, createCB(cbLambda), createUpdateOption(opLambda));
@@ -1077,7 +1077,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * @param cbLambda The callback for condition-bean of Product. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(CBCall<ProductCB> cbLambda, WritableOptionCall<ProductCB, DeleteOption<ProductCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));

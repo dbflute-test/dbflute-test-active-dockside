@@ -119,7 +119,6 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
     /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     protected String _updateUser;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -330,15 +329,15 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_purchasePaymentId);
-        sb.append(dm).append(_purchaseId);
-        sb.append(dm).append(_paymentAmount);
-        sb.append(dm).append(_paymentDatetime);
-        sb.append(dm).append(_paymentMethodCode);
-        sb.append(dm).append(_registerDatetime);
-        sb.append(dm).append(_registerUser);
-        sb.append(dm).append(_updateDatetime);
-        sb.append(dm).append(_updateUser);
+        sb.append(dm).append(xfND(_purchasePaymentId));
+        sb.append(dm).append(xfND(_purchaseId));
+        sb.append(dm).append(xfND(_paymentAmount));
+        sb.append(dm).append(xfND(_paymentDatetime));
+        sb.append(dm).append(xfND(_paymentMethodCode));
+        sb.append(dm).append(xfND(_registerDatetime));
+        sb.append(dm).append(xfND(_registerUser));
+        sb.append(dm).append(xfND(_updateDatetime));
+        sb.append(dm).append(xfND(_updateUser));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

@@ -18,7 +18,7 @@ import org.docksidestage.dockside.unit.UnitContainerTestCase;
  * @author jflute
  * @since 0.9.8.0 (2011/01/30 Sunday)
  */
-public class WxParameterBeanGenerationTest extends UnitContainerTestCase {
+public class WxSql2EntityParameterBeanGenerationTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute

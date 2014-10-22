@@ -90,7 +90,6 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn extends AbstractEn
     /** SHORT_SIZE: {NotNull, INTEGER(10)} */
     protected Integer _shortSize;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -195,10 +194,10 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn extends AbstractEn
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_theLongAndWindingTableAndColumnId);
-        sb.append(dm).append(_theLongAndWindingTableAndColumnName);
-        sb.append(dm).append(_shortName);
-        sb.append(dm).append(_shortSize);
+        sb.append(dm).append(xfND(_theLongAndWindingTableAndColumnId));
+        sb.append(dm).append(xfND(_theLongAndWindingTableAndColumnName));
+        sb.append(dm).append(xfND(_shortName));
+        sb.append(dm).append(xfND(_shortSize));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

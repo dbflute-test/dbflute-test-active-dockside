@@ -84,7 +84,6 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity {
     /** (会員アカウント)MEMBER_ACCOUNT: {VARCHAR(50), refers to MEMBER.MEMBER_ACCOUNT} */
     protected String _memberAccount;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -158,9 +157,9 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_memberId);
-        sb.append(dm).append(_memberName);
-        sb.append(dm).append(_memberAccount);
+        sb.append(dm).append(xfND(_memberId));
+        sb.append(dm).append(xfND(_memberName));
+        sb.append(dm).append(xfND(_memberAccount));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

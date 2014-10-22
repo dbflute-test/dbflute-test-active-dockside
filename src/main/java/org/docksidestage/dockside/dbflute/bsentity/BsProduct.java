@@ -127,7 +127,6 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
     /** VERSION_NO: {NotNull, BIGINT(19)} */
     protected Long _versionNo;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -361,17 +360,17 @@ public abstract class BsProduct extends AbstractEntity implements EntityDefinedC
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_productId);
-        sb.append(dm).append(_productName);
-        sb.append(dm).append(_productHandleCode);
-        sb.append(dm).append(_productCategoryCode);
-        sb.append(dm).append(_productStatusCode);
-        sb.append(dm).append(_regularPrice);
-        sb.append(dm).append(_registerDatetime);
-        sb.append(dm).append(_registerUser);
-        sb.append(dm).append(_updateDatetime);
-        sb.append(dm).append(_updateUser);
-        sb.append(dm).append(_versionNo);
+        sb.append(dm).append(xfND(_productId));
+        sb.append(dm).append(xfND(_productName));
+        sb.append(dm).append(xfND(_productHandleCode));
+        sb.append(dm).append(xfND(_productCategoryCode));
+        sb.append(dm).append(xfND(_productStatusCode));
+        sb.append(dm).append(xfND(_regularPrice));
+        sb.append(dm).append(xfND(_registerDatetime));
+        sb.append(dm).append(xfND(_registerUser));
+        sb.append(dm).append(xfND(_updateDatetime));
+        sb.append(dm).append(xfND(_updateUser));
+        sb.append(dm).append(xfND(_versionNo));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

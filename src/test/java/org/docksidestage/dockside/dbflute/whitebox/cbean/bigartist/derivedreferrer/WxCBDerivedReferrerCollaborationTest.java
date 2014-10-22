@@ -175,7 +175,8 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
             }
             assertNotNull(member.getMemberId());
             assertNotNull(member.getMemberName());
-            assertNull(member.getMemberAccount());
+            assertNull(member.xznocheckGetMemberAccount());
+            assertNonSpecifiedAccess(() -> member.getMemberAccount());
         }
         assertTrue(exists);
     }

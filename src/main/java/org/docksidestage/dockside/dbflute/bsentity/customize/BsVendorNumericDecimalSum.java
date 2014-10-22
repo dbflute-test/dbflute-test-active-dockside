@@ -74,7 +74,6 @@ public abstract class BsVendorNumericDecimalSum extends AbstractEntity {
     /** DECIMAL_DIGIT_SUM: {DECIMAL(5, 3)} */
     protected java.math.BigDecimal _decimalDigitSum;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -144,7 +143,7 @@ public abstract class BsVendorNumericDecimalSum extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_decimalDigitSum);
+        sb.append(dm).append(xfND(_decimalDigitSum));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

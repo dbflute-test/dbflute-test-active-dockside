@@ -98,7 +98,6 @@ public abstract class BsMemberLogin extends AbstractEntity {
     /** (ログイン時会員ステータスコード)LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} */
     protected String _loginMemberStatusCode;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -412,11 +411,11 @@ public abstract class BsMemberLogin extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_memberLoginId);
-        sb.append(dm).append(_memberId);
-        sb.append(dm).append(_loginDatetime);
-        sb.append(dm).append(_mobileLoginFlg);
-        sb.append(dm).append(_loginMemberStatusCode);
+        sb.append(dm).append(xfND(_memberLoginId));
+        sb.append(dm).append(xfND(_memberId));
+        sb.append(dm).append(xfND(_loginDatetime));
+        sb.append(dm).append(xfND(_mobileLoginFlg));
+        sb.append(dm).append(xfND(_loginMemberStatusCode));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

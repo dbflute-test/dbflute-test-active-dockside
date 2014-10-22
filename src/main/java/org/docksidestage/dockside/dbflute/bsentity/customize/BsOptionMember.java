@@ -115,7 +115,6 @@ public abstract class BsOptionMember extends AbstractEntity {
     /** DUMMY_NOFLG: {INTEGER(10)} */
     protected Integer _dummyNoflg;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -388,15 +387,15 @@ public abstract class BsOptionMember extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_memberId);
-        sb.append(dm).append(_memberName);
+        sb.append(dm).append(xfND(_memberId));
+        sb.append(dm).append(xfND(_memberName));
         sb.append(dm).append(xfUD(_birthdate));
-        sb.append(dm).append(_formalizedDatetime);
-        sb.append(dm).append(_memberStatusCode);
-        sb.append(dm).append(_memberStatusName);
-        sb.append(dm).append(_statusDisplayOrder);
-        sb.append(dm).append(_dummyFlg);
-        sb.append(dm).append(_dummyNoflg);
+        sb.append(dm).append(xfND(_formalizedDatetime));
+        sb.append(dm).append(xfND(_memberStatusCode));
+        sb.append(dm).append(xfND(_memberStatusName));
+        sb.append(dm).append(xfND(_statusDisplayOrder));
+        sb.append(dm).append(xfND(_dummyFlg));
+        sb.append(dm).append(xfND(_dummyNoflg));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

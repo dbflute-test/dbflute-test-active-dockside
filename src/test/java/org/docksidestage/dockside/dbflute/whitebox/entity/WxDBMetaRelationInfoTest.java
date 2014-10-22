@@ -35,7 +35,7 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
         ForeignInfo foreignInfo = MemberDbm.getInstance().foreignMemberStatus();
         Member member = new Member();
         MemberStatus status = new MemberStatus();
-        status.xznocheckSetMemberStatusCode("foo");
+        status.mynativeMappingMemberStatusCode("foo");
         status.setMemberStatusName("bar");
         member.setMemberStatus(status);
 
@@ -54,7 +54,7 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
         ForeignInfo foreignInfo = MemberDbm.getInstance().foreignMemberStatus();
         Member member = new Member();
         MemberStatus status = new MemberStatus();
-        status.xznocheckSetMemberStatusCode("foo");
+        status.mynativeMappingMemberStatusCode("foo");
         status.setMemberStatusName("bar");
 
         // ## Act ##

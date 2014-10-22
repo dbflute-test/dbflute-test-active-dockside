@@ -123,8 +123,8 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * </pre>
      * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Vendor$Dollar selectEntity(CBCall<Vendor$DollarCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
@@ -149,9 +149,9 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * </pre>
      * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Vendor$Dollar selectEntityWithDeletedCheck(CBCall<Vendor$DollarCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
@@ -161,9 +161,9 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * Select the entity by the primary-key value.
      * @param vendor$DollarId : PK, NotNull, INTEGER(10). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<Vendor$Dollar> selectByPK(Integer vendor$DollarId) {
         return facadeSelectByPK(vendor$DollarId);
@@ -202,7 +202,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * </pre>
      * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<Vendor$Dollar> selectList(CBCall<Vendor$DollarCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
@@ -234,7 +234,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * </pre>
      * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<Vendor$Dollar> selectPage(CBCall<Vendor$DollarCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
@@ -393,7 +393,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param vendor$Dollar The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(Vendor$Dollar vendor$Dollar) {
         doInsert(vendor$Dollar, null);
@@ -417,9 +417,9 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * }
      * </pre>
      * @param vendor$Dollar The entity of update. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(Vendor$Dollar vendor$Dollar) {
         doUpdate(vendor$Dollar, null);
@@ -430,9 +430,9 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param vendor$Dollar The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(Vendor$Dollar vendor$Dollar) {
         doInsertOrUpdate(vendor$Dollar, null, null);
@@ -452,8 +452,8 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * }
      * </pre>
      * @param vendor$Dollar The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(Vendor$Dollar vendor$Dollar) {
         doDelete(vendor$Dollar, null);
@@ -512,7 +512,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * </pre>
      * @param vendor$DollarList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<Vendor$Dollar> vendor$DollarList) {
         return doBatchUpdate(vendor$DollarList, null);
@@ -523,7 +523,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param vendor$DollarList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<Vendor$Dollar> vendor$DollarList) {
         return doBatchDelete(vendor$DollarList, null);
@@ -582,7 +582,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * @param vendor$Dollar The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(Vendor$Dollar vendor$Dollar, CBCall<Vendor$DollarCB> cbLambda) {
         return doQueryUpdate(vendor$Dollar, createCB(cbLambda), null);
@@ -597,7 +597,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * </pre>
      * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(CBCall<Vendor$DollarCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
@@ -626,7 +626,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * </pre>
      * @param vendor$Dollar The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(Vendor$Dollar vendor$Dollar, WritableOptionCall<Vendor$DollarCB, InsertOption<Vendor$DollarCB>> opLambda) {
         doInsert(vendor$Dollar, createInsertOption(opLambda));
@@ -657,9 +657,9 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * </pre>
      * @param vendor$Dollar The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(Vendor$Dollar vendor$Dollar, WritableOptionCall<Vendor$DollarCB, UpdateOption<Vendor$DollarCB>> opLambda) {
         doUpdate(vendor$Dollar, createUpdateOption(opLambda));
@@ -671,9 +671,9 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * @param vendor$Dollar The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(Vendor$Dollar vendor$Dollar, WritableOptionCall<Vendor$DollarCB, InsertOption<Vendor$DollarCB>> insertOpLambda, WritableOptionCall<Vendor$DollarCB, UpdateOption<Vendor$DollarCB>> updateOpLambda) {
         doInsertOrUpdate(vendor$Dollar, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -685,8 +685,8 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * Other specifications are same as delete(entity).
      * @param vendor$Dollar The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(Vendor$Dollar vendor$Dollar, WritableOptionCall<Vendor$DollarCB, DeleteOption<Vendor$DollarCB>> opLambda) {
         doDelete(vendor$Dollar, createDeleteOption(opLambda));
@@ -776,7 +776,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(Vendor$Dollar vendor$Dollar, CBCall<Vendor$DollarCB> cbLambda, WritableOptionCall<Vendor$DollarCB, UpdateOption<Vendor$DollarCB>> opLambda) {
         return doQueryUpdate(vendor$Dollar, createCB(cbLambda), createUpdateOption(opLambda));
@@ -789,7 +789,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(CBCall<Vendor$DollarCB> cbLambda, WritableOptionCall<Vendor$DollarCB, DeleteOption<Vendor$DollarCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));

@@ -86,7 +86,6 @@ public abstract class BsProductCategory extends AbstractEntity {
     /** (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY} */
     protected String _parentCategoryCode;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -223,9 +222,9 @@ public abstract class BsProductCategory extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_productCategoryCode);
-        sb.append(dm).append(_productCategoryName);
-        sb.append(dm).append(_parentCategoryCode);
+        sb.append(dm).append(xfND(_productCategoryCode));
+        sb.append(dm).append(xfND(_productCategoryName));
+        sb.append(dm).append(xfND(_parentCategoryCode));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

@@ -90,7 +90,6 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
     /** SHORT_DATE: {NotNull, DATE(8)} */
     protected java.util.Date _shortDate;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -183,8 +182,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_theLongAndWindingTableAndColumnRefId);
-        sb.append(dm).append(_theLongAndWindingTableAndColumnId);
+        sb.append(dm).append(xfND(_theLongAndWindingTableAndColumnRefId));
+        sb.append(dm).append(xfND(_theLongAndWindingTableAndColumnId));
         sb.append(dm).append(xfUD(_theLongAndWindingTableAndColumnRefDate));
         sb.append(dm).append(xfUD(_shortDate));
         if (sb.length() > dm.length()) {

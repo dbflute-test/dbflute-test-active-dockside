@@ -87,7 +87,6 @@ public abstract class BsWithdrawalReason extends AbstractEntity {
     /** DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} */
     protected Integer _displayOrder;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -298,9 +297,9 @@ public abstract class BsWithdrawalReason extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_withdrawalReasonCode);
-        sb.append(dm).append(_withdrawalReasonText);
-        sb.append(dm).append(_displayOrder);
+        sb.append(dm).append(xfND(_withdrawalReasonCode));
+        sb.append(dm).append(xfND(_withdrawalReasonText));
+        sb.append(dm).append(xfND(_displayOrder));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

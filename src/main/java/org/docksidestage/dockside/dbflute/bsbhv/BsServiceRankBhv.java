@@ -124,8 +124,8 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * </pre>
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ServiceRank selectEntity(CBCall<ServiceRankCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
@@ -150,9 +150,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * </pre>
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ServiceRank selectEntityWithDeletedCheck(CBCall<ServiceRankCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
@@ -162,9 +162,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * Select the entity by the primary-key value.
      * @param serviceRankCode (サービスランクコード): PK, NotNull, CHAR(3), classification=ServiceRank. (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<ServiceRank> selectByPK(CDef.ServiceRank serviceRankCode) {
         return facadeSelectByPK(serviceRankCode);
@@ -191,9 +191,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * Select the entity by the unique-key value.
      * @param displayOrder (表示順): UQ, NotNull, INTEGER(10). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<ServiceRank> selectByUniqueOf(Integer displayOrder) {
         return facadeSelectByUniqueOf(displayOrder);
@@ -228,7 +228,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * </pre>
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<ServiceRank> selectList(CBCall<ServiceRankCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
@@ -260,7 +260,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * </pre>
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<ServiceRank> selectPage(CBCall<ServiceRankCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
@@ -491,7 +491,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param serviceRank The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(ServiceRank serviceRank) {
         doInsert(serviceRank, null);
@@ -515,9 +515,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * }
      * </pre>
      * @param serviceRank The entity of update. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(ServiceRank serviceRank) {
         doUpdate(serviceRank, null);
@@ -528,9 +528,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param serviceRank The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(ServiceRank serviceRank) {
         doInsertOrUpdate(serviceRank, null, null);
@@ -550,8 +550,8 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * }
      * </pre>
      * @param serviceRank The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(ServiceRank serviceRank) {
         doDelete(serviceRank, null);
@@ -610,7 +610,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * </pre>
      * @param serviceRankList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<ServiceRank> serviceRankList) {
         return doBatchUpdate(serviceRankList, null);
@@ -621,7 +621,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param serviceRankList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<ServiceRank> serviceRankList) {
         return doBatchDelete(serviceRankList, null);
@@ -680,7 +680,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @param serviceRank The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(ServiceRank serviceRank, CBCall<ServiceRankCB> cbLambda) {
         return doQueryUpdate(serviceRank, createCB(cbLambda), null);
@@ -695,7 +695,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * </pre>
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(CBCall<ServiceRankCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
@@ -724,7 +724,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * </pre>
      * @param serviceRank The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(ServiceRank serviceRank, WritableOptionCall<ServiceRankCB, InsertOption<ServiceRankCB>> opLambda) {
         doInsert(serviceRank, createInsertOption(opLambda));
@@ -755,9 +755,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * </pre>
      * @param serviceRank The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(ServiceRank serviceRank, WritableOptionCall<ServiceRankCB, UpdateOption<ServiceRankCB>> opLambda) {
         doUpdate(serviceRank, createUpdateOption(opLambda));
@@ -769,9 +769,9 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @param serviceRank The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(ServiceRank serviceRank, WritableOptionCall<ServiceRankCB, InsertOption<ServiceRankCB>> insertOpLambda, WritableOptionCall<ServiceRankCB, UpdateOption<ServiceRankCB>> updateOpLambda) {
         doInsertOrUpdate(serviceRank, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -783,8 +783,8 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * Other specifications are same as delete(entity).
      * @param serviceRank The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(ServiceRank serviceRank, WritableOptionCall<ServiceRankCB, DeleteOption<ServiceRankCB>> opLambda) {
         doDelete(serviceRank, createDeleteOption(opLambda));
@@ -874,7 +874,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(ServiceRank serviceRank, CBCall<ServiceRankCB> cbLambda, WritableOptionCall<ServiceRankCB, UpdateOption<ServiceRankCB>> opLambda) {
         return doQueryUpdate(serviceRank, createCB(cbLambda), createUpdateOption(opLambda));
@@ -887,7 +887,7 @@ public abstract class BsServiceRankBhv extends AbstractBehaviorWritable<ServiceR
      * @param cbLambda The callback for condition-bean of ServiceRank. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(CBCall<ServiceRankCB> cbLambda, WritableOptionCall<ServiceRankCB, DeleteOption<ServiceRankCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));

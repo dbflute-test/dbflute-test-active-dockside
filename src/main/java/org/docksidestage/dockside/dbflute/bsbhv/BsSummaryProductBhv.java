@@ -123,8 +123,8 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * </pre>
      * @param cbLambda The callback for condition-bean of SummaryProduct. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public SummaryProduct selectEntity(CBCall<SummaryProductCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
@@ -149,9 +149,9 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * </pre>
      * @param cbLambda The callback for condition-bean of SummaryProduct. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public SummaryProduct selectEntityWithDeletedCheck(CBCall<SummaryProductCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
@@ -161,9 +161,9 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * Select the entity by the primary-key value.
      * @param productId : PK, INTEGER(10). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<SummaryProduct> selectByPK(Integer productId) {
         return facadeSelectByPK(productId);
@@ -202,7 +202,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * </pre>
      * @param cbLambda The callback for condition-bean of SummaryProduct. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<SummaryProduct> selectList(CBCall<SummaryProductCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
@@ -234,7 +234,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * </pre>
      * @param cbLambda The callback for condition-bean of SummaryProduct. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<SummaryProduct> selectPage(CBCall<SummaryProductCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
@@ -465,7 +465,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param summaryProduct The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(SummaryProduct summaryProduct) {
         doInsert(summaryProduct, null);
@@ -489,9 +489,9 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * }
      * </pre>
      * @param summaryProduct The entity of update. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(SummaryProduct summaryProduct) {
         doUpdate(summaryProduct, null);
@@ -502,9 +502,9 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param summaryProduct The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(SummaryProduct summaryProduct) {
         doInsertOrUpdate(summaryProduct, null, null);
@@ -524,8 +524,8 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * }
      * </pre>
      * @param summaryProduct The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(SummaryProduct summaryProduct) {
         doDelete(summaryProduct, null);
@@ -584,7 +584,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * </pre>
      * @param summaryProductList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<SummaryProduct> summaryProductList) {
         return doBatchUpdate(summaryProductList, null);
@@ -595,7 +595,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param summaryProductList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<SummaryProduct> summaryProductList) {
         return doBatchDelete(summaryProductList, null);
@@ -654,7 +654,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * @param summaryProduct The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of SummaryProduct. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(SummaryProduct summaryProduct, CBCall<SummaryProductCB> cbLambda) {
         return doQueryUpdate(summaryProduct, createCB(cbLambda), null);
@@ -669,7 +669,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * </pre>
      * @param cbLambda The callback for condition-bean of SummaryProduct. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(CBCall<SummaryProductCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
@@ -698,7 +698,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * </pre>
      * @param summaryProduct The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(SummaryProduct summaryProduct, WritableOptionCall<SummaryProductCB, InsertOption<SummaryProductCB>> opLambda) {
         doInsert(summaryProduct, createInsertOption(opLambda));
@@ -729,9 +729,9 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * </pre>
      * @param summaryProduct The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(SummaryProduct summaryProduct, WritableOptionCall<SummaryProductCB, UpdateOption<SummaryProductCB>> opLambda) {
         doUpdate(summaryProduct, createUpdateOption(opLambda));
@@ -743,9 +743,9 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * @param summaryProduct The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(SummaryProduct summaryProduct, WritableOptionCall<SummaryProductCB, InsertOption<SummaryProductCB>> insertOpLambda, WritableOptionCall<SummaryProductCB, UpdateOption<SummaryProductCB>> updateOpLambda) {
         doInsertOrUpdate(summaryProduct, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -757,8 +757,8 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * Other specifications are same as delete(entity).
      * @param summaryProduct The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(SummaryProduct summaryProduct, WritableOptionCall<SummaryProductCB, DeleteOption<SummaryProductCB>> opLambda) {
         doDelete(summaryProduct, createDeleteOption(opLambda));
@@ -848,7 +848,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * @param cbLambda The callback for condition-bean of SummaryProduct. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(SummaryProduct summaryProduct, CBCall<SummaryProductCB> cbLambda, WritableOptionCall<SummaryProductCB, UpdateOption<SummaryProductCB>> opLambda) {
         return doQueryUpdate(summaryProduct, createCB(cbLambda), createUpdateOption(opLambda));
@@ -861,7 +861,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      * @param cbLambda The callback for condition-bean of SummaryProduct. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(CBCall<SummaryProductCB> cbLambda, WritableOptionCall<SummaryProductCB, DeleteOption<SummaryProductCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));

@@ -22,7 +22,6 @@ import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.SummaryWithdrawalDbm;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
-import org.docksidestage.dockside.dbflute.cbean.SummaryWithdrawalCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exbhv.SummaryWithdrawalBhv;
@@ -243,16 +242,14 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
                     }
                 });
                 CallbackContext context = new CallbackContext();
-                context.setSqlLogHandler(new SqlLogHandler() {
-                    public void handle(SqlLogInfo info) {
-                        String displaySql = info.getDisplaySql();
-                        MemberDbm dbm = MemberDbm.getInstance();
-                        assertTrue(Srl.contains(displaySql, "count(*)"));
-                        assertTrue(Srl.contains(displaySql, dbm.columnMemberId().getColumnDbName()));
-                        assertFalse(Srl.contains(displaySql, dbm.columnMemberName().getColumnDbName()));
-                        assertFalse(Srl.contains(displaySql, dbm.columnMemberAccount().getColumnDbName()));
-                        markSet.add("handle");
-                    }
+                context.setSqlLogHandler(info -> {
+                    String displaySql = info.getDisplaySql();
+                    MemberDbm dbm = MemberDbm.getInstance();
+                    assertTrue(Srl.contains(displaySql, "count(*)"));
+                    assertTrue(Srl.contains(displaySql, dbm.columnMemberId().getColumnDbName()));
+                    assertFalse(Srl.contains(displaySql, dbm.columnMemberName().getColumnDbName()));
+                    assertFalse(Srl.contains(displaySql, dbm.columnMemberAccount().getColumnDbName()));
+                    markSet.add("handle");
                 });
                 CallbackContext.setCallbackContextOnThread(context);
                 pushCB(cb);
@@ -274,21 +271,16 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
             int count = summaryWithdrawalBhv.selectCount(cb -> {
                 /* ## Act ## */
                 cb.specify().columnMemberName();
-                cb.union(new UnionQuery<SummaryWithdrawalCB>() {
-                    public void query(SummaryWithdrawalCB unionCB) {
-                    }
-                });
+                cb.union(unionCB -> {});
                 CallbackContext context = new CallbackContext();
-                context.setSqlLogHandler(new SqlLogHandler() {
-                    public void handle(SqlLogInfo info) {
-                        String displaySql = info.getDisplaySql();
-                        SummaryWithdrawalDbm dbm = SummaryWithdrawalDbm.getInstance();
-                        assertTrue(Srl.contains(displaySql, "count(*)"));
-                        assertTrue(Srl.contains(displaySql, dbm.columnMemberId().getColumnDbName()));
-                        assertTrue(Srl.contains(displaySql, dbm.columnMemberName().getColumnDbName()));
-                        assertTrue(Srl.contains(displaySql, dbm.columnWithdrawalDatetime().getColumnDbName()));
-                        markSet.add("handle");
-                    }
+                context.setSqlLogHandler(info -> {
+                    String displaySql = info.getDisplaySql();
+                    SummaryWithdrawalDbm dbm = SummaryWithdrawalDbm.getInstance();
+                    assertTrue(Srl.contains(displaySql, "count(*)"));
+                    assertTrue(Srl.contains(displaySql, dbm.columnMemberId().getColumnDbName()));
+                    assertTrue(Srl.contains(displaySql, dbm.columnMemberName().getColumnDbName()));
+                    assertTrue(Srl.contains(displaySql, dbm.columnWithdrawalDatetime().getColumnDbName()));
+                    markSet.add("handle");
                 });
                 CallbackContext.setCallbackContextOnThread(context);
                 pushCB(cb);
@@ -320,12 +312,10 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.
-        memberBhv.loadPurchase(member, new ConditionBeanSetupper<PurchaseCB>() {
-            public void setup(PurchaseCB cb) {
-                cb.specify().columnPurchaseDatetime();
-                cb.query().setPurchaseCount_GreaterEqual(2);
-                cb.query().addOrderBy_PurchaseCount_Desc();
-            }
+        memberBhv.loadPurchase(member, cb -> {
+            cb.specify().columnPurchaseDatetime();
+            cb.query().setPurchaseCount_GreaterEqual(2);
+            cb.query().addOrderBy_PurchaseCount_Desc();
         });
 
         // ## Assert ##
@@ -336,8 +326,8 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
             log("    [PURCHASE]: " + purchase.toString());
             assertNotNull(purchase.getPurchaseId());
             assertNotNull(purchase.getMemberId()); // auto-resolved
-            assertNull(purchase.getProductId());
-            assertNull(purchase.getPurchaseCount());
+            assertNonSpecifiedAccess(() -> purchase.getProductId());
+            assertNonSpecifiedAccess(() -> purchase.getPurchaseCount());
             assertNotNull(purchase.getPurchaseDatetime());
         }
     }
@@ -375,7 +365,7 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
             assertNotNull(purchase.getPurchaseDatetime());
             assertNotNull(purchase.getProduct().getProductId());
             assertNotNull(purchase.getProduct().getProductName());
-            assertNull(purchase.getProduct().getProductStatusCode());
+            assertNonSpecifiedAccess(() -> purchase.getProduct().getProductStatusCode());
         }
     }
 
@@ -411,7 +401,8 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
             MemberStatus memberStatus = member.getMemberStatus();
             log(member.getMemberName() + ", " + member.getMemberStatusCode() + ", " + memberStatus);
             assertNotNull(member.getMemberName());
-            assertNull(member.getMemberAccount());
+            assertNull(member.xznocheckGetMemberAccount());
+            assertNonSpecifiedAccess(() -> member.getMemberAccount());
             assertNotNull(member.getMemberStatusCode());
             assertNotNull(memberStatus);
         }
@@ -472,11 +463,14 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
         for (Member member : memberList) {
             String memberName = member.getMemberName();
             assertNotNull(memberName);
-            assertNull(member.getMemberAccount());
+            assertNull(member.xznocheckGetMemberAccount());
+            assertNonSpecifiedAccess(() -> member.getMemberAccount());
             MemberAddress memberAddressAsValid = member.getMemberAddressAsValid();
             if (memberAddressAsValid != null) {
-                assertNull(memberAddressAsValid.getValidBeginDate());
-                assertNull(memberAddressAsValid.getValidEndDate());
+                assertNull(memberAddressAsValid.xznocheckGetValidBeginDate());
+                assertNonSpecifiedAccess(() -> memberAddressAsValid.getValidBeginDate());
+                assertNull(memberAddressAsValid.xznocheckGetValidEndDate());
+                assertNonSpecifiedAccess(() -> memberAddressAsValid.getValidEndDate());
                 String address = memberAddressAsValid.getAddress();
                 assertNotNull(address);
                 log(memberName + ", " + address);
@@ -515,11 +509,12 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
             Member member = purchase.getMember();
             String memberName = member.getMemberName();
             assertNotNull(memberName);
-            assertNull(member.getMemberAccount());
+            assertNull(member.xznocheckGetMemberAccount());
+            assertNonSpecifiedAccess(() -> member.getMemberAccount());
             MemberAddress memberAddressAsValid = member.getMemberAddressAsValid();
             if (memberAddressAsValid != null) {
-                assertNull(memberAddressAsValid.getValidBeginDate());
-                assertNull(memberAddressAsValid.getValidEndDate());
+                assertNonSpecifiedAccess(() -> memberAddressAsValid.getValidBeginDate());
+                assertNonSpecifiedAccess(() -> memberAddressAsValid.getValidEndDate());
                 String address = memberAddressAsValid.getAddress();
                 assertNotNull(address);
                 log(memberName + ", " + address);
@@ -552,11 +547,13 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
         assertNotNull(member.getBirthdate());
         assertNotNull(member.getFormalizedDatetime());
         assertNotNull(member.getMemberStatusCode());
-        assertNull(member.getRegisterDatetime());
-        assertNull(member.getRegisterUser());
-        assertNull(member.getUpdateUser());
-        assertNull(member.getUpdateDatetime());
-        assertNull(member.getVersionNo());
+        assertNonSpecifiedAccess(() -> member.getRegisterDatetime());
+        assertNonSpecifiedAccess(() -> member.getRegisterUser());
+        assertNonSpecifiedAccess(() -> member.getUpdateUser());
+        assertNull(member.xznocheckGetUpdateDatetime());
+        assertNonSpecifiedAccess(() -> member.getUpdateDatetime());
+        assertNull(member.xznocheckGetVersionNo());
+        assertNonSpecifiedAccess(() -> member.getVersionNo());
     }
 
     public void test_SpecifyExceptColumn_relation() throws Exception {
@@ -586,11 +583,12 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
         MemberSecurity security = member.getMemberSecurityAsOne();
         assertNotNull(security.getReminderQuestion());
         assertNotNull(security.getReminderAnswer());
-        assertNull(security.getRegisterDatetime());
-        assertNull(security.getRegisterUser());
-        assertNull(security.getUpdateUser());
-        assertNull(security.getUpdateDatetime());
-        assertNull(security.getVersionNo());
+        assertNonSpecifiedAccess(() -> security.getRegisterDatetime());
+        assertNonSpecifiedAccess(() -> security.getRegisterUser());
+        assertNonSpecifiedAccess(() -> security.getUpdateUser());
+        assertNull(security.xznocheckGetUpdateDatetime());
+        assertNonSpecifiedAccess(() -> security.getUpdateDatetime());
+        assertNonSpecifiedAccess(() -> security.getVersionNo());
     }
 
     public void test_SpecifyExceptColumn_mixed() throws Exception {
@@ -609,24 +607,28 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotNull(member.getMemberName());
-        assertNull(member.getMemberAccount());
-        assertNull(member.getBirthdate());
-        assertNull(member.getFormalizedDatetime());
-        assertNull(member.getMemberStatusCode());
-        assertNull(member.getRegisterDatetime());
-        assertNull(member.getRegisterUser());
+        assertNonSpecifiedAccess(() -> member.getMemberAccount());
+        assertNonSpecifiedAccess(() -> member.getBirthdate());
+        assertNonSpecifiedAccess(() -> member.getFormalizedDatetime());
+        assertNonSpecifiedAccess(() -> member.getMemberStatusCode());
+        assertNonSpecifiedAccess(() -> member.getRegisterDatetime());
+        assertNonSpecifiedAccess(() -> member.getRegisterUser());
         assertNotNull(member.getUpdateUser());
-        assertNull(member.getUpdateDatetime());
-        assertNull(member.getVersionNo());
+        assertNull(member.xznocheckGetUpdateDatetime());
+        assertNonSpecifiedAccess(() -> member.getUpdateDatetime());
+        assertNull(member.xznocheckGetVersionNo());
+        assertNonSpecifiedAccess(() -> member.getVersionNo());
 
         MemberSecurity security = member.getMemberSecurityAsOne();
         assertNotNull(security.getReminderQuestion());
         assertNotNull(security.getReminderAnswer());
-        assertNull(security.getRegisterDatetime());
-        assertNull(security.getRegisterUser());
-        assertNull(security.getUpdateUser());
-        assertNull(security.getUpdateDatetime());
-        assertNull(security.getVersionNo());
+        assertNonSpecifiedAccess(() -> security.getRegisterDatetime());
+        assertNonSpecifiedAccess(() -> security.getRegisterUser());
+        assertNonSpecifiedAccess(() -> security.getUpdateUser());
+        assertNull(security.xznocheckGetUpdateDatetime());
+        assertNonSpecifiedAccess(() -> security.getUpdateDatetime());
+        assertNull(security.xznocheckGetVersionNo());
+        assertNonSpecifiedAccess(() -> security.getVersionNo());
     }
 
     public void test_SpecifyExceptColumn_illegal() throws Exception {

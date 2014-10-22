@@ -123,8 +123,8 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public VendorPrimaryKeyOnly selectEntity(CBCall<VendorPrimaryKeyOnlyCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
@@ -149,9 +149,9 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public VendorPrimaryKeyOnly selectEntityWithDeletedCheck(CBCall<VendorPrimaryKeyOnlyCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
@@ -161,9 +161,9 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * Select the entity by the primary-key value.
      * @param primaryKeyOnlyId : PK, NotNull, BIGINT(19). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<VendorPrimaryKeyOnly> selectByPK(Long primaryKeyOnlyId) {
         return facadeSelectByPK(primaryKeyOnlyId);
@@ -202,7 +202,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<VendorPrimaryKeyOnly> selectList(CBCall<VendorPrimaryKeyOnlyCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
@@ -234,7 +234,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<VendorPrimaryKeyOnly> selectPage(CBCall<VendorPrimaryKeyOnlyCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
@@ -393,7 +393,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param vendorPrimaryKeyOnly The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(VendorPrimaryKeyOnly vendorPrimaryKeyOnly) {
         doInsert(vendorPrimaryKeyOnly, null);
@@ -417,9 +417,9 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * }
      * </pre>
      * @param vendorPrimaryKeyOnly The entity of update. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(VendorPrimaryKeyOnly vendorPrimaryKeyOnly) {
         doUpdate(vendorPrimaryKeyOnly, null);
@@ -430,9 +430,9 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param vendorPrimaryKeyOnly The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly) {
         doInsertOrUpdate(vendorPrimaryKeyOnly, null, null);
@@ -452,8 +452,8 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * }
      * </pre>
      * @param vendorPrimaryKeyOnly The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(VendorPrimaryKeyOnly vendorPrimaryKeyOnly) {
         doDelete(vendorPrimaryKeyOnly, null);
@@ -512,7 +512,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * </pre>
      * @param vendorPrimaryKeyOnlyList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList) {
         return doBatchUpdate(vendorPrimaryKeyOnlyList, null);
@@ -523,7 +523,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param vendorPrimaryKeyOnlyList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<VendorPrimaryKeyOnly> vendorPrimaryKeyOnlyList) {
         return doBatchDelete(vendorPrimaryKeyOnlyList, null);
@@ -582,7 +582,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * @param vendorPrimaryKeyOnly The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, CBCall<VendorPrimaryKeyOnlyCB> cbLambda) {
         return doQueryUpdate(vendorPrimaryKeyOnly, createCB(cbLambda), null);
@@ -597,7 +597,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(CBCall<VendorPrimaryKeyOnlyCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
@@ -626,7 +626,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * </pre>
      * @param vendorPrimaryKeyOnly The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, WritableOptionCall<VendorPrimaryKeyOnlyCB, InsertOption<VendorPrimaryKeyOnlyCB>> opLambda) {
         doInsert(vendorPrimaryKeyOnly, createInsertOption(opLambda));
@@ -657,9 +657,9 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * </pre>
      * @param vendorPrimaryKeyOnly The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, WritableOptionCall<VendorPrimaryKeyOnlyCB, UpdateOption<VendorPrimaryKeyOnlyCB>> opLambda) {
         doUpdate(vendorPrimaryKeyOnly, createUpdateOption(opLambda));
@@ -671,9 +671,9 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * @param vendorPrimaryKeyOnly The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, WritableOptionCall<VendorPrimaryKeyOnlyCB, InsertOption<VendorPrimaryKeyOnlyCB>> insertOpLambda, WritableOptionCall<VendorPrimaryKeyOnlyCB, UpdateOption<VendorPrimaryKeyOnlyCB>> updateOpLambda) {
         doInsertOrUpdate(vendorPrimaryKeyOnly, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -685,8 +685,8 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * Other specifications are same as delete(entity).
      * @param vendorPrimaryKeyOnly The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, WritableOptionCall<VendorPrimaryKeyOnlyCB, DeleteOption<VendorPrimaryKeyOnlyCB>> opLambda) {
         doDelete(vendorPrimaryKeyOnly, createDeleteOption(opLambda));
@@ -776,7 +776,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(VendorPrimaryKeyOnly vendorPrimaryKeyOnly, CBCall<VendorPrimaryKeyOnlyCB> cbLambda, WritableOptionCall<VendorPrimaryKeyOnlyCB, UpdateOption<VendorPrimaryKeyOnlyCB>> opLambda) {
         return doQueryUpdate(vendorPrimaryKeyOnly, createCB(cbLambda), createUpdateOption(opLambda));
@@ -789,7 +789,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * @param cbLambda The callback for condition-bean of VendorPrimaryKeyOnly. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(CBCall<VendorPrimaryKeyOnlyCB> cbLambda, WritableOptionCall<VendorPrimaryKeyOnlyCB, DeleteOption<VendorPrimaryKeyOnlyCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));

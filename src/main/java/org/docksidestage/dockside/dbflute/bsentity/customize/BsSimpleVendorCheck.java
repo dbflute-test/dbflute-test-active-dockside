@@ -139,7 +139,6 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     /** TYPE_OF_BLOB: {BLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_BLOB} */
     protected byte[] _typeOfBlob;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -235,19 +234,19 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_vendorCheckId);
-        sb.append(dm).append(_typeOfText);
-        sb.append(dm).append(_typeOfBoolean);
-        sb.append(dm).append(_typeOfNumericInteger);
-        sb.append(dm).append(_typeOfNumericBigint);
-        sb.append(dm).append(_typeOfNumericDecimal);
-        sb.append(dm).append(_typeOfNumericIntegerMin);
-        sb.append(dm).append(_typeOfNumericIntegerMax);
-        sb.append(dm).append(_typeOfNumericBigintMin);
-        sb.append(dm).append(_typeOfNumericBigintMax);
-        sb.append(dm).append(_typeOfNumericSuperintMin);
-        sb.append(dm).append(_typeOfNumericSuperintMax);
-        sb.append(dm).append(_typeOfNumericMaxdecimal);
+        sb.append(dm).append(xfND(_vendorCheckId));
+        sb.append(dm).append(xfND(_typeOfText));
+        sb.append(dm).append(xfND(_typeOfBoolean));
+        sb.append(dm).append(xfND(_typeOfNumericInteger));
+        sb.append(dm).append(xfND(_typeOfNumericBigint));
+        sb.append(dm).append(xfND(_typeOfNumericDecimal));
+        sb.append(dm).append(xfND(_typeOfNumericIntegerMin));
+        sb.append(dm).append(xfND(_typeOfNumericIntegerMax));
+        sb.append(dm).append(xfND(_typeOfNumericBigintMin));
+        sb.append(dm).append(xfND(_typeOfNumericBigintMax));
+        sb.append(dm).append(xfND(_typeOfNumericSuperintMin));
+        sb.append(dm).append(xfND(_typeOfNumericSuperintMax));
+        sb.append(dm).append(xfND(_typeOfNumericMaxdecimal));
         sb.append(dm).append(xfBA(_typeOfBlob));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());

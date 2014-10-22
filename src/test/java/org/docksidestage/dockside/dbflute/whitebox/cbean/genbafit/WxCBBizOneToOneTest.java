@@ -81,7 +81,8 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
                 if (address.getAddress() != null) {
                     exists = true;
                 }
-                assertNull(address.getValidBeginDate());
+                assertNull(address.xznocheckGetValidBeginDate());
+                assertNonSpecifiedAccess(() -> address.getValidBeginDate());
             }
         }
         assertTrue(exists);
@@ -105,7 +106,8 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
                 if (address.getAddress() != null) {
                     exists = true;
                 }
-                assertNull(address.getValidBeginDate());
+                assertNull(address.xznocheckGetValidBeginDate());
+                assertNonSpecifiedAccess(() -> address.getValidBeginDate());
             }
         }
         assertTrue(exists);

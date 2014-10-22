@@ -80,7 +80,6 @@ public abstract class BsVendor$Dollar extends AbstractEntity {
     /** VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} */
     protected String _vendor$DollarName;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -151,8 +150,8 @@ public abstract class BsVendor$Dollar extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_vendor$DollarId);
-        sb.append(dm).append(_vendor$DollarName);
+        sb.append(dm).append(xfND(_vendor$DollarId));
+        sb.append(dm).append(xfND(_vendor$DollarName));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

@@ -124,8 +124,8 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * </pre>
      * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public WithdrawalReason selectEntity(CBCall<WithdrawalReasonCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
@@ -150,9 +150,9 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * </pre>
      * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public WithdrawalReason selectEntityWithDeletedCheck(CBCall<WithdrawalReasonCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
@@ -162,9 +162,9 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * Select the entity by the primary-key value.
      * @param withdrawalReasonCode (退会理由コード): PK, NotNull, CHAR(3), classification=WithdrawalReason. (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<WithdrawalReason> selectByPK(CDef.WithdrawalReason withdrawalReasonCode) {
         return facadeSelectByPK(withdrawalReasonCode);
@@ -191,9 +191,9 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * Select the entity by the unique-key value.
      * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<WithdrawalReason> selectByUniqueOf(Integer displayOrder) {
         return facadeSelectByUniqueOf(displayOrder);
@@ -228,7 +228,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * </pre>
      * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<WithdrawalReason> selectList(CBCall<WithdrawalReasonCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
@@ -260,7 +260,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * </pre>
      * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<WithdrawalReason> selectPage(CBCall<WithdrawalReasonCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
@@ -491,7 +491,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param withdrawalReason The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(WithdrawalReason withdrawalReason) {
         doInsert(withdrawalReason, null);
@@ -515,9 +515,9 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * }
      * </pre>
      * @param withdrawalReason The entity of update. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(WithdrawalReason withdrawalReason) {
         doUpdate(withdrawalReason, null);
@@ -528,9 +528,9 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param withdrawalReason The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(WithdrawalReason withdrawalReason) {
         doInsertOrUpdate(withdrawalReason, null, null);
@@ -550,8 +550,8 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * }
      * </pre>
      * @param withdrawalReason The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(WithdrawalReason withdrawalReason) {
         doDelete(withdrawalReason, null);
@@ -610,7 +610,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * </pre>
      * @param withdrawalReasonList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<WithdrawalReason> withdrawalReasonList) {
         return doBatchUpdate(withdrawalReasonList, null);
@@ -621,7 +621,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param withdrawalReasonList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<WithdrawalReason> withdrawalReasonList) {
         return doBatchDelete(withdrawalReasonList, null);
@@ -680,7 +680,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * @param withdrawalReason The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(WithdrawalReason withdrawalReason, CBCall<WithdrawalReasonCB> cbLambda) {
         return doQueryUpdate(withdrawalReason, createCB(cbLambda), null);
@@ -695,7 +695,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * </pre>
      * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(CBCall<WithdrawalReasonCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
@@ -724,7 +724,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * </pre>
      * @param withdrawalReason The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(WithdrawalReason withdrawalReason, WritableOptionCall<WithdrawalReasonCB, InsertOption<WithdrawalReasonCB>> opLambda) {
         doInsert(withdrawalReason, createInsertOption(opLambda));
@@ -755,9 +755,9 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * </pre>
      * @param withdrawalReason The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(WithdrawalReason withdrawalReason, WritableOptionCall<WithdrawalReasonCB, UpdateOption<WithdrawalReasonCB>> opLambda) {
         doUpdate(withdrawalReason, createUpdateOption(opLambda));
@@ -769,9 +769,9 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * @param withdrawalReason The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(WithdrawalReason withdrawalReason, WritableOptionCall<WithdrawalReasonCB, InsertOption<WithdrawalReasonCB>> insertOpLambda, WritableOptionCall<WithdrawalReasonCB, UpdateOption<WithdrawalReasonCB>> updateOpLambda) {
         doInsertOrUpdate(withdrawalReason, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -783,8 +783,8 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * Other specifications are same as delete(entity).
      * @param withdrawalReason The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(WithdrawalReason withdrawalReason, WritableOptionCall<WithdrawalReasonCB, DeleteOption<WithdrawalReasonCB>> opLambda) {
         doDelete(withdrawalReason, createDeleteOption(opLambda));
@@ -874,7 +874,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(WithdrawalReason withdrawalReason, CBCall<WithdrawalReasonCB> cbLambda, WritableOptionCall<WithdrawalReasonCB, UpdateOption<WithdrawalReasonCB>> opLambda) {
         return doQueryUpdate(withdrawalReason, createCB(cbLambda), createUpdateOption(opLambda));
@@ -887,7 +887,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(CBCall<WithdrawalReasonCB> cbLambda, WritableOptionCall<WithdrawalReasonCB, DeleteOption<WithdrawalReasonCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));

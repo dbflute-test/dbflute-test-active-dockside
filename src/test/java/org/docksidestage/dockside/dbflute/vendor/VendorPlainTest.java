@@ -116,7 +116,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
         String name = "ShortTest";
         Integer order = 96473;
         MemberStatus memberStatus = new MemberStatus();
-        memberStatus.xznocheckSetMemberStatusCode(code); // char
+        memberStatus.mynativeMappingMemberStatusCode(code); // char
         memberStatus.setMemberStatusName(name); // varchar
         memberStatus.setDescription("foo");
         memberStatus.setDisplayOrder(order);
@@ -140,7 +140,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
         String name = "ShortTest";
         Integer order = 96473;
         MemberStatus memberStatus = new MemberStatus();
-        memberStatus.xznocheckSetMemberStatusCode(code); // char
+        memberStatus.mynativeMappingMemberStatusCode(code); // char
         memberStatus.setMemberStatusName(name); // varchar
         memberStatus.setDescription("foo");
         memberStatus.setDisplayOrder(order);
@@ -164,7 +164,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
         String name = "ShortTest";
         Integer order = 96473; // should be unique order
         MemberStatus memberStatus = new MemberStatus();
-        memberStatus.xznocheckSetMemberStatusCode(code); // char
+        memberStatus.mynativeMappingMemberStatusCode(code); // char
         memberStatus.setMemberStatusName(name); // varchar
         memberStatus.setDescription("foo");
         memberStatus.setDisplayOrder(order);

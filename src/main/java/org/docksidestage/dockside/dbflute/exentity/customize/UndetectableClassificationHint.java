@@ -13,30 +13,20 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.dockside.dbflute.exentity;
+package org.docksidestage.dockside.dbflute.exentity.customize;
 
-import java.sql.Timestamp;
-
-import org.docksidestage.dockside.dbflute.bsentity.BsSummaryWithdrawal;
+import org.docksidestage.dockside.dbflute.bsentity.customize.BsUndetectableClassificationHint;
 
 /**
- * The entity of SUMMARY_WITHDRAWAL.
+ * The entity of UndetectableClassificationHint.
  * <p>
  * You can implement your original methods here.
  * This class remains when re-generating.
  * </p>
  * @author DBFlute(AutoGenerator)
- * @author jflute
  */
-public class SummaryWithdrawal extends BsSummaryWithdrawal {
+public class UndetectableClassificationHint extends BsUndetectableClassificationHint {
 
-    /** Serial version UID. (Default) */
+    /** The serial version UID for object serialization. (Default) */
     private static final long serialVersionUID = 1L;
-    
-    // ===================================================================================
-    //                                                             for test: Non-Specified
-    //                                                             =======================
-    public Timestamp xznocheckGetWithdrawalDatetime() {
-        return _withdrawalDatetime;
-    }
 }

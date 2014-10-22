@@ -99,7 +99,6 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     /** (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} */
     protected java.sql.Timestamp _purchaseDatetime;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -179,12 +178,12 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_purchaseId);
-        sb.append(dm).append(_memberId);
-        sb.append(dm).append(_memberName);
-        sb.append(dm).append(_productId);
-        sb.append(dm).append(_productName);
-        sb.append(dm).append(_purchaseDatetime);
+        sb.append(dm).append(xfND(_purchaseId));
+        sb.append(dm).append(xfND(_memberId));
+        sb.append(dm).append(xfND(_memberName));
+        sb.append(dm).append(xfND(_productId));
+        sb.append(dm).append(xfND(_productName));
+        sb.append(dm).append(xfND(_purchaseDatetime));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

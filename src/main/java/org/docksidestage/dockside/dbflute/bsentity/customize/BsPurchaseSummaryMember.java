@@ -94,7 +94,6 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
     /** PURCHASE_SUMMARY: {BIGINT(10)} */
     protected Long _purchaseSummary;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -172,11 +171,11 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_memberId);
-        sb.append(dm).append(_memberName);
+        sb.append(dm).append(xfND(_memberId));
+        sb.append(dm).append(xfND(_memberName));
         sb.append(dm).append(xfUD(_birthdate));
-        sb.append(dm).append(_formalizedDatetime);
-        sb.append(dm).append(_purchaseSummary);
+        sb.append(dm).append(xfND(_formalizedDatetime));
+        sb.append(dm).append(xfND(_purchaseSummary));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

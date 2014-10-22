@@ -210,7 +210,6 @@ public abstract class BsVendorCheck extends AbstractEntity {
     /** J_POP_BEANS_PROPERTY: {VARCHAR(10)} */
     protected String _jPopBeansProperty;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -281,34 +280,34 @@ public abstract class BsVendorCheck extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_vendorCheckId);
-        sb.append(dm).append(_typeOfChar);
-        sb.append(dm).append(_typeOfVarchar);
-        sb.append(dm).append(_typeOfClob);
-        sb.append(dm).append(_typeOfText);
-        sb.append(dm).append(_typeOfNumericInteger);
-        sb.append(dm).append(_typeOfNumericBigint);
-        sb.append(dm).append(_typeOfNumericDecimal);
-        sb.append(dm).append(_typeOfNumericIntegerMin);
-        sb.append(dm).append(_typeOfNumericIntegerMax);
-        sb.append(dm).append(_typeOfNumericBigintMin);
-        sb.append(dm).append(_typeOfNumericBigintMax);
-        sb.append(dm).append(_typeOfNumericSuperintMin);
-        sb.append(dm).append(_typeOfNumericSuperintMax);
-        sb.append(dm).append(_typeOfNumericMaxdecimal);
-        sb.append(dm).append(_typeOfInteger);
-        sb.append(dm).append(_typeOfBigint);
+        sb.append(dm).append(xfND(_vendorCheckId));
+        sb.append(dm).append(xfND(_typeOfChar));
+        sb.append(dm).append(xfND(_typeOfVarchar));
+        sb.append(dm).append(xfND(_typeOfClob));
+        sb.append(dm).append(xfND(_typeOfText));
+        sb.append(dm).append(xfND(_typeOfNumericInteger));
+        sb.append(dm).append(xfND(_typeOfNumericBigint));
+        sb.append(dm).append(xfND(_typeOfNumericDecimal));
+        sb.append(dm).append(xfND(_typeOfNumericIntegerMin));
+        sb.append(dm).append(xfND(_typeOfNumericIntegerMax));
+        sb.append(dm).append(xfND(_typeOfNumericBigintMin));
+        sb.append(dm).append(xfND(_typeOfNumericBigintMax));
+        sb.append(dm).append(xfND(_typeOfNumericSuperintMin));
+        sb.append(dm).append(xfND(_typeOfNumericSuperintMax));
+        sb.append(dm).append(xfND(_typeOfNumericMaxdecimal));
+        sb.append(dm).append(xfND(_typeOfInteger));
+        sb.append(dm).append(xfND(_typeOfBigint));
         sb.append(dm).append(xfUD(_typeOfDate));
-        sb.append(dm).append(_typeOfTimestamp);
-        sb.append(dm).append(_typeOfTime);
-        sb.append(dm).append(_typeOfBoolean);
+        sb.append(dm).append(xfND(_typeOfTimestamp));
+        sb.append(dm).append(xfND(_typeOfTime));
+        sb.append(dm).append(xfND(_typeOfBoolean));
         sb.append(dm).append(xfBA(_typeOfBinary));
         sb.append(dm).append(xfBA(_typeOfBlob));
         sb.append(dm).append(xfBA(_typeOfUuid));
-        sb.append(dm).append(_typeOfArray);
-        sb.append(dm).append(_typeOfOther);
-        sb.append(dm).append(_jAVABeansProperty);
-        sb.append(dm).append(_jPopBeansProperty);
+        sb.append(dm).append(xfND(_typeOfArray));
+        sb.append(dm).append(xfND(_typeOfOther));
+        sb.append(dm).append(xfND(_jAVABeansProperty));
+        sb.append(dm).append(xfND(_jPopBeansProperty));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

@@ -75,7 +75,6 @@ public abstract class BsVendorIdentityOnly extends AbstractEntity {
     /** IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)} */
     protected Long _identityOnlyId;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -146,7 +145,7 @@ public abstract class BsVendorIdentityOnly extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_identityOnlyId);
+        sb.append(dm).append(xfND(_identityOnlyId));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

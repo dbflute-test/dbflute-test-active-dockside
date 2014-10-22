@@ -119,7 +119,6 @@ public abstract class BsMemberService extends AbstractEntity implements EntityDe
     /** VERSION_NO: {NotNull, BIGINT(19)} */
     protected Long _versionNo;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -369,15 +368,15 @@ public abstract class BsMemberService extends AbstractEntity implements EntityDe
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_memberServiceId);
-        sb.append(dm).append(_memberId);
-        sb.append(dm).append(_servicePointCount);
-        sb.append(dm).append(_serviceRankCode);
-        sb.append(dm).append(_registerDatetime);
-        sb.append(dm).append(_registerUser);
-        sb.append(dm).append(_updateDatetime);
-        sb.append(dm).append(_updateUser);
-        sb.append(dm).append(_versionNo);
+        sb.append(dm).append(xfND(_memberServiceId));
+        sb.append(dm).append(xfND(_memberId));
+        sb.append(dm).append(xfND(_servicePointCount));
+        sb.append(dm).append(xfND(_serviceRankCode));
+        sb.append(dm).append(xfND(_registerDatetime));
+        sb.append(dm).append(xfND(_registerUser));
+        sb.append(dm).append(xfND(_updateDatetime));
+        sb.append(dm).append(xfND(_updateUser));
+        sb.append(dm).append(xfND(_versionNo));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

@@ -152,12 +152,12 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         List<MemberStatus> statusList = new ArrayList<MemberStatus>();
         {
             MemberStatus status = new MemberStatus();
-            status.xznocheckSetMemberStatusCode("fml");
+            status.mynativeMappingMemberStatusCode("fml");
             statusList.add(status);
         }
         {
             MemberStatus status = new MemberStatus();
-            status.xznocheckSetMemberStatusCode("FML");
+            status.mynativeMappingMemberStatusCode("FML");
             statusList.add(status);
         }
 
@@ -207,9 +207,11 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
             log("    [PURCHASE]: " + purchase.toString());
             assertNotNull(purchase.getPurchaseId());
             assertNotNull(purchase.getMemberId());
-            assertNull(purchase.getPurchaseDatetime());
+            assertNull(purchase.xznocheckGetPurchaseDatetime());
+            assertNonSpecifiedAccess(() -> purchase.getPurchaseDatetime());
             assertNotNull(purchase.getPurchaseCount());
-            assertNull(purchase.getPaymentCompleteFlg());
+            assertNull(purchase.xznocheckGetPaymentCompleteFlg());
+            assertNonSpecifiedAccess(() -> purchase.getPaymentCompleteFlg());
         }
     }
 

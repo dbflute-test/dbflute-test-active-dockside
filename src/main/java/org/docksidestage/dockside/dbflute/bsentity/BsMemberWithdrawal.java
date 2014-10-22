@@ -121,7 +121,6 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
     /** VERSION_NO: {NotNull, BIGINT(19)} */
     protected Long _versionNo;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -341,15 +340,15 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_memberId);
-        sb.append(dm).append(_withdrawalReasonCode);
-        sb.append(dm).append(_withdrawalReasonInputText);
-        sb.append(dm).append(_withdrawalDatetime);
-        sb.append(dm).append(_registerDatetime);
-        sb.append(dm).append(_registerUser);
-        sb.append(dm).append(_updateDatetime);
-        sb.append(dm).append(_updateUser);
-        sb.append(dm).append(_versionNo);
+        sb.append(dm).append(xfND(_memberId));
+        sb.append(dm).append(xfND(_withdrawalReasonCode));
+        sb.append(dm).append(xfND(_withdrawalReasonInputText));
+        sb.append(dm).append(xfND(_withdrawalDatetime));
+        sb.append(dm).append(xfND(_registerDatetime));
+        sb.append(dm).append(xfND(_registerUser));
+        sb.append(dm).append(xfND(_updateDatetime));
+        sb.append(dm).append(xfND(_updateUser));
+        sb.append(dm).append(xfND(_versionNo));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

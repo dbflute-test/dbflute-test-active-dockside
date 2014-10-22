@@ -123,8 +123,8 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * </pre>
      * @param cbLambda The callback for condition-bean of PurchasePayment. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public PurchasePayment selectEntity(CBCall<PurchasePaymentCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
@@ -149,9 +149,9 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * </pre>
      * @param cbLambda The callback for condition-bean of PurchasePayment. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public PurchasePayment selectEntityWithDeletedCheck(CBCall<PurchasePaymentCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
@@ -161,9 +161,9 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * Select the entity by the primary-key value.
      * @param purchasePaymentId (購入支払ID): PK, ID, NotNull, BIGINT(19). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<PurchasePayment> selectByPK(Long purchasePaymentId) {
         return facadeSelectByPK(purchasePaymentId);
@@ -202,7 +202,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * </pre>
      * @param cbLambda The callback for condition-bean of PurchasePayment. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<PurchasePayment> selectList(CBCall<PurchasePaymentCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
@@ -234,7 +234,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * </pre>
      * @param cbLambda The callback for condition-bean of PurchasePayment. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<PurchasePayment> selectPage(CBCall<PurchasePaymentCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
@@ -401,7 +401,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param purchasePayment The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(PurchasePayment purchasePayment) {
         doInsert(purchasePayment, null);
@@ -425,9 +425,9 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * }
      * </pre>
      * @param purchasePayment The entity of update. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(PurchasePayment purchasePayment) {
         doUpdate(purchasePayment, null);
@@ -438,9 +438,9 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param purchasePayment The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(PurchasePayment purchasePayment) {
         doInsertOrUpdate(purchasePayment, null, null);
@@ -460,8 +460,8 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * }
      * </pre>
      * @param purchasePayment The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(PurchasePayment purchasePayment) {
         doDelete(purchasePayment, null);
@@ -520,7 +520,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * </pre>
      * @param purchasePaymentList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<PurchasePayment> purchasePaymentList) {
         return doBatchUpdate(purchasePaymentList, null);
@@ -531,7 +531,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param purchasePaymentList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<PurchasePayment> purchasePaymentList) {
         return doBatchDelete(purchasePaymentList, null);
@@ -590,7 +590,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * @param purchasePayment The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of PurchasePayment. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(PurchasePayment purchasePayment, CBCall<PurchasePaymentCB> cbLambda) {
         return doQueryUpdate(purchasePayment, createCB(cbLambda), null);
@@ -605,7 +605,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * </pre>
      * @param cbLambda The callback for condition-bean of PurchasePayment. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(CBCall<PurchasePaymentCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
@@ -634,7 +634,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * </pre>
      * @param purchasePayment The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(PurchasePayment purchasePayment, WritableOptionCall<PurchasePaymentCB, InsertOption<PurchasePaymentCB>> opLambda) {
         doInsert(purchasePayment, createInsertOption(opLambda));
@@ -665,9 +665,9 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * </pre>
      * @param purchasePayment The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(PurchasePayment purchasePayment, WritableOptionCall<PurchasePaymentCB, UpdateOption<PurchasePaymentCB>> opLambda) {
         doUpdate(purchasePayment, createUpdateOption(opLambda));
@@ -679,9 +679,9 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * @param purchasePayment The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(PurchasePayment purchasePayment, WritableOptionCall<PurchasePaymentCB, InsertOption<PurchasePaymentCB>> insertOpLambda, WritableOptionCall<PurchasePaymentCB, UpdateOption<PurchasePaymentCB>> updateOpLambda) {
         doInsertOrUpdate(purchasePayment, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -693,8 +693,8 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * Other specifications are same as delete(entity).
      * @param purchasePayment The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(PurchasePayment purchasePayment, WritableOptionCall<PurchasePaymentCB, DeleteOption<PurchasePaymentCB>> opLambda) {
         doDelete(purchasePayment, createDeleteOption(opLambda));
@@ -784,7 +784,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * @param cbLambda The callback for condition-bean of PurchasePayment. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(PurchasePayment purchasePayment, CBCall<PurchasePaymentCB> cbLambda, WritableOptionCall<PurchasePaymentCB, UpdateOption<PurchasePaymentCB>> opLambda) {
         return doQueryUpdate(purchasePayment, createCB(cbLambda), createUpdateOption(opLambda));
@@ -797,7 +797,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * @param cbLambda The callback for condition-bean of PurchasePayment. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(CBCall<PurchasePaymentCB> cbLambda, WritableOptionCall<PurchasePaymentCB, DeleteOption<PurchasePaymentCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));

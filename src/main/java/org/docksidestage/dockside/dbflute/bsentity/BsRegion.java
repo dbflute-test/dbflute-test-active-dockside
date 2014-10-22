@@ -83,7 +83,6 @@ public abstract class BsRegion extends AbstractEntity {
     /** (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} */
     protected String _regionName;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -283,8 +282,8 @@ public abstract class BsRegion extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_regionId);
-        sb.append(dm).append(_regionName);
+        sb.append(dm).append(xfND(_regionId));
+        sb.append(dm).append(xfND(_regionName));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

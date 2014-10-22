@@ -434,6 +434,47 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         assertFalse(detail.contains("BC0001"));
     }
 
+    public void test_toString_largeData() {
+        // ## Arrange ##
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(18);
+        });
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 100; i++) {
+            sb.append("sea");
+        }
+        member.setMemberAccount(sb.toString());
+
+        // ## Act ##
+        String detail = member.toString();
+
+        // ## Assert ##
+        log(detail);
+        assertContains(detail, "seasease...(length:300), FML, ");
+    }
+
+    public void test_toString_lineSep() {
+        // ## Arrange ##
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(18);
+        });
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 100; i++) {
+            sb.append("sea\n");
+        }
+        member.setMemberAccount(sb.toString());
+
+        // ## Act ##
+        String detail = member.toString();
+
+        // ## Assert ##
+        log(detail);
+        assertContains(detail, "\\nsea\\nsea\\n...(length:400), FML, ");
+        assertNotContains(detail, "\n");
+    }
+
     // ===================================================================================
     //                                                              toStringWithRelation()
     //                                                              ======================

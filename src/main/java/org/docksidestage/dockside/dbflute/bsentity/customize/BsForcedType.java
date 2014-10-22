@@ -74,7 +74,6 @@ public abstract class BsForcedType extends AbstractEntity {
     /** MAX_MEMBER_ID: {INTEGER(10)} */
     protected java.math.BigInteger _maxMemberId;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -144,7 +143,7 @@ public abstract class BsForcedType extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_maxMemberId);
+        sb.append(dm).append(xfND(_maxMemberId));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

@@ -91,7 +91,6 @@ public abstract class BsMemberFollowing extends AbstractEntity {
     /** (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} */
     protected java.sql.Timestamp _followDatetime;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -218,10 +217,10 @@ public abstract class BsMemberFollowing extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_memberFollowingId);
-        sb.append(dm).append(_myMemberId);
-        sb.append(dm).append(_yourMemberId);
-        sb.append(dm).append(_followDatetime);
+        sb.append(dm).append(xfND(_memberFollowingId));
+        sb.append(dm).append(xfND(_myMemberId));
+        sb.append(dm).append(xfND(_yourMemberId));
+        sb.append(dm).append(xfND(_followDatetime));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

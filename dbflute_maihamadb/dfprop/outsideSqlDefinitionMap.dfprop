@@ -21,11 +21,6 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
-    # TODO jflute in migration
-    ; isRequiredSqlTitle = false
-    ; isRequiredSqlDescription = false
-    ; isCheckRequiredSqlCommentAlsoSql2Entity = false
-
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isGenerateProcedureParameterBean: (NotRequired - Default false)
     #   [true]

@@ -102,7 +102,6 @@ public abstract class BsServiceRank extends AbstractEntity {
     /** (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} */
     protected Integer _displayOrder;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -422,12 +421,12 @@ public abstract class BsServiceRank extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_serviceRankCode);
-        sb.append(dm).append(_serviceRankName);
-        sb.append(dm).append(_servicePointIncidence);
-        sb.append(dm).append(_newAcceptableFlg);
-        sb.append(dm).append(_description);
-        sb.append(dm).append(_displayOrder);
+        sb.append(dm).append(xfND(_serviceRankCode));
+        sb.append(dm).append(xfND(_serviceRankName));
+        sb.append(dm).append(xfND(_servicePointIncidence));
+        sb.append(dm).append(xfND(_newAcceptableFlg));
+        sb.append(dm).append(xfND(_description));
+        sb.append(dm).append(xfND(_displayOrder));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

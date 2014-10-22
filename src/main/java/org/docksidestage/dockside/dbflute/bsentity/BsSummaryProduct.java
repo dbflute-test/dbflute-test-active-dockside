@@ -96,7 +96,6 @@ public abstract class BsSummaryProduct extends AbstractEntity {
     /** LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} */
     protected java.sql.Timestamp _latestPurchaseDatetime;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -298,11 +297,11 @@ public abstract class BsSummaryProduct extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_productId);
-        sb.append(dm).append(_productName);
-        sb.append(dm).append(_productHandleCode);
-        sb.append(dm).append(_productStatusCode);
-        sb.append(dm).append(_latestPurchaseDatetime);
+        sb.append(dm).append(xfND(_productId));
+        sb.append(dm).append(xfND(_productName));
+        sb.append(dm).append(xfND(_productHandleCode));
+        sb.append(dm).append(xfND(_productStatusCode));
+        sb.append(dm).append(xfND(_latestPurchaseDatetime));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

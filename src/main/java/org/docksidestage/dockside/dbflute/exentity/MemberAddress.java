@@ -15,6 +15,8 @@
  */
 package org.docksidestage.dockside.dbflute.exentity;
 
+import java.util.Date;
+
 import org.docksidestage.dockside.dbflute.bsentity.BsMemberAddress;
 
 /**
@@ -24,9 +26,21 @@ import org.docksidestage.dockside.dbflute.bsentity.BsMemberAddress;
  * This class remains when re-generating.
  * </p>
  * @author DBFlute(AutoGenerator)
+ * @author jflute
  */
 public class MemberAddress extends BsMemberAddress {
 
     /** Serial version UID. (Default) */
     private static final long serialVersionUID = 1L;
+
+    // ===================================================================================
+    //                                                             for test: Non-Specified
+    //                                                             =======================
+    public Date xznocheckGetValidBeginDate() {
+        return _validBeginDate;
+    }
+
+    public Date xznocheckGetValidEndDate() {
+        return _validEndDate;
+    }
 }

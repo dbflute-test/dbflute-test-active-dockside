@@ -91,7 +91,7 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
                     } else {
                         statusCode = "00" + count;
                     }
-                    status.xznocheckSetMemberStatusCode(statusCode);
+                    status.mynativeMappingMemberStatusCode(statusCode);
                     status.setMemberStatusName(memberName + count);
                     status.setDescription("foo");
                     status.setDisplayOrder(99999 + count);

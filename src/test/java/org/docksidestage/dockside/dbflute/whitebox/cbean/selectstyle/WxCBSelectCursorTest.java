@@ -97,7 +97,7 @@ public class WxCBSelectCursorTest extends UnitContainerTestCase {
                 } else {
                     memberStatusCode = "00" + count;
                 }
-                status.xznocheckSetMemberStatusCode(memberStatusCode);
+                status.mynativeMappingMemberStatusCode(memberStatusCode);
                 status.setMemberStatusName(memberName + count);
                 status.setDescription("foo");
                 status.setDisplayOrder(99999 + count);

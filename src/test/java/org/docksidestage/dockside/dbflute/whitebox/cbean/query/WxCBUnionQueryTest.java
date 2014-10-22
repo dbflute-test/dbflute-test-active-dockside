@@ -181,7 +181,8 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
                 assertFalse(memberList.isEmpty());
                 for (Member member : memberList) {
                     assertNotNull(member.getMemberName());
-                    assertNull(member.getMemberAccount());
+                    assertNull(member.xznocheckGetMemberAccount());
+                    assertNonSpecifiedAccess(() -> member.getMemberAccount());
                 }
             }
 
@@ -204,7 +205,8 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
                 assertNotSame(0, memberPage.size());
                 for (Member member : memberPage) {
                     assertNotNull(member.getMemberName());
-                    assertNull(member.getMemberAccount());
+                    assertNull(member.xznocheckGetMemberAccount());
+                    assertNonSpecifiedAccess(() -> member.getMemberAccount());
                 }
                 assertTrue(markSet.contains("handle")); // for count-select assert
             }
@@ -253,7 +255,8 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
             assertNotSame(0, withdrawalList.size());
             for (SummaryWithdrawal withdrawal : withdrawalList) {
                 assertNotNull(withdrawal.getMemberName());
-                assertNull(withdrawal.getWithdrawalDatetime());
+                assertNull(withdrawal.xznocheckGetWithdrawalDatetime());
+                assertNonSpecifiedAccess(() -> withdrawal.getWithdrawalDatetime());
             }
 
             // ## Act ##
@@ -271,7 +274,8 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
             assertNotSame(0, withdrawalPage.size());
             for (SummaryWithdrawal withdrawal : withdrawalPage) {
                 assertNotNull(withdrawal.getMemberName());
-                assertNull(withdrawal.getWithdrawalDatetime());
+                assertNull(withdrawal.xznocheckGetWithdrawalDatetime());
+                assertNonSpecifiedAccess(() -> withdrawal.getWithdrawalDatetime());
             }
             assertTrue(markSet.contains("handle")); // for count-select assert
         } finally {
@@ -302,7 +306,8 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
         assertNotSame(0, withdrawalList.size());
         for (SummaryWithdrawal withdrawal : withdrawalList) {
             assertNotNull(withdrawal.getMemberStatusCode());
-            assertNull(withdrawal.getWithdrawalDatetime());
+            assertNull(withdrawal.xznocheckGetWithdrawalDatetime());
+            assertNonSpecifiedAccess(() -> withdrawal.getWithdrawalDatetime());
         }
 
         // ## Act ##
@@ -321,7 +326,8 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
         assertNotSame(0, withdrawalPage.size());
         for (SummaryWithdrawal withdrawal : withdrawalPage) {
             assertNotNull(withdrawal.getMemberStatusCode());
-            assertNull(withdrawal.getWithdrawalDatetime());
+            assertNull(withdrawal.xznocheckGetWithdrawalDatetime());
+            assertNonSpecifiedAccess(() -> withdrawal.getWithdrawalDatetime());
         }
     }
 

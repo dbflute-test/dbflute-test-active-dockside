@@ -145,7 +145,7 @@ public class WxBhvPulloutRelationTest extends UnitContainerTestCase {
         });
 
         for (Member member : memberList) {
-            member.xznocheckSetMemberStatusCode(null);
+            member.mynativeMappingMemberStatusCode(null);
         }
 
         // ## Act ##

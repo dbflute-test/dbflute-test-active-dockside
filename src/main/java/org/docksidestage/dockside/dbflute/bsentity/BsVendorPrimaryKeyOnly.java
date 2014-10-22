@@ -75,7 +75,6 @@ public abstract class BsVendorPrimaryKeyOnly extends AbstractEntity {
     /** PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)} */
     protected Long _primaryKeyOnlyId;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -146,7 +145,7 @@ public abstract class BsVendorPrimaryKeyOnly extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_primaryKeyOnlyId);
+        sb.append(dm).append(xfND(_primaryKeyOnlyId));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

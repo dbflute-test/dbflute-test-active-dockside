@@ -16,7 +16,6 @@
 package org.docksidestage.dockside.dbflute.exentity;
 
 import org.docksidestage.dockside.dbflute.bsentity.BsMemberStatus;
-import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 
 /**
  * The entity of MEMBER_STATUS.
@@ -66,15 +65,11 @@ public class MemberStatus extends BsMemberStatus {
         return _displayOrder;
     }
 
-    public String xznocheckGetDescription() {
-        return _description;
+    public String xznocheckGetMemberStatusName() {
+        return _memberStatusName;
     }
 
-    // ===================================================================================
-    //                                                            for test: Classification
-    //                                                            ========================
-    public void xznocheckSetMemberStatusCode(String code) {
-        __modifiedProperties.addPropertyName(MemberDbm.getInstance().columnMemberStatusCode().getPropertyName());
-        _memberStatusCode = code;
+    public String xznocheckGetDescription() {
+        return _description;
     }
 }

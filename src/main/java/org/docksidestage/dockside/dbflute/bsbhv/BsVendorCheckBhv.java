@@ -128,8 +128,8 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public VendorCheck selectEntity(CBCall<VendorCheckCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
@@ -154,9 +154,9 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public VendorCheck selectEntityWithDeletedCheck(CBCall<VendorCheckCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
@@ -166,9 +166,9 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * Select the entity by the primary-key value.
      * @param vendorCheckId : PK, NotNull, DECIMAL(16). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<VendorCheck> selectByPK(Long vendorCheckId) {
         return facadeSelectByPK(vendorCheckId);
@@ -207,7 +207,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<VendorCheck> selectList(CBCall<VendorCheckCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
@@ -239,7 +239,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<VendorCheck> selectPage(CBCall<VendorCheckCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
@@ -398,7 +398,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param vendorCheck The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(VendorCheck vendorCheck) {
         doInsert(vendorCheck, null);
@@ -422,9 +422,9 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * }
      * </pre>
      * @param vendorCheck The entity of update. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(VendorCheck vendorCheck) {
         doUpdate(vendorCheck, null);
@@ -435,9 +435,9 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param vendorCheck The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(VendorCheck vendorCheck) {
         doInsertOrUpdate(vendorCheck, null, null);
@@ -457,8 +457,8 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * }
      * </pre>
      * @param vendorCheck The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(VendorCheck vendorCheck) {
         doDelete(vendorCheck, null);
@@ -517,7 +517,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * </pre>
      * @param vendorCheckList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<VendorCheck> vendorCheckList) {
         return doBatchUpdate(vendorCheckList, null);
@@ -528,7 +528,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param vendorCheckList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<VendorCheck> vendorCheckList) {
         return doBatchDelete(vendorCheckList, null);
@@ -587,7 +587,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * @param vendorCheck The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(VendorCheck vendorCheck, CBCall<VendorCheckCB> cbLambda) {
         return doQueryUpdate(vendorCheck, createCB(cbLambda), null);
@@ -602,7 +602,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(CBCall<VendorCheckCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
@@ -631,7 +631,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * </pre>
      * @param vendorCheck The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(VendorCheck vendorCheck, WritableOptionCall<VendorCheckCB, InsertOption<VendorCheckCB>> opLambda) {
         doInsert(vendorCheck, createInsertOption(opLambda));
@@ -662,9 +662,9 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * </pre>
      * @param vendorCheck The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(VendorCheck vendorCheck, WritableOptionCall<VendorCheckCB, UpdateOption<VendorCheckCB>> opLambda) {
         doUpdate(vendorCheck, createUpdateOption(opLambda));
@@ -676,9 +676,9 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * @param vendorCheck The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(VendorCheck vendorCheck, WritableOptionCall<VendorCheckCB, InsertOption<VendorCheckCB>> insertOpLambda, WritableOptionCall<VendorCheckCB, UpdateOption<VendorCheckCB>> updateOpLambda) {
         doInsertOrUpdate(vendorCheck, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -690,8 +690,8 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * Other specifications are same as delete(entity).
      * @param vendorCheck The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(VendorCheck vendorCheck, WritableOptionCall<VendorCheckCB, DeleteOption<VendorCheckCB>> opLambda) {
         doDelete(vendorCheck, createDeleteOption(opLambda));
@@ -781,7 +781,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(VendorCheck vendorCheck, CBCall<VendorCheckCB> cbLambda, WritableOptionCall<VendorCheckCB, UpdateOption<VendorCheckCB>> opLambda) {
         return doQueryUpdate(vendorCheck, createCB(cbLambda), createUpdateOption(opLambda));
@@ -794,7 +794,7 @@ public abstract class BsVendorCheckBhv extends AbstractBehaviorWritable<VendorCh
      * @param cbLambda The callback for condition-bean of VendorCheck. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(CBCall<VendorCheckCB> cbLambda, WritableOptionCall<VendorCheckCB, DeleteOption<VendorCheckCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));

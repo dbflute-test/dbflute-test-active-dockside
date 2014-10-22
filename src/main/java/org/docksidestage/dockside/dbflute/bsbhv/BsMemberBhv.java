@@ -93,6 +93,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     public static final String PATH_whitebox_cmentity_selectForcedType = "whitebox:cmentity:selectForcedType";
     public static final String PATH_whitebox_cmentity_selectPrimaryKeyComment = "whitebox:cmentity:selectPrimaryKeyComment";
     public static final String PATH_whitebox_cmentity_selectSurpriseSimilarPKComment = "whitebox:cmentity:selectSurpriseSimilarPKComment";
+    /** using Classification Hint */
+    public static final String PATH_whitebox_cmentity_selectUndetectableClassificationHint = "whitebox:cmentity:selectUndetectableClassificationHint";
     public static final String PATH_whitebox_pmbean_selectCompareDate = "whitebox:pmbean:selectCompareDate";
     public static final String PATH_whitebox_pmbean_selectMapLikeSearch = "whitebox:pmbean:selectMapLikeSearch";
     /** The test for parameter auto-detect */
@@ -162,8 +164,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * </pre>
      * @param cbLambda The callback for condition-bean of Member. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Member selectEntity(CBCall<MemberCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
@@ -188,9 +190,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * </pre>
      * @param cbLambda The callback for condition-bean of Member. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public Member selectEntityWithDeletedCheck(CBCall<MemberCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
@@ -200,9 +202,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * Select the entity by the primary-key value.
      * @param memberId (会員ID): PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS. (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<Member> selectByPK(Integer memberId) {
         return facadeSelectByPK(memberId);
@@ -229,9 +231,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * Select the entity by the unique-key value.
      * @param memberAccount (会員アカウント): UQ, NotNull, VARCHAR(50). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<Member> selectByUniqueOf(String memberAccount) {
         return facadeSelectByUniqueOf(memberAccount);
@@ -266,7 +268,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * </pre>
      * @param cbLambda The callback for condition-bean of Member. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<Member> selectList(CBCall<MemberCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
@@ -298,7 +300,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * </pre>
      * @param cbLambda The callback for condition-bean of Member. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<Member> selectPage(CBCall<MemberCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
@@ -833,7 +835,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param member The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(Member member) {
         doInsert(member, null);
@@ -857,9 +859,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * }
      * </pre>
      * @param member The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
-     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(Member member) {
         doUpdate(member, null);
@@ -880,9 +882,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * <span style="color: #0000C0">memberBhv</span>.<span style="color: #CC4747">updateNonstrict</span>(member);
      * </pre>
      * @param member The entity of update. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void updateNonstrict(Member member) {
         doUpdateNonstrict(member, null);
@@ -893,9 +895,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param member The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(Member member) {
         doInsertOrUpdate(member, null, null);
@@ -906,9 +908,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param member The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(Member member) {
         doInsertOrUpdateNonstrict(member, null, null);
@@ -928,8 +930,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * }
      * </pre>
      * @param member The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
-     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(Member member) {
         doDelete(member, null);
@@ -946,8 +948,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * <span style="color: #0000C0">memberBhv</span>.<span style="color: #CC4747">deleteNonstrict</span>(member);
      * </pre>
      * @param member The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrict(Member member) {
         doDeleteNonstrict(member, null);
@@ -1006,7 +1008,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * </pre>
      * @param memberList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @throws BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<Member> memberList) {
         return doBatchUpdate(memberList, null);
@@ -1034,7 +1036,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * </pre>
      * @param memberList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<Member> memberList) {
         return doBatchUpdateNonstrict(memberList, null);
@@ -1045,7 +1047,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param memberList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @throws BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchDelete(List<Member> memberList) {
         return doBatchDelete(memberList, null);
@@ -1056,7 +1058,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param memberList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDeleteNonstrict(List<Member> memberList) {
         return doBatchDeleteNonstrict(memberList, null);
@@ -1115,7 +1117,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param member The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of Member. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(Member member, CBCall<MemberCB> cbLambda) {
         return doQueryUpdate(member, createCB(cbLambda), null);
@@ -1130,7 +1132,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * </pre>
      * @param cbLambda The callback for condition-bean of Member. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(CBCall<MemberCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
@@ -1159,7 +1161,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * </pre>
      * @param member The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(Member member, WritableOptionCall<MemberCB, InsertOption<MemberCB>> opLambda) {
         doInsert(member, createInsertOption(opLambda));
@@ -1190,9 +1192,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * </pre>
      * @param member The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(Member member, WritableOptionCall<MemberCB, UpdateOption<MemberCB>> opLambda) {
         doUpdate(member, createUpdateOption(opLambda));
@@ -1220,9 +1222,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * </pre>
      * @param member The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdateNonstrict(Member member, WritableOptionCall<MemberCB, UpdateOption<MemberCB>> opLambda) {
         doUpdateNonstrict(member, createUpdateOption(opLambda));
@@ -1234,9 +1236,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param member The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(Member member, WritableOptionCall<MemberCB, InsertOption<MemberCB>> insertOpLambda, WritableOptionCall<MemberCB, UpdateOption<MemberCB>> updateOpLambda) {
         doInsertOrUpdate(member, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -1248,9 +1250,9 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param member The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdateNonstrict(Member member, WritableOptionCall<MemberCB, InsertOption<MemberCB>> insertOpLambda, WritableOptionCall<MemberCB, UpdateOption<MemberCB>> updateOpLambda) {
         doInsertOrUpdateNonstrict(member, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -1262,8 +1264,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * Other specifications are same as delete(entity).
      * @param member The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyUpdatedException When the entity has already been updated.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(Member member, WritableOptionCall<MemberCB, DeleteOption<MemberCB>> opLambda) {
         doDelete(member, createDeleteOption(opLambda));
@@ -1275,8 +1277,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * Other specifications are same as deleteNonstrict(entity).
      * @param member The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDeleteNonstrict(Member member, WritableOptionCall<MemberCB, DeleteOption<MemberCB>> opLambda) {
         doDeleteNonstrict(member, createDeleteOption(opLambda));
@@ -1391,7 +1393,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param cbLambda The callback for condition-bean of Member. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(Member member, CBCall<MemberCB> cbLambda, WritableOptionCall<MemberCB, UpdateOption<MemberCB>> opLambda) {
         return doQueryUpdate(member, createCB(cbLambda), createUpdateOption(opLambda));
@@ -1404,7 +1406,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param cbLambda The callback for condition-bean of Member. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(CBCall<MemberCB> cbLambda, WritableOptionCall<MemberCB, DeleteOption<MemberCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));

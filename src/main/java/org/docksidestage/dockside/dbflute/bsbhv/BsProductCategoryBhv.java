@@ -123,8 +123,8 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * </pre>
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ProductCategory selectEntity(CBCall<ProductCategoryCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
@@ -149,9 +149,9 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * </pre>
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public ProductCategory selectEntityWithDeletedCheck(CBCall<ProductCategoryCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
@@ -161,9 +161,9 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * Select the entity by the primary-key value.
      * @param productCategoryCode (商品カテゴリコード): PK, NotNull, CHAR(3). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<ProductCategory> selectByPK(String productCategoryCode) {
         return facadeSelectByPK(productCategoryCode);
@@ -202,7 +202,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * </pre>
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<ProductCategory> selectList(CBCall<ProductCategoryCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
@@ -234,7 +234,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * </pre>
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<ProductCategory> selectPage(CBCall<ProductCategoryCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
@@ -529,7 +529,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param productCategory The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(ProductCategory productCategory) {
         doInsert(productCategory, null);
@@ -553,9 +553,9 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * }
      * </pre>
      * @param productCategory The entity of update. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(ProductCategory productCategory) {
         doUpdate(productCategory, null);
@@ -566,9 +566,9 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param productCategory The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(ProductCategory productCategory) {
         doInsertOrUpdate(productCategory, null, null);
@@ -588,8 +588,8 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * }
      * </pre>
      * @param productCategory The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(ProductCategory productCategory) {
         doDelete(productCategory, null);
@@ -648,7 +648,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * </pre>
      * @param productCategoryList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<ProductCategory> productCategoryList) {
         return doBatchUpdate(productCategoryList, null);
@@ -659,7 +659,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param productCategoryList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<ProductCategory> productCategoryList) {
         return doBatchDelete(productCategoryList, null);
@@ -718,7 +718,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * @param productCategory The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(ProductCategory productCategory, CBCall<ProductCategoryCB> cbLambda) {
         return doQueryUpdate(productCategory, createCB(cbLambda), null);
@@ -733,7 +733,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * </pre>
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(CBCall<ProductCategoryCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
@@ -762,7 +762,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * </pre>
      * @param productCategory The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(ProductCategory productCategory, WritableOptionCall<ProductCategoryCB, InsertOption<ProductCategoryCB>> opLambda) {
         doInsert(productCategory, createInsertOption(opLambda));
@@ -793,9 +793,9 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * </pre>
      * @param productCategory The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(ProductCategory productCategory, WritableOptionCall<ProductCategoryCB, UpdateOption<ProductCategoryCB>> opLambda) {
         doUpdate(productCategory, createUpdateOption(opLambda));
@@ -807,9 +807,9 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * @param productCategory The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(ProductCategory productCategory, WritableOptionCall<ProductCategoryCB, InsertOption<ProductCategoryCB>> insertOpLambda, WritableOptionCall<ProductCategoryCB, UpdateOption<ProductCategoryCB>> updateOpLambda) {
         doInsertOrUpdate(productCategory, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -821,8 +821,8 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * Other specifications are same as delete(entity).
      * @param productCategory The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(ProductCategory productCategory, WritableOptionCall<ProductCategoryCB, DeleteOption<ProductCategoryCB>> opLambda) {
         doDelete(productCategory, createDeleteOption(opLambda));
@@ -912,7 +912,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(ProductCategory productCategory, CBCall<ProductCategoryCB> cbLambda, WritableOptionCall<ProductCategoryCB, UpdateOption<ProductCategoryCB>> opLambda) {
         return doQueryUpdate(productCategory, createCB(cbLambda), createUpdateOption(opLambda));
@@ -925,7 +925,7 @@ public abstract class BsProductCategoryBhv extends AbstractBehaviorWritable<Prod
      * @param cbLambda The callback for condition-bean of ProductCategory. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(CBCall<ProductCategoryCB> cbLambda, WritableOptionCall<ProductCategoryCB, DeleteOption<ProductCategoryCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));

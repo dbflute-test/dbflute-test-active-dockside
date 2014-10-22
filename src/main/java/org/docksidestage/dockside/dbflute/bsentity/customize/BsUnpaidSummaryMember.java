@@ -90,7 +90,6 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity {
     /** (会員ステータス名称)STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
     protected String _statusName;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -231,10 +230,10 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_unpaidManId);
-        sb.append(dm).append(_unpaidManName);
-        sb.append(dm).append(_unpaidPriceSummary);
-        sb.append(dm).append(_statusName);
+        sb.append(dm).append(xfND(_unpaidManId));
+        sb.append(dm).append(xfND(_unpaidManName));
+        sb.append(dm).append(xfND(_unpaidPriceSummary));
+        sb.append(dm).append(xfND(_statusName));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

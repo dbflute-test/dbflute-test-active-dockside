@@ -116,7 +116,8 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         for (Entity entity : entityList) {
             Member member = (Member) entity;
             assertNotNull(member.getMemberId());
-            assertNull(member.getMemberName());
+            assertNull(member.xznocheckGetMemberName());
+            assertNonSpecifiedAccess(() -> member.getMemberName());
             assertNotNull(member.getMemberAccount());
         }
         assertEquals(MemberDbm.getInstance().columnMemberAccount(), specifiedColumn.getColumnInfo());
@@ -141,7 +142,8 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
             MemberStatus status = member.getMemberStatus();
             assertNotNull(status);
             assertNotNull(status.getMemberStatusCode());
-            assertNull(status.getMemberStatusName());
+            assertNull(status.xznocheckGetMemberStatusName());
+            assertNonSpecifiedAccess(() -> status.getMemberStatusName());
             assertNotNull(status.getDisplayOrder());
         }
         assertEquals(MemberStatusDbm.getInstance().columnDisplayOrder(), specifiedColumn.getColumnInfo());

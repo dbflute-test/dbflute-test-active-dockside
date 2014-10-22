@@ -126,8 +126,8 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * </pre>
      * @param cbLambda The callback for condition-bean of MemberStatus. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberStatus selectEntity(CBCall<MemberStatusCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
@@ -152,9 +152,9 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * </pre>
      * @param cbLambda The callback for condition-bean of MemberStatus. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MemberStatus selectEntityWithDeletedCheck(CBCall<MemberStatusCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
@@ -164,9 +164,9 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * Select the entity by the primary-key value.
      * @param memberStatusCode (会員ステータスコード): PK, NotNull, CHAR(3), classification=MemberStatus. (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<MemberStatus> selectByPK(CDef.MemberStatus memberStatusCode) {
         return facadeSelectByPK(memberStatusCode);
@@ -193,9 +193,9 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * Select the entity by the unique-key value.
      * @param displayOrder (表示順): UQ, NotNull, INTEGER(10). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<MemberStatus> selectByUniqueOf(Integer displayOrder) {
         return facadeSelectByUniqueOf(displayOrder);
@@ -230,7 +230,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * </pre>
      * @param cbLambda The callback for condition-bean of MemberStatus. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<MemberStatus> selectList(CBCall<MemberStatusCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
@@ -262,7 +262,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * </pre>
      * @param cbLambda The callback for condition-bean of MemberStatus. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<MemberStatus> selectPage(CBCall<MemberStatusCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
@@ -557,7 +557,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param memberStatus The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(MemberStatus memberStatus) {
         doInsert(memberStatus, null);
@@ -581,9 +581,9 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * }
      * </pre>
      * @param memberStatus The entity of update. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(MemberStatus memberStatus) {
         doUpdate(memberStatus, null);
@@ -594,9 +594,9 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param memberStatus The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(MemberStatus memberStatus) {
         doInsertOrUpdate(memberStatus, null, null);
@@ -616,8 +616,8 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * }
      * </pre>
      * @param memberStatus The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(MemberStatus memberStatus) {
         doDelete(memberStatus, null);
@@ -676,7 +676,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * </pre>
      * @param memberStatusList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<MemberStatus> memberStatusList) {
         return doBatchUpdate(memberStatusList, null);
@@ -687,7 +687,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param memberStatusList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<MemberStatus> memberStatusList) {
         return doBatchDelete(memberStatusList, null);
@@ -746,7 +746,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * @param memberStatus The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of MemberStatus. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(MemberStatus memberStatus, CBCall<MemberStatusCB> cbLambda) {
         return doQueryUpdate(memberStatus, createCB(cbLambda), null);
@@ -761,7 +761,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * </pre>
      * @param cbLambda The callback for condition-bean of MemberStatus. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(CBCall<MemberStatusCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
@@ -790,7 +790,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * </pre>
      * @param memberStatus The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(MemberStatus memberStatus, WritableOptionCall<MemberStatusCB, InsertOption<MemberStatusCB>> opLambda) {
         doInsert(memberStatus, createInsertOption(opLambda));
@@ -821,9 +821,9 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * </pre>
      * @param memberStatus The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(MemberStatus memberStatus, WritableOptionCall<MemberStatusCB, UpdateOption<MemberStatusCB>> opLambda) {
         doUpdate(memberStatus, createUpdateOption(opLambda));
@@ -835,9 +835,9 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * @param memberStatus The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(MemberStatus memberStatus, WritableOptionCall<MemberStatusCB, InsertOption<MemberStatusCB>> insertOpLambda, WritableOptionCall<MemberStatusCB, UpdateOption<MemberStatusCB>> updateOpLambda) {
         doInsertOrUpdate(memberStatus, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -849,8 +849,8 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * Other specifications are same as delete(entity).
      * @param memberStatus The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(MemberStatus memberStatus, WritableOptionCall<MemberStatusCB, DeleteOption<MemberStatusCB>> opLambda) {
         doDelete(memberStatus, createDeleteOption(opLambda));
@@ -940,7 +940,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * @param cbLambda The callback for condition-bean of MemberStatus. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(MemberStatus memberStatus, CBCall<MemberStatusCB> cbLambda, WritableOptionCall<MemberStatusCB, UpdateOption<MemberStatusCB>> opLambda) {
         return doQueryUpdate(memberStatus, createCB(cbLambda), createUpdateOption(opLambda));
@@ -953,7 +953,7 @@ public abstract class BsMemberStatusBhv extends AbstractBehaviorWritable<MemberS
      * @param cbLambda The callback for condition-bean of MemberStatus. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(CBCall<MemberStatusCB> cbLambda, WritableOptionCall<MemberStatusCB, DeleteOption<MemberStatusCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));

@@ -115,7 +115,6 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
     /** MAX_PURCHASE_PRICE: {INTEGER(10)} */
     protected Integer _maxPurchasePrice;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -201,15 +200,15 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_memberId);
-        sb.append(dm).append(_memberName);
-        sb.append(dm).append(_withdrawalReasonCode);
-        sb.append(dm).append(_withdrawalReasonText);
-        sb.append(dm).append(_withdrawalReasonInputText);
-        sb.append(dm).append(_withdrawalDatetime);
-        sb.append(dm).append(_memberStatusCode);
-        sb.append(dm).append(_memberStatusName);
-        sb.append(dm).append(_maxPurchasePrice);
+        sb.append(dm).append(xfND(_memberId));
+        sb.append(dm).append(xfND(_memberName));
+        sb.append(dm).append(xfND(_withdrawalReasonCode));
+        sb.append(dm).append(xfND(_withdrawalReasonText));
+        sb.append(dm).append(xfND(_withdrawalReasonInputText));
+        sb.append(dm).append(xfND(_withdrawalDatetime));
+        sb.append(dm).append(xfND(_memberStatusCode));
+        sb.append(dm).append(xfND(_memberStatusName));
+        sb.append(dm).append(xfND(_maxPurchasePrice));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

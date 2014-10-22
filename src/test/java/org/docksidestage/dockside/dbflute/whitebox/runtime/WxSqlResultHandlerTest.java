@@ -257,7 +257,7 @@ public class WxSqlResultHandlerTest extends UnitContainerTestCase {
     public void test_EntityUpdate_insertOrUpdate_onParade_withoutOptimisticLock() {
         // ## Arrange ##
         MemberStatus status = new MemberStatus();
-        status.xznocheckSetMemberStatusCode("ZZZ");
+        status.mynativeMappingMemberStatusCode("ZZZ");
         status.setMemberStatusName("Test");
         status.setDisplayOrder(99999);
         status.setDescription("for test");

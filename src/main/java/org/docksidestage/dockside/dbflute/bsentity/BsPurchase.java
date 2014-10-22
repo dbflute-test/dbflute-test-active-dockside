@@ -134,7 +134,6 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
     /** VERSION_NO: {NotNull, BIGINT(19)} */
     protected Long _versionNo;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -405,18 +404,18 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_purchaseId);
-        sb.append(dm).append(_memberId);
-        sb.append(dm).append(_productId);
-        sb.append(dm).append(_purchaseDatetime);
-        sb.append(dm).append(_purchaseCount);
-        sb.append(dm).append(_purchasePrice);
-        sb.append(dm).append(_paymentCompleteFlg);
-        sb.append(dm).append(_registerDatetime);
-        sb.append(dm).append(_registerUser);
-        sb.append(dm).append(_updateDatetime);
-        sb.append(dm).append(_updateUser);
-        sb.append(dm).append(_versionNo);
+        sb.append(dm).append(xfND(_purchaseId));
+        sb.append(dm).append(xfND(_memberId));
+        sb.append(dm).append(xfND(_productId));
+        sb.append(dm).append(xfND(_purchaseDatetime));
+        sb.append(dm).append(xfND(_purchaseCount));
+        sb.append(dm).append(xfND(_purchasePrice));
+        sb.append(dm).append(xfND(_paymentCompleteFlg));
+        sb.append(dm).append(xfND(_registerDatetime));
+        sb.append(dm).append(xfND(_registerUser));
+        sb.append(dm).append(xfND(_updateDatetime));
+        sb.append(dm).append(xfND(_updateUser));
+        sb.append(dm).append(xfND(_versionNo));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

@@ -15,7 +15,7 @@ import org.docksidestage.dockside.dbflute.exbhv.pmbean.OptionMemberPmb;
  * @author jflute
  * @since 0.9.6.1 (2009/11/17 Tuesday)
  */
-public class WxParameterBeanBasicTest extends PlainTestCase {
+public class WxSql2EntityParameterBeanBasicTest extends PlainTestCase {
 
     // ===================================================================================
     //                                                                           Empty Set

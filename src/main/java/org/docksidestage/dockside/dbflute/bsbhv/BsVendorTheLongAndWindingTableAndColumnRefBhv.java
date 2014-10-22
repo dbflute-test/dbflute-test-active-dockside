@@ -123,8 +123,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public VendorTheLongAndWindingTableAndColumnRef selectEntity(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
@@ -149,9 +149,9 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public VendorTheLongAndWindingTableAndColumnRef selectEntityWithDeletedCheck(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
@@ -161,9 +161,9 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * Select the entity by the primary-key value.
      * @param theLongAndWindingTableAndColumnRefId : PK, NotNull, BIGINT(19). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<VendorTheLongAndWindingTableAndColumnRef> selectByPK(Long theLongAndWindingTableAndColumnRefId) {
         return facadeSelectByPK(theLongAndWindingTableAndColumnRefId);
@@ -202,7 +202,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<VendorTheLongAndWindingTableAndColumnRef> selectList(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
@@ -234,7 +234,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception DangerousResultSizeException When the result size is over the specified safety size.
+     * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<VendorTheLongAndWindingTableAndColumnRef> selectPage(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
@@ -401,7 +401,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param vendorTheLongAndWindingTableAndColumnRef The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef) {
         doInsert(vendorTheLongAndWindingTableAndColumnRef, null);
@@ -425,9 +425,9 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * }
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumnRef The entity of update. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef) {
         doUpdate(vendorTheLongAndWindingTableAndColumnRef, null);
@@ -438,9 +438,9 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param vendorTheLongAndWindingTableAndColumnRef The entity of insert or update. (NotNull, ...depends on insert or update)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef) {
         doInsertOrUpdate(vendorTheLongAndWindingTableAndColumnRef, null, null);
@@ -460,8 +460,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * }
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumnRef The entity of delete. (NotNull, PrimaryKeyNotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef) {
         doDelete(vendorTheLongAndWindingTableAndColumnRef, null);
@@ -520,7 +520,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumnRefList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList) {
         return doBatchUpdate(vendorTheLongAndWindingTableAndColumnRefList, null);
@@ -531,7 +531,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param vendorTheLongAndWindingTableAndColumnRefList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<VendorTheLongAndWindingTableAndColumnRef> vendorTheLongAndWindingTableAndColumnRefList) {
         return doBatchDelete(vendorTheLongAndWindingTableAndColumnRefList, null);
@@ -590,7 +590,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * @param vendorTheLongAndWindingTableAndColumnRef The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda) {
         return doQueryUpdate(vendorTheLongAndWindingTableAndColumnRef, createCB(cbLambda), null);
@@ -605,7 +605,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
@@ -634,7 +634,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumnRef The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, WritableOptionCall<VendorTheLongAndWindingTableAndColumnRefCB, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB>> opLambda) {
         doInsert(vendorTheLongAndWindingTableAndColumnRef, createInsertOption(opLambda));
@@ -665,9 +665,9 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumnRef The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, WritableOptionCall<VendorTheLongAndWindingTableAndColumnRefCB, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB>> opLambda) {
         doUpdate(vendorTheLongAndWindingTableAndColumnRef, createUpdateOption(opLambda));
@@ -679,9 +679,9 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * @param vendorTheLongAndWindingTableAndColumnRef The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
-     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, WritableOptionCall<VendorTheLongAndWindingTableAndColumnRefCB, InsertOption<VendorTheLongAndWindingTableAndColumnRefCB>> insertOpLambda, WritableOptionCall<VendorTheLongAndWindingTableAndColumnRefCB, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB>> updateOpLambda) {
         doInsertOrUpdate(vendorTheLongAndWindingTableAndColumnRef, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
@@ -693,8 +693,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * Other specifications are same as delete(entity).
      * @param vendorTheLongAndWindingTableAndColumnRef The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @throws EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, WritableOptionCall<VendorTheLongAndWindingTableAndColumnRefCB, DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB>> opLambda) {
         doDelete(vendorTheLongAndWindingTableAndColumnRef, createDeleteOption(opLambda));
@@ -784,7 +784,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(VendorTheLongAndWindingTableAndColumnRef vendorTheLongAndWindingTableAndColumnRef, CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda, WritableOptionCall<VendorTheLongAndWindingTableAndColumnRefCB, UpdateOption<VendorTheLongAndWindingTableAndColumnRefCB>> opLambda) {
         return doQueryUpdate(vendorTheLongAndWindingTableAndColumnRef, createCB(cbLambda), createUpdateOption(opLambda));
@@ -797,7 +797,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(CBCall<VendorTheLongAndWindingTableAndColumnRefCB> cbLambda, WritableOptionCall<VendorTheLongAndWindingTableAndColumnRefCB, DeleteOption<VendorTheLongAndWindingTableAndColumnRefCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));

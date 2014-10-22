@@ -74,7 +74,6 @@ public abstract class BsVendorNumericIntegerSum extends AbstractEntity {
     /** INTEGER_NON_DIGIT_SUM: {DECIMAL(5)} */
     protected Integer _integerNonDigitSum;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -144,7 +143,7 @@ public abstract class BsVendorNumericIntegerSum extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_integerNonDigitSum);
+        sb.append(dm).append(xfND(_integerNonDigitSum));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

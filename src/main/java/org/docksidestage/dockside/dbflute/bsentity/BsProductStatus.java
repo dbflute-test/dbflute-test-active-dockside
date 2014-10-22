@@ -87,7 +87,6 @@ public abstract class BsProductStatus extends AbstractEntity {
     /** (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} */
     protected Integer _displayOrder;
 
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -301,9 +300,9 @@ public abstract class BsProductStatus extends AbstractEntity {
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(_productStatusCode);
-        sb.append(dm).append(_productStatusName);
-        sb.append(dm).append(_displayOrder);
+        sb.append(dm).append(xfND(_productStatusCode));
+        sb.append(dm).append(xfND(_productStatusName));
+        sb.append(dm).append(xfND(_displayOrder));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }

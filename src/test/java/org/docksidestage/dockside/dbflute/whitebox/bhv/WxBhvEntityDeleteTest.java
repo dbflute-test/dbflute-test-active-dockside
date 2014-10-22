@@ -73,7 +73,7 @@ public class WxBhvEntityDeleteTest extends UnitContainerTestCase {
     public void test_delete_nonOptimisticLockTable_deleted() throws Exception {
         // ## Arrange ##
         MemberStatus memberStatus = new MemberStatus();
-        memberStatus.xznocheckSetMemberStatusCode("NON");
+        memberStatus.mynativeMappingMemberStatusCode("NON");
 
         // ## Act ##
         try {

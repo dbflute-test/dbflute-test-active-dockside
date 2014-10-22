@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.dockside.dbflute.bsentity.dbmeta;
+package org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta;
 
 import java.util.List;
 import java.util.Map;
@@ -25,20 +25,20 @@ import org.dbflute.dbmeta.name.*;
 import org.dbflute.dbmeta.property.PropertyGateway;
 import org.dbflute.dbway.DBDef;
 import org.docksidestage.dockside.dbflute.allcommon.*;
-import org.docksidestage.dockside.dbflute.exentity.*;
+import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The DB meta of VENDOR_IDENTITY_ONLY. (Singleton)
+ * The DB meta of UndetectableClassificationHint. (Singleton)
  * @author DBFlute(AutoGenerator)
  */
-public class VendorIdentityOnlyDbm extends AbstractDBMeta {
+public class UndetectableClassificationHintDbm extends AbstractDBMeta {
 
     // ===================================================================================
     //                                                                           Singleton
     //                                                                           =========
-    private static final VendorIdentityOnlyDbm _instance = new VendorIdentityOnlyDbm();
-    private VendorIdentityOnlyDbm() {}
-    public static VendorIdentityOnlyDbm getInstance() { return _instance; }
+    private static final UndetectableClassificationHintDbm _instance = new UndetectableClassificationHintDbm();
+    private UndetectableClassificationHintDbm() {}
+    public static UndetectableClassificationHintDbm getInstance() { return _instance; }
 
     // ===================================================================================
     //                                                                       Current DBDef
@@ -53,11 +53,24 @@ public class VendorIdentityOnlyDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgIdentityOnlyId(), "identityOnlyId");
+        setupEpg(_epgMap, new EpgMemberId(), "memberId");
+        setupEpg(_epgMap, new EpgMemberStatusCode(), "memberStatusCode");
     }
-    public static class EpgIdentityOnlyId implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorIdentityOnly)et).getIdentityOnlyId(); }
-        public void write(Entity et, Object vl) { ((VendorIdentityOnly)et).setIdentityOnlyId(ctl(vl)); }
+    public static class EpgMemberId implements PropertyGateway {
+        public Object read(Entity et) { return ((UndetectableClassificationHint)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((UndetectableClassificationHint)et).setMemberId(cti(vl)); }
+    }
+    public class EpgMemberStatusCode implements PropertyGateway {
+        public Object read(Entity et) { return ((UndetectableClassificationHint)et).getMemberStatusCode(); }
+        public void write(Entity et, Object vl) {
+            ColumnInfo col = columnMemberStatusCode();
+            CDef.MemberStatus cls = (CDef.MemberStatus)gcls(col, vl);
+            if (cls != null) {
+                ((UndetectableClassificationHint)et).setMemberStatusCodeAsMemberStatus(cls);
+            } else {
+                ((UndetectableClassificationHint)et).mynativeMappingMemberStatusCode((String)vl);
+            }
+        }
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -65,9 +78,9 @@ public class VendorIdentityOnlyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
-    protected final String _tableDbName = "VENDOR_IDENTITY_ONLY";
-    protected final String _tablePropertyName = "vendorIdentityOnly";
-    protected final TableSqlName _tableSqlName = new TableSqlName("VENDOR_IDENTITY_ONLY", _tableDbName);
+    protected final String _tableDbName = "UndetectableClassificationHint";
+    protected final String _tablePropertyName = "undetectableClassificationHint";
+    protected final TableSqlName _tableSqlName = new TableSqlName("UndetectableClassificationHint", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
     public String getTablePropertyName() { return _tablePropertyName; }
@@ -76,17 +89,24 @@ public class VendorIdentityOnlyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnIdentityOnlyId = cci("IDENTITY_ONLY_ID", "IDENTITY_ONLY_ID", null, null, Long.class, "identityOnlyId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_359AA466_E89C_40FE_92B5_C5D1ACFCA73B", false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, null, Integer.class, "memberId", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, null, String.class, "memberStatusCode", null, false, false, false, "CHAR", 3, 0, null, false, null, "// undetectable classification so cls(MemberStatus)", null, null, CDef.DefMeta.MemberStatus);
 
     /**
-     * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
+     * MEMBER_ID: {INTEGER(10)}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnIdentityOnlyId() { return _columnIdentityOnlyId; }
+    public ColumnInfo columnMemberId() { return _columnMemberId; }
+    /**
+     * MEMBER_STATUS_CODE: {CHAR(3), classification=MemberStatus}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnMemberStatusCode() { return _columnMemberStatusCode; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
-        ls.add(columnIdentityOnlyId());
+        ls.add(columnMemberId());
+        ls.add(columnMemberStatusCode());
         return ls;
     }
 
@@ -98,8 +118,10 @@ public class VendorIdentityOnlyDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                       Primary Element
     //                                       ---------------
-    protected UniqueInfo cpui() { return hpcpui(columnIdentityOnlyId()); }
-    public boolean hasPrimaryKey() { return true; }
+    protected UniqueInfo cpui() {
+        throw new UnsupportedOperationException("The table does not have primary key: " + getTableDbName());
+    }
+    public boolean hasPrimaryKey() { return false; }
     public boolean hasCompoundPrimaryKey() { return false; }
 
     // ===================================================================================
@@ -118,32 +140,31 @@ public class VendorIdentityOnlyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                        Various Info
     //                                                                        ============
-    public boolean hasIdentity() { return true; }
 
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "org.docksidestage.dockside.dbflute.exentity.VendorIdentityOnly"; }
-    public String getConditionBeanTypeName() { return "org.docksidestage.dockside.dbflute.cbean.VendorIdentityOnlyCB"; }
-    public String getBehaviorTypeName() { return "org.docksidestage.dockside.dbflute.exbhv.VendorIdentityOnlyBhv"; }
+    public String getEntityTypeName() { return "org.docksidestage.dockside.dbflute.exentity.customize.UndetectableClassificationHint"; }
+    public String getConditionBeanTypeName() { return null; }
+    public String getBehaviorTypeName() { return null; }
 
     // ===================================================================================
     //                                                                         Object Type
     //                                                                         ===========
-    public Class<VendorIdentityOnly> getEntityType() { return VendorIdentityOnly.class; }
+    public Class<UndetectableClassificationHint> getEntityType() { return UndetectableClassificationHint.class; }
 
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public VendorIdentityOnly newEntity() { return new VendorIdentityOnly(); }
+    public UndetectableClassificationHint newEntity() { return new UndetectableClassificationHint(); }
 
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
     public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptPrimaryKeyMap((VendorIdentityOnly)et, mp); }
+    { doAcceptPrimaryKeyMap((UndetectableClassificationHint)et, mp); }
     public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptAllColumnMap((VendorIdentityOnly)et, mp); }
+    { doAcceptAllColumnMap((UndetectableClassificationHint)et, mp); }
     public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
     public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

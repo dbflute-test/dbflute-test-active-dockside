@@ -16,6 +16,7 @@
 package org.docksidestage.dockside.dbflute.exentity;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 import org.docksidestage.dockside.dbflute.bsentity.BsPurchase;
 
@@ -30,12 +31,19 @@ import org.docksidestage.dockside.dbflute.bsentity.BsPurchase;
  */
 public class Purchase extends BsPurchase {
 
+    // ===================================================================================
+    //                                                                          Definition
+    //                                                                          ==========
     /** Serial version UID. (Default) */
     private static final long serialVersionUID = 1L;
     /** SUM_PAYMENT_AMOUNT: Derived Referrer Alias. */
     public static final String ALIAS_sumPaymentAmount = "SUM_PAYMENT_AMOUNT";
     /** SUM_PAYMENT_AMOUNT: (Derived Referrer) */
     protected BigDecimal _sumPaymentAmount;
+
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
     /**
      * [get] SUM_PAYMENT_AMOUNT: (Derived Referrer)
      * @return The value of the column 'SUM_PAYMENT_AMOUNT'. (NullAllowed)
@@ -43,11 +51,39 @@ public class Purchase extends BsPurchase {
     public BigDecimal getSumPaymentAmount() {
         return _sumPaymentAmount;
     }
+
     /**
      * [set] SUM_PAYMENT_AMOUNT: (Derived Referrer)
      * @param sumPaymentAmount The value of the column 'SUM_PAYMENT_AMOUNT'. (NullAllowed)
      */
     public void setSumPaymentAmount(BigDecimal sumPaymentAmount) {
         _sumPaymentAmount = sumPaymentAmount;
+    }
+
+    // ===================================================================================
+    //                                                             for test: Non-Specified
+    //                                                             =======================
+    public Integer xznocheckGetMemberId() {
+        return _memberId;
+    }
+
+    public Integer xznocheckGetProductId() {
+        return _productId;
+    }
+
+    public Timestamp xznocheckGetPurchaseDatetime() {
+        return _purchaseDatetime;
+    }
+
+    public Integer xznocheckGetPurchaseCount() {
+        return _purchasePrice;
+    }
+
+    public Integer xznocheckGetPurchasePrice() {
+        return _purchasePrice;
+    }
+
+    public Integer xznocheckGetPaymentCompleteFlg() {
+        return _paymentCompleteFlg;
     }
 }
