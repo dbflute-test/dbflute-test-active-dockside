@@ -3,7 +3,6 @@ package org.docksidestage.dockside.dbflute.whitebox.outsidesql;
 import java.sql.Timestamp;
 import java.util.List;
 
-import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -169,7 +168,7 @@ public class WxOutsideSqlBasicTest extends UnitContainerTestCase {
         log("updatedCount=" + updatedCount);
         assertNotSame(0, updatedCount);
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.query().setMemberName_LikeSearch("S", new LikeSearchOption().likePrefix());
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
         });
 
         for (Member member : memberList) {

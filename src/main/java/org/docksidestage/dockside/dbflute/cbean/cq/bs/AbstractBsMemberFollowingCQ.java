@@ -145,7 +145,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * @param maxNumber The max number of memberFollowingId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setMemberFollowingId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
+    protected void setMemberFollowingId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueMemberFollowingId(), "MEMBER_FOLLOWING_ID", rangeOfOption);
     }
 
@@ -274,7 +274,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * @param maxNumber The max number of myMemberId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setMyMemberId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+    protected void setMyMemberId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueMyMemberId(), "MY_MEMBER_ID", rangeOfOption);
     }
 
@@ -391,7 +391,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * @param maxNumber The max number of yourMemberId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setYourMemberId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+    protected void setYourMemberId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueYourMemberId(), "YOUR_MEMBER_ID", rangeOfOption);
     }
 
@@ -491,7 +491,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of followDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setFollowDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
+    protected void setFollowDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), xgetCValueFollowDatetime(), "FOLLOW_DATETIME", fromToOption);
     }
 

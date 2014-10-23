@@ -145,7 +145,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @param maxNumber The max number of theLongAndWindingTableAndColumnRefId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setTheLongAndWindingTableAndColumnRefId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
+    protected void setTheLongAndWindingTableAndColumnRefId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueTheLongAndWindingTableAndColumnRefId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID", rangeOfOption);
     }
 
@@ -274,7 +274,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @param maxNumber The max number of theLongAndWindingTableAndColumnId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setTheLongAndWindingTableAndColumnId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
+    protected void setTheLongAndWindingTableAndColumnId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", rangeOfOption);
     }
 
@@ -374,7 +374,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of theLongAndWindingTableAndColumnRefDate. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setTheLongAndWindingTableAndColumnRefDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
+    protected void setTheLongAndWindingTableAndColumnRefDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ(fCTPD(fromDatetime), fCTPD(toDatetime), xgetCValueTheLongAndWindingTableAndColumnRefDate(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE", fromToOption);
     }
 
@@ -448,7 +448,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of shortDate. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setShortDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
+    protected void setShortDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ(fCTPD(fromDatetime), fCTPD(toDatetime), xgetCValueShortDate(), "SHORT_DATE", fromToOption);
     }
 

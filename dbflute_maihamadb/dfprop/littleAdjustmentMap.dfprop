@@ -49,7 +49,7 @@ map:{
     ; isAvailableRelationPlainEntity = true
     ; isMakeConditionQueryPrefixSearch = false
     ; isMakeConditionQueryDateFromTo = false
-    ; isMakeDirectConditionOptionSetup = true
+    ; isMakeDirectConditionOptionSetup = false
     ; isMakeDirectConditionManualOrder = false
     ; isMakeClassificationNativeTypeSetter = false
     ; isCompatibleNewMyEntityConditionBean = false

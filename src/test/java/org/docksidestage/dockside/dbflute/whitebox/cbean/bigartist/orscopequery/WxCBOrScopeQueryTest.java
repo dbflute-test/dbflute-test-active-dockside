@@ -5,9 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
-import org.dbflute.cbean.coption.FromToOption;
-import org.dbflute.cbean.coption.LikeSearchOption;
-import org.dbflute.cbean.coption.RangeOfOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.AndQuery;
 import org.dbflute.cbean.scoping.OrQuery;
@@ -148,8 +145,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
             /* ## Act ## */
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
-                    LikeSearchOption option = new LikeSearchOption().likeContain().splitBySpace();
-                    orCB.query().setMemberName_LikeSearch("S t", option);
+                    orCB.query().setMemberName_LikeSearch("S t", op -> op.likeContain().splitByBlank());
                     orCB.query().setMemberName_LikeSearch("J", op -> op.likePrefix());
                 }
             });
@@ -173,8 +169,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
             /* ## Act ## */
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
-                    LikeSearchOption option = new LikeSearchOption().likePrefix().splitBySpace().asOrSplit();
-                    orCB.query().setMemberName_LikeSearch("S M", option);
+                    orCB.query().setMemberName_LikeSearch("S M", op -> op.likePrefix().splitByBlank().asOrSplit());
                     orCB.query().setMemberName_LikeSearch("J", op -> op.likePrefix());
                 }
             });
@@ -199,8 +194,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
             cb.orScopeQuery(new OrQuery<MemberCB>() {
                 public void query(MemberCB orCB) {
                     orCB.query().setFormalizedDatetime_IsNull();
-                    LikeSearchOption option = new LikeSearchOption().likePrefix().splitBySpace().asOrSplit();
-                    orCB.query().setMemberName_LikeSearch("M J", option);
+                    orCB.query().setMemberName_LikeSearch("M J", op -> op.likePrefix().splitByBlank().asOrSplit());
                 }
             });
             pushCB(cb);
@@ -367,24 +361,15 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
         // ## Arrange ##
         PurchaseCB cb = new PurchaseCB();
         cb.query().setPurchaseDatetime_FromTo(toDate("2012/03/13"), toDate("2012/03/14"), op -> op.compareAsDate());
-        cb.orScopeQuery(new OrQuery<PurchaseCB>() {
-            public void query(PurchaseCB orCB) {
-                orCB.query().setRegisterDatetime_FromTo(toDate("2012/03/15"), toDate("2012/03/16"), op -> op.compareAsDate());
-                orCB.orScopeQueryAndPart(new AndQuery<PurchaseCB>() {
-                    public void query(PurchaseCB andCB) {
-                        andCB.query().queryMember()
-                                .setBirthdate_FromTo(toDate("2012/03/17"), toDate("2012/03/18"), op -> op.compareAsDate());
-                        FromToOption optionOrIsNull = new FromToOption().orIsNull();
-                        andCB.query().queryMember()
-                                .setFormalizedDatetime_FromTo(toDate("2012/03/19"), toDate("2012/03/20"), optionOrIsNull);
-                    }
-                });
-                orCB.orScopeQueryAndPart(new AndQuery<PurchaseCB>() {
-                    public void query(PurchaseCB andCB) {
-                        andCB.query().setUpdateDatetime_FromTo(toDate("2012/03/21"), toDate("2012/03/22"), op -> op.compareAsDate());
-                    }
-                });
-            }
+        cb.orScopeQuery(orCB -> {
+            orCB.query().setRegisterDatetime_FromTo(toDate("2012/03/15"), toDate("2012/03/16"), op -> op.compareAsDate());
+            orCB.orScopeQueryAndPart(andCB -> {
+                andCB.query().queryMember().setBirthdate_FromTo(toDate("2012/03/17"), toDate("2012/03/18"), op1 -> op1.compareAsDate());
+                andCB.query().queryMember().setFormalizedDatetime_FromTo(toDate("2012/03/19"), toDate("2012/03/20"), op2 -> op2.orIsNull());
+            });
+            orCB.orScopeQueryAndPart(andCB -> {
+                andCB.query().setUpdateDatetime_FromTo(toDate("2012/03/21"), toDate("2012/03/22"), op -> op.compareAsDate());
+            });
         });
         String sql = cb.toDisplaySql();
 
@@ -409,19 +394,19 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
     public void test_orScopeQuery_with_rangeOf_basic() {
         // ## Arrange ##
         PurchaseCB cb = new PurchaseCB();
-        cb.query().setPurchaseId_RangeOf(13L, 14L, new RangeOfOption());
+        cb.query().setPurchaseId_RangeOf(13L, 14L, op -> {});
         cb.orScopeQuery(new OrQuery<PurchaseCB>() {
             public void query(PurchaseCB orCB) {
-                orCB.query().setPurchaseCount_RangeOf(15, 16, new RangeOfOption());
+                orCB.query().setPurchaseCount_RangeOf(15, 16, op -> {});
                 orCB.orScopeQueryAndPart(new AndQuery<PurchaseCB>() {
                     public void query(PurchaseCB andCB) {
-                        andCB.query().queryMember().setMemberId_RangeOf(17, 18, new RangeOfOption());
-                        andCB.query().queryProduct().setProductId_RangeOf(19, 20, new RangeOfOption().orIsNull());
+                        andCB.query().queryMember().setMemberId_RangeOf(17, 18, op -> {});
+                        andCB.query().queryProduct().setProductId_RangeOf(19, 20, op -> op.orIsNull());
                     }
                 });
                 orCB.orScopeQueryAndPart(new AndQuery<PurchaseCB>() {
                     public void query(PurchaseCB andCB) {
-                        andCB.query().setVersionNo_RangeOf(21L, 22L, new RangeOfOption());
+                        andCB.query().setVersionNo_RangeOf(21L, 22L, op -> {});
                     }
                 });
             }
@@ -452,7 +437,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                 orCB.query().setMemberStatusCode_Equal_Formalized();
                 orCB.orScopeQueryAndPart(new AndQuery<MemberCB>() {
                     public void query(MemberCB andCB) {
-                        andCB.query().setMemberName_LikeSearch("S M", new LikeSearchOption().likeContain().splitBySpace());
+                        andCB.query().setMemberName_LikeSearch("S M", op -> op.likeContain().splitBySpace());
                         andCB.query().setBirthdate_IsNotNull();
                         andCB.query().setFormalizedDatetime_IsNotNull();
                     }
@@ -495,7 +480,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                     orCB.query().setMemberStatusCode_Equal_Formalized();
                     orCB.orScopeQueryAndPart(new AndQuery<MemberCB>() {
                         public void query(MemberCB andCB) {
-                            andCB.query().setMemberName_LikeSearch("S M", new LikeSearchOption().likeContain().splitBySpace().asOrSplit());
+                            andCB.query().setMemberName_LikeSearch("S M", op -> op.likeContain().splitBySpace().asOrSplit());
                             andCB.query().setBirthdate_IsNotNull();
                         }
                     });
@@ -593,12 +578,12 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                     orCB.query().queryMemberSecurityAsOne().inline().setMemberId_IsNotNull();
                     orCB.query().setBirthdate_IsNotNull();
                     orCB.query().setFormalizedDatetime_IsNull();
-                    orCB.query().setMemberName_LikeSearch("OR SPLIT", new LikeSearchOption().likePrefix().splitBySpace().asOrSplit());
+                    orCB.query().setMemberName_LikeSearch("OR SPLIT", op -> op.likePrefix().splitBySpace().asOrSplit());
                     orCB.orScopeQuery(new OrQuery<MemberCB>() {
                         public void query(MemberCB orCB) {
                             orCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
                             orCB.query().setMemberName_LikeSearch("J", op -> op.likePrefix());
-                            orCB.query().setMemberName_LikeSearch("AND SPLIT", new LikeSearchOption().likePrefix().splitBySpace());
+                            orCB.query().setMemberName_LikeSearch("AND SPLIT", op -> op.likePrefix().splitBySpace());
                             orCB.query().setMemberId_Equal(3);
                         }
                     });
@@ -610,7 +595,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
                     });
                     orCB.orScopeQuery(new OrQuery<MemberCB>() {
                         public void query(MemberCB orCB) {
-                            orCB.query().setMemberName_LikeSearch("AND2 SPLIT2", new LikeSearchOption().likePrefix().splitBySpace());
+                            orCB.query().setMemberName_LikeSearch("AND2 SPLIT2", op -> op.likePrefix().splitBySpace());
                         }
                     });
                     orCB.query().inline().setRegisterUser_NotEqual("RGUSER");

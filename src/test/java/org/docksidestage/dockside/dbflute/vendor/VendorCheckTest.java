@@ -157,14 +157,13 @@ public class VendorCheckTest extends UnitContainerTestCase {
         // 一時的に登録した会員が想定しているものかどうかをチェック
         // Check!
         assertEquals("escapeなしでも1件だけHITすること", 1, memberBhv.selectList(checkCB -> {
-            checkCB.query().setMemberName_LikeSearch(keyword, new LikeSearchOption().likeContain().notEscape());
+            checkCB.query().setMemberName_LikeSearch(keyword, op -> op.likeContain().notEscape());
         }).size());
 
         // /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         List<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            LikeSearchOption option = new LikeSearchOption().likeContain();
-            cb.query().setMemberName_LikeSearch(keyword, option);
+            cb.query().setMemberName_LikeSearch(keyword, op -> op.likeContain());
             pushCB(cb);
         });
         // - - - - - - - - - -/
@@ -190,7 +189,7 @@ public class VendorCheckTest extends UnitContainerTestCase {
         memberBhv.updateNonstrict(member);
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().setMemberName_LikeSearch("[v]％c", new LikeSearchOption().likeContain());
+            cb.query().setMemberName_LikeSearch("[v]％c", op -> op.likeContain());
             pushCB(cb);
         });
 

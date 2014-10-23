@@ -38,8 +38,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
             cb.query().setMemberId_Equal(updated.getMemberId());
             Date fromDate = toDate("2011/11/17 12:34:56.789");
             Date toDate = toDate("2011/11/19 02:04:06.009");
-            FromToOption option = new FromToOption();
-            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
+            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, op -> {});
             pushCB(cb);
         });
 
@@ -62,8 +61,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
             /* ## Act ## */
             Date fromDate = toDate("2011/11/17 12:34:56.789");
             Date toDate = toDate("2011/11/19 02:04:06.009");
-            FromToOption option = new FromToOption().compareAsYear();
-            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
+            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, op -> op.compareAsYear());
             pushCB(cb);
         });
 
@@ -86,8 +84,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
             /* ## Act ## */
             Date fromDate = toDate("2011/11/17 12:34:56.789");
             Date toDate = toDate("2011/11/19 02:04:06.009");
-            FromToOption option = new FromToOption().compareAsMonth();
-            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
+            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, op -> op.compareAsMonth());
             pushCB(cb);
         });
 
@@ -110,8 +107,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
             /* ## Act ## */
             Date fromDate = toDate("2011/11/17 12:34:56.789");
             Date toDate = toDate("2011/11/19 02:04:06.009");
-            FromToOption option = new FromToOption().compareAsDate();
-            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
+            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, op -> op.compareAsDate());
             pushCB(cb);
         });
 
@@ -134,8 +130,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
             /* ## Act ## */
             Date fromDate = toDate("2011/11/17 12:34:56.789");
             Date toDate = toDate("2011/11/17 18:04:06.009");
-            FromToOption option = new FromToOption().compareAsHour();
-            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, option);
+            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, op -> op.compareAsHour());
             pushCB(cb);
         });
 
@@ -155,8 +150,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         Date targetDate = toDate("2011/11/17");
-        FromToOption option = new FromToOption().compareAsWeek().beginWeek_DayOfWeek(targetDate);
-        cb.query().setFormalizedDatetime_FromTo(targetDate, targetDate, option);
+        cb.query().setFormalizedDatetime_FromTo(targetDate, targetDate, op -> op.compareAsWeek().beginWeek_DayOfWeek(targetDate));
 
         // ## Assert ##
         String sql = cb.toDisplaySql();
@@ -304,7 +298,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.query().setBirthdate_FromTo(date.getDate(), null, new FromToOption().orIsNull().allowOneSide());
+            cb.query().setBirthdate_FromTo(date.getDate(), null, op -> op.orIsNull().allowOneSide());
             pushCB(cb);
         });
 
@@ -338,7 +332,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.query().setBirthdate_FromTo(null, date.getDate(), new FromToOption().orIsNull().allowOneSide());
+            cb.query().setBirthdate_FromTo(null, date.getDate(), op -> op.orIsNull().allowOneSide());
             pushCB(cb);
         });
 
@@ -370,8 +364,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
 
         // ## Act ##
-        FromToOption option = new FromToOption().orIsNull().greaterThan().lessThan();
-        cb.query().setBirthdate_FromTo(date.getDate(), date.getDate(), option);
+        cb.query().setBirthdate_FromTo(date.getDate(), date.getDate(), op -> op.orIsNull().greaterThan().lessThan());
 
         // ## Assert ##
         String sql = cb.toDisplaySql();
@@ -386,8 +379,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
 
         // ## Act ##
-        FromToOption option = new FromToOption().compareAsDate().orIsNull();
-        cb.query().setBirthdate_FromTo(date.getDate(), date.getDate(), option);
+        cb.query().setBirthdate_FromTo(date.getDate(), date.getDate(), op -> op.compareAsDate().orIsNull());
 
         // ## Assert ##
         String sql = cb.toDisplaySql();
@@ -402,12 +394,12 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.orScopeQuery(new OrQuery<MemberCB>() {
             public void query(MemberCB orCB) {
-                final FromToOption option = new FromToOption().orIsNull().greaterThan().lessThan().allowOneSide();
-                orCB.query().setBirthdate_FromTo(null, date.getDate(), option);
+                orCB.query().setBirthdate_FromTo(null, date.getDate(), op -> op.orIsNull().greaterThan().lessThan().allowOneSide());
                 orCB.orScopeQueryAndPart(new AndQuery<MemberCB>() {
                     public void query(MemberCB andCB) {
                         andCB.query().setMemberId_Equal(3);
-                        andCB.query().setFormalizedDatetime_FromTo(date.getDate(), null, option);
+                        andCB.query().setFormalizedDatetime_FromTo(date.getDate(), null,
+                                op -> op.orIsNull().greaterThan().lessThan().allowOneSide());
                     }
                 });
             }

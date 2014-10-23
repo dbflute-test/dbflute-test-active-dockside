@@ -435,7 +435,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @param serviceRankName The value of serviceRankName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setServiceRankName_LikeSearch(String serviceRankName, LikeSearchOption likeSearchOption) {
+    protected void setServiceRankName_LikeSearch(String serviceRankName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(serviceRankName), xgetCValueServiceRankName(), "SERVICE_RANK_NAME", likeSearchOption);
     }
 
@@ -457,7 +457,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @param serviceRankName The value of serviceRankName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setServiceRankName_NotLikeSearch(String serviceRankName, LikeSearchOption likeSearchOption) {
+    protected void setServiceRankName_NotLikeSearch(String serviceRankName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(serviceRankName), xgetCValueServiceRankName(), "SERVICE_RANK_NAME", likeSearchOption);
     }
 
@@ -548,7 +548,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of servicePointIncidence. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setServicePointIncidence_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, RangeOfOption rangeOfOption) {
+    protected void setServicePointIncidence_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueServicePointIncidence(), "SERVICE_POINT_INCIDENCE", rangeOfOption);
     }
 
@@ -824,7 +824,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @param description The value of description as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setDescription_LikeSearch(String description, LikeSearchOption likeSearchOption) {
+    protected void setDescription_LikeSearch(String description, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(description), xgetCValueDescription(), "DESCRIPTION", likeSearchOption);
     }
 
@@ -846,7 +846,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @param description The value of description as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setDescription_NotLikeSearch(String description, LikeSearchOption likeSearchOption) {
+    protected void setDescription_NotLikeSearch(String description, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(description), xgetCValueDescription(), "DESCRIPTION", likeSearchOption);
     }
 
@@ -937,7 +937,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of displayOrder. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+    protected void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueDisplayOrder(), "DISPLAY_ORDER", rangeOfOption);
     }
 

@@ -165,7 +165,7 @@ public class TwoEdgedSwordTest extends UnitContainerTestCase {
 
         // 一時的に登録した会員が想定しているものかどうかをチェック
         assertEquals("escapeなしで2件ともHITすること", 2, memberBhv.selectList(checkCB -> {
-            checkCB.query().setMemberName_LikeSearch(keyword, new LikeSearchOption().likeContain().notEscape());
+            checkCB.query().setMemberName_LikeSearch(keyword, op -> op.likeContain().notEscape());
         }).size());
 
         // SQLのパス

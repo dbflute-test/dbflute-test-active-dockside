@@ -419,7 +419,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @param withdrawalReasonText The value of withdrawalReasonText as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setWithdrawalReasonText_LikeSearch(String withdrawalReasonText, LikeSearchOption likeSearchOption) {
+    protected void setWithdrawalReasonText_LikeSearch(String withdrawalReasonText, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(withdrawalReasonText), xgetCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT", likeSearchOption);
     }
 
@@ -441,7 +441,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @param withdrawalReasonText The value of withdrawalReasonText as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setWithdrawalReasonText_NotLikeSearch(String withdrawalReasonText, LikeSearchOption likeSearchOption) {
+    protected void setWithdrawalReasonText_NotLikeSearch(String withdrawalReasonText, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(withdrawalReasonText), xgetCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT", likeSearchOption);
     }
 
@@ -532,7 +532,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @param maxNumber The max number of displayOrder. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+    protected void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueDisplayOrder(), "DISPLAY_ORDER", rangeOfOption);
     }
 

@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
-import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.ScalarQuery;
 import org.dbflute.cbean.scoping.SpecifyQuery;
@@ -366,14 +365,14 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.specify().columnBirthdate();
-                    subCB.query().setMemberName_LikeSearch("vi", new LikeSearchOption().likeContain());
+                    subCB.query().setMemberName_LikeSearch("vi", op -> op.likeContain());
                 }
             }).partitionBy(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().columnMemberStatusCode();
                 }
             });
-            cb.query().setMemberName_LikeSearch("vi", new LikeSearchOption().likeContain());
+            cb.query().setMemberName_LikeSearch("vi", op -> op.likeContain());
             pushCB(cb);
         });
 
@@ -417,7 +416,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.specify().columnBirthdate();
-                    subCB.query().setMemberName_LikeSearch("vi", new LikeSearchOption().likeContain());
+                    subCB.query().setMemberName_LikeSearch("vi", op -> op.likeContain());
                 }
             }).partitionBy(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {

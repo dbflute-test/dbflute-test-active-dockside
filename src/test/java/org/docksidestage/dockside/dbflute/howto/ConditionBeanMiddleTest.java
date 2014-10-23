@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
-import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.result.PagingResultBean;
 import org.dbflute.cbean.scoping.SubQuery;
@@ -474,8 +473,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         List<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             // *Point!
-                LikeSearchOption option = new LikeSearchOption().likePrefix();
-                cb.query().setMemberName_LikeSearch("S", option);
+                cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
                 pushCB(cb);
             });
 
@@ -500,11 +498,9 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         // ## Arrange ##
         List<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            // *Point!
-                LikeSearchOption option = new LikeSearchOption().likeContain();
-                cb.query().setMemberName_LikeSearch("v", option);
-                pushCB(cb);
-            });
+            cb.query().setMemberName_LikeSearch("v", op -> op.likeContain());
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -527,11 +523,9 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         // ## Arrange ##
         List<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            // *Point!
-                LikeSearchOption option = new LikeSearchOption().likeSuffix();
-                cb.query().setMemberName_LikeSearch("r", option);
-                pushCB(cb);
-            });
+            cb.query().setMemberName_LikeSearch("r", op -> op.likeSuffix());
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -585,17 +579,14 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         // 一時的に登録した会員が想定しているものかどうかをチェック
         // Check if not escape!
         assertEquals("escapeなしで2件ともHITすること", 2, memberBhv.selectList(checkCB -> {
-            checkCB.query().setMemberName_LikeSearch(keyword, new LikeSearchOption().likeContain().notEscape());
+            checkCB.query().setMemberName_LikeSearch(keyword, op -> op.likeContain().notEscape());
         }).size());
 
-        // /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         List<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            LikeSearchOption option = new LikeSearchOption().likeContain(); // *Point!
-                cb.query().setMemberName_LikeSearch(keyword, option);
-                // - - - - - - - - - -/
-                pushCB(cb);
-            });
+            cb.query().setMemberName_LikeSearch(keyword, op -> op.likeContain());
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -665,11 +656,9 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         // ## Arrange ##
         List<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            // *Point!
-                LikeSearchOption option = new LikeSearchOption().likePrefix();
-                cb.query().setMemberName_NotLikeSearch("S", option);
-                pushCB(cb);
-            });
+            cb.query().setMemberName_NotLikeSearch("S", op -> op.likePrefix());
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -1290,7 +1279,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.setupSelect_MemberStatus();
-        cb.query().setMemberName_LikeSearch("S", new LikeSearchOption().likePrefix().escapeByAtMark());
+        cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix().escapeByAtMark());
         cb.query().addOrderBy_Birthdate_Desc().addOrderBy_MemberId_Asc();
         cb.lockForUpdate();
         cb.fetchFirst(2);

@@ -145,7 +145,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param maxNumber The max number of theLongAndWindingTableAndColumnId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setTheLongAndWindingTableAndColumnId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
+    protected void setTheLongAndWindingTableAndColumnId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueTheLongAndWindingTableAndColumnId(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", rangeOfOption);
     }
 
@@ -377,7 +377,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setTheLongAndWindingTableAndColumnName_LikeSearch(String theLongAndWindingTableAndColumnName, LikeSearchOption likeSearchOption) {
+    protected void setTheLongAndWindingTableAndColumnName_LikeSearch(String theLongAndWindingTableAndColumnName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(theLongAndWindingTableAndColumnName), xgetCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME", likeSearchOption);
     }
 
@@ -399,7 +399,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setTheLongAndWindingTableAndColumnName_NotLikeSearch(String theLongAndWindingTableAndColumnName, LikeSearchOption likeSearchOption) {
+    protected void setTheLongAndWindingTableAndColumnName_NotLikeSearch(String theLongAndWindingTableAndColumnName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(theLongAndWindingTableAndColumnName), xgetCValueTheLongAndWindingTableAndColumnName(), "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME", likeSearchOption);
     }
 
@@ -512,7 +512,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param shortName The value of shortName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setShortName_LikeSearch(String shortName, LikeSearchOption likeSearchOption) {
+    protected void setShortName_LikeSearch(String shortName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(shortName), xgetCValueShortName(), "SHORT_NAME", likeSearchOption);
     }
 
@@ -534,7 +534,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param shortName The value of shortName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setShortName_NotLikeSearch(String shortName, LikeSearchOption likeSearchOption) {
+    protected void setShortName_NotLikeSearch(String shortName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(shortName), xgetCValueShortName(), "SHORT_NAME", likeSearchOption);
     }
 
@@ -625,7 +625,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * @param maxNumber The max number of shortSize. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setShortSize_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+    protected void setShortSize_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueShortSize(), "SHORT_SIZE", rangeOfOption);
     }
 

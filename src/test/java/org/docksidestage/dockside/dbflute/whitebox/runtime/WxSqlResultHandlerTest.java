@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.dbflute.bhv.core.BehaviorCommandMeta;
-import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.exception.EntityAlreadyUpdatedException;
 import org.dbflute.hook.CallbackContext;
@@ -128,7 +127,7 @@ public class WxSqlResultHandlerTest extends UnitContainerTestCase {
             cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
             cb.query().setMemberStatusCode_Equal_Formalized();
             cb.query().setBirthdate_IsNotNull();
-            cb.query().setMemberName_LikeSearch("c", new LikeSearchOption().likeSuffix());
+            cb.query().setMemberName_LikeSearch("c", op -> op.likeSuffix());
         });
 
         // ## Assert ##

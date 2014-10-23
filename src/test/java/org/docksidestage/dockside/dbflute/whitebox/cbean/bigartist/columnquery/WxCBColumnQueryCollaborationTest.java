@@ -1,7 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.columnquery;
 
 import org.dbflute.cbean.ConditionBean;
-import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.cbean.scoping.SubQuery;
@@ -206,7 +205,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                         cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                             public void query(PurchaseCB subCB) {
                                 subCB.specify().columnPurchaseCount();
-                                subCB.query().queryMember().setMemberName_LikeSearch("v", new LikeSearchOption().likeContain());
+                                subCB.query().queryMember().setMemberName_LikeSearch("v", op -> op.likeContain());
                             }
                         }, null);
                     }

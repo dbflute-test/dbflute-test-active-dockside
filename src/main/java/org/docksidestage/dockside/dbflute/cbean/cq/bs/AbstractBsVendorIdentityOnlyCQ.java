@@ -145,7 +145,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
      * @param maxNumber The max number of identityOnlyId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setIdentityOnlyId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
+    protected void setIdentityOnlyId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueIdentityOnlyId(), "IDENTITY_ONLY_ID", rangeOfOption);
     }
 

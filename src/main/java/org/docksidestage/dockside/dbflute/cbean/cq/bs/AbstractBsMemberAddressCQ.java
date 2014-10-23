@@ -145,7 +145,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of memberAddressId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setMemberAddressId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+    protected void setMemberAddressId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueMemberAddressId(), "MEMBER_ADDRESS_ID", rangeOfOption);
     }
 
@@ -274,7 +274,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of memberId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setMemberId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+    protected void setMemberId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueMemberId(), "MEMBER_ID", rangeOfOption);
     }
 
@@ -374,7 +374,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of validBeginDate. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setValidBeginDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
+    protected void setValidBeginDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ(fCTPD(fromDatetime), fCTPD(toDatetime), xgetCValueValidBeginDate(), "VALID_BEGIN_DATE", fromToOption);
     }
 
@@ -448,7 +448,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of validEndDate. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setValidEndDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
+    protected void setValidEndDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ(fCTPD(fromDatetime), fCTPD(toDatetime), xgetCValueValidEndDate(), "VALID_END_DATE", fromToOption);
     }
 
@@ -561,7 +561,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param address The value of address as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setAddress_LikeSearch(String address, LikeSearchOption likeSearchOption) {
+    protected void setAddress_LikeSearch(String address, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(address), xgetCValueAddress(), "ADDRESS", likeSearchOption);
     }
 
@@ -583,7 +583,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param address The value of address as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setAddress_NotLikeSearch(String address, LikeSearchOption likeSearchOption) {
+    protected void setAddress_NotLikeSearch(String address, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(address), xgetCValueAddress(), "ADDRESS", likeSearchOption);
     }
 
@@ -816,7 +816,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setRegisterDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
+    protected void setRegisterDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), xgetCValueRegisterDatetime(), "REGISTER_DATETIME", fromToOption);
     }
 
@@ -929,7 +929,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param registerUser The value of registerUser as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setRegisterUser_LikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
+    protected void setRegisterUser_LikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(registerUser), xgetCValueRegisterUser(), "REGISTER_USER", likeSearchOption);
     }
 
@@ -951,7 +951,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param registerUser The value of registerUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setRegisterUser_NotLikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
+    protected void setRegisterUser_NotLikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(registerUser), xgetCValueRegisterUser(), "REGISTER_USER", likeSearchOption);
     }
 
@@ -1025,7 +1025,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setUpdateDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
+    protected void setUpdateDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), xgetCValueUpdateDatetime(), "UPDATE_DATETIME", fromToOption);
     }
 
@@ -1138,7 +1138,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param updateUser The value of updateUser as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setUpdateUser_LikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
+    protected void setUpdateUser_LikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(updateUser), xgetCValueUpdateUser(), "UPDATE_USER", likeSearchOption);
     }
 
@@ -1160,7 +1160,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param updateUser The value of updateUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setUpdateUser_NotLikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
+    protected void setUpdateUser_NotLikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(updateUser), xgetCValueUpdateUser(), "UPDATE_USER", likeSearchOption);
     }
 
@@ -1251,7 +1251,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of versionNo. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setVersionNo_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
+    protected void setVersionNo_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueVersionNo(), "VERSION_NO", rangeOfOption);
     }
 

@@ -145,7 +145,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param maxNumber The max number of productId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setProductId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+    protected void setProductId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueProductId(), "PRODUCT_ID", rangeOfOption);
     }
 
@@ -377,7 +377,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param productName The value of productName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setProductName_LikeSearch(String productName, LikeSearchOption likeSearchOption) {
+    protected void setProductName_LikeSearch(String productName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(productName), xgetCValueProductName(), "PRODUCT_NAME", likeSearchOption);
     }
 
@@ -399,7 +399,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param productName The value of productName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setProductName_NotLikeSearch(String productName, LikeSearchOption likeSearchOption) {
+    protected void setProductName_NotLikeSearch(String productName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(productName), xgetCValueProductName(), "PRODUCT_NAME", likeSearchOption);
     }
 
@@ -530,7 +530,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param productHandleCode The value of productHandleCode as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setProductHandleCode_LikeSearch(String productHandleCode, LikeSearchOption likeSearchOption) {
+    protected void setProductHandleCode_LikeSearch(String productHandleCode, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(productHandleCode), xgetCValueProductHandleCode(), "PRODUCT_HANDLE_CODE", likeSearchOption);
     }
 
@@ -552,7 +552,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param productHandleCode The value of productHandleCode as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setProductHandleCode_NotLikeSearch(String productHandleCode, LikeSearchOption likeSearchOption) {
+    protected void setProductHandleCode_NotLikeSearch(String productHandleCode, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(productHandleCode), xgetCValueProductHandleCode(), "PRODUCT_HANDLE_CODE", likeSearchOption);
     }
 
@@ -805,7 +805,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of latestPurchaseDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setLatestPurchaseDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
+    protected void setLatestPurchaseDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), xgetCValueLatestPurchaseDatetime(), "LATEST_PURCHASE_DATETIME", fromToOption);
     }
 

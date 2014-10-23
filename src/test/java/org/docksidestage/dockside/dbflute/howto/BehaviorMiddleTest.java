@@ -278,33 +278,29 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                        Query Update
     //                                                                        ============
-    /**
-     * Queryを使った更新: queryUpdate().
-     * 会員ステータスが正式会員の会員を全て仮会員にする。
-     * ConditionBeanで設定した条件で一括削除が可能である。(排他制御はない)
-     * @since 0.7.5
-     */
     public void test_queryUpdate() {
         // ## Arrange ##
-        deleteMemberReferrer();// for Test
+        deleteMemberReferrer();
 
         Member member = new Member();
-        member.setMemberStatusCode_Provisional();// 会員ステータスを「仮会員」に
-        member.setFormalizedDatetime(null);// 正式会員日時を「null」に
+        member.setMemberName("queryUpdate()");
+        member.setMemberStatusCode_Provisional();
+        member.setFormalizedDatetime(null);
 
+        // ## Act ##
         int updatedCount = memberBhv.queryUpdate(member, cb -> {
-            /* ## Act ## */
             cb.query().setMemberStatusCode_Equal_Formalized();
         });
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
-        ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
-            actualCB.query().setMemberStatusCode_Equal_Provisional();
-            actualCB.query().setFormalizedDatetime_IsNull();
-            actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser());
+        int count = memberBhv.selectCount(cb -> {
+            cb.query().setMemberName_Equal("queryUpdate()");
+            cb.query().setMemberStatusCode_Equal_Provisional();
+            cb.query().setFormalizedDatetime_IsNull();
+            cb.query().setUpdateUser_Equal(getAccessContext().getAccessUser());
         });
-        assertEquals(actualList.size(), updatedCount);
+        assertEquals(count, updatedCount);
     }
 
     public void test_queryDelete() {

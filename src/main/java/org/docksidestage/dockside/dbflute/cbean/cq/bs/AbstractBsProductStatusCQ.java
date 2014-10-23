@@ -484,7 +484,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * @param productStatusName The value of productStatusName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setProductStatusName_LikeSearch(String productStatusName, LikeSearchOption likeSearchOption) {
+    protected void setProductStatusName_LikeSearch(String productStatusName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(productStatusName), xgetCValueProductStatusName(), "PRODUCT_STATUS_NAME", likeSearchOption);
     }
 
@@ -506,7 +506,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * @param productStatusName The value of productStatusName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setProductStatusName_NotLikeSearch(String productStatusName, LikeSearchOption likeSearchOption) {
+    protected void setProductStatusName_NotLikeSearch(String productStatusName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(productStatusName), xgetCValueProductStatusName(), "PRODUCT_STATUS_NAME", likeSearchOption);
     }
 
@@ -597,7 +597,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * @param maxNumber The max number of displayOrder. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+    protected void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueDisplayOrder(), "DISPLAY_ORDER", rangeOfOption);
     }
 

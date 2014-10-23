@@ -1,6 +1,5 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.query;
 
-import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.exception.InvalidQueryRegisteredException;
@@ -129,14 +128,13 @@ public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.checkNullOrEmptyQuery();
-        LikeSearchOption option = new LikeSearchOption().splitByPipeLine();
-        cb.query().setMemberName_LikeSearch("FOO|BAR||QUX", option); // OK
+        cb.query().setMemberName_LikeSearch("FOO|BAR||QUX", op -> op.splitByPipeLine()); // OK
         String sql = cb.toDisplaySql();
         assertTrue(Srl.containsAll(sql, "FOO", "BAR", "QUX"));
         assertEquals(3, Srl.count(sql, " like "));
         log(ln() + sql);
         try {
-            cb.query().setMemberName_LikeSearch("|||", option);
+            cb.query().setMemberName_LikeSearch("|||", op -> op.splitByPipeLine());
 
             // ## Assert ##
             fail();

@@ -145,7 +145,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param maxNumber The max number of memberId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setMemberId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+    protected void setMemberId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueMemberId(), "MEMBER_ID", rangeOfOption);
     }
 
@@ -296,7 +296,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param loginPassword The value of loginPassword as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setLoginPassword_LikeSearch(String loginPassword, LikeSearchOption likeSearchOption) {
+    protected void setLoginPassword_LikeSearch(String loginPassword, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(loginPassword), xgetCValueLoginPassword(), "LOGIN_PASSWORD", likeSearchOption);
     }
 
@@ -318,7 +318,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param loginPassword The value of loginPassword as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setLoginPassword_NotLikeSearch(String loginPassword, LikeSearchOption likeSearchOption) {
+    protected void setLoginPassword_NotLikeSearch(String loginPassword, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(loginPassword), xgetCValueLoginPassword(), "LOGIN_PASSWORD", likeSearchOption);
     }
 
@@ -431,7 +431,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param reminderQuestion The value of reminderQuestion as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setReminderQuestion_LikeSearch(String reminderQuestion, LikeSearchOption likeSearchOption) {
+    protected void setReminderQuestion_LikeSearch(String reminderQuestion, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(reminderQuestion), xgetCValueReminderQuestion(), "REMINDER_QUESTION", likeSearchOption);
     }
 
@@ -453,7 +453,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param reminderQuestion The value of reminderQuestion as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setReminderQuestion_NotLikeSearch(String reminderQuestion, LikeSearchOption likeSearchOption) {
+    protected void setReminderQuestion_NotLikeSearch(String reminderQuestion, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(reminderQuestion), xgetCValueReminderQuestion(), "REMINDER_QUESTION", likeSearchOption);
     }
 
@@ -566,7 +566,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param reminderAnswer The value of reminderAnswer as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setReminderAnswer_LikeSearch(String reminderAnswer, LikeSearchOption likeSearchOption) {
+    protected void setReminderAnswer_LikeSearch(String reminderAnswer, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(reminderAnswer), xgetCValueReminderAnswer(), "REMINDER_ANSWER", likeSearchOption);
     }
 
@@ -588,7 +588,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param reminderAnswer The value of reminderAnswer as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setReminderAnswer_NotLikeSearch(String reminderAnswer, LikeSearchOption likeSearchOption) {
+    protected void setReminderAnswer_NotLikeSearch(String reminderAnswer, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(reminderAnswer), xgetCValueReminderAnswer(), "REMINDER_ANSWER", likeSearchOption);
     }
 
@@ -679,7 +679,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param maxNumber The max number of reminderUseCount. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setReminderUseCount_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+    protected void setReminderUseCount_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueReminderUseCount(), "REMINDER_USE_COUNT", rangeOfOption);
     }
 
@@ -779,7 +779,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setRegisterDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
+    protected void setRegisterDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), xgetCValueRegisterDatetime(), "REGISTER_DATETIME", fromToOption);
     }
 
@@ -892,7 +892,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param registerUser The value of registerUser as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setRegisterUser_LikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
+    protected void setRegisterUser_LikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(registerUser), xgetCValueRegisterUser(), "REGISTER_USER", likeSearchOption);
     }
 
@@ -914,7 +914,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param registerUser The value of registerUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setRegisterUser_NotLikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
+    protected void setRegisterUser_NotLikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(registerUser), xgetCValueRegisterUser(), "REGISTER_USER", likeSearchOption);
     }
 
@@ -988,7 +988,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setUpdateDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
+    protected void setUpdateDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), xgetCValueUpdateDatetime(), "UPDATE_DATETIME", fromToOption);
     }
 
@@ -1101,7 +1101,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param updateUser The value of updateUser as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setUpdateUser_LikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
+    protected void setUpdateUser_LikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(updateUser), xgetCValueUpdateUser(), "UPDATE_USER", likeSearchOption);
     }
 
@@ -1123,7 +1123,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param updateUser The value of updateUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setUpdateUser_NotLikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
+    protected void setUpdateUser_NotLikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(updateUser), xgetCValueUpdateUser(), "UPDATE_USER", likeSearchOption);
     }
 
@@ -1214,7 +1214,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param maxNumber The max number of versionNo. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setVersionNo_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
+    protected void setVersionNo_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueVersionNo(), "VERSION_NO", rangeOfOption);
     }
 

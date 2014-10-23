@@ -419,7 +419,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @param regionName The value of regionName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setRegionName_LikeSearch(String regionName, LikeSearchOption likeSearchOption) {
+    protected void setRegionName_LikeSearch(String regionName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(regionName), xgetCValueRegionName(), "REGION_NAME", likeSearchOption);
     }
 
@@ -441,7 +441,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @param regionName The value of regionName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setRegionName_NotLikeSearch(String regionName, LikeSearchOption likeSearchOption) {
+    protected void setRegionName_NotLikeSearch(String regionName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(regionName), xgetCValueRegionName(), "REGION_NAME", likeSearchOption);
     }
 

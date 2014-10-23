@@ -11,7 +11,6 @@ import java.util.Set;
 
 import org.dbflute.bhv.core.context.ConditionBeanContext;
 import org.dbflute.bhv.readable.EntityRowHandler;
-import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.exception.DangerousResultSizeException;
@@ -94,8 +93,8 @@ public class WxCBBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         List<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().setMemberName_LikeSearch("S", new LikeSearchOption().likePrefix());
-            cb.query().setMemberName_LikeSearch("t", new LikeSearchOption().likeContain());
+            cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+            cb.query().setMemberName_LikeSearch("t", op -> op.likeContain());
         });
 
         // ## Assert ##

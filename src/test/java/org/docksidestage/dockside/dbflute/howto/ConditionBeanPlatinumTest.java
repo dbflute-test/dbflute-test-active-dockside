@@ -9,7 +9,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
-import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.result.PagingResultBean;
 import org.dbflute.cbean.scoping.SpecifyQuery;
@@ -92,11 +91,9 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         String keyword = "S jko ic";
         List<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            // *Point!
-                LikeSearchOption option = new LikeSearchOption().likeContain().splitBySpace();
-                cb.query().setMemberName_LikeSearch(keyword, option);
-                pushCB(cb);
-            });
+            cb.query().setMemberName_LikeSearch(keyword, op -> op.likeContain().splitBySpace());
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -130,11 +127,9 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         String keyword = "Sto avi uke";
         List<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            // *Point!
-                LikeSearchOption option = new LikeSearchOption().likeContain().splitBySpace().asOrSplit();
-                cb.query().setMemberName_LikeSearch(keyword, option);
-                pushCB(cb);
-            });
+            cb.query().setMemberName_LikeSearch(keyword, op -> op.likeContain().splitBySpace().asOrSplit());
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertNotNull(memberList);
@@ -196,18 +191,17 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     public void test_query_exists_union() {
         final ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            final LikeSearchOption option = new LikeSearchOption().likeContain();
             cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB purchaseCB) {
                     purchaseCB.query().setPurchaseCount_GreaterThan(2);
                     purchaseCB.union(new UnionQuery<PurchaseCB>() {
                         public void query(PurchaseCB purchaseUnionCB) {
-                            purchaseUnionCB.query().queryProduct().setProductName_LikeSearch("s", option);
+                            purchaseUnionCB.query().queryProduct().setProductName_LikeSearch("s", op -> op.likeContain());
                         }
                     });
                     purchaseCB.union(new UnionQuery<PurchaseCB>() {
                         public void query(PurchaseCB purchaseUnionCB) {
-                            purchaseUnionCB.query().queryProduct().setProductName_LikeSearch("a", option);
+                            purchaseUnionCB.query().queryProduct().setProductName_LikeSearch("a", op -> op.likeContain());
                         }
                     });
                 }
@@ -395,17 +389,16 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
 
-            final LikeSearchOption prefixOption = new LikeSearchOption().likePrefix();
             boolean first = true;
             for (final String keyword : keywordList) {
                 if (first) {
-                    cb.query().setMemberAccount_LikeSearch(keyword, prefixOption);
+                    cb.query().setMemberAccount_LikeSearch(keyword, op -> op.likePrefix());
                     first = false;
                     continue;
                 }
                 cb.union(new UnionQuery<MemberCB>() {
                     public void query(MemberCB unionCB) {
-                        unionCB.query().setMemberAccount_LikeSearch(keyword, prefixOption);
+                        unionCB.query().setMemberAccount_LikeSearch(keyword, op -> op.likePrefix());
                     }
                 });
             }
@@ -1184,8 +1177,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            LikeSearchOption likeSearchOption = new LikeSearchOption().likeContain();
-            cb.query().queryMemberAddressAsValid(targetDate).setAddress_LikeSearch(targetChar, likeSearchOption);
+            cb.query().queryMemberAddressAsValid(targetDate).setAddress_LikeSearch(targetChar, op -> op.likeContain());
             cb.query().queryMemberAddressAsValid(targetDate).addOrderBy_Address_Asc();
             cb.query().addOrderBy_MemberId_Asc();
             pushCB(cb);
@@ -1195,7 +1187,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         assertFalse(memberList.isEmpty());
         memberBhv.loadMemberAddress(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
             public void setup(MemberAddressCB cb) {
-                cb.query().setAddress_LikeSearch(targetChar, new LikeSearchOption().likeContain());
+                cb.query().setAddress_LikeSearch(targetChar, op -> op.likeContain());
                 cb.query().setValidBeginDate_LessEqual(targetDate);
                 cb.query().setValidEndDate_GreaterEqual(targetDate);
             }

@@ -1,6 +1,5 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.query;
 
-import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
@@ -27,9 +26,9 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            LikeSearchOption option = new LikeSearchOption().likeContain();
-            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-            cb.query().setMemberName_LikeSearch("P", option);
+            cb.query().setMemberName_LikeSearch("P", op -> {
+                op.likeContain().addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+            });
             pushCB(cb);
         });
 
@@ -62,10 +61,11 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            LikeSearchOption option = new LikeSearchOption().likePrefix();
-            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-            option.optimizeCompoundColumnByFixedSize(9, 20);
-            cb.query().setMemberName_LikeSearch("StojkovicPix", option);
+            cb.query().setMemberName_LikeSearch("StojkovicPix", op -> {
+                op.likePrefix();
+                op.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+                op.optimizeCompoundColumnByFixedSize(9, 20);
+            });
             pushCB(cb);
         });
 
@@ -82,12 +82,13 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            LikeSearchOption option = new LikeSearchOption().likeContain();
-            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-            option.optimizeCompoundColumnByFixedSize(9, 20); // no optimization
-                cb.query().setMemberName_LikeSearch("vicPix", option);
-                pushCB(cb);
-            });
+            cb.query().setMemberName_LikeSearch("vicPix", op -> {
+                op.likeContain();
+                op.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+                op.optimizeCompoundColumnByFixedSize(9, 20); // no optimization
+                });
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertEquals("Stojkovic", member.getMemberName());
@@ -101,10 +102,11 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            LikeSearchOption option = new LikeSearchOption().likePrefix();
-            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-            option.optimizeCompoundColumnByFixedSize(9, 4);
-            cb.query().setMemberName_LikeSearch("StojkovicPixy", option);
+            cb.query().setMemberName_LikeSearch("StojkovicPixy", op -> {
+                op.likePrefix();
+                op.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+                op.optimizeCompoundColumnByFixedSize(9, 4);
+            });
             pushCB(cb);
         });
 
@@ -121,11 +123,12 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            LikeSearchOption option = new LikeSearchOption().likePrefix();
-            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-            option.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
-            option.optimizeCompoundColumnByFixedSize(9, 4, 6);
-            cb.query().setMemberName_LikeSearch("Stojko", option);
+            cb.query().setMemberName_LikeSearch("Stojko", op -> {
+                op.likePrefix();
+                op.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+                op.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
+                op.optimizeCompoundColumnByFixedSize(9, 4, 6);
+            });
             pushCB(cb);
         });
 
@@ -142,11 +145,12 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            LikeSearchOption option = new LikeSearchOption().likePrefix();
-            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-            option.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
-            option.optimizeCompoundColumnByFixedSize(9, 4, 6);
-            cb.query().setMemberName_LikeSearch("StojkovicPi", option);
+            cb.query().setMemberName_LikeSearch("StojkovicPi", op -> {
+                op.likePrefix();
+                op.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+                op.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
+                op.optimizeCompoundColumnByFixedSize(9, 4, 6);
+            });
             pushCB(cb);
         });
 
@@ -164,11 +168,12 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            LikeSearchOption option = new LikeSearchOption().likePrefix();
-            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-            option.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
-            option.optimizeCompoundColumnByFixedSize(9);
-            cb.query().setMemberName_LikeSearch("StojkovicPix", option);
+            cb.query().setMemberName_LikeSearch("StojkovicPix", op -> {
+                op.likePrefix();
+                op.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+                op.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
+                op.optimizeCompoundColumnByFixedSize(9);
+            });
             pushCB(cb);
         });
 
@@ -185,11 +190,12 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            LikeSearchOption option = new LikeSearchOption().likePrefix();
-            option.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
-            option.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
-            option.optimizeCompoundColumnByFixedSize(9);
-            cb.query().setMemberName_LikeSearch("Stoj", option);
+            cb.query().setMemberName_LikeSearch("Stoj", op -> {
+                op.likePrefix();
+                op.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
+                op.addCompoundColumn(dreamCruiseCB.specify().columnRegisterUser());
+                op.optimizeCompoundColumnByFixedSize(9);
+            });
             pushCB(cb);
         });
 

@@ -167,7 +167,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param productCategoryCode The value of productCategoryCode as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setProductCategoryCode_LikeSearch(String productCategoryCode, LikeSearchOption likeSearchOption) {
+    protected void setProductCategoryCode_LikeSearch(String productCategoryCode, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(productCategoryCode), xgetCValueProductCategoryCode(), "PRODUCT_CATEGORY_CODE", likeSearchOption);
     }
 
@@ -189,7 +189,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param productCategoryCode The value of productCategoryCode as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setProductCategoryCode_NotLikeSearch(String productCategoryCode, LikeSearchOption likeSearchOption) {
+    protected void setProductCategoryCode_NotLikeSearch(String productCategoryCode, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(productCategoryCode), xgetCValueProductCategoryCode(), "PRODUCT_CATEGORY_CODE", likeSearchOption);
     }
 
@@ -476,7 +476,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param productCategoryName The value of productCategoryName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setProductCategoryName_LikeSearch(String productCategoryName, LikeSearchOption likeSearchOption) {
+    protected void setProductCategoryName_LikeSearch(String productCategoryName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(productCategoryName), xgetCValueProductCategoryName(), "PRODUCT_CATEGORY_NAME", likeSearchOption);
     }
 
@@ -498,7 +498,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param productCategoryName The value of productCategoryName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setProductCategoryName_NotLikeSearch(String productCategoryName, LikeSearchOption likeSearchOption) {
+    protected void setProductCategoryName_NotLikeSearch(String productCategoryName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(productCategoryName), xgetCValueProductCategoryName(), "PRODUCT_CATEGORY_NAME", likeSearchOption);
     }
 
@@ -611,7 +611,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param parentCategoryCode The value of parentCategoryCode as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    public void setParentCategoryCode_LikeSearch(String parentCategoryCode, LikeSearchOption likeSearchOption) {
+    protected void setParentCategoryCode_LikeSearch(String parentCategoryCode, LikeSearchOption likeSearchOption) {
         regLSQ(CK_LS, fRES(parentCategoryCode), xgetCValueParentCategoryCode(), "PARENT_CATEGORY_CODE", likeSearchOption);
     }
 
@@ -633,7 +633,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param parentCategoryCode The value of parentCategoryCode as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    public void setParentCategoryCode_NotLikeSearch(String parentCategoryCode, LikeSearchOption likeSearchOption) {
+    protected void setParentCategoryCode_NotLikeSearch(String parentCategoryCode, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(parentCategoryCode), xgetCValueParentCategoryCode(), "PARENT_CATEGORY_CODE", likeSearchOption);
     }
 
