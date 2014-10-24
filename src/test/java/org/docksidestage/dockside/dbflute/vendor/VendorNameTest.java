@@ -3,9 +3,7 @@ package org.docksidestage.dockside.dbflute.vendor;
 import java.util.List;
 
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.util.Srl;
-import org.docksidestage.dockside.dbflute.cbean.VendorTheLongAndWindingTableAndColumnRefCB;
 import org.docksidestage.dockside.dbflute.exbhv.Vendor$DollarBhv;
 import org.docksidestage.dockside.dbflute.exbhv.VendorCheckBhv;
 import org.docksidestage.dockside.dbflute.exbhv.VendorTheLongAndWindingTableAndColumnBhv;
@@ -74,12 +72,12 @@ public class VendorNameTest extends UnitContainerTestCase {
             assertNotNull(ref.getShortDate());
             assertEquals("2011/10", toString(ref.getTheLongAndWindingTableAndColumnRefDate(), "yyyy/MM"));
             assertEquals("2000/01", toString(ref.getShortDate(), "yyyy/MM"));
-            VendorTheLongAndWindingTableAndColumn main = ref.getVendorTheLongAndWindingTableAndColumn();
-            assertNotNull(main);
-            assertNotNull(main.getTheLongAndWindingTableAndColumnId());
-            assertEquals("longName", main.getTheLongAndWindingTableAndColumnName());
-            assertEquals("shortName", main.getShortName());
-            assertEquals(3, main.getShortSize());
+            ref.getVendorTheLongAndWindingTableAndColumn().alwaysPresent(main -> {
+                assertNotNull(main.getTheLongAndWindingTableAndColumnId());
+                assertEquals("longName", main.getTheLongAndWindingTableAndColumnName());
+                assertEquals("shortName", main.getShortName());
+                assertEquals(3, main.getShortSize());
+            });
         }
         String sql = popCB().toDisplaySql();
         log(ln() + sql);
@@ -94,10 +92,7 @@ public class VendorNameTest extends UnitContainerTestCase {
         registerTheLongAndWindingData();
         ListResultBean<VendorTheLongAndWindingTableAndColumnRef> refList = vendorTheLongAndWindingTableAndColumnRefBhv.selectList(cb -> {
             cb.setupSelect_VendorTheLongAndWindingTableAndColumn();
-            cb.union(new UnionQuery<VendorTheLongAndWindingTableAndColumnRefCB>() {
-                public void query(VendorTheLongAndWindingTableAndColumnRefCB unionCB) {
-                }
-            });
+            cb.union(unionCB -> {});
             cb.query().addOrderBy_TheLongAndWindingTableAndColumnRefDate_Asc();
             cb.query().addOrderBy_TheLongAndWindingTableAndColumnRefId_Asc();
         });
@@ -111,12 +106,12 @@ public class VendorNameTest extends UnitContainerTestCase {
             assertNotNull(ref.getShortDate());
             assertEquals("2011/10", toString(ref.getTheLongAndWindingTableAndColumnRefDate(), "yyyy/MM"));
             assertEquals("2000/01", toString(ref.getShortDate(), "yyyy/MM"));
-            VendorTheLongAndWindingTableAndColumn main = ref.getVendorTheLongAndWindingTableAndColumn();
-            assertNotNull(main);
-            assertNotNull(main.getTheLongAndWindingTableAndColumnId());
-            assertEquals("longName", main.getTheLongAndWindingTableAndColumnName());
-            assertEquals("shortName", main.getShortName());
-            assertEquals(3, main.getShortSize());
+            ref.getVendorTheLongAndWindingTableAndColumn().alwaysPresent(main -> {
+                assertNotNull(main.getTheLongAndWindingTableAndColumnId());
+                assertEquals("longName", main.getTheLongAndWindingTableAndColumnName());
+                assertEquals("shortName", main.getShortName());
+                assertEquals(3, main.getShortSize());
+            });
         }
     }
 

@@ -18,8 +18,10 @@ package org.docksidestage.dockside.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.allcommon.EntityDefinedCommonColumn;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
@@ -289,13 +291,15 @@ public abstract class BsMemberService extends AbstractEntity implements EntityDe
     //                                                                    Foreign Property
     //                                                                    ================
     /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
-    protected Member _member;
+    protected OptionalEntity<Member> _member;
 
     /**
      * [get] (会員)MEMBER by my MEMBER_ID, named 'member'. <br />
-     * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'member'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public Member getMember() {
+    public OptionalEntity<Member> getMember() {
+        if (_member == null) { _member = OptionalEntity.relationEmpty(this, "member"); }
         return _member;
     }
 
@@ -303,18 +307,20 @@ public abstract class BsMemberService extends AbstractEntity implements EntityDe
      * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
-    public void setMember(Member member) {
+    public void setMember(OptionalEntity<Member> member) {
         _member = member;
     }
 
     /** (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'. */
-    protected ServiceRank _serviceRank;
+    protected OptionalEntity<ServiceRank> _serviceRank;
 
     /**
      * [get] (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'. <br />
-     * @return The entity of foreign property 'serviceRank'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'serviceRank'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public ServiceRank getServiceRank() {
+    public OptionalEntity<ServiceRank> getServiceRank() {
+        if (_serviceRank == null) { _serviceRank = OptionalEntity.relationEmpty(this, "serviceRank"); }
         return _serviceRank;
     }
 
@@ -322,7 +328,7 @@ public abstract class BsMemberService extends AbstractEntity implements EntityDe
      * [set] (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
      * @param serviceRank The entity of foreign property 'serviceRank'. (NullAllowed)
      */
-    public void setServiceRank(ServiceRank serviceRank) {
+    public void setServiceRank(OptionalEntity<ServiceRank> serviceRank) {
         _serviceRank = serviceRank;
     }
 
@@ -358,11 +364,14 @@ public abstract class BsMemberService extends AbstractEntity implements EntityDe
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null)
+        if (_member != null && _member.isPresent())
         { sb.append(li).append(xbRDS(_member, "member")); }
-        if (_serviceRank != null)
+        if (_serviceRank != null && _serviceRank.isPresent())
         { sb.append(li).append(xbRDS(_serviceRank, "serviceRank")); }
         return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override

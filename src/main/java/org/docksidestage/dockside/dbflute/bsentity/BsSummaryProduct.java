@@ -18,8 +18,10 @@ package org.docksidestage.dockside.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
@@ -217,13 +219,15 @@ public abstract class BsSummaryProduct extends AbstractEntity {
     //                                                                    Foreign Property
     //                                                                    ================
     /** (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. */
-    protected ProductStatus _productStatus;
+    protected OptionalEntity<ProductStatus> _productStatus;
 
     /**
      * [get] (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br />
-     * @return The entity of foreign property 'productStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'productStatus'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public ProductStatus getProductStatus() {
+    public OptionalEntity<ProductStatus> getProductStatus() {
+        if (_productStatus == null) { _productStatus = OptionalEntity.relationEmpty(this, "productStatus"); }
         return _productStatus;
     }
 
@@ -231,7 +235,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * [set] (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      * @param productStatus The entity of foreign property 'productStatus'. (NullAllowed)
      */
-    public void setProductStatus(ProductStatus productStatus) {
+    public void setProductStatus(OptionalEntity<ProductStatus> productStatus) {
         _productStatus = productStatus;
     }
 
@@ -287,11 +291,14 @@ public abstract class BsSummaryProduct extends AbstractEntity {
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_productStatus != null)
+        if (_productStatus != null && _productStatus.isPresent())
         { sb.append(li).append(xbRDS(_productStatus, "productStatus")); }
         if (_purchaseList != null) { for (Purchase et : _purchaseList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "purchaseList")); } } }
         return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override

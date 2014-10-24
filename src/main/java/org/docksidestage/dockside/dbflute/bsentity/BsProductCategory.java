@@ -18,8 +18,10 @@ package org.docksidestage.dockside.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
@@ -120,13 +122,15 @@ public abstract class BsProductCategory extends AbstractEntity {
     //                                                                    Foreign Property
     //                                                                    ================
     /** (商品カテゴリ)PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'. */
-    protected ProductCategory _productCategorySelf;
+    protected OptionalEntity<ProductCategory> _productCategorySelf;
 
     /**
      * [get] (商品カテゴリ)PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'. <br />
-     * @return The entity of foreign property 'productCategorySelf'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'productCategorySelf'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public ProductCategory getProductCategorySelf() {
+    public OptionalEntity<ProductCategory> getProductCategorySelf() {
+        if (_productCategorySelf == null) { _productCategorySelf = OptionalEntity.relationEmpty(this, "productCategorySelf"); }
         return _productCategorySelf;
     }
 
@@ -134,7 +138,7 @@ public abstract class BsProductCategory extends AbstractEntity {
      * [set] (商品カテゴリ)PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
      * @param productCategorySelf The entity of foreign property 'productCategorySelf'. (NullAllowed)
      */
-    public void setProductCategorySelf(ProductCategory productCategorySelf) {
+    public void setProductCategorySelf(OptionalEntity<ProductCategory> productCategorySelf) {
         _productCategorySelf = productCategorySelf;
     }
 
@@ -210,13 +214,16 @@ public abstract class BsProductCategory extends AbstractEntity {
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_productCategorySelf != null)
+        if (_productCategorySelf != null && _productCategorySelf.isPresent())
         { sb.append(li).append(xbRDS(_productCategorySelf, "productCategorySelf")); }
         if (_productList != null) { for (Product et : _productList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "productList")); } } }
         if (_productCategorySelfList != null) { for (ProductCategory et : _productCategorySelfList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "productCategorySelfList")); } } }
         return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override

@@ -18,8 +18,10 @@ package org.docksidestage.dockside.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.allcommon.EntityDefinedCommonColumn;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
@@ -282,13 +284,15 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
     //                                                                    Foreign Property
     //                                                                    ================
     /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
-    protected Member _member;
+    protected OptionalEntity<Member> _member;
 
     /**
      * [get] (会員)MEMBER by my MEMBER_ID, named 'member'. <br />
-     * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'member'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public Member getMember() {
+    public OptionalEntity<Member> getMember() {
+        if (_member == null) { _member = OptionalEntity.relationEmpty(this, "member"); }
         return _member;
     }
 
@@ -296,18 +300,20 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
-    public void setMember(Member member) {
+    public void setMember(OptionalEntity<Member> member) {
         _member = member;
     }
 
     /** (商品)PRODUCT by my PRODUCT_ID, named 'product'. */
-    protected Product _product;
+    protected OptionalEntity<Product> _product;
 
     /**
      * [get] (商品)PRODUCT by my PRODUCT_ID, named 'product'. <br />
-     * @return The entity of foreign property 'product'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'product'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public Product getProduct() {
+    public OptionalEntity<Product> getProduct() {
+        if (_product == null) { _product = OptionalEntity.relationEmpty(this, "product"); }
         return _product;
     }
 
@@ -315,18 +321,20 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * [set] (商品)PRODUCT by my PRODUCT_ID, named 'product'.
      * @param product The entity of foreign property 'product'. (NullAllowed)
      */
-    public void setProduct(Product product) {
+    public void setProduct(OptionalEntity<Product> product) {
         _product = product;
     }
 
     /** SUMMARY_PRODUCT by my PRODUCT_ID, named 'summaryProduct'. */
-    protected SummaryProduct _summaryProduct;
+    protected OptionalEntity<SummaryProduct> _summaryProduct;
 
     /**
      * [get] SUMMARY_PRODUCT by my PRODUCT_ID, named 'summaryProduct'. <br />
-     * @return The entity of foreign property 'summaryProduct'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'summaryProduct'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public SummaryProduct getSummaryProduct() {
+    public OptionalEntity<SummaryProduct> getSummaryProduct() {
+        if (_summaryProduct == null) { _summaryProduct = OptionalEntity.relationEmpty(this, "summaryProduct"); }
         return _summaryProduct;
     }
 
@@ -334,7 +342,7 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
      * [set] SUMMARY_PRODUCT by my PRODUCT_ID, named 'summaryProduct'.
      * @param summaryProduct The entity of foreign property 'summaryProduct'. (NullAllowed)
      */
-    public void setSummaryProduct(SummaryProduct summaryProduct) {
+    public void setSummaryProduct(OptionalEntity<SummaryProduct> summaryProduct) {
         _summaryProduct = summaryProduct;
     }
 
@@ -390,15 +398,18 @@ public abstract class BsPurchase extends AbstractEntity implements EntityDefined
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null)
+        if (_member != null && _member.isPresent())
         { sb.append(li).append(xbRDS(_member, "member")); }
-        if (_product != null)
+        if (_product != null && _product.isPresent())
         { sb.append(li).append(xbRDS(_product, "product")); }
-        if (_summaryProduct != null)
+        if (_summaryProduct != null && _summaryProduct.isPresent())
         { sb.append(li).append(xbRDS(_summaryProduct, "summaryProduct")); }
         if (_purchasePaymentList != null) { for (PurchasePayment et : _purchasePaymentList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "purchasePaymentList")); } } }
         return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override

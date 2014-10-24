@@ -37,10 +37,12 @@ public class VendorViewTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
+        assertHasAnyElement(purchaseList);
         for (Purchase purchase : purchaseList) {
-            SummaryProduct summaryProduct = purchase.getSummaryProduct();
-            log(purchase.getPurchaseId() + ", " + summaryProduct);
-            assertNotNull(summaryProduct);
+            purchase.getSummaryProduct().alwaysPresent(product -> {
+                log(purchase.getPurchaseId() + ", " + product);
+                assertNotNull(product);
+            });
         }
     }
 

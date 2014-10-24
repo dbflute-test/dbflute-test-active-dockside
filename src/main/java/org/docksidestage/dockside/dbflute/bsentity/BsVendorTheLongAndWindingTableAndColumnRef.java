@@ -18,8 +18,10 @@ package org.docksidestage.dockside.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
@@ -124,13 +126,15 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
     //                                                                    Foreign Property
     //                                                                    ================
     /** VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'. */
-    protected VendorTheLongAndWindingTableAndColumn _vendorTheLongAndWindingTableAndColumn;
+    protected OptionalEntity<VendorTheLongAndWindingTableAndColumn> _vendorTheLongAndWindingTableAndColumn;
 
     /**
      * [get] VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'. <br />
-     * @return The entity of foreign property 'vendorTheLongAndWindingTableAndColumn'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'vendorTheLongAndWindingTableAndColumn'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public VendorTheLongAndWindingTableAndColumn getVendorTheLongAndWindingTableAndColumn() {
+    public OptionalEntity<VendorTheLongAndWindingTableAndColumn> getVendorTheLongAndWindingTableAndColumn() {
+        if (_vendorTheLongAndWindingTableAndColumn == null) { _vendorTheLongAndWindingTableAndColumn = OptionalEntity.relationEmpty(this, "vendorTheLongAndWindingTableAndColumn"); }
         return _vendorTheLongAndWindingTableAndColumn;
     }
 
@@ -138,7 +142,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
      * [set] VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN by my THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumn'.
      * @param vendorTheLongAndWindingTableAndColumn The entity of foreign property 'vendorTheLongAndWindingTableAndColumn'. (NullAllowed)
      */
-    public void setVendorTheLongAndWindingTableAndColumn(VendorTheLongAndWindingTableAndColumn vendorTheLongAndWindingTableAndColumn) {
+    public void setVendorTheLongAndWindingTableAndColumn(OptionalEntity<VendorTheLongAndWindingTableAndColumn> vendorTheLongAndWindingTableAndColumn) {
         _vendorTheLongAndWindingTableAndColumn = vendorTheLongAndWindingTableAndColumn;
     }
 
@@ -174,9 +178,12 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_vendorTheLongAndWindingTableAndColumn != null)
+        if (_vendorTheLongAndWindingTableAndColumn != null && _vendorTheLongAndWindingTableAndColumn.isPresent())
         { sb.append(li).append(xbRDS(_vendorTheLongAndWindingTableAndColumn, "vendorTheLongAndWindingTableAndColumn")); }
         return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override

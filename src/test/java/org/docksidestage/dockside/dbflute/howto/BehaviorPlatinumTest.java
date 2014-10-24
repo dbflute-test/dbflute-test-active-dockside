@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.dbflute.bhv.readable.EntityRowHandler;
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.cbean.paging.numberlink.group.PageGroupBean;
 import org.dbflute.cbean.paging.numberlink.range.PageRangeBean;
@@ -40,7 +39,6 @@ import org.docksidestage.dockside.dbflute.exbhv.pmbean.UnpaidSummaryMemberPmb;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberLogin;
 import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
-import org.docksidestage.dockside.dbflute.exentity.Product;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.dbflute.exentity.customize.PurchaseMaxPriceMember;
 import org.docksidestage.dockside.dbflute.exentity.customize.SimpleMember;
@@ -148,11 +146,9 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         memberBhv.selectCursor(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
-        }, new EntityRowHandler<Member>() {
-            public void handle(Member entity) {
-                memberIdSet.add(entity.getMemberId());
-                log(entity.getMemberName() + ", " + entity.getMemberStatus().getMemberStatusName());
-            }
+        }, member -> {
+            memberIdSet.add(member.getMemberId());
+            log(member.getMemberName() + ", " + member.getMemberStatus().map(status -> status.getMemberStatusName()));
         });
 
         // ## Assert ##
@@ -175,15 +171,15 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             List<Purchase> purchaseList = member.getPurchaseList();
             log("[MEMBER]: " + member.getMemberName());
             for (Purchase purchase : purchaseList) {
                 Long purchaseId = purchase.getPurchaseId();
-                Product product = purchase.getProduct();// *Point!
-                log("    [PURCHASE]: purchaseId=" + purchaseId + ", product=" + product);
-                assertNotNull(product);
+                purchase.getProduct().alwaysPresent(product -> {
+                    log("    [PURCHASE]: purchaseId=" + purchaseId + ", product=" + product);
+                });
             }
         }
     }
@@ -241,18 +237,18 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
-        boolean existsMemberLogin = false;
         log("");
         for (Purchase purchase : purchaseList) {
-            Member member = purchase.getMember();
-            log("[PURCHASE & MEMBER]: " + purchase.getPurchaseId() + ", " + member.getMemberName());
-            List<MemberLogin> memberLoginList = member.getMemberLoginList();
-            for (MemberLogin memberLogin : memberLoginList) {
-                log("    [MEMBER_LOGIN]: " + memberLogin);
-                existsMemberLogin = true;
-            }
+            purchase.getMember().alwaysPresent(member -> {
+                log("[PURCHASE & MEMBER]: " + purchase.getPurchaseId() + ", " + member.getMemberName());
+                List<MemberLogin> memberLoginList = member.getMemberLoginList();
+                for (MemberLogin memberLogin : memberLoginList) {
+                    log("    [MEMBER_LOGIN]: " + memberLogin);
+                    markHere("existsMemberLogin");
+                }
+            });
         }
-        assertTrue(existsMemberLogin);
+        assertMarked("existsMemberLogin");
 
         log("");
         boolean existsPurchase = false;

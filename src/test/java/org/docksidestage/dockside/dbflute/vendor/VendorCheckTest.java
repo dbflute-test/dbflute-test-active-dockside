@@ -297,8 +297,7 @@ public class VendorCheckTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_repeat_select_after_select_and_update() {
         // ## Arrange ##
-        Member beforeMember = memberBhv.selectByPK(3).get();
-        Long versionNo = beforeMember.getVersionNo();
+        Long versionNo = memberBhv.selectByPK(3).map(member -> member.getVersionNo()).get();
 
         Member member = new Member();
         member.setMemberId(3);
@@ -309,21 +308,19 @@ public class VendorCheckTest extends UnitContainerTestCase {
         memberBhv.update(member);
 
         // ## Assert ##
-        // Repeat the member as same local table
-        {
-            Member actual = memberBhv.selectByPK(3).get();
+        // repeat the member as same local table
+        memberBhv.selectByPK(3).alwaysPresent(actual -> {
             log("local actual=" + actual);
             assertEquals("testName", actual.getMemberName());
-        }
-        // Repeat the member as joined table
-        {
-            Member actual = purchaseBhv.selectList(purchaseCB -> {
-                purchaseCB.setupSelect_Member();
-                purchaseCB.query().setMemberId_Equal(3);
-            }).get(0).getMember();
+        });
+        // repeat the member as joined table
+        purchaseBhv.selectList(purchaseCB -> {
+            purchaseCB.setupSelect_Member();
+            purchaseCB.query().setMemberId_Equal(3);
+        }).stream().findFirst().get().getMember().alwaysPresent(actual -> {
             log("joined actual=" + actual);
             assertEquals("testName", actual.getMemberName());
-        }
+        });
     }
 
     public void test_repeat_select_after_update() {
@@ -336,21 +333,19 @@ public class VendorCheckTest extends UnitContainerTestCase {
         memberBhv.updateNonstrict(member);
 
         // ## Assert ##
-        // Repeat the member as same local table
-        {
-            Member actual = memberBhv.selectByPK(3).get();
+        // repeat the member as same local table
+        memberBhv.selectByPK(3).alwaysPresent(actual -> {
             log("local actual=" + actual);
             assertEquals("testName", actual.getMemberName());
-        }
-        // Repeat the member as joined table
-        {
-            Member actual = purchaseBhv.selectList(purchaseCB -> {
-                purchaseCB.setupSelect_Member();
-                purchaseCB.query().setMemberId_Equal(3);
-            }).get(0).getMember();
+        });
+        // repeat the member as joined table
+        purchaseBhv.selectList(purchaseCB -> {
+            purchaseCB.setupSelect_Member();
+            purchaseCB.query().setMemberId_Equal(3);
+        }).get(0).getMember().alwaysPresent(actual -> {
             log("joined actual=" + actual);
             assertEquals("testName", actual.getMemberName());
-        }
+        });
     }
 
     public void test_repeat_select_after_update_by_JDBC() throws Exception {

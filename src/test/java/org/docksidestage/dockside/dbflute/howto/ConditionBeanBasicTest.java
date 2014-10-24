@@ -6,8 +6,6 @@ import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.exception.SelectEntityConditionNotFoundException;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
-import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
-import org.docksidestage.dockside.dbflute.exentity.MemberWithdrawal;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -114,26 +112,19 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    /**
-     * many-to-one(FK先)を結合して取得する検索: setupSelect_Xxx().
-     * 「会員」の親テーブルである「会員ステータス」を結合して取得。
-     * many-to-one(FK先)のテーブルに対するsetupSelect_Xxx()メソッドが
-     * それぞれ自動生成されているので、取得したいものを指定する。
-     * NotNull制約のFKであれば、理論的にnullが戻ることはありえない。
-     */
     public void test_setupSelect_Foreign() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.setupSelect_MemberStatus();// *Point!
-            });
+            cb.setupSelect_MemberStatus();
+        });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
-            MemberStatus memberStatus = member.getMemberStatus();
-            assertNotNull("NotNull制約のFKなのでnullはありえない", memberStatus);
-            log(member.getMemberName() + ", " + memberStatus.getMemberStatusName());
+            member.getMemberStatus().alwaysPresent(status -> {
+                log(member.getMemberName() + ", " + status.getMemberStatusName());
+            });
         }
 
         // [SQL]
@@ -141,57 +132,32 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         //   from MEMBER member
         //     left outer join MEMBER_STATUS status
         //       on member.MEMBER_STATUS_CODE = status.MEMBER_STATUS_CODE
-
-        // [Description]
-        // A. setupSelectは「結合先テーブルのカラムをSelect句に並べてEntityにマッピングすること」まで含む。
-        // B. 結合自体は必ずleft outer joinにて実現される。
-        // C. NotNull制約のあるFKの場合は理論的にnullはありえない。
-        //    --> NullableなFKであればnullが戻る可能性がある。
     }
 
-    /**
-     * one-to-oneを結合して取得する検索: setupSelect_Xxx().
-     * 「会員」の1:1の関係にある「会員退会情報」を結合して取得。
-     * 子テーブルの基点テーブルに対するFKカラムが制約的にユニーク(PK or UQ)であれば、
-     * one-to-oneのテーブルに対するsetupSelect_Xxx()メソッドが
-     * それぞれ自動生成されているので、取得したいものを指定する。
-     * 結合先テーブルに該当のデータが無い場合はnullが戻る。
-     */
     public void test_setupSelect_AsOne() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.setupSelect_MemberWithdrawalAsOne();// *Point!
-            });
+            cb.setupSelect_MemberWithdrawalAsOne();
+        });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
-        boolean existsMemberWithdrawal = false;
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             log("[MEMBER]: " + member.getMemberName());
-            MemberWithdrawal memberWithdrawalAsOne = member.getMemberWithdrawalAsOne();// *Point!
-            if (memberWithdrawalAsOne != null) {// {1 : 0...1}の関連なのでnullチェック
-                log("    [MEMBER_WITHDRAWAL]: " + memberWithdrawalAsOne);
-                existsMemberWithdrawal = true;
-            }
+            member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
+                log("    [MEMBER_WITHDRAWAL]: " + withdrawal);
+                markHere("existsMemberWithdrawal");
+            });
         }
-        assertTrue(existsMemberWithdrawal);
+        assertMarked("existsMemberWithdrawal");
 
         // [SQL]
         // select ...
         //   from MEMBER member
         //     left outer join MEMBER_WITHDRAWAL withdrawal
         //       on member.MEMBER_ID = withdrawal.MEMBER_ID
-
-        // [Description]
-        // A. setupSelectは「結合先テーブルのカラムをSelect句に並べてEntityにマッピングすること」まで含む。
-        // B. 結合自体は必ずleft outer joinにて実現される。
-        // C. 結合先テーブルに該当のデータが無い場合はnullが戻る。
     }
-
-    // /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // 子テーブル(Referrer)の取得に関しては、BehaviorMiddleTestのLoadReferrerにて
-    // - - - - - - - - - -/
 
     // ===================================================================================
     //                                                                               Query

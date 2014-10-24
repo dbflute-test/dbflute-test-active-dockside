@@ -8,22 +8,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.result.PagingResultBean;
 import org.dbflute.cbean.scoping.SubQuery;
-import org.dbflute.cbean.scoping.UnionQuery;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
-import org.docksidestage.dockside.dbflute.exentity.MemberWithdrawal;
-import org.docksidestage.dockside.dbflute.exentity.Product;
-import org.docksidestage.dockside.dbflute.exentity.ProductStatus;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
-import org.docksidestage.dockside.dbflute.exentity.WithdrawalReason;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -79,11 +73,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    /**
-     * many(one)-to-one-to-one(親の親)を結合して取得する検索: setupSelect_Xxx().withXxx().
-     * 「会員ステータス」と「会員退会情報」ならびに「退会理由」をSetupSelectして検索。
-     */
-    public void test_setupSelect() {
+    public void test_setupSelect_withForeign() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -92,35 +82,23 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
-        boolean existsWithdrawalReason = false;
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             log("[MEMBER]: " + member.getMemberName());
-            MemberWithdrawal memberWithdrawalAsOne = member.getMemberWithdrawalAsOne();
-            if (memberWithdrawalAsOne != null) { // {1 : 0...1}の関連なのでnullチェック
-                WithdrawalReason withdrawalReason = memberWithdrawalAsOne.getWithdrawalReason();
-                if (withdrawalReason != null) { // NullableなFKなのでnullチェック
-                    String withdrawalReasonCode = memberWithdrawalAsOne.getWithdrawalReasonCode();
-                    String withdrawalReasonText = withdrawalReason.getWithdrawalReasonText();
+            member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
+                withdrawal.getWithdrawalReason().ifPresent(reason -> {
+                    String withdrawalReasonCode = withdrawal.getWithdrawalReasonCode();
+                    String withdrawalReasonText = reason.getWithdrawalReasonText();
                     log("    [WITHDRAWAL]" + withdrawalReasonCode + " - " + withdrawalReasonText);
-                    existsWithdrawalReason = true;
-                } else {
-                    log("    [WITHDRAWAL]" + memberWithdrawalAsOne);
-                }
-            }
+                    markHere("existsWithdrawalReason");
+                }).orElse(() -> {
+                    log("    [WITHDRAWAL]" + withdrawal);
+                });
+            });
         }
-        assertTrue(existsWithdrawalReason);
-
-        // [Description]
-        // A. setupSelect_Xxx()した後に続いてwithXxx()と指定することでさらに上の階層を指定できる。
-        // B. 指定できる階層は無限階層である。(withXxx().withXxx().withXxx()...)
+        assertMarked("existsWithdrawalReason");
     }
 
-    /**
-     * many(one)-to-one-to-one-to-one(親の親の親)を結合して取得する検索: setupSelect_Xxx().withXxx().withXxx().
-     * 購入から会員、会員から会員退会情報、会員退会情報から退会理由までの３階層を結合して取得。
-     * 実務ではあまりこういった検索はないと思われるが、説明材料のExampleとして実装している。
-     */
     public void test_setupSelect_withForeign_withForeign() {
         // ## Arrange ##
         ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
@@ -133,30 +111,26 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             });
 
         // ## Assert ##
-        assertNotSame(0, purchaseList.size());
-        boolean existsWithdrawal = false;
+        assertHasAnyElement(purchaseList);
         for (Purchase purchase : purchaseList) {
-            Product product = purchase.getProduct();
-            ProductStatus productStatus = product.getProductStatus();
-            assertNotNull(product);
-            assertNotNull(productStatus);
-            log("[PURCHASE]: " + purchase.getPurchaseId() + ", " + product.getProductName() + ", " + productStatus);
-            Member member = purchase.getMember();
-            assertNotNull(member);
-            assertNotNull(member.getMemberStatus());
-
-            MemberWithdrawal memberWithdrawalAsOne = member.getMemberWithdrawalAsOne();
-            if (memberWithdrawalAsOne != null) {
-                WithdrawalReason withdrawalReason = memberWithdrawalAsOne.getWithdrawalReason();
-                if (withdrawalReason != null) {
-                    String reasonText = withdrawalReason.getWithdrawalReasonText();
-                    log("    [MEMBER]: " + member.getMemberId() + ", " + member.getMemberName() + ", " + reasonText);
-                    assertNotNull(reasonText);
-                    existsWithdrawal = true;
-                }
-            }
+            purchase.getProduct().alwaysPresent(product -> {
+                product.getProductStatus().alwaysPresent(status -> {
+                    log("[PURCHASE]: " + purchase.getPurchaseId() + ", " + product.getProductName() + ", " + status);
+                });
+            });
+            purchase.getMember().alwaysPresent(member -> {
+                assertTrue(member.getMemberStatus().isPresent());
+                member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
+                    withdrawal.getWithdrawalReason().ifPresent(reason -> {
+                        String reasonText = reason.getWithdrawalReasonText();
+                        log("    [MEMBER]: " + member.getMemberId() + ", " + member.getMemberName() + ", " + reasonText);
+                        assertNotNull(reasonText);
+                        markHere("existsWithdrawal");
+                    });
+                });
+            });
         }
-        assertTrue("退会者が少なくとも一人以上は存在してないとテストにならない", existsWithdrawal);
+        assertMarked("existsWithdrawal");
     }
 
     // /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -676,81 +650,34 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
     // -----------------------------------------------------
     //                                        ExistsReferrer
     //                                        --------------
-    /**
-     * Query-ExistsReferrerで子テーブルの条件で絞り込み: cb.query().existsXxxList().
-     * 一回の購入で二点以上の購入をしたことのある会員を検索。
-     * Existsの相関サブクエリを使って子テーブルの条件で絞り込む。
-     */
     public void test_query_exists_ReferrerCondition() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.query().setPurchaseCount_GreaterThan(2);
-                }
+            cb.query().existsPurchase(purchaseCB -> {
+                purchaseCB.query().setPurchaseCount_GreaterThan(2);
             });
             pushCB(cb);
         });
 
         // ## Assert ##
-        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
-            public void setup(PurchaseCB subCB) {
-                subCB.setupSelect_Product();
-            }
-        });
+        memberBhv.loadPurchase(memberList, purchaseCB -> purchaseCB.setupSelect_Product());
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             log("[MEMBER] " + member.getMemberId() + ", " + member.getMemberName());
             List<Purchase> purchaseList = member.getPurchaseList();
-            boolean existsPurchase = false;
             for (Purchase purchase : purchaseList) {
-                Product product = purchase.getProduct();
-                Integer purchaseCount = purchase.getPurchaseCount();
-                String productName = product.getProductName();
-                log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
-                if (purchaseCount > 2) {
-                    existsPurchase = true;
-                }
+                purchase.getProduct().alwaysPresent(product -> {
+                    Integer purchaseCount = purchase.getPurchaseCount();
+                    String productName = product.getProductName();
+                    log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
+                    if (purchaseCount > 2) {
+                        markHere("existsPurchase");
+                    }
+                });
             }
-            assertTrue(existsPurchase);
+            assertMarked("existsPurchase");
         }
-
-        // [Description]
-        // X. Eclipse(3.3)でのSubQuery実装手順：
-        //    X-1. cb.qu まで書いて補完してEnter!
-        //         --> cb.query() になる
-        // 
-        //    X-2. cb.query().ex まで書いて補完して子テーブルを選択してEnter!
-        //         --> cb.query().existsPurchase(subQuery) になる
-        // 
-        //    X-3. cb.query().existsPurchase(new ) まで書いて補完してEnter!
-        //         --> カーソル位置から入力する文字は「new 」
-        //         --> cb.query().existsPurchase(new SubQuery<PurchaseCB>) になる
-        // 
-        //    X-4. cb.query().existsPurchase(new SubQuery<PurchaseCB>() {) まで書いて補完してEnter!
-        //         --> カーソル位置から入力する文字は「() {」
-        //         --> cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
-        //             })
-        //             になる
-        //         --> [SubQuery<PurchaseCB>]部分と最後の行の[})]部分がコンパイルエラーになる
-        // 
-        //    X-5. コンパイルエラーの[SubQuery<PurchaseCB>]にカーソルを合わせてctrl + 1を押してEnter!
-        //         --> cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
-        //                 public void query(PurchaseCB subCB) {
-        //                     // todo Auto-generated method stub
-        //                 }
-        //             })
-        //             になる
-        //         --> 最後の行の[})]部分でセミコロンがないことでまだコンパイルエラーである
-        // 
-        //    X-6. セミコロンも付ける
-        //         --> cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
-        //                 public void query(PurchaseCB subCB) {
-        //                     // todo Auto-generated method stub
-        //                 }
-        //             });
-        // 
-        //    X-7. TODOのコメント消して子テーブルの「絞り込み条件」を実装する
     }
 
     /**
@@ -772,25 +699,22 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             });
 
         // ## Assert ##
-        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
-            public void setup(PurchaseCB subCB) {
-                subCB.setupSelect_Product();
-            }
-        });
+        memberBhv.loadPurchase(memberList, purchaseCB -> purchaseCB.setupSelect_Product());
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             log("[MEMBER] " + member.getMemberId() + ", " + member.getMemberName());
             List<Purchase> purchaseList = member.getPurchaseList();
-            boolean existsProduct = false;
             for (Purchase purchase : purchaseList) {
-                Product product = purchase.getProduct();
-                Integer purchaseCount = purchase.getPurchaseCount();
-                String productName = product.getProductName();
-                log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
-                if (productName.startsWith("Storm")) {
-                    existsProduct = true;
-                }
+                purchase.getProduct().alwaysPresent(product -> {
+                    Integer purchaseCount = purchase.getPurchaseCount();
+                    String productName = product.getProductName();
+                    log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
+                    if (productName.startsWith("Storm")) {
+                        markHere("existsProduct");
+                    }
+                });
             }
-            assertTrue(existsProduct);
+            assertMarked("existsProduct");
         }
     }
 
@@ -860,120 +784,94 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().notExistsPurchase(subCB -> {
-                subCB.query().setPurchaseCount_GreaterThan(2);
+            cb.query().notExistsPurchase(purchaseCB -> {
+                purchaseCB.query().setPurchaseCount_GreaterThan(2);
             });
             pushCB(cb);
         });
 
         // ## Assert ##
-        ConditionBeanSetupper<PurchaseCB> setuppper = new ConditionBeanSetupper<PurchaseCB>() {
-            public void setup(PurchaseCB subCB) {
-                subCB.setupSelect_Product();
-            }
-        };
-        memberBhv.loadPurchase(memberList, setuppper);
+        memberBhv.loadPurchase(memberList, purchaseCB -> purchaseCB.setupSelect_Product());
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             log("[MEMBER] " + member.getMemberId() + ", " + member.getMemberName());
             List<Purchase> purchaseList = member.getPurchaseList();
-            boolean existsPurchase = false;
             for (Purchase purchase : purchaseList) {
-                Product product = purchase.getProduct();
-                Integer purchaseCount = purchase.getPurchaseCount();
-                String productName = product.getProductName();
-                log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
-                if (purchaseCount > 2) {
-                    existsPurchase = true;
-                }
+                purchase.getProduct().alwaysPresent(product -> {
+                    Integer purchaseCount = purchase.getPurchaseCount();
+                    String productName = product.getProductName();
+                    log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
+                    if (purchaseCount > 2) {
+                        markHere("existsPurchase");
+                    }
+                });
             }
-            assertFalse(existsPurchase);
+            assertMarked("existsPurchase");
         }
     }
 
     // -----------------------------------------------------
     //                                       InScopeRelation
     //                                       ---------------
-    /**
-     * Query-InScopeRelationで子テーブルの条件で絞り込み: cb.query().inScopeXxxList().
-     * 一回の購入で二点以上の購入をしたことのある会員を検索。
-     * InScopeのサブクエリを使って子テーブルの条件で絞り込む。
-     */
     public void test_query_inScope_ReferrerCondition() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.useInScopeSubQuery();
-                    subCB.query().setPurchaseCount_GreaterThan(2);
-                }
+            cb.query().existsPurchase(purchaseCB -> {
+                purchaseCB.useInScopeSubQuery();
+                purchaseCB.query().setPurchaseCount_GreaterThan(2);
             });
             pushCB(cb);
         });
 
         // ## Assert ##
-        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
-            public void setup(PurchaseCB subCB) {
-                subCB.setupSelect_Product();
-            }
-        });
+        memberBhv.loadPurchase(memberList, purchaseCB -> purchaseCB.setupSelect_Product());
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             log("[MEMBER] " + member.getMemberId() + ", " + member.getMemberName());
             List<Purchase> purchaseList = member.getPurchaseList();
-            boolean existsPurchase = false;
             for (Purchase purchase : purchaseList) {
-                Product product = purchase.getProduct();
-                Integer purchaseCount = purchase.getPurchaseCount();
-                String productName = product.getProductName();
-                log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
-                if (purchaseCount > 2) {
-                    existsPurchase = true;
-                }
+                purchase.getProduct().alwaysPresent(product -> {
+                    Integer purchaseCount = purchase.getPurchaseCount();
+                    String productName = product.getProductName();
+                    log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
+                    if (purchaseCount > 2) {
+                        markHere("existsPurchase");
+                    }
+                });
             }
-            assertTrue(existsPurchase);
+            assertMarked("existsPurchase");
         }
-
-        // [Description]
-        // A. ExistsReferrerと結果は全く同じになる。
-        //    --> 実行計画が変わる可能性あり
     }
 
-    /**
-     * Query-InScopeRelationでmany-to-manyの関係のテーブルの条件で絞り込み: cb.query().inScopeXxxList().
-     * 商品名称が'Storm'で始まる商品を購入したことのある会員を検索。
-     * InScopeのサブクエリを使って子テーブルを経由してその親テーブルの条件で絞り込む。
-     */
     public void test_query_inScope_ManyToManyCondition() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().existsPurchase(subCB -> {
-                subCB.useInScopeSubQuery();
-                subCB.query().queryProduct().setProductName_LikeSearch("Storm", op -> op.likePrefix());
+            cb.query().existsPurchase(purchaeCB -> {
+                purchaeCB.useInScopeSubQuery();
+                purchaeCB.query().queryProduct().setProductName_LikeSearch("Storm", op -> op.likePrefix());
             });
             pushCB(cb);
         });
 
         // ## Assert ##
-        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
-            public void setup(PurchaseCB subCB) {
-                subCB.setupSelect_Product();
-            }
-        });
+        memberBhv.loadPurchase(memberList, purchaseCB -> purchaseCB.setupSelect_Product());
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             log("[MEMBER] " + member.getMemberId() + ", " + member.getMemberName());
             List<Purchase> purchaseList = member.getPurchaseList();
-            boolean existsProduct = false;
             for (Purchase purchase : purchaseList) {
-                Product product = purchase.getProduct();
-                Integer purchaseCount = purchase.getPurchaseCount();
-                String productName = product.getProductName();
-                log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
-                if (productName.startsWith("Storm")) {
-                    existsProduct = true;
-                }
+                purchase.getProduct().alwaysPresent(product -> {
+                    Integer purchaseCount = purchase.getPurchaseCount();
+                    String productName = product.getProductName();
+                    log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
+                    if (productName.startsWith("Storm")) {
+                        markHere("existsProduct");
+                    }
+                });
             }
-            assertTrue(existsProduct);
+            assertMarked("existsProduct");
         }
 
         // [Description]
@@ -981,48 +879,34 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         //    --> 実行計画が変わる可能性あり
     }
 
-    /**
-     * Query-NotInScopeRelationで子テーブルの条件で絞り込み: cb.query().notInScopeXxxList().
-     * 一回の購入で二点以上の購入をしたこと「ない」会員を検索。
-     * NotInScopeのサブクエリを使って子テーブルの条件で絞り込む。
-     * @since 0.7.5
-     */
     public void test_query_notInScope_ReferrerCondition() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().notExistsPurchase(subCB -> {
-                subCB.useInScopeSubQuery();
-                subCB.query().setPurchaseCount_GreaterThan(2);
+            cb.query().notExistsPurchase(purchaseCB -> {
+                purchaseCB.useInScopeSubQuery();
+                purchaseCB.query().setPurchaseCount_GreaterThan(2);
             });
             pushCB(cb);
         });
 
         // ## Assert ##
-        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
-            public void setup(PurchaseCB subCB) {
-                subCB.setupSelect_Product();
-            }
-        });
+        memberBhv.loadPurchase(memberList, purchaseCB -> purchaseCB.setupSelect_Product());
         for (Member member : memberList) {
             log("[MEMBER] " + member.getMemberId() + ", " + member.getMemberName());
             List<Purchase> purchaseList = member.getPurchaseList();
-            boolean existsPurchase = false;
             for (Purchase purchase : purchaseList) {
-                Product product = purchase.getProduct();
-                Integer purchaseCount = purchase.getPurchaseCount();
-                String productName = product.getProductName();
-                log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
-                if (purchaseCount > 2) {
-                    existsPurchase = true;
-                }
+                purchase.getProduct().alwaysPresent(product -> {
+                    Integer purchaseCount = purchase.getPurchaseCount();
+                    String productName = product.getProductName();
+                    log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
+                    if (purchaseCount > 2) {
+                        markHere("existsPurchase");
+                    }
+                });
             }
-            assertFalse(existsPurchase);
+            assertMarked("existsPurchase");
         }
-
-        // [Description]
-        // A. NotExistsReferrerと結果は全く同じになる。
-        //    --> 実行計画が変わる可能性あり
     }
 
     // -----------------------------------------------------
@@ -1073,38 +957,34 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                               Union
     //                                                                               =====
-    /**
-     * Union(Or条件の代替): union().
-     * 「仮会員」もしくは「会員名称が'St'で始まる」会員を「会員名称の降順」で検索。
-     * 関連テーブルとして会員ステータスを取得。
-     */
     public void test_union() {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
             cb.query().setMemberStatusCode_Equal_Provisional();
-            cb.union(new UnionQuery<MemberCB>() {
-                public void query(MemberCB unionCB) {
-                    unionCB.query().setMemberName_LikeSearch("St", op -> op.likePrefix());
-                }
+            cb.union(unionCB -> {
+                unionCB.query().setMemberName_LikeSearch("St", op -> op.likePrefix());
             });
             cb.query().addOrderBy_MemberName_Desc();
             pushCB(cb);
         });
 
         // ## Assert ##
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             String memberName = member.getMemberName();
-            String memberStatusName = member.getMemberStatus().getMemberStatusName();
-            if (!memberName.startsWith("St")) {
-                log("[Provisional]: " + memberName + ", " + memberStatusName);
-                assertTrue(member.isMemberStatusCodeProvisional());
-            } else if (!member.isMemberStatusCodeProvisional()) {
-                log("[Starts with St]: " + memberName + ", " + memberStatusName);
-                assertTrue(memberName.startsWith("St"));
-            } else {
-                log("[Both]: " + memberName + ", " + memberStatusName);
-            }
+            member.getMemberStatus().alwaysPresent(status -> {
+                String statusName = status.getMemberStatusName();
+                if (!memberName.startsWith("St")) {
+                    log("[Provisional]: " + memberName + ", " + statusName);
+                    assertTrue(member.isMemberStatusCodeProvisional());
+                } else if (!member.isMemberStatusCodeProvisional()) {
+                    log("[Starts with St]: " + memberName + ", " + statusName);
+                    assertTrue(memberName.startsWith("St"));
+                } else {
+                    log("[Both]: " + memberName + ", " + statusName);
+                }
+            });
         }
 
         // [SQL]
@@ -1116,44 +996,21 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         //   from MEMBER dfloc 
         //  where dfloc.MEMBER_NAME like 'S%'
         //  order by MEMBER_NAME desc
-
-        // [Description]
-        // A. ConditionBeanでは自テーブル同士のUnionが可能である。
-        // 
-        // B. Unionが指定できる回数は無限である。
-        // 
-        // C. Or条件の代替として利用される。
-        //    --> パフォーマンス考慮
-        // 
-        // D. 条件的に取得するデータがかぶらないのであればunionAll()の方が良い。
-        //    --> パフォーマンス考慮
-        // 
-        // E. Union側のConditionBeanではsetupSelectとaddOrderByを呼び出す必要はない。
-        //    --> 絞り込み条件のみ設定すること
-        //    --> setupSelectは必ずunion()を呼び出す前に指定すること(フレームワークの都合)
-        //    --> addOrderByは必ずunion()を呼び出した後に指定すること(フレームワークの都合)
     }
 
-    /**
-     * UnionAll(Or条件の代替): unionAll().
-     * 「生年月日が1967/01/01より昔」もしくは「生年月日がnull」の会員を「生年月日の降順、会員名称の昇順」で検索。
-     * 互いの条件でデータがかぶらないので、UnionAllを利用。
-     */
     public void test_unionAll() {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             Calendar cal = Calendar.getInstance();
-            cal.set(1967, 0, 1);// 1967/01/01
-                cb.query().setBirthdate_LessThan(new Date(cal.getTimeInMillis()));
-                cb.unionAll(new UnionQuery<MemberCB>() {
-                    public void query(MemberCB unionCB) {
-                        unionCB.query().setBirthdate_IsNull();
-                    }
-                });
-                cb.query().addOrderBy_Birthdate_Desc();
-                cb.query().addOrderBy_MemberName_Asc();
-                pushCB(cb);
+            cal.set(1967, 0, 1);
+            cb.query().setBirthdate_LessThan(new Date(cal.getTimeInMillis()));
+            cb.unionAll(unionCB -> {
+                unionCB.query().setBirthdate_IsNull();
             });
+            cb.query().addOrderBy_Birthdate_Desc();
+            cb.query().addOrderBy_MemberName_Asc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         for (Member member : memberList) {
@@ -1169,29 +1026,11 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         //   from MEMBER dfloc 
         //  where dfloc.MEMBER_BIRTHDAY is null 
         //  order by MEMBER_BIRTHDAY desc, MEMBER_NAME asc
-
-        // [Description]
-        // A. ConditionBeanでは自テーブル同士のUnionAllが可能である。
-        // 
-        // B. UnionAllが指定できる回数は無限である。
-        // 
-        // C. Or条件の代替として利用される。
-        //    --> パフォーマンス考慮
-        // 
-        // D. Union側のConditionBeanではsetupSelectとaddOrderByを呼び出す必要はない。
-        //    --> 絞り込み条件のみ設定すること
-        //    --> setupSelectは必ずunion()を呼び出す前に指定すること(フレームワークの都合)
-        //    --> addOrderByは必ずunion()を呼び出した後に指定すること(フレームワークの都合)
     }
 
     // ===================================================================================
     //                                                                              Paging
     //                                                                              ======
-    /**
-     * ページング検索: cb.paging(pageSize, pageNumber).
-     * 会員名称の昇順のリストを「１ページ４件」の「３ページ目」(９件目から１２件目)を検索。
-     * ※詳しくはBehaviorMiddleTestの「ページング検索: selectPage().」を参照。
-     */
     public void test_paging() {
         // ## Arrange ##
         PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {

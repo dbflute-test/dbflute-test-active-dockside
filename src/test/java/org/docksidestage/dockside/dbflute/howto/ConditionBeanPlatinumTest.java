@@ -25,8 +25,6 @@ import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberWithdrawalBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberAddress;
-import org.docksidestage.dockside.dbflute.exentity.MemberWithdrawal;
-import org.docksidestage.dockside.dbflute.exentity.Product;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
@@ -210,26 +208,21 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        final ConditionBeanSetupper<PurchaseCB> setuppper = new ConditionBeanSetupper<PurchaseCB>() {
-            public void setup(PurchaseCB cb) {
-                cb.setupSelect_Product();
-            }
-        };
-        memberBhv.loadPurchase(memberList, setuppper);
+        memberBhv.loadPurchase(memberList, cb -> cb.setupSelect_Product());
         for (Member member : memberList) {
             log("[member] " + member.getMemberId() + ", " + member.getMemberName());
             final List<Purchase> purchaseList = member.getPurchaseList();
-            boolean existsPurchase = false;
             for (Purchase purchase : purchaseList) {
-                final Product product = purchase.getProduct();
                 final Integer purchaseCount = purchase.getPurchaseCount();
-                final String productName = product.getProductName();
-                log("  [purchase] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
-                if (purchaseCount > 2 || productName.contains("s") || productName.contains("a")) {
-                    existsPurchase = true;
-                }
+                purchase.getProduct().alwaysPresent(product -> {
+                    final String productName = product.getProductName();
+                    log("  [purchase] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
+                    if (purchaseCount > 2 || productName.contains("s") || productName.contains("a")) {
+                        markHere("existsPurchase");
+                    }
+                });
             }
-            assertTrue(existsPurchase);
+            assertMarked("existsPurchase");
         }
     }
 
@@ -560,94 +553,39 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                            OnClause
     //                                                                            ========
-    /**
-     * OnClause(On句)に条件を追加: queryXxx().on().
-     * <code>{left outer join xxx on xxx = xxx and [column] = ?}</code>
-     * <p>
-     * 「会員退会情報が存在している会員一覧」に対して、「退会理由コードがnullでない会員退会情報」を結合して取得。
-     * 会員退会情報が存在していても退会理由コードがnullの会員は、会員退会情報が取得されないようにする。
-     * </p>
-     * <p>
-     * OnClauseに条件を追加すると「条件に合致しない結合先レコードは結合しない」という感じになる。
-     * よく使われるのは「従属しない関係の結合先テーブルで論理削除されたものは結合しない」というような場合。
-     * </p>
-     * <p>
-     * OnClauseを使わないでWhere句に条件を入れると、条件に合致しない結合先レコードを
-     * 参照している基点レコードが検索対象外になってしまう。<br />
-     * <code>{left outer join xxx on xxx = xxx where [column] = ?}</code>
-     * </p>
-     * <pre>
-     * 例えば、会員{1,2,3,4,5}に対して会員退会情報{A,B,C}があり、それぞれ{1-A, 2-B, 3-C, 4-null, 5-null}
-     * というような関係で、「B」が退会理由コードを持っていない会員退会情報であった場合：
-     * 
-     * 素直に「会員 left outer join 会員退会情報 on ...」すると結果は以下のようになる。
-     * 
-     * 　　検索結果：{1-A, 2-B, 3-C, 4-null, 5-null}
-     * 
-     * これを「会員 left outer join 会員退会情報 on ... and 会員退会情報.退会理由コード is not null」
-     * というようにOn句の中で「退会理由コードが存在すること」という条件を付与すると以下のようになる。
-     * 
-     * 　　検索結果：{1-A, 2-null, 3-C, 4-null, 5-null}
-     * 
-     * 退会理由コードを持っていない「B」が弾かれて結合されないのである。
-     * だからといって「2」の会員自体が検索結果から外れることはない。
-     * 
-     * これを「会員 left outer join 会員退会情報 on ... where 会員退会情報.退会理由コード is not null」
-     * というようにWhere句にて「退会理由コードが存在すること」という条件を付与すると以下のようになる。
-     * 
-     * 　　検索結果：{1-A, 3-C}
-     * 
-     * これは今回やりたい検索とは全く違うものである。
-     * </pre>
-     * <p>
-     * OnClauseでなくInlineViewを使っても同じ動きを実現することは可能である。
-     * しかし、条件によってはInlineViewの中でフルスキャンが走ってしまう可能性もあるので、
-     * パフォーマンスの観点からOnClauseの方が良いかと思われる。(実行計画が異なる)
-     * 但し、これはオプティマイザ次第なので、気になったらどちらかに調整するのが良いと思われる。<br />
-     * <code>{left outer join (select * from xxx where [column] = ?) xxx on xxx = xxx}</code>
-     * </p>
-     */
     public void test_selectList_query_queryForeign_on() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberWithdrawalAsOne();
 
-            // 「退会理由コードがnullでない会員退会情報」のレコードは結合されてないようにする
-            // left outer join xxx on xxx = xxx and WithdrawalReasonCode is not null
-                cb.query().queryMemberWithdrawalAsOne().on().setWithdrawalReasonCode_IsNotNull();
+            /* left outer join xxx on xxx = xxx and WithdrawalReasonCode is not null */
+            cb.query().queryMemberWithdrawalAsOne().on().setWithdrawalReasonCode_IsNotNull();
 
-                // left outer join (select * from xxx where WithdrawalReasonCode is not null) xxx on xxx = xxx
-                // cb.query().queryMemberWithdrawalAsOne().inline().setWithdrawalReasonCode_IsNotNull();
+            /* left outer join (select * from xxx where WithdrawalReasonCode is not null) xxx on xxx = xxx */
+            /* cb.query().queryMemberWithdrawalAsOne().inline().setWithdrawalReasonCode_IsNotNull(); */
 
-                cb.query().queryMemberWithdrawalAsOne().addOrderBy_WithdrawalDatetime_Desc();
-                pushCB(cb);
-            });
+            cb.query().queryMemberWithdrawalAsOne().addOrderBy_WithdrawalDatetime_Desc();
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
-        boolean existsMemberWithdrawal = false;// 会員退会情報があってWithdrawalReasonCodeも存在する会員がいるか否か
-        boolean notExistsMemberWithdrawal = false;// 会員退会情報はあるけどWithdrawalReasonCodeがない会員がいるか否か
         List<Integer> notExistsMemberIdList = new ArrayList<Integer>();
         for (Member member : memberList) {
-            MemberWithdrawal memberWithdrawal = member.getMemberWithdrawalAsOne();
-            if (memberWithdrawal != null) {
-                log(member.getMemberName() + " -- " + memberWithdrawal.getWithdrawalReasonCode() + ", "
-                        + memberWithdrawal.getWithdrawalDatetime());
-                String withdrawalReasonCode = memberWithdrawal.getWithdrawalReasonCode();
+            member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
+                log(member.getMemberName() + " -- " + withdrawal.getWithdrawalReasonCode() + ", " + withdrawal.getWithdrawalDatetime());
+                String withdrawalReasonCode = withdrawal.getWithdrawalReasonCode();
                 assertNotNull(withdrawalReasonCode);
-                existsMemberWithdrawal = true;
-            } else {
-                // 会員退会情報は存在するけどWithdrawalReasonCodeが存在しない会員も取得できていること
-                log(member.getMemberName() + " -- " + memberWithdrawal);
-                notExistsMemberWithdrawal = true;
+                markHere("existsMemberWithdrawal");
+            }).orElse(() -> {
+                log(member.getMemberName());
                 notExistsMemberIdList.add(member.getMemberId());
-            }
+                markHere("notExistsMemberWithdrawal");
+            });
         }
-        // 両方のパターンのデータがないとテストにならないので確認
-        assertTrue(existsMemberWithdrawal);
-        assertTrue(notExistsMemberWithdrawal);
-        // MemberWithdrawalを取得できなかった会員の会員退会情報がちゃんとあるかどうか確認
+        assertMarked("existsMemberWithdrawal");
+        assertMarked("notExistsMemberWithdrawal");
         for (Integer memberId : notExistsMemberIdList) {
             if (memberWithdrawalBhv.selectCount(op -> op.acceptPK(memberId)) > 0) {
                 markHere("exists");
@@ -692,9 +630,9 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
             assertNonSpecifiedAccess(() -> member.getUpdateUser());
             assertNonSpecifiedAccess(() -> member.getVersionNo());
             assertNotNull(member.getMemberStatusCode()); // SetupSelect FK
-            assertNotNull(member.getMemberStatus().getMemberStatusCode()); // PK
-            assertNotNull(member.getMemberStatus().getMemberStatusName()); // Specified
-            assertNonSpecifiedAccess(() -> member.getMemberStatus().getDisplayOrder());
+            assertNotNull(member.getMemberStatus().get().getMemberStatusCode()); // PK
+            assertNotNull(member.getMemberStatus().get().getMemberStatusName()); // Specified
+            assertNonSpecifiedAccess(() -> member.getMemberStatus().get().getDisplayOrder());
         }
     }
 
@@ -1052,57 +990,6 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                     Fixed Condition
     //                                                                     ===============
-    /**
-     * 固定条件を加えたone-to-oneの取得：fixedCondition, selectSelect_Xxx(target).
-     * <p>
-     * 会員と会員住所は構造的にはone-to-manyだが、固定条件を加えることによってone-to-oneになる
-     * という業務的な制約が存在する。その業務的な制約を活用して、会員を基点に会員住所を取得。
-     * </p>
-     * <p>
-     * 「何かしら固定条件を付与することによってone-to-manyがone-to-oneになる」というような場合、
-     * 「{DBFluteClient}/dfprop/additionalForeignKeyMap.dfprop」にて固定条件付きの疑似FK
-     * を設定し自動生成し直すことで、アプリケーション上でそのRelationを扱うことができる。
-     * </p>
-     * <pre>
-     * ; FK_MEMBER_MEMBER_ADDRESS_VALID = map:{
-     *     ; localTableName  = MEMBER    ; foreignTableName  = MEMBER_ADDRESS
-     *     ; localColumnName = MEMBER_ID ; foreignColumnName = MEMBER_ID
-     *     ; fixedCondition = 
-     *      $$foreignAlias$$.VALID_BEGIN_DATE <= /[*]targetDate(Date)[*]/null
-     *  and $$foreignAlias$$.VALID_END_DATE >= /[*]targetDate(Date)[*]/null
-     *     ; fixedSuffix = AsValid
-     * }
-     * ※バインド変数コメントの「/[*]」の「[]」は実際には不要。JavaDoc上での記述の都合のために付けている。
-     * </pre>
-     * <p>
-     * localTableName/foreignTableName/localColumnName/foreignColumnNameは通常の
-     * additionalForeignKeyMapでの設定方法と特に変わらないが、foreignTableが構造的には
-     * one-to-manyのmany側が指定されているのが特徴的である。
-     * </p>
-     * <p>
-     * fixedConditionが注目ポイントである。fixedConditionには固定条件を指定。
-     * これは「left outer join」のon句部分の結合条件としてそのまま展開される。
-     * 「$$foreignAlias$$」はforeignTableのAlias名として実行時に置換される。
-     * 「/[*]targetDate(Date)[*]/null」はバインド変数コメントとして解釈され、
-     * 自動生成時にsetupSelect_Xxx()やqueryXxx()の引数として展開される。
-     * その際、アプリケーション上の型は「(Date)」で指定された型となる。
-     * 「Date」なら「java.util.Date」、「Integer」なら「java.lang.Integer」となる。
-     * (ParameterBeanの型の自動解釈と同じである)
-     * <p>
-     * バインド変数コメントを使わずにベタッと値を指定することも可能。
-     * 今回のExampleのような「有効期間」という概念で「固定条件に動的値」というのではなく、
-     * 「有効フラグがtrueのものを指定するとone-to-oneになる」というような
-     * 「固定条件に固定値」というパターンの場合はバインド変数コメントを使う必要はない。
-     * その場合、setupSelect_Xxx()やqueryXxx()の引数は無しで通常通りである。
-     * </p>
-     * <p>
-     * fixedSuffixは任意ではあるが、Relation名のユニーク性を厳密にするために
-     * 何かしら意味のあるSuffixを付けることが推奨される。今回のExampleだと、
-     * 「(会員を基点とした場合の)有効な会員住所」ということなので、「AsValid」
-     * というSuffixを付けている。
-     * </p>
-     * @since 0.8.7
-     */
     public void test_fixedCondition_setupSelect() {
         // ## Arrange ##
         Calendar cal = Calendar.getInstance();
@@ -1117,29 +1004,26 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
-        boolean existsAddress = false;
+        assertHasAnyElement(memberList);
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
         String formattedTargetDate = fmt.format(targetDate);
         log("[" + formattedTargetDate + "]");
         for (Member member : memberList) {
             String memberName = member.getMemberName();
-            MemberAddress memberAddressAsValid = member.getMemberAddressAsValid();
-            if (memberAddressAsValid != null) {
-                assertNotNull(memberAddressAsValid.getValidBeginDate());
-                assertNotNull(memberAddressAsValid.getValidEndDate());
-                String validBeginDate = fmt.format(memberAddressAsValid.getValidBeginDate());
-                String validEndDate = fmt.format(memberAddressAsValid.getValidEndDate());
+            member.getMemberAddressAsValid().ifPresent(address -> {
+                assertNotNull(address.getValidBeginDate());
+                assertNotNull(address.getValidEndDate());
+                String validBeginDate = fmt.format(address.getValidBeginDate());
+                String validEndDate = fmt.format(address.getValidEndDate());
                 assertTrue(validBeginDate.compareTo(formattedTargetDate) <= 0);
                 assertTrue(validEndDate.compareTo(formattedTargetDate) >= 0);
-                String address = memberAddressAsValid.getAddress();
-                log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address);
-                existsAddress = true;
-            } else {
+                log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address.getAddress());
+                markHere("existsAddress");
+            }).orElse(() -> {
                 log(memberName + ", null");
-            }
+            });
         }
-        assertTrue(existsAddress);
+        assertMarked("existsAddress");
         assertFalse(popCB().toDisplaySql().contains("where")); // not use where clause
 
         // [SQL]
@@ -1147,27 +1031,11 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         //   from MEMBER dfloc
         //     left outer join MEMBER_ADDRESS dfrel_1
         //       on dfloc.MEMBER_ID = dfrel_1.MEMBER_ID
-        //         and dfrel_1.VALID_BEGIN_DATE <= '2005-12-12'
-        //         and dfrel_1.VALID_END_DATE >= '2005-12-12'  
+        //      and dfrel_1.VALID_BEGIN_DATE <= '2005-12-12'
+        //      and dfrel_1.VALID_END_DATE >= '2005-12-12'  
         //  order by dfloc.MEMBER_ID asc
-
-        // [Description]
-        // A. selectSelect_Xxx(target)で別の値のtargetを指定して二回以上呼び出した時は最後の値が有効
-        //    --> 「2007/01/01の会員住所」と「2008/01/01の会員住所」を同時に取り扱うことはできない
-        //        (additionalForeignKeyにてSuffixだけ変えたリレーションをもう一つ設定すれば可能)
-        // 
-        // B. fixedConditionを使ったRelationではReferrer関連のメソッドは生成されない
-        //    ex) 会員住所のBehaviorにて会員に対するloadReferrerは生成されない
     }
 
-    /**
-     * 固定条件を加えたone-to-oneの絞り込み：fixedCondition, queryXxx(target).
-     * <p>
-     * 会員と会員住所は構造的にはone-to-manyだが、固定条件を加えることによってone-to-oneになる
-     * という業務的な制約が存在する。その業務的な制約を活用して、会員を基点に会員住所にて絞り込み。
-     * </p>
-     * @since 0.8.7
-     */
     public void test_fixedCondition_query() {
         // ## Arrange ##
         Calendar cal = Calendar.getInstance();
@@ -1196,17 +1064,16 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         String formattedTargetDate = fmt.format(targetDate);
         log("[" + formattedTargetDate + "]");
         for (Member member : memberList) {
-            MemberAddress memberAddressAsValid = member.getMemberAddressAsValid();
-            assertNull(memberAddressAsValid); // because of no setup-select.
+            assertFalse(member.getMemberAddressAsValid().isPresent());
             List<MemberAddress> memberAddressList = member.getMemberAddressList();
             assertEquals(1, memberAddressList.size());
-            MemberAddress memberAddress = memberAddressList.get(0);
+            MemberAddress firstAddress = memberAddressList.get(0);
             String memberName = member.getMemberName();
-            Date validBeginDate = memberAddress.getValidBeginDate();
-            Date validEndDate = memberAddress.getValidEndDate();
-            String address = memberAddress.getAddress();
+            Date validBeginDate = firstAddress.getValidBeginDate();
+            Date validEndDate = firstAddress.getValidEndDate();
+            String address = firstAddress.getAddress();
             log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address);
-            assertTrue(memberAddress.getAddress().contains("a"));
+            assertTrue(firstAddress.getAddress().contains(targetChar));
         }
 
         // [Description]

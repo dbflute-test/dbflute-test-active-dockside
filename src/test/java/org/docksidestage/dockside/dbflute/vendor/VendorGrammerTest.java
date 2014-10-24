@@ -24,7 +24,6 @@ import org.docksidestage.dockside.dbflute.exbhv.MemberWithdrawalBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exbhv.WithdrawalReasonBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
-import org.docksidestage.dockside.dbflute.exentity.MemberSecurity;
 import org.docksidestage.dockside.dbflute.exentity.MemberWithdrawal;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.dbflute.exentity.WithdrawalReason;
@@ -90,25 +89,23 @@ public class VendorGrammerTest extends UnitContainerTestCase {
         String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("inner join"));
         assertTrue(sql.contains("left outer join"));
-        assertFalse(purchaseList.isEmpty());
+        assertHasAnyElement(purchaseList);
         assertEquals(countAll, purchaseList.size());
-        boolean existsSecurity = false;
-        boolean notExistsSecurity = false;
         for (Purchase purchase : purchaseList) {
-            Member member = purchase.getMember();
-            log(purchase.getPurchaseId() + ", " + member.getMemberId() + ", " + member.getMemberName() + ", "
-                    + member.getMemberSecurityAsOne());
-            MemberSecurity security = member.getMemberSecurityAsOne();
-            if (security != null) {
-                assertTrue(member.getMemberId() < 10);
-                existsSecurity = true;
-            } else {
-                assertTrue(member.getMemberId() >= 10);
-                notExistsSecurity = true;
-            }
+            purchase.getMember().alwaysPresent(member -> {
+                Integer memberId = member.getMemberId();
+                log(purchase.getPurchaseId() + ", " + memberId + ", " + member.getMemberName());
+                member.getMemberSecurityAsOne().ifPresent(security -> {
+                    assertTrue(memberId < 10);
+                    markHere("existsSecurity");
+                }).orElse(() -> {
+                    assertTrue(memberId >= 10);
+                    markHere("notExistsSecurity");
+                });
+            });
         }
-        assertTrue(existsSecurity);
-        assertTrue(notExistsSecurity);
+        assertMarked("existsSecurity");
+        assertMarked("notExistsSecurity");
     }
 
     // ===================================================================================
@@ -255,7 +252,7 @@ public class VendorGrammerTest extends UnitContainerTestCase {
                 existsSet.add("latest");
             }
             assertNull(actual.getWithdrawalReasonCode());
-            assertEquals(member.getMemberStatus().getMemberStatusName(), actual.getWithdrawalReasonInputText());
+            assertEquals(member.getMemberStatus().get().getMemberStatusName(), actual.getWithdrawalReasonInputText());
         }
         assertEquals(2, existsSet.size());
     }

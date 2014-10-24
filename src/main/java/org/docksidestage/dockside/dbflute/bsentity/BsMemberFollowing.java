@@ -18,8 +18,10 @@ package org.docksidestage.dockside.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
@@ -138,13 +140,15 @@ public abstract class BsMemberFollowing extends AbstractEntity {
     //                                                                    Foreign Property
     //                                                                    ================
     /** (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'. */
-    protected Member _memberByMyMemberId;
+    protected OptionalEntity<Member> _memberByMyMemberId;
 
     /**
      * [get] (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'. <br />
-     * @return The entity of foreign property 'memberByMyMemberId'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'memberByMyMemberId'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public Member getMemberByMyMemberId() {
+    public OptionalEntity<Member> getMemberByMyMemberId() {
+        if (_memberByMyMemberId == null) { _memberByMyMemberId = OptionalEntity.relationEmpty(this, "memberByMyMemberId"); }
         return _memberByMyMemberId;
     }
 
@@ -152,18 +156,20 @@ public abstract class BsMemberFollowing extends AbstractEntity {
      * [set] (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
      * @param memberByMyMemberId The entity of foreign property 'memberByMyMemberId'. (NullAllowed)
      */
-    public void setMemberByMyMemberId(Member memberByMyMemberId) {
+    public void setMemberByMyMemberId(OptionalEntity<Member> memberByMyMemberId) {
         _memberByMyMemberId = memberByMyMemberId;
     }
 
     /** (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'. */
-    protected Member _memberByYourMemberId;
+    protected OptionalEntity<Member> _memberByYourMemberId;
 
     /**
      * [get] (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'. <br />
-     * @return The entity of foreign property 'memberByYourMemberId'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'memberByYourMemberId'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public Member getMemberByYourMemberId() {
+    public OptionalEntity<Member> getMemberByYourMemberId() {
+        if (_memberByYourMemberId == null) { _memberByYourMemberId = OptionalEntity.relationEmpty(this, "memberByYourMemberId"); }
         return _memberByYourMemberId;
     }
 
@@ -171,7 +177,7 @@ public abstract class BsMemberFollowing extends AbstractEntity {
      * [set] (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
      * @param memberByYourMemberId The entity of foreign property 'memberByYourMemberId'. (NullAllowed)
      */
-    public void setMemberByYourMemberId(Member memberByYourMemberId) {
+    public void setMemberByYourMemberId(OptionalEntity<Member> memberByYourMemberId) {
         _memberByYourMemberId = memberByYourMemberId;
     }
 
@@ -207,11 +213,14 @@ public abstract class BsMemberFollowing extends AbstractEntity {
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_memberByMyMemberId != null)
+        if (_memberByMyMemberId != null && _memberByMyMemberId.isPresent())
         { sb.append(li).append(xbRDS(_memberByMyMemberId, "memberByMyMemberId")); }
-        if (_memberByYourMemberId != null)
+        if (_memberByYourMemberId != null && _memberByYourMemberId.isPresent())
         { sb.append(li).append(xbRDS(_memberByYourMemberId, "memberByYourMemberId")); }
         return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override

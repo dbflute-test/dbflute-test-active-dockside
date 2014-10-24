@@ -18,8 +18,10 @@ package org.docksidestage.dockside.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.allcommon.EntityDefinedCommonColumn;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
@@ -272,13 +274,15 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     //                                                                    Foreign Property
     //                                                                    ================
     /** (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'. */
-    protected MemberStatus _memberStatus;
+    protected OptionalEntity<MemberStatus> _memberStatus;
 
     /**
      * [get] (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'. <br />
-     * @return The entity of foreign property 'memberStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'memberStatus'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public MemberStatus getMemberStatus() {
+    public OptionalEntity<MemberStatus> getMemberStatus() {
+        if (_memberStatus == null) { _memberStatus = OptionalEntity.relationEmpty(this, "memberStatus"); }
         return _memberStatus;
     }
 
@@ -286,19 +290,21 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * [set] (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
      * @param memberStatus The entity of foreign property 'memberStatus'. (NullAllowed)
      */
-    public void setMemberStatus(MemberStatus memberStatus) {
+    public void setMemberStatus(OptionalEntity<MemberStatus> memberStatus) {
         _memberStatus = memberStatus;
     }
 
     /** (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. */
-    protected MemberAddress _memberAddressAsValid;
+    protected OptionalEntity<MemberAddress> _memberAddressAsValid;
 
     /**
      * [get] (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br />
      * Member's address at the target date. <br />
-     * @return The entity of foreign property 'memberAddressAsValid'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'memberAddressAsValid'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public MemberAddress getMemberAddressAsValid() {
+    public OptionalEntity<MemberAddress> getMemberAddressAsValid() {
+        if (_memberAddressAsValid == null) { _memberAddressAsValid = OptionalEntity.relationEmpty(this, "memberAddressAsValid"); }
         return _memberAddressAsValid;
     }
 
@@ -307,19 +313,21 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * Member's address at the target date.
      * @param memberAddressAsValid The entity of foreign property 'memberAddressAsValid'. (NullAllowed)
      */
-    public void setMemberAddressAsValid(MemberAddress memberAddressAsValid) {
+    public void setMemberAddressAsValid(OptionalEntity<MemberAddress> memberAddressAsValid) {
         _memberAddressAsValid = memberAddressAsValid;
     }
 
     /** (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. */
-    protected MemberLogin _memberLoginAsLatest;
+    protected OptionalEntity<MemberLogin> _memberLoginAsLatest;
 
     /**
      * [get] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
      * Member's latest login <br />
-     * @return The entity of foreign property 'memberLoginAsLatest'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'memberLoginAsLatest'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public MemberLogin getMemberLoginAsLatest() {
+    public OptionalEntity<MemberLogin> getMemberLoginAsLatest() {
+        if (_memberLoginAsLatest == null) { _memberLoginAsLatest = OptionalEntity.relationEmpty(this, "memberLoginAsLatest"); }
         return _memberLoginAsLatest;
     }
 
@@ -328,18 +336,20 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * Member's latest login
      * @param memberLoginAsLatest The entity of foreign property 'memberLoginAsLatest'. (NullAllowed)
      */
-    public void setMemberLoginAsLatest(MemberLogin memberLoginAsLatest) {
+    public void setMemberLoginAsLatest(OptionalEntity<MemberLogin> memberLoginAsLatest) {
         _memberLoginAsLatest = memberLoginAsLatest;
     }
 
     /** (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'. */
-    protected MemberSecurity _memberSecurityAsOne;
+    protected OptionalEntity<MemberSecurity> _memberSecurityAsOne;
 
     /**
      * [get] (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
-     * @return the entity of foreign property(referrer-as-one) 'memberSecurityAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return the entity of foreign property(referrer-as-one) 'memberSecurityAsOne'. (NotNull, EmptyAllowed: when e.g. no data, no setupSelect)
      */
-    public MemberSecurity getMemberSecurityAsOne() {
+    public OptionalEntity<MemberSecurity> getMemberSecurityAsOne() {
+        if (_memberSecurityAsOne == null) { _memberSecurityAsOne = OptionalEntity.relationEmpty(this, "memberSecurityAsOne"); }
         return _memberSecurityAsOne;
     }
 
@@ -347,18 +357,20 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * [set] (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
      * @param memberSecurityAsOne The entity of foreign property(referrer-as-one) 'memberSecurityAsOne'. (NullAllowed)
      */
-    public void setMemberSecurityAsOne(MemberSecurity memberSecurityAsOne) {
+    public void setMemberSecurityAsOne(OptionalEntity<MemberSecurity> memberSecurityAsOne) {
         _memberSecurityAsOne = memberSecurityAsOne;
     }
 
     /** (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'. */
-    protected MemberService _memberServiceAsOne;
+    protected OptionalEntity<MemberService> _memberServiceAsOne;
 
     /**
      * [get] (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
-     * @return the entity of foreign property(referrer-as-one) 'memberServiceAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return the entity of foreign property(referrer-as-one) 'memberServiceAsOne'. (NotNull, EmptyAllowed: when e.g. no data, no setupSelect)
      */
-    public MemberService getMemberServiceAsOne() {
+    public OptionalEntity<MemberService> getMemberServiceAsOne() {
+        if (_memberServiceAsOne == null) { _memberServiceAsOne = OptionalEntity.relationEmpty(this, "memberServiceAsOne"); }
         return _memberServiceAsOne;
     }
 
@@ -366,18 +378,20 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * [set] (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
      * @param memberServiceAsOne The entity of foreign property(referrer-as-one) 'memberServiceAsOne'. (NullAllowed)
      */
-    public void setMemberServiceAsOne(MemberService memberServiceAsOne) {
+    public void setMemberServiceAsOne(OptionalEntity<MemberService> memberServiceAsOne) {
         _memberServiceAsOne = memberServiceAsOne;
     }
 
     /** (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'. */
-    protected MemberWithdrawal _memberWithdrawalAsOne;
+    protected OptionalEntity<MemberWithdrawal> _memberWithdrawalAsOne;
 
     /**
      * [get] (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
-     * @return the entity of foreign property(referrer-as-one) 'memberWithdrawalAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return the entity of foreign property(referrer-as-one) 'memberWithdrawalAsOne'. (NotNull, EmptyAllowed: when e.g. no data, no setupSelect)
      */
-    public MemberWithdrawal getMemberWithdrawalAsOne() {
+    public OptionalEntity<MemberWithdrawal> getMemberWithdrawalAsOne() {
+        if (_memberWithdrawalAsOne == null) { _memberWithdrawalAsOne = OptionalEntity.relationEmpty(this, "memberWithdrawalAsOne"); }
         return _memberWithdrawalAsOne;
     }
 
@@ -385,7 +399,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * [set] (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
      * @param memberWithdrawalAsOne The entity of foreign property(referrer-as-one) 'memberWithdrawalAsOne'. (NullAllowed)
      */
-    public void setMemberWithdrawalAsOne(MemberWithdrawal memberWithdrawalAsOne) {
+    public void setMemberWithdrawalAsOne(OptionalEntity<MemberWithdrawal> memberWithdrawalAsOne) {
         _memberWithdrawalAsOne = memberWithdrawalAsOne;
     }
 
@@ -521,11 +535,11 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_memberStatus != null)
+        if (_memberStatus != null && _memberStatus.isPresent())
         { sb.append(li).append(xbRDS(_memberStatus, "memberStatus")); }
-        if (_memberAddressAsValid != null)
+        if (_memberAddressAsValid != null && _memberAddressAsValid.isPresent())
         { sb.append(li).append(xbRDS(_memberAddressAsValid, "memberAddressAsValid")); }
-        if (_memberLoginAsLatest != null)
+        if (_memberLoginAsLatest != null && _memberLoginAsLatest.isPresent())
         { sb.append(li).append(xbRDS(_memberLoginAsLatest, "memberLoginAsLatest")); }
         if (_memberSecurityAsOne != null)
         { sb.append(li).append(xbRDS(_memberSecurityAsOne, "memberSecurityAsOne")); }
@@ -544,6 +558,9 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
         if (_purchaseList != null) { for (Purchase et : _purchaseList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "purchaseList")); } } }
         return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override

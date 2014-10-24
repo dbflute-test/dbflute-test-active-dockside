@@ -46,7 +46,7 @@ map:{
     ; isMakeDirectConditionBeanSetup = false
     ; isMakeBatchUpdateSpecifyColumn = false
     ; isAvailableSelectEntityPlainReturn = false
-    ; isAvailableRelationPlainEntity = true
+    ; isAvailableRelationPlainEntity = false
     ; isMakeConditionQueryPrefixSearch = false
     ; isMakeConditionQueryDateFromTo = false
     ; isMakeDirectConditionOptionSetup = false

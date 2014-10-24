@@ -18,8 +18,10 @@ package org.docksidestage.dockside.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.allcommon.EntityDefinedCommonColumn;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
@@ -283,13 +285,15 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
     //                                                                    Foreign Property
     //                                                                    ================
     /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
-    protected Member _member;
+    protected OptionalEntity<Member> _member;
 
     /**
      * [get] (会員)MEMBER by my MEMBER_ID, named 'member'. <br />
-     * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'member'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public Member getMember() {
+    public OptionalEntity<Member> getMember() {
+        if (_member == null) { _member = OptionalEntity.relationEmpty(this, "member"); }
         return _member;
     }
 
@@ -297,18 +301,20 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
-    public void setMember(Member member) {
+    public void setMember(OptionalEntity<Member> member) {
         _member = member;
     }
 
     /** (地域)REGION by my REGION_ID, named 'region'. */
-    protected Region _region;
+    protected OptionalEntity<Region> _region;
 
     /**
      * [get] (地域)REGION by my REGION_ID, named 'region'. <br />
-     * @return The entity of foreign property 'region'. (NullAllowed: when e.g. null FK column, no setupSelect)
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'region'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public Region getRegion() {
+    public OptionalEntity<Region> getRegion() {
+        if (_region == null) { _region = OptionalEntity.relationEmpty(this, "region"); }
         return _region;
     }
 
@@ -316,7 +322,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * [set] (地域)REGION by my REGION_ID, named 'region'.
      * @param region The entity of foreign property 'region'. (NullAllowed)
      */
-    public void setRegion(Region region) {
+    public void setRegion(OptionalEntity<Region> region) {
         _region = region;
     }
 
@@ -352,11 +358,14 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null)
+        if (_member != null && _member.isPresent())
         { sb.append(li).append(xbRDS(_member, "member")); }
-        if (_region != null)
+        if (_region != null && _region.isPresent())
         { sb.append(li).append(xbRDS(_region, "region")); }
         return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override

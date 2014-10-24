@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -66,8 +67,9 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
     //                                      ----------------
     protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
     { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
     protected void xsetupEfpg() {
-        setupEfpg(_efpgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getVendorTheLongAndWindingTableAndColumn(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setVendorTheLongAndWindingTableAndColumn((VendorTheLongAndWindingTableAndColumn)vl), "vendorTheLongAndWindingTableAndColumn");
+        setupEfpg(_efpgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getVendorTheLongAndWindingTableAndColumn(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setVendorTheLongAndWindingTableAndColumn((OptionalEntity<VendorTheLongAndWindingTableAndColumn>)vl), "vendorTheLongAndWindingTableAndColumn");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }
@@ -147,7 +149,7 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
      */
     public ForeignInfo foreignVendorTheLongAndWindingTableAndColumn() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnTheLongAndWindingTableAndColumnId(), VendorTheLongAndWindingTableAndColumnDbm.getInstance().columnTheLongAndWindingTableAndColumnId());
-        return cfi("FK_VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF", "vendorTheLongAndWindingTableAndColumn", this, VendorTheLongAndWindingTableAndColumnDbm.getInstance(), mp, 0, null, false, false, false, false, null, null, false, "vendorTheLongAndWindingTableAndColumnRefList");
+        return cfi("FK_VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF", "vendorTheLongAndWindingTableAndColumn", this, VendorTheLongAndWindingTableAndColumnDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "vendorTheLongAndWindingTableAndColumnRefList");
     }
 
     // -----------------------------------------------------
