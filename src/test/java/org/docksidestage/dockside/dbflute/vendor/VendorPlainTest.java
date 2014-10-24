@@ -46,7 +46,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
             cb.fetchFirst(1);
             cb.addOrderBy_PK_Asc();
             pushCB(cb);
-        });
+        }).get();
 
         member.setBirthdate(DfTypeUtil.toSqlDate("BC1234/12/25"));
 
@@ -68,7 +68,7 @@ public class VendorPlainTest extends UnitContainerTestCase {
             cb.fetchFirst(1);
             cb.addOrderBy_PK_Asc();
             pushCB(cb);
-        });
+        }).get();
 
         member.setFormalizedDatetime(DfTypeUtil.toTimestamp("BC1234/12/25 12:34:56.147"));
 

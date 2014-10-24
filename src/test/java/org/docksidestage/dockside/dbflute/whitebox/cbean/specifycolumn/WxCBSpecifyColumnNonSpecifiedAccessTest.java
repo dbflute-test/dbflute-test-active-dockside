@@ -5,6 +5,7 @@ import java.util.Map;
 import org.dbflute.cbean.result.ListResultBean;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
+import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -18,6 +19,9 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
     //                                                                           =========
     private MemberBhv memberBhv;
 
+    // ===================================================================================
+    //                                                                      BasePoint Only
+    //                                                                      ==============
     // TODO jflute test: non-specified access
     public void test_NonSpecifiedAccess_basePointOnly_basic() {
         // ## Arrange ##
@@ -29,7 +33,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
         });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             assertNotNull(member.getMemberId());
             assertNotNull(member.getMemberAccount());
@@ -69,7 +73,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
         });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             log(member.toString()); // expected no exception (before various checking)
             assertNotNull(member.getMemberId());
@@ -105,7 +109,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
         });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             // expected no exception (before various checking)
             Map<String, Object> columnMap = member.getDBMeta().extractAllColumnMap(member);
@@ -131,5 +135,54 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertNull(member.xznocheckGetVersionNo());
             assertEquals(3, member.myspecifiedProperties().size()); // PK and account and setupSelect
         }
+    }
+
+    // ===================================================================================
+    //                                                                       Relation Only
+    //                                                                       =============
+    public void test_NonSpecifiedAccess_relationOnly_basic() {
+        // ## Arrange ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.specify().specifyMemberStatus().columnDisplayOrder();
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        for (Member member : memberList) {
+            assertNotNull(member.getMemberId());
+            assertNotNull(member.getMemberName());
+            assertNotNull(member.getMemberAccount());
+            assertNotNull(member.getMemberStatusCode());
+            if (member.getBirthdate() != null) {
+                markHere("birthdate");
+            }
+            if (member.getFormalizedDatetime() != null) {
+                markHere("formalized");
+            }
+            assertNotNull(member.getRegisterDatetime());
+            assertNotNull(member.getRegisterUser());
+            assertNotNull(member.getUpdateDatetime());
+            assertNotNull(member.getUpdateUser());
+            assertNotNull(member.getVersionNo());
+
+            MemberStatus status = member.getMemberStatus();
+            assertNotNull(status.getMemberStatusCode());
+            assertNonSpecifiedAccess(() -> status.getMemberStatusName());
+            assertNotNull(status.getDisplayOrder());
+            assertNonSpecifiedAccess(() -> status.getDescription());
+
+            assertEquals(2, status.myspecifiedProperties().size()); // PK and account and setupSelect
+
+            log(member.toString()); // expected no exception
+            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+
+            log(status.toString()); // expected no exception
+            log(status.getDBMeta().extractAllColumnMap(status)); // expected no exception
+        }
+        assertMarked("birthdate");
+        assertMarked("formalized");
     }
 }

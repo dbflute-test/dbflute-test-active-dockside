@@ -35,64 +35,61 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_loadReferrer_one_entity() {
         // ## Arrange ##
-        Member member = memberBhv.selectEntity(cb -> {
+        memberBhv.selectEntity(cb -> {
             cb.query().setMemberId_Equal(3);
-
-            // At first, it selects the list of Member.
-                pushCB(cb);
+            pushCB(cb);
+        }).alwaysPresent(member -> {
+            /* ## Act ## */
+            memberBhv.loadPurchase(member, new ConditionBeanSetupper<PurchaseCB>() {
+                public void setup(PurchaseCB cb) {
+                    cb.query().setPurchaseCount_GreaterEqual(2);
+                    cb.query().addOrderBy_PurchaseCount_Desc();
+                }
             });
 
-        // ## Act ##
-        // And it loads the list of Purchase with its conditions.
-        memberBhv.loadPurchase(member, new ConditionBeanSetupper<PurchaseCB>() {
-            public void setup(PurchaseCB cb) {
-                cb.query().setPurchaseCount_GreaterEqual(2);
-                cb.query().addOrderBy_PurchaseCount_Desc();
+            /* ## Assert ## */
+            log("[MEMBER]: " + member.getMemberName());
+            List<Purchase> purchaseList = member.getPurchaseList();
+            assertHasAnyElement(purchaseList);
+            for (Purchase purchase : purchaseList) {
+                log("    [PURCHASE]: " + purchase.toString());
             }
         });
-
-        // ## Assert ##
-        log("[MEMBER]: " + member.getMemberName());
-        List<Purchase> purchaseList = member.getPurchaseList();// *Point!
-        assertHasAnyElement(purchaseList);
-        for (Purchase purchase : purchaseList) {
-            log("    [PURCHASE]: " + purchase.toString());
-        }
     }
 
     public void test_loadReferrer_loadReferrerReferrer() {
         // ## Arrange ##
         // A base table is MemberStatus at this test case.
-        MemberStatus status = memberStatusBhv.selectEntity(cb -> {
+        memberStatusBhv.selectEntity(cb -> {
             cb.query().setMemberStatusCode_Equal_Formalized();
-        });
-
-        // ## Act ##
-        memberStatusBhv.load(status, statusLoader -> {
-            statusLoader.loadMember(memberCB -> {
-                memberCB.query().addOrderBy_FormalizedDatetime_Desc();
-            }).withNestedReferrer(memberLoader -> {
-                memberLoader.loadPurchase(purchaseCB -> {
-                    purchaseCB.query().addOrderBy_PurchaseCount_Desc();
-                    purchaseCB.query().addOrderBy_ProductId_Desc();
+        }).alwaysPresent(status -> {
+            /* ## Act ## */
+            memberStatusBhv.load(status, statusLoader -> {
+                statusLoader.loadMember(memberCB -> {
+                    memberCB.query().addOrderBy_FormalizedDatetime_Desc();
+                }).withNestedReferrer(memberLoader -> {
+                    memberLoader.loadPurchase(purchaseCB -> {
+                        purchaseCB.query().addOrderBy_PurchaseCount_Desc();
+                        purchaseCB.query().addOrderBy_ProductId_Desc();
+                    });
                 });
             });
-        });
 
-        // ## Assert ##
-        boolean existsPurchase = false;
-        List<Member> memberList = status.getMemberList();
-        log("[MEMBER_STATUS]: " + status.getMemberStatusName());
-        for (Member member : memberList) {
-            List<Purchase> purchaseList = member.getPurchaseList();
-            log("    [MEMBER]: " + member.getMemberName() + ", " + member.getFormalizedDatetime());
-            for (Purchase purchase : purchaseList) {
-                log("        [PURCHASE]: " + purchase.getPurchaseId() + ", " + purchase.getPurchaseCount());
-                existsPurchase = true;
+            /* ## Assert ## */
+            boolean existsPurchase = false;
+            List<Member> memberList = status.getMemberList();
+            log("[MEMBER_STATUS]: " + status.getMemberStatusName());
+            for (Member member : memberList) {
+                List<Purchase> purchaseList = member.getPurchaseList();
+                log("    [MEMBER]: " + member.getMemberName() + ", " + member.getFormalizedDatetime());
+                for (Purchase purchase : purchaseList) {
+                    log("        [PURCHASE]: " + purchase.getPurchaseId() + ", " + purchase.getPurchaseCount());
+                    existsPurchase = true;
+                }
             }
-        }
-        log("");
-        assertTrue(existsPurchase);
+            log("");
+            assertTrue(existsPurchase);
+        });
     }
 
     public void test_loadReferrer_union_querySynchronization() {
@@ -184,10 +181,8 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         Member member = memberBhv.selectEntity(cb -> {
             cb.query().setMemberId_Equal(3);
-
-            // At first, it selects the list of Member.
-                pushCB(cb);
-            });
+            pushCB(cb);
+        }).get();
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.

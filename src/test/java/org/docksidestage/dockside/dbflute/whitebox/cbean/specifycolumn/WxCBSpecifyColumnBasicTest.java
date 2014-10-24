@@ -305,10 +305,8 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         Member member = memberBhv.selectEntity(cb -> {
             cb.query().setMemberId_Equal(3);
-
-            // At first, it selects the list of Member.
-                pushCB(cb);
-            });
+            pushCB(cb);
+        }).get();
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.
@@ -336,10 +334,8 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         Member member = memberBhv.selectEntity(cb -> {
             cb.query().setMemberId_Equal(3);
-
-            // At first, it selects the list of Member.
-                pushCB(cb);
-            });
+            pushCB(cb);
+        }).get();
 
         // ## Act ##
         // And it loads the list of Purchase with its conditions.

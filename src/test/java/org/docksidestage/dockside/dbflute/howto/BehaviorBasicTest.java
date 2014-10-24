@@ -50,27 +50,19 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                       Entity Select
     //                                                                       =============
-    /**
-     * 一件検索: selectEntity().
-     * 会員IDが'3'である会員を一件検索。
-     */
     public void test_selectEntity() {
         // ## Arrange ##
-        Member member = memberBhv.selectEntity(cb -> {
+        memberBhv.selectEntity(cb -> {
             /* ## Act ## */
             cb.query().setMemberId_Equal(3);
+        }).alwaysPresent(member -> {
+            /* ## Assert ## */
+            log(member.toString());
+            assertEquals((Integer) 3, member.getMemberId());
         });
-
-        // ## Assert ##
-        log(member.toString());
-        assertEquals((Integer) 3, member.getMemberId());
 
         // [SQL]
         // where MEMBER_ID = 3
-
-        // [Description]
-        // A. 存在しないIDを指定した場合はnullが戻る。
-        // B. 結果が複数件の場合は例外発生。{EntityDuplicatedException}
     }
 
     /**

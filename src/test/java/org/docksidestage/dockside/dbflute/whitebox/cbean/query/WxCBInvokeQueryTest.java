@@ -29,7 +29,6 @@ import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
-import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -49,14 +48,14 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_invokeSetupSelect_oneLevel() {
         // ## Arrange ##
-        Member member = memberBhv.selectEntity(cb -> {
+        memberBhv.selectEntity(cb -> {
             /* ## Act ## */
             cb.invokeSetupSelect("memberStatus");
             cb.query().setMemberId_Equal(3);
+        }).alwaysPresent(member -> {
+            /* ## Assert ## */
+            assertNotNull(member.getMemberStatus());
         });
-
-        // ## Assert ##
-        assertNotNull(member.getMemberStatus());
     }
 
     public void test_invokeSetupSelect_oneLevel_notExists() {
@@ -75,15 +74,15 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
     public void test_invokeSetupSelect_twoLevel() {
         // ## Arrange ##
-        Purchase purchase = purchaseBhv.selectEntity(cb -> {
+        purchaseBhv.selectEntity(cb -> {
             /* ## Act ## */
             cb.invokeSetupSelect("member.memberStatus");
             cb.query().setPurchaseId_Equal(3L);
+        }).alwaysPresent(purchase -> {
+            /* ## Assert ## */
+            assertNotNull(purchase.getMember());
+            assertNotNull(purchase.getMember().getMemberStatus());
         });
-
-        // ## Assert ##
-        assertNotNull(purchase.getMember());
-        assertNotNull(purchase.getMember().getMemberStatus());
     }
 
     public void test_invokeSetupSelect_twoLevel_notExists() {

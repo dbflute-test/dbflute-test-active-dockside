@@ -45,7 +45,7 @@ map:{
     ; isMakeConditionQueryPlainListManualOrder = false
     ; isMakeDirectConditionBeanSetup = false
     ; isMakeBatchUpdateSpecifyColumn = false
-    ; isAvailableSelectEntityPlainReturn = true
+    ; isAvailableSelectEntityPlainReturn = false
     ; isAvailableRelationPlainEntity = true
     ; isMakeConditionQueryPrefixSearch = false
     ; isMakeConditionQueryDateFromTo = false

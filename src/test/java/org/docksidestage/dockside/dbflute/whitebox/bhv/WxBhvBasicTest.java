@@ -18,7 +18,6 @@ import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.cursor.PurchaseSummaryMemberCursor;
 import org.docksidestage.dockside.dbflute.exbhv.cursor.PurchaseSummaryMemberCursorHandler;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PurchaseSummaryMemberPmb;
-import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -110,12 +109,14 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        Member member = memberBhv.selectEntity(cb -> {
+        memberBhv.selectEntity(cb -> {
             cb.fetchFirst(1);
+        }).alwaysPresent(member -> {
+            /* ## Assert ## */
+            assertNotNull(member);
+            log(member);
         });
 
-        // ## Assert ##
-        assertNotNull(member);
     }
 
     // ===================================================================================

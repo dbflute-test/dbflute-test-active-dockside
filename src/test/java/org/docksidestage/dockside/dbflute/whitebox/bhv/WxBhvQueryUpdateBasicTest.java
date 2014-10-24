@@ -206,12 +206,12 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
-        MemberLogin deleted = memberLoginBhv.selectEntity(cb -> {
+        memberLoginBhv.selectEntity(cb -> {
             cb.query().setMemberLoginId_Equal(3L);
+        }).alwaysPresent(deleted -> {
+            MemberLogin actual = memberLoginBhv.selectByPK(99999L).get();
+            assertTrue(actual.isLoginMemberStatusCodeWithdrawal());
         });
-        assertNull(deleted);
-        MemberLogin actual = memberLoginBhv.selectByPK(99999L).get();
-        assertTrue(actual.isLoginMemberStatusCodeWithdrawal());
     }
 
     public void test_queryUpdate_noupdate() {
