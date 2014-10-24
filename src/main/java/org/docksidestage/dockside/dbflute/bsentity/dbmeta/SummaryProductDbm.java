@@ -53,27 +53,10 @@ public class SummaryProductDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgProductId(), "productId");
-        setupEpg(_epgMap, new EpgProductName(), "productName");
-        setupEpg(_epgMap, new EpgProductHandleCode(), "productHandleCode");
-        setupEpg(_epgMap, new EpgProductStatusCode(), "productStatusCode");
-        setupEpg(_epgMap, new EpgLatestPurchaseDatetime(), "latestPurchaseDatetime");
-    }
-    public static class EpgProductId implements PropertyGateway {
-        public Object read(Entity et) { return ((SummaryProduct)et).getProductId(); }
-        public void write(Entity et, Object vl) { ((SummaryProduct)et).setProductId(cti(vl)); }
-    }
-    public static class EpgProductName implements PropertyGateway {
-        public Object read(Entity et) { return ((SummaryProduct)et).getProductName(); }
-        public void write(Entity et, Object vl) { ((SummaryProduct)et).setProductName((String)vl); }
-    }
-    public static class EpgProductHandleCode implements PropertyGateway {
-        public Object read(Entity et) { return ((SummaryProduct)et).getProductHandleCode(); }
-        public void write(Entity et, Object vl) { ((SummaryProduct)et).setProductHandleCode((String)vl); }
-    }
-    public class EpgProductStatusCode implements PropertyGateway {
-        public Object read(Entity et) { return ((SummaryProduct)et).getProductStatusCode(); }
-        public void write(Entity et, Object vl) {
+        setupEpg(_epgMap, et -> ((SummaryProduct)et).getProductId(), (et, vl) -> ((SummaryProduct)et).setProductId(cti(vl)), "productId");
+        setupEpg(_epgMap, et -> ((SummaryProduct)et).getProductName(), (et, vl) -> ((SummaryProduct)et).setProductName((String)vl), "productName");
+        setupEpg(_epgMap, et -> ((SummaryProduct)et).getProductHandleCode(), (et, vl) -> ((SummaryProduct)et).setProductHandleCode((String)vl), "productHandleCode");
+        setupEpg(_epgMap, et -> ((SummaryProduct)et).getProductStatusCode(), (et, vl) -> {
             ColumnInfo col = columnProductStatusCode();
             CDef.ProductStatus cls = (CDef.ProductStatus)gcls(col, vl);
             if (cls != null) {
@@ -81,11 +64,8 @@ public class SummaryProductDbm extends AbstractDBMeta {
             } else {
                 ((SummaryProduct)et).mynativeMappingProductStatusCode((String)vl);
             }
-        }
-    }
-    public static class EpgLatestPurchaseDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((SummaryProduct)et).getLatestPurchaseDatetime(); }
-        public void write(Entity et, Object vl) { ((SummaryProduct)et).setLatestPurchaseDatetime((java.sql.Timestamp)vl); }
+        }, "productStatusCode");
+        setupEpg(_epgMap, et -> ((SummaryProduct)et).getLatestPurchaseDatetime(), (et, vl) -> ((SummaryProduct)et).setLatestPurchaseDatetime((java.sql.Timestamp)vl), "latestPurchaseDatetime");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -94,12 +74,9 @@ public class SummaryProductDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
-    {
-        setupEfpg(_efpgMap, new EfpgProductStatus(), "productStatus");
-    }
-    public class EfpgProductStatus implements PropertyGateway {
-        public Object read(Entity et) { return ((SummaryProduct)et).getProductStatus(); }
-        public void write(Entity et, Object vl) { ((SummaryProduct)et).setProductStatus((ProductStatus)vl); }
+    { xsetupEfpg(); }
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((SummaryProduct)et).getProductStatus(), (et, vl) -> ((SummaryProduct)et).setProductStatus((ProductStatus)vl), "productStatus");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }

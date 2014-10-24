@@ -1198,9 +1198,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     public void xsmyselfDerive(String fn, SubQuery<PurchasePaymentCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         PurchasePaymentCB cb = new PurchasePaymentCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); }
-        String pp = keepSpecifyMyselfDerived(cb.query());
-        String pk = "PURCHASE_PAYMENT_ID";
+        lockCall(() -> sq.query(cb)); String pp = keepSpecifyMyselfDerived(cb.query()); String pk = "PURCHASE_PAYMENT_ID";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(PurchasePaymentCQ sq);
@@ -1234,8 +1232,7 @@ public abstract class AbstractBsPurchasePaymentCQ extends AbstractConditionQuery
     public void myselfExists(SubQuery<PurchasePaymentCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
         PurchasePaymentCB cb = new PurchasePaymentCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepMyselfExists(cb.query());
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(PurchasePaymentCQ sq);

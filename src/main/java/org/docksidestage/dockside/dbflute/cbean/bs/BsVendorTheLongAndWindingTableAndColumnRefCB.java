@@ -269,7 +269,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnTheLongAndWindingTableAndColumnId();
         }
-        doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryVendorTheLongAndWindingTableAndColumn(); } });
+        doSetupSelect(() -> query().queryVendorTheLongAndWindingTableAndColumn());
     }
 
     // [DBFlute-0.7.4]
@@ -299,10 +299,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
     public HpSpecification specify() {
         assertSpecifyPurpose();
         if (_specification == null) { _specification = new HpSpecification(this
-            , new HpSpQyCall<VendorTheLongAndWindingTableAndColumnRefCQ>() {
-                public boolean has() { return true; }
-                public VendorTheLongAndWindingTableAndColumnRefCQ qy() { return xdfgetConditionQuery(); }
-            }
+            , xcreateSpQyCall(() -> true, () -> xdfgetConditionQuery())
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
@@ -361,15 +358,14 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
         public VendorTheLongAndWindingTableAndColumnCB.HpSpecification specifyVendorTheLongAndWindingTableAndColumn() {
             assertRelation("vendorTheLongAndWindingTableAndColumn");
             if (_vendorTheLongAndWindingTableAndColumn == null) {
-                _vendorTheLongAndWindingTableAndColumn = new VendorTheLongAndWindingTableAndColumnCB.HpSpecification(_baseCB, new HpSpQyCall<VendorTheLongAndWindingTableAndColumnCQ>() {
-                    public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryVendorTheLongAndWindingTableAndColumn(); }
-                    public VendorTheLongAndWindingTableAndColumnCQ qy() { return _qyCall.qy().queryVendorTheLongAndWindingTableAndColumn(); } }
+                _vendorTheLongAndWindingTableAndColumn = new VendorTheLongAndWindingTableAndColumnCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryVendorTheLongAndWindingTableAndColumn()
+                                    , () -> _qyCall.qy().queryVendorTheLongAndWindingTableAndColumn())
                     , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
-                    _vendorTheLongAndWindingTableAndColumn.xsetSyncQyCall(new HpSpQyCall<VendorTheLongAndWindingTableAndColumnCQ>() {
-                        public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryVendorTheLongAndWindingTableAndColumn(); }
-                        public VendorTheLongAndWindingTableAndColumnCQ qy() { return xsyncQyCall().qy().queryVendorTheLongAndWindingTableAndColumn(); }
-                    });
+                    _vendorTheLongAndWindingTableAndColumn.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryVendorTheLongAndWindingTableAndColumn()
+                      , () -> xsyncQyCall().qy().queryVendorTheLongAndWindingTableAndColumn()));
                 }
             }
             return _vendorTheLongAndWindingTableAndColumn;
@@ -380,9 +376,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
          */
         public HpSDRFunction<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnRefCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnRefCQ>() {
-                public void setup(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> sq, VendorTheLongAndWindingTableAndColumnRefCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
 
@@ -408,10 +402,8 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<VendorTheLongAndWindingTableAndColumnRefCB> columnQuery(final SpecifyQuery<VendorTheLongAndWindingTableAndColumnRefCB> colCBLambda) {
-        return xcreateColQyOperand(new HpColQyHandler<VendorTheLongAndWindingTableAndColumnRefCB>() {
-            public ColumnCalculator handle(SpecifyQuery<VendorTheLongAndWindingTableAndColumnRefCB> rightSp, String operand) {
-                return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
-            }
+        return xcreateColQyOperand((rightSp, operand) -> {
+            return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
@@ -517,10 +509,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
         } else {
             cb = new VendorTheLongAndWindingTableAndColumnRefCB();
         }
-        specify().xsetSyncQyCall(new HpSpQyCall<VendorTheLongAndWindingTableAndColumnRefCQ>() {
-            public boolean has() { return true; }
-            public VendorTheLongAndWindingTableAndColumnRefCQ qy() { return cb.query(); }
-        });
+        specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
 
     // ===================================================================================

@@ -15,7 +15,6 @@
  */
 package org.docksidestage.dockside.dbflute.cbean.nss;
 
-import org.dbflute.cbean.ConditionQuery;
 import org.docksidestage.dockside.dbflute.cbean.cq.PurchaseCQ;
 
 /**
@@ -40,7 +39,7 @@ public class PurchaseNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMember() {
-        _query.xdoNss(new PurchaseCQ.NssCall() { public ConditionQuery qf() { return _query.queryMember(); }});
+        _query.xdoNss(() -> _query.queryMember());
         return new MemberNss(_query.queryMember());
     }
     /**
@@ -49,7 +48,7 @@ public class PurchaseNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public ProductNss withProduct() {
-        _query.xdoNss(new PurchaseCQ.NssCall() { public ConditionQuery qf() { return _query.queryProduct(); }});
+        _query.xdoNss(() -> _query.queryProduct());
         return new ProductNss(_query.queryProduct());
     }
     /**
@@ -58,7 +57,7 @@ public class PurchaseNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public SummaryProductNss withSummaryProduct() {
-        _query.xdoNss(new PurchaseCQ.NssCall() { public ConditionQuery qf() { return _query.querySummaryProduct(); }});
+        _query.xdoNss(() -> _query.querySummaryProduct());
         return new SummaryProductNss(_query.querySummaryProduct());
     }
 }

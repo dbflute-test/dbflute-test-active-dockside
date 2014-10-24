@@ -15,7 +15,6 @@
  */
 package org.docksidestage.dockside.dbflute.cbean.nss;
 
-import org.dbflute.cbean.ConditionQuery;
 import org.docksidestage.dockside.dbflute.cbean.cq.MemberServiceCQ;
 
 /**
@@ -40,7 +39,7 @@ public class MemberServiceNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMember() {
-        _query.xdoNss(new MemberServiceCQ.NssCall() { public ConditionQuery qf() { return _query.queryMember(); }});
+        _query.xdoNss(() -> _query.queryMember());
         return new MemberNss(_query.queryMember());
     }
     /**
@@ -48,6 +47,6 @@ public class MemberServiceNss {
      * (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
      */
     public void withServiceRank() {
-        _query.xdoNss(new MemberServiceCQ.NssCall() { public ConditionQuery qf() { return _query.queryServiceRank(); }});
+        _query.xdoNss(() -> _query.queryServiceRank());
     }
 }

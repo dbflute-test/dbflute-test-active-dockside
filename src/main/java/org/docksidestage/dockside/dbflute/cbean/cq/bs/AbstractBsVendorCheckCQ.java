@@ -3395,9 +3395,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     public void xsmyselfDerive(String fn, SubQuery<VendorCheckCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         VendorCheckCB cb = new VendorCheckCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); }
-        String pp = keepSpecifyMyselfDerived(cb.query());
-        String pk = "VENDOR_CHECK_ID";
+        lockCall(() -> sq.query(cb)); String pp = keepSpecifyMyselfDerived(cb.query()); String pk = "VENDOR_CHECK_ID";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(VendorCheckCQ sq);
@@ -3431,8 +3429,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     public void myselfExists(SubQuery<VendorCheckCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
         VendorCheckCB cb = new VendorCheckCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepMyselfExists(cb.query());
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(VendorCheckCQ sq);

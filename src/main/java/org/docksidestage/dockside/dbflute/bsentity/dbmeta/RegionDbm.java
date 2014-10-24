@@ -53,12 +53,7 @@ public class RegionDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgRegionId(), "regionId");
-        setupEpg(_epgMap, new EpgRegionName(), "regionName");
-    }
-    public class EpgRegionId implements PropertyGateway {
-        public Object read(Entity et) { return ((Region)et).getRegionId(); }
-        public void write(Entity et, Object vl) {
+        setupEpg(_epgMap, et -> ((Region)et).getRegionId(), (et, vl) -> {
             ColumnInfo col = columnRegionId();
             CDef.Region cls = (CDef.Region)gcls(col, vl);
             if (cls != null) {
@@ -66,11 +61,8 @@ public class RegionDbm extends AbstractDBMeta {
             } else {
                 ((Region)et).mynativeMappingRegionId(ctn(vl, Integer.class));
             }
-        }
-    }
-    public static class EpgRegionName implements PropertyGateway {
-        public Object read(Entity et) { return ((Region)et).getRegionName(); }
-        public void write(Entity et, Object vl) { ((Region)et).setRegionName((String)vl); }
+        }, "regionId");
+        setupEpg(_epgMap, et -> ((Region)et).getRegionName(), (et, vl) -> ((Region)et).setRegionName((String)vl), "regionName");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

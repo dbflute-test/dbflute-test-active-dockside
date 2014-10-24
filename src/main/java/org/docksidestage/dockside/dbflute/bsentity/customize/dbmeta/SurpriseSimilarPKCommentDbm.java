@@ -53,36 +53,12 @@ public class SurpriseSimilarPKCommentDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgMemberName(), "memberName");
-        setupEpg(_epgMap, new EpgRegisterDatetime(), "registerDatetime");
-        setupEpg(_epgMap, new EpgRegisterUser(), "registerUser");
-        setupEpg(_epgMap, new EpgUpdateDatetime(), "updateDatetime");
-        setupEpg(_epgMap, new EpgUpdateUser(), "updateUser");
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((SurpriseSimilarPKComment)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((SurpriseSimilarPKComment)et).setMemberId(cti(vl)); }
-    }
-    public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity et) { return ((SurpriseSimilarPKComment)et).getMemberName(); }
-        public void write(Entity et, Object vl) { ((SurpriseSimilarPKComment)et).setMemberName((String)vl); }
-    }
-    public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((SurpriseSimilarPKComment)et).getRegisterDatetime(); }
-        public void write(Entity et, Object vl) { ((SurpriseSimilarPKComment)et).setRegisterDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity et) { return ((SurpriseSimilarPKComment)et).getRegisterUser(); }
-        public void write(Entity et, Object vl) { ((SurpriseSimilarPKComment)et).setRegisterUser((String)vl); }
-    }
-    public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((SurpriseSimilarPKComment)et).getUpdateDatetime(); }
-        public void write(Entity et, Object vl) { ((SurpriseSimilarPKComment)et).setUpdateDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity et) { return ((SurpriseSimilarPKComment)et).getUpdateUser(); }
-        public void write(Entity et, Object vl) { ((SurpriseSimilarPKComment)et).setUpdateUser((String)vl); }
+        setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getMemberId(), (et, vl) -> ((SurpriseSimilarPKComment)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getMemberName(), (et, vl) -> ((SurpriseSimilarPKComment)et).setMemberName((String)vl), "memberName");
+        setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getRegisterDatetime(), (et, vl) -> ((SurpriseSimilarPKComment)et).setRegisterDatetime((java.sql.Timestamp)vl), "registerDatetime");
+        setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getRegisterUser(), (et, vl) -> ((SurpriseSimilarPKComment)et).setRegisterUser((String)vl), "registerUser");
+        setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getUpdateDatetime(), (et, vl) -> ((SurpriseSimilarPKComment)et).setUpdateDatetime((java.sql.Timestamp)vl), "updateDatetime");
+        setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getUpdateUser(), (et, vl) -> ((SurpriseSimilarPKComment)et).setUpdateUser((String)vl), "updateUser");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

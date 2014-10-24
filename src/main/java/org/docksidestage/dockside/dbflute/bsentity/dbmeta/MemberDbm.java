@@ -53,33 +53,10 @@ public class MemberDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgMemberName(), "memberName");
-        setupEpg(_epgMap, new EpgMemberAccount(), "memberAccount");
-        setupEpg(_epgMap, new EpgMemberStatusCode(), "memberStatusCode");
-        setupEpg(_epgMap, new EpgFormalizedDatetime(), "formalizedDatetime");
-        setupEpg(_epgMap, new EpgBirthdate(), "birthdate");
-        setupEpg(_epgMap, new EpgRegisterDatetime(), "registerDatetime");
-        setupEpg(_epgMap, new EpgRegisterUser(), "registerUser");
-        setupEpg(_epgMap, new EpgUpdateDatetime(), "updateDatetime");
-        setupEpg(_epgMap, new EpgUpdateUser(), "updateUser");
-        setupEpg(_epgMap, new EpgVersionNo(), "versionNo");
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((Member)et).setMemberId(cti(vl)); }
-    }
-    public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getMemberName(); }
-        public void write(Entity et, Object vl) { ((Member)et).setMemberName((String)vl); }
-    }
-    public static class EpgMemberAccount implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getMemberAccount(); }
-        public void write(Entity et, Object vl) { ((Member)et).setMemberAccount((String)vl); }
-    }
-    public class EpgMemberStatusCode implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getMemberStatusCode(); }
-        public void write(Entity et, Object vl) {
+        setupEpg(_epgMap, et -> ((Member)et).getMemberId(), (et, vl) -> ((Member)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((Member)et).getMemberName(), (et, vl) -> ((Member)et).setMemberName((String)vl), "memberName");
+        setupEpg(_epgMap, et -> ((Member)et).getMemberAccount(), (et, vl) -> ((Member)et).setMemberAccount((String)vl), "memberAccount");
+        setupEpg(_epgMap, et -> ((Member)et).getMemberStatusCode(), (et, vl) -> {
             ColumnInfo col = columnMemberStatusCode();
             CDef.MemberStatus cls = (CDef.MemberStatus)gcls(col, vl);
             if (cls != null) {
@@ -87,35 +64,14 @@ public class MemberDbm extends AbstractDBMeta {
             } else {
                 ((Member)et).mynativeMappingMemberStatusCode((String)vl);
             }
-        }
-    }
-    public static class EpgFormalizedDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getFormalizedDatetime(); }
-        public void write(Entity et, Object vl) { ((Member)et).setFormalizedDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgBirthdate implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getBirthdate(); }
-        public void write(Entity et, Object vl) { ((Member)et).setBirthdate((java.util.Date)vl); }
-    }
-    public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getRegisterDatetime(); }
-        public void write(Entity et, Object vl) { ((Member)et).setRegisterDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getRegisterUser(); }
-        public void write(Entity et, Object vl) { ((Member)et).setRegisterUser((String)vl); }
-    }
-    public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getUpdateDatetime(); }
-        public void write(Entity et, Object vl) { ((Member)et).setUpdateDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getUpdateUser(); }
-        public void write(Entity et, Object vl) { ((Member)et).setUpdateUser((String)vl); }
-    }
-    public static class EpgVersionNo implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getVersionNo(); }
-        public void write(Entity et, Object vl) { ((Member)et).setVersionNo(ctl(vl)); }
+        }, "memberStatusCode");
+        setupEpg(_epgMap, et -> ((Member)et).getFormalizedDatetime(), (et, vl) -> ((Member)et).setFormalizedDatetime((java.sql.Timestamp)vl), "formalizedDatetime");
+        setupEpg(_epgMap, et -> ((Member)et).getBirthdate(), (et, vl) -> ((Member)et).setBirthdate((java.util.Date)vl), "birthdate");
+        setupEpg(_epgMap, et -> ((Member)et).getRegisterDatetime(), (et, vl) -> ((Member)et).setRegisterDatetime((java.sql.Timestamp)vl), "registerDatetime");
+        setupEpg(_epgMap, et -> ((Member)et).getRegisterUser(), (et, vl) -> ((Member)et).setRegisterUser((String)vl), "registerUser");
+        setupEpg(_epgMap, et -> ((Member)et).getUpdateDatetime(), (et, vl) -> ((Member)et).setUpdateDatetime((java.sql.Timestamp)vl), "updateDatetime");
+        setupEpg(_epgMap, et -> ((Member)et).getUpdateUser(), (et, vl) -> ((Member)et).setUpdateUser((String)vl), "updateUser");
+        setupEpg(_epgMap, et -> ((Member)et).getVersionNo(), (et, vl) -> ((Member)et).setVersionNo(ctl(vl)), "versionNo");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -124,39 +80,14 @@ public class MemberDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
-    {
-        setupEfpg(_efpgMap, new EfpgMemberStatus(), "memberStatus");
-        setupEfpg(_efpgMap, new EfpgMemberAddressAsValid(), "memberAddressAsValid");
-        setupEfpg(_efpgMap, new EfpgMemberLoginAsLatest(), "memberLoginAsLatest");
-    }
-    public class EfpgMemberStatus implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getMemberStatus(); }
-        public void write(Entity et, Object vl) { ((Member)et).setMemberStatus((MemberStatus)vl); }
-    }
-    public class EfpgMemberAddressAsValid implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getMemberAddressAsValid(); }
-        public void write(Entity et, Object vl) { ((Member)et).setMemberAddressAsValid((MemberAddress)vl); }
-    }
-    public class EfpgMemberLoginAsLatest implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getMemberLoginAsLatest(); }
-        public void write(Entity et, Object vl) { ((Member)et).setMemberLoginAsLatest((MemberLogin)vl); }
-    }
-    {
-        setupEfpg(_efpgMap, new EfpgMemberSecurityAsOne(), "memberSecurityAsOne");
-        setupEfpg(_efpgMap, new EfpgMemberServiceAsOne(), "memberServiceAsOne");
-        setupEfpg(_efpgMap, new EfpgMemberWithdrawalAsOne(), "memberWithdrawalAsOne");
-    }
-    public class EfpgMemberSecurityAsOne implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getMemberSecurityAsOne(); }
-        public void write(Entity et, Object vl) { ((Member)et).setMemberSecurityAsOne((MemberSecurity)vl); }
-    }
-    public class EfpgMemberServiceAsOne implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getMemberServiceAsOne(); }
-        public void write(Entity et, Object vl) { ((Member)et).setMemberServiceAsOne((MemberService)vl); }
-    }
-    public class EfpgMemberWithdrawalAsOne implements PropertyGateway {
-        public Object read(Entity et) { return ((Member)et).getMemberWithdrawalAsOne(); }
-        public void write(Entity et, Object vl) { ((Member)et).setMemberWithdrawalAsOne((MemberWithdrawal)vl); }
+    { xsetupEfpg(); }
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((Member)et).getMemberStatus(), (et, vl) -> ((Member)et).setMemberStatus((MemberStatus)vl), "memberStatus");
+        setupEfpg(_efpgMap, et -> ((Member)et).getMemberAddressAsValid(), (et, vl) -> ((Member)et).setMemberAddressAsValid((MemberAddress)vl), "memberAddressAsValid");
+        setupEfpg(_efpgMap, et -> ((Member)et).getMemberLoginAsLatest(), (et, vl) -> ((Member)et).setMemberLoginAsLatest((MemberLogin)vl), "memberLoginAsLatest");
+        setupEfpg(_efpgMap, et -> ((Member)et).getMemberSecurityAsOne(), (et, vl) -> ((Member)et).setMemberSecurityAsOne((MemberSecurity)vl), "memberSecurityAsOne");
+        setupEfpg(_efpgMap, et -> ((Member)et).getMemberServiceAsOne(), (et, vl) -> ((Member)et).setMemberServiceAsOne((MemberService)vl), "memberServiceAsOne");
+        setupEfpg(_efpgMap, et -> ((Member)et).getMemberWithdrawalAsOne(), (et, vl) -> ((Member)et).setMemberWithdrawalAsOne((MemberWithdrawal)vl), "memberWithdrawalAsOne");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }
@@ -179,7 +110,7 @@ public class MemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_0A4A38DD_0B68_41D9_96A3_1B61661DB29C", false, null, "連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。", "memberAddressAsValid,memberLoginAsLatest,memberSecurityAsOne,memberServiceAsOne,memberWithdrawalAsOne", "memberAddressList,memberFollowingByMyMemberIdList,memberFollowingByYourMemberIdList,memberLoginList,purchaseList", null);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_1D291550_EAF7_410E_AB6E_52EC72D56BBC", false, null, "連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。", "memberAddressAsValid,memberLoginAsLatest,memberSecurityAsOne,memberServiceAsOne,memberWithdrawalAsOne", "memberAddressList,memberFollowingByMyMemberIdList,memberFollowingByYourMemberIdList,memberLoginList,purchaseList", null);
     protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, "会員名称", String.class, "memberName", null, false, false, true, "VARCHAR", 200, 0, null, false, null, "会員のフルネームの名称。\n苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。", null, null, null);
     protected final ColumnInfo _columnMemberAccount = cci("MEMBER_ACCOUNT", "MEMBER_ACCOUNT", null, "会員アカウント", String.class, "memberAccount", null, false, false, true, "VARCHAR", 50, 0, null, false, null, "ログインIDとして利用する。\n昨今メールアドレスをログインIDとすることが多いので、あまり見かけないかも!?", null, null, null);
     protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, "会員ステータスコード", String.class, "memberStatusCode", null, false, false, true, "CHAR", 3, 0, null, false, null, "会員ステータスを参照するコード。\nステータスが変わるたびに、このカラムが更新される。", "memberStatus", null, CDef.DefMeta.MemberStatus);

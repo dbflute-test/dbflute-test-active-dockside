@@ -199,18 +199,21 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
         login.setMemberLoginId(99999L);
         login.setLoginMemberStatusCode_Withdrawal();
 
+        // ## Act ##
         int updatedCount = memberLoginBhv.queryUpdate(login, cb -> {
-            /* ## Act ## */
             cb.query().setMemberLoginId_Equal(3L);
         });
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
-        memberLoginBhv.selectEntity(cb -> {
+        int count = memberLoginBhv.selectCount(cb -> {
             cb.query().setMemberLoginId_Equal(3L);
-        }).alwaysPresent(deleted -> {
-            MemberLogin actual = memberLoginBhv.selectByPK(99999L).get();
-            assertTrue(actual.isLoginMemberStatusCodeWithdrawal());
+        });
+        assertTrue(count == 0);
+        memberLoginBhv.selectEntity(cb -> {
+            cb.query().setMemberLoginId_Equal(99999L);
+        }).alwaysPresent(updated -> {
+            assertTrue(updated.isLoginMemberStatusCodeWithdrawal());
         });
     }
 

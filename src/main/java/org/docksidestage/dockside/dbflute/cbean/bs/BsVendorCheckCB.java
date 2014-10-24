@@ -279,10 +279,7 @@ public class BsVendorCheckCB extends AbstractConditionBean {
     public HpSpecification specify() {
         assertSpecifyPurpose();
         if (_specification == null) { _specification = new HpSpecification(this
-            , new HpSpQyCall<VendorCheckCQ>() {
-                public boolean has() { return true; }
-                public VendorCheckCQ qy() { return xdfgetConditionQuery(); }
-            }
+            , xcreateSpQyCall(() -> true, () -> xdfgetConditionQuery())
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
@@ -454,9 +451,7 @@ public class BsVendorCheckCB extends AbstractConditionBean {
          */
         public HpSDRFunction<VendorCheckCB, VendorCheckCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorCheckCB, VendorCheckCQ>() {
-                public void setup(String fn, SubQuery<VendorCheckCB> sq, VendorCheckCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
 
@@ -482,10 +477,8 @@ public class BsVendorCheckCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<VendorCheckCB> columnQuery(final SpecifyQuery<VendorCheckCB> colCBLambda) {
-        return xcreateColQyOperand(new HpColQyHandler<VendorCheckCB>() {
-            public ColumnCalculator handle(SpecifyQuery<VendorCheckCB> rightSp, String operand) {
-                return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
-            }
+        return xcreateColQyOperand((rightSp, operand) -> {
+            return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
@@ -591,10 +584,7 @@ public class BsVendorCheckCB extends AbstractConditionBean {
         } else {
             cb = new VendorCheckCB();
         }
-        specify().xsetSyncQyCall(new HpSpQyCall<VendorCheckCQ>() {
-            public boolean has() { return true; }
-            public VendorCheckCQ qy() { return cb.query(); }
-        });
+        specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
 
     // ===================================================================================

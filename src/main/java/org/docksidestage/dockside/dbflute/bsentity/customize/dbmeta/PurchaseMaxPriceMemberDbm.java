@@ -53,26 +53,10 @@ public class PurchaseMaxPriceMemberDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgMemberName(), "memberName");
-        setupEpg(_epgMap, new EpgPurchaseMaxPrice(), "purchaseMaxPrice");
-        setupEpg(_epgMap, new EpgMemberStatusName(), "memberStatusName");
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchaseMaxPriceMember)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((PurchaseMaxPriceMember)et).setMemberId(cti(vl)); }
-    }
-    public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchaseMaxPriceMember)et).getMemberName(); }
-        public void write(Entity et, Object vl) { ((PurchaseMaxPriceMember)et).setMemberName((String)vl); }
-    }
-    public static class EpgPurchaseMaxPrice implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchaseMaxPriceMember)et).getPurchaseMaxPrice(); }
-        public void write(Entity et, Object vl) { ((PurchaseMaxPriceMember)et).setPurchaseMaxPrice(cti(vl)); }
-    }
-    public static class EpgMemberStatusName implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchaseMaxPriceMember)et).getMemberStatusName(); }
-        public void write(Entity et, Object vl) { ((PurchaseMaxPriceMember)et).setMemberStatusName((String)vl); }
+        setupEpg(_epgMap, et -> ((PurchaseMaxPriceMember)et).getMemberId(), (et, vl) -> ((PurchaseMaxPriceMember)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((PurchaseMaxPriceMember)et).getMemberName(), (et, vl) -> ((PurchaseMaxPriceMember)et).setMemberName((String)vl), "memberName");
+        setupEpg(_epgMap, et -> ((PurchaseMaxPriceMember)et).getPurchaseMaxPrice(), (et, vl) -> ((PurchaseMaxPriceMember)et).setPurchaseMaxPrice(cti(vl)), "purchaseMaxPrice");
+        setupEpg(_epgMap, et -> ((PurchaseMaxPriceMember)et).getMemberStatusName(), (et, vl) -> ((PurchaseMaxPriceMember)et).setMemberStatusName((String)vl), "memberStatusName");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

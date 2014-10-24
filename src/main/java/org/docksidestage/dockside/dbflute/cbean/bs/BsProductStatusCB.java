@@ -292,10 +292,7 @@ public class BsProductStatusCB extends AbstractConditionBean {
     public HpSpecification specify() {
         assertSpecifyPurpose();
         if (_specification == null) { _specification = new HpSpecification(this
-            , new HpSpQyCall<ProductStatusCQ>() {
-                public boolean has() { return true; }
-                public ProductStatusCQ qy() { return xdfgetConditionQuery(); }
-            }
+            , xcreateSpQyCall(() -> true, () -> xdfgetConditionQuery())
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
@@ -350,9 +347,7 @@ public class BsProductStatusCB extends AbstractConditionBean {
          */
         public HpSDRFunction<ProductCB, ProductStatusCQ> derivedProduct() {
             assertDerived("productList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<ProductCB, ProductStatusCQ>() {
-                public void setup(String fn, SubQuery<ProductCB> sq, ProductStatusCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsderiveProductList(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsderiveProductList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br />
@@ -368,9 +363,7 @@ public class BsProductStatusCB extends AbstractConditionBean {
          */
         public HpSDRFunction<SummaryProductCB, ProductStatusCQ> derivedSummaryProduct() {
             assertDerived("summaryProductList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<SummaryProductCB, ProductStatusCQ>() {
-                public void setup(String fn, SubQuery<SummaryProductCB> sq, ProductStatusCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsderiveSummaryProductList(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsderiveSummaryProductList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -378,9 +371,7 @@ public class BsProductStatusCB extends AbstractConditionBean {
          */
         public HpSDRFunction<ProductStatusCB, ProductStatusCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<ProductStatusCB, ProductStatusCQ>() {
-                public void setup(String fn, SubQuery<ProductStatusCB> sq, ProductStatusCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
 
@@ -406,10 +397,8 @@ public class BsProductStatusCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<ProductStatusCB> columnQuery(final SpecifyQuery<ProductStatusCB> colCBLambda) {
-        return xcreateColQyOperand(new HpColQyHandler<ProductStatusCB>() {
-            public ColumnCalculator handle(SpecifyQuery<ProductStatusCB> rightSp, String operand) {
-                return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
-            }
+        return xcreateColQyOperand((rightSp, operand) -> {
+            return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
@@ -515,10 +504,7 @@ public class BsProductStatusCB extends AbstractConditionBean {
         } else {
             cb = new ProductStatusCB();
         }
-        specify().xsetSyncQyCall(new HpSpQyCall<ProductStatusCQ>() {
-            public boolean has() { return true; }
-            public ProductStatusCQ qy() { return cb.query(); }
-        });
+        specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
 
     // ===================================================================================

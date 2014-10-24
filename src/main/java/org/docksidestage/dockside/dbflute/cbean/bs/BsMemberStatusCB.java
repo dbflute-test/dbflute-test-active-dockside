@@ -292,10 +292,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
     public HpSpecification specify() {
         assertSpecifyPurpose();
         if (_specification == null) { _specification = new HpSpecification(this
-            , new HpSpQyCall<MemberStatusCQ>() {
-                public boolean has() { return true; }
-                public MemberStatusCQ qy() { return xdfgetConditionQuery(); }
-            }
+            , xcreateSpQyCall(() -> true, () -> xdfgetConditionQuery())
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
@@ -355,9 +352,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
          */
         public HpSDRFunction<MemberCB, MemberStatusCQ> derivedMember() {
             assertDerived("memberList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberCB, MemberStatusCQ>() {
-                public void setup(String fn, SubQuery<MemberCB> sq, MemberStatusCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsderiveMemberList(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsderiveMemberList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br />
@@ -373,9 +368,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
          */
         public HpSDRFunction<MemberLoginCB, MemberStatusCQ> derivedMemberLogin() {
             assertDerived("memberLoginList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberLoginCB, MemberStatusCQ>() {
-                public void setup(String fn, SubQuery<MemberLoginCB> sq, MemberStatusCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsderiveMemberLoginList(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsderiveMemberLoginList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -383,9 +376,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
          */
         public HpSDRFunction<MemberStatusCB, MemberStatusCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberStatusCB, MemberStatusCQ>() {
-                public void setup(String fn, SubQuery<MemberStatusCB> sq, MemberStatusCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
 
@@ -411,10 +402,8 @@ public class BsMemberStatusCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<MemberStatusCB> columnQuery(final SpecifyQuery<MemberStatusCB> colCBLambda) {
-        return xcreateColQyOperand(new HpColQyHandler<MemberStatusCB>() {
-            public ColumnCalculator handle(SpecifyQuery<MemberStatusCB> rightSp, String operand) {
-                return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
-            }
+        return xcreateColQyOperand((rightSp, operand) -> {
+            return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
@@ -520,10 +509,7 @@ public class BsMemberStatusCB extends AbstractConditionBean {
         } else {
             cb = new MemberStatusCB();
         }
-        specify().xsetSyncQyCall(new HpSpQyCall<MemberStatusCQ>() {
-            public boolean has() { return true; }
-            public MemberStatusCQ qy() { return cb.query(); }
-        });
+        specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
 
     // ===================================================================================

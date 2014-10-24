@@ -53,13 +53,7 @@ public class ProductStatusDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgProductStatusCode(), "productStatusCode");
-        setupEpg(_epgMap, new EpgProductStatusName(), "productStatusName");
-        setupEpg(_epgMap, new EpgDisplayOrder(), "displayOrder");
-    }
-    public class EpgProductStatusCode implements PropertyGateway {
-        public Object read(Entity et) { return ((ProductStatus)et).getProductStatusCode(); }
-        public void write(Entity et, Object vl) {
+        setupEpg(_epgMap, et -> ((ProductStatus)et).getProductStatusCode(), (et, vl) -> {
             ColumnInfo col = columnProductStatusCode();
             CDef.ProductStatus cls = (CDef.ProductStatus)gcls(col, vl);
             if (cls != null) {
@@ -67,15 +61,9 @@ public class ProductStatusDbm extends AbstractDBMeta {
             } else {
                 ((ProductStatus)et).mynativeMappingProductStatusCode((String)vl);
             }
-        }
-    }
-    public static class EpgProductStatusName implements PropertyGateway {
-        public Object read(Entity et) { return ((ProductStatus)et).getProductStatusName(); }
-        public void write(Entity et, Object vl) { ((ProductStatus)et).setProductStatusName((String)vl); }
-    }
-    public static class EpgDisplayOrder implements PropertyGateway {
-        public Object read(Entity et) { return ((ProductStatus)et).getDisplayOrder(); }
-        public void write(Entity et, Object vl) { ((ProductStatus)et).setDisplayOrder(cti(vl)); }
+        }, "productStatusCode");
+        setupEpg(_epgMap, et -> ((ProductStatus)et).getProductStatusName(), (et, vl) -> ((ProductStatus)et).setProductStatusName((String)vl), "productStatusName");
+        setupEpg(_epgMap, et -> ((ProductStatus)et).getDisplayOrder(), (et, vl) -> ((ProductStatus)et).setDisplayOrder(cti(vl)), "displayOrder");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

@@ -53,26 +53,10 @@ public class UnpaidSummaryMemberDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgUnpaidManId(), "unpaidManId");
-        setupEpg(_epgMap, new EpgUnpaidManName(), "unpaidManName");
-        setupEpg(_epgMap, new EpgUnpaidPriceSummary(), "unpaidPriceSummary");
-        setupEpg(_epgMap, new EpgStatusName(), "statusName");
-    }
-    public static class EpgUnpaidManId implements PropertyGateway {
-        public Object read(Entity et) { return ((UnpaidSummaryMember)et).getUnpaidManId(); }
-        public void write(Entity et, Object vl) { ((UnpaidSummaryMember)et).setUnpaidManId(cti(vl)); }
-    }
-    public static class EpgUnpaidManName implements PropertyGateway {
-        public Object read(Entity et) { return ((UnpaidSummaryMember)et).getUnpaidManName(); }
-        public void write(Entity et, Object vl) { ((UnpaidSummaryMember)et).setUnpaidManName((String)vl); }
-    }
-    public static class EpgUnpaidPriceSummary implements PropertyGateway {
-        public Object read(Entity et) { return ((UnpaidSummaryMember)et).getUnpaidPriceSummary(); }
-        public void write(Entity et, Object vl) { ((UnpaidSummaryMember)et).setUnpaidPriceSummary(ctl(vl)); }
-    }
-    public static class EpgStatusName implements PropertyGateway {
-        public Object read(Entity et) { return ((UnpaidSummaryMember)et).getStatusName(); }
-        public void write(Entity et, Object vl) { ((UnpaidSummaryMember)et).setStatusName((String)vl); }
+        setupEpg(_epgMap, et -> ((UnpaidSummaryMember)et).getUnpaidManId(), (et, vl) -> ((UnpaidSummaryMember)et).setUnpaidManId(cti(vl)), "unpaidManId");
+        setupEpg(_epgMap, et -> ((UnpaidSummaryMember)et).getUnpaidManName(), (et, vl) -> ((UnpaidSummaryMember)et).setUnpaidManName((String)vl), "unpaidManName");
+        setupEpg(_epgMap, et -> ((UnpaidSummaryMember)et).getUnpaidPriceSummary(), (et, vl) -> ((UnpaidSummaryMember)et).setUnpaidPriceSummary(ctl(vl)), "unpaidPriceSummary");
+        setupEpg(_epgMap, et -> ((UnpaidSummaryMember)et).getStatusName(), (et, vl) -> ((UnpaidSummaryMember)et).setStatusName((String)vl), "statusName");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

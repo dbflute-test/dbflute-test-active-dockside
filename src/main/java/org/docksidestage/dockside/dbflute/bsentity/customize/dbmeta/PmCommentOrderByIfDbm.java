@@ -53,21 +53,9 @@ public class PmCommentOrderByIfDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgMemberName(), "memberName");
-        setupEpg(_epgMap, new EpgMemberAccount(), "memberAccount");
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((PmCommentOrderByIf)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((PmCommentOrderByIf)et).setMemberId(cti(vl)); }
-    }
-    public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity et) { return ((PmCommentOrderByIf)et).getMemberName(); }
-        public void write(Entity et, Object vl) { ((PmCommentOrderByIf)et).setMemberName((String)vl); }
-    }
-    public static class EpgMemberAccount implements PropertyGateway {
-        public Object read(Entity et) { return ((PmCommentOrderByIf)et).getMemberAccount(); }
-        public void write(Entity et, Object vl) { ((PmCommentOrderByIf)et).setMemberAccount((String)vl); }
+        setupEpg(_epgMap, et -> ((PmCommentOrderByIf)et).getMemberId(), (et, vl) -> ((PmCommentOrderByIf)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((PmCommentOrderByIf)et).getMemberName(), (et, vl) -> ((PmCommentOrderByIf)et).setMemberName((String)vl), "memberName");
+        setupEpg(_epgMap, et -> ((PmCommentOrderByIf)et).getMemberAccount(), (et, vl) -> ((PmCommentOrderByIf)et).setMemberAccount((String)vl), "memberAccount");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

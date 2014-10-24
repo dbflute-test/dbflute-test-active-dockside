@@ -53,35 +53,11 @@ public class OptionMemberDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgMemberName(), "memberName");
-        setupEpg(_epgMap, new EpgBirthdate(), "birthdate");
-        setupEpg(_epgMap, new EpgFormalizedDatetime(), "formalizedDatetime");
-        setupEpg(_epgMap, new EpgMemberStatusCode(), "memberStatusCode");
-        setupEpg(_epgMap, new EpgMemberStatusName(), "memberStatusName");
-        setupEpg(_epgMap, new EpgStatusDisplayOrder(), "statusDisplayOrder");
-        setupEpg(_epgMap, new EpgDummyFlg(), "dummyFlg");
-        setupEpg(_epgMap, new EpgDummyNoflg(), "dummyNoflg");
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((OptionMember)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setMemberId(cti(vl)); }
-    }
-    public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity et) { return ((OptionMember)et).getMemberName(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setMemberName((String)vl); }
-    }
-    public static class EpgBirthdate implements PropertyGateway {
-        public Object read(Entity et) { return ((OptionMember)et).getBirthdate(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setBirthdate((java.util.Date)vl); }
-    }
-    public static class EpgFormalizedDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((OptionMember)et).getFormalizedDatetime(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setFormalizedDatetime((java.sql.Timestamp)vl); }
-    }
-    public class EpgMemberStatusCode implements PropertyGateway {
-        public Object read(Entity et) { return ((OptionMember)et).getMemberStatusCode(); }
-        public void write(Entity et, Object vl) {
+        setupEpg(_epgMap, et -> ((OptionMember)et).getMemberId(), (et, vl) -> ((OptionMember)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((OptionMember)et).getMemberName(), (et, vl) -> ((OptionMember)et).setMemberName((String)vl), "memberName");
+        setupEpg(_epgMap, et -> ((OptionMember)et).getBirthdate(), (et, vl) -> ((OptionMember)et).setBirthdate((java.util.Date)vl), "birthdate");
+        setupEpg(_epgMap, et -> ((OptionMember)et).getFormalizedDatetime(), (et, vl) -> ((OptionMember)et).setFormalizedDatetime((java.sql.Timestamp)vl), "formalizedDatetime");
+        setupEpg(_epgMap, et -> ((OptionMember)et).getMemberStatusCode(), (et, vl) -> {
             ColumnInfo col = columnMemberStatusCode();
             CDef.MemberStatus cls = (CDef.MemberStatus)gcls(col, vl);
             if (cls != null) {
@@ -89,19 +65,10 @@ public class OptionMemberDbm extends AbstractDBMeta {
             } else {
                 ((OptionMember)et).mynativeMappingMemberStatusCode((String)vl);
             }
-        }
-    }
-    public static class EpgMemberStatusName implements PropertyGateway {
-        public Object read(Entity et) { return ((OptionMember)et).getMemberStatusName(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setMemberStatusName((String)vl); }
-    }
-    public static class EpgStatusDisplayOrder implements PropertyGateway {
-        public Object read(Entity et) { return ((OptionMember)et).getStatusDisplayOrder(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setStatusDisplayOrder(cti(vl)); }
-    }
-    public class EpgDummyFlg implements PropertyGateway {
-        public Object read(Entity et) { return ((OptionMember)et).getDummyFlg(); }
-        public void write(Entity et, Object vl) {
+        }, "memberStatusCode");
+        setupEpg(_epgMap, et -> ((OptionMember)et).getMemberStatusName(), (et, vl) -> ((OptionMember)et).setMemberStatusName((String)vl), "memberStatusName");
+        setupEpg(_epgMap, et -> ((OptionMember)et).getStatusDisplayOrder(), (et, vl) -> ((OptionMember)et).setStatusDisplayOrder(cti(vl)), "statusDisplayOrder");
+        setupEpg(_epgMap, et -> ((OptionMember)et).getDummyFlg(), (et, vl) -> {
             ColumnInfo col = columnDummyFlg();
             CDef.Flg cls = (CDef.Flg)gcls(col, vl);
             if (cls != null) {
@@ -109,11 +76,8 @@ public class OptionMemberDbm extends AbstractDBMeta {
             } else {
                 ((OptionMember)et).mynativeMappingDummyFlg(ctn(vl, Integer.class));
             }
-        }
-    }
-    public static class EpgDummyNoflg implements PropertyGateway {
-        public Object read(Entity et) { return ((OptionMember)et).getDummyNoflg(); }
-        public void write(Entity et, Object vl) { ((OptionMember)et).setDummyNoflg(cti(vl)); }
+        }, "dummyFlg");
+        setupEpg(_epgMap, et -> ((OptionMember)et).getDummyNoflg(), (et, vl) -> ((OptionMember)et).setDummyNoflg(cti(vl)), "dummyNoflg");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

@@ -53,16 +53,8 @@ public class UndetectableClassificationHintDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgMemberStatusCode(), "memberStatusCode");
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((UndetectableClassificationHint)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((UndetectableClassificationHint)et).setMemberId(cti(vl)); }
-    }
-    public class EpgMemberStatusCode implements PropertyGateway {
-        public Object read(Entity et) { return ((UndetectableClassificationHint)et).getMemberStatusCode(); }
-        public void write(Entity et, Object vl) {
+        setupEpg(_epgMap, et -> ((UndetectableClassificationHint)et).getMemberId(), (et, vl) -> ((UndetectableClassificationHint)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((UndetectableClassificationHint)et).getMemberStatusCode(), (et, vl) -> {
             ColumnInfo col = columnMemberStatusCode();
             CDef.MemberStatus cls = (CDef.MemberStatus)gcls(col, vl);
             if (cls != null) {
@@ -70,7 +62,7 @@ public class UndetectableClassificationHintDbm extends AbstractDBMeta {
             } else {
                 ((UndetectableClassificationHint)et).mynativeMappingMemberStatusCode((String)vl);
             }
-        }
+        }, "memberStatusCode");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

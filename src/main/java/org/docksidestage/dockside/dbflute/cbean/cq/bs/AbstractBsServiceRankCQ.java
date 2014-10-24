@@ -247,8 +247,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     public void existsMemberService(SubQuery<MemberServiceCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
         MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepServiceRankCode_ExistsReferrer_MemberServiceList(cb.query());
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepServiceRankCode_ExistsReferrer_MemberServiceList(cb.query());
         registerExistsReferrer(cb.query(), "SERVICE_RANK_CODE", "SERVICE_RANK_CODE", pp, "memberServiceList");
     }
     public abstract String keepServiceRankCode_ExistsReferrer_MemberServiceList(MemberServiceCQ sq);
@@ -267,8 +266,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     public void notExistsMemberService(SubQuery<MemberServiceCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
         MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForExistsReferrer(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepServiceRankCode_NotExistsReferrer_MemberServiceList(cb.query());
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepServiceRankCode_NotExistsReferrer_MemberServiceList(cb.query());
         registerNotExistsReferrer(cb.query(), "SERVICE_RANK_CODE", "SERVICE_RANK_CODE", pp, "memberServiceList");
     }
     public abstract String keepServiceRankCode_NotExistsReferrer_MemberServiceList(MemberServiceCQ sq);
@@ -276,8 +274,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     public void xsderiveMemberServiceList(String fn, SubQuery<MemberServiceCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); }
-        String pp = keepServiceRankCode_SpecifyDerivedReferrer_MemberServiceList(cb.query());
+        lockCall(() -> sq.query(cb)); String pp = keepServiceRankCode_SpecifyDerivedReferrer_MemberServiceList(cb.query());
         registerSpecifyDerivedReferrer(fn, cb.query(), "SERVICE_RANK_CODE", "SERVICE_RANK_CODE", pp, "memberServiceList", al, op);
     }
     public abstract String keepServiceRankCode_SpecifyDerivedReferrer_MemberServiceList(MemberServiceCQ sq);
@@ -298,17 +295,12 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
         return xcreateQDRFunctionMemberServiceList();
     }
     protected HpQDRFunction<MemberServiceCB> xcreateQDRFunctionMemberServiceList() {
-        return xcQDRFunc(new HpQDRSetupper<MemberServiceCB>() {
-            public void setup(String fn, SubQuery<MemberServiceCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMemberServiceList(fn, sq, rd, vl, op);
-            }
-        });
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveMemberServiceList(fn, sq, rd, vl, op));
     }
     public void xqderiveMemberServiceList(String fn, SubQuery<MemberServiceCB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         MemberServiceCB cb = new MemberServiceCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); }
-        String sqpp = keepServiceRankCode_QueryDerivedReferrer_MemberServiceList(cb.query()); String prpp = keepServiceRankCode_QueryDerivedReferrer_MemberServiceListParameter(vl);
+        lockCall(() -> sq.query(cb)); String sqpp = keepServiceRankCode_QueryDerivedReferrer_MemberServiceList(cb.query()); String prpp = keepServiceRankCode_QueryDerivedReferrer_MemberServiceListParameter(vl);
         registerQueryDerivedReferrer(fn, cb.query(), "SERVICE_RANK_CODE", "SERVICE_RANK_CODE", sqpp, "memberServiceList", rd, vl, prpp, op);
     }
     public abstract String keepServiceRankCode_QueryDerivedReferrer_MemberServiceList(MemberServiceCQ sq);
@@ -1099,9 +1091,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     public void xsmyselfDerive(String fn, SubQuery<ServiceRankCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         ServiceRankCB cb = new ServiceRankCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); }
-        String pp = keepSpecifyMyselfDerived(cb.query());
-        String pk = "SERVICE_RANK_CODE";
+        lockCall(() -> sq.query(cb)); String pp = keepSpecifyMyselfDerived(cb.query()); String pk = "SERVICE_RANK_CODE";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(ServiceRankCQ sq);
@@ -1135,8 +1125,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     public void myselfExists(SubQuery<ServiceRankCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
         ServiceRankCB cb = new ServiceRankCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepMyselfExists(cb.query());
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(ServiceRankCQ sq);

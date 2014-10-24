@@ -289,7 +289,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnMyMemberId();
         }
-        doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberByMyMemberId(); } });
+        doSetupSelect(() -> query().queryMemberByMyMemberId());
         if (_nssMemberByMyMemberId == null || !_nssMemberByMyMemberId.hasConditionQuery())
         { _nssMemberByMyMemberId = new MemberNss(query().queryMemberByMyMemberId()); }
         return _nssMemberByMyMemberId;
@@ -318,7 +318,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnYourMemberId();
         }
-        doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberByYourMemberId(); } });
+        doSetupSelect(() -> query().queryMemberByYourMemberId());
         if (_nssMemberByYourMemberId == null || !_nssMemberByYourMemberId.hasConditionQuery())
         { _nssMemberByYourMemberId = new MemberNss(query().queryMemberByYourMemberId()); }
         return _nssMemberByYourMemberId;
@@ -351,10 +351,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
     public HpSpecification specify() {
         assertSpecifyPurpose();
         if (_specification == null) { _specification = new HpSpecification(this
-            , new HpSpQyCall<MemberFollowingCQ>() {
-                public boolean has() { return true; }
-                public MemberFollowingCQ qy() { return xdfgetConditionQuery(); }
-            }
+            , xcreateSpQyCall(() -> true, () -> xdfgetConditionQuery())
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
@@ -418,15 +415,14 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
         public MemberCB.HpSpecification specifyMemberByMyMemberId() {
             assertRelation("memberByMyMemberId");
             if (_memberByMyMemberId == null) {
-                _memberByMyMemberId = new MemberCB.HpSpecification(_baseCB, new HpSpQyCall<MemberCQ>() {
-                    public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryMemberByMyMemberId(); }
-                    public MemberCQ qy() { return _qyCall.qy().queryMemberByMyMemberId(); } }
+                _memberByMyMemberId = new MemberCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryMemberByMyMemberId()
+                                    , () -> _qyCall.qy().queryMemberByMyMemberId())
                     , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
-                    _memberByMyMemberId.xsetSyncQyCall(new HpSpQyCall<MemberCQ>() {
-                        public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMemberByMyMemberId(); }
-                        public MemberCQ qy() { return xsyncQyCall().qy().queryMemberByMyMemberId(); }
-                    });
+                    _memberByMyMemberId.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMemberByMyMemberId()
+                      , () -> xsyncQyCall().qy().queryMemberByMyMemberId()));
                 }
             }
             return _memberByMyMemberId;
@@ -439,15 +435,14 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
         public MemberCB.HpSpecification specifyMemberByYourMemberId() {
             assertRelation("memberByYourMemberId");
             if (_memberByYourMemberId == null) {
-                _memberByYourMemberId = new MemberCB.HpSpecification(_baseCB, new HpSpQyCall<MemberCQ>() {
-                    public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryMemberByYourMemberId(); }
-                    public MemberCQ qy() { return _qyCall.qy().queryMemberByYourMemberId(); } }
+                _memberByYourMemberId = new MemberCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryMemberByYourMemberId()
+                                    , () -> _qyCall.qy().queryMemberByYourMemberId())
                     , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
-                    _memberByYourMemberId.xsetSyncQyCall(new HpSpQyCall<MemberCQ>() {
-                        public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMemberByYourMemberId(); }
-                        public MemberCQ qy() { return xsyncQyCall().qy().queryMemberByYourMemberId(); }
-                    });
+                    _memberByYourMemberId.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMemberByYourMemberId()
+                      , () -> xsyncQyCall().qy().queryMemberByYourMemberId()));
                 }
             }
             return _memberByYourMemberId;
@@ -458,9 +453,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
          */
         public HpSDRFunction<MemberFollowingCB, MemberFollowingCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberFollowingCB, MemberFollowingCQ>() {
-                public void setup(String fn, SubQuery<MemberFollowingCB> sq, MemberFollowingCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
 
@@ -486,10 +479,8 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<MemberFollowingCB> columnQuery(final SpecifyQuery<MemberFollowingCB> colCBLambda) {
-        return xcreateColQyOperand(new HpColQyHandler<MemberFollowingCB>() {
-            public ColumnCalculator handle(SpecifyQuery<MemberFollowingCB> rightSp, String operand) {
-                return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
-            }
+        return xcreateColQyOperand((rightSp, operand) -> {
+            return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
@@ -595,10 +586,7 @@ public class BsMemberFollowingCB extends AbstractConditionBean {
         } else {
             cb = new MemberFollowingCB();
         }
-        specify().xsetSyncQyCall(new HpSpQyCall<MemberFollowingCQ>() {
-            public boolean has() { return true; }
-            public MemberFollowingCQ qy() { return cb.query(); }
-        });
+        specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
 
     // ===================================================================================

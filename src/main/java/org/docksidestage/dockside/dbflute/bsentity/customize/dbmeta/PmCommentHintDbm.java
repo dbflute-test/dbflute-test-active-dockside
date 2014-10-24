@@ -53,16 +53,8 @@ public class PmCommentHintDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgMemberName(), "memberName");
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((PmCommentHint)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((PmCommentHint)et).setMemberId(cti(vl)); }
-    }
-    public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity et) { return ((PmCommentHint)et).getMemberName(); }
-        public void write(Entity et, Object vl) { ((PmCommentHint)et).setMemberName((String)vl); }
+        setupEpg(_epgMap, et -> ((PmCommentHint)et).getMemberId(), (et, vl) -> ((PmCommentHint)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((PmCommentHint)et).getMemberName(), (et, vl) -> ((PmCommentHint)et).setMemberName((String)vl), "memberName");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

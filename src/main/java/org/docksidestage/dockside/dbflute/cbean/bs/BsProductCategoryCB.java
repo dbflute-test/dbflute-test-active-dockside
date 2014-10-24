@@ -276,7 +276,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnParentCategoryCode();
         }
-        doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryProductCategorySelf(); } });
+        doSetupSelect(() -> query().queryProductCategorySelf());
         if (_nssProductCategorySelf == null || !_nssProductCategorySelf.hasConditionQuery())
         { _nssProductCategorySelf = new ProductCategoryNss(query().queryProductCategorySelf()); }
         return _nssProductCategorySelf;
@@ -309,10 +309,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
     public HpSpecification specify() {
         assertSpecifyPurpose();
         if (_specification == null) { _specification = new HpSpecification(this
-            , new HpSpQyCall<ProductCategoryCQ>() {
-                public boolean has() { return true; }
-                public ProductCategoryCQ qy() { return xdfgetConditionQuery(); }
-            }
+            , xcreateSpQyCall(() -> true, () -> xdfgetConditionQuery())
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
@@ -366,15 +363,14 @@ public class BsProductCategoryCB extends AbstractConditionBean {
         public ProductCategoryCB.HpSpecification specifyProductCategorySelf() {
             assertRelation("productCategorySelf");
             if (_productCategorySelf == null) {
-                _productCategorySelf = new ProductCategoryCB.HpSpecification(_baseCB, new HpSpQyCall<ProductCategoryCQ>() {
-                    public boolean has() { return _qyCall.has() && _qyCall.qy().hasConditionQueryProductCategorySelf(); }
-                    public ProductCategoryCQ qy() { return _qyCall.qy().queryProductCategorySelf(); } }
+                _productCategorySelf = new ProductCategoryCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryProductCategorySelf()
+                                    , () -> _qyCall.qy().queryProductCategorySelf())
                     , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
-                    _productCategorySelf.xsetSyncQyCall(new HpSpQyCall<ProductCategoryCQ>() {
-                        public boolean has() { return xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryProductCategorySelf(); }
-                        public ProductCategoryCQ qy() { return xsyncQyCall().qy().queryProductCategorySelf(); }
-                    });
+                    _productCategorySelf.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryProductCategorySelf()
+                      , () -> xsyncQyCall().qy().queryProductCategorySelf()));
                 }
             }
             return _productCategorySelf;
@@ -393,9 +389,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
          */
         public HpSDRFunction<ProductCB, ProductCategoryCQ> derivedProduct() {
             assertDerived("productList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<ProductCB, ProductCategoryCQ>() {
-                public void setup(String fn, SubQuery<ProductCB> sq, ProductCategoryCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsderiveProductList(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsderiveProductList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br />
@@ -411,9 +405,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
          */
         public HpSDRFunction<ProductCategoryCB, ProductCategoryCQ> derivedProductCategorySelf() {
             assertDerived("productCategorySelfList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<ProductCategoryCB, ProductCategoryCQ>() {
-                public void setup(String fn, SubQuery<ProductCategoryCB> sq, ProductCategoryCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsderiveProductCategorySelfList(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsderiveProductCategorySelfList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -421,9 +413,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
          */
         public HpSDRFunction<ProductCategoryCB, ProductCategoryCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<ProductCategoryCB, ProductCategoryCQ>() {
-                public void setup(String fn, SubQuery<ProductCategoryCB> sq, ProductCategoryCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
 
@@ -449,10 +439,8 @@ public class BsProductCategoryCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<ProductCategoryCB> columnQuery(final SpecifyQuery<ProductCategoryCB> colCBLambda) {
-        return xcreateColQyOperand(new HpColQyHandler<ProductCategoryCB>() {
-            public ColumnCalculator handle(SpecifyQuery<ProductCategoryCB> rightSp, String operand) {
-                return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
-            }
+        return xcreateColQyOperand((rightSp, operand) -> {
+            return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
@@ -558,10 +546,7 @@ public class BsProductCategoryCB extends AbstractConditionBean {
         } else {
             cb = new ProductCategoryCB();
         }
-        specify().xsetSyncQyCall(new HpSpQyCall<ProductCategoryCQ>() {
-            public boolean has() { return true; }
-            public ProductCategoryCQ qy() { return cb.query(); }
-        });
+        specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
 
     // ===================================================================================

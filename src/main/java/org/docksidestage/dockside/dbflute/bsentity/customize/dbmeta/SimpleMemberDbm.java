@@ -53,26 +53,10 @@ public class SimpleMemberDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgMemberName(), "memberName");
-        setupEpg(_epgMap, new EpgBirthdate(), "birthdate");
-        setupEpg(_epgMap, new EpgMemberStatusName(), "memberStatusName");
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((SimpleMember)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((SimpleMember)et).setMemberId(cti(vl)); }
-    }
-    public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity et) { return ((SimpleMember)et).getMemberName(); }
-        public void write(Entity et, Object vl) { ((SimpleMember)et).setMemberName((String)vl); }
-    }
-    public static class EpgBirthdate implements PropertyGateway {
-        public Object read(Entity et) { return ((SimpleMember)et).getBirthdate(); }
-        public void write(Entity et, Object vl) { ((SimpleMember)et).setBirthdate((java.util.Date)vl); }
-    }
-    public static class EpgMemberStatusName implements PropertyGateway {
-        public Object read(Entity et) { return ((SimpleMember)et).getMemberStatusName(); }
-        public void write(Entity et, Object vl) { ((SimpleMember)et).setMemberStatusName((String)vl); }
+        setupEpg(_epgMap, et -> ((SimpleMember)et).getMemberId(), (et, vl) -> ((SimpleMember)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((SimpleMember)et).getMemberName(), (et, vl) -> ((SimpleMember)et).setMemberName((String)vl), "memberName");
+        setupEpg(_epgMap, et -> ((SimpleMember)et).getBirthdate(), (et, vl) -> ((SimpleMember)et).setBirthdate((java.util.Date)vl), "birthdate");
+        setupEpg(_epgMap, et -> ((SimpleMember)et).getMemberStatusName(), (et, vl) -> ((SimpleMember)et).setMemberStatusName((String)vl), "memberStatusName");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

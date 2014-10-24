@@ -53,11 +53,7 @@ public class VendorNumericDecimalSumDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgDecimalDigitSum(), "decimalDigitSum");
-    }
-    public static class EpgDecimalDigitSum implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorNumericDecimalSum)et).getDecimalDigitSum(); }
-        public void write(Entity et, Object vl) { ((VendorNumericDecimalSum)et).setDecimalDigitSum(ctb(vl)); }
+        setupEpg(_epgMap, et -> ((VendorNumericDecimalSum)et).getDecimalDigitSum(), (et, vl) -> ((VendorNumericDecimalSum)et).setDecimalDigitSum(ctb(vl)), "decimalDigitSum");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

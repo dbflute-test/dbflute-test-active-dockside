@@ -15,7 +15,6 @@
  */
 package org.docksidestage.dockside.dbflute.cbean.nss;
 
-import org.dbflute.cbean.ConditionQuery;
 import org.docksidestage.dockside.dbflute.cbean.cq.MemberLoginCQ;
 
 /**
@@ -39,7 +38,7 @@ public class MemberLoginNss {
      * (会員ステータス)MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
      */
     public void withMemberStatus() {
-        _query.xdoNss(new MemberLoginCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberStatus(); }});
+        _query.xdoNss(() -> _query.queryMemberStatus());
     }
     /**
      * With nested relation columns to select clause. <br />
@@ -47,7 +46,7 @@ public class MemberLoginNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMember() {
-        _query.xdoNss(new MemberLoginCQ.NssCall() { public ConditionQuery qf() { return _query.queryMember(); }});
+        _query.xdoNss(() -> _query.queryMember());
         return new MemberNss(_query.queryMember());
     }
 }

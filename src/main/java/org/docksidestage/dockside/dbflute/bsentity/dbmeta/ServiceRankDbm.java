@@ -53,16 +53,7 @@ public class ServiceRankDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgServiceRankCode(), "serviceRankCode");
-        setupEpg(_epgMap, new EpgServiceRankName(), "serviceRankName");
-        setupEpg(_epgMap, new EpgServicePointIncidence(), "servicePointIncidence");
-        setupEpg(_epgMap, new EpgNewAcceptableFlg(), "newAcceptableFlg");
-        setupEpg(_epgMap, new EpgDescription(), "description");
-        setupEpg(_epgMap, new EpgDisplayOrder(), "displayOrder");
-    }
-    public class EpgServiceRankCode implements PropertyGateway {
-        public Object read(Entity et) { return ((ServiceRank)et).getServiceRankCode(); }
-        public void write(Entity et, Object vl) {
+        setupEpg(_epgMap, et -> ((ServiceRank)et).getServiceRankCode(), (et, vl) -> {
             ColumnInfo col = columnServiceRankCode();
             CDef.ServiceRank cls = (CDef.ServiceRank)gcls(col, vl);
             if (cls != null) {
@@ -70,19 +61,10 @@ public class ServiceRankDbm extends AbstractDBMeta {
             } else {
                 ((ServiceRank)et).mynativeMappingServiceRankCode((String)vl);
             }
-        }
-    }
-    public static class EpgServiceRankName implements PropertyGateway {
-        public Object read(Entity et) { return ((ServiceRank)et).getServiceRankName(); }
-        public void write(Entity et, Object vl) { ((ServiceRank)et).setServiceRankName((String)vl); }
-    }
-    public static class EpgServicePointIncidence implements PropertyGateway {
-        public Object read(Entity et) { return ((ServiceRank)et).getServicePointIncidence(); }
-        public void write(Entity et, Object vl) { ((ServiceRank)et).setServicePointIncidence(ctb(vl)); }
-    }
-    public class EpgNewAcceptableFlg implements PropertyGateway {
-        public Object read(Entity et) { return ((ServiceRank)et).getNewAcceptableFlg(); }
-        public void write(Entity et, Object vl) {
+        }, "serviceRankCode");
+        setupEpg(_epgMap, et -> ((ServiceRank)et).getServiceRankName(), (et, vl) -> ((ServiceRank)et).setServiceRankName((String)vl), "serviceRankName");
+        setupEpg(_epgMap, et -> ((ServiceRank)et).getServicePointIncidence(), (et, vl) -> ((ServiceRank)et).setServicePointIncidence(ctb(vl)), "servicePointIncidence");
+        setupEpg(_epgMap, et -> ((ServiceRank)et).getNewAcceptableFlg(), (et, vl) -> {
             ColumnInfo col = columnNewAcceptableFlg();
             CDef.Flg cls = (CDef.Flg)gcls(col, vl);
             if (cls != null) {
@@ -90,15 +72,9 @@ public class ServiceRankDbm extends AbstractDBMeta {
             } else {
                 ((ServiceRank)et).mynativeMappingNewAcceptableFlg(ctn(vl, Integer.class));
             }
-        }
-    }
-    public static class EpgDescription implements PropertyGateway {
-        public Object read(Entity et) { return ((ServiceRank)et).getDescription(); }
-        public void write(Entity et, Object vl) { ((ServiceRank)et).setDescription((String)vl); }
-    }
-    public static class EpgDisplayOrder implements PropertyGateway {
-        public Object read(Entity et) { return ((ServiceRank)et).getDisplayOrder(); }
-        public void write(Entity et, Object vl) { ((ServiceRank)et).setDisplayOrder(cti(vl)); }
+        }, "newAcceptableFlg");
+        setupEpg(_epgMap, et -> ((ServiceRank)et).getDescription(), (et, vl) -> ((ServiceRank)et).setDescription((String)vl), "description");
+        setupEpg(_epgMap, et -> ((ServiceRank)et).getDisplayOrder(), (et, vl) -> ((ServiceRank)et).setDisplayOrder(cti(vl)), "displayOrder");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

@@ -53,26 +53,10 @@ public class VendorTheLongAndWindingTableAndColumnDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgTheLongAndWindingTableAndColumnId(), "theLongAndWindingTableAndColumnId");
-        setupEpg(_epgMap, new EpgTheLongAndWindingTableAndColumnName(), "theLongAndWindingTableAndColumnName");
-        setupEpg(_epgMap, new EpgShortName(), "shortName");
-        setupEpg(_epgMap, new EpgShortSize(), "shortSize");
-    }
-    public static class EpgTheLongAndWindingTableAndColumnId implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorTheLongAndWindingTableAndColumn)et).getTheLongAndWindingTableAndColumnId(); }
-        public void write(Entity et, Object vl) { ((VendorTheLongAndWindingTableAndColumn)et).setTheLongAndWindingTableAndColumnId(ctl(vl)); }
-    }
-    public static class EpgTheLongAndWindingTableAndColumnName implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorTheLongAndWindingTableAndColumn)et).getTheLongAndWindingTableAndColumnName(); }
-        public void write(Entity et, Object vl) { ((VendorTheLongAndWindingTableAndColumn)et).setTheLongAndWindingTableAndColumnName((String)vl); }
-    }
-    public static class EpgShortName implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorTheLongAndWindingTableAndColumn)et).getShortName(); }
-        public void write(Entity et, Object vl) { ((VendorTheLongAndWindingTableAndColumn)et).setShortName((String)vl); }
-    }
-    public static class EpgShortSize implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorTheLongAndWindingTableAndColumn)et).getShortSize(); }
-        public void write(Entity et, Object vl) { ((VendorTheLongAndWindingTableAndColumn)et).setShortSize(cti(vl)); }
+        setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumn)et).getTheLongAndWindingTableAndColumnId(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumn)et).setTheLongAndWindingTableAndColumnId(ctl(vl)), "theLongAndWindingTableAndColumnId");
+        setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumn)et).getTheLongAndWindingTableAndColumnName(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumn)et).setTheLongAndWindingTableAndColumnName((String)vl), "theLongAndWindingTableAndColumnName");
+        setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumn)et).getShortName(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumn)et).setShortName((String)vl), "shortName");
+        setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumn)et).getShortSize(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumn)et).setShortSize(cti(vl)), "shortSize");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

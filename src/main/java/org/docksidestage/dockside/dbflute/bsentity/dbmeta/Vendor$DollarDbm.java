@@ -53,16 +53,8 @@ public class Vendor$DollarDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgVendor$DollarId(), "vendor$DollarId");
-        setupEpg(_epgMap, new EpgVendor$DollarName(), "vendor$DollarName");
-    }
-    public static class EpgVendor$DollarId implements PropertyGateway {
-        public Object read(Entity et) { return ((Vendor$Dollar)et).getVendor$DollarId(); }
-        public void write(Entity et, Object vl) { ((Vendor$Dollar)et).setVendor$DollarId(cti(vl)); }
-    }
-    public static class EpgVendor$DollarName implements PropertyGateway {
-        public Object read(Entity et) { return ((Vendor$Dollar)et).getVendor$DollarName(); }
-        public void write(Entity et, Object vl) { ((Vendor$Dollar)et).setVendor$DollarName((String)vl); }
+        setupEpg(_epgMap, et -> ((Vendor$Dollar)et).getVendor$DollarId(), (et, vl) -> ((Vendor$Dollar)et).setVendor$DollarId(cti(vl)), "vendor$DollarId");
+        setupEpg(_epgMap, et -> ((Vendor$Dollar)et).getVendor$DollarName(), (et, vl) -> ((Vendor$Dollar)et).setVendor$DollarName((String)vl), "vendor$DollarName");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

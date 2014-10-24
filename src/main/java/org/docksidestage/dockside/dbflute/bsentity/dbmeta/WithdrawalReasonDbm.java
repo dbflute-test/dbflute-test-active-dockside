@@ -53,13 +53,7 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgWithdrawalReasonCode(), "withdrawalReasonCode");
-        setupEpg(_epgMap, new EpgWithdrawalReasonText(), "withdrawalReasonText");
-        setupEpg(_epgMap, new EpgDisplayOrder(), "displayOrder");
-    }
-    public class EpgWithdrawalReasonCode implements PropertyGateway {
-        public Object read(Entity et) { return ((WithdrawalReason)et).getWithdrawalReasonCode(); }
-        public void write(Entity et, Object vl) {
+        setupEpg(_epgMap, et -> ((WithdrawalReason)et).getWithdrawalReasonCode(), (et, vl) -> {
             ColumnInfo col = columnWithdrawalReasonCode();
             CDef.WithdrawalReason cls = (CDef.WithdrawalReason)gcls(col, vl);
             if (cls != null) {
@@ -67,15 +61,9 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
             } else {
                 ((WithdrawalReason)et).mynativeMappingWithdrawalReasonCode((String)vl);
             }
-        }
-    }
-    public static class EpgWithdrawalReasonText implements PropertyGateway {
-        public Object read(Entity et) { return ((WithdrawalReason)et).getWithdrawalReasonText(); }
-        public void write(Entity et, Object vl) { ((WithdrawalReason)et).setWithdrawalReasonText((String)vl); }
-    }
-    public static class EpgDisplayOrder implements PropertyGateway {
-        public Object read(Entity et) { return ((WithdrawalReason)et).getDisplayOrder(); }
-        public void write(Entity et, Object vl) { ((WithdrawalReason)et).setDisplayOrder(cti(vl)); }
+        }, "withdrawalReasonCode");
+        setupEpg(_epgMap, et -> ((WithdrawalReason)et).getWithdrawalReasonText(), (et, vl) -> ((WithdrawalReason)et).setWithdrawalReasonText((String)vl), "withdrawalReasonText");
+        setupEpg(_epgMap, et -> ((WithdrawalReason)et).getDisplayOrder(), (et, vl) -> ((WithdrawalReason)et).setDisplayOrder(cti(vl)), "displayOrder");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

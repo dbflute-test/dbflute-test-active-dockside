@@ -53,27 +53,10 @@ public class MemberLoginDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberLoginId(), "memberLoginId");
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgLoginDatetime(), "loginDatetime");
-        setupEpg(_epgMap, new EpgMobileLoginFlg(), "mobileLoginFlg");
-        setupEpg(_epgMap, new EpgLoginMemberStatusCode(), "loginMemberStatusCode");
-    }
-    public static class EpgMemberLoginId implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberLogin)et).getMemberLoginId(); }
-        public void write(Entity et, Object vl) { ((MemberLogin)et).setMemberLoginId(ctl(vl)); }
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberLogin)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((MemberLogin)et).setMemberId(cti(vl)); }
-    }
-    public static class EpgLoginDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberLogin)et).getLoginDatetime(); }
-        public void write(Entity et, Object vl) { ((MemberLogin)et).setLoginDatetime((java.sql.Timestamp)vl); }
-    }
-    public class EpgMobileLoginFlg implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberLogin)et).getMobileLoginFlg(); }
-        public void write(Entity et, Object vl) {
+        setupEpg(_epgMap, et -> ((MemberLogin)et).getMemberLoginId(), (et, vl) -> ((MemberLogin)et).setMemberLoginId(ctl(vl)), "memberLoginId");
+        setupEpg(_epgMap, et -> ((MemberLogin)et).getMemberId(), (et, vl) -> ((MemberLogin)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((MemberLogin)et).getLoginDatetime(), (et, vl) -> ((MemberLogin)et).setLoginDatetime((java.sql.Timestamp)vl), "loginDatetime");
+        setupEpg(_epgMap, et -> ((MemberLogin)et).getMobileLoginFlg(), (et, vl) -> {
             ColumnInfo col = columnMobileLoginFlg();
             CDef.Flg cls = (CDef.Flg)gcls(col, vl);
             if (cls != null) {
@@ -81,11 +64,8 @@ public class MemberLoginDbm extends AbstractDBMeta {
             } else {
                 ((MemberLogin)et).mynativeMappingMobileLoginFlg(ctn(vl, Integer.class));
             }
-        }
-    }
-    public class EpgLoginMemberStatusCode implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberLogin)et).getLoginMemberStatusCode(); }
-        public void write(Entity et, Object vl) {
+        }, "mobileLoginFlg");
+        setupEpg(_epgMap, et -> ((MemberLogin)et).getLoginMemberStatusCode(), (et, vl) -> {
             ColumnInfo col = columnLoginMemberStatusCode();
             CDef.MemberStatus cls = (CDef.MemberStatus)gcls(col, vl);
             if (cls != null) {
@@ -93,7 +73,7 @@ public class MemberLoginDbm extends AbstractDBMeta {
             } else {
                 ((MemberLogin)et).mynativeMappingLoginMemberStatusCode((String)vl);
             }
-        }
+        }, "loginMemberStatusCode");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -102,17 +82,10 @@ public class MemberLoginDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
-    {
-        setupEfpg(_efpgMap, new EfpgMemberStatus(), "memberStatus");
-        setupEfpg(_efpgMap, new EfpgMember(), "member");
-    }
-    public class EfpgMemberStatus implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberLogin)et).getMemberStatus(); }
-        public void write(Entity et, Object vl) { ((MemberLogin)et).setMemberStatus((MemberStatus)vl); }
-    }
-    public class EfpgMember implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberLogin)et).getMember(); }
-        public void write(Entity et, Object vl) { ((MemberLogin)et).setMember((Member)vl); }
+    { xsetupEfpg(); }
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((MemberLogin)et).getMemberStatus(), (et, vl) -> ((MemberLogin)et).setMemberStatus((MemberStatus)vl), "memberStatus");
+        setupEfpg(_efpgMap, et -> ((MemberLogin)et).getMember(), (et, vl) -> ((MemberLogin)et).setMember((Member)vl), "member");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }
@@ -135,7 +108,7 @@ public class MemberLoginDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_C6F6852C_62F6_47F8_B6B2_E3B9A860DE37", false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_049BC45D_F042_427F_817F_33E7E51B60BE", false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
     protected final ColumnInfo _columnLoginDatetime = cci("LOGIN_DATETIME", "LOGIN_DATETIME", null, "ログイン日時", java.sql.Timestamp.class, "loginDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, "ログインした瞬間の日時。\n同じ会員が同じ日時にログインはできない。(ユニーク制約で重複ログインできないようにしてある)", null, null, null);
     protected final ColumnInfo _columnMobileLoginFlg = cci("MOBILE_LOGIN_FLG", "MOBILE_LOGIN_FLG", null, "モバイルログインフラグ", Integer.class, "mobileLoginFlg", null, false, false, true, "INTEGER", 10, 0, null, false, null, "モバイル機器からのログインか否か。", null, null, CDef.DefMeta.Flg);

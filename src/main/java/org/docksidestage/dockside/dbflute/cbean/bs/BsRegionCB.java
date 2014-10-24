@@ -280,10 +280,7 @@ public class BsRegionCB extends AbstractConditionBean {
     public HpSpecification specify() {
         assertSpecifyPurpose();
         if (_specification == null) { _specification = new HpSpecification(this
-            , new HpSpQyCall<RegionCQ>() {
-                public boolean has() { return true; }
-                public RegionCQ qy() { return xdfgetConditionQuery(); }
-            }
+            , xcreateSpQyCall(() -> true, () -> xdfgetConditionQuery())
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
@@ -333,9 +330,7 @@ public class BsRegionCB extends AbstractConditionBean {
          */
         public HpSDRFunction<MemberAddressCB, RegionCQ> derivedMemberAddress() {
             assertDerived("memberAddressList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<MemberAddressCB, RegionCQ>() {
-                public void setup(String fn, SubQuery<MemberAddressCB> sq, RegionCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsderiveMemberAddressList(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsderiveMemberAddressList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -343,9 +338,7 @@ public class BsRegionCB extends AbstractConditionBean {
          */
         public HpSDRFunction<RegionCB, RegionCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<RegionCB, RegionCQ>() {
-                public void setup(String fn, SubQuery<RegionCB> sq, RegionCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
 
@@ -371,10 +364,8 @@ public class BsRegionCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<RegionCB> columnQuery(final SpecifyQuery<RegionCB> colCBLambda) {
-        return xcreateColQyOperand(new HpColQyHandler<RegionCB>() {
-            public ColumnCalculator handle(SpecifyQuery<RegionCB> rightSp, String operand) {
-                return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
-            }
+        return xcreateColQyOperand((rightSp, operand) -> {
+            return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
@@ -480,10 +471,7 @@ public class BsRegionCB extends AbstractConditionBean {
         } else {
             cb = new RegionCB();
         }
-        specify().xsetSyncQyCall(new HpSpQyCall<RegionCQ>() {
-            public boolean has() { return true; }
-            public RegionCQ qy() { return cb.query(); }
-        });
+        specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
 
     // ===================================================================================

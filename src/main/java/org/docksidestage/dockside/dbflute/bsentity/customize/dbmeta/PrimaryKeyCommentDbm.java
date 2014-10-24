@@ -53,36 +53,12 @@ public class PrimaryKeyCommentDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgMemberName(), "memberName");
-        setupEpg(_epgMap, new EpgRegisterDatetime(), "registerDatetime");
-        setupEpg(_epgMap, new EpgRegisterUser(), "registerUser");
-        setupEpg(_epgMap, new EpgUpdateDatetime(), "updateDatetime");
-        setupEpg(_epgMap, new EpgUpdateUser(), "updateUser");
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((PrimaryKeyComment)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((PrimaryKeyComment)et).setMemberId(cti(vl)); }
-    }
-    public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity et) { return ((PrimaryKeyComment)et).getMemberName(); }
-        public void write(Entity et, Object vl) { ((PrimaryKeyComment)et).setMemberName((String)vl); }
-    }
-    public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((PrimaryKeyComment)et).getRegisterDatetime(); }
-        public void write(Entity et, Object vl) { ((PrimaryKeyComment)et).setRegisterDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity et) { return ((PrimaryKeyComment)et).getRegisterUser(); }
-        public void write(Entity et, Object vl) { ((PrimaryKeyComment)et).setRegisterUser((String)vl); }
-    }
-    public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((PrimaryKeyComment)et).getUpdateDatetime(); }
-        public void write(Entity et, Object vl) { ((PrimaryKeyComment)et).setUpdateDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity et) { return ((PrimaryKeyComment)et).getUpdateUser(); }
-        public void write(Entity et, Object vl) { ((PrimaryKeyComment)et).setUpdateUser((String)vl); }
+        setupEpg(_epgMap, et -> ((PrimaryKeyComment)et).getMemberId(), (et, vl) -> ((PrimaryKeyComment)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((PrimaryKeyComment)et).getMemberName(), (et, vl) -> ((PrimaryKeyComment)et).setMemberName((String)vl), "memberName");
+        setupEpg(_epgMap, et -> ((PrimaryKeyComment)et).getRegisterDatetime(), (et, vl) -> ((PrimaryKeyComment)et).setRegisterDatetime((java.sql.Timestamp)vl), "registerDatetime");
+        setupEpg(_epgMap, et -> ((PrimaryKeyComment)et).getRegisterUser(), (et, vl) -> ((PrimaryKeyComment)et).setRegisterUser((String)vl), "registerUser");
+        setupEpg(_epgMap, et -> ((PrimaryKeyComment)et).getUpdateDatetime(), (et, vl) -> ((PrimaryKeyComment)et).setUpdateDatetime((java.sql.Timestamp)vl), "updateDatetime");
+        setupEpg(_epgMap, et -> ((PrimaryKeyComment)et).getUpdateUser(), (et, vl) -> ((PrimaryKeyComment)et).setUpdateUser((String)vl), "updateUser");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

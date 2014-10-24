@@ -53,146 +53,34 @@ public class VendorCheckDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgVendorCheckId(), "vendorCheckId");
-        setupEpg(_epgMap, new EpgTypeOfChar(), "typeOfChar");
-        setupEpg(_epgMap, new EpgTypeOfVarchar(), "typeOfVarchar");
-        setupEpg(_epgMap, new EpgTypeOfClob(), "typeOfClob");
-        setupEpg(_epgMap, new EpgTypeOfText(), "typeOfText");
-        setupEpg(_epgMap, new EpgTypeOfNumericInteger(), "typeOfNumericInteger");
-        setupEpg(_epgMap, new EpgTypeOfNumericBigint(), "typeOfNumericBigint");
-        setupEpg(_epgMap, new EpgTypeOfNumericDecimal(), "typeOfNumericDecimal");
-        setupEpg(_epgMap, new EpgTypeOfNumericIntegerMin(), "typeOfNumericIntegerMin");
-        setupEpg(_epgMap, new EpgTypeOfNumericIntegerMax(), "typeOfNumericIntegerMax");
-        setupEpg(_epgMap, new EpgTypeOfNumericBigintMin(), "typeOfNumericBigintMin");
-        setupEpg(_epgMap, new EpgTypeOfNumericBigintMax(), "typeOfNumericBigintMax");
-        setupEpg(_epgMap, new EpgTypeOfNumericSuperintMin(), "typeOfNumericSuperintMin");
-        setupEpg(_epgMap, new EpgTypeOfNumericSuperintMax(), "typeOfNumericSuperintMax");
-        setupEpg(_epgMap, new EpgTypeOfNumericMaxdecimal(), "typeOfNumericMaxdecimal");
-        setupEpg(_epgMap, new EpgTypeOfInteger(), "typeOfInteger");
-        setupEpg(_epgMap, new EpgTypeOfBigint(), "typeOfBigint");
-        setupEpg(_epgMap, new EpgTypeOfDate(), "typeOfDate");
-        setupEpg(_epgMap, new EpgTypeOfTimestamp(), "typeOfTimestamp");
-        setupEpg(_epgMap, new EpgTypeOfTime(), "typeOfTime");
-        setupEpg(_epgMap, new EpgTypeOfBoolean(), "typeOfBoolean");
-        setupEpg(_epgMap, new EpgTypeOfBinary(), "typeOfBinary");
-        setupEpg(_epgMap, new EpgTypeOfBlob(), "typeOfBlob");
-        setupEpg(_epgMap, new EpgTypeOfUuid(), "typeOfUuid");
-        setupEpg(_epgMap, new EpgTypeOfArray(), "typeOfArray");
-        setupEpg(_epgMap, new EpgTypeOfOther(), "typeOfOther");
-        setupEpg(_epgMap, new EpgJAVABeansProperty(), "JAVABeansProperty");
-        setupEpg(_epgMap, new EpgJPopBeansProperty(), "JPopBeansProperty");
-    }
-    public static class EpgVendorCheckId implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getVendorCheckId(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setVendorCheckId(ctl(vl)); }
-    }
-    public static class EpgTypeOfChar implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfChar(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfChar((String)vl); }
-    }
-    public static class EpgTypeOfVarchar implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfVarchar(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfVarchar((String)vl); }
-    }
-    public static class EpgTypeOfClob implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfClob(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfClob((String)vl); }
-    }
-    public static class EpgTypeOfText implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfText(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfText((String)vl); }
-    }
-    public static class EpgTypeOfNumericInteger implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfNumericInteger(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfNumericInteger(cti(vl)); }
-    }
-    public static class EpgTypeOfNumericBigint implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfNumericBigint(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfNumericBigint(ctl(vl)); }
-    }
-    public static class EpgTypeOfNumericDecimal implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfNumericDecimal(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfNumericDecimal(ctb(vl)); }
-    }
-    public static class EpgTypeOfNumericIntegerMin implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfNumericIntegerMin(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfNumericIntegerMin(cti(vl)); }
-    }
-    public static class EpgTypeOfNumericIntegerMax implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfNumericIntegerMax(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfNumericIntegerMax(cti(vl)); }
-    }
-    public static class EpgTypeOfNumericBigintMin implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfNumericBigintMin(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfNumericBigintMin(ctl(vl)); }
-    }
-    public static class EpgTypeOfNumericBigintMax implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfNumericBigintMax(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfNumericBigintMax(ctl(vl)); }
-    }
-    public static class EpgTypeOfNumericSuperintMin implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfNumericSuperintMin(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfNumericSuperintMin(ctb(vl)); }
-    }
-    public static class EpgTypeOfNumericSuperintMax implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfNumericSuperintMax(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfNumericSuperintMax(ctb(vl)); }
-    }
-    public static class EpgTypeOfNumericMaxdecimal implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfNumericMaxdecimal(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfNumericMaxdecimal(ctb(vl)); }
-    }
-    public static class EpgTypeOfInteger implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfInteger(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfInteger(cti(vl)); }
-    }
-    public static class EpgTypeOfBigint implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfBigint(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfBigint(ctl(vl)); }
-    }
-    public static class EpgTypeOfDate implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfDate(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfDate((java.util.Date)vl); }
-    }
-    public static class EpgTypeOfTimestamp implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfTimestamp(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfTimestamp((java.sql.Timestamp)vl); }
-    }
-    public static class EpgTypeOfTime implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfTime(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfTime((java.sql.Time)vl); }
-    }
-    public static class EpgTypeOfBoolean implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfBoolean(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfBoolean((Boolean)vl); }
-    }
-    public static class EpgTypeOfBinary implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfBinary(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfBinary((byte[])vl); }
-    }
-    public static class EpgTypeOfBlob implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfBlob(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfBlob((byte[])vl); }
-    }
-    public static class EpgTypeOfUuid implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfUuid(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfUuid((byte[])vl); }
-    }
-    public static class EpgTypeOfArray implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfArray(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfArray((String)vl); }
-    }
-    public static class EpgTypeOfOther implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getTypeOfOther(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setTypeOfOther((String)vl); }
-    }
-    public static class EpgJAVABeansProperty implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getJAVABeansProperty(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setJAVABeansProperty((String)vl); }
-    }
-    public static class EpgJPopBeansProperty implements PropertyGateway {
-        public Object read(Entity et) { return ((VendorCheck)et).getJPopBeansProperty(); }
-        public void write(Entity et, Object vl) { ((VendorCheck)et).setJPopBeansProperty((String)vl); }
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getVendorCheckId(), (et, vl) -> ((VendorCheck)et).setVendorCheckId(ctl(vl)), "vendorCheckId");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfChar(), (et, vl) -> ((VendorCheck)et).setTypeOfChar((String)vl), "typeOfChar");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfVarchar(), (et, vl) -> ((VendorCheck)et).setTypeOfVarchar((String)vl), "typeOfVarchar");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfClob(), (et, vl) -> ((VendorCheck)et).setTypeOfClob((String)vl), "typeOfClob");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfText(), (et, vl) -> ((VendorCheck)et).setTypeOfText((String)vl), "typeOfText");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfNumericInteger(), (et, vl) -> ((VendorCheck)et).setTypeOfNumericInteger(cti(vl)), "typeOfNumericInteger");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfNumericBigint(), (et, vl) -> ((VendorCheck)et).setTypeOfNumericBigint(ctl(vl)), "typeOfNumericBigint");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfNumericDecimal(), (et, vl) -> ((VendorCheck)et).setTypeOfNumericDecimal(ctb(vl)), "typeOfNumericDecimal");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfNumericIntegerMin(), (et, vl) -> ((VendorCheck)et).setTypeOfNumericIntegerMin(cti(vl)), "typeOfNumericIntegerMin");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfNumericIntegerMax(), (et, vl) -> ((VendorCheck)et).setTypeOfNumericIntegerMax(cti(vl)), "typeOfNumericIntegerMax");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfNumericBigintMin(), (et, vl) -> ((VendorCheck)et).setTypeOfNumericBigintMin(ctl(vl)), "typeOfNumericBigintMin");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfNumericBigintMax(), (et, vl) -> ((VendorCheck)et).setTypeOfNumericBigintMax(ctl(vl)), "typeOfNumericBigintMax");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfNumericSuperintMin(), (et, vl) -> ((VendorCheck)et).setTypeOfNumericSuperintMin(ctb(vl)), "typeOfNumericSuperintMin");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfNumericSuperintMax(), (et, vl) -> ((VendorCheck)et).setTypeOfNumericSuperintMax(ctb(vl)), "typeOfNumericSuperintMax");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfNumericMaxdecimal(), (et, vl) -> ((VendorCheck)et).setTypeOfNumericMaxdecimal(ctb(vl)), "typeOfNumericMaxdecimal");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfInteger(), (et, vl) -> ((VendorCheck)et).setTypeOfInteger(cti(vl)), "typeOfInteger");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfBigint(), (et, vl) -> ((VendorCheck)et).setTypeOfBigint(ctl(vl)), "typeOfBigint");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfDate(), (et, vl) -> ((VendorCheck)et).setTypeOfDate((java.util.Date)vl), "typeOfDate");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfTimestamp(), (et, vl) -> ((VendorCheck)et).setTypeOfTimestamp((java.sql.Timestamp)vl), "typeOfTimestamp");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfTime(), (et, vl) -> ((VendorCheck)et).setTypeOfTime((java.sql.Time)vl), "typeOfTime");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfBoolean(), (et, vl) -> ((VendorCheck)et).setTypeOfBoolean((Boolean)vl), "typeOfBoolean");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfBinary(), (et, vl) -> ((VendorCheck)et).setTypeOfBinary((byte[])vl), "typeOfBinary");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfBlob(), (et, vl) -> ((VendorCheck)et).setTypeOfBlob((byte[])vl), "typeOfBlob");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfUuid(), (et, vl) -> ((VendorCheck)et).setTypeOfUuid((byte[])vl), "typeOfUuid");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfArray(), (et, vl) -> ((VendorCheck)et).setTypeOfArray((String)vl), "typeOfArray");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getTypeOfOther(), (et, vl) -> ((VendorCheck)et).setTypeOfOther((String)vl), "typeOfOther");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getJAVABeansProperty(), (et, vl) -> ((VendorCheck)et).setJAVABeansProperty((String)vl), "JAVABeansProperty");
+        setupEpg(_epgMap, et -> ((VendorCheck)et).getJPopBeansProperty(), (et, vl) -> ((VendorCheck)et).setJPopBeansProperty((String)vl), "JPopBeansProperty");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

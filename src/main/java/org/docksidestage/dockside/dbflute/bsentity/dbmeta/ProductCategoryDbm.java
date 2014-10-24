@@ -53,21 +53,9 @@ public class ProductCategoryDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgProductCategoryCode(), "productCategoryCode");
-        setupEpg(_epgMap, new EpgProductCategoryName(), "productCategoryName");
-        setupEpg(_epgMap, new EpgParentCategoryCode(), "parentCategoryCode");
-    }
-    public static class EpgProductCategoryCode implements PropertyGateway {
-        public Object read(Entity et) { return ((ProductCategory)et).getProductCategoryCode(); }
-        public void write(Entity et, Object vl) { ((ProductCategory)et).setProductCategoryCode((String)vl); }
-    }
-    public static class EpgProductCategoryName implements PropertyGateway {
-        public Object read(Entity et) { return ((ProductCategory)et).getProductCategoryName(); }
-        public void write(Entity et, Object vl) { ((ProductCategory)et).setProductCategoryName((String)vl); }
-    }
-    public static class EpgParentCategoryCode implements PropertyGateway {
-        public Object read(Entity et) { return ((ProductCategory)et).getParentCategoryCode(); }
-        public void write(Entity et, Object vl) { ((ProductCategory)et).setParentCategoryCode((String)vl); }
+        setupEpg(_epgMap, et -> ((ProductCategory)et).getProductCategoryCode(), (et, vl) -> ((ProductCategory)et).setProductCategoryCode((String)vl), "productCategoryCode");
+        setupEpg(_epgMap, et -> ((ProductCategory)et).getProductCategoryName(), (et, vl) -> ((ProductCategory)et).setProductCategoryName((String)vl), "productCategoryName");
+        setupEpg(_epgMap, et -> ((ProductCategory)et).getParentCategoryCode(), (et, vl) -> ((ProductCategory)et).setParentCategoryCode((String)vl), "parentCategoryCode");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -76,12 +64,9 @@ public class ProductCategoryDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
-    {
-        setupEfpg(_efpgMap, new EfpgProductCategorySelf(), "productCategorySelf");
-    }
-    public class EfpgProductCategorySelf implements PropertyGateway {
-        public Object read(Entity et) { return ((ProductCategory)et).getProductCategorySelf(); }
-        public void write(Entity et, Object vl) { ((ProductCategory)et).setProductCategorySelf((ProductCategory)vl); }
+    { xsetupEfpg(); }
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((ProductCategory)et).getProductCategorySelf(), (et, vl) -> ((ProductCategory)et).setProductCategorySelf((ProductCategory)vl), "productCategorySelf");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }

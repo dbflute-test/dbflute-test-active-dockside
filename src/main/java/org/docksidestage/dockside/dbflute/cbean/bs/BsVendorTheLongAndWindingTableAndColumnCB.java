@@ -291,10 +291,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
     public HpSpecification specify() {
         assertSpecifyPurpose();
         if (_specification == null) { _specification = new HpSpecification(this
-            , new HpSpQyCall<VendorTheLongAndWindingTableAndColumnCQ>() {
-                public boolean has() { return true; }
-                public VendorTheLongAndWindingTableAndColumnCQ qy() { return xdfgetConditionQuery(); }
-            }
+            , xcreateSpQyCall(() -> true, () -> xdfgetConditionQuery())
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
@@ -354,9 +351,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
          */
         public HpSDRFunction<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnCQ> derivedVendorTheLongAndWindingTableAndColumnRef() {
             assertDerived("vendorTheLongAndWindingTableAndColumnRefList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorTheLongAndWindingTableAndColumnRefCB, VendorTheLongAndWindingTableAndColumnCQ>() {
-                public void setup(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnRefCB> sq, VendorTheLongAndWindingTableAndColumnCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsderiveVendorTheLongAndWindingTableAndColumnRefList(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsderiveVendorTheLongAndWindingTableAndColumnRefList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -364,9 +359,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
          */
         public HpSDRFunction<VendorTheLongAndWindingTableAndColumnCB, VendorTheLongAndWindingTableAndColumnCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorTheLongAndWindingTableAndColumnCB, VendorTheLongAndWindingTableAndColumnCQ>() {
-                public void setup(String fn, SubQuery<VendorTheLongAndWindingTableAndColumnCB> sq, VendorTheLongAndWindingTableAndColumnCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
 
@@ -392,10 +385,8 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<VendorTheLongAndWindingTableAndColumnCB> columnQuery(final SpecifyQuery<VendorTheLongAndWindingTableAndColumnCB> colCBLambda) {
-        return xcreateColQyOperand(new HpColQyHandler<VendorTheLongAndWindingTableAndColumnCB>() {
-            public ColumnCalculator handle(SpecifyQuery<VendorTheLongAndWindingTableAndColumnCB> rightSp, String operand) {
-                return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
-            }
+        return xcreateColQyOperand((rightSp, operand) -> {
+            return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
@@ -501,10 +492,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
         } else {
             cb = new VendorTheLongAndWindingTableAndColumnCB();
         }
-        specify().xsetSyncQyCall(new HpSpQyCall<VendorTheLongAndWindingTableAndColumnCQ>() {
-            public boolean has() { return true; }
-            public VendorTheLongAndWindingTableAndColumnCQ qy() { return cb.query(); }
-        });
+        specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
 
     // ===================================================================================

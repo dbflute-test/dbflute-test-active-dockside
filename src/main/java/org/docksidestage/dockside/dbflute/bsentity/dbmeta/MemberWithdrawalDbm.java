@@ -53,23 +53,8 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgWithdrawalReasonCode(), "withdrawalReasonCode");
-        setupEpg(_epgMap, new EpgWithdrawalReasonInputText(), "withdrawalReasonInputText");
-        setupEpg(_epgMap, new EpgWithdrawalDatetime(), "withdrawalDatetime");
-        setupEpg(_epgMap, new EpgRegisterDatetime(), "registerDatetime");
-        setupEpg(_epgMap, new EpgRegisterUser(), "registerUser");
-        setupEpg(_epgMap, new EpgUpdateDatetime(), "updateDatetime");
-        setupEpg(_epgMap, new EpgUpdateUser(), "updateUser");
-        setupEpg(_epgMap, new EpgVersionNo(), "versionNo");
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberWithdrawal)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setMemberId(cti(vl)); }
-    }
-    public class EpgWithdrawalReasonCode implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberWithdrawal)et).getWithdrawalReasonCode(); }
-        public void write(Entity et, Object vl) {
+        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getMemberId(), (et, vl) -> ((MemberWithdrawal)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getWithdrawalReasonCode(), (et, vl) -> {
             ColumnInfo col = columnWithdrawalReasonCode();
             CDef.WithdrawalReason cls = (CDef.WithdrawalReason)gcls(col, vl);
             if (cls != null) {
@@ -77,35 +62,14 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
             } else {
                 ((MemberWithdrawal)et).mynativeMappingWithdrawalReasonCode((String)vl);
             }
-        }
-    }
-    public static class EpgWithdrawalReasonInputText implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberWithdrawal)et).getWithdrawalReasonInputText(); }
-        public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setWithdrawalReasonInputText((String)vl); }
-    }
-    public static class EpgWithdrawalDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberWithdrawal)et).getWithdrawalDatetime(); }
-        public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setWithdrawalDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberWithdrawal)et).getRegisterDatetime(); }
-        public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setRegisterDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberWithdrawal)et).getRegisterUser(); }
-        public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setRegisterUser((String)vl); }
-    }
-    public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberWithdrawal)et).getUpdateDatetime(); }
-        public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setUpdateDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberWithdrawal)et).getUpdateUser(); }
-        public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setUpdateUser((String)vl); }
-    }
-    public static class EpgVersionNo implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberWithdrawal)et).getVersionNo(); }
-        public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setVersionNo(ctl(vl)); }
+        }, "withdrawalReasonCode");
+        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getWithdrawalReasonInputText(), (et, vl) -> ((MemberWithdrawal)et).setWithdrawalReasonInputText((String)vl), "withdrawalReasonInputText");
+        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getWithdrawalDatetime(), (et, vl) -> ((MemberWithdrawal)et).setWithdrawalDatetime((java.sql.Timestamp)vl), "withdrawalDatetime");
+        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getRegisterDatetime(), (et, vl) -> ((MemberWithdrawal)et).setRegisterDatetime((java.sql.Timestamp)vl), "registerDatetime");
+        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getRegisterUser(), (et, vl) -> ((MemberWithdrawal)et).setRegisterUser((String)vl), "registerUser");
+        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getUpdateDatetime(), (et, vl) -> ((MemberWithdrawal)et).setUpdateDatetime((java.sql.Timestamp)vl), "updateDatetime");
+        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getUpdateUser(), (et, vl) -> ((MemberWithdrawal)et).setUpdateUser((String)vl), "updateUser");
+        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getVersionNo(), (et, vl) -> ((MemberWithdrawal)et).setVersionNo(ctl(vl)), "versionNo");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -114,17 +78,10 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
-    {
-        setupEfpg(_efpgMap, new EfpgMember(), "member");
-        setupEfpg(_efpgMap, new EfpgWithdrawalReason(), "withdrawalReason");
-    }
-    public class EfpgMember implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberWithdrawal)et).getMember(); }
-        public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setMember((Member)vl); }
-    }
-    public class EfpgWithdrawalReason implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberWithdrawal)et).getWithdrawalReason(); }
-        public void write(Entity et, Object vl) { ((MemberWithdrawal)et).setWithdrawalReason((WithdrawalReason)vl); }
+    { xsetupEfpg(); }
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((MemberWithdrawal)et).getMember(), (et, vl) -> ((MemberWithdrawal)et).setMember((Member)vl), "member");
+        setupEfpg(_efpgMap, et -> ((MemberWithdrawal)et).getWithdrawalReason(), (et, vl) -> ((MemberWithdrawal)et).setWithdrawalReason((WithdrawalReason)vl), "withdrawalReason");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }

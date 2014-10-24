@@ -53,21 +53,9 @@ public class SubDirectoryCheckDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgMemberName(), "memberName");
-        setupEpg(_epgMap, new EpgMemberStatusName(), "memberStatusName");
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((SubDirectoryCheck)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((SubDirectoryCheck)et).setMemberId(cti(vl)); }
-    }
-    public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity et) { return ((SubDirectoryCheck)et).getMemberName(); }
-        public void write(Entity et, Object vl) { ((SubDirectoryCheck)et).setMemberName((String)vl); }
-    }
-    public static class EpgMemberStatusName implements PropertyGateway {
-        public Object read(Entity et) { return ((SubDirectoryCheck)et).getMemberStatusName(); }
-        public void write(Entity et, Object vl) { ((SubDirectoryCheck)et).setMemberStatusName((String)vl); }
+        setupEpg(_epgMap, et -> ((SubDirectoryCheck)et).getMemberId(), (et, vl) -> ((SubDirectoryCheck)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((SubDirectoryCheck)et).getMemberName(), (et, vl) -> ((SubDirectoryCheck)et).setMemberName((String)vl), "memberName");
+        setupEpg(_epgMap, et -> ((SubDirectoryCheck)et).getMemberStatusName(), (et, vl) -> ((SubDirectoryCheck)et).setMemberStatusName((String)vl), "memberStatusName");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

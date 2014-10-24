@@ -15,7 +15,6 @@
  */
 package org.docksidestage.dockside.dbflute.cbean.nss;
 
-import org.dbflute.cbean.ConditionQuery;
 import org.docksidestage.dockside.dbflute.cbean.cq.MemberFollowingCQ;
 
 /**
@@ -40,7 +39,7 @@ public class MemberFollowingNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMemberByMyMemberId() {
-        _query.xdoNss(new MemberFollowingCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberByMyMemberId(); }});
+        _query.xdoNss(() -> _query.queryMemberByMyMemberId());
         return new MemberNss(_query.queryMemberByMyMemberId());
     }
     /**
@@ -49,7 +48,7 @@ public class MemberFollowingNss {
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberNss withMemberByYourMemberId() {
-        _query.xdoNss(new MemberFollowingCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberByYourMemberId(); }});
+        _query.xdoNss(() -> _query.queryMemberByYourMemberId());
         return new MemberNss(_query.queryMemberByYourMemberId());
     }
 }

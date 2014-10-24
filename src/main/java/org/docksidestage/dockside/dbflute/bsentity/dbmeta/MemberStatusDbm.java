@@ -53,14 +53,7 @@ public class MemberStatusDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberStatusCode(), "memberStatusCode");
-        setupEpg(_epgMap, new EpgMemberStatusName(), "memberStatusName");
-        setupEpg(_epgMap, new EpgDescription(), "description");
-        setupEpg(_epgMap, new EpgDisplayOrder(), "displayOrder");
-    }
-    public class EpgMemberStatusCode implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberStatus)et).getMemberStatusCode(); }
-        public void write(Entity et, Object vl) {
+        setupEpg(_epgMap, et -> ((MemberStatus)et).getMemberStatusCode(), (et, vl) -> {
             ColumnInfo col = columnMemberStatusCode();
             CDef.MemberStatus cls = (CDef.MemberStatus)gcls(col, vl);
             if (cls != null) {
@@ -68,19 +61,10 @@ public class MemberStatusDbm extends AbstractDBMeta {
             } else {
                 ((MemberStatus)et).mynativeMappingMemberStatusCode((String)vl);
             }
-        }
-    }
-    public static class EpgMemberStatusName implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberStatus)et).getMemberStatusName(); }
-        public void write(Entity et, Object vl) { ((MemberStatus)et).setMemberStatusName((String)vl); }
-    }
-    public static class EpgDescription implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberStatus)et).getDescription(); }
-        public void write(Entity et, Object vl) { ((MemberStatus)et).setDescription((String)vl); }
-    }
-    public static class EpgDisplayOrder implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberStatus)et).getDisplayOrder(); }
-        public void write(Entity et, Object vl) { ((MemberStatus)et).setDisplayOrder(cti(vl)); }
+        }, "memberStatusCode");
+        setupEpg(_epgMap, et -> ((MemberStatus)et).getMemberStatusName(), (et, vl) -> ((MemberStatus)et).setMemberStatusName((String)vl), "memberStatusName");
+        setupEpg(_epgMap, et -> ((MemberStatus)et).getDescription(), (et, vl) -> ((MemberStatus)et).setDescription((String)vl), "description");
+        setupEpg(_epgMap, et -> ((MemberStatus)et).getDisplayOrder(), (et, vl) -> ((MemberStatus)et).setDisplayOrder(cti(vl)), "displayOrder");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

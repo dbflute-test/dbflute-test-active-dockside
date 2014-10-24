@@ -53,16 +53,8 @@ public class PmCommentEmbeddedDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgMemberName(), "memberName");
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((PmCommentEmbedded)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((PmCommentEmbedded)et).setMemberId(cti(vl)); }
-    }
-    public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity et) { return ((PmCommentEmbedded)et).getMemberName(); }
-        public void write(Entity et, Object vl) { ((PmCommentEmbedded)et).setMemberName((String)vl); }
+        setupEpg(_epgMap, et -> ((PmCommentEmbedded)et).getMemberId(), (et, vl) -> ((PmCommentEmbedded)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((PmCommentEmbedded)et).getMemberName(), (et, vl) -> ((PmCommentEmbedded)et).setMemberName((String)vl), "memberName");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

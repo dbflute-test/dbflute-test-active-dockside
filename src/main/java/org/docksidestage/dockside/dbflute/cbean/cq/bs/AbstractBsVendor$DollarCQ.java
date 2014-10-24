@@ -472,9 +472,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     public void xsmyselfDerive(String fn, SubQuery<Vendor$DollarCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         Vendor$DollarCB cb = new Vendor$DollarCB(); cb.xsetupForDerivedReferrer(this);
-        try { lock(); sq.query(cb); } finally { unlock(); }
-        String pp = keepSpecifyMyselfDerived(cb.query());
-        String pk = "VENDOR_$_DOLLAR_ID";
+        lockCall(() -> sq.query(cb)); String pp = keepSpecifyMyselfDerived(cb.query()); String pk = "VENDOR_$_DOLLAR_ID";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(Vendor$DollarCQ sq);
@@ -508,8 +506,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     public void myselfExists(SubQuery<Vendor$DollarCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
         Vendor$DollarCB cb = new Vendor$DollarCB(); cb.xsetupForMyselfExists(this);
-        try { lock(); subCBLambda.query(cb); } finally { unlock(); }
-        String pp = keepMyselfExists(cb.query());
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(Vendor$DollarCQ sq);

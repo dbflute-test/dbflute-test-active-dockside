@@ -53,35 +53,11 @@ public class PurchasePaymentDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgPurchasePaymentId(), "purchasePaymentId");
-        setupEpg(_epgMap, new EpgPurchaseId(), "purchaseId");
-        setupEpg(_epgMap, new EpgPaymentAmount(), "paymentAmount");
-        setupEpg(_epgMap, new EpgPaymentDatetime(), "paymentDatetime");
-        setupEpg(_epgMap, new EpgPaymentMethodCode(), "paymentMethodCode");
-        setupEpg(_epgMap, new EpgRegisterDatetime(), "registerDatetime");
-        setupEpg(_epgMap, new EpgRegisterUser(), "registerUser");
-        setupEpg(_epgMap, new EpgUpdateDatetime(), "updateDatetime");
-        setupEpg(_epgMap, new EpgUpdateUser(), "updateUser");
-    }
-    public static class EpgPurchasePaymentId implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchasePayment)et).getPurchasePaymentId(); }
-        public void write(Entity et, Object vl) { ((PurchasePayment)et).setPurchasePaymentId(ctl(vl)); }
-    }
-    public static class EpgPurchaseId implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchasePayment)et).getPurchaseId(); }
-        public void write(Entity et, Object vl) { ((PurchasePayment)et).setPurchaseId(ctl(vl)); }
-    }
-    public static class EpgPaymentAmount implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchasePayment)et).getPaymentAmount(); }
-        public void write(Entity et, Object vl) { ((PurchasePayment)et).setPaymentAmount(ctb(vl)); }
-    }
-    public static class EpgPaymentDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchasePayment)et).getPaymentDatetime(); }
-        public void write(Entity et, Object vl) { ((PurchasePayment)et).setPaymentDatetime((java.sql.Timestamp)vl); }
-    }
-    public class EpgPaymentMethodCode implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchasePayment)et).getPaymentMethodCode(); }
-        public void write(Entity et, Object vl) {
+        setupEpg(_epgMap, et -> ((PurchasePayment)et).getPurchasePaymentId(), (et, vl) -> ((PurchasePayment)et).setPurchasePaymentId(ctl(vl)), "purchasePaymentId");
+        setupEpg(_epgMap, et -> ((PurchasePayment)et).getPurchaseId(), (et, vl) -> ((PurchasePayment)et).setPurchaseId(ctl(vl)), "purchaseId");
+        setupEpg(_epgMap, et -> ((PurchasePayment)et).getPaymentAmount(), (et, vl) -> ((PurchasePayment)et).setPaymentAmount(ctb(vl)), "paymentAmount");
+        setupEpg(_epgMap, et -> ((PurchasePayment)et).getPaymentDatetime(), (et, vl) -> ((PurchasePayment)et).setPaymentDatetime((java.sql.Timestamp)vl), "paymentDatetime");
+        setupEpg(_epgMap, et -> ((PurchasePayment)et).getPaymentMethodCode(), (et, vl) -> {
             ColumnInfo col = columnPaymentMethodCode();
             CDef.PaymentMethod cls = (CDef.PaymentMethod)gcls(col, vl);
             if (cls != null) {
@@ -89,23 +65,11 @@ public class PurchasePaymentDbm extends AbstractDBMeta {
             } else {
                 ((PurchasePayment)et).mynativeMappingPaymentMethodCode((String)vl);
             }
-        }
-    }
-    public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchasePayment)et).getRegisterDatetime(); }
-        public void write(Entity et, Object vl) { ((PurchasePayment)et).setRegisterDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchasePayment)et).getRegisterUser(); }
-        public void write(Entity et, Object vl) { ((PurchasePayment)et).setRegisterUser((String)vl); }
-    }
-    public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchasePayment)et).getUpdateDatetime(); }
-        public void write(Entity et, Object vl) { ((PurchasePayment)et).setUpdateDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchasePayment)et).getUpdateUser(); }
-        public void write(Entity et, Object vl) { ((PurchasePayment)et).setUpdateUser((String)vl); }
+        }, "paymentMethodCode");
+        setupEpg(_epgMap, et -> ((PurchasePayment)et).getRegisterDatetime(), (et, vl) -> ((PurchasePayment)et).setRegisterDatetime((java.sql.Timestamp)vl), "registerDatetime");
+        setupEpg(_epgMap, et -> ((PurchasePayment)et).getRegisterUser(), (et, vl) -> ((PurchasePayment)et).setRegisterUser((String)vl), "registerUser");
+        setupEpg(_epgMap, et -> ((PurchasePayment)et).getUpdateDatetime(), (et, vl) -> ((PurchasePayment)et).setUpdateDatetime((java.sql.Timestamp)vl), "updateDatetime");
+        setupEpg(_epgMap, et -> ((PurchasePayment)et).getUpdateUser(), (et, vl) -> ((PurchasePayment)et).setUpdateUser((String)vl), "updateUser");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -114,12 +78,9 @@ public class PurchasePaymentDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
-    {
-        setupEfpg(_efpgMap, new EfpgPurchase(), "purchase");
-    }
-    public class EfpgPurchase implements PropertyGateway {
-        public Object read(Entity et) { return ((PurchasePayment)et).getPurchase(); }
-        public void write(Entity et, Object vl) { ((PurchasePayment)et).setPurchase((Purchase)vl); }
+    { xsetupEfpg(); }
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((PurchasePayment)et).getPurchase(), (et, vl) -> ((PurchasePayment)et).setPurchase((Purchase)vl), "purchase");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }
@@ -142,7 +103,7 @@ public class PurchasePaymentDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnPurchasePaymentId = cci("PURCHASE_PAYMENT_ID", "PURCHASE_PAYMENT_ID", null, "購入支払ID", Long.class, "purchasePaymentId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_F9740AD6_F8EE_43B3_82CF_F4FACF9F613F", false, null, "連番", null, null, null);
+    protected final ColumnInfo _columnPurchasePaymentId = cci("PURCHASE_PAYMENT_ID", "PURCHASE_PAYMENT_ID", null, "購入支払ID", Long.class, "purchasePaymentId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_E01CB92B_0DE8_4211_904F_5A42CA3444A7", false, null, "連番", null, null, null);
     protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, "購入ID", Long.class, "purchaseId", null, false, false, true, "BIGINT", 19, 0, null, false, null, "支払い対象の購入へのID", "purchase", null, null);
     protected final ColumnInfo _columnPaymentAmount = cci("PAYMENT_AMOUNT", "PAYMENT_AMOUNT", null, "支払金額", java.math.BigDecimal.class, "paymentAmount", null, false, false, true, "DECIMAL", 10, 2, null, false, null, "支払った金額。さて、小数点なのはなぜでしょう？", null, null, null);
     protected final ColumnInfo _columnPaymentDatetime = cci("PAYMENT_DATETIME", "PAYMENT_DATETIME", null, "支払日時", java.sql.Timestamp.class, "paymentDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, "支払ったときの日時", null, null, null);

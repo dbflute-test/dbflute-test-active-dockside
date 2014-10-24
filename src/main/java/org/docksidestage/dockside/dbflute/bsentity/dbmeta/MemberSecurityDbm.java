@@ -53,56 +53,16 @@ public class MemberSecurityDbm extends AbstractDBMeta {
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
-        setupEpg(_epgMap, new EpgMemberId(), "memberId");
-        setupEpg(_epgMap, new EpgLoginPassword(), "loginPassword");
-        setupEpg(_epgMap, new EpgReminderQuestion(), "reminderQuestion");
-        setupEpg(_epgMap, new EpgReminderAnswer(), "reminderAnswer");
-        setupEpg(_epgMap, new EpgReminderUseCount(), "reminderUseCount");
-        setupEpg(_epgMap, new EpgRegisterDatetime(), "registerDatetime");
-        setupEpg(_epgMap, new EpgRegisterUser(), "registerUser");
-        setupEpg(_epgMap, new EpgUpdateDatetime(), "updateDatetime");
-        setupEpg(_epgMap, new EpgUpdateUser(), "updateUser");
-        setupEpg(_epgMap, new EpgVersionNo(), "versionNo");
-    }
-    public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberSecurity)et).getMemberId(); }
-        public void write(Entity et, Object vl) { ((MemberSecurity)et).setMemberId(cti(vl)); }
-    }
-    public static class EpgLoginPassword implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberSecurity)et).getLoginPassword(); }
-        public void write(Entity et, Object vl) { ((MemberSecurity)et).setLoginPassword((String)vl); }
-    }
-    public static class EpgReminderQuestion implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberSecurity)et).getReminderQuestion(); }
-        public void write(Entity et, Object vl) { ((MemberSecurity)et).setReminderQuestion((String)vl); }
-    }
-    public static class EpgReminderAnswer implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberSecurity)et).getReminderAnswer(); }
-        public void write(Entity et, Object vl) { ((MemberSecurity)et).setReminderAnswer((String)vl); }
-    }
-    public static class EpgReminderUseCount implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberSecurity)et).getReminderUseCount(); }
-        public void write(Entity et, Object vl) { ((MemberSecurity)et).setReminderUseCount(cti(vl)); }
-    }
-    public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberSecurity)et).getRegisterDatetime(); }
-        public void write(Entity et, Object vl) { ((MemberSecurity)et).setRegisterDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberSecurity)et).getRegisterUser(); }
-        public void write(Entity et, Object vl) { ((MemberSecurity)et).setRegisterUser((String)vl); }
-    }
-    public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberSecurity)et).getUpdateDatetime(); }
-        public void write(Entity et, Object vl) { ((MemberSecurity)et).setUpdateDatetime((java.sql.Timestamp)vl); }
-    }
-    public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberSecurity)et).getUpdateUser(); }
-        public void write(Entity et, Object vl) { ((MemberSecurity)et).setUpdateUser((String)vl); }
-    }
-    public static class EpgVersionNo implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberSecurity)et).getVersionNo(); }
-        public void write(Entity et, Object vl) { ((MemberSecurity)et).setVersionNo(ctl(vl)); }
+        setupEpg(_epgMap, et -> ((MemberSecurity)et).getMemberId(), (et, vl) -> ((MemberSecurity)et).setMemberId(cti(vl)), "memberId");
+        setupEpg(_epgMap, et -> ((MemberSecurity)et).getLoginPassword(), (et, vl) -> ((MemberSecurity)et).setLoginPassword((String)vl), "loginPassword");
+        setupEpg(_epgMap, et -> ((MemberSecurity)et).getReminderQuestion(), (et, vl) -> ((MemberSecurity)et).setReminderQuestion((String)vl), "reminderQuestion");
+        setupEpg(_epgMap, et -> ((MemberSecurity)et).getReminderAnswer(), (et, vl) -> ((MemberSecurity)et).setReminderAnswer((String)vl), "reminderAnswer");
+        setupEpg(_epgMap, et -> ((MemberSecurity)et).getReminderUseCount(), (et, vl) -> ((MemberSecurity)et).setReminderUseCount(cti(vl)), "reminderUseCount");
+        setupEpg(_epgMap, et -> ((MemberSecurity)et).getRegisterDatetime(), (et, vl) -> ((MemberSecurity)et).setRegisterDatetime((java.sql.Timestamp)vl), "registerDatetime");
+        setupEpg(_epgMap, et -> ((MemberSecurity)et).getRegisterUser(), (et, vl) -> ((MemberSecurity)et).setRegisterUser((String)vl), "registerUser");
+        setupEpg(_epgMap, et -> ((MemberSecurity)et).getUpdateDatetime(), (et, vl) -> ((MemberSecurity)et).setUpdateDatetime((java.sql.Timestamp)vl), "updateDatetime");
+        setupEpg(_epgMap, et -> ((MemberSecurity)et).getUpdateUser(), (et, vl) -> ((MemberSecurity)et).setUpdateUser((String)vl), "updateUser");
+        setupEpg(_epgMap, et -> ((MemberSecurity)et).getVersionNo(), (et, vl) -> ((MemberSecurity)et).setVersionNo(ctl(vl)), "versionNo");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -111,12 +71,9 @@ public class MemberSecurityDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
-    {
-        setupEfpg(_efpgMap, new EfpgMember(), "member");
-    }
-    public class EfpgMember implements PropertyGateway {
-        public Object read(Entity et) { return ((MemberSecurity)et).getMember(); }
-        public void write(Entity et, Object vl) { ((MemberSecurity)et).setMember((Member)vl); }
+    { xsetupEfpg(); }
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((MemberSecurity)et).getMember(), (et, vl) -> ((MemberSecurity)et).setMember((Member)vl), "member");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }

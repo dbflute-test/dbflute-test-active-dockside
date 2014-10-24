@@ -279,10 +279,7 @@ public class BsVendorIdentityOnlyCB extends AbstractConditionBean {
     public HpSpecification specify() {
         assertSpecifyPurpose();
         if (_specification == null) { _specification = new HpSpecification(this
-            , new HpSpQyCall<VendorIdentityOnlyCQ>() {
-                public boolean has() { return true; }
-                public VendorIdentityOnlyCQ qy() { return xdfgetConditionQuery(); }
-            }
+            , xcreateSpQyCall(() -> true, () -> xdfgetConditionQuery())
             , _purpose, getDBMetaProvider(), xcSDRFnFc()); }
         return _specification;
     }
@@ -319,9 +316,7 @@ public class BsVendorIdentityOnlyCB extends AbstractConditionBean {
          */
         public HpSDRFunction<VendorIdentityOnlyCB, VendorIdentityOnlyCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), new HpSDRSetupper<VendorIdentityOnlyCB, VendorIdentityOnlyCQ>() {
-                public void setup(String fn, SubQuery<VendorIdentityOnlyCB> sq, VendorIdentityOnlyCQ cq, String al, DerivedReferrerOption op) {
-                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
 
@@ -347,10 +342,8 @@ public class BsVendorIdentityOnlyCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<VendorIdentityOnlyCB> columnQuery(final SpecifyQuery<VendorIdentityOnlyCB> colCBLambda) {
-        return xcreateColQyOperand(new HpColQyHandler<VendorIdentityOnlyCB>() {
-            public ColumnCalculator handle(SpecifyQuery<VendorIdentityOnlyCB> rightSp, String operand) {
-                return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
-            }
+        return xcreateColQyOperand((rightSp, operand) -> {
+            return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
@@ -456,10 +449,7 @@ public class BsVendorIdentityOnlyCB extends AbstractConditionBean {
         } else {
             cb = new VendorIdentityOnlyCB();
         }
-        specify().xsetSyncQyCall(new HpSpQyCall<VendorIdentityOnlyCQ>() {
-            public boolean has() { return true; }
-            public VendorIdentityOnlyCQ qy() { return cb.query(); }
-        });
+        specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
 
     // ===================================================================================
