@@ -66,11 +66,11 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * String memberName = entity.getMemberName();
  * String memberAccount = entity.getMemberAccount();
  * String memberStatusCode = entity.getMemberStatusCode();
- * java.sql.Timestamp formalizedDatetime = entity.getFormalizedDatetime();
- * java.util.Date birthdate = entity.getBirthdate();
- * java.sql.Timestamp registerDatetime = entity.getRegisterDatetime();
+ * java.time.LocalDateTime formalizedDatetime = entity.getFormalizedDatetime();
+ * java.time.LocalDate birthdate = entity.getBirthdate();
+ * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerUser = entity.getRegisterUser();
- * java.sql.Timestamp updateDatetime = entity.getUpdateDatetime();
+ * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateUser = entity.getUpdateUser();
  * Long versionNo = entity.getVersionNo();
  * entity.setMemberId(memberId);
@@ -112,19 +112,19 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     protected String _memberStatusCode;
 
     /** (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _formalizedDatetime;
+    protected java.time.LocalDateTime _formalizedDatetime;
 
     /** (生年月日)BIRTHDATE: {DATE(8)} */
-    protected java.util.Date _birthdate;
+    protected java.time.LocalDate _birthdate;
 
     /** (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _registerDatetime;
+    protected java.time.LocalDateTime _registerDatetime;
 
     /** (登録ユーザ)REGISTER_USER: {NotNull, VARCHAR(200)} */
     protected String _registerUser;
 
     /** (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _updateDatetime;
+    protected java.time.LocalDateTime _updateDatetime;
 
     /** (更新ユーザ)UPDATE_USER: {NotNull, VARCHAR(200)} */
     protected String _updateUser;
@@ -571,7 +571,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
         sb.append(dm).append(xfND(_memberAccount));
         sb.append(dm).append(xfND(_memberStatusCode));
         sb.append(dm).append(xfND(_formalizedDatetime));
-        sb.append(dm).append(xfUD(_birthdate));
+        sb.append(dm).append(xfND(_birthdate));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerUser));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -716,7 +716,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * 一度確定したらもう二度と更新されないはずだ！
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
-    public java.sql.Timestamp getFormalizedDatetime() {
+    public java.time.LocalDateTime getFormalizedDatetime() {
         checkSpecifiedProperty("formalizedDatetime");
         return _formalizedDatetime;
     }
@@ -727,7 +727,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * 一度確定したらもう二度と更新されないはずだ！
      * @param formalizedDatetime The value of the column 'FORMALIZED_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setFormalizedDatetime(java.sql.Timestamp formalizedDatetime) {
+    public void setFormalizedDatetime(java.time.LocalDateTime formalizedDatetime) {
         registerModifiedProperty("formalizedDatetime");
         _formalizedDatetime = formalizedDatetime;
     }
@@ -737,7 +737,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * 必須項目ではないので、このデータがない会員もいる。
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
-    public java.util.Date getBirthdate() {
+    public java.time.LocalDate getBirthdate() {
         checkSpecifiedProperty("birthdate");
         return _birthdate;
     }
@@ -747,7 +747,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * 必須項目ではないので、このデータがない会員もいる。
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setBirthdate(java.util.Date birthdate) {
+    public void setBirthdate(java.time.LocalDate birthdate) {
         registerModifiedProperty("birthdate");
         _birthdate = birthdate;
     }
@@ -759,7 +759,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * 仕様はどのテーブルでも同じなので、共通カラムの説明はこのテーブルでしか書かない。
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getRegisterDatetime() {
+    public java.time.LocalDateTime getRegisterDatetime() {
         checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
@@ -771,7 +771,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * 仕様はどのテーブルでも同じなので、共通カラムの説明はこのテーブルでしか書かない。
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime(java.time.LocalDateTime registerDatetime) {
         registerModifiedProperty("registerDatetime");
         _registerDatetime = registerDatetime;
     }
@@ -804,7 +804,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * 業務的な利用はあまり推奨されないと別項目で説明したが、このカラムはソートの要素としてよく利用される。
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getUpdateDatetime() {
+    public java.time.LocalDateTime getUpdateDatetime() {
         checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
@@ -815,7 +815,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
      * 業務的な利用はあまり推奨されないと別項目で説明したが、このカラムはソートの要素としてよく利用される。
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime(java.time.LocalDateTime updateDatetime) {
         registerModifiedProperty("updateDatetime");
         _updateDatetime = updateDatetime;
     }

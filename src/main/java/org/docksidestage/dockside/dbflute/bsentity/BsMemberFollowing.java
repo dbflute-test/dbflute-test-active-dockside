@@ -61,7 +61,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * Long memberFollowingId = entity.getMemberFollowingId();
  * Integer myMemberId = entity.getMyMemberId();
  * Integer yourMemberId = entity.getYourMemberId();
- * java.sql.Timestamp followDatetime = entity.getFollowDatetime();
+ * java.time.LocalDateTime followDatetime = entity.getFollowDatetime();
  * entity.setMemberFollowingId(memberFollowingId);
  * entity.setMyMemberId(myMemberId);
  * entity.setYourMemberId(yourMemberId);
@@ -91,7 +91,7 @@ public abstract class BsMemberFollowing extends AbstractEntity {
     protected Integer _yourMemberId;
 
     /** (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _followDatetime;
+    protected java.time.LocalDateTime _followDatetime;
 
     // ===================================================================================
     //                                                                          Table Name
@@ -323,7 +323,7 @@ public abstract class BsMemberFollowing extends AbstractEntity {
      * ふりかえるとちょっと恥ずかしい気持ちになる日時
      * @return The value of the column 'FOLLOW_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getFollowDatetime() {
+    public java.time.LocalDateTime getFollowDatetime() {
         checkSpecifiedProperty("followDatetime");
         return _followDatetime;
     }
@@ -333,7 +333,7 @@ public abstract class BsMemberFollowing extends AbstractEntity {
      * ふりかえるとちょっと恥ずかしい気持ちになる日時
      * @param followDatetime The value of the column 'FOLLOW_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setFollowDatetime(java.sql.Timestamp followDatetime) {
+    public void setFollowDatetime(java.time.LocalDateTime followDatetime) {
         registerModifiedProperty("followDatetime");
         _followDatetime = followDatetime;
     }

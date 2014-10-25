@@ -67,7 +67,7 @@ map:{
     ; isEntityDerivedMappable = true
     ; isMakeCallbackConditionOptionSetup = true
     ; isMakeCallbackConditionManualOrder = true
-    ; isAvailableJava8TimeLocalDateEntity = false
+    ; isAvailableJava8TimeLocalDateEntity = true
 
     # runtime compatible (true if compatible)
     ; isNullOrEmptyQueryAllowed = false

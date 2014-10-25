@@ -1,11 +1,8 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.columnquery;
 
-import java.sql.Timestamp;
-
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.cbean.scoping.UnionQuery;
-import org.dbflute.util.DfTypeUtil;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberServiceCB;
@@ -251,8 +248,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
                                             subCB.query().setUpdateUser_Equal("ColumnQueryUser2");
                                             subCB.query().queryMember().existsMemberLogin(new SubQuery<MemberLoginCB>() {
                                                 public void query(MemberLoginCB subCB) {
-                                                    Timestamp timestamp = DfTypeUtil.toTimestamp("2011-12-21");
-                                                    subCB.query().setLoginDatetime_GreaterEqual(timestamp);
+                                                    subCB.query().setLoginDatetime_GreaterEqual(toLocalDateTime("2011-12-21"));
                                                 }
                                             });
                                         }
@@ -278,7 +274,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
         assertTrue(rear.contains(" = 'ColumnQueryUser2'"));
         assertTrue(rear.contains(", 456), 7)"));
         assertTrue(rear.contains(" ) + 888) - 654"));
-        assertTrue(rear.contains(">= '2011-12-21 00:00:00.000'"));
+        assertTrue(rear.contains(">= '2011-12-21T00:00'"));
     }
 
     public void test_ColumnQuery_in_ExistsReferrer_rightDerived_SpecifyCalculation() throws Exception {

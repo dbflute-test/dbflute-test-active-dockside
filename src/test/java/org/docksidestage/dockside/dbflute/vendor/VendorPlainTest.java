@@ -5,12 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -48,17 +45,17 @@ public class VendorPlainTest extends UnitContainerTestCase {
             pushCB(cb);
         }).get();
 
-        member.setBirthdate(DfTypeUtil.toSqlDate("BC1234/12/25"));
+        member.setBirthdate(toLocalDate("BC1234/12/25"));
 
         // ## Act ##
         memberBhv.update(member);
 
         // ## Assert ##
         Member actual = memberBhv.selectByPK(member.getMemberId()).get();
-        DateFormat df = new SimpleDateFormat("Gyyyy/MM/dd");
-        log(df.format(actual.getBirthdate()));
-        assertTrue(DfTypeUtil.isDateBC(actual.getBirthdate()));
-        assertTrue(df.format(actual.getBirthdate()).contains("1234/12/25"));
+        LocalDate birthdate = actual.getBirthdate();
+        log(birthdate);
+        assertTrue(new HandyDate(birthdate).isYear_BeforeChrist());
+        assertTrue(birthdate.getYear() == -1233);
     }
 
     public void test_BC_datetime() {
@@ -70,41 +67,34 @@ public class VendorPlainTest extends UnitContainerTestCase {
             pushCB(cb);
         }).get();
 
-        member.setFormalizedDatetime(DfTypeUtil.toTimestamp("BC1234/12/25 12:34:56.147"));
+        member.setFormalizedDatetime(toLocalDateTime("BC1234/12/25 12:34:56.147"));
 
         // ## Act ##
         memberBhv.update(member);
 
         // ## Assert ##
         Member actual = memberBhv.selectByPK(member.getMemberId()).get();
-        DateFormat df = new SimpleDateFormat("Gyyyy/MM/dd HH:mm:dd.SSS");
-        log(df.format(actual.getFormalizedDatetime()));
-        assertTrue(DfTypeUtil.isDateBC(actual.getFormalizedDatetime()));
-        assertTrue(df.format(actual.getFormalizedDatetime()).contains("1234/12/25"));
+        LocalDateTime formalizedDatetime = actual.getFormalizedDatetime();
+        log(formalizedDatetime);
+        assertTrue(new HandyDate(formalizedDatetime).isYear_BeforeChrist());
+        assertTrue(formalizedDatetime.getYear() == -1233);
     }
 
-    public void test_BC_test_precondition_also_JDK_test() {
-        // ## Arrange ##
-        String beforeExp = "BC0001/12/31 23:59:59.999";
-        String afterExp = "0001/01/01 00:00:00.000";
-
-        // ## Act ##
-        Date before = DfTypeUtil.toDate(beforeExp);
-        Date after = DfTypeUtil.toDate(afterExp);
-        int beforeEra = DfTypeUtil.toCalendar(before).get(Calendar.ERA);
-        int afterEra = DfTypeUtil.toCalendar(after).get(Calendar.ERA);
-
-        // ## Assert ##
-        log("before time = " + before.getTime());
-        log("after  time = " + after.getTime());
-        log("before era  = " + beforeEra);
-        log("after  era  = " + afterEra);
-        assertEquals(GregorianCalendar.BC, beforeEra);
-        assertEquals(GregorianCalendar.AD, afterEra);
-        assertTrue("before=" + before.getTime(), DfTypeUtil.isDateBC(before));
-        assertFalse("after=" + after.getTime(), DfTypeUtil.isDateBC(after));
-        assertEquals(after.getTime(), new HandyDate(before).addMillisecond(1).getDate().getTime());
-    }
+    // TODO jflute impl: HandyDate beforeChrist year==0
+    //public void test_BC_test_precondition_also_JDK_test() {
+    //    // ## Arrange ##
+    //    String beforeExp = "BC0001/12/31 23:59:59.999";
+    //    String afterExp = "0001/01/01 00:00:00.000";
+    //
+    //    // ## Act ##
+    //    LocalDate before = toLocalDate(beforeExp);
+    //    LocalDate after = toLocalDate(afterExp);
+    //
+    //    // ## Assert ##
+    //    assertTrue("before=" + before, new HandyDate(before).isYear_BeforeChrist());
+    //    assertFalse("after=" + after, new HandyDate(after).isYear_BeforeChrist());
+    //    assertEquals(after, new HandyDate(before).addMillisecond(1).getLocalDate());
+    //}
 
     // ===================================================================================
     //                                                                          Short Char
@@ -304,11 +294,11 @@ public class VendorPlainTest extends UnitContainerTestCase {
             ps.setString(1, "JFlute");
             ps.setString(2, "jflute");
             ps.setString(3, "FML");
-            ps.setTimestamp(4, DfTypeUtil.toTimestamp(currentTimestamp()));
+            ps.setTimestamp(4, currentTimestamp());
             ps.setDate(5, DfTypeUtil.toSqlDate("1965/03/03"));
-            ps.setTimestamp(6, DfTypeUtil.toTimestamp(currentTimestamp()));
+            ps.setTimestamp(6, currentTimestamp());
             ps.setString(7, "foo");
-            ps.setTimestamp(8, DfTypeUtil.toTimestamp(currentTimestamp()));
+            ps.setTimestamp(8, currentTimestamp());
             ps.setString(9, "foo");
             ps.setInt(10, 3);
 

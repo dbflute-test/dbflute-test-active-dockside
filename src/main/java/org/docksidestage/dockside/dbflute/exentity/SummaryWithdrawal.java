@@ -15,7 +15,7 @@
  */
 package org.docksidestage.dockside.dbflute.exentity;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import org.docksidestage.dockside.dbflute.bsentity.BsSummaryWithdrawal;
 
@@ -32,11 +32,11 @@ public class SummaryWithdrawal extends BsSummaryWithdrawal {
 
     /** Serial version UID. (Default) */
     private static final long serialVersionUID = 1L;
-    
+
     // ===================================================================================
     //                                                             for test: Non-Specified
     //                                                             =======================
-    public Timestamp xznocheckGetWithdrawalDatetime() {
+    public LocalDateTime xznocheckGetWithdrawalDatetime() {
         return _withdrawalDatetime;
     }
 }

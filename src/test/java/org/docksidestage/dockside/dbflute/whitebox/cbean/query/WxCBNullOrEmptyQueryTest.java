@@ -3,7 +3,6 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.query;
 import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.exception.InvalidQueryRegisteredException;
-import org.dbflute.util.DfTypeUtil;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
@@ -105,9 +104,9 @@ public class WxCBNullOrEmptyQueryTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.checkNullOrEmptyQuery();
-        cb.query().setBirthdate_FromTo(DfTypeUtil.toDate("2006-09-26"), null, op -> op.compareAsDate().allowOneSide()); // OK
+        cb.query().setBirthdate_FromTo(toLocalDate("2006-09-26"), null, op -> op.compareAsDate().allowOneSide()); // OK
         assertTrue(Srl.contains(cb.toDisplaySql(), "2006-09-26"));
-        cb.query().setBirthdate_FromTo(null, DfTypeUtil.toDate("2011-01-21"), op -> op.compareAsDate().allowOneSide()); // OK
+        cb.query().setBirthdate_FromTo(null, toLocalDate("2011-01-21"), op -> op.compareAsDate().allowOneSide()); // OK
         assertTrue(Srl.contains(cb.toDisplaySql(), "2011-01-22")); // added
 
         try {

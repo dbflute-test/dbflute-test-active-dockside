@@ -112,7 +112,7 @@ public class BsMemberAddressCB extends AbstractConditionBean {
      * @param validBeginDate (有効開始日): +UQ, NotNull, DATE(8). (NotNull)
      * @return this. (NotNull)
      */
-    public MemberAddressCB acceptUniqueOf(Integer memberId, java.util.Date validBeginDate) {
+    public MemberAddressCB acceptUniqueOf(Integer memberId, java.time.LocalDate validBeginDate) {
         assertObjectNotNull("memberId", memberId);assertObjectNotNull("validBeginDate", validBeginDate);
         BsMemberAddressCB cb = this;
         cb.query().setMemberId_Equal(memberId);cb.query().setValidBeginDate_Equal(validBeginDate);

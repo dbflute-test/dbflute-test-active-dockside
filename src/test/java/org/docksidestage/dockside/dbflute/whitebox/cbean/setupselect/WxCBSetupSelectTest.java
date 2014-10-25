@@ -1,8 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.setupselect;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.dbflute.cbean.result.ListResultBean;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -61,9 +59,7 @@ public class WxCBSetupSelectTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_setupSelect_BizOneToOne() {
         // ## Arrange ##
-        Calendar cal = Calendar.getInstance();
-        cal.set(2005, 11, 12); // 2005/12/12
-        Date targetDate = cal.getTime();
+        LocalDate targetDate = toLocalDate("2005/12/12");
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -74,18 +70,16 @@ public class WxCBSetupSelectTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertHasAnyElement(memberList);
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
-        String formattedTargetDate = fmt.format(targetDate);
-        log("[" + formattedTargetDate + "]");
+        log("[" + targetDate + "]");
         for (Member member : memberList) {
             String memberName = member.getMemberName();
             member.getMemberAddressAsValid().ifPresent(address -> {
                 assertNotNull(address.getValidBeginDate());
                 assertNotNull(address.getValidEndDate());
-                String validBeginDate = fmt.format(address.getValidBeginDate());
-                String validEndDate = fmt.format(address.getValidEndDate());
-                assertTrue(validBeginDate.compareTo(formattedTargetDate) <= 0);
-                assertTrue(validEndDate.compareTo(formattedTargetDate) >= 0);
+                LocalDate validBeginDate = address.getValidBeginDate();
+                LocalDate validEndDate = address.getValidEndDate();
+                assertTrue(validBeginDate.compareTo(targetDate) <= 0);
+                assertTrue(validEndDate.compareTo(targetDate) >= 0);
                 log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address.getAddress());
                 markHere("existsAddress");
             }).orElse(() -> {

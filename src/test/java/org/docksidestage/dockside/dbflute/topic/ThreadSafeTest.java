@@ -1,6 +1,5 @@
 package org.docksidestage.dockside.dbflute.topic;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -103,9 +102,7 @@ public class ThreadSafeTest extends UnitContainerTestCase {
                 for (int i = 0; i < 30; i++) {
                     Purchase purchase = new Purchase();
                     purchase.setMemberId(3);
-                    long currentMillis = currentTimestamp().getTime();
-                    long keyMillis = currentMillis - (threadId * 10000) - (i * 10000);
-                    purchase.setPurchaseDatetime(new Timestamp(keyMillis));
+                    purchase.setPurchaseDatetime(currentLocalDateTime().minusSeconds(threadId * 10).minusSeconds(i * 10));
                     purchase.setPurchaseCount(1234 + i);
                     purchase.setPurchasePrice(1234 + i);
                     purchase.setPaymentCompleteFlg_True();
@@ -129,8 +126,7 @@ public class ThreadSafeTest extends UnitContainerTestCase {
                 Purchase purchase = new Purchase();
                 purchase.setMemberId(threadId % 2 == 1 ? 3 : 4);
                 purchase.setProductId(threadId % 3 == 1 ? 3 : (threadId % 3 == 2 ? 4 : 5));
-                long keyMillis = currentTimestamp().getTime() - (threadId * 1000);
-                purchase.setPurchaseDatetime(new Timestamp(keyMillis));
+                purchase.setPurchaseDatetime(currentLocalDateTime().minusSeconds(threadId * 1));
                 purchase.setPurchaseCount(1234);
                 purchase.setPurchasePrice(1234);
                 purchase.setPaymentCompleteFlg_True();

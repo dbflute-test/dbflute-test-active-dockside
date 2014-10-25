@@ -1,5 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -47,7 +48,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_ScalarSelect_max() {
         // ## Arrange ##
-        Date expected = memberBhv.selectEntityWithDeletedCheck(cb -> {
+        LocalDate expected = memberBhv.selectEntityWithDeletedCheck(cb -> {
             cb.specify().columnBirthdate();
             cb.query().setMemberStatusCode_Equal_Formalized();
             cb.query().setBirthdate_IsNotNull();
@@ -56,7 +57,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         }).getBirthdate();
 
         // ## Act ##
-        memberBhv.scalarSelect(Date.class).max(cb -> {
+        memberBhv.scalarSelect(LocalDate.class).max(cb -> {
             cb.specify().columnBirthdate();
             cb.query().setMemberStatusCode_Equal_Formalized();
         }).alwaysPresent(birthdate -> {

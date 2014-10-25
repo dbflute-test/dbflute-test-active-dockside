@@ -252,7 +252,7 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
         ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_Member().withMemberStatus();
-            cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
+            cb.setupSelect_Member().withMemberAddressAsValid(currentLocalDate());
             cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
             cb.setupSelect_Member().withMemberSecurityAsOne().withMember().withMemberStatus();
             cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
@@ -342,17 +342,17 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_performance_firstRelation() {
         // ## Arrange ##
-        long warmBefore = currentTimestamp().getTime();
+        long warmBefore = currentDate().getTime();
         purchaseBhv.selectList(cb -> {
             cb.setupSelect_Member();
             cb.setupSelect_Product();
             cb.setupSelect_SummaryProduct();
         }); // warming up
 
-        long warmAfter = currentTimestamp().getTime();
+        long warmAfter = currentDate().getTime();
 
         // ## Act ##
-        long actBefore = currentTimestamp().getTime();
+        long actBefore = currentDate().getTime();
         for (int i = 0; i < 100; i++) {
             purchaseBhv.selectList(cb -> {
                 cb.setupSelect_Member();
@@ -360,7 +360,7 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
                 cb.setupSelect_SummaryProduct();
             });
         }
-        long actAfter = currentTimestamp().getTime();
+        long actAfter = currentDate().getTime();
 
         // ## Assert ##
         String actCost = DfTraceViewUtil.convertToPerformanceView(actAfter - actBefore);
@@ -373,10 +373,10 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
 
     public void test_performance_onParadeRelation_basic() {
         // ## Arrange ##
-        long warmBefore = currentTimestamp().getTime();
+        long warmBefore = currentDate().getTime();
         purchaseBhv.selectList(cb -> {
             cb.setupSelect_Member().withMemberStatus();
-            cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
+            cb.setupSelect_Member().withMemberAddressAsValid(currentLocalDate());
             cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
             cb.setupSelect_Member().withMemberSecurityAsOne().withMember().withMemberStatus();
             cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
@@ -386,14 +386,14 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
             cb.setupSelect_Product().withProductStatus();
         }); // warming up
 
-        long warmAfter = currentTimestamp().getTime();
+        long warmAfter = currentDate().getTime();
 
         // ## Act ##
-        long actBefore = currentTimestamp().getTime();
+        long actBefore = currentDate().getTime();
         for (int i = 0; i < 100; i++) {
             purchaseBhv.selectList(cb -> {
                 cb.setupSelect_Member().withMemberStatus();
-                cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
+                cb.setupSelect_Member().withMemberAddressAsValid(currentLocalDate());
                 cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
                 cb.setupSelect_Member().withMemberSecurityAsOne().withMember().withMemberStatus();
                 cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
@@ -403,7 +403,7 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
                 cb.setupSelect_Product().withProductStatus();
             });
         }
-        long actAfter = currentTimestamp().getTime();
+        long actAfter = currentDate().getTime();
 
         // ## Assert ##
         String actCost = DfTraceViewUtil.convertToPerformanceView(actAfter - actBefore);
@@ -417,11 +417,11 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
     @SuppressWarnings("deprecation")
     public void test_performance_onParade_disableCache() {
         // ## Arrange ##
-        long warmBefore = currentTimestamp().getTime();
+        long warmBefore = currentDate().getTime();
         purchaseBhv.selectList(cb -> {
             cb.disableRelationMappingCache();
             cb.setupSelect_Member().withMemberStatus();
-            cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
+            cb.setupSelect_Member().withMemberAddressAsValid(currentLocalDate());
             cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
             cb.setupSelect_Member().withMemberSecurityAsOne().withMember().withMemberStatus();
             cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
@@ -431,14 +431,14 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
             cb.setupSelect_Product().withProductStatus();
         }); // warming up
 
-        long warmAfter = currentTimestamp().getTime();
+        long warmAfter = currentDate().getTime();
 
         // ## Act ##
-        long actBefore = currentTimestamp().getTime();
+        long actBefore = currentDate().getTime();
         for (int i = 0; i < 100; i++) {
             purchaseBhv.selectList(cb -> {
                 cb.setupSelect_Member().withMemberStatus();
-                cb.setupSelect_Member().withMemberAddressAsValid(currentDate());
+                cb.setupSelect_Member().withMemberAddressAsValid(currentLocalDate());
                 cb.setupSelect_Member().withMemberLoginAsLatest().withMemberStatus();
                 cb.setupSelect_Member().withMemberSecurityAsOne().withMember().withMemberStatus();
                 cb.setupSelect_Member().withMemberWithdrawalAsOne().withWithdrawalReason();
@@ -448,7 +448,7 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
                 cb.setupSelect_Product().withProductStatus();
             });
         }
-        long actAfter = currentTimestamp().getTime();
+        long actAfter = currentDate().getTime();
 
         // ## Assert ##
         String actCost = DfTraceViewUtil.convertToPerformanceView(actAfter - actBefore);

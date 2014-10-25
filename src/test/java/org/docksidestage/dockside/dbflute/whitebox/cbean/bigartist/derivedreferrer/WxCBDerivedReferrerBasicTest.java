@@ -1,6 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.derivedreferrer;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -56,7 +56,7 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
         boolean existsNullLoginDatetime = false;
         for (Member member : memberList) {
             String memberName = member.getMemberName();
-            Date latestLoginDatetime = member.getLatestLoginDatetime();
+            LocalDateTime latestLoginDatetime = member.getLatestLoginDatetime();
             if (latestLoginDatetime != null) {
                 existsLoginDatetime = true;
             } else {
@@ -124,7 +124,7 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
         boolean exists = false;
         for (Member member : memberList) {
             String memberName = member.getMemberName();
-            Date latestLoginDatetime = member.getLatestLoginDatetime();
+            LocalDateTime latestLoginDatetime = member.getLatestLoginDatetime();
             log("memberName=" + memberName + ", latestLoginDatetime=" + latestLoginDatetime);
             if (latestLoginDatetime != null) {
                 exists = true;
@@ -202,7 +202,7 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
         boolean exists = false;
         for (Member member : memberList) {
             String memberName = member.getMemberName();
-            Date latestLoginDatetime = member.getLatestLoginDatetime();
+            LocalDateTime latestLoginDatetime = member.getLatestLoginDatetime();
             log("memberName=" + memberName + ", latestLoginDatetime=" + latestLoginDatetime);
             if (latestLoginDatetime != null) {
                 exists = true;

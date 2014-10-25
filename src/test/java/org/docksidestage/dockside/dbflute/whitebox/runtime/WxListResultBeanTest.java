@@ -1,6 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.runtime;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -161,21 +161,17 @@ public class WxListResultBeanTest extends UnitContainerTestCase {
         });
 
         // ## Act ##
-        Set<Date> birthdateSet = memberList.extractColumnSet(new EntityColumnExtractor<Member, Date>() {
-            public Date extract(Member entity) {
-                return entity.getBirthdate();
-            }
-        });
+        Set<LocalDate> birthdateSet = memberList.extractColumnSet(entity -> entity.getBirthdate());
 
         // ## Assert ##
         assertHasAnyElement(birthdateSet);
         log(birthdateSet);
-        for (Date birthdate : birthdateSet) {
+        for (LocalDate birthdate : birthdateSet) {
             assertNotNull(birthdate);
         }
-        Set<Date> expectedSet = newLinkedHashSet();
+        Set<LocalDate> expectedSet = newLinkedHashSet();
         for (Member member : memberList) {
-            Date birthdate = member.getBirthdate();
+            LocalDate birthdate = member.getBirthdate();
             if (birthdate != null) {
                 expectedSet.add(birthdate);
             }

@@ -244,7 +244,7 @@ public class WxCBColumnQueryBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().queryMemberAddressAsValid(currentDate());
+            cb.query().queryMemberAddressAsValid(currentLocalDate());
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
                     cb.specify().specifyMemberAddressAsValid().columnValidBeginDate();

@@ -64,13 +64,13 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer memberAddressId = entity.getMemberAddressId();
  * Integer memberId = entity.getMemberId();
- * java.util.Date validBeginDate = entity.getValidBeginDate();
- * java.util.Date validEndDate = entity.getValidEndDate();
+ * java.time.LocalDate validBeginDate = entity.getValidBeginDate();
+ * java.time.LocalDate validEndDate = entity.getValidEndDate();
  * String address = entity.getAddress();
  * Integer regionId = entity.getRegionId();
- * java.sql.Timestamp registerDatetime = entity.getRegisterDatetime();
+ * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerUser = entity.getRegisterUser();
- * java.sql.Timestamp updateDatetime = entity.getUpdateDatetime();
+ * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateUser = entity.getUpdateUser();
  * Long versionNo = entity.getVersionNo();
  * entity.setMemberAddressId(memberAddressId);
@@ -106,10 +106,10 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
     protected Integer _memberId;
 
     /** (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)} */
-    protected java.util.Date _validBeginDate;
+    protected java.time.LocalDate _validBeginDate;
 
     /** (有効終了日)VALID_END_DATE: {NotNull, DATE(8)} */
-    protected java.util.Date _validEndDate;
+    protected java.time.LocalDate _validEndDate;
 
     /** (住所)ADDRESS: {NotNull, VARCHAR(200)} */
     protected String _address;
@@ -118,13 +118,13 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
     protected Integer _regionId;
 
     /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _registerDatetime;
+    protected java.time.LocalDateTime _registerDatetime;
 
     /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     protected String _registerUser;
 
     /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _updateDatetime;
+    protected java.time.LocalDateTime _updateDatetime;
 
     /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     protected String _updateUser;
@@ -168,7 +168,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * @param memberId (会員ID): UQ+, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @param validBeginDate (有効開始日): +UQ, NotNull, DATE(8). (NotNull)
      */
-    public void uniqueBy(Integer memberId, java.util.Date validBeginDate) {
+    public void uniqueBy(Integer memberId, java.time.LocalDate validBeginDate) {
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("memberId");
         __uniqueDrivenProperties.addPropertyName("validBeginDate");
@@ -373,8 +373,8 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_memberAddressId));
         sb.append(dm).append(xfND(_memberId));
-        sb.append(dm).append(xfUD(_validBeginDate));
-        sb.append(dm).append(xfUD(_validEndDate));
+        sb.append(dm).append(xfND(_validBeginDate));
+        sb.append(dm).append(xfND(_validEndDate));
         sb.append(dm).append(xfND(_address));
         sb.append(dm).append(xfND(_regionId));
         sb.append(dm).append(xfND(_registerDatetime));
@@ -460,7 +460,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * 前の有効終了日の次の日の値が格納される。
      * @return The value of the column 'VALID_BEGIN_DATE'. (basically NotNull if selected: for the constraint)
      */
-    public java.util.Date getValidBeginDate() {
+    public java.time.LocalDate getValidBeginDate() {
         checkSpecifiedProperty("validBeginDate");
         return _validBeginDate;
     }
@@ -471,7 +471,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * 前の有効終了日の次の日の値が格納される。
      * @param validBeginDate The value of the column 'VALID_BEGIN_DATE'. (basically NotNull if update: for the constraint)
      */
-    public void setValidBeginDate(java.util.Date validBeginDate) {
+    public void setValidBeginDate(java.time.LocalDate validBeginDate) {
         registerModifiedProperty("validBeginDate");
         _validBeginDate = validBeginDate;
     }
@@ -482,7 +482,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * 期間の最後の日が格納される。基本的に、次の有効開始日の一日前の値となるが、次の有効期間がない場合は 9999/12/31 となる。
      * @return The value of the column 'VALID_END_DATE'. (basically NotNull if selected: for the constraint)
      */
-    public java.util.Date getValidEndDate() {
+    public java.time.LocalDate getValidEndDate() {
         checkSpecifiedProperty("validEndDate");
         return _validEndDate;
     }
@@ -493,7 +493,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * 期間の最後の日が格納される。基本的に、次の有効開始日の一日前の値となるが、次の有効期間がない場合は 9999/12/31 となる。
      * @param validEndDate The value of the column 'VALID_END_DATE'. (basically NotNull if update: for the constraint)
      */
-    public void setValidEndDate(java.util.Date validEndDate) {
+    public void setValidEndDate(java.time.LocalDate validEndDate) {
         registerModifiedProperty("validEndDate");
         _validEndDate = validEndDate;
     }
@@ -543,7 +543,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getRegisterDatetime() {
+    public java.time.LocalDateTime getRegisterDatetime() {
         checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
@@ -552,7 +552,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime(java.time.LocalDateTime registerDatetime) {
         registerModifiedProperty("registerDatetime");
         _registerDatetime = registerDatetime;
     }
@@ -579,7 +579,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getUpdateDatetime() {
+    public java.time.LocalDateTime getUpdateDatetime() {
         checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
@@ -588,7 +588,7 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
      * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime(java.time.LocalDateTime updateDatetime) {
         registerModifiedProperty("updateDatetime");
         _updateDatetime = updateDatetime;
     }

@@ -62,7 +62,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * String productName = entity.getProductName();
  * String productHandleCode = entity.getProductHandleCode();
  * String productStatusCode = entity.getProductStatusCode();
- * java.sql.Timestamp latestPurchaseDatetime = entity.getLatestPurchaseDatetime();
+ * java.time.LocalDateTime latestPurchaseDatetime = entity.getLatestPurchaseDatetime();
  * entity.setProductId(productId);
  * entity.setProductName(productName);
  * entity.setProductHandleCode(productHandleCode);
@@ -96,7 +96,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
     protected String _productStatusCode;
 
     /** LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _latestPurchaseDatetime;
+    protected java.time.LocalDateTime _latestPurchaseDatetime;
 
     // ===================================================================================
     //                                                                          Table Name
@@ -414,7 +414,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * [get] LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'LATEST_PURCHASE_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
-    public java.sql.Timestamp getLatestPurchaseDatetime() {
+    public java.time.LocalDateTime getLatestPurchaseDatetime() {
         checkSpecifiedProperty("latestPurchaseDatetime");
         return _latestPurchaseDatetime;
     }
@@ -423,7 +423,7 @@ public abstract class BsSummaryProduct extends AbstractEntity {
      * [set] LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} <br />
      * @param latestPurchaseDatetime The value of the column 'LATEST_PURCHASE_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setLatestPurchaseDatetime(java.sql.Timestamp latestPurchaseDatetime) {
+    public void setLatestPurchaseDatetime(java.time.LocalDateTime latestPurchaseDatetime) {
         registerModifiedProperty("latestPurchaseDatetime");
         _latestPurchaseDatetime = latestPurchaseDatetime;
     }

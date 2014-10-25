@@ -206,19 +206,19 @@ public abstract class BsMemberAddressBhv extends AbstractBehaviorWritable<Member
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<MemberAddress> selectByUniqueOf(Integer memberId, java.util.Date validBeginDate) {
+    public OptionalEntity<MemberAddress> selectByUniqueOf(Integer memberId, java.time.LocalDate validBeginDate) {
         return facadeSelectByUniqueOf(memberId, validBeginDate);
     }
 
-    protected OptionalEntity<MemberAddress> facadeSelectByUniqueOf(Integer memberId, java.util.Date validBeginDate) {
+    protected OptionalEntity<MemberAddress> facadeSelectByUniqueOf(Integer memberId, java.time.LocalDate validBeginDate) {
         return doSelectByUniqueOf(memberId, validBeginDate, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberAddress> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, java.util.Date validBeginDate, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends MemberAddress> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, java.time.LocalDate validBeginDate, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(memberId, validBeginDate), tp), memberId, validBeginDate);
     }
 
-    protected MemberAddressCB xprepareCBAsUniqueOf(Integer memberId, java.util.Date validBeginDate) {
+    protected MemberAddressCB xprepareCBAsUniqueOf(Integer memberId, java.time.LocalDate validBeginDate) {
         assertObjectNotNull("memberId", memberId);assertObjectNotNull("validBeginDate", validBeginDate);
         return newConditionBean().acceptUniqueOf(memberId, validBeginDate);
     }

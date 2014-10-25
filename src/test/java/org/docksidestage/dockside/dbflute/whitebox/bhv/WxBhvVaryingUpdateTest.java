@@ -1,7 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.dbflute.bhv.writable.UpdateOption;
 import org.dbflute.bhv.writable.WritableOptionCall;
@@ -202,7 +201,7 @@ public class WxBhvVaryingUpdateTest extends UnitContainerTestCase {
     public void test_varyingUpdate_convert_basic() throws Exception {
         // ## Arrange ##
         Purchase before = purchaseBhv.selectByPK(3L).get();
-        Timestamp purchaseDatetime = before.getPurchaseDatetime();
+        LocalDateTime purchaseDatetime = before.getPurchaseDatetime();
         Purchase purchase = new Purchase();
         purchase.setPurchaseId(3L);
         purchase.setPaymentCompleteFlg_True();
@@ -217,8 +216,8 @@ public class WxBhvVaryingUpdateTest extends UnitContainerTestCase {
 
         // ## Assert ##
         Purchase actual = purchaseBhv.selectByPK(3L).get();
-        Date expectedDate = new HandyDate(purchaseDatetime).addDay(12).addMinute(4).getDate();
-        assertEquals(expectedDate.getTime(), actual.getPurchaseDatetime().getTime());
+        LocalDateTime expectedDate = new HandyDate(purchaseDatetime).addDay(12).addMinute(4).getLocalDateTime();
+        assertEquals(expectedDate, actual.getPurchaseDatetime());
     }
 
     // ===================================================================================

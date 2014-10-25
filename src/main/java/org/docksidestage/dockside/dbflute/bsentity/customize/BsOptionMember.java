@@ -57,8 +57,8 @@ import org.docksidestage.dockside.dbflute.exentity.customize.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer memberId = entity.getMemberId();
  * String memberName = entity.getMemberName();
- * java.util.Date birthdate = entity.getBirthdate();
- * java.sql.Timestamp formalizedDatetime = entity.getFormalizedDatetime();
+ * java.time.LocalDate birthdate = entity.getBirthdate();
+ * java.time.LocalDateTime formalizedDatetime = entity.getFormalizedDatetime();
  * String memberStatusCode = entity.getMemberStatusCode();
  * String memberStatusName = entity.getMemberStatusName();
  * Integer statusDisplayOrder = entity.getStatusDisplayOrder();
@@ -95,10 +95,10 @@ public abstract class BsOptionMember extends AbstractEntity {
     protected String _memberName;
 
     /** (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} */
-    protected java.util.Date _birthdate;
+    protected java.time.LocalDate _birthdate;
 
     /** (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} */
-    protected java.sql.Timestamp _formalizedDatetime;
+    protected java.time.LocalDateTime _formalizedDatetime;
 
     /** (会員ステータスコード)MEMBER_STATUS_CODE: {CHAR(3), refers to MEMBER.MEMBER_STATUS_CODE, classification=MemberStatus} */
     protected String _memberStatusCode;
@@ -389,7 +389,7 @@ public abstract class BsOptionMember extends AbstractEntity {
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_memberId));
         sb.append(dm).append(xfND(_memberName));
-        sb.append(dm).append(xfUD(_birthdate));
+        sb.append(dm).append(xfND(_birthdate));
         sb.append(dm).append(xfND(_formalizedDatetime));
         sb.append(dm).append(xfND(_memberStatusCode));
         sb.append(dm).append(xfND(_memberStatusName));
@@ -464,7 +464,7 @@ public abstract class BsOptionMember extends AbstractEntity {
      * // select column comment here (no as)
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
-    public java.util.Date getBirthdate() {
+    public java.time.LocalDate getBirthdate() {
         checkSpecifiedProperty("birthdate");
         return _birthdate;
     }
@@ -475,7 +475,7 @@ public abstract class BsOptionMember extends AbstractEntity {
      * // select column comment here (no as)
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setBirthdate(java.util.Date birthdate) {
+    public void setBirthdate(java.time.LocalDate birthdate) {
         registerModifiedProperty("birthdate");
         _birthdate = birthdate;
     }
@@ -487,7 +487,7 @@ public abstract class BsOptionMember extends AbstractEntity {
      * // select column comment here (using as)
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
-    public java.sql.Timestamp getFormalizedDatetime() {
+    public java.time.LocalDateTime getFormalizedDatetime() {
         checkSpecifiedProperty("formalizedDatetime");
         return _formalizedDatetime;
     }
@@ -499,7 +499,7 @@ public abstract class BsOptionMember extends AbstractEntity {
      * // select column comment here (using as)
      * @param formalizedDatetime The value of the column 'FORMALIZED_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setFormalizedDatetime(java.sql.Timestamp formalizedDatetime) {
+    public void setFormalizedDatetime(java.time.LocalDateTime formalizedDatetime) {
         registerModifiedProperty("formalizedDatetime");
         _formalizedDatetime = formalizedDatetime;
     }

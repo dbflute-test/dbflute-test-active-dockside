@@ -470,9 +470,9 @@ public class BsMemberCQ extends AbstractBsMemberCQ {
      * @param targetDate The bind parameter of fixed condition for targetDate. (NotNull)
      * @return The instance of condition-query. (NotNull)
      */
-    public MemberAddressCQ queryMemberAddressAsValid(java.util.Date targetDate) {
+    public MemberAddressCQ queryMemberAddressAsValid(java.time.LocalDate targetDate) {
         Map<String, Object> parameterMap = xdfgetParameterMapMemberAddressAsValid();
-        parameterMap.put("targetDate", fCTPD(targetDate));
+        parameterMap.put("targetDate", targetDate);
         xassertFCDP("memberAddressAsValid", parameterMap);
         return xdfgetConditionQueryMemberAddressAsValid();
     }

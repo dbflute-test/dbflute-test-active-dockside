@@ -416,7 +416,7 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
                         colCB.specify().columnPaymentDatetime();
                     }).equal(colCB -> {
                         colCB.specify().columnPaymentDatetime();
-                    }).convert(op -> op.addDay(6).coalesce(toDate("2014/07/31"))));
+                    }).convert(op -> op.addDay(6).coalesce(toLocalDate("2014/07/31"))));
                 }, null, op -> op.round(7));
             }, Member.ALIAS_totalPaymentAmount);
             cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();

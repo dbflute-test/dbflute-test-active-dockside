@@ -1,6 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.scalarcondition;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -44,7 +44,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_ScalarCondition_basic() {
         // ## Arrange ##
-        Date expected = selectExpectedMaxBirthdateOnFormalized();
+        LocalDate expected = selectExpectedMaxBirthdateOnFormalized();
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -61,13 +61,13 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
-            Date birthdate = member.getBirthdate();
+            LocalDate birthdate = member.getBirthdate();
             assertEquals(expected, birthdate);
         }
     }
 
-    protected Date selectExpectedMaxBirthdateOnFormalized() {
-        Date expected = null;
+    protected LocalDate selectExpectedMaxBirthdateOnFormalized() {
+        LocalDate expected = null;
         {
             ListResultBean<Member> listAll = memberBhv.selectList(cb -> {
                 cb.query().setMemberStatusCode_Equal_Formalized();
@@ -75,9 +75,9 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
             });
 
             for (Member member : listAll) {
-                Date day = member.getBirthdate();
-                if (day != null && (expected == null || expected.getTime() < day.getTime())) {
-                    expected = day;
+                LocalDate birthdate = member.getBirthdate();
+                if (birthdate != null && (expected == null || expected.isBefore(birthdate))) {
+                    expected = birthdate;
                 }
             }
         }
@@ -236,15 +236,15 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
                 cb.query().addOrderBy_Birthdate_Desc();
             }
         });
-        Map<String, Date> statusMap = new HashMap<String, Date>();
+        Map<String, LocalDate> statusMap = new HashMap<String, LocalDate>();
         for (MemberStatus status : statusList) {
             statusMap.put(status.getMemberStatusCode(), status.getMemberList().get(0).getBirthdate());
         }
         assertHasAnyElement(memberList);
         for (Member member : memberList) {
-            Date birthdate = member.getBirthdate();
+            LocalDate birthdate = member.getBirthdate();
             log(member.getMemberName() + ", " + toString(birthdate, "yyyy/MM/dd"));
-            Date expectedDate = statusMap.get(member.getMemberStatusCode());
+            LocalDate expectedDate = statusMap.get(member.getMemberStatusCode());
             assertEquals(expectedDate, birthdate);
         }
     }
@@ -342,7 +342,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
 
     public void test_ScalarCondition_PartitionBy_outerQuery() {
         // ## Arrange ##
-        Date maxBirthdate = toDate("9999/12/31");
+        LocalDate maxBirthdate = toLocalDate("9999/12/31");
         {
             Member member = new Member();
             member.setMemberId(1);
@@ -380,7 +380,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         assertHasAnyElement(memberList);
         int count = 0;
         for (Member member : memberList) {
-            Date birthdate = member.getBirthdate();
+            LocalDate birthdate = member.getBirthdate();
             log(member.getMemberName(), birthdate);
             if (member.isMemberStatusCodeFormalized()) {
                 assertEquals(maxBirthdate, birthdate);
@@ -393,7 +393,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
 
     public void test_ScalarCondition_PartitionBy_nonOuterQuery() {
         // ## Arrange ##
-        Date maxBirthdate = toDate("9999/12/31");
+        LocalDate maxBirthdate = toLocalDate("9999/12/31");
         {
             Member member = new Member();
             member.setMemberId(1);
@@ -430,7 +430,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         assertHasAnyElement(memberList);
         int count = 0;
         for (Member member : memberList) {
-            Date birthdate = member.getBirthdate();
+            LocalDate birthdate = member.getBirthdate();
             log(member.getMemberName(), birthdate);
             if (member.isMemberStatusCodeFormalized()) {
                 assertEquals(maxBirthdate, birthdate);

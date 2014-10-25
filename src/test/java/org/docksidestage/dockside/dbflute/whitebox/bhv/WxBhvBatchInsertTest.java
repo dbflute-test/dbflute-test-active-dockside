@@ -168,7 +168,7 @@ public class WxBhvBatchInsertTest extends UnitContainerTestCase {
             member.setMemberName("testName3");
             member.setMemberAccount("testAccount3");
             member.setMemberStatusCode_Withdrawal();
-            member.setBirthdate(currentDate());
+            member.setBirthdate(currentLocalDate());
             memberList.add(member);
         }
 
@@ -218,7 +218,7 @@ public class WxBhvBatchInsertTest extends UnitContainerTestCase {
             member.setMemberName("testName3");
             member.setMemberAccount("testAccount3");
             member.setMemberStatusCode_Withdrawal();
-            member.setBirthdate(currentDate());
+            member.setBirthdate(currentLocalDate());
         }
 
         // ## Act ##
@@ -273,7 +273,7 @@ public class WxBhvBatchInsertTest extends UnitContainerTestCase {
             member.setMemberName("testName3");
             member.setMemberAccount("testAccount3");
             member.setMemberStatusCode_Withdrawal();
-            member.setBirthdate(currentDate());
+            member.setBirthdate(currentLocalDate());
             memberList.add(member);
         }
         final List<String> displaySqlList = new ArrayList<String>();

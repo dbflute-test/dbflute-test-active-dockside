@@ -66,7 +66,7 @@ public class SummaryProductDbm extends AbstractDBMeta {
                 ((SummaryProduct)et).mynativeMappingProductStatusCode((String)vl);
             }
         }, "productStatusCode");
-        setupEpg(_epgMap, et -> ((SummaryProduct)et).getLatestPurchaseDatetime(), (et, vl) -> ((SummaryProduct)et).setLatestPurchaseDatetime((java.sql.Timestamp)vl), "latestPurchaseDatetime");
+        setupEpg(_epgMap, et -> ((SummaryProduct)et).getLatestPurchaseDatetime(), (et, vl) -> ((SummaryProduct)et).setLatestPurchaseDatetime((java.time.LocalDateTime)vl), "latestPurchaseDatetime");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -101,7 +101,7 @@ public class SummaryProductDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnProductName = cci("PRODUCT_NAME", "PRODUCT_NAME", null, null, String.class, "productName", null, false, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnProductHandleCode = cci("PRODUCT_HANDLE_CODE", "PRODUCT_HANDLE_CODE", null, null, String.class, "productHandleCode", null, false, false, false, "VARCHAR", 100, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnProductStatusCode = cci("PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", null, null, String.class, "productStatusCode", null, false, false, false, "CHAR", 3, 0, null, false, null, null, "productStatus", null, CDef.DefMeta.ProductStatus);
-    protected final ColumnInfo _columnLatestPurchaseDatetime = cci("LATEST_PURCHASE_DATETIME", "LATEST_PURCHASE_DATETIME", null, null, java.sql.Timestamp.class, "latestPurchaseDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnLatestPurchaseDatetime = cci("LATEST_PURCHASE_DATETIME", "LATEST_PURCHASE_DATETIME", null, null, java.time.LocalDateTime.class, "latestPurchaseDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
 
     /**
      * PRODUCT_ID: {PK, INTEGER(10)}

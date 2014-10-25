@@ -1,7 +1,5 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.internal;
 
-import java.util.Date;
-
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.OrQuery;
 import org.dbflute.cbean.scoping.SpecifyQuery;
@@ -75,7 +73,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
             cb.query().setDisplayOrder_Equal(3);
             cb.query().existsMember(new SubQuery<MemberCB>() {
                 public void query(MemberCB memberCB) {
-                    memberCB.query().setBirthdate_LessEqual(new Date());
+                    memberCB.query().setBirthdate_LessEqual(currentLocalDate());
                     memberCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB purchaseCB) {
                             purchaseCB.query().setPurchaseCount_GreaterEqual(2);
@@ -94,7 +92,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
                 public void query(MemberLoginCB subCB) {
                     subCB.query().queryMemberStatus().existsMember(new SubQuery<MemberCB>() {
                         public void query(MemberCB subCB) {
-                            subCB.query().setBirthdate_GreaterEqual(new Date());
+                            subCB.query().setBirthdate_GreaterEqual(currentLocalDate());
                         }
                     });
                 }
@@ -161,7 +159,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
                     subCB.specify().columnPurchaseDatetime();
                     cb.setupSelect_MemberStatus();
                 }
-            }).lessEqual(currentDate());
+            }).lessEqual(currentLocalDate());
             // ## Assert ##
             fail();
         } catch (SetupSelectThatsBadTimingException e) { // setupSelect calls query()
@@ -245,7 +243,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
                     subCB.specify().columnPurchaseDatetime();
                     cb.specify();
                 }
-            }).lessEqual(currentDate());
+            }).lessEqual(currentLocalDate());
             // ## Assert ##
             fail();
         } catch (SpecifyThatsBadTimingException e) {
@@ -341,7 +339,7 @@ public class WxCBPurposeTypeTest extends UnitContainerTestCase {
                     subCB.specify().columnPurchaseDatetime();
                     cb.query();
                 }
-            }).lessEqual(currentDate());
+            }).lessEqual(currentLocalDate());
             // ## Assert ##
             fail();
         } catch (QueryThatsBadTimingException e) {

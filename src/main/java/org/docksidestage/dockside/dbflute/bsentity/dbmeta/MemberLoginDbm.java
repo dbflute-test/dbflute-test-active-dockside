@@ -56,7 +56,7 @@ public class MemberLoginDbm extends AbstractDBMeta {
     {
         setupEpg(_epgMap, et -> ((MemberLogin)et).getMemberLoginId(), (et, vl) -> ((MemberLogin)et).setMemberLoginId(ctl(vl)), "memberLoginId");
         setupEpg(_epgMap, et -> ((MemberLogin)et).getMemberId(), (et, vl) -> ((MemberLogin)et).setMemberId(cti(vl)), "memberId");
-        setupEpg(_epgMap, et -> ((MemberLogin)et).getLoginDatetime(), (et, vl) -> ((MemberLogin)et).setLoginDatetime((java.sql.Timestamp)vl), "loginDatetime");
+        setupEpg(_epgMap, et -> ((MemberLogin)et).getLoginDatetime(), (et, vl) -> ((MemberLogin)et).setLoginDatetime((java.time.LocalDateTime)vl), "loginDatetime");
         setupEpg(_epgMap, et -> ((MemberLogin)et).getMobileLoginFlg(), (et, vl) -> {
             ColumnInfo col = columnMobileLoginFlg();
             CDef.Flg cls = (CDef.Flg)gcls(col, vl);
@@ -112,7 +112,7 @@ public class MemberLoginDbm extends AbstractDBMeta {
     //                                                                         ===========
     protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_567E1A4E_5220_42CF_A3A6_07E98A61A90F", false, null, null, null, null, null);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
-    protected final ColumnInfo _columnLoginDatetime = cci("LOGIN_DATETIME", "LOGIN_DATETIME", null, "ログイン日時", java.sql.Timestamp.class, "loginDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, "ログインした瞬間の日時。\n同じ会員が同じ日時にログインはできない。(ユニーク制約で重複ログインできないようにしてある)", null, null, null);
+    protected final ColumnInfo _columnLoginDatetime = cci("LOGIN_DATETIME", "LOGIN_DATETIME", null, "ログイン日時", java.time.LocalDateTime.class, "loginDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, "ログインした瞬間の日時。\n同じ会員が同じ日時にログインはできない。(ユニーク制約で重複ログインできないようにしてある)", null, null, null);
     protected final ColumnInfo _columnMobileLoginFlg = cci("MOBILE_LOGIN_FLG", "MOBILE_LOGIN_FLG", null, "モバイルログインフラグ", Integer.class, "mobileLoginFlg", null, false, false, true, "INTEGER", 10, 0, null, false, null, "モバイル機器からのログインか否か。", null, null, CDef.DefMeta.Flg);
     protected final ColumnInfo _columnLoginMemberStatusCode = cci("LOGIN_MEMBER_STATUS_CODE", "LOGIN_MEMBER_STATUS_CODE", null, "ログイン時会員ステータスコード", String.class, "loginMemberStatusCode", null, false, false, true, "CHAR", 3, 0, null, false, null, "ログイン時の会員ステータス", "memberStatus", null, CDef.DefMeta.MemberStatus);
 

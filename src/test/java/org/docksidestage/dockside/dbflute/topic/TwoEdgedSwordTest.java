@@ -53,7 +53,7 @@ public class TwoEdgedSwordTest extends UnitContainerTestCase {
             /* ## Act ## */
             cb.query().setMemberId_Equal(3);
             cb.query().setMemberName_LikeSearch("Mijato", op -> op.likePrefix());
-            cb.query().setFormalizedDatetime_LessEqual(currentTimestamp());
+            cb.query().setFormalizedDatetime_LessEqual(currentLocalDateTime());
 
             // Internal Check!
                 String before2WaySQL = cb.getSqlClause().getClause();

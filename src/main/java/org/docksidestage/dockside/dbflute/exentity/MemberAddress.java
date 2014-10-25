@@ -15,7 +15,7 @@
  */
 package org.docksidestage.dockside.dbflute.exentity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.docksidestage.dockside.dbflute.bsentity.BsMemberAddress;
 
@@ -36,11 +36,11 @@ public class MemberAddress extends BsMemberAddress {
     // ===================================================================================
     //                                                             for test: Non-Specified
     //                                                             =======================
-    public Date xznocheckGetValidBeginDate() {
+    public LocalDate xznocheckGetValidBeginDate() {
         return _validBeginDate;
     }
 
-    public Date xznocheckGetValidEndDate() {
+    public LocalDate xznocheckGetValidEndDate() {
         return _validEndDate;
     }
 }

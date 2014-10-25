@@ -261,7 +261,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
             cb.setupSelect_MemberStatus();
             cb.setupSelect_MemberSecurityAsOne();
             cb.setupSelect_MemberWithdrawalAsOne();
-            cb.setupSelect_MemberAddressAsValid(currentDate());
+            cb.setupSelect_MemberAddressAsValid(currentLocalDate());
             pushCB(cb);
         });
 

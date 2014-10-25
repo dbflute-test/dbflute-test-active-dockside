@@ -15,8 +15,8 @@
  */
 package org.docksidestage.dockside.dbflute.exentity;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.docksidestage.dockside.dbflute.bsentity.BsMember;
 
@@ -41,7 +41,7 @@ public class Member extends BsMember {
     //                                                                           Attribute
     //                                                                           =========
     protected Integer _highestPurchasePrice;
-    protected Timestamp _latestLoginDatetime;
+    protected LocalDateTime _latestLoginDatetime;
     protected Integer _loginCount;
     protected Integer _productKindCount;
 
@@ -62,11 +62,11 @@ public class Member extends BsMember {
         this._highestPurchasePrice = highestPurchasePrice;
     }
 
-    public Timestamp getLatestLoginDatetime() {
+    public LocalDateTime getLatestLoginDatetime() {
         return _latestLoginDatetime;
     }
 
-    public void setLatestLoginDatetime(Timestamp latestLoginDatetime) {
+    public void setLatestLoginDatetime(LocalDateTime latestLoginDatetime) {
         _latestLoginDatetime = latestLoginDatetime;
     }
 
@@ -117,15 +117,15 @@ public class Member extends BsMember {
         return _memberStatusCode;
     }
 
-    public Date xznocheckGetBirthdate() {
+    public LocalDate xznocheckGetBirthdate() {
         return _birthdate;
     }
 
-    public Timestamp xznocheckGetFormalizedDatetime() {
+    public LocalDateTime xznocheckGetFormalizedDatetime() {
         return _formalizedDatetime;
     }
 
-    public Timestamp xznocheckGetRegisterDatetime() {
+    public LocalDateTime xznocheckGetRegisterDatetime() {
         return _registerDatetime;
     }
 
@@ -133,7 +133,7 @@ public class Member extends BsMember {
         return _registerUser;
     }
 
-    public Timestamp xznocheckGetUpdateDatetime() {
+    public LocalDateTime xznocheckGetUpdateDatetime() {
         return _updateDatetime;
     }
 

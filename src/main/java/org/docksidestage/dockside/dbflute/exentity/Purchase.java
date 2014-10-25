@@ -16,7 +16,7 @@
 package org.docksidestage.dockside.dbflute.exentity;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import org.docksidestage.dockside.dbflute.bsentity.BsPurchase;
 
@@ -71,7 +71,7 @@ public class Purchase extends BsPurchase {
         return _productId;
     }
 
-    public Timestamp xznocheckGetPurchaseDatetime() {
+    public LocalDateTime xznocheckGetPurchaseDatetime() {
         return _purchaseDatetime;
     }
 

@@ -1,10 +1,10 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.derivedreferrer;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SubQuery;
-import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -26,7 +26,7 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_sepcify_derivedReferrer_orderBy_basic() {
         // ## Arrange ##
-        Date defaultLoginDate = DfTypeUtil.toDate("1000/01/01");
+        LocalDate defaultLoginDate = toLocalDate("1000/01/01");
         {
             // ## Act ##
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
@@ -42,9 +42,9 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
 
             // ## Assert ##
             assertFalse(memberList.isEmpty());
-            Date first = memberList.get(0).getLatestLoginDatetime();
-            Date last = memberList.get(memberList.size() - 1).getLatestLoginDatetime();
-            assertTrue(first.before(last));
+            LocalDateTime first = memberList.get(0).getLatestLoginDatetime();
+            LocalDateTime last = memberList.get(memberList.size() - 1).getLatestLoginDatetime();
+            assertTrue(first.isBefore(last));
         }
 
         {
@@ -62,9 +62,9 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
 
             // ## Assert ##
             assertFalse(memberList.isEmpty());
-            Date first = memberList.get(0).getLatestLoginDatetime();
-            Date last = memberList.get(memberList.size() - 1).getLatestLoginDatetime();
-            assertTrue(last.before(first));
+            LocalDateTime first = memberList.get(0).getLatestLoginDatetime();
+            LocalDateTime last = memberList.get(memberList.size() - 1).getLatestLoginDatetime();
+            assertTrue(last.isBefore(first));
         }
     }
 
@@ -73,7 +73,7 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
     //                                                                            ========
     public void test_sepcify_derivedReferrer_orderBy_foreign() {
         // ## Arrange ##
-        Date defaultLoginDate = DfTypeUtil.toDate("1000/01/01");
+        LocalDate defaultLoginDate = toLocalDate("1000/01/01");
         {
             // ## Act ##
             ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
@@ -88,9 +88,9 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
 
             // ## Assert ##
             assertFalse(memberList.isEmpty());
-            Date first = memberList.get(0).getLatestLoginDatetime();
-            Date last = memberList.get(memberList.size() - 1).getLatestLoginDatetime();
-            assertTrue(first.before(last));
+            LocalDateTime first = memberList.get(0).getLatestLoginDatetime();
+            LocalDateTime last = memberList.get(memberList.size() - 1).getLatestLoginDatetime();
+            assertTrue(first.isBefore(last));
         }
 
         {
@@ -107,9 +107,9 @@ public class WxCBDerivedReferrerOrderByTest extends UnitContainerTestCase {
 
             // ## Assert ##
             assertFalse(memberList.isEmpty());
-            Date first = memberList.get(0).getLatestLoginDatetime();
-            Date last = memberList.get(memberList.size() - 1).getLatestLoginDatetime();
-            assertTrue(last.before(first));
+            LocalDateTime first = memberList.get(0).getLatestLoginDatetime();
+            LocalDateTime last = memberList.get(memberList.size() - 1).getLatestLoginDatetime();
+            assertTrue(last.isBefore(first));
         }
     }
 }

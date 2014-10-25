@@ -53,16 +53,16 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     protected LikeSearchOption _memberAccountInternalLikeSearchOption;
 
     /** The parameter of fromFormalizedDate:fromDate. */
-    protected Date _fromFormalizedDate;
+    protected java.time.LocalDate _fromFormalizedDate;
 
     /** The parameter of toFormalizedDate:toDate. */
-    protected Date _toFormalizedDate;
+    protected java.time.LocalDate _toFormalizedDate;
 
     /** The parameter of fromFormalizedMonth:fromDate(option). */
-    protected java.sql.Timestamp _fromFormalizedMonth;
+    protected java.time.LocalDateTime _fromFormalizedMonth;
 
     /** The parameter of toFormalizedMonth:toDate(option). */
-    protected java.sql.Timestamp _toFormalizedMonth;
+    protected java.time.LocalDateTime _toFormalizedMonth;
 
     /** The parameter of memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
     protected String _memberStatusCode;
@@ -71,7 +71,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     protected Integer _displayOrder;
 
     /** The parameter of birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)}. */
-    protected Date _birthdate;
+    protected java.time.LocalDate _birthdate;
 
     /** The parameter of status:cls(MemberStatus). */
     protected String _status;
@@ -154,6 +154,16 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     //                                                  Date
     //                                                  ----
     protected Date toUtilDate(Object date) { return PmbCustodial.toUtilDate(date, _timeZone); }
+    protected <DATE> DATE toLocalDate(Date date, Class<DATE> localType) { return PmbCustodial.toLocalDate(date, localType, chooseRealTimeZone()); }
+    protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
+
+    /**
+     * Set time-zone, basically for LocalDate conversion. <br />
+     * Normally you don't need to set this, you can adjust other ways. <br />
+     * (DBFlute system's time-zone is used as default)
+     * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
+     */
+    public void zone(TimeZone timeZone) { _timeZone = timeZone; }
 
     protected void assertFromToOptionValid(String name, FromToOption option) { PmbCustodial.assertFromToOptionValid(name, option); }
     protected FromToOption createFromToOption() { return PmbCustodial.createFromToOption(_timeZone); }
@@ -186,13 +196,13 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
         sb.append(dm).append(_memberId);
         sb.append(dm).append(_memberName);
         sb.append(dm).append(_memberAccount);
-        sb.append(dm).append(PmbCustodial.formatUtilDate(_fromFormalizedDate, "yyyy-MM-dd", _timeZone));
-        sb.append(dm).append(PmbCustodial.formatUtilDate(_toFormalizedDate, "yyyy-MM-dd", _timeZone));
+        sb.append(dm).append(_fromFormalizedDate);
+        sb.append(dm).append(_toFormalizedDate);
         sb.append(dm).append(_fromFormalizedMonth);
         sb.append(dm).append(_toFormalizedMonth);
         sb.append(dm).append(_memberStatusCode);
         sb.append(dm).append(_displayOrder);
-        sb.append(dm).append(PmbCustodial.formatUtilDate(_birthdate, "yyyy-MM-dd", _timeZone));
+        sb.append(dm).append(_birthdate);
         sb.append(dm).append(_status);
         sb.append(dm).append(_statusFormalized);
         sb.append(dm).append(_statusList);
@@ -279,39 +289,39 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
      * [get] fromFormalizedDate:fromDate <br />
      * @return The value of fromFormalizedDate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getFromFormalizedDate() {
-        return toUtilDate(_fromFormalizedDate);
+    public java.time.LocalDate getFromFormalizedDate() {
+        return _fromFormalizedDate;
     }
 
     /**
      * [set as fromDate] fromFormalizedDate:fromDate <br />
      * @param fromFormalizedDate The value of fromFormalizedDate. (NullAllowed)
      */
-    public void setFromFormalizedDate_FromDate(Date fromFormalizedDate) {
-        _fromFormalizedDate = createFromToOption().compareAsDate().filterFromDate(fromFormalizedDate);
+    public void setFromFormalizedDate_FromDate(java.time.LocalDate fromFormalizedDate) {
+        _fromFormalizedDate = toLocalDate(createFromToOption().compareAsDate().filterFromDate(toUtilDate(fromFormalizedDate)), java.time.LocalDate.class);
     }
 
     /**
      * [get] toFormalizedDate:toDate <br />
      * @return The value of toFormalizedDate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getToFormalizedDate() {
-        return toUtilDate(_toFormalizedDate);
+    public java.time.LocalDate getToFormalizedDate() {
+        return _toFormalizedDate;
     }
 
     /**
      * [set as toDate] toFormalizedDate:toDate <br />
      * @param toFormalizedDate The value of toFormalizedDate. (NullAllowed)
      */
-    public void setToFormalizedDate_ToDate(Date toFormalizedDate) {
-        _toFormalizedDate = createFromToOption().compareAsDate().filterToDate(toFormalizedDate);
+    public void setToFormalizedDate_ToDate(java.time.LocalDate toFormalizedDate) {
+        _toFormalizedDate = toLocalDate(createFromToOption().compareAsDate().filterToDate(toUtilDate(toFormalizedDate)), java.time.LocalDate.class);
     }
 
     /**
      * [get] fromFormalizedMonth:fromDate(option) <br />
      * @return The value of fromFormalizedMonth. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public java.sql.Timestamp getFromFormalizedMonth() {
+    public java.time.LocalDateTime getFromFormalizedMonth() {
         return _fromFormalizedMonth;
     }
 
@@ -320,16 +330,16 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
      * @param fromFormalizedMonth The value of fromFormalizedMonth. (NullAllowed)
      * @param fromFormalizedMonthOption The option of from-to scope for fromFormalizedMonth. (NotNull)
      */
-    public void setFromFormalizedMonth_FromDate(java.sql.Timestamp fromFormalizedMonth, FromToOption fromFormalizedMonthOption) {
+    public void setFromFormalizedMonth_FromDate(java.time.LocalDateTime fromFormalizedMonth, FromToOption fromFormalizedMonthOption) {
         assertFromToOptionValid("fromFormalizedMonthOption", fromFormalizedMonthOption);
-        _fromFormalizedMonth = fromFormalizedMonthOption.filterFromDate(fromFormalizedMonth);
+        _fromFormalizedMonth = toLocalDate(fromFormalizedMonthOption.filterFromDate(toUtilDate(fromFormalizedMonth)), java.time.LocalDateTime.class);
     }
 
     /**
      * [get] toFormalizedMonth:toDate(option) <br />
      * @return The value of toFormalizedMonth. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public java.sql.Timestamp getToFormalizedMonth() {
+    public java.time.LocalDateTime getToFormalizedMonth() {
         return _toFormalizedMonth;
     }
 
@@ -338,9 +348,9 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
      * @param toFormalizedMonth The value of toFormalizedMonth. (NullAllowed)
      * @param toFormalizedMonthOption The option of from-to scope for toFormalizedMonth. (NotNull)
      */
-    public void setToFormalizedMonth_ToDate(java.sql.Timestamp toFormalizedMonth, FromToOption toFormalizedMonthOption) {
+    public void setToFormalizedMonth_ToDate(java.time.LocalDateTime toFormalizedMonth, FromToOption toFormalizedMonthOption) {
         assertFromToOptionValid("toFormalizedMonthOption", toFormalizedMonthOption);
-        _toFormalizedMonth = toFormalizedMonthOption.filterToDate(toFormalizedMonth);
+        _toFormalizedMonth = toLocalDate(toFormalizedMonthOption.filterToDate(toUtilDate(toFormalizedMonth)), java.time.LocalDateTime.class);
     }
 
     /**
@@ -400,8 +410,8 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
      * several options
      * @return The value of birthdate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getBirthdate() {
-        return toUtilDate(_birthdate);
+    public java.time.LocalDate getBirthdate() {
+        return _birthdate;
     }
 
     /**
@@ -409,8 +419,8 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
      * several options
      * @param birthdate The value of birthdate. (NullAllowed)
      */
-    public void setBirthdate_FromDate(Date birthdate) {
-        _birthdate = createFromToOption().compareAsDate().filterFromDate(birthdate);
+    public void setBirthdate_FromDate(java.time.LocalDate birthdate) {
+        _birthdate = toLocalDate(createFromToOption().compareAsDate().filterFromDate(toUtilDate(birthdate)), java.time.LocalDate.class);
     }
 
     /**

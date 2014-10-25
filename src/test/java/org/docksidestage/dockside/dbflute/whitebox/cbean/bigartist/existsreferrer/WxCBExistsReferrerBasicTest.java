@@ -1,6 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.existsreferrer;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
@@ -10,7 +10,6 @@ import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.exception.OrderByIllegalPurposeException;
 import org.dbflute.exception.SetupSelectIllegalPurposeException;
 import org.dbflute.exception.SpecifyIllegalPurposeException;
-import org.dbflute.util.DfTypeUtil;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
@@ -205,7 +204,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_ExistsReferrer_BixOneToOne() {
         // ## Arrange ##
-        final Date date = DfTypeUtil.toDate("2008/09/15");
+        final LocalDate date = toLocalDate("2008/09/15");
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberAddressAsValid(date);

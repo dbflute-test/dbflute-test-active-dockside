@@ -1,8 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.specifycolumn;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -440,9 +438,7 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_specify_BizOneToOne() {
         // ## Arrange ##
-        Calendar cal = Calendar.getInstance();
-        cal.set(2005, 11, 12); // 2005/12/12
-        Date targetDate = cal.getTime();
+        LocalDate targetDate = toLocalDate("2005/12/12");
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -456,9 +452,7 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         assertHasAnyElement(memberList);
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
-        String formattedTargetDate = fmt.format(targetDate);
-        log("[" + formattedTargetDate + "]");
+        log("[" + targetDate + "]");
         for (Member member : memberList) {
             String memberName = member.getMemberName();
             assertNotNull(memberName);
@@ -482,9 +476,7 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
 
     public void test_specify_BizOneToOne_nestRelation() {
         // ## Arrange ##
-        Calendar cal = Calendar.getInstance();
-        cal.set(2005, 11, 12); // 2005/12/12
-        Date targetDate = cal.getTime();
+        LocalDate targetDate = toLocalDate("2005/12/12");
 
         ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
             /* ## Act ## */
@@ -498,9 +490,7 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, purchaseList.size());
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
-        String formattedTargetDate = fmt.format(targetDate);
-        log("[" + formattedTargetDate + "]");
+        log("[" + targetDate + "]");
         for (Purchase purchase : purchaseList) {
             Member member = purchase.getMember().get();
             String memberName = member.getMemberName();

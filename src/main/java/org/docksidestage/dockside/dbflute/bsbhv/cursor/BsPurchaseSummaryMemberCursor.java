@@ -56,8 +56,8 @@ public class BsPurchaseSummaryMemberCursor {
 
     protected ValueType _vtMemberId = vt(Integer.class);
     protected ValueType _vtMemberName = vt(String.class);
-    protected ValueType _vtBirthdate = vt(java.util.Date.class);
-    protected ValueType _vtFormalizedDatetime = vt(java.sql.Timestamp.class);
+    protected ValueType _vtBirthdate = vt(java.time.LocalDate.class);
+    protected ValueType _vtFormalizedDatetime = vt(java.time.LocalDateTime.class);
     protected ValueType _vtPurchaseSummary = vt(Long.class);
 
     protected ValueType vt(Class<?> type) {
@@ -139,8 +139,8 @@ public class BsPurchaseSummaryMemberCursor {
      * @return The value of birthdate. (NullAllowed)
      * @throws java.sql.SQLException
      */
-    public java.util.Date getBirthdate() throws SQLException {
-        return (java.util.Date)_vtBirthdate.getValue(_rs, DB_NAME_BIRTHDATE);
+    public java.time.LocalDate getBirthdate() throws SQLException {
+        return (java.time.LocalDate)_vtBirthdate.getValue(_rs, DB_NAME_BIRTHDATE);
     }
 
     /**
@@ -150,8 +150,8 @@ public class BsPurchaseSummaryMemberCursor {
      * @return The value of formalizedDatetime. (NullAllowed)
      * @throws java.sql.SQLException
      */
-    public java.sql.Timestamp getFormalizedDatetime() throws SQLException {
-        return (java.sql.Timestamp)_vtFormalizedDatetime.getValue(_rs, DB_NAME_FORMALIZED_DATETIME);
+    public java.time.LocalDateTime getFormalizedDatetime() throws SQLException {
+        return (java.time.LocalDateTime)_vtFormalizedDatetime.getValue(_rs, DB_NAME_FORMALIZED_DATETIME);
     }
 
     /**

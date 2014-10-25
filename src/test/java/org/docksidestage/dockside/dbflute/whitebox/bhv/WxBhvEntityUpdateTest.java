@@ -1,6 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import org.dbflute.exception.EntityAlreadyDeletedException;
 import org.dbflute.exception.EntityAlreadyUpdatedException;
@@ -171,7 +171,7 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
         purchase.setPurchaseId(99999L); // dummy
         Integer memberId = before.getMemberId();
         Integer productId = before.getProductId();
-        Timestamp purchaseDatetime = before.getPurchaseDatetime();
+        LocalDateTime purchaseDatetime = before.getPurchaseDatetime();
         purchase.uniqueBy(memberId, productId, purchaseDatetime);
         purchase.setPurchaseCount(123456789);
         purchase.setVersionNo(before.getVersionNo());
@@ -195,7 +195,7 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
         purchase.setPurchaseId(99999L); // dummy
         Integer memberId = before.getMemberId();
         Integer productId = before.getProductId();
-        Timestamp purchaseDatetime = before.getPurchaseDatetime();
+        LocalDateTime purchaseDatetime = before.getPurchaseDatetime();
         purchase.uniqueBy(memberId, productId, purchaseDatetime);
         purchase.setPurchaseCount(123456789);
         purchase.setVersionNo(before.getVersionNo());
@@ -219,7 +219,7 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
         purchase.setPurchaseId(99999L); // dummy
         Integer memberId = before.getMemberId();
         Integer productId = before.getProductId();
-        Timestamp purchaseDatetime = before.getPurchaseDatetime();
+        LocalDateTime purchaseDatetime = before.getPurchaseDatetime();
         purchase.uniqueBy(memberId, productId, purchaseDatetime);
         purchase.setPurchaseCount(123456789);
 

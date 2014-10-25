@@ -1,7 +1,6 @@
 package org.docksidestage.dockside.dbflute.vendor;
 
 import java.lang.reflect.Method;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -57,9 +56,8 @@ public class VendorJDBCTest extends UnitContainerTestCase {
                 for (int i = 0; i < 30; i++) {
                     Purchase purchase = new Purchase();
                     purchase.setMemberId(3);
-                    long currentMillis = currentTimestamp().getTime();
-                    long keyMillis = currentMillis - (threadId * 10000) - (i * 10000);
-                    purchase.setPurchaseDatetime(new Timestamp(keyMillis));
+                    currentLocalDateTime().minusSeconds(threadId * 10).minusSeconds(i * 10);
+                    purchase.setPurchaseDatetime(currentLocalDateTime().minusSeconds(threadId * 10).minusSeconds(i * 10));
                     purchase.setPurchaseCount(1234 + i);
                     purchase.setPurchasePrice(1234 + i);
                     purchase.setPaymentCompleteFlg_True();
@@ -147,7 +145,7 @@ public class VendorJDBCTest extends UnitContainerTestCase {
                 {
                     Member member = new Member();
                     member.setMemberId(3);
-                    member.setBirthdate(currentDate());
+                    member.setBirthdate(currentLocalDate());
                     memberBhv.updateNonstrict(member);
                 }
                 {

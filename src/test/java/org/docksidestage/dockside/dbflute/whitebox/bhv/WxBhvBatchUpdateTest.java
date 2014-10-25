@@ -1,9 +1,9 @@
 package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -84,8 +84,8 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             member.setMemberStatusCode_Provisional();
             member.setVersionNo(before.getVersionNo());
             // no update target
-            //member.setFormalizedDatetime(currentTimestamp());
-            member.setBirthdate(new HandyDate(currentDate()).addDay(7).getDate());
+            //member.setFormalizedDatetime(currentLocalDateTime());
+            member.setBirthdate(new HandyDate(currentLocalDate()).addDay(7).getLocalDate());
             expectedVersionNoList.add(member.getVersionNo());
             memberList.add(member);
             ++count;
@@ -111,12 +111,12 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         });
         boolean exists = false;
         for (Member member : actualList) {
-            Timestamp formalizedDatetime = member.getFormalizedDatetime();
+            LocalDateTime formalizedDatetime = member.getFormalizedDatetime();
             if (formalizedDatetime != null) {
-                assertTrue(formalizedDatetime.before(currentTimestamp()));
+                assertTrue(formalizedDatetime.isBefore(currentLocalDateTime()));
                 exists = true;
             }
-            assertTrue(member.getBirthdate().after(currentTimestamp()));
+            assertTrue(member.getBirthdate().isAfter(currentLocalDate()));
         }
         assertTrue(exists);
     }
@@ -138,8 +138,8 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             member.setMemberAccount("testAccount" + count);
             member.setMemberStatusCode_Provisional();
             // no update target
-            //member.setFormalizedDatetime(currentTimestamp());
-            member.setBirthdate(new HandyDate(currentDate()).addDay(7).getDate());
+            //member.setFormalizedDatetime(currentLocalDateTime());
+            member.setBirthdate(new HandyDate(currentLocalDate()).addDay(7).getLocalDate());
             expectedVersionNoList.add(member.getVersionNo());
             ++count;
         }
@@ -164,12 +164,12 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         });
         boolean exists = false;
         for (Member member : actualList) {
-            Timestamp formalizedDatetime = member.getFormalizedDatetime();
+            LocalDateTime formalizedDatetime = member.getFormalizedDatetime();
             if (formalizedDatetime != null) {
-                assertTrue(formalizedDatetime.before(currentTimestamp()));
+                assertTrue(formalizedDatetime.isBefore(currentLocalDateTime()));
                 exists = true;
             }
-            assertTrue(member.getBirthdate().after(currentTimestamp()));
+            assertTrue(member.getBirthdate().isAfter(currentLocalDate()));
         }
         assertTrue(exists);
     }
@@ -227,7 +227,7 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             member.setMemberId(before.getMemberId());
             member.setMemberName(memberName);
             if (before.getMemberId().equals(1)) {
-                member.setBirthdate(currentDate());
+                member.setBirthdate(currentLocalDate());
             }
             member.setVersionNo(before.getVersionNo());
             memberList.add(member);
@@ -258,7 +258,7 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         }
         String memberName = "oneColumn";
         List<Member> memberList = new ArrayList<Member>();
-        Date currentDate = currentDate();
+        LocalDate currentDate = currentLocalDate();
         for (Member before : beforeList) {
             Member member = new Member();
             member.setMemberId(before.getMemberId());
@@ -300,7 +300,7 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         for (Member member : memberList) {
             member.setMemberName(memberName);
             if (member.getMemberId().equals(1)) {
-                member.setBirthdate(currentDate());
+                member.setBirthdate(currentLocalDate());
             }
         }
 
@@ -328,7 +328,7 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
 
         }
         String memberName = "oneColumn";
-        Date currentDate = currentDate();
+        LocalDate currentDate = currentLocalDate();
         for (Member member : memberList) {
             member.setMemberName(memberName);
             if (member.getMemberId().equals(1)) {
@@ -370,7 +370,7 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         }
         List<Member> memberList = new ArrayList<Member>();
         String memberName = "oneColumn";
-        Date currentDate = currentDate();
+        LocalDate currentDate = currentLocalDate();
         for (Member before : beforeList) {
             Member member = new Member();
             member.setMemberId(before.getMemberId());
@@ -495,8 +495,8 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
                 member.setMemberName("testName" + count);
                 member.setMemberAccount("testAccount" + count);
                 member.setMemberStatusCode_Provisional();
-                member.setFormalizedDatetime(currentTimestamp());
-                member.setBirthdate(currentTimestamp());
+                member.setFormalizedDatetime(currentLocalDateTime());
+                member.setBirthdate(currentLocalDate());
                 expectedVersionNoList.add(member.getVersionNo());
                 ++count;
             }
@@ -540,7 +540,7 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         {
             Member member = new Member();
             member.setMemberId(3); // only one record
-            member.setBirthdate(currentDate());
+            member.setBirthdate(currentLocalDate());
             memberBhv.updateNonstrict(member);
         }
 
@@ -866,8 +866,8 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             member.setMemberAccount("testAccount" + count);
             member.setMemberStatusCode_Provisional();
             // no update target
-            //member.setFormalizedDatetime(currentTimestamp());
-            member.setBirthdate(new HandyDate(currentDate()).addDay(7).getDate());
+            //member.setFormalizedDatetime(currentLocalDateTime());
+            member.setBirthdate(new HandyDate(currentLocalDate()).addDay(7).getLocalDate());
             memberList.add(member);
             ++count;
         }
@@ -888,12 +888,12 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         for (Member member : actualList) {
             Member before = beforeMap.get(member.getMemberId());
             assertEquals(Long.valueOf(before.getVersionNo() + 1L), member.getVersionNo());
-            Timestamp formalizedDatetime = member.getFormalizedDatetime();
+            LocalDateTime formalizedDatetime = member.getFormalizedDatetime();
             if (formalizedDatetime != null) {
-                assertTrue(formalizedDatetime.before(currentTimestamp()));
+                assertTrue(formalizedDatetime.isBefore(currentLocalDateTime()));
                 exists = true;
             }
-            assertTrue(member.getBirthdate().after(currentTimestamp()));
+            assertTrue(member.getBirthdate().isAfter(currentLocalDate()));
         }
         assertTrue(exists);
     }
@@ -915,7 +915,7 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             member.setMemberId(before.getMemberId());
             member.setMemberName(memberName);
             if (before.getMemberId().equals(1)) {
-                member.setBirthdate(currentDate());
+                member.setBirthdate(currentLocalDate());
             }
             member.setVersionNo(before.getVersionNo());
             memberList.add(member);
@@ -945,7 +945,7 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         for (Member member : beforeList) {
             beforeMap.put(member.getMemberId(), member);
         }
-        Timestamp registerDatetime = toTimestamp("2013/09/29 12:34:56");
+        LocalDateTime registerDatetime = toLocalDateTime("2013/09/29 12:34:56");
         String registerUser = "every_test";
         List<Member> memberList = new ArrayList<Member>();
         int count = 0;
@@ -956,8 +956,8 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             member.setMemberAccount("testAccount" + count);
             member.setMemberStatusCode_Provisional();
             // no update target
-            //member.setFormalizedDatetime(currentTimestamp());
-            member.setBirthdate(new HandyDate(currentDate()).addDay(7).getDate());
+            //member.setFormalizedDatetime(currentLocalDateTime());
+            member.setBirthdate(new HandyDate(currentLocalDate()).addDay(7).getLocalDate());
             member.setRegisterDatetime(registerDatetime);
             member.setRegisterUser(registerUser);
             memberList.add(member);
@@ -984,12 +984,12 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         for (Member member : actualList) {
             Member before = beforeMap.get(member.getMemberId());
             assertEquals(Long.valueOf(before.getVersionNo() + 1L), member.getVersionNo());
-            Timestamp formalizedDatetime = member.getFormalizedDatetime();
+            LocalDateTime formalizedDatetime = member.getFormalizedDatetime();
             if (before.getFormalizedDatetime() != null) {
                 exists = true;
             }
             assertNull(formalizedDatetime);
-            assertTrue(member.getBirthdate().after(currentTimestamp()));
+            assertTrue(member.getBirthdate().isAfter(currentLocalDate()));
             assertTrue(member.getRegisterDatetime().equals(registerDatetime));
             assertTrue(member.getRegisterUser().equals(registerUser));
         }
@@ -1065,8 +1065,8 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             member.setMemberStatusCode_Provisional();
             member.setVersionNo(before.getVersionNo());
             // no update target
-            //member.setFormalizedDatetime(currentTimestamp());
-            member.setBirthdate(new HandyDate(currentDate()).addDay(7).getDate());
+            //member.setFormalizedDatetime(currentLocalDateTime());
+            member.setBirthdate(new HandyDate(currentLocalDate()).addDay(7).getLocalDate());
             expectedVersionNoList.add(member.getVersionNo());
             memberList.add(member);
             ++count;
@@ -1093,12 +1093,12 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
 
         boolean exists = false;
         for (Member member : actualList) {
-            Timestamp formalizedDatetime = member.getFormalizedDatetime();
+            LocalDateTime formalizedDatetime = member.getFormalizedDatetime();
             if (formalizedDatetime != null) {
-                assertTrue(formalizedDatetime.before(currentTimestamp()));
+                assertTrue(formalizedDatetime.isBefore(currentLocalDateTime()));
                 exists = true;
             }
-            assertTrue(member.getBirthdate().after(currentTimestamp()));
+            assertTrue(member.getBirthdate().isAfter(currentLocalDate()));
         }
         assertTrue(exists);
     }

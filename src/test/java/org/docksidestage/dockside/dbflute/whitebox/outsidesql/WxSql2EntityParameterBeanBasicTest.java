@@ -1,13 +1,13 @@
 package org.docksidestage.dockside.dbflute.whitebox.outsidesql;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.dbflute.cbean.coption.FromToOption;
 import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.exception.IllegalOutsideSqlOperationException;
 import org.dbflute.exception.RequiredOptionNotFoundException;
 import org.dbflute.utflute.core.PlainTestCase;
-import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.CompareDatePmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.OptionMemberPmb;
 
@@ -227,13 +227,13 @@ public class WxSql2EntityParameterBeanBasicTest extends PlainTestCase {
     public void test_DateFromTo_calls_convert() {
         // ## Arrange ##
         OptionMemberPmb pmb = new OptionMemberPmb();
-        pmb.setBirthdate_FromDate(toTimestamp("2008/11/21 12:34:56.123"));
+        pmb.setBirthdate_FromDate(toLocalDate("2008/11/21 12:34:56.123"));
 
         // ## Act ##
-        Date birthdate = pmb.getBirthdate();
+        LocalDate birthdate = pmb.getBirthdate();
 
         // ## Assert ##
-        assertEquals(java.util.Date.class, birthdate.getClass());
+        assertEquals(LocalDate.class, birthdate.getClass());
         assertEquals("2008/11/21", toString(birthdate, "yyyy/MM/dd"));
     }
 
@@ -241,12 +241,12 @@ public class WxSql2EntityParameterBeanBasicTest extends PlainTestCase {
         // ## Arrange ##
         OptionMemberPmb pmb = new OptionMemberPmb();
         FromToOption option = new FromToOption().compareAsMonth();
-        pmb.setFromFormalizedMonth_FromDate(toTimestamp("2008/11/21 12:34:56.123"), option);
-        pmb.setToFormalizedMonth_ToDate(toTimestamp("2008/11/21 12:34:56.123"), option);
+        pmb.setFromFormalizedMonth_FromDate(toLocalDateTime("2008/11/21 12:34:56.123"), option);
+        pmb.setToFormalizedMonth_ToDate(toLocalDateTime("2008/11/21 12:34:56.123"), option);
 
         // ## Act ##
-        Date fromDate = pmb.getFromFormalizedMonth();
-        Date toDate = pmb.getToFormalizedMonth();
+        LocalDateTime fromDate = pmb.getFromFormalizedMonth();
+        LocalDateTime toDate = pmb.getToFormalizedMonth();
 
         // ## Assert ##
         assertEquals("2008/11/01", toString(fromDate, "yyyy/MM/dd"));
@@ -259,8 +259,8 @@ public class WxSql2EntityParameterBeanBasicTest extends PlainTestCase {
     public void test_toString() {
         // ## Arrange ##
         CompareDatePmb pmb = new CompareDatePmb();
-        pmb.setBirthdateFrom(DfTypeUtil.toDate("6789-12-24 12:34:56"));
-        pmb.setFormalizedDatetimeFrom(DfTypeUtil.toTimestamp("8347-08-30 09:42:41.235"));
+        pmb.setBirthdateFrom(toLocalDate("6789-12-24 12:34:56"));
+        pmb.setFormalizedDatetimeFrom(toLocalDateTime("8347-08-30 09:42:41.235"));
 
         // ## Act ##
         String actual = pmb.toString();
@@ -268,7 +268,7 @@ public class WxSql2EntityParameterBeanBasicTest extends PlainTestCase {
         // ## Assert ##
         log(actual);
         assertTrue(actual.contains(", 6789-12-24"));
-        assertTrue(actual.contains(", 8347-08-30 09:42:41.235"));
+        assertTrue(actual.contains(", 8347-08-30T09:42:41.235"));
         assertFalse(actual.contains("00:00:00"));
         assertFalse(actual.contains("12:34:56"));
     }

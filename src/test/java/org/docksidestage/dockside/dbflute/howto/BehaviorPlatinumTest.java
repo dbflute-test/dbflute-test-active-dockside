@@ -1,9 +1,9 @@
 package org.docksidestage.dockside.dbflute.howto;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +22,6 @@ import org.dbflute.twowaysql.exception.EndCommentNotFoundException;
 import org.dbflute.twowaysql.exception.IfCommentNotBooleanResultException;
 import org.dbflute.twowaysql.exception.IfCommentNotFoundPropertyException;
 import org.dbflute.util.DfCollectionUtil;
-import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
@@ -355,8 +354,8 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             member.setMemberName("testName" + count);
             member.setMemberAccount("testAccount" + count);
             member.setMemberStatusCode_Provisional();
-            member.setFormalizedDatetime(currentTimestamp());
-            member.setBirthdate(currentTimestamp());
+            member.setFormalizedDatetime(currentLocalDateTime());
+            member.setBirthdate(currentLocalDate());
             expectedVersionNoList.add(member.getVersionNo());
             ++count;
         }
@@ -383,8 +382,8 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             member.setMemberName("testName" + count);
             member.setMemberAccount("testAccount" + count);
             member.setMemberStatusCode_Provisional();
-            member.setFormalizedDatetime(currentTimestamp());
-            member.setBirthdate(currentTimestamp());
+            member.setFormalizedDatetime(currentLocalDateTime());
+            member.setBirthdate(currentLocalDate());
             member.setVersionNo(null);// *Point!
             ++count;
         }
@@ -526,7 +525,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
         // ## Arrange ##
         PurchaseSummaryMemberPmb pmb = new PurchaseSummaryMemberPmb();
         pmb.setMemberStatusCode_Formalized();
-        pmb.setFormalizedDatetime(DfTypeUtil.toTimestamp("2003-08-12 12:34:56.147"));
+        pmb.setFormalizedDatetime(toLocalDateTime("2003-08-12 12:34:56.147"));
 
         // ## Act & Assert ##
         memberBhv.makeCsvPurchaseSummaryMember(pmb);
@@ -551,7 +550,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
                     existsSet.add("exists");
                     final Integer memberId = cursor.getMemberId();
                     final String memberName = cursor.getMemberName();
-                    final Date birthdate = cursor.getBirthdate();
+                    final LocalDate birthdate = cursor.getBirthdate();
 
                     final String c = ", ";
                     log(memberId + c + memberName + c + birthdate);
@@ -631,7 +630,7 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
 
         // 検索条件
         ResolvedPackageNamePmb pmb = new ResolvedPackageNamePmb();
-        pmb.setDate1(new java.util.Date()); // java.util.Dateで検索できることを確認
+        pmb.setDate1(toLocalDate("2014/10/25"));
         List<String> statusList = new ArrayList<String>();
         statusList.add(CDef.MemberStatus.Formalized.code());
         statusList.add(CDef.MemberStatus.Withdrawal.code());
@@ -753,12 +752,12 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
      */
     public void test_insert_disableCommonColumnAutoSetup() {
         // ## Arrange ##
-        Timestamp expectedTimestamp = new Timestamp(currentTimestamp().getTime() - 10000000000l);
+        LocalDateTime expectedTimestamp = currentLocalDateTime().minusSeconds(10000000L);
         Member member = new Member();
         member.setMemberName("Billy Joel");
         member.setMemberAccount("martinjoel");
-        member.setBirthdate(currentDate());
-        member.setFormalizedDatetime(currentTimestamp());
+        member.setBirthdate(currentLocalDate());
+        member.setFormalizedDatetime(currentLocalDateTime());
         member.setMemberStatusCode_Formalized();
         member.setRegisterDatetime(expectedTimestamp);
         member.setRegisterUser("suppressRegisterUser");
@@ -773,9 +772,9 @@ public class BehaviorPlatinumTest extends UnitContainerTestCase {
             cb.acceptPrimaryKeyMap(member.getDBMeta().extractPrimaryKeyMap(member));
         });
 
-        final Timestamp registerDatetime = actualMember.getRegisterDatetime();
+        final LocalDateTime registerDatetime = actualMember.getRegisterDatetime();
         final String registerUser = actualMember.getRegisterUser();
-        final Timestamp updateDatetime = actualMember.getUpdateDatetime();
+        final LocalDateTime updateDatetime = actualMember.getUpdateDatetime();
         final String updateUser = actualMember.getUpdateUser();
         log("registerDatetime = " + registerDatetime);
         assertNotNull(registerDatetime);

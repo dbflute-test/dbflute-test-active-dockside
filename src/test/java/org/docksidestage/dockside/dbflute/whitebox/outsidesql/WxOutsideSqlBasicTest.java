@@ -1,6 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.outsidesql;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.dbflute.cbean.result.ListResultBean;
@@ -156,7 +156,7 @@ public class WxOutsideSqlBasicTest extends UnitContainerTestCase {
 
     public void test_outsideSql_execute_typedCall() {
         // ## Arrange ##
-        Timestamp expectedTimestamp = currentTimestamp();
+        LocalDateTime expectedTimestamp = currentLocalDateTime();
         MemberChangedToWithdrawalForcedlyPmb pmb = new MemberChangedToWithdrawalForcedlyPmb();
         pmb.setMemberName_PrefixSearch("S");
         pmb.setFormalizedDatetime(expectedTimestamp);
@@ -172,7 +172,7 @@ public class WxOutsideSqlBasicTest extends UnitContainerTestCase {
         });
 
         for (Member member : memberList) {
-            Timestamp formalizedDatetime = member.getFormalizedDatetime();
+            LocalDateTime formalizedDatetime = member.getFormalizedDatetime();
             log(member.getMemberName() + ", " + formalizedDatetime);
             assertEquals(expectedTimestamp, formalizedDatetime);
         }

@@ -25,7 +25,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
         // ## Arrange ##
         {
             Member member = new Member();
-            member.setBirthdate(toDate("2014/09/10"));
+            member.setBirthdate(toLocalDate("2014/09/10"));
             memberBhv.varyingQueryUpdate(member, cb -> {}, op -> op.allowNonQueryUpdate());
         }
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
@@ -38,7 +38,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
                 }
             }).lessEqual(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.mysticRhythms(toDate("2015/04/05"));
+                    cb.mysticRhythms(toLocalDate("2015/04/05"));
                 }
             }).convert(op -> op.addMonth(dreamCruiseCB.specify().columnVersionNo()));
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
@@ -47,7 +47,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
                 }
             }).lessThan(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.mysticRhythms(toDate("2014/09/01"));
+                    cb.mysticRhythms(toLocalDate("2014/09/01"));
                 }
             }).convert(op -> op.addDay(dreamCruiseCB.specify().columnMemberId()).addMinute(1));
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
@@ -56,7 +56,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
                 }
             }).greaterEqual(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.mysticRhythms(toDate("2006/09/26"));
+                    cb.mysticRhythms(toLocalDate("2006/09/26"));
                 }
             });
             pushCB(cb);
@@ -83,7 +83,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
         // ## Arrange ##
         {
             Member member = new Member();
-            member.setFormalizedDatetime(toTimestamp("2014/09/10 12:34:56"));
+            member.setFormalizedDatetime(toLocalDateTime("2014/09/10 12:34:56"));
             memberBhv.varyingQueryUpdate(member, cb -> {}, op -> op.allowNonQueryUpdate());
         }
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
@@ -96,7 +96,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
                 }
             }).lessEqual(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.mysticRhythms(toTimestamp("2015/04/05 12:34:56"));
+                    cb.mysticRhythms(toLocalDateTime("2015/04/05 12:34:56"));
                 }
             }).convert(op -> op.addMonth(dreamCruiseCB.specify().columnVersionNo()));
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
@@ -105,7 +105,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
                 }
             }).lessEqual(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.mysticRhythms(toTimestamp("2014/09/01 15:00:00"));
+                    cb.mysticRhythms(toLocalDateTime("2014/09/01 15:00:00"));
                 }
             }).convert(op -> op.addDay(dreamCruiseCB.specify().columnMemberId()).addHour(-3));
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
@@ -114,7 +114,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
                 }
             }).greaterEqual(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.mysticRhythms(toTimestamp("2006/09/26 12:34:56.789"));
+                    cb.mysticRhythms(toLocalDateTime("2006/09/26 12:34:56.789"));
                 }
             });
             pushCB(cb);
@@ -127,9 +127,9 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
             assertTrue(member.getMemberId() >= 10);
         }
         String sql = popCB().toDisplaySql();
-        assertContains(sql, "where dfloc.FORMALIZED_DATETIME <= dateadd(month, dfloc.VERSION_NO, '2015-04-05 12:34:56.000')");
-        assertContains(sql, "and dfloc.FORMALIZED_DATETIME <= dateadd(hour, -3, dateadd(day, dfloc.MEMBER_ID, '2014-09-01 15:00:00.000'))");
-        assertContains(sql, "and dfloc.FORMALIZED_DATETIME >= '2006-09-26 12:34:56.789'");
+        assertContains(sql, "where dfloc.FORMALIZED_DATETIME <= dateadd(month, dfloc.VERSION_NO, '2015-04-05T12:34:56')");
+        assertContains(sql, "and dfloc.FORMALIZED_DATETIME <= dateadd(hour, -3, dateadd(day, dfloc.MEMBER_ID, '2014-09-01T15:00'))");
+        assertContains(sql, "and dfloc.FORMALIZED_DATETIME >= '2006-09-26T12:34:56.789'");
     }
 
     // ===================================================================================
@@ -139,7 +139,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
         // ## Arrange ##
         {
             Member member = new Member();
-            member.setBirthdate(toDate("2014/09/10"));
+            member.setBirthdate(toLocalDate("2014/09/10"));
             memberBhv.varyingQueryUpdate(member, cb -> {}, op -> op.allowNonQueryUpdate());
         }
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
@@ -152,7 +152,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
                 }
             }).greaterEqual(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.mysticRhythms(toDate("2006/09/26"));
+                    cb.mysticRhythms(toLocalDate("2006/09/26"));
                 }
             }).convert(op -> op.subtractMonth(dreamCruiseCB.specify().columnVersionNo()));
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
@@ -161,7 +161,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
                 }
             }).lessEqual(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.mysticRhythms(toDate("2014/09/20"));
+                    cb.mysticRhythms(toLocalDate("2014/09/20"));
                 }
             }).convert(op -> op.subtractDay(dreamCruiseCB.specify().columnMemberId()).addMinute(-1));
             cb.columnQuery(new SpecifyQuery<MemberCB>() {
@@ -170,7 +170,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
                 }
             }).lessEqual(new SpecifyQuery<MemberCB>() {
                 public void specify(MemberCB cb) {
-                    cb.mysticRhythms(toDate("2015/04/05"));
+                    cb.mysticRhythms(toLocalDate("2015/04/05"));
                 }
             });
             pushCB(cb);
@@ -200,7 +200,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
         // ## Arrange ##
         {
             Member member = new Member();
-            member.setBirthdate(toDate("2014/09/10"));
+            member.setBirthdate(toLocalDate("2014/09/10"));
             memberBhv.varyingQueryUpdate(member, cb -> {}, op -> op.allowNonQueryUpdate());
         }
         ListResultBean<Member> memberList =
@@ -213,7 +213,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
                         }
                     }).lessEqual(new SpecifyQuery<MemberCB>() {
                         public void specify(MemberCB cb) {
-                            cb.mysticRhythms(toDate("2015/04/05"));
+                            cb.mysticRhythms(toLocalDate("2015/04/05"));
                         }
                     }).convert(op -> op.addMonth(cb.dreamCruiseCB().specify().columnVersionNo()).addMonth(2));
                     cb.columnQuery(new SpecifyQuery<MemberCB>() {
@@ -223,7 +223,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
                     })
                             .lessThan(new SpecifyQuery<MemberCB>() {
                                 public void specify(MemberCB cb) {
-                                    cb.mysticRhythms(toDate("2014/09/01"));
+                                    cb.mysticRhythms(toLocalDate("2014/09/01"));
                                 }
                             })
                             .convert(
@@ -235,7 +235,7 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
                         }
                     }).greaterEqual(new SpecifyQuery<MemberCB>() {
                         public void specify(MemberCB cb) {
-                            cb.mysticRhythms(toDate("2006/09/26"));
+                            cb.mysticRhythms(toLocalDate("2006/09/26"));
                         }
                     }).convert(op -> {
                         op.subtractDay(cb.dreamCruiseCB().specify().columnMemberId().plus(99)) //

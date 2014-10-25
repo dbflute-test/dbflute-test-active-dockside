@@ -1,5 +1,7 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.query;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,7 +11,6 @@ import org.dbflute.cbean.scoping.AndQuery;
 import org.dbflute.cbean.scoping.OrQuery;
 import org.dbflute.exception.InvalidQueryRegisteredException;
 import org.dbflute.helper.HandyDate;
-import org.dbflute.util.DfTypeUtil;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -36,8 +37,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
             cb.query().setMemberId_Equal(updated.getMemberId());
-            Date fromDate = toDate("2011/11/17 12:34:56.789");
-            Date toDate = toDate("2011/11/19 02:04:06.009");
+            LocalDateTime fromDate = toLocalDateTime("2011/11/17 12:34:56.789");
+            LocalDateTime toDate = toLocalDateTime("2011/11/19 02:04:06.009");
             cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, op -> {});
             pushCB(cb);
         });
@@ -45,8 +46,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Assert ##
         String sql = popCB().toDisplaySql();
         log(ln() + sql);
-        assertTrue(Srl.contains(sql, " >= '2011-11-17 12:34:56.789'"));
-        assertTrue(Srl.contains(sql, " <= '2011-11-19 02:04:06.009'"));
+        assertTrue(Srl.contains(sql, " >= '2011-11-17T12:34:56.789'"));
+        assertTrue(Srl.contains(sql, " <= '2011-11-19T02:04:06.009'"));
         log(member.getFormalizedDatetime());
         assertEquals(updated.getFormalizedDatetime(), member.getFormalizedDatetime());
     }
@@ -59,8 +60,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         Member updated = updateFormalizedDatetime("2011/12/30 12:34:56.789");
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
-            Date fromDate = toDate("2011/11/17 12:34:56.789");
-            Date toDate = toDate("2011/11/19 02:04:06.009");
+            LocalDateTime fromDate = toLocalDateTime("2011/11/17 12:34:56.789");
+            LocalDateTime toDate = toLocalDateTime("2011/11/19 02:04:06.009");
             cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, op -> op.compareAsYear());
             pushCB(cb);
         });
@@ -68,8 +69,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Assert ##
         String sql = popCB().toDisplaySql();
         log(ln() + sql);
-        assertTrue(Srl.contains(sql, " >= '2011-01-01 00:00:00.000'"));
-        assertTrue(Srl.contains(sql, " < '2012-01-01 00:00:00.000'"));
+        assertTrue(Srl.contains(sql, " >= '2011-01-01T00:00'"));
+        assertTrue(Srl.contains(sql, " < '2012-01-01T00:00'"));
         log(member.getFormalizedDatetime());
         assertEquals(updated.getFormalizedDatetime(), member.getFormalizedDatetime());
     }
@@ -82,8 +83,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         Member updated = updateFormalizedDatetime("2011/11/29 23:34:56.789");
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
-            Date fromDate = toDate("2011/11/17 12:34:56.789");
-            Date toDate = toDate("2011/11/19 02:04:06.009");
+            LocalDateTime fromDate = toLocalDateTime("2011/11/17 12:34:56.789");
+            LocalDateTime toDate = toLocalDateTime("2011/11/19 02:04:06.009");
             cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, op -> op.compareAsMonth());
             pushCB(cb);
         });
@@ -91,8 +92,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Assert ##
         String sql = popCB().toDisplaySql();
         log(ln() + sql);
-        assertTrue(Srl.contains(sql, " >= '2011-11-01 00:00:00.000'"));
-        assertTrue(Srl.contains(sql, " < '2011-12-01 00:00:00.000'"));
+        assertTrue(Srl.contains(sql, " >= '2011-11-01T00:00'"));
+        assertTrue(Srl.contains(sql, " < '2011-12-01T00:00'"));
         log(member.getFormalizedDatetime());
         assertEquals(updated.getFormalizedDatetime(), member.getFormalizedDatetime());
     }
@@ -105,8 +106,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         Member updated = updateFormalizedDatetime("2011/11/19 23:34:56.789");
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
-            Date fromDate = toDate("2011/11/17 12:34:56.789");
-            Date toDate = toDate("2011/11/19 02:04:06.009");
+            LocalDateTime fromDate = toLocalDateTime("2011/11/17 12:34:56.789");
+            LocalDateTime toDate = toLocalDateTime("2011/11/19 02:04:06.009");
             cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, op -> op.compareAsDate());
             pushCB(cb);
         });
@@ -114,8 +115,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Assert ##
         String sql = popCB().toDisplaySql();
         log(ln() + sql);
-        assertTrue(Srl.contains(sql, " >= '2011-11-17 00:00:00.000'"));
-        assertTrue(Srl.contains(sql, " < '2011-11-20 00:00:00.000'"));
+        assertTrue(Srl.contains(sql, " >= '2011-11-17T00:00'"));
+        assertTrue(Srl.contains(sql, " < '2011-11-20T00:00'"));
         log(member.getFormalizedDatetime());
         assertEquals(updated.getFormalizedDatetime(), member.getFormalizedDatetime());
     }
@@ -128,8 +129,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         Member updated = updateFormalizedDatetime("2011/11/17 18:34:56.789");
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
-            Date fromDate = toDate("2011/11/17 12:34:56.789");
-            Date toDate = toDate("2011/11/17 18:04:06.009");
+            LocalDateTime fromDate = toLocalDateTime("2011/11/17 12:34:56.789");
+            LocalDateTime toDate = toLocalDateTime("2011/11/17 18:04:06.009");
             cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, op -> op.compareAsHour());
             pushCB(cb);
         });
@@ -137,8 +138,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Assert ##
         String sql = popCB().toDisplaySql();
         log(ln() + sql);
-        assertTrue(Srl.contains(sql, " >= '2011-11-17 12:00:00.000'"));
-        assertTrue(Srl.contains(sql, " < '2011-11-17 19:00:00.000'"));
+        assertTrue(Srl.contains(sql, " >= '2011-11-17T12:00'"));
+        assertTrue(Srl.contains(sql, " < '2011-11-17T19:00'"));
         log(member.getFormalizedDatetime());
         assertEquals(updated.getFormalizedDatetime(), member.getFormalizedDatetime());
     }
@@ -149,14 +150,15 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     public void test_FromTo_compareAsWeek_basic() throws Exception {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        Date targetDate = toDate("2011/11/17");
-        cb.query().setFormalizedDatetime_FromTo(targetDate, targetDate, op -> op.compareAsWeek().beginWeek_DayOfWeek(targetDate));
+        LocalDateTime targetDate = toLocalDateTime("2011/11/17");
+        Date beginDate = toDate("2011/11/17"); // TODO jflute impl: HandyDate begin LocalDate
+        cb.query().setFormalizedDatetime_FromTo(targetDate, targetDate, op -> op.compareAsWeek().beginWeek_DayOfWeek(beginDate));
 
         // ## Assert ##
         String sql = cb.toDisplaySql();
         log(ln() + sql);
-        assertTrue(Srl.contains(sql, " >= '2011-11-17 00:00:00.000'"));
-        assertTrue(Srl.contains(sql, " < '2011-11-24 00:00:00.000'"));
+        assertTrue(Srl.contains(sql, " >= '2011-11-17T00:00'"));
+        assertTrue(Srl.contains(sql, " < '2011-11-24T00:00'"));
     }
 
     public void test_FromTo_compareAsWeek_beginWeek_moveToScope() throws Exception {
@@ -219,7 +221,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     public void test_DateFromTo_eitherOr_from() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().setBirthdate_FromTo(DfTypeUtil.toDate("2011-01-21"), null, op -> op.compareAsDate().allowOneSide());
+        cb.query().setBirthdate_FromTo(toLocalDate("2011-01-21"), null, op -> op.compareAsDate().allowOneSide());
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
@@ -231,7 +233,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     public void test_DateFromTo_eitherOr_to() {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        cb.query().setBirthdate_FromTo(null, DfTypeUtil.toDate("2011-01-21"), op -> op.compareAsDate().allowOneSide());
+        cb.query().setBirthdate_FromTo(null, toLocalDate("2011-01-21"), op -> op.compareAsDate().allowOneSide());
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
@@ -292,13 +294,13 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     //                                                                            ========
     public void test_FromTo_orIsNull_greaterEqual() throws Exception {
         // ## Arrange ##
-        HandyDate date = new HandyDate(toDate("1970/01/01"));
+        HandyDate date = new HandyDate(toLocalDate("1970/01/01"));
 
         int countAll = memberBhv.selectCount(cb -> {});
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.query().setBirthdate_FromTo(date.getDate(), null, op -> op.orIsNull().allowOneSide());
+            cb.query().setBirthdate_FromTo(date.getLocalDate(), null, op -> op.orIsNull().allowOneSide());
             pushCB(cb);
         });
 
@@ -307,7 +309,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         boolean existsGreaterEqual = false;
         boolean existsIsNull = false;
         for (Member member : memberList) {
-            Date birthdate = member.getBirthdate();
+            LocalDate birthdate = member.getBirthdate();
             if (birthdate == null) {
                 existsIsNull = true;
             } else if (date.isLessEqual(birthdate)) {
@@ -326,13 +328,13 @@ public class WxCBFromToTest extends UnitContainerTestCase {
 
     public void test_FromTo_orIsNull_lessEqual() throws Exception {
         // ## Arrange ##
-        HandyDate date = new HandyDate(toDate("1970/01/01"));
+        HandyDate date = new HandyDate(toLocalDate("1970/01/01"));
 
         int countAll = memberBhv.selectCount(cb -> {});
 
         // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.query().setBirthdate_FromTo(null, date.getDate(), op -> op.orIsNull().allowOneSide());
+            cb.query().setBirthdate_FromTo(null, date.getLocalDate(), op -> op.orIsNull().allowOneSide());
             pushCB(cb);
         });
 
@@ -341,7 +343,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         boolean existsLessEqual = false;
         boolean existsIsNull = false;
         for (Member member : memberList) {
-            Date birthdate = member.getBirthdate();
+            LocalDate birthdate = member.getBirthdate();
             if (birthdate == null) {
                 existsIsNull = true;
             } else if (date.isGreaterEqual(birthdate)) {
@@ -360,11 +362,11 @@ public class WxCBFromToTest extends UnitContainerTestCase {
 
     public void test_FromTo_orIsNull_bothThan() throws Exception {
         // ## Arrange ##
-        HandyDate date = new HandyDate(toDate("1970/01/01"));
+        HandyDate date = new HandyDate(toLocalDate("1970/01/01"));
         MemberCB cb = new MemberCB();
 
         // ## Act ##
-        cb.query().setBirthdate_FromTo(date.getDate(), date.getDate(), op -> op.orIsNull().greaterThan().lessThan());
+        cb.query().setBirthdate_FromTo(date.getLocalDate(), date.getLocalDate(), op -> op.orIsNull().greaterThan().lessThan());
 
         // ## Assert ##
         String sql = cb.toDisplaySql();
@@ -375,11 +377,11 @@ public class WxCBFromToTest extends UnitContainerTestCase {
 
     public void test_DateFromTo_orIsNull() throws Exception {
         // ## Arrange ##
-        HandyDate date = new HandyDate(toDate("1970/01/01"));
+        HandyDate date = new HandyDate(toLocalDate("1970/01/01"));
         MemberCB cb = new MemberCB();
 
         // ## Act ##
-        cb.query().setBirthdate_FromTo(date.getDate(), date.getDate(), op -> op.compareAsDate().orIsNull());
+        cb.query().setBirthdate_FromTo(date.getLocalDate(), date.getLocalDate(), op -> op.compareAsDate().orIsNull());
 
         // ## Assert ##
         String sql = cb.toDisplaySql();
@@ -390,15 +392,15 @@ public class WxCBFromToTest extends UnitContainerTestCase {
 
     public void test_FromTo_orIsNull_orScopeQuery() throws Exception {
         // ## Arrange ##
-        final HandyDate date = new HandyDate(toDate("1970/01/01"));
+        final HandyDate date = new HandyDate(toLocalDate("1970/01/01"));
         MemberCB cb = new MemberCB();
         cb.orScopeQuery(new OrQuery<MemberCB>() {
             public void query(MemberCB orCB) {
-                orCB.query().setBirthdate_FromTo(null, date.getDate(), op -> op.orIsNull().greaterThan().lessThan().allowOneSide());
+                orCB.query().setBirthdate_FromTo(null, date.getLocalDate(), op -> op.orIsNull().greaterThan().lessThan().allowOneSide());
                 orCB.orScopeQueryAndPart(new AndQuery<MemberCB>() {
                     public void query(MemberCB andCB) {
                         andCB.query().setMemberId_Equal(3);
-                        andCB.query().setFormalizedDatetime_FromTo(date.getDate(), null,
+                        andCB.query().setFormalizedDatetime_FromTo(date.getLocalDateTime(), null,
                                 op -> op.orIsNull().greaterThan().lessThan().allowOneSide());
                     }
                 });
@@ -410,7 +412,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         log(ln() + sql);
         assertTrue(Srl.contains(sql, "where ((dfloc.BIRTHDATE < '1970-01-01' or dfloc.BIRTHDATE is null)"));
         assertTrue(Srl.contains(sql, "or (dfloc.MEMBER_ID = 3 and (dfloc.FORMALIZED_DATETIME > '"));
-        assertTrue(Srl.contains(sql, "FORMALIZED_DATETIME > '1970-01-01 00:00:00.000' or dfloc.FORMALIZED_DATETIME is null))"));
+        assertTrue(Srl.contains(sql, "FORMALIZED_DATETIME > '1970-01-01T00:00' or dfloc.FORMALIZED_DATETIME is null))"));
     }
 
     // ===================================================================================
@@ -422,7 +424,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
             cb.fetchFirst(1);
         });
 
-        member.setFormalizedDatetime(toTimestamp(exp));
+        member.setFormalizedDatetime(toLocalDateTime(exp));
         memberBhv.updateNonstrict(member);
         return member;
     }

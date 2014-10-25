@@ -312,7 +312,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setLoginDatetime_Equal(java.sql.Timestamp loginDatetime) {
+    public void setLoginDatetime_Equal(java.time.LocalDateTime loginDatetime) {
         regLoginDatetime(CK_EQ,  loginDatetime);
     }
 
@@ -321,7 +321,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setLoginDatetime_GreaterThan(java.sql.Timestamp loginDatetime) {
+    public void setLoginDatetime_GreaterThan(java.time.LocalDateTime loginDatetime) {
         regLoginDatetime(CK_GT,  loginDatetime);
     }
 
@@ -330,7 +330,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setLoginDatetime_LessThan(java.sql.Timestamp loginDatetime) {
+    public void setLoginDatetime_LessThan(java.time.LocalDateTime loginDatetime) {
         regLoginDatetime(CK_LT,  loginDatetime);
     }
 
@@ -339,7 +339,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setLoginDatetime_GreaterEqual(java.sql.Timestamp loginDatetime) {
+    public void setLoginDatetime_GreaterEqual(java.time.LocalDateTime loginDatetime) {
         regLoginDatetime(CK_GE,  loginDatetime);
     }
 
@@ -348,7 +348,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * (ログイン日時)LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(23, 10)}
      * @param loginDatetime The value of loginDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setLoginDatetime_LessEqual(java.sql.Timestamp loginDatetime) {
+    public void setLoginDatetime_LessEqual(java.time.LocalDateTime loginDatetime) {
         regLoginDatetime(CK_LE, loginDatetime);
     }
 
@@ -361,7 +361,7 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of loginDatetime. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of from-to. (NotNull)
      */
-    public void setLoginDatetime_FromTo(Date fromDatetime, Date toDatetime, ConditionOptionCall<FromToOption> opLambda) {
+    public void setLoginDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, ConditionOptionCall<FromToOption> opLambda) {
         setLoginDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
@@ -374,8 +374,9 @@ public abstract class AbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of loginDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    protected void setLoginDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), xgetCValueLoginDatetime(), "LOGIN_DATETIME", fromToOption);
+    protected void setLoginDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        String nm = "LOGIN_DATETIME"; FromToOption op = fromToOption;
+        regFTQ(xfFTHD(fromDatetime, nm, op), xfFTHD(toDatetime, nm, op), xgetCValueLoginDatetime(), nm, op);
     }
 
     protected void regLoginDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueLoginDatetime(), "LOGIN_DATETIME"); }

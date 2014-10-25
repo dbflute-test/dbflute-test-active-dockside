@@ -73,7 +73,7 @@ public class WxCustomizeEntityTest extends UnitContainerTestCase {
         // ## Arrange ##
         SimpleMember member = new SimpleMember();
         member.setMemberName("Stojkovic");
-        member.setBirthdate(currentDate());
+        member.setBirthdate(currentLocalDate());
 
         // ## Act ##
         byte[] binary = DfTypeUtil.toBinary(member);

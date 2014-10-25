@@ -70,16 +70,16 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     protected String _normalCls = CDef.MemberStatus.Withdrawal.code();
 
     /** The parameter of normalDate. */
-    protected Date _normalDate;
+    protected java.time.LocalDate _normalDate;
 
     /** The parameter of fromDateOption:fromDate. */
-    protected Date _fromDateOption;
+    protected java.time.LocalDate _fromDateOption;
 
     /** The parameter of toDateOption:toDate. */
-    protected Date _toDateOption;
+    protected java.time.LocalDate _toDateOption;
 
     /** The parameter of duplicateFromDate:fromDate. */
-    protected Date _duplicateFromDate;
+    protected java.time.LocalDate _duplicateFromDate;
 
     /** The parameter of integerList. */
     protected List<Integer> _integerList;
@@ -100,7 +100,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     protected List<List<List<Integer>>> _nestedForList;
 
     /** The parameter of bindInIfCommentForList. */
-    protected List<Date> _bindInIfCommentForList;
+    protected List<java.time.LocalDate> _bindInIfCommentForList;
 
     /** The parameter of ifCommentOnly. */
     protected boolean _ifCommentOnly;
@@ -210,6 +210,16 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     //                                                  Date
     //                                                  ----
     protected Date toUtilDate(Object date) { return PmbCustodial.toUtilDate(date, _timeZone); }
+    protected <DATE> DATE toLocalDate(Date date, Class<DATE> localType) { return PmbCustodial.toLocalDate(date, localType, chooseRealTimeZone()); }
+    protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
+
+    /**
+     * Set time-zone, basically for LocalDate conversion. <br />
+     * Normally you don't need to set this, you can adjust other ways. <br />
+     * (DBFlute system's time-zone is used as default)
+     * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
+     */
+    public void zone(TimeZone timeZone) { _timeZone = timeZone; }
 
     protected void assertFromToOptionValid(String name, FromToOption option) { PmbCustodial.assertFromToOptionValid(name, option); }
     protected FromToOption createFromToOption() { return PmbCustodial.createFromToOption(_timeZone); }
@@ -246,10 +256,10 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
         sb.append(dm).append(_containSearchOption);
         sb.append(dm).append(_normalLikeSearchOption);
         sb.append(dm).append(_normalCls);
-        sb.append(dm).append(PmbCustodial.formatUtilDate(_normalDate, "yyyy-MM-dd", _timeZone));
-        sb.append(dm).append(PmbCustodial.formatUtilDate(_fromDateOption, "yyyy-MM-dd", _timeZone));
-        sb.append(dm).append(PmbCustodial.formatUtilDate(_toDateOption, "yyyy-MM-dd", _timeZone));
-        sb.append(dm).append(PmbCustodial.formatUtilDate(_duplicateFromDate, "yyyy-MM-dd", _timeZone));
+        sb.append(dm).append(_normalDate);
+        sb.append(dm).append(_fromDateOption);
+        sb.append(dm).append(_toDateOption);
+        sb.append(dm).append(_duplicateFromDate);
         sb.append(dm).append(_integerList);
         sb.append(dm).append(_cdefList);
         sb.append(dm).append(_memberStatusCodeList);
@@ -423,15 +433,15 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
      * [get] normalDate <br />
      * @return The value of normalDate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getNormalDate() {
-        return toUtilDate(_normalDate);
+    public java.time.LocalDate getNormalDate() {
+        return _normalDate;
     }
 
     /**
      * [set] normalDate <br />
      * @param normalDate The value of normalDate. (NullAllowed)
      */
-    public void setNormalDate(Date normalDate) {
+    public void setNormalDate(java.time.LocalDate normalDate) {
         _normalDate = normalDate;
     }
 
@@ -439,48 +449,48 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
      * [get] fromDateOption:fromDate <br />
      * @return The value of fromDateOption. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getFromDateOption() {
-        return toUtilDate(_fromDateOption);
+    public java.time.LocalDate getFromDateOption() {
+        return _fromDateOption;
     }
 
     /**
      * [set as fromDate] fromDateOption:fromDate <br />
      * @param fromDateOption The value of fromDateOption. (NullAllowed)
      */
-    public void setFromDateOption_FromDate(Date fromDateOption) {
-        _fromDateOption = createFromToOption().compareAsDate().filterFromDate(fromDateOption);
+    public void setFromDateOption_FromDate(java.time.LocalDate fromDateOption) {
+        _fromDateOption = toLocalDate(createFromToOption().compareAsDate().filterFromDate(toUtilDate(fromDateOption)), java.time.LocalDate.class);
     }
 
     /**
      * [get] toDateOption:toDate <br />
      * @return The value of toDateOption. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getToDateOption() {
-        return toUtilDate(_toDateOption);
+    public java.time.LocalDate getToDateOption() {
+        return _toDateOption;
     }
 
     /**
      * [set as toDate] toDateOption:toDate <br />
      * @param toDateOption The value of toDateOption. (NullAllowed)
      */
-    public void setToDateOption_ToDate(Date toDateOption) {
-        _toDateOption = createFromToOption().compareAsDate().filterToDate(toDateOption);
+    public void setToDateOption_ToDate(java.time.LocalDate toDateOption) {
+        _toDateOption = toLocalDate(createFromToOption().compareAsDate().filterToDate(toUtilDate(toDateOption)), java.time.LocalDate.class);
     }
 
     /**
      * [get] duplicateFromDate:fromDate <br />
      * @return The value of duplicateFromDate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getDuplicateFromDate() {
-        return toUtilDate(_duplicateFromDate);
+    public java.time.LocalDate getDuplicateFromDate() {
+        return _duplicateFromDate;
     }
 
     /**
      * [set as fromDate] duplicateFromDate:fromDate <br />
      * @param duplicateFromDate The value of duplicateFromDate. (NullAllowed)
      */
-    public void setDuplicateFromDate_FromDate(Date duplicateFromDate) {
-        _duplicateFromDate = createFromToOption().compareAsDate().filterFromDate(duplicateFromDate);
+    public void setDuplicateFromDate_FromDate(java.time.LocalDate duplicateFromDate) {
+        _duplicateFromDate = toLocalDate(createFromToOption().compareAsDate().filterFromDate(toUtilDate(duplicateFromDate)), java.time.LocalDate.class);
     }
 
     /**
@@ -576,7 +586,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
      * [get] bindInIfCommentForList <br />
      * @return The value of bindInIfCommentForList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public List<Date> getBindInIfCommentForList() {
+    public List<java.time.LocalDate> getBindInIfCommentForList() {
         return _bindInIfCommentForList;
     }
 
@@ -584,7 +594,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
      * [set] bindInIfCommentForList <br />
      * @param bindInIfCommentForList The value of bindInIfCommentForList. (NullAllowed)
      */
-    public void setBindInIfCommentForList(List<Date> bindInIfCommentForList) {
+    public void setBindInIfCommentForList(List<java.time.LocalDate> bindInIfCommentForList) {
         _bindInIfCommentForList = bindInIfCommentForList;
     }
 

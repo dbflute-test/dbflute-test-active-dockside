@@ -10,7 +10,6 @@ import org.dbflute.exception.NonSpecifiedColumnAccessException;
 import org.dbflute.exception.SpecifyColumnWithDerivedReferrerException;
 import org.dbflute.exception.SpecifyDerivedReferrerInvalidAliasNameException;
 import org.dbflute.exception.SpecifyDerivedReferrerTwoOrMoreException;
-import org.dbflute.util.DfTraceViewUtil;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
@@ -441,10 +440,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         assertTrue(Srl.contains(sql, "and sub2loc.MEMBER_ID > -1"));
         assertTrue(Srl.contains(sql, "and sub1loc.PURCHASE_PRICE >= 123"));
 
-        long before = currentTimestamp().getTime();
         cb.toDisplaySql();
-        long after = currentTimestamp().getTime();
-        log("cost = " + DfTraceViewUtil.convertToPerformanceView(after - before));
     }
 
     public void test_columnQuery_uses_SpecifyDerivedReferrer_withOption_inExists() throws Exception {
@@ -729,7 +725,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                     cb.specify().specifyMemberAddressAsValid().columnRegionId();
                 }
             });
-            cb.query().queryMemberAddressAsValid(currentDate());
+            cb.query().queryMemberAddressAsValid(currentLocalDate());
             pushCB(cb);
         });
 

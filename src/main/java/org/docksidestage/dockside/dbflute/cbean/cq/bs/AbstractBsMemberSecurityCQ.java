@@ -717,7 +717,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param registerDatetime The value of registerDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setRegisterDatetime_Equal(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime_Equal(java.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_EQ,  registerDatetime);
     }
 
@@ -726,7 +726,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param registerDatetime The value of registerDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setRegisterDatetime_GreaterThan(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime_GreaterThan(java.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_GT,  registerDatetime);
     }
 
@@ -735,7 +735,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param registerDatetime The value of registerDatetime as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setRegisterDatetime_LessThan(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime_LessThan(java.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_LT,  registerDatetime);
     }
 
@@ -744,7 +744,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param registerDatetime The value of registerDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setRegisterDatetime_GreaterEqual(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime_GreaterEqual(java.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_GE,  registerDatetime);
     }
 
@@ -753,7 +753,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param registerDatetime The value of registerDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setRegisterDatetime_LessEqual(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime_LessEqual(java.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_LE, registerDatetime);
     }
 
@@ -766,7 +766,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of from-to. (NotNull)
      */
-    public void setRegisterDatetime_FromTo(Date fromDatetime, Date toDatetime, ConditionOptionCall<FromToOption> opLambda) {
+    public void setRegisterDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, ConditionOptionCall<FromToOption> opLambda) {
         setRegisterDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
@@ -779,8 +779,9 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    protected void setRegisterDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), xgetCValueRegisterDatetime(), "REGISTER_DATETIME", fromToOption);
+    protected void setRegisterDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        String nm = "REGISTER_DATETIME"; FromToOption op = fromToOption;
+        regFTQ(xfFTHD(fromDatetime, nm, op), xfFTHD(toDatetime, nm, op), xgetCValueRegisterDatetime(), nm, op);
     }
 
     protected void regRegisterDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueRegisterDatetime(), "REGISTER_DATETIME"); }
@@ -926,7 +927,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param updateDatetime The value of updateDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setUpdateDatetime_Equal(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime_Equal(java.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_EQ,  updateDatetime);
     }
 
@@ -935,7 +936,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param updateDatetime The value of updateDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setUpdateDatetime_GreaterThan(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime_GreaterThan(java.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_GT,  updateDatetime);
     }
 
@@ -944,7 +945,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param updateDatetime The value of updateDatetime as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setUpdateDatetime_LessThan(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime_LessThan(java.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_LT,  updateDatetime);
     }
 
@@ -953,7 +954,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param updateDatetime The value of updateDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setUpdateDatetime_GreaterEqual(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime_GreaterEqual(java.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_GE,  updateDatetime);
     }
 
@@ -962,7 +963,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
      * @param updateDatetime The value of updateDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setUpdateDatetime_LessEqual(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime_LessEqual(java.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_LE, updateDatetime);
     }
 
@@ -975,7 +976,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of from-to. (NotNull)
      */
-    public void setUpdateDatetime_FromTo(Date fromDatetime, Date toDatetime, ConditionOptionCall<FromToOption> opLambda) {
+    public void setUpdateDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, ConditionOptionCall<FromToOption> opLambda) {
         setUpdateDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
@@ -988,8 +989,9 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    protected void setUpdateDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), xgetCValueUpdateDatetime(), "UPDATE_DATETIME", fromToOption);
+    protected void setUpdateDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        String nm = "UPDATE_DATETIME"; FromToOption op = fromToOption;
+        regFTQ(xfFTHD(fromDatetime, nm, op), xfFTHD(toDatetime, nm, op), xgetCValueUpdateDatetime(), nm, op);
     }
 
     protected void regUpdateDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUpdateDatetime(), "UPDATE_DATETIME"); }

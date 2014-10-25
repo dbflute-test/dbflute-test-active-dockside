@@ -112,7 +112,7 @@ public class BsMemberLoginCB extends AbstractConditionBean {
      * @param loginDatetime (ログイン日時): +UQ, IX, NotNull, TIMESTAMP(23, 10). (NotNull)
      * @return this. (NotNull)
      */
-    public MemberLoginCB acceptUniqueOf(Integer memberId, java.sql.Timestamp loginDatetime) {
+    public MemberLoginCB acceptUniqueOf(Integer memberId, java.time.LocalDateTime loginDatetime) {
         assertObjectNotNull("memberId", memberId);assertObjectNotNull("loginDatetime", loginDatetime);
         BsMemberLoginCB cb = this;
         cb.query().setMemberId_Equal(memberId);cb.query().setLoginDatetime_Equal(loginDatetime);

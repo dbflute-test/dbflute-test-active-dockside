@@ -66,10 +66,10 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * Integer memberId = entity.getMemberId();
  * String withdrawalReasonCode = entity.getWithdrawalReasonCode();
  * String withdrawalReasonInputText = entity.getWithdrawalReasonInputText();
- * java.sql.Timestamp withdrawalDatetime = entity.getWithdrawalDatetime();
- * java.sql.Timestamp registerDatetime = entity.getRegisterDatetime();
+ * java.time.LocalDateTime withdrawalDatetime = entity.getWithdrawalDatetime();
+ * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerUser = entity.getRegisterUser();
- * java.sql.Timestamp updateDatetime = entity.getUpdateDatetime();
+ * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateUser = entity.getUpdateUser();
  * Long versionNo = entity.getVersionNo();
  * entity.setMemberId(memberId);
@@ -106,16 +106,16 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
     protected String _withdrawalReasonInputText;
 
     /** (退会日時)WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _withdrawalDatetime;
+    protected java.time.LocalDateTime _withdrawalDatetime;
 
     /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _registerDatetime;
+    protected java.time.LocalDateTime _registerDatetime;
 
     /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     protected String _registerUser;
 
     /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _updateDatetime;
+    protected java.time.LocalDateTime _updateDatetime;
 
     /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     protected String _updateUser;
@@ -455,7 +455,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * 正式会員日時と違い、こっちは one-to-one の別テーブルで管理されている。
      * @return The value of the column 'WITHDRAWAL_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getWithdrawalDatetime() {
+    public java.time.LocalDateTime getWithdrawalDatetime() {
         checkSpecifiedProperty("withdrawalDatetime");
         return _withdrawalDatetime;
     }
@@ -466,7 +466,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * 正式会員日時と違い、こっちは one-to-one の別テーブルで管理されている。
      * @param withdrawalDatetime The value of the column 'WITHDRAWAL_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setWithdrawalDatetime(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime(java.time.LocalDateTime withdrawalDatetime) {
         registerModifiedProperty("withdrawalDatetime");
         _withdrawalDatetime = withdrawalDatetime;
     }
@@ -475,7 +475,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getRegisterDatetime() {
+    public java.time.LocalDateTime getRegisterDatetime() {
         checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
@@ -484,7 +484,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime(java.time.LocalDateTime registerDatetime) {
         registerModifiedProperty("registerDatetime");
         _registerDatetime = registerDatetime;
     }
@@ -511,7 +511,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getUpdateDatetime() {
+    public java.time.LocalDateTime getUpdateDatetime() {
         checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
@@ -520,7 +520,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
      * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime(java.time.LocalDateTime updateDatetime) {
         registerModifiedProperty("updateDatetime");
         _updateDatetime = updateDatetime;
     }

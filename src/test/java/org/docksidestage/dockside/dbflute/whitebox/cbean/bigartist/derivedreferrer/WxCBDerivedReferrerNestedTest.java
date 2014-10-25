@@ -5,7 +5,6 @@ import org.dbflute.cbean.scoping.OrQuery;
 import org.dbflute.cbean.scoping.ScalarQuery;
 import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.cbean.scoping.UnionQuery;
-import org.dbflute.util.DfTypeUtil;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
@@ -45,7 +44,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                                 subCB.query().setPaymentCompleteFlg_Equal_True();
                             }
                         }, null);
-                        subCB.query().setBirthdate_LessThan(currentDate());
+                        subCB.query().setBirthdate_LessThan(currentLocalDate());
                     }
                 }, null);
                 cb.query().setMemberStatusCode_Equal_Formalized();
@@ -61,7 +60,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                                 subCB.query().setPaymentCompleteFlg_Equal_True();
                             }
                         }, null);
-                        subCB.query().setBirthdate_LessThan(currentDate());
+                        subCB.query().setBirthdate_LessThan(currentLocalDate());
                     }
                 }, null);
                 cb.query().setMemberStatusCode_Equal_Provisional();
@@ -77,7 +76,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                                 subCB.query().setPaymentCompleteFlg_Equal_True();
                             }
                         }, null);
-                        subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
+                        subCB.query().setBirthdate_LessThan(toLocalDate("2010-12-04"));
                     }
                 }, null);
                 cb.query().setMemberStatusCode_Equal_Withdrawal();
@@ -94,7 +93,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                             subCB.query().setPaymentCompleteFlg_Equal_True();
                         }
                     }, null);
-                    subCB.query().setBirthdate_LessThan(currentDate());
+                    subCB.query().setBirthdate_LessThan(currentLocalDate());
                 }
             }, MemberStatus.ALIAS_maxPurchasePrice);
             cb.orScopeQuery(new OrQuery<MemberStatusCB>() {
@@ -139,7 +138,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                             subCB.query().setPaymentCompleteFlg_Equal_True();
                         }
                     }, null);
-                    subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
+                    subCB.query().setBirthdate_LessThan(toLocalDate("2010-12-04"));
                 }
             }, MemberStatus.ALIAS_maxPurchasePrice);
             cb.orScopeQuery(new OrQuery<MemberStatusCB>() {
@@ -182,7 +181,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                             subCB.query().setPaymentCompleteFlg_Equal_True();
                         }
                     }, null, op -> op.coalesce(0));
-                    subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
+                    subCB.query().setBirthdate_LessThan(toLocalDate("2010-12-04"));
                 }
             }, MemberStatus.ALIAS_maxPurchasePrice);
             cb.orScopeQuery(new OrQuery<MemberStatusCB>() {
@@ -223,7 +222,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                             subCB.query().setPaymentCompleteFlg_Equal_True();
                         }
                     }, null, op -> {});
-                    subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
+                    subCB.query().setBirthdate_LessThan(toLocalDate("2010-12-04"));
                     subCB.union(new UnionQuery<MemberCB>() {
                         public void query(MemberCB unionCB) {
                         }
@@ -260,7 +259,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                             });
                         }
                     }, null, op -> {});
-                    subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
+                    subCB.query().setBirthdate_LessThan(toLocalDate("2010-12-04"));
                     subCB.union(new UnionQuery<MemberCB>() {
                         public void query(MemberCB unionCB) {
                         }
@@ -303,7 +302,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                             });
                         }
                     }, null, op -> {});
-                    subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
+                    subCB.query().setBirthdate_LessThan(toLocalDate("2010-12-04"));
                     subCB.union(new UnionQuery<MemberCB>() {
                         public void query(MemberCB unionCB) {
                         }
@@ -418,7 +417,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                             }).greaterThan(300);
                         }
                     }, null);
-                    subCB.query().setBirthdate_LessThan(DfTypeUtil.toDate("2010-12-04"));
+                    subCB.query().setBirthdate_LessThan(toLocalDate("2010-12-04"));
                     subCB.query().derivedPurchase().avg(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
                             subCB.specify().columnPurchasePrice();

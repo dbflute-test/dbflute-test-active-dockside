@@ -47,7 +47,7 @@ public class MemberNss {
      * @param targetDate The bind parameter of fixed condition for targetDate. (NotNull)
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public MemberAddressNss withMemberAddressAsValid(final java.util.Date targetDate) {
+    public MemberAddressNss withMemberAddressAsValid(final java.time.LocalDate targetDate) {
         _query.xdoNss(() -> _query.queryMemberAddressAsValid(targetDate));
         return new MemberAddressNss(_query.queryMemberAddressAsValid(targetDate));
     }

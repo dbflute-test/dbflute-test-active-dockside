@@ -807,7 +807,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
      * @param withdrawalDatetime The value of withdrawalDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setWithdrawalDatetime_Equal(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime_Equal(java.time.LocalDateTime withdrawalDatetime) {
         regWithdrawalDatetime(CK_EQ,  withdrawalDatetime);
     }
 
@@ -816,7 +816,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
      * @param withdrawalDatetime The value of withdrawalDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setWithdrawalDatetime_GreaterThan(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime_GreaterThan(java.time.LocalDateTime withdrawalDatetime) {
         regWithdrawalDatetime(CK_GT,  withdrawalDatetime);
     }
 
@@ -825,7 +825,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
      * @param withdrawalDatetime The value of withdrawalDatetime as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setWithdrawalDatetime_LessThan(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime_LessThan(java.time.LocalDateTime withdrawalDatetime) {
         regWithdrawalDatetime(CK_LT,  withdrawalDatetime);
     }
 
@@ -834,7 +834,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
      * @param withdrawalDatetime The value of withdrawalDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setWithdrawalDatetime_GreaterEqual(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime_GreaterEqual(java.time.LocalDateTime withdrawalDatetime) {
         regWithdrawalDatetime(CK_GE,  withdrawalDatetime);
     }
 
@@ -843,7 +843,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
      * @param withdrawalDatetime The value of withdrawalDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setWithdrawalDatetime_LessEqual(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime_LessEqual(java.time.LocalDateTime withdrawalDatetime) {
         regWithdrawalDatetime(CK_LE, withdrawalDatetime);
     }
 
@@ -856,7 +856,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of withdrawalDatetime. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of from-to. (NotNull)
      */
-    public void setWithdrawalDatetime_FromTo(Date fromDatetime, Date toDatetime, ConditionOptionCall<FromToOption> opLambda) {
+    public void setWithdrawalDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, ConditionOptionCall<FromToOption> opLambda) {
         setWithdrawalDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
@@ -869,8 +869,9 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of withdrawalDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    protected void setWithdrawalDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), xgetCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME", fromToOption);
+    protected void setWithdrawalDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        String nm = "WITHDRAWAL_DATETIME"; FromToOption op = fromToOption;
+        regFTQ(xfFTHD(fromDatetime, nm, op), xfFTHD(toDatetime, nm, op), xgetCValueWithdrawalDatetime(), nm, op);
     }
 
     /**

@@ -29,7 +29,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
  * This is related to "<span style="color: #AD4747">selectLatestFormalizedDatetime</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
-public class BsLatestFormalizedDatetimePmb implements ListHandlingPmb<MemberBhv, java.sql.Timestamp>, EntityHandlingPmb<MemberBhv, java.sql.Timestamp>, FetchBean {
+public class BsLatestFormalizedDatetimePmb implements ListHandlingPmb<MemberBhv, java.time.LocalDateTime>, EntityHandlingPmb<MemberBhv, java.time.LocalDateTime>, FetchBean {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -62,7 +62,7 @@ public class BsLatestFormalizedDatetimePmb implements ListHandlingPmb<MemberBhv,
      * Get the type of an entity for result. (implementation)
      * @return The type instance of an entity, TIMESTAMP(23, 10). (NotNull)
      */
-    public Class<java.sql.Timestamp> getEntityType() { return java.sql.Timestamp.class; }
+    public Class<java.time.LocalDateTime> getEntityType() { return java.time.LocalDateTime.class; }
 
     // ===================================================================================
     //                                                                       Safety Result
@@ -95,6 +95,16 @@ public class BsLatestFormalizedDatetimePmb implements ListHandlingPmb<MemberBhv,
     //                                                  Date
     //                                                  ----
     protected Date toUtilDate(Object date) { return PmbCustodial.toUtilDate(date, _timeZone); }
+    protected <DATE> DATE toLocalDate(Date date, Class<DATE> localType) { return PmbCustodial.toLocalDate(date, localType, chooseRealTimeZone()); }
+    protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
+
+    /**
+     * Set time-zone, basically for LocalDate conversion. <br />
+     * Normally you don't need to set this, you can adjust other ways. <br />
+     * (DBFlute system's time-zone is used as default)
+     * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
+     */
+    public void zone(TimeZone timeZone) { _timeZone = timeZone; }
 
     // -----------------------------------------------------
     //                                    by Option Handling

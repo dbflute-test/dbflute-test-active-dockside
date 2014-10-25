@@ -46,7 +46,7 @@ public class BsSimpleMemberPmb implements ListHandlingPmb<MemberBhv, SimpleMembe
     protected LikeSearchOption _memberNameInternalLikeSearchOption;
 
     /** The parameter of birthdate. */
-    protected Date _birthdate;
+    protected java.time.LocalDate _birthdate;
 
     /** The max size of safety result. */
     protected int _safetyMaxResultSize;
@@ -111,6 +111,16 @@ public class BsSimpleMemberPmb implements ListHandlingPmb<MemberBhv, SimpleMembe
     //                                                  Date
     //                                                  ----
     protected Date toUtilDate(Object date) { return PmbCustodial.toUtilDate(date, _timeZone); }
+    protected <DATE> DATE toLocalDate(Date date, Class<DATE> localType) { return PmbCustodial.toLocalDate(date, localType, chooseRealTimeZone()); }
+    protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
+
+    /**
+     * Set time-zone, basically for LocalDate conversion. <br />
+     * Normally you don't need to set this, you can adjust other ways. <br />
+     * (DBFlute system's time-zone is used as default)
+     * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
+     */
+    public void zone(TimeZone timeZone) { _timeZone = timeZone; }
 
     // -----------------------------------------------------
     //                                    by Option Handling
@@ -139,7 +149,7 @@ public class BsSimpleMemberPmb implements ListHandlingPmb<MemberBhv, SimpleMembe
         final StringBuilder sb = new StringBuilder();
         sb.append(dm).append(_memberId);
         sb.append(dm).append(_memberName);
-        sb.append(dm).append(PmbCustodial.formatUtilDate(_birthdate, "yyyy-MM-dd", _timeZone));
+        sb.append(dm).append(_birthdate);
         if (sb.length() > 0) { sb.delete(0, dm.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
@@ -194,8 +204,8 @@ public class BsSimpleMemberPmb implements ListHandlingPmb<MemberBhv, SimpleMembe
      * used as equal
      * @return The value of birthdate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getBirthdate() {
-        return toUtilDate(_birthdate);
+    public java.time.LocalDate getBirthdate() {
+        return _birthdate;
     }
 
     /**
@@ -203,7 +213,7 @@ public class BsSimpleMemberPmb implements ListHandlingPmb<MemberBhv, SimpleMembe
      * used as equal
      * @param birthdate The value of birthdate. (NullAllowed)
      */
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(java.time.LocalDate birthdate) {
         _birthdate = birthdate;
     }
 }

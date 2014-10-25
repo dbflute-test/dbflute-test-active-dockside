@@ -16,8 +16,8 @@
 package org.docksidestage.dockside.dbflute.exbhv;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,8 +47,8 @@ public class MemberBhv extends BsMemberBhv {
                 while (cursor.next()) {
                     final Integer memberId = cursor.getMemberId();
                     final String memberName = cursor.getMemberName();
-                    final Date birthdate = cursor.getBirthdate();
-                    final Timestamp formalizedDatetime = cursor.getFormalizedDatetime();
+                    final LocalDate birthdate = cursor.getBirthdate();
+                    final LocalDateTime formalizedDatetime = cursor.getFormalizedDatetime();
                     final Long purchaseSummary = cursor.getPurchaseSummary();
 
                     // logging only here because of example

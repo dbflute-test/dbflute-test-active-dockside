@@ -55,8 +55,8 @@ public class VendorCheckTest extends UnitContainerTestCase {
             member.setMemberName("testName" + count);
             member.setMemberAccount("testAccount" + count);
             member.setMemberStatusCode_Provisional();
-            member.setFormalizedDatetime(currentTimestamp());
-            member.setBirthdate(currentTimestamp());
+            member.setFormalizedDatetime(currentLocalDateTime());
+            member.setBirthdate(currentLocalDate());
             if (count == 1) {
                 member.setVersionNo(999999999L);
             } else {
@@ -103,8 +103,8 @@ public class VendorCheckTest extends UnitContainerTestCase {
             member.setMemberName("testName" + count);
             member.setMemberAccount("testAccount" + count);
             member.setMemberStatusCode_Provisional();
-            member.setFormalizedDatetime(currentTimestamp());
-            member.setBirthdate(currentTimestamp());
+            member.setFormalizedDatetime(currentLocalDateTime());
+            member.setBirthdate(currentLocalDate());
             if (count == 1) {
                 member.setMemberId(9999999);
             } else {

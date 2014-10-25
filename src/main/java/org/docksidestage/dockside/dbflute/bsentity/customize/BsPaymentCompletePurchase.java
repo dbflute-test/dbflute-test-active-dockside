@@ -59,7 +59,7 @@ import org.docksidestage.dockside.dbflute.exentity.customize.*;
  * String memberName = entity.getMemberName();
  * Integer productId = entity.getProductId();
  * String productName = entity.getProductName();
- * java.sql.Timestamp purchaseDatetime = entity.getPurchaseDatetime();
+ * java.time.LocalDateTime purchaseDatetime = entity.getPurchaseDatetime();
  * entity.setPurchaseId(purchaseId);
  * entity.setMemberId(memberId);
  * entity.setMemberName(memberName);
@@ -97,7 +97,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     protected String _productName;
 
     /** (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} */
-    protected java.sql.Timestamp _purchaseDatetime;
+    protected java.time.LocalDateTime _purchaseDatetime;
 
     // ===================================================================================
     //                                                                          Table Name
@@ -313,7 +313,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * 購入した瞬間の日時。
      * @return The value of the column 'PURCHASE_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
-    public java.sql.Timestamp getPurchaseDatetime() {
+    public java.time.LocalDateTime getPurchaseDatetime() {
         checkSpecifiedProperty("purchaseDatetime");
         return _purchaseDatetime;
     }
@@ -323,7 +323,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
      * 購入した瞬間の日時。
      * @param purchaseDatetime The value of the column 'PURCHASE_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setPurchaseDatetime(java.sql.Timestamp purchaseDatetime) {
+    public void setPurchaseDatetime(java.time.LocalDateTime purchaseDatetime) {
         registerModifiedProperty("purchaseDatetime");
         _purchaseDatetime = purchaseDatetime;
     }

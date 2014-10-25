@@ -86,7 +86,7 @@ public class WxBhvPulloutRelationTest extends UnitContainerTestCase {
     public void test_pullout_BizOneToOne() {
         // ## Arrange ##
         List<Member> memberList = memberBhv.selectList(cb -> {
-            cb.setupSelect_MemberAddressAsValid(currentDate());
+            cb.setupSelect_MemberAddressAsValid(currentLocalDate());
             List<Integer> memberIdList = newArrayList(1, 2, 3, 4);
             cb.query().setMemberId_InScope(memberIdList);
         });

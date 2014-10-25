@@ -206,19 +206,19 @@ public abstract class BsMemberLoginBhv extends AbstractBehaviorWritable<MemberLo
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<MemberLogin> selectByUniqueOf(Integer memberId, java.sql.Timestamp loginDatetime) {
+    public OptionalEntity<MemberLogin> selectByUniqueOf(Integer memberId, java.time.LocalDateTime loginDatetime) {
         return facadeSelectByUniqueOf(memberId, loginDatetime);
     }
 
-    protected OptionalEntity<MemberLogin> facadeSelectByUniqueOf(Integer memberId, java.sql.Timestamp loginDatetime) {
+    protected OptionalEntity<MemberLogin> facadeSelectByUniqueOf(Integer memberId, java.time.LocalDateTime loginDatetime) {
         return doSelectByUniqueOf(memberId, loginDatetime, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MemberLogin> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, java.sql.Timestamp loginDatetime, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends MemberLogin> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, java.time.LocalDateTime loginDatetime, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(memberId, loginDatetime), tp), memberId, loginDatetime);
     }
 
-    protected MemberLoginCB xprepareCBAsUniqueOf(Integer memberId, java.sql.Timestamp loginDatetime) {
+    protected MemberLoginCB xprepareCBAsUniqueOf(Integer memberId, java.time.LocalDateTime loginDatetime) {
         assertObjectNotNull("memberId", memberId);assertObjectNotNull("loginDatetime", loginDatetime);
         return newConditionBean().acceptUniqueOf(memberId, loginDatetime);
     }

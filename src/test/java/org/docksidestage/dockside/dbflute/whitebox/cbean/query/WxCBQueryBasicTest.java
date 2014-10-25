@@ -1,8 +1,9 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.query;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
 
 import org.dbflute.util.DfTypeUtil;
@@ -50,13 +51,13 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
         cb.query().setMemberName_LikeSearch("A", op -> op.likePrefix());
         cb.query().setMemberName_LikeSearch("B%|B", op -> op.likeSuffix());
         cb.query().setMemberName_LikeSearch("C", op -> op.likeContain()); // append
-        cb.query().inline().setBirthdate_Equal(toDate("2099/07/08"));
+        cb.query().inline().setBirthdate_Equal(toLocalDate("2099/07/08"));
         cb.enableOverridingQuery(() -> {
-            cb.query().inline().setBirthdate_Equal(toDate("2010/07/08"));
+            cb.query().inline().setBirthdate_Equal(toLocalDate("2010/07/08"));
         });
         cb.query().inline().setMemberId_NotEqual(72); // independent
         cb.query().inline().setMemberId_GreaterEqual(75); // independent
-        cb.query().setBirthdate_Equal(toDate("2010/07/08")); // ignored
+        cb.query().setBirthdate_Equal(toLocalDate("2010/07/08")); // ignored
         cb.orScopeQuery(orCB -> {
             orCB.query().setMemberId_Equal(11);
             orCB.query().setMemberId_Equal(12);
@@ -95,9 +96,9 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
                 andCB.query().setMemberId_Equal(37);
                 andCB.query().setMemberId_Equal(38);
             });
-            orCB.query().setBirthdate_Equal(toDate("2010/08/01"));
-            orCB.query().inline().setBirthdate_Equal(toDate("2010/07/09"));
-            orCB.query().inline().setBirthdate_Equal(toDate("2010/07/10"));
+            orCB.query().setBirthdate_Equal(toLocalDate("2010/08/01"));
+            orCB.query().inline().setBirthdate_Equal(toLocalDate("2010/07/09"));
+            orCB.query().inline().setBirthdate_Equal(toLocalDate("2010/07/10"));
         });
         cb.query().queryMemberStatus().setDisplayOrder_Equal(50);
         cb.query().queryMemberStatus().on().setDisplayOrder_Equal(99); // independent
@@ -233,13 +234,13 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
     //                                                                                ====
     public void test_query_Date_keepPlain_UtilDate() {
         // ## Arrange ##
-        String expected = "2010/07/08 12:34:56.123";
+        String expected = "2010/07/08";
         MemberCB cb = new MemberCB();
-        Date current = DfTypeUtil.toDate(expected);
+        LocalDate current = toLocalDate(expected);
         cb.query().setBirthdate_Equal(current);
 
         // ## Assert ##
-        String actual = DfTypeUtil.toString(current, "yyyy/MM/dd HH:mm:ss.SSS");
+        String actual = toString(current, "yyyy/MM/dd");
         log(actual);
         assertEquals(expected, actual);
     }
@@ -247,11 +248,10 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
     public void test_query_Date_keepPlain_Timestamp() {
         // ## Arrange ##
         String expected = "2010/07/08 12:34:56.123";
-        Date current = DfTypeUtil.toTimestamp(expected);
+        LocalDateTime current = toLocalDateTime(expected);
         memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().setBirthdate_Equal(current);
-            pushCB(cb);
+            cb.query().setFormalizedDatetime_Equal(current);
         });
 
         // ## Assert ##
@@ -260,22 +260,21 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
         assertEquals(expected, actual);
     }
 
-    public void test_query_Date_DateFromTo_keepPlain() {
+    public void test_query_Date_FromTo_keepPlain() {
         // ## Arrange ##
-        String expected = "2010/07/08 12:34:56.123";
-        Date fromDate = DfTypeUtil.toDate(expected);
-        Date toDate = DfTypeUtil.toDate(expected);
+        String expected = "2010/07/08 00:00:00.000";
+        LocalDate fromDate = toLocalDate(expected);
+        LocalDate toDate = toLocalDate(expected);
         memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.query().setBirthdate_FromTo(fromDate, toDate, op -> op.compareAsDate());
-            pushCB(cb);
         });
 
         // ## Assert ##
-        String fromActual = DfTypeUtil.toString(fromDate, "yyyy/MM/dd HH:mm:ss.SSS");
+        String fromActual = toString(fromDate, "yyyy/MM/dd HH:mm:ss.SSS");
         log(fromActual);
         assertEquals(expected, fromActual);
-        String toActual = DfTypeUtil.toString(toDate, "yyyy/MM/dd HH:mm:ss.SSS");
+        String toActual = toString(toDate, "yyyy/MM/dd HH:mm:ss.SSS");
         log(toActual);
         assertEquals(expected, toActual);
     }

@@ -15,7 +15,7 @@
  */
 package org.docksidestage.dockside.dbflute.exentity;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import org.docksidestage.dockside.dbflute.bsentity.BsMemberSecurity;
 
@@ -43,11 +43,11 @@ public class MemberSecurity extends BsMemberSecurity {
     public String xznocheckGetReminderQuestion() {
         return _reminderQuestion;
     }
-    
-    public Timestamp xznocheckGetUpdateDatetime() {
+
+    public LocalDateTime xznocheckGetUpdateDatetime() {
         return _updateDatetime;
     }
-    
+
     public Long xznocheckGetVersionNo() {
         return _versionNo;
     }

@@ -47,7 +47,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     protected java.math.BigDecimal _bigDecimal2;
 
     /** The parameter of date1. */
-    protected Date _date1;
+    protected java.time.LocalDate _date1;
 
     /** The parameter of date2. */
     protected java.util.Date _date2;
@@ -62,7 +62,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     protected java.sql.Time _time2;
 
     /** The parameter of timestamp1. */
-    protected java.sql.Timestamp _timestamp1;
+    protected java.time.LocalDateTime _timestamp1;
 
     /** The parameter of timestamp2. */
     protected java.sql.Timestamp _timestamp2;
@@ -158,6 +158,16 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     //                                                  Date
     //                                                  ----
     protected Date toUtilDate(Object date) { return PmbCustodial.toUtilDate(date, _timeZone); }
+    protected <DATE> DATE toLocalDate(Date date, Class<DATE> localType) { return PmbCustodial.toLocalDate(date, localType, chooseRealTimeZone()); }
+    protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
+
+    /**
+     * Set time-zone, basically for LocalDate conversion. <br />
+     * Normally you don't need to set this, you can adjust other ways. <br />
+     * (DBFlute system's time-zone is used as default)
+     * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
+     */
+    public void zone(TimeZone timeZone) { _timeZone = timeZone; }
 
     // -----------------------------------------------------
     //                                    by Option Handling
@@ -188,7 +198,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
         sb.append(dm).append(_integer1);
         sb.append(dm).append(_bigDecimal1);
         sb.append(dm).append(_bigDecimal2);
-        sb.append(dm).append(PmbCustodial.formatUtilDate(_date1, "yyyy-MM-dd", _timeZone));
+        sb.append(dm).append(_date1);
         sb.append(dm).append(PmbCustodial.formatUtilDate(_date2, "yyyy-MM-dd", _timeZone));
         sb.append(dm).append(_date3);
         sb.append(dm).append(_time1);
@@ -283,15 +293,15 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
      * [get] date1 <br />
      * @return The value of date1. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getDate1() {
-        return toUtilDate(_date1);
+    public java.time.LocalDate getDate1() {
+        return _date1;
     }
 
     /**
      * [set] date1 <br />
      * @param date1 The value of date1. (NullAllowed)
      */
-    public void setDate1(Date date1) {
+    public void setDate1(java.time.LocalDate date1) {
         _date1 = date1;
     }
 
@@ -363,7 +373,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
      * [get] timestamp1 <br />
      * @return The value of timestamp1. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public java.sql.Timestamp getTimestamp1() {
+    public java.time.LocalDateTime getTimestamp1() {
         return _timestamp1;
     }
 
@@ -371,7 +381,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
      * [set] timestamp1 <br />
      * @param timestamp1 The value of timestamp1. (NullAllowed)
      */
-    public void setTimestamp1(java.sql.Timestamp timestamp1) {
+    public void setTimestamp1(java.time.LocalDateTime timestamp1) {
         _timestamp1 = timestamp1;
     }
 

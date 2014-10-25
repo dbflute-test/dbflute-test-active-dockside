@@ -10,7 +10,6 @@ import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlLogHandler;
 import org.dbflute.hook.SqlLogInfo;
-import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberSecurityDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberServiceDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberStatusDbm;
@@ -463,7 +462,7 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
                 public void query(MemberLoginCB subCB) {
                     subCB.specify().columnLoginDatetime();
                 }
-            }).greaterThan(DfTypeUtil.toDate("1912/01/01"));
+            }).greaterThan(toLocalDate("1912/01/01"));
             cb.query().queryMemberSecurityAsOne().addOrderBy_LoginPassword_Desc();
             cb.enablePagingCountLater();
             cb.enablePagingCountLeastJoin();

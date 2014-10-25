@@ -72,9 +72,9 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         cb.query().setMemberName_Equal("land");
         cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB purchaseCB) {
-                purchaseCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-07"));
+                purchaseCB.query().setPurchaseDatetime_GreaterEqual(toLocalDateTime("2014-08-07"));
                 purchaseCB.enableOverridingQuery(() -> {
-                    purchaseCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-08"));
+                    purchaseCB.query().setPurchaseDatetime_GreaterEqual(toLocalDateTime("2014-08-08"));
                 });
             }
         });
@@ -93,9 +93,9 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
                 markHere("exists");
-                subCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-07"));
+                subCB.query().setPurchaseDatetime_GreaterEqual(toLocalDateTime("2014-08-07"));
                 try {
-                    subCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-08"));
+                    subCB.query().setPurchaseDatetime_GreaterEqual(toLocalDateTime("2014-08-08"));
                     fail();
                 } catch (QueryAlreadyRegisteredException e) {
                     log(e.getMessage());
@@ -117,9 +117,9 @@ public class WxCBOverridingQueryTest extends UnitContainerTestCase {
         cb.query().setMemberName_Equal("land");
         cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB purchaseCB) {
-                purchaseCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-07"));
+                purchaseCB.query().setPurchaseDatetime_GreaterEqual(toLocalDateTime("2014-08-07"));
                 purchaseCB.enableOverridingQuery(() -> {
-                    purchaseCB.query().setPurchaseDatetime_GreaterEqual(toTimestamp("2014-08-08"));
+                    purchaseCB.query().setPurchaseDatetime_GreaterEqual(toLocalDateTime("2014-08-08"));
                 });
             }
         });

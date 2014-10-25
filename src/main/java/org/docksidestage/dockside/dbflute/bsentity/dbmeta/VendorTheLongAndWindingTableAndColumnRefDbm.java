@@ -56,8 +56,8 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
     {
         setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getTheLongAndWindingTableAndColumnRefId(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setTheLongAndWindingTableAndColumnRefId(ctl(vl)), "theLongAndWindingTableAndColumnRefId");
         setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getTheLongAndWindingTableAndColumnId(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setTheLongAndWindingTableAndColumnId(ctl(vl)), "theLongAndWindingTableAndColumnId");
-        setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getTheLongAndWindingTableAndColumnRefDate(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setTheLongAndWindingTableAndColumnRefDate((java.util.Date)vl), "theLongAndWindingTableAndColumnRefDate");
-        setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getShortDate(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setShortDate((java.util.Date)vl), "shortDate");
+        setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getTheLongAndWindingTableAndColumnRefDate(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setTheLongAndWindingTableAndColumnRefDate((java.time.LocalDate)vl), "theLongAndWindingTableAndColumnRefDate");
+        setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getShortDate(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setShortDate((java.time.LocalDate)vl), "shortDate");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -90,8 +90,8 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
     //                                                                         ===========
     protected final ColumnInfo _columnTheLongAndWindingTableAndColumnRefId = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID", null, null, Long.class, "theLongAndWindingTableAndColumnRefId", null, true, false, true, "BIGINT", 19, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnTheLongAndWindingTableAndColumnId = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", null, null, Long.class, "theLongAndWindingTableAndColumnId", null, false, false, true, "BIGINT", 19, 0, null, false, null, null, "vendorTheLongAndWindingTableAndColumn", null, null);
-    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnRefDate = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE", null, null, java.util.Date.class, "theLongAndWindingTableAndColumnRefDate", null, false, false, true, "DATE", 8, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnShortDate = cci("SHORT_DATE", "SHORT_DATE", null, null, java.util.Date.class, "shortDate", null, false, false, true, "DATE", 8, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnRefDate = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE", null, null, java.time.LocalDate.class, "theLongAndWindingTableAndColumnRefDate", null, false, false, true, "DATE", 8, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnShortDate = cci("SHORT_DATE", "SHORT_DATE", null, null, java.time.LocalDate.class, "shortDate", null, false, false, true, "DATE", 8, 0, null, false, null, null, null, null, null);
 
     /**
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)}

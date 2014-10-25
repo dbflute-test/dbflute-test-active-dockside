@@ -28,7 +28,7 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.setupSelect_MemberAddressAsValid(currentDate());
+            cb.setupSelect_MemberAddressAsValid(currentLocalDate());
         });
 
         // ## Assert ##
@@ -67,7 +67,7 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.setupSelect_MemberAddressAsValid(currentDate());
+            cb.setupSelect_MemberAddressAsValid(currentLocalDate());
             cb.specify().specifyMemberAddressAsValid().columnAddress();
         });
 
@@ -93,8 +93,8 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.setupSelect_MemberAddressAsValid(currentDate());
-            cb.specify().specifyMemberAddressAsValid(currentDate()).columnAddress();
+            cb.setupSelect_MemberAddressAsValid(currentLocalDate());
+            cb.specify().specifyMemberAddressAsValid(currentLocalDate()).columnAddress();
         });
 
         // ## Assert ##

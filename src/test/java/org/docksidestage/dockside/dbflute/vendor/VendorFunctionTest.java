@@ -1,12 +1,11 @@
 package org.docksidestage.dockside.dbflute.vendor;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.cbean.scoping.SubQuery;
+import org.dbflute.helper.HandyDate;
 import org.dbflute.util.DfTypeUtil;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
@@ -59,7 +58,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
         assertTrue(popCB().toDisplaySql().contains("coalesce("));
         boolean exists = false;
         for (Member member : memberList) {
-            Date latestLoginDatetime = member.getLatestLoginDatetime();
+            LocalDateTime latestLoginDatetime = member.getLatestLoginDatetime();
             String loginDateView = DfTypeUtil.toString(latestLoginDatetime, "yyyy-MM-dd");
             log(member.getMemberName() + ": " + loginDateView);
             if ("1192-01-01".equals(loginDateView)) {
@@ -161,7 +160,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
         assertFalse(memberList.isEmpty());
         boolean exists = false;
         for (Member member : memberList) {
-            Timestamp loginDatetime = member.getLatestLoginDatetime();
+            LocalDateTime loginDatetime = member.getLatestLoginDatetime();
             log(member.getMemberName() + ", " + loginDatetime);
             if (loginDatetime != null) {
                 assertEquals("0101 00:00:00", DfTypeUtil.toString(loginDatetime, "MMdd HH:mm:ss"));
@@ -200,7 +199,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
         assertFalse(memberList.isEmpty());
         boolean exists = false;
         for (Member member : memberList) {
-            Timestamp loginDatetime = member.getLatestLoginDatetime();
+            LocalDateTime loginDatetime = member.getLatestLoginDatetime();
             log(member.getMemberName() + ", " + loginDatetime);
             if (loginDatetime != null) {
                 assertEquals("01 00:00:00", DfTypeUtil.toString(loginDatetime, "dd HH:mm:ss"));
@@ -259,7 +258,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
         assertFalse(memberList.isEmpty());
         boolean exists = false;
         for (Member member : memberList) {
-            Timestamp loginDatetime = member.getLatestLoginDatetime();
+            LocalDateTime loginDatetime = member.getLatestLoginDatetime();
             if (loginDatetime != null) {
                 assertEquals("00:00:00", DfTypeUtil.toString(loginDatetime, "HH:mm:ss"));
                 if (!DfTypeUtil.toString(loginDatetime, "dd").equals("01")) { // means not truncated
@@ -308,20 +307,14 @@ public class VendorFunctionTest extends UnitContainerTestCase {
         for (int i = 0; i < memberList.size(); i++) {
             Member member = memberList.get(i);
             Member plain = plainList.get(i);
-            Timestamp latestTime = member.getLatestLoginDatetime();
-            Timestamp plainTime = plain.getLatestLoginDatetime();
+            LocalDateTime latestTime = member.getLatestLoginDatetime();
+            LocalDateTime plainTime = plain.getLatestLoginDatetime();
             log(member.getMemberName() + ", " + latestTime + ", " + plainTime);
             if (latestTime != null) {
                 exists = true;
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(plainTime);
-                cal.add(Calendar.YEAR, 10);
-                cal.add(Calendar.MONTH, 3);
-                cal.add(Calendar.DAY_OF_MONTH, 7);
-                cal.add(Calendar.HOUR_OF_DAY, 5);
-                cal.add(Calendar.MINUTE, 20);
-                cal.add(Calendar.SECOND, 50);
-                Timestamp moved = new Timestamp(cal.getTimeInMillis());
+                LocalDateTime moved =
+                        new HandyDate(plainTime).addYear(10).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50)
+                                .getLocalDateTime();
                 assertEquals(moved, latestTime);
             }
         }
@@ -363,19 +356,12 @@ public class VendorFunctionTest extends UnitContainerTestCase {
         for (int i = 0; i < memberList.size(); i++) {
             Member member = memberList.get(i);
             Member plain = plainList.get(i);
-            Timestamp latestTime = member.getLatestLoginDatetime();
-            Timestamp plainTime = plain.getLatestLoginDatetime();
+            LocalDateTime latestTime = member.getLatestLoginDatetime();
+            LocalDateTime plainTime = plain.getLatestLoginDatetime();
             log(member.getMemberName() + ", " + latestTime + ", " + plainTime);
             if (latestTime != null) {
                 exists = true;
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(plainTime);
-                cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-                cal.set(Calendar.HOUR_OF_DAY, 0);
-                cal.set(Calendar.MINUTE, 0);
-                cal.set(Calendar.SECOND, 0);
-                cal.set(Calendar.MILLISECOND, 0);
-                Timestamp moved = new Timestamp(cal.getTimeInMillis());
+                LocalDateTime moved = new HandyDate(plainTime).addMonth(1).moveToMonthJust().addDay(-1).getLocalDateTime();
                 assertEquals(moved, latestTime);
             }
         }
@@ -387,17 +373,15 @@ public class VendorFunctionTest extends UnitContainerTestCase {
     //                                ----------------------
     public void test_QueryDerivedReferrer_dateAdd_right() {
         // ## Arrange ##
-        ListResultBean<Member> memberList =
-                memberBhv.selectList(cb -> {
-                    /* ## Act ## */
-                    cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
-                        public void query(PurchaseCB subCB) {
-                            subCB.specify().columnPurchaseDatetime();
-                        }
-                    }, op -> op.addYear(-80).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50))
-                            .lessThan(DfTypeUtil.toDate("1970/06/25"));
-                    pushCB(cb);
-                }); // expects no exception
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchaseDatetime();
+                }
+            }, op -> op.addYear(-80).addMonth(3).addDay(7).addHour(5).addMinute(20).addSecond(50)).lessThan(toLocalDate("1970/06/25"));
+            pushCB(cb);
+        }); // expects no exception
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -558,8 +542,7 @@ public class VendorFunctionTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
-            Timestamp maxPurchaseDatetime = member.getLatestLoginDatetime();
-            log(member.getMemberName() + ", " + maxPurchaseDatetime);
+            log(member.getMemberName() + ", " + member.getLatestLoginDatetime());
         }
         String sql = popCB().toDisplaySql();
         assertEquals(2, Srl.count(sql, "dateadd(day, -3, (select max(sub1loc.PURCHASE_DATETIME)"));

@@ -64,11 +64,11 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * Long purchasePaymentId = entity.getPurchasePaymentId();
  * Long purchaseId = entity.getPurchaseId();
  * java.math.BigDecimal paymentAmount = entity.getPaymentAmount();
- * java.sql.Timestamp paymentDatetime = entity.getPaymentDatetime();
+ * java.time.LocalDateTime paymentDatetime = entity.getPaymentDatetime();
  * String paymentMethodCode = entity.getPaymentMethodCode();
- * java.sql.Timestamp registerDatetime = entity.getRegisterDatetime();
+ * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerUser = entity.getRegisterUser();
- * java.sql.Timestamp updateDatetime = entity.getUpdateDatetime();
+ * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateUser = entity.getUpdateUser();
  * entity.setPurchasePaymentId(purchasePaymentId);
  * entity.setPurchaseId(purchaseId);
@@ -104,19 +104,19 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
     protected java.math.BigDecimal _paymentAmount;
 
     /** (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _paymentDatetime;
+    protected java.time.LocalDateTime _paymentDatetime;
 
     /** (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod} */
     protected String _paymentMethodCode;
 
     /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _registerDatetime;
+    protected java.time.LocalDateTime _registerDatetime;
 
     /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     protected String _registerUser;
 
     /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _updateDatetime;
+    protected java.time.LocalDateTime _updateDatetime;
 
     /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     protected String _updateUser;
@@ -436,7 +436,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * 支払ったときの日時
      * @return The value of the column 'PAYMENT_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getPaymentDatetime() {
+    public java.time.LocalDateTime getPaymentDatetime() {
         checkSpecifiedProperty("paymentDatetime");
         return _paymentDatetime;
     }
@@ -446,7 +446,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * 支払ったときの日時
      * @param paymentDatetime The value of the column 'PAYMENT_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setPaymentDatetime(java.sql.Timestamp paymentDatetime) {
+    public void setPaymentDatetime(java.time.LocalDateTime paymentDatetime) {
         registerModifiedProperty("paymentDatetime");
         _paymentDatetime = paymentDatetime;
     }
@@ -476,7 +476,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getRegisterDatetime() {
+    public java.time.LocalDateTime getRegisterDatetime() {
         checkSpecifiedProperty("registerDatetime");
         return _registerDatetime;
     }
@@ -485,7 +485,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
+    public void setRegisterDatetime(java.time.LocalDateTime registerDatetime) {
         registerModifiedProperty("registerDatetime");
         _registerDatetime = registerDatetime;
     }
@@ -512,7 +512,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
-    public java.sql.Timestamp getUpdateDatetime() {
+    public java.time.LocalDateTime getUpdateDatetime() {
         checkSpecifiedProperty("updateDatetime");
         return _updateDatetime;
     }
@@ -521,7 +521,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
      * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
-    public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
+    public void setUpdateDatetime(java.time.LocalDateTime updateDatetime) {
         registerModifiedProperty("updateDatetime");
         _updateDatetime = updateDatetime;
     }

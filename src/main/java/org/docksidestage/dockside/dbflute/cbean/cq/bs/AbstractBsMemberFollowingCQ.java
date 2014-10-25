@@ -429,7 +429,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as equal. (NullAllowed: if null, no condition)
      */
-    public void setFollowDatetime_Equal(java.sql.Timestamp followDatetime) {
+    public void setFollowDatetime_Equal(java.time.LocalDateTime followDatetime) {
         regFollowDatetime(CK_EQ,  followDatetime);
     }
 
@@ -438,7 +438,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as greaterThan. (NullAllowed: if null, no condition)
      */
-    public void setFollowDatetime_GreaterThan(java.sql.Timestamp followDatetime) {
+    public void setFollowDatetime_GreaterThan(java.time.LocalDateTime followDatetime) {
         regFollowDatetime(CK_GT,  followDatetime);
     }
 
@@ -447,7 +447,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as lessThan. (NullAllowed: if null, no condition)
      */
-    public void setFollowDatetime_LessThan(java.sql.Timestamp followDatetime) {
+    public void setFollowDatetime_LessThan(java.time.LocalDateTime followDatetime) {
         regFollowDatetime(CK_LT,  followDatetime);
     }
 
@@ -456,7 +456,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as greaterEqual. (NullAllowed: if null, no condition)
      */
-    public void setFollowDatetime_GreaterEqual(java.sql.Timestamp followDatetime) {
+    public void setFollowDatetime_GreaterEqual(java.time.LocalDateTime followDatetime) {
         regFollowDatetime(CK_GE,  followDatetime);
     }
 
@@ -465,7 +465,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
      * @param followDatetime The value of followDatetime as lessEqual. (NullAllowed: if null, no condition)
      */
-    public void setFollowDatetime_LessEqual(java.sql.Timestamp followDatetime) {
+    public void setFollowDatetime_LessEqual(java.time.LocalDateTime followDatetime) {
         regFollowDatetime(CK_LE, followDatetime);
     }
 
@@ -478,7 +478,7 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of followDatetime. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of from-to. (NotNull)
      */
-    public void setFollowDatetime_FromTo(Date fromDatetime, Date toDatetime, ConditionOptionCall<FromToOption> opLambda) {
+    public void setFollowDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, ConditionOptionCall<FromToOption> opLambda) {
         setFollowDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
@@ -491,8 +491,9 @@ public abstract class AbstractBsMemberFollowingCQ extends AbstractConditionQuery
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of followDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    protected void setFollowDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
-        regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), xgetCValueFollowDatetime(), "FOLLOW_DATETIME", fromToOption);
+    protected void setFollowDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        String nm = "FOLLOW_DATETIME"; FromToOption op = fromToOption;
+        regFTQ(xfFTHD(fromDatetime, nm, op), xfFTHD(toDatetime, nm, op), xgetCValueFollowDatetime(), nm, op);
     }
 
     protected void regFollowDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueFollowDatetime(), "FOLLOW_DATETIME"); }

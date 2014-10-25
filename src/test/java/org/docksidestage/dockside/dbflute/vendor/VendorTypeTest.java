@@ -2,10 +2,8 @@ package org.docksidestage.dockside.dbflute.vendor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.UnionQuery;
@@ -112,24 +110,21 @@ public class VendorTypeTest extends UnitContainerTestCase {
     //                                                                           =========
     public void test_DATE_HHmmss_conditionBean() { // *Important!
         // ## Arrange ##
-        Calendar cal = Calendar.getInstance();
-        cal.set(2008, 5, 15, 12, 34, 56);
-        cal.set(Calendar.MILLISECOND, 123);
         Member member = new Member();
         member.setMemberId(3);
-        member.setBirthdate(new Date(cal.getTimeInMillis()));
+        member.setBirthdate(toLocalDate("2008/06/15"));
         memberBhv.updateNonstrict(member);
 
         // ## Act ##
-        cal.set(2008, 5, 15, 12, 34, 57); // plus one second
+        LocalDate targetDate = toLocalDate("2008/06/15");
         {
             Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
                 cb.query().setMemberId_Equal(3);
-                cb.query().setBirthdate_GreaterEqual(new Date(cal.getTimeInMillis()));
+                cb.query().setBirthdate_GreaterEqual(targetDate);
             });
 
             // ## Assert ##
-            Date actualValue = actual.getBirthdate();
+            LocalDate actualValue = actual.getBirthdate();
             String formatted = DfTypeUtil.toString(actualValue, "yyyy/MM/dd HH:mm:ss.SSS");
             log("actualValue = " + formatted);
             assertEquals("2008/06/15 00:00:00.000", formatted);
@@ -137,11 +132,11 @@ public class VendorTypeTest extends UnitContainerTestCase {
         {
             Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
                 cb.query().setMemberId_Equal(3);
-                cb.query().setBirthdate_GreaterEqual(new java.sql.Date(cal.getTimeInMillis()));
+                cb.query().setBirthdate_GreaterEqual(targetDate);
             });
 
             // ## Assert ##
-            Date actualValue = actual.getBirthdate();
+            LocalDate actualValue = actual.getBirthdate();
             String formatted = DfTypeUtil.toString(actualValue, "yyyy/MM/dd HH:mm:ss.SSS");
             log("actualValue = " + formatted);
             assertEquals("2008/06/15 00:00:00.000", formatted);
@@ -149,11 +144,11 @@ public class VendorTypeTest extends UnitContainerTestCase {
         {
             Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
                 cb.query().setMemberId_Equal(3);
-                cb.query().setBirthdate_GreaterEqual(new Timestamp(cal.getTimeInMillis()));
+                cb.query().setBirthdate_GreaterEqual(targetDate);
             });
 
             // ## Assert ##
-            Date actualValue = actual.getBirthdate();
+            LocalDate actualValue = actual.getBirthdate();
             String formatted = DfTypeUtil.toString(actualValue, "yyyy/MM/dd HH:mm:ss.SSS");
             log("actualValue = " + formatted);
             assertEquals("2008/06/15 00:00:00.000", formatted);
@@ -162,20 +157,16 @@ public class VendorTypeTest extends UnitContainerTestCase {
 
     public void test_DATE_HHmmss_outsideSql() throws Exception {
         // ## Arrange ##
-        Calendar cal = Calendar.getInstance();
-        cal.set(9001, 5, 15, 0, 0, 0);
-        cal.set(Calendar.MILLISECOND, 0);
         Member member = new Member();
         member.setMemberId(3);
-        member.setBirthdate(new Date(cal.getTimeInMillis()));
+        member.setBirthdate(toLocalDate("9001/06/15"));
         memberBhv.updateNonstrict(member);
 
         String path = MemberBhv.PATH_whitebox_pmbean_selectCompareDate;
 
         CompareDatePmb pmb = new CompareDatePmb();
         pmb.setMemberId(3);
-        cal.set(9001, 5, 15, 12, 34, 56);
-        pmb.setBirthdateFrom(new Date(cal.getTimeInMillis()));
+        pmb.setBirthdateFrom(toLocalDate("9001/06/15 12:34:56"));
 
         Class<Member> entityType = Member.class;
 
@@ -183,7 +174,7 @@ public class VendorTypeTest extends UnitContainerTestCase {
         Member actual = memberBhv.outsideSql().traditionalStyle().selectEntity(path, pmb, entityType).get();
 
         // ## Assert ##
-        Date actualValue = actual.getBirthdate();
+        LocalDate actualValue = actual.getBirthdate();
         String formatted = DfTypeUtil.toString(actualValue, "yyyy/MM/dd HH:mm:ss.SSS");
         log("actualValue = " + formatted);
         assertEquals("9001/06/15 00:00:00.000", formatted);
@@ -197,31 +188,28 @@ public class VendorTypeTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
-            Date birthdate = member.getBirthdate();
-            assertTrue(java.util.Date.class.equals(birthdate.getClass()));
-            assertFalse(birthdate instanceof java.sql.Date);
-            assertFalse(birthdate instanceof Timestamp);
+            LocalDate birthdate = member.getBirthdate();
+            assertTrue(LocalDate.class.equals(birthdate.getClass()));
+            assertTrue(birthdate instanceof LocalDate);
+            // cannot compare
+            //assertFalse(birthdate instanceof LocalDateTime);
         }
     }
 
     public void test_DATE_SqlDate_HHmmss_outsideSql() throws Exception {
         // ## Arrange ##
-        Calendar cal = Calendar.getInstance();
-        cal.set(9001, 5, 15, 12, 34, 56);
-        cal.set(Calendar.MILLISECOND, 0);
         Member member = new Member();
         member.setMemberId(3);
-        member.setBirthdate(new Date(cal.getTimeInMillis()));
+        member.setBirthdate(toLocalDate("9001/06/15 12:34:56"));
         memberBhv.updateNonstrict(member);
 
         String path = MemberBhv.PATH_whitebox_pmbean_selectCompareDate;
 
         CompareDatePmb pmb = new CompareDatePmb();
         pmb.setMemberId(3);
-        cal.set(9001, 5, 15, 23, 45, 57);
-        pmb.setBirthdateFrom(new java.sql.Date(cal.getTimeInMillis()));
+        pmb.setBirthdateFrom(toLocalDate("9001/06/15 23:45:57"));
 
         Class<Member> entityType = Member.class;
 
@@ -229,7 +217,7 @@ public class VendorTypeTest extends UnitContainerTestCase {
         Member actual = memberBhv.outsideSql().traditionalStyle().selectEntity(path, pmb, entityType).get();
 
         // ## Assert ##
-        Date actualValue = actual.getBirthdate();
+        LocalDate actualValue = actual.getBirthdate();
         String formatted = DfTypeUtil.toString(actualValue, "yyyy/MM/dd HH:mm:ss.SSS");
         log("actualValue = " + formatted);
         assertEquals("9001/06/15 00:00:00.000", formatted);
@@ -240,13 +228,9 @@ public class VendorTypeTest extends UnitContainerTestCase {
     //                                                  ----
     public void test_TIME_insert_and_query() {
         // ## Arrange ##
-        Calendar cal = Calendar.getInstance();
-        cal.set(2002, 5, 15, 12, 34, 56);
-        Time specifiedTime = new Time(cal.getTimeInMillis());
-        cal.set(2002, 5, 15, 12, 34, 55);
-        Time oneSecondBeforeTime = new Time(cal.getTimeInMillis());
-        cal.set(2002, 5, 15, 12, 34, 57);
-        Time oneSecondAfterTime = new Time(cal.getTimeInMillis());
+        LocalTime specifiedTime = DfTypeUtil.toLocalTime("2002/06/15 12:34:56", getFinalTimeZone());
+        LocalTime oneSecondBeforeTime = DfTypeUtil.toLocalTime("2002/06/15 12:34:55", getFinalTimeZone());
+        LocalTime oneSecondAfterTime = DfTypeUtil.toLocalTime("2002/06/15 12:34:57", getFinalTimeZone());
 
         VendorCheck vendorCheck = createVendorCheck();
         vendorCheck.setTypeOfTime(specifiedTime);
@@ -260,7 +244,7 @@ public class VendorTypeTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        Time actualTime = actual.getTypeOfTime();
+        LocalTime actualTime = actual.getTypeOfTime();
         log("actualTime=" + actualTime);
         assertNotNull(actualTime);
         assertEquals(specifiedTime.toString(), actualTime.toString());

@@ -59,8 +59,8 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Long theLongAndWindingTableAndColumnRefId = entity.getTheLongAndWindingTableAndColumnRefId();
  * Long theLongAndWindingTableAndColumnId = entity.getTheLongAndWindingTableAndColumnId();
- * java.util.Date theLongAndWindingTableAndColumnRefDate = entity.getTheLongAndWindingTableAndColumnRefDate();
- * java.util.Date shortDate = entity.getShortDate();
+ * java.time.LocalDate theLongAndWindingTableAndColumnRefDate = entity.getTheLongAndWindingTableAndColumnRefDate();
+ * java.time.LocalDate shortDate = entity.getShortDate();
  * entity.setTheLongAndWindingTableAndColumnRefId(theLongAndWindingTableAndColumnRefId);
  * entity.setTheLongAndWindingTableAndColumnId(theLongAndWindingTableAndColumnId);
  * entity.setTheLongAndWindingTableAndColumnRefDate(theLongAndWindingTableAndColumnRefDate);
@@ -87,10 +87,10 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
     protected Long _theLongAndWindingTableAndColumnId;
 
     /** THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} */
-    protected java.util.Date _theLongAndWindingTableAndColumnRefDate;
+    protected java.time.LocalDate _theLongAndWindingTableAndColumnRefDate;
 
     /** SHORT_DATE: {NotNull, DATE(8)} */
-    protected java.util.Date _shortDate;
+    protected java.time.LocalDate _shortDate;
 
     // ===================================================================================
     //                                                                          Table Name
@@ -191,8 +191,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_theLongAndWindingTableAndColumnRefId));
         sb.append(dm).append(xfND(_theLongAndWindingTableAndColumnId));
-        sb.append(dm).append(xfUD(_theLongAndWindingTableAndColumnRefDate));
-        sb.append(dm).append(xfUD(_shortDate));
+        sb.append(dm).append(xfND(_theLongAndWindingTableAndColumnRefDate));
+        sb.append(dm).append(xfND(_shortDate));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -259,7 +259,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
      * [get] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} <br />
      * @return The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE'. (basically NotNull if selected: for the constraint)
      */
-    public java.util.Date getTheLongAndWindingTableAndColumnRefDate() {
+    public java.time.LocalDate getTheLongAndWindingTableAndColumnRefDate() {
         checkSpecifiedProperty("theLongAndWindingTableAndColumnRefDate");
         return _theLongAndWindingTableAndColumnRefDate;
     }
@@ -268,7 +268,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
      * [set] THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)} <br />
      * @param theLongAndWindingTableAndColumnRefDate The value of the column 'THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE'. (basically NotNull if update: for the constraint)
      */
-    public void setTheLongAndWindingTableAndColumnRefDate(java.util.Date theLongAndWindingTableAndColumnRefDate) {
+    public void setTheLongAndWindingTableAndColumnRefDate(java.time.LocalDate theLongAndWindingTableAndColumnRefDate) {
         registerModifiedProperty("theLongAndWindingTableAndColumnRefDate");
         _theLongAndWindingTableAndColumnRefDate = theLongAndWindingTableAndColumnRefDate;
     }
@@ -277,7 +277,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
      * [get] SHORT_DATE: {NotNull, DATE(8)} <br />
      * @return The value of the column 'SHORT_DATE'. (basically NotNull if selected: for the constraint)
      */
-    public java.util.Date getShortDate() {
+    public java.time.LocalDate getShortDate() {
         checkSpecifiedProperty("shortDate");
         return _shortDate;
     }
@@ -286,7 +286,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
      * [set] SHORT_DATE: {NotNull, DATE(8)} <br />
      * @param shortDate The value of the column 'SHORT_DATE'. (basically NotNull if update: for the constraint)
      */
-    public void setShortDate(java.util.Date shortDate) {
+    public void setShortDate(java.time.LocalDate shortDate) {
         registerModifiedProperty("shortDate");
         _shortDate = shortDate;
     }

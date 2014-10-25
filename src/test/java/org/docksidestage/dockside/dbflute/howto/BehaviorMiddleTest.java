@@ -1,7 +1,8 @@
 package org.docksidestage.dockside.dbflute.howto;
 
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
@@ -124,14 +125,9 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                       Scalar Select
     //                                                                       =============
-    /**
-     * カラムの最大値検索(ScalarSelect): scalarSelect(), max().
-     * 正式会員で一番最近(最大)の誕生日を検索。
-     * @since 0.8.6
-     */
     public void test_scalarSelect_max() {
         // ## Arrange ##
-        Date expected = memberBhv.selectEntityWithDeletedCheck(cb -> {
+        LocalDate expected = memberBhv.selectEntityWithDeletedCheck(cb -> {
             cb.specify().columnBirthdate();
             cb.query().setMemberStatusCode_Equal_Formalized();
             cb.query().setBirthdate_IsNotNull();
@@ -140,19 +136,13 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         }).getBirthdate();
 
         // ## Act ##
-        memberBhv.scalarSelect(Date.class).max(cb -> {
+        memberBhv.scalarSelect(LocalDate.class).max(cb -> {
             cb.specify().columnBirthdate();
             cb.query().setMemberStatusCode_Equal_Formalized();
         }).alwaysPresent(birthdate -> {
             /* ## Assert ## */
             assertEquals(expected, birthdate);
         });
-
-        // [Description]
-        // A. max()/min()/sum()/avg()をサポート
-        // B. サポートされない型を指定された場合は例外発生(例えばsum()に日付型を指定など)
-        // C. コールバックのConditionBeanにて対象のカラムを指定。
-        //    --> 必ず「一つだけ」を指定すること(無しもしくは複数の場合は例外発生)
     }
 
     // ===================================================================================
@@ -428,8 +418,8 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         final String lastDate = "2006-09-04";
         final String lastNextDate = "2006-09-05";
         OptionMemberPmb pmb = new OptionMemberPmb();
-        pmb.setFromFormalizedDate_FromDate(DfTypeUtil.toTimestamp("2003-02-25"));
-        pmb.setToFormalizedDate_ToDate(DfTypeUtil.toTimestamp(lastDate));
+        pmb.setFromFormalizedDate_FromDate(toLocalDate("2003-02-25"));
+        pmb.setToFormalizedDate_ToDate(toLocalDate(lastDate));
 
         // ## Act ##
         List<OptionMember> memberList = memberBhv.outsideSql().selectList(pmb);
@@ -439,7 +429,7 @@ public class BehaviorMiddleTest extends UnitContainerTestCase {
         boolean existsLastDate = false;
         for (OptionMember member : memberList) {
             String memberName = member.getMemberName();
-            Timestamp formalizedDatetime = member.getFormalizedDatetime();
+            LocalDateTime formalizedDatetime = member.getFormalizedDatetime();
             log(memberName + ", " + formalizedDatetime);
             if (DfTypeUtil.toString(formalizedDatetime, "yyyy-MM-dd").equals(lastDate)) {
                 existsLastDate = true;

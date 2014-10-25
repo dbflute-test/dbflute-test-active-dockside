@@ -62,7 +62,7 @@ public class BsPaymentCompletePurchaseCursor {
     protected ValueType _vtMemberName = vt(String.class);
     protected ValueType _vtProductId = vt(Integer.class);
     protected ValueType _vtProductName = vt(String.class);
-    protected ValueType _vtPurchaseDatetime = vt(java.sql.Timestamp.class);
+    protected ValueType _vtPurchaseDatetime = vt(java.time.LocalDateTime.class);
 
     protected ValueType vt(Class<?> type) {
         return TnValueTypes.getValueType(type);
@@ -174,8 +174,8 @@ public class BsPaymentCompletePurchaseCursor {
      * @return The value of purchaseDatetime. (NullAllowed)
      * @throws java.sql.SQLException
      */
-    public java.sql.Timestamp getPurchaseDatetime() throws SQLException {
-        return (java.sql.Timestamp)_vtPurchaseDatetime.getValue(_rs, DB_NAME_PURCHASE_DATETIME);
+    public java.time.LocalDateTime getPurchaseDatetime() throws SQLException {
+        return (java.time.LocalDateTime)_vtPurchaseDatetime.getValue(_rs, DB_NAME_PURCHASE_DATETIME);
     }
 
 }

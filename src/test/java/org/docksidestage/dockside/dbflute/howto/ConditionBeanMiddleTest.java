@@ -1,9 +1,7 @@
 package org.docksidestage.dockside.dbflute.howto;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -744,7 +742,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             Long purchaseId = purchase.getPurchaseId();
             Integer memberId = purchase.getMemberId();
             Integer productId = purchase.getProductId();
-            Timestamp purchaseDatetime = purchase.getPurchaseDatetime();
+            LocalDateTime purchaseDatetime = purchase.getPurchaseDatetime();
             log("[PURCHASE] " + purchaseId + ", " + memberId + ", " + productId + ", " + purchaseDatetime);
             purchaseIdList.add(purchaseId);
             memberIdSet.add(memberId);
@@ -910,43 +908,17 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
     // -----------------------------------------------------
     //                                            DateFromTo
     //                                            ----------
-    /**
-     * Query-DateFromTo(日付の範囲検索): query().setXxx_DateFromTo().
-     * '2007/11/26'から'2007/12/01'の期間正式会員になった会員を検索。
-     * '2007/12/01'の日に正式会員になった人もちゃんと対象になること。
-     * <p>
-     * 例えば、日付で範囲検索する画面から条件を入力する場合、終了日に'2007/12/01'と
-     * 入れられたら、'2007/12/01 14:23:43'のデータも対象になって欲しいことが多い。
-     * しかし、入力された日付でそのままSQLの条件に組み込むと、「less equal '2007/12/01 00:00:00'」
-     * となって、'2007/12/01'から一秒でも過ぎたデータが対象にならなくなってしまう。
-     * そのため、入力された終了日を加工して、'2007/12/01 23:59:59'とするか、
-     * 一日進めて「less than '2007/12/02 00:00:00'」とするかで対応することが多いが、
-     * これを都度都度各ディベロッパーが実装すると、実装方法がバラバラになってしまうだけでなく、
-     * 細かい日付操作や演算子の調整というところでバグの温床となってしまう。
-     * (テストで見つけにくいバグでもあり、とてもやっかいである)
-     * このDateFromToを使えば、その細かい日付操作や演算子の調整を安全に実装することができる。
-     * </p>
-     * <p>
-     * DB側では時刻も含めた上で正確な日時として管理しておいて、画面からの検索は時刻無し日付で
-     * 範囲検索をするというような状況でとても有効である。特にイベント系の日時ではそういうことが多い。
-     * 運用時のいざって時のために時刻を保持しておきたいが、画面からの範囲検索は日付で絞れれば良いという場合である。
-     * </p>
-     */
-    public void test_query_DateFromTo() {
+    public void test_query_FromTo_compareAsDate() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            Calendar cal = Calendar.getInstance();
-            cal.set(2007, 10, 26);// 2007/11/26
-                Date fromDate = new Date(cal.getTimeInMillis());
-                cal.set(2007, 11, 1);// 2007/12/01
-                Date toDate = new Date(cal.getTimeInMillis());
-                cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, op -> op.compareAsDate());// *Point!
-                pushCB(cb);
-            });
+            LocalDateTime fromDate = toLocalDateTime("2007/11/26");
+            LocalDateTime toDate = toLocalDateTime("2007/12/01");
+            cb.query().setFormalizedDatetime_FromTo(fromDate, toDate, op -> op.compareAsDate());
+        });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             log(member.getMemberName() + ", " + member.getFormalizedDatetime());
         }
@@ -999,15 +971,12 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
     public void test_unionAll() {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            Calendar cal = Calendar.getInstance();
-            cal.set(1967, 0, 1);
-            cb.query().setBirthdate_LessThan(new Date(cal.getTimeInMillis()));
+            cb.query().setBirthdate_LessThan(toLocalDate("1967/01/01"));
             cb.unionAll(unionCB -> {
                 unionCB.query().setBirthdate_IsNull();
             });
             cb.query().addOrderBy_Birthdate_Desc();
             cb.query().addOrderBy_MemberName_Asc();
-            pushCB(cb);
         });
 
         // ## Assert ##
@@ -1151,7 +1120,7 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
         cb.setupSelect_MemberStatus();
         cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
-                subCB.query().setPurchaseDatetime_LessThan(currentTimestamp());
+                subCB.query().setPurchaseDatetime_LessThan(currentLocalDateTime());
                 subCB.query().setPurchaseCount_GreaterEqual(2);
             }
         });

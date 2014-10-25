@@ -1,7 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.derivedreferrer;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.dbflute.cbean.coption.FromToOption;
 import org.dbflute.cbean.result.ListResultBean;
@@ -35,7 +34,7 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().specifySummaryProduct().columnLatestPurchaseDatetime();
                 }
-            }).lessThan(currentTimestamp());
+            }).lessThan(currentLocalDateTime());
             // Expect no exception
                 pushCB(cb);
             });
@@ -59,7 +58,7 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
                         }
                     });
                 }
-            }).lessEqual(currentTimestamp());
+            }).lessEqual(currentLocalDateTime());
             cb.union(new UnionQuery<MemberCB>() {
                 public void query(MemberCB unionCB) {
                 }
@@ -133,8 +132,8 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
 
     public void test_query_derivedReferrer_between_Date() {
         // ## Arrange ##
-        Date fromDate = toDate("2007/11/01");
-        Date toDate = toDate("2007/11/02");
+        LocalDateTime fromDate = toLocalDateTime("2007/11/01");
+        LocalDateTime toDate = toLocalDateTime("2007/11/02");
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
@@ -146,17 +145,17 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchaseDatetime();
                     }
-                }).fromTo(fromDate, toDate, new FromToOption());
+                }).fromTo(toDate(fromDate), toDate(toDate), new FromToOption()); // TODO jflute impl: (Query)DerivedReferrer LocalDate
                 pushCB(cb);
             }); // expects no exception
 
         // ## Assert ##
         assertHasAnyElement(memberList);
         for (Member member : memberList) {
-            Timestamp latestDate = member.getLatestLoginDatetime();
+            LocalDateTime latestDate = member.getLatestLoginDatetime();
             log(member.getMemberName() + ", " + toString(member.getLatestLoginDatetime()));
-            assertTrue(fromDate.equals(latestDate) || fromDate.before(latestDate));
-            assertTrue(toDate.equals(latestDate) || toDate.after(latestDate));
+            assertTrue(fromDate.equals(latestDate) || fromDate.isBefore(latestDate));
+            assertTrue(toDate.equals(latestDate) || toDate.isAfter(latestDate));
         }
     }
 
@@ -174,7 +173,7 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
                         }
                     });
                 }
-            }).lessEqual(toDate("2014/07/12"));
+            }).lessEqual(toLocalDate("2014/07/12"));
             cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().derivedPurchasePayment().max(new SubQuery<PurchasePaymentCB>() {

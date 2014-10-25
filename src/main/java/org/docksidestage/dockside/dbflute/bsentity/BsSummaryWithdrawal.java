@@ -60,7 +60,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * String withdrawalReasonCode = entity.getWithdrawalReasonCode();
  * String withdrawalReasonText = entity.getWithdrawalReasonText();
  * String withdrawalReasonInputText = entity.getWithdrawalReasonInputText();
- * java.sql.Timestamp withdrawalDatetime = entity.getWithdrawalDatetime();
+ * java.time.LocalDateTime withdrawalDatetime = entity.getWithdrawalDatetime();
  * String memberStatusCode = entity.getMemberStatusCode();
  * String memberStatusName = entity.getMemberStatusName();
  * Integer maxPurchasePrice = entity.getMaxPurchasePrice();
@@ -104,7 +104,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
     protected String _withdrawalReasonInputText;
 
     /** WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _withdrawalDatetime;
+    protected java.time.LocalDateTime _withdrawalDatetime;
 
     /** MEMBER_STATUS_CODE: {CHAR(3)} */
     protected String _memberStatusCode;
@@ -323,7 +323,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * [get] WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'WITHDRAWAL_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
-    public java.sql.Timestamp getWithdrawalDatetime() {
+    public java.time.LocalDateTime getWithdrawalDatetime() {
         checkSpecifiedProperty("withdrawalDatetime");
         return _withdrawalDatetime;
     }
@@ -332,7 +332,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity {
      * [set] WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} <br />
      * @param withdrawalDatetime The value of the column 'WITHDRAWAL_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setWithdrawalDatetime(java.sql.Timestamp withdrawalDatetime) {
+    public void setWithdrawalDatetime(java.time.LocalDateTime withdrawalDatetime) {
         registerModifiedProperty("withdrawalDatetime");
         _withdrawalDatetime = withdrawalDatetime;
     }

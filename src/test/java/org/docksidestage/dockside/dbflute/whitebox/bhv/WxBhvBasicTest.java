@@ -1,7 +1,7 @@
 package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -132,7 +132,7 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
                 while (cursor.next()) {
                     Integer memberId = cursor.getMemberId();
                     String memberName = cursor.getMemberName();
-                    Timestamp formalizedDatetime = cursor.getFormalizedDatetime();
+                    LocalDateTime formalizedDatetime = cursor.getFormalizedDatetime();
                     assertNotNull(memberId);
                     assertNotNull(memberName);
                     assertNotNull(formalizedDatetime); // because status is 'formalized'
@@ -176,23 +176,22 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_scalarSelect_max_union() {
         // ## Arrange ##
-        Timestamp expected1 = memberBhv.selectEntityWithDeletedCheck(cb -> {
+        LocalDateTime expected1 = memberBhv.selectEntityWithDeletedCheck(cb -> {
             cb.specify().columnRegisterDatetime();
             cb.query().setMemberStatusCode_Equal_Formalized();
             cb.query().addOrderBy_RegisterDatetime_Desc();
             cb.fetchFirst(1);
         }).getRegisterDatetime();
-
-        Timestamp expected2 = memberBhv.selectEntityWithDeletedCheck(cb -> {
+        LocalDateTime expected2 = memberBhv.selectEntityWithDeletedCheck(cb -> {
             cb.specify().columnRegisterDatetime();
             cb.query().setMemberStatusCode_Equal_Withdrawal();
             cb.query().addOrderBy_RegisterDatetime_Desc();
             cb.fetchFirst(1);
         }).getRegisterDatetime();
-        Timestamp expected = expected1.compareTo(expected2) > 0 ? expected1 : expected2;
+        LocalDateTime expected = expected1.compareTo(expected2) > 0 ? expected1 : expected2;
 
         // ## Act ##
-        memberBhv.scalarSelect(Timestamp.class).max(new ScalarQuery<MemberCB>() {
+        memberBhv.scalarSelect(LocalDateTime.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().columnRegisterDatetime(); // *Point!
                 cb.query().setMemberStatusCode_Equal_Formalized();
@@ -203,9 +202,9 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
                 });
             }
         }).alwaysPresent(registerDatetime -> {
-            // ## Assert ##
-                assertEquals(expected, registerDatetime);
-            });
+            /* ## Assert ## */
+            assertEquals(expected, registerDatetime);
+        });
     }
 
     // ===================================================================================

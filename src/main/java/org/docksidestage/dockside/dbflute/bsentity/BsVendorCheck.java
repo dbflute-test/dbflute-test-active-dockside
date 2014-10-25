@@ -72,9 +72,9 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * java.math.BigDecimal typeOfNumericMaxdecimal = entity.getTypeOfNumericMaxdecimal();
  * Integer typeOfInteger = entity.getTypeOfInteger();
  * Long typeOfBigint = entity.getTypeOfBigint();
- * java.util.Date typeOfDate = entity.getTypeOfDate();
- * java.sql.Timestamp typeOfTimestamp = entity.getTypeOfTimestamp();
- * java.sql.Time typeOfTime = entity.getTypeOfTime();
+ * java.time.LocalDate typeOfDate = entity.getTypeOfDate();
+ * java.time.LocalDateTime typeOfTimestamp = entity.getTypeOfTimestamp();
+ * java.time.LocalTime typeOfTime = entity.getTypeOfTime();
  * Boolean typeOfBoolean = entity.getTypeOfBoolean();
  * byte[] typeOfBinary = entity.getTypeOfBinary();
  * byte[] typeOfBlob = entity.getTypeOfBlob();
@@ -178,13 +178,13 @@ public abstract class BsVendorCheck extends AbstractEntity {
     protected Long _typeOfBigint;
 
     /** TYPE_OF_DATE: {DATE(8)} */
-    protected java.util.Date _typeOfDate;
+    protected java.time.LocalDate _typeOfDate;
 
     /** TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} */
-    protected java.sql.Timestamp _typeOfTimestamp;
+    protected java.time.LocalDateTime _typeOfTimestamp;
 
     /** TYPE_OF_TIME: {TIME(6)} */
-    protected java.sql.Time _typeOfTime;
+    protected java.time.LocalTime _typeOfTime;
 
     /** TYPE_OF_BOOLEAN: {BOOLEAN(1)} */
     protected Boolean _typeOfBoolean;
@@ -297,7 +297,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
         sb.append(dm).append(xfND(_typeOfNumericMaxdecimal));
         sb.append(dm).append(xfND(_typeOfInteger));
         sb.append(dm).append(xfND(_typeOfBigint));
-        sb.append(dm).append(xfUD(_typeOfDate));
+        sb.append(dm).append(xfND(_typeOfDate));
         sb.append(dm).append(xfND(_typeOfTimestamp));
         sb.append(dm).append(xfND(_typeOfTime));
         sb.append(dm).append(xfND(_typeOfBoolean));
@@ -638,7 +638,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * [get] TYPE_OF_DATE: {DATE(8)} <br />
      * @return The value of the column 'TYPE_OF_DATE'. (NullAllowed even if selected: for no constraint)
      */
-    public java.util.Date getTypeOfDate() {
+    public java.time.LocalDate getTypeOfDate() {
         checkSpecifiedProperty("typeOfDate");
         return _typeOfDate;
     }
@@ -647,7 +647,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * [set] TYPE_OF_DATE: {DATE(8)} <br />
      * @param typeOfDate The value of the column 'TYPE_OF_DATE'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setTypeOfDate(java.util.Date typeOfDate) {
+    public void setTypeOfDate(java.time.LocalDate typeOfDate) {
         registerModifiedProperty("typeOfDate");
         _typeOfDate = typeOfDate;
     }
@@ -656,7 +656,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * [get] TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} <br />
      * @return The value of the column 'TYPE_OF_TIMESTAMP'. (NullAllowed even if selected: for no constraint)
      */
-    public java.sql.Timestamp getTypeOfTimestamp() {
+    public java.time.LocalDateTime getTypeOfTimestamp() {
         checkSpecifiedProperty("typeOfTimestamp");
         return _typeOfTimestamp;
     }
@@ -665,7 +665,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * [set] TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)} <br />
      * @param typeOfTimestamp The value of the column 'TYPE_OF_TIMESTAMP'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setTypeOfTimestamp(java.sql.Timestamp typeOfTimestamp) {
+    public void setTypeOfTimestamp(java.time.LocalDateTime typeOfTimestamp) {
         registerModifiedProperty("typeOfTimestamp");
         _typeOfTimestamp = typeOfTimestamp;
     }
@@ -674,7 +674,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * [get] TYPE_OF_TIME: {TIME(6)} <br />
      * @return The value of the column 'TYPE_OF_TIME'. (NullAllowed even if selected: for no constraint)
      */
-    public java.sql.Time getTypeOfTime() {
+    public java.time.LocalTime getTypeOfTime() {
         checkSpecifiedProperty("typeOfTime");
         return _typeOfTime;
     }
@@ -683,7 +683,7 @@ public abstract class BsVendorCheck extends AbstractEntity {
      * [set] TYPE_OF_TIME: {TIME(6)} <br />
      * @param typeOfTime The value of the column 'TYPE_OF_TIME'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setTypeOfTime(java.sql.Time typeOfTime) {
+    public void setTypeOfTime(java.time.LocalTime typeOfTime) {
         registerModifiedProperty("typeOfTime");
         _typeOfTime = typeOfTime;
     }

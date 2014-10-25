@@ -44,10 +44,10 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     protected java.math.BigDecimal _bigDecimal;
 
     /** The parameter of date. */
-    protected Date _date;
+    protected java.time.LocalDate _date;
 
     /** The parameter of timestamp. */
-    protected java.sql.Timestamp _timestamp;
+    protected java.time.LocalDateTime _timestamp;
 
     /** The parameter of exists. */
     protected boolean _exists;
@@ -119,6 +119,16 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     //                                                  Date
     //                                                  ----
     protected Date toUtilDate(Object date) { return PmbCustodial.toUtilDate(date, _timeZone); }
+    protected <DATE> DATE toLocalDate(Date date, Class<DATE> localType) { return PmbCustodial.toLocalDate(date, localType, chooseRealTimeZone()); }
+    protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
+
+    /**
+     * Set time-zone, basically for LocalDate conversion. <br />
+     * Normally you don't need to set this, you can adjust other ways. <br />
+     * (DBFlute system's time-zone is used as default)
+     * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
+     */
+    public void zone(TimeZone timeZone) { _timeZone = timeZone; }
 
     // -----------------------------------------------------
     //                                    by Option Handling
@@ -148,7 +158,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
         sb.append(dm).append(_string);
         sb.append(dm).append(_integer);
         sb.append(dm).append(_bigDecimal);
-        sb.append(dm).append(PmbCustodial.formatUtilDate(_date, "yyyy-MM-dd", _timeZone));
+        sb.append(dm).append(_date);
         sb.append(dm).append(_timestamp);
         sb.append(dm).append(_exists);
         sb.append(dm).append(_notExists);
@@ -215,15 +225,15 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
      * [get] date <br />
      * @return The value of date. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public Date getDate() {
-        return toUtilDate(_date);
+    public java.time.LocalDate getDate() {
+        return _date;
     }
 
     /**
      * [set] date <br />
      * @param date The value of date. (NullAllowed)
      */
-    public void setDate(Date date) {
+    public void setDate(java.time.LocalDate date) {
         _date = date;
     }
 
@@ -231,7 +241,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
      * [get] timestamp <br />
      * @return The value of timestamp. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
-    public java.sql.Timestamp getTimestamp() {
+    public java.time.LocalDateTime getTimestamp() {
         return _timestamp;
     }
 
@@ -239,7 +249,7 @@ public class BsPmCommentPossiblePmb implements ExecuteHandlingPmb<MemberBhv>, Fe
      * [set] timestamp <br />
      * @param timestamp The value of timestamp. (NullAllowed)
      */
-    public void setTimestamp(java.sql.Timestamp timestamp) {
+    public void setTimestamp(java.time.LocalDateTime timestamp) {
         _timestamp = timestamp;
     }
 

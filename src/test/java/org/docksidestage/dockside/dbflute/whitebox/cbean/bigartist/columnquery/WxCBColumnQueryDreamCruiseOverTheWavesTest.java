@@ -243,7 +243,7 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
             first = addressList.get(0);
             MemberAddress second = addressList.get(1);
             assertEquals(first.getMemberId(), second.getMemberId());
-            second.setValidBeginDate(new HandyDate(first.getValidEndDate()).addDay(-1).getDate());
+            second.setValidBeginDate(new HandyDate(first.getValidEndDate()).addDay(-1).getLocalDate());
             String fmt = "yyyy/MM/dd";
             log("member=" + first.getMemberId());
             String firstBegin = toString(first.getValidBeginDate(), fmt);

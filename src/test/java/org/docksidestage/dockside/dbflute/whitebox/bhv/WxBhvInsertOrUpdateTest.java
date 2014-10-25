@@ -1,6 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import org.dbflute.exception.EntityAlreadyUpdatedException;
 import org.dbflute.helper.HandyDate;
@@ -139,7 +139,7 @@ public class WxBhvInsertOrUpdateTest extends UnitContainerTestCase {
         purchase.setPurchaseId(99999L); // dummy
         Integer memberId = before.getMemberId();
         Integer productId = before.getProductId();
-        Timestamp purchaseDatetime = new HandyDate(currentTimestamp()).moveToSecondJust().getTimestamp();
+        LocalDateTime purchaseDatetime = new HandyDate(currentLocalDateTime()).moveToSecondJust().getLocalDateTime();
         purchase.uniqueBy(memberId, productId, purchaseDatetime);
         purchase.setPurchaseCount(123456789);
         purchase.setPurchasePrice(2000);
@@ -163,7 +163,7 @@ public class WxBhvInsertOrUpdateTest extends UnitContainerTestCase {
         purchase.setPurchaseId(99999L); // dummy
         Integer memberId = before.getMemberId();
         Integer productId = before.getProductId();
-        Timestamp purchaseDatetime = before.getPurchaseDatetime();
+        LocalDateTime purchaseDatetime = before.getPurchaseDatetime();
         purchase.uniqueBy(memberId, productId, purchaseDatetime);
         purchase.setPurchaseCount(123456789);
         purchase.setVersionNo(before.getVersionNo());
@@ -186,7 +186,7 @@ public class WxBhvInsertOrUpdateTest extends UnitContainerTestCase {
         purchase.setPurchaseId(99999L); // dummy
         Integer memberId = before.getMemberId();
         Integer productId = before.getProductId();
-        Timestamp purchaseDatetime = before.getPurchaseDatetime();
+        LocalDateTime purchaseDatetime = before.getPurchaseDatetime();
         purchase.uniqueBy(memberId, productId, purchaseDatetime);
         purchase.setPurchaseCount(123456789);
         purchase.setPurchasePrice(2000);
@@ -212,7 +212,7 @@ public class WxBhvInsertOrUpdateTest extends UnitContainerTestCase {
         purchase.setPurchaseId(99999L); // dummy
         Integer memberId = before.getMemberId();
         Integer productId = before.getProductId();
-        Timestamp purchaseDatetime = new HandyDate(currentTimestamp()).moveToSecondJust().getTimestamp();
+        LocalDateTime purchaseDatetime = new HandyDate(currentLocalDateTime()).moveToSecondJust().getLocalDateTime();
         purchase.uniqueBy(memberId, productId, purchaseDatetime);
         purchase.setPurchaseCount(123456789);
         purchase.setPurchasePrice(2000);
@@ -235,7 +235,7 @@ public class WxBhvInsertOrUpdateTest extends UnitContainerTestCase {
         purchase.setPurchaseId(99999L); // dummy
         Integer memberId = before.getMemberId();
         Integer productId = before.getProductId();
-        Timestamp purchaseDatetime = before.getPurchaseDatetime();
+        LocalDateTime purchaseDatetime = before.getPurchaseDatetime();
         purchase.uniqueBy(memberId, productId, purchaseDatetime);
         purchase.setPurchaseCount(123456789);
 

@@ -1,6 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -72,7 +72,7 @@ public class WxBhvSelectByPrimaryKeyTest extends UnitContainerTestCase {
         Purchase purchase = purchaseBhv.selectByPK(1L).get();
         Integer memberId = purchase.getMemberId();
         Integer productId = purchase.getProductId();
-        Timestamp purchaseDatetime = purchase.getPurchaseDatetime();
+        LocalDateTime purchaseDatetime = purchase.getPurchaseDatetime();
 
         // ## Act ##
         OptionalEntity<Purchase> optPurchase = purchaseBhv.selectByUniqueOf(memberId, productId, purchaseDatetime);
@@ -88,7 +88,7 @@ public class WxBhvSelectByPrimaryKeyTest extends UnitContainerTestCase {
         // ## Arrange ##
         try {
             // ## Act ##
-            purchaseBhv.selectByUniqueOf(null, 3, currentTimestamp());
+            purchaseBhv.selectByUniqueOf(null, 3, currentLocalDateTime());
 
             // ## Assert ##
             fail();

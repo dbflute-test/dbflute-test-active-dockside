@@ -1,7 +1,7 @@
 package org.docksidestage.dockside.dbflute.whitebox.outsidesql;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -225,7 +225,7 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
                 while (cursor.next()) {
                     String memberName = cursor.getMemberName();
                     String productName = cursor.getProductName();
-                    Timestamp purchaseDatetime = cursor.getPurchaseDatetime();
+                    LocalDateTime purchaseDatetime = cursor.getPurchaseDatetime();
                     log(memberName, productName, purchaseDatetime);
                 }
                 markSet.add("called");

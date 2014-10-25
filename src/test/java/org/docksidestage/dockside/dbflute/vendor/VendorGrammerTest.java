@@ -1,6 +1,6 @@
 package org.docksidestage.dockside.dbflute.vendor;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -199,7 +199,7 @@ public class VendorGrammerTest extends UnitContainerTestCase {
                 formalizedMemberMap.put(member.getMemberId(), member);
             }
         }
-        final Timestamp coalesce = DfTypeUtil.toTimestamp("1234-10-24 12:34:56.147");
+        final LocalDateTime coalesce = toLocalDateTime("1234-10-24 12:34:56.147");
 
         // ## Act ##
         memberWithdrawalBhv.queryInsert(new QueryInsertSetupper<MemberWithdrawal, MemberWithdrawalCB>() {

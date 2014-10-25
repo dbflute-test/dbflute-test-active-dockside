@@ -1,9 +1,8 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -111,23 +110,25 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     //                                                                     ===============
     public void test_ScalarCondition_max_union() {
         // ## Arrange ##
-        Date expected = memberBhv.scalarSelect(Date.class).max(cb -> cb.specify().columnBirthdate()).get();
+        LocalDate expected = memberBhv.scalarSelect(LocalDate.class).max(cb -> {
+            cb.specify().columnBirthdate();
+        }).get();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().scalar_Equal().max(mbCB -> {
-                mbCB.specify().columnBirthdate();
-                mbCB.query().setMemberStatusCode_Equal_Formalized();
-                mbCB.union(unionCB -> unionCB.query().setMemberStatusCode_Equal_Provisional());
-                mbCB.union(unionCB -> unionCB.query().setMemberStatusCode_Equal_Withdrawal());
+            cb.query().scalar_Equal().max(scalarCB -> {
+                scalarCB.specify().columnBirthdate();
+                scalarCB.query().setMemberStatusCode_Equal_Formalized();
+                scalarCB.union(unionCB -> unionCB.query().setMemberStatusCode_Equal_Provisional());
+                scalarCB.union(unionCB -> unionCB.query().setMemberStatusCode_Equal_Withdrawal());
             });
         });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
         for (Member member : memberList) {
-            Date Birthdate = member.getBirthdate();
-            log(member.getMemberName() + ", " + Birthdate);
-            assertEquals(expected, Birthdate);
+            LocalDate birthdate = member.getBirthdate();
+            log(member.getMemberName() + ", " + birthdate);
+            assertEquals(expected, birthdate);
         }
     }
 
@@ -268,45 +269,45 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     public void test_Date_convertToPureDate_query() { // *Important!
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        Timestamp timestamp = currentTimestamp();
-        cb.query().setBirthdate_FromTo(timestamp, timestamp, op -> op.compareAsDate());
+        LocalDate currentDate = currentLocalDate();
+        cb.query().setBirthdate_FromTo(currentDate, currentDate, op -> op.compareAsDate());
 
         // ## Assert ##
+        Class<LocalDate> expectedType = LocalDate.class;
         {
             Map<String, Object> fixed = cb.query().xdfgetBirthdate().getFixedQuery();
-            assertEquals(java.util.Date.class, fixed.get("greaterEqual").getClass());
-            assertEquals(java.util.Date.class, fixed.get("lessThan").getClass());
+            assertEquals(expectedType, fixed.get("greaterEqual").getClass());
+            assertEquals(expectedType, fixed.get("lessThan").getClass());
             assertNull(fixed.get("greaterThan"));
             assertNull(fixed.get("lessEqual"));
         }
-        cb.query().setBirthdate_Equal(timestamp);
+        cb.query().setBirthdate_Equal(currentDate);
         cb.enableOverridingQuery(() -> {
-            cb.query().setBirthdate_GreaterEqual(timestamp);
-            cb.query().setBirthdate_GreaterThan(timestamp);
-            cb.query().setBirthdate_LessEqual(timestamp);
-            cb.query().setBirthdate_LessThan(timestamp);
+            cb.query().setBirthdate_GreaterEqual(currentDate);
+            cb.query().setBirthdate_GreaterThan(currentDate);
+            cb.query().setBirthdate_LessEqual(currentDate);
+            cb.query().setBirthdate_LessThan(currentDate);
         });
 
         // ## Assert ##
         {
             Map<String, Object> fixed = cb.query().xdfgetBirthdate().getFixedQuery();
-            assertEquals(java.util.Date.class, fixed.get("equal").getClass());
-            assertEquals(java.util.Date.class, fixed.get("greaterEqual").getClass());
-            assertEquals(java.util.Date.class, fixed.get("greaterThan").getClass());
-            assertEquals(java.util.Date.class, fixed.get("lessEqual").getClass());
-            assertEquals(java.util.Date.class, fixed.get("lessThan").getClass());
+            assertEquals(expectedType, fixed.get("equal").getClass());
+            assertEquals(expectedType, fixed.get("greaterEqual").getClass());
+            assertEquals(expectedType, fixed.get("greaterThan").getClass());
+            assertEquals(expectedType, fixed.get("lessEqual").getClass());
+            assertEquals(expectedType, fixed.get("lessThan").getClass());
         }
     }
 
     public void test_Date_convertToPureDate_fixedCondition() { // *Important!
         // ## Arrange ##
         MemberCB cb = new MemberCB();
-        Timestamp timestamp = currentTimestamp();
-        cb.query().queryMemberAddressAsValid(timestamp);
+        cb.query().queryMemberAddressAsValid(currentLocalDate());
 
         // ## Assert ##
         Object object = cb.query().xdfgetParameterMapMemberAddressAsValid().get("targetDate");
-        assertEquals(java.util.Date.class, object.getClass());
+        assertEquals(LocalDate.class, object.getClass());
     }
 
     // ===================================================================================
@@ -363,7 +364,7 @@ public class WxCBBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         MySerializableCB cb = new MySerializableCB();
         cb.setupSelect_MemberStatus();
-        cb.query().setBirthdate_FromTo(currentDate(), currentDate(), op -> op.compareAsDate());
+        cb.query().setBirthdate_FromTo(currentLocalDate(), currentLocalDate(), op -> op.compareAsDate());
         byte[] binary = DfTypeUtil.toBinary(cb);
         Serializable serializable = DfTypeUtil.toSerializable(binary);
 

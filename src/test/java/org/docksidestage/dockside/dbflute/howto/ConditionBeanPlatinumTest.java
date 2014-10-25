@@ -1,10 +1,9 @@
 package org.docksidestage.dockside.dbflute.howto;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -244,7 +243,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // ## Assert ##
         boolean nulls = true;
         for (Member member : memberList) {
-            final Date birthdate = member.getBirthdate();
+            final LocalDate birthdate = member.getBirthdate();
             log(member.getMemberId() + ", " + member.getMemberName() + ", " + birthdate);
             if (nulls) {
                 if (birthdate != null) {
@@ -274,7 +273,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // ## Assert ##
         boolean nulls = false;
         for (Member member : memberList) {
-            final Date birthdate = member.getBirthdate();
+            final LocalDate birthdate = member.getBirthdate();
             log(member.getMemberId() + ", " + member.getMemberName() + ", " + birthdate);
             if (nulls) {
                 assertNull(birthdate);
@@ -311,17 +310,17 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         boolean nulls = false;
         boolean border = false;
         for (Member member : memberList) {
-            final Date birthday = member.getBirthdate();
-            log(member.getMemberId() + ", " + member.getMemberName() + ", " + birthday);
+            final LocalDate birthdate = member.getBirthdate();
+            log(member.getMemberId() + ", " + member.getMemberName() + ", " + birthdate);
             if (nulls) {
-                assertNull(birthday);
+                assertNull(birthdate);
             } else {
-                if (birthday == null && !border) {
+                if (birthdate == null && !border) {
                     nulls = true;
                     border = true;
                     continue;
                 }
-                assertNotNull(birthday);
+                assertNotNull(birthdate);
             }
         }
         assertTrue(border);
@@ -678,7 +677,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         boolean existsNullLoginDatetime = false;
         for (Member member : memberList) {
             String memberName = member.getMemberName();
-            Date latestLoginDatetime = member.getLatestLoginDatetime();
+            LocalDateTime latestLoginDatetime = member.getLatestLoginDatetime();
             if (latestLoginDatetime != null) {
                 existsLoginDatetime = true;
             } else {
@@ -915,14 +914,9 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    /**
-     * 最大値レコードの検索(ScalarCondition)-Max: scalar_Equal(), max().
-     * 正式会員の中で一番若い(誕生日が最大値である)会員を検索。
-     * @since 0.8.8
-     */
     public void test_scalarCondition_Equal_max() {
         // ## Arrange ##
-        Date expected = selectExpectedMaxBirthdayOnFormalized();
+        LocalDate expected = selectExpectedMaxBirthdayOnFormalized();
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -939,8 +933,8 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
-            Date Birthdate = member.getBirthdate();
-            assertEquals(expected, Birthdate);
+            LocalDate birthdate = member.getBirthdate();
+            assertEquals(expected, birthdate);
         }
 
         // [SQL]
@@ -969,19 +963,16 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         //    cb.query().scalar_GreaterThan().avg(new SubQuery<Xxx>) {...
     }
 
-    protected Date selectExpectedMaxBirthdayOnFormalized() {
-        Date expected = null;
-        {
-            ListResultBean<Member> listAll = memberBhv.selectList(cb -> {
-                cb.query().setMemberStatusCode_Equal_Formalized();
-                pushCB(cb);
-            });
-
-            for (Member member : listAll) {
-                Date day = member.getBirthdate();
-                if (day != null && (expected == null || expected.getTime() < day.getTime())) {
-                    expected = day;
-                }
+    protected LocalDate selectExpectedMaxBirthdayOnFormalized() {
+        ListResultBean<Member> listAll = memberBhv.selectList(cb -> {
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            pushCB(cb);
+        });
+        LocalDate expected = null;
+        for (Member member : listAll) {
+            LocalDate birthdate = member.getBirthdate();
+            if (birthdate != null && (expected == null || expected.isBefore(birthdate))) {
+                expected = birthdate;
             }
         }
         return expected;
@@ -992,12 +983,10 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
     //                                                                     ===============
     public void test_fixedCondition_setupSelect() {
         // ## Arrange ##
-        Calendar cal = Calendar.getInstance();
-        cal.set(2005, 11, 12); // 2005/12/12
-        Date targetDate = cal.getTime();
+        LocalDate targetDate = toLocalDate("2015/12/12");
 
+        // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            /* ## Act ## */
             cb.setupSelect_MemberAddressAsValid(targetDate);
             cb.query().addOrderBy_MemberId_Asc();
             pushCB(cb);
@@ -1005,18 +994,16 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertHasAnyElement(memberList);
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
-        String formattedTargetDate = fmt.format(targetDate);
-        log("[" + formattedTargetDate + "]");
+        log("[" + targetDate + "]");
         for (Member member : memberList) {
             String memberName = member.getMemberName();
             member.getMemberAddressAsValid().ifPresent(address -> {
                 assertNotNull(address.getValidBeginDate());
                 assertNotNull(address.getValidEndDate());
-                String validBeginDate = fmt.format(address.getValidBeginDate());
-                String validEndDate = fmt.format(address.getValidEndDate());
-                assertTrue(validBeginDate.compareTo(formattedTargetDate) <= 0);
-                assertTrue(validEndDate.compareTo(formattedTargetDate) >= 0);
+                LocalDate validBeginDate = address.getValidBeginDate();
+                LocalDate validEndDate = address.getValidEndDate();
+                assertTrue(validBeginDate.compareTo(targetDate) <= 0);
+                assertTrue(validEndDate.compareTo(targetDate) >= 0);
                 log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address.getAddress());
                 markHere("existsAddress");
             }).orElse(() -> {
@@ -1038,9 +1025,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
 
     public void test_fixedCondition_query() {
         // ## Arrange ##
-        Calendar cal = Calendar.getInstance();
-        cal.set(2005, 11, 12); // 2005/12/12
-        final Date targetDate = cal.getTime();
+        final LocalDate targetDate = toLocalDate("2005/12/12");
         final String targetChar = "i";
 
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
@@ -1060,17 +1045,15 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
                 cb.query().setValidEndDate_GreaterEqual(targetDate);
             }
         });
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
-        String formattedTargetDate = fmt.format(targetDate);
-        log("[" + formattedTargetDate + "]");
+        log("[" + targetDate + "]");
         for (Member member : memberList) {
             assertFalse(member.getMemberAddressAsValid().isPresent());
             List<MemberAddress> memberAddressList = member.getMemberAddressList();
             assertEquals(1, memberAddressList.size());
             MemberAddress firstAddress = memberAddressList.get(0);
             String memberName = member.getMemberName();
-            Date validBeginDate = firstAddress.getValidBeginDate();
-            Date validEndDate = firstAddress.getValidEndDate();
+            LocalDate validBeginDate = firstAddress.getValidBeginDate();
+            LocalDate validEndDate = firstAddress.getValidEndDate();
             String address = firstAddress.getAddress();
             log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address);
             assertTrue(firstAddress.getAddress().contains(targetChar));
@@ -1165,7 +1148,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
         cb.query().setDisplayOrder_Equal(3);
         cb.query().existsMember(new SubQuery<MemberCB>() {
             public void query(MemberCB memberCB) {
-                memberCB.query().setBirthdate_LessEqual(new Date());
+                memberCB.query().setBirthdate_LessEqual(currentLocalDate());
                 memberCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB purchaseCB) {
                         purchaseCB.query().setPurchaseCount_GreaterEqual(2);
@@ -1185,7 +1168,7 @@ public class ConditionBeanPlatinumTest extends UnitContainerTestCase {
                 subCB.query().queryMemberStatus().existsMember(new SubQuery<MemberCB>() {
                     public void query(MemberCB subCB) {
                         subCB.useInScopeSubQuery();
-                        subCB.query().setBirthdate_GreaterEqual(new Date());
+                        subCB.query().setBirthdate_GreaterEqual(currentLocalDate());
                     }
                 });
             }

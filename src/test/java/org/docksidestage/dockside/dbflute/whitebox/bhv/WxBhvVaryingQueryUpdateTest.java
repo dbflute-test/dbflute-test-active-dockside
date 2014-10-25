@@ -1,7 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.dbflute.cbean.result.ListResultBean;
@@ -101,11 +100,11 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
         int index = 0;
         for (Purchase actual : actualList) {
             Purchase before = beforeList.get(index);
-            Timestamp beforeDatetime = before.getPurchaseDatetime();
-            Timestamp actualDatetime = actual.getPurchaseDatetime();
+            LocalDateTime beforeDatetime = before.getPurchaseDatetime();
+            LocalDateTime actualDatetime = actual.getPurchaseDatetime();
             log(actual.getPurchaseId() + " : " + beforeDatetime + " -> " + actualDatetime);
-            Date expectedDate = new HandyDate(beforeDatetime).addDay(3).getDate();
-            assertEquals(expectedDate.getTime(), actualDatetime.getTime());
+            LocalDateTime expectedDate = new HandyDate(beforeDatetime).addDay(3).getLocalDateTime();
+            assertEquals(expectedDate, actualDatetime);
             ++index;
         }
     }

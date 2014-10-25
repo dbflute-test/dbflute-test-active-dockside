@@ -1,6 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.derivedreferrer;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.dbflute.cbean.result.ListResultBean;
@@ -55,7 +55,7 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
         int index = 0;
         for (Member member : memberList) {
             Member expectedMember = expectedList.get(index);
-            Date latestLoginDatetime = member.getLatestLoginDatetime();
+            LocalDateTime latestLoginDatetime = member.getLatestLoginDatetime();
             log(member.getMemberName() + ", " + latestLoginDatetime);
             assertEquals(expectedMember.getLatestLoginDatetime(), latestLoginDatetime);
             ++index;
@@ -93,8 +93,7 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
 
         // ## Assert ##
         for (Member member : memberList) {
-            Date latestLoginDatetime = member.getLatestLoginDatetime();
-            log(member.getMemberName() + ", " + latestLoginDatetime);
+            log(member.getMemberName() + ", " + member.getLatestLoginDatetime());
         }
     }
 
@@ -168,7 +167,7 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
         boolean exists = false;
         for (Member member : memberList) {
             String memberName = member.getMemberName();
-            Date latestLoginDatetime = member.getLatestLoginDatetime();
+            LocalDateTime latestLoginDatetime = member.getLatestLoginDatetime();
             log("memberName=" + memberName + ", latestLoginDatetime=" + latestLoginDatetime);
             if (latestLoginDatetime != null) {
                 exists = true;
@@ -207,7 +206,7 @@ public class WxCBDerivedReferrerCollaborationTest extends UnitContainerTestCase 
             cb.specify().derivedMember().sum(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
                     subCB.specify().specifyMemberAddressAsValid().columnRegionId();
-                    subCB.query().queryMemberAddressAsValid(currentDate());
+                    subCB.query().queryMemberAddressAsValid(currentLocalDate());
                 }
             }, MemberStatus.ALIAS_maxPurchasePrice);
         });

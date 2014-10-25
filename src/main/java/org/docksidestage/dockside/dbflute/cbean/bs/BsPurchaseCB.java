@@ -113,7 +113,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
      * @param purchaseDatetime (購入日時): +UQ, IX+, NotNull, TIMESTAMP(23, 10). (NotNull)
      * @return this. (NotNull)
      */
-    public PurchaseCB acceptUniqueOf(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
+    public PurchaseCB acceptUniqueOf(Integer memberId, Integer productId, java.time.LocalDateTime purchaseDatetime) {
         assertObjectNotNull("memberId", memberId);assertObjectNotNull("productId", productId);assertObjectNotNull("purchaseDatetime", purchaseDatetime);
         BsPurchaseCB cb = this;
         cb.query().setMemberId_Equal(memberId);cb.query().setProductId_Equal(productId);cb.query().setPurchaseDatetime_Equal(purchaseDatetime);

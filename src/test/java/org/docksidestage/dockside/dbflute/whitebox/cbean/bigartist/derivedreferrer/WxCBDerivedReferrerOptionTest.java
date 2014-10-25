@@ -1,6 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.derivedreferrer;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SubQuery;
@@ -55,7 +55,7 @@ public class WxCBDerivedReferrerOptionTest extends UnitContainerTestCase {
         assertEquals(countAll, memberList.size());
         boolean exists = false;
         for (Member member : memberList) {
-            Date latestLoginDatetime = member.getLatestLoginDatetime();
+            LocalDateTime latestLoginDatetime = member.getLatestLoginDatetime();
             String loginDateView = DfTypeUtil.toString(latestLoginDatetime, "yyyy-MM-dd");
             log(member.getMemberName() + ":" + loginDateView);
             if ("1192-01-01".equals(loginDateView)) {

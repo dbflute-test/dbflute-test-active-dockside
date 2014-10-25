@@ -16,7 +16,6 @@ import org.dbflute.hook.SqlResultHandler;
 import org.dbflute.hook.SqlResultInfo;
 import org.dbflute.jdbc.StatementConfig;
 import org.dbflute.util.DfReflectionUtil;
-import org.dbflute.util.DfTypeUtil;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -65,9 +64,9 @@ public class WxBhvVaryingInsertTest extends UnitContainerTestCase {
         member.setMemberAccount("foo");
         member.setMemberStatusCode_Formalized();
         member.setRegisterUser("testInsertMan");
-        member.setRegisterDatetime(DfTypeUtil.toTimestamp("2010/12/16 18:15:56"));
+        member.setRegisterDatetime(toLocalDateTime("2010/12/16 18:15:56"));
         member.setUpdateUser("testUpdateMan");
-        member.setUpdateDatetime(DfTypeUtil.toTimestamp("2010/12/16 18:16:12"));
+        member.setUpdateDatetime(toLocalDateTime("2010/12/16 18:16:12"));
         String accessUser = getAccessContext().getAccessUser();
 
         // ## Act ##

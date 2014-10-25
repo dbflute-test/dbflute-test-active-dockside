@@ -1,8 +1,8 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.orderby;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
     //                                                                           =========
     public void test_PriorityOrder_Date_GreaterEqual() {
         // ## Arrange ##
-        Date fromDate = DfTypeUtil.toDate("1970/01/01");
+        LocalDate fromDate = toLocalDate("1970/01/01");
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.query().addOrderBy_Birthdate_Asc().withManualOrder(op -> {
@@ -76,7 +76,7 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
-        List<Date> birthdateList = new ArrayList<Date>();
+        List<LocalDate> birthdateList = new ArrayList<LocalDate>();
         Integer preMemberId = null;
         boolean secondOrder = false;
         boolean existsFirst = false;
@@ -84,11 +84,11 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
         boolean existsNullInSecond = false;
         boolean existsNotNullInSecond = false;
         for (Member member : memberList) {
-            Date birthdate = member.getBirthdate();
+            LocalDate birthdate = member.getBirthdate();
             String birthDisp = DfTypeUtil.toString(birthdate, "yyyy/MM/dd");
             log(member.getMemberId() + ", " + member.getMemberName() + ", " + birthDisp);
             birthdateList.add(birthdate);
-            if (birthdate != null && birthdate.after(fromDate)) {
+            if (birthdate != null && birthdate.isAfter(fromDate)) {
                 existsFirst = true;
                 assertFalse(secondOrder);
                 if (preMemberId != null) {
@@ -119,8 +119,8 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
 
     public void test_PriorityOrder_Date_FromTo() {
         // ## Arrange ##
-        Date fromDate = DfTypeUtil.toDate("1969/01/01");
-        Date toDate = DfTypeUtil.toDate("1970/12/31");
+        LocalDate fromDate = toLocalDate("1969/01/01");
+        LocalDate toDate = toLocalDate("1970/12/31");
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.query().addOrderBy_Birthdate_Asc().withManualOrder(op -> {
@@ -133,7 +133,7 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         assertTrue(popCB().toDisplaySql().contains("< '1971-01-01'"));
-        List<Date> birthdateList = new ArrayList<Date>();
+        List<LocalDate> birthdateList = new ArrayList<LocalDate>();
         Integer preMemberId = null;
         boolean secondOrder = false;
         boolean existsFirst = false;
@@ -141,11 +141,11 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
         boolean existsNullInSecond = false;
         boolean existsNotNullInSecond = false;
         for (Member member : memberList) {
-            Date birthdate = member.getBirthdate();
+            LocalDate birthdate = member.getBirthdate();
             String birthDisp = DfTypeUtil.toString(birthdate, "yyyy/MM/dd");
             log(member.getMemberId() + ", " + member.getMemberName() + ", " + birthDisp);
             birthdateList.add(birthdate);
-            if (birthdate != null && birthdate.after(fromDate) && birthdate.before(toDate)) {
+            if (birthdate != null && birthdate.isAfter(fromDate) && birthdate.isBefore(toDate)) {
                 existsFirst = true;
                 assertFalse(secondOrder);
                 if (preMemberId != null) {

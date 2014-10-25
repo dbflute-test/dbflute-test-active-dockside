@@ -66,7 +66,7 @@ public class WxCBInlineViewTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
-            cb.setupSelect_MemberAddressAsValid(currentDate());
+            cb.setupSelect_MemberAddressAsValid(currentLocalDate());
             cb.query().inline().setMemberName_LikeSearch("S", op -> op.likePrefix());
             // unsupported since 1.1
             //cb.query().inline().inScopePurchase(new SubQuery<PurchaseCB>() {

@@ -1,6 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -509,7 +509,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
         assertHasAnyElement(memberList);
         for (Member member : memberList) {
             member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
-                Timestamp withdrawalDatetime = withdrawal.getWithdrawalDatetime();
+                LocalDateTime withdrawalDatetime = withdrawal.getWithdrawalDatetime();
                 withdrawal.getWithdrawalReason().ifPresent(reason -> {
                     List<MemberWithdrawal> withdrawalList = reason.getMemberWithdrawalList();
                     log(member.getMemberName(), withdrawalDatetime, reason.getDisplayOrder(), withdrawalList.size());
@@ -523,7 +523,6 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
                 markHere("noWithdrawal");
             });
         }
-        log(currentDate().getTime());
         assertMarked("exists");
         assertMarked("noReason");
         assertMarked("noWithdrawal");
