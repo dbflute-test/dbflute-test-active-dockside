@@ -32,14 +32,10 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
             cb.specify().specifyMemberStatus().columnDisplayOrder();
-            cb.columnQuery(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnMemberId();
-                }
-            }).equal(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().specifyMemberStatus().columnDisplayOrder();
-                }
+            cb.columnQuery(colCB -> {
+                colCB.specify().columnMemberId();
+            }).equal(colCB -> {
+                colCB.specify().specifyMemberStatus().columnDisplayOrder();
             }).plus(1);
             cb.query().addOrderBy_MemberId_Asc();
             pushCB(cb);
@@ -49,9 +45,11 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             Integer memberId = member.getMemberId();
-            Integer displayOrder = member.getMemberStatus().getDisplayOrder();
-            log(memberId + ", " + displayOrder);
-            assertEquals(Integer.valueOf(displayOrder + 1), memberId);
+            member.getMemberStatus().alwaysPresent(status -> {
+                Integer displayOrder = status.getDisplayOrder();
+                log(memberId + ", " + displayOrder);
+                assertEquals(Integer.valueOf(displayOrder + 1), memberId);
+            });
         }
     }
 
@@ -78,7 +76,7 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             Integer memberId = member.getMemberId();
-            Integer displayOrder = member.getMemberStatus().getDisplayOrder();
+            Integer displayOrder = member.getMemberStatus().get().getDisplayOrder();
             log(memberId + ", " + displayOrder);
             assertEquals(Integer.valueOf(displayOrder + 1), memberId);
         }
@@ -108,7 +106,7 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             Integer memberId = member.getMemberId();
-            Integer displayOrder = member.getMemberStatus().getDisplayOrder();
+            Integer displayOrder = member.getMemberStatus().get().getDisplayOrder();
             log(memberId + ", " + displayOrder);
             assertEquals(Integer.valueOf(displayOrder + 1), memberId);
         }
@@ -203,7 +201,7 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             Integer memberId = member.getMemberId();
-            Integer displayOrder = member.getMemberStatus().getDisplayOrder();
+            Integer displayOrder = member.getMemberStatus().get().getDisplayOrder();
             log(memberId + ", " + displayOrder);
             assertEquals(Integer.valueOf(displayOrder + 1), memberId);
         }
@@ -232,7 +230,7 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             Integer memberId = member.getMemberId();
-            Integer displayOrder = member.getMemberStatus().getDisplayOrder();
+            Integer displayOrder = member.getMemberStatus().get().getDisplayOrder();
             log(memberId + ", " + displayOrder);
             assertEquals(Integer.valueOf(displayOrder + 1), memberId);
         }
@@ -247,14 +245,10 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
             /* ## Act ## */
             cb.setupSelect_MemberStatus();
             cb.specify().specifyMemberStatus().columnDisplayOrder();
-            cb.columnQuery(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().columnMemberId();
-                }
-            }).equal(new SpecifyQuery<MemberCB>() {
-                public void specify(MemberCB cb) {
-                    cb.specify().specifyMemberStatus().columnDisplayOrder().plus(3);
-                }
+            cb.columnQuery(colCB -> {
+                colCB.specify().columnMemberId();
+            }).equal(colCB -> {
+                colCB.specify().specifyMemberStatus().columnDisplayOrder().plus(3);
             }).plus(1);
             cb.query().addOrderBy_MemberId_Asc();
             pushCB(cb);
@@ -264,7 +258,7 @@ public class WxCBColumnQueryCalculationTest extends UnitContainerTestCase {
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             Integer memberId = member.getMemberId();
-            Integer displayOrder = member.getMemberStatus().getDisplayOrder();
+            Integer displayOrder = member.getMemberStatus().get().getDisplayOrder();
             log(memberId + ", " + displayOrder);
             assertEquals(Integer.valueOf(displayOrder + 3 + 1), memberId);
         }

@@ -23,7 +23,6 @@ import org.docksidestage.dockside.dbflute.bsentity.dbmeta.SummaryWithdrawalDbm;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberServiceCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
-import org.docksidestage.dockside.dbflute.cbean.SummaryWithdrawalCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberServiceBhv;
 import org.docksidestage.dockside.dbflute.exbhv.SummaryWithdrawalBhv;
@@ -206,35 +205,30 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
             cb.setupSelect_MemberServiceAsOne();
         });
 
-        Integer expected = memberList.stream().mapToInt(member -> member.getMemberServiceAsOne().getServicePointCount()).sum();
+        Integer expected = memberList.stream().mapToInt(member -> {
+            return member.getMemberServiceAsOne().map(service -> service.getServicePointCount()).get();
+        }).sum();
         final Set<String> markSet = new HashSet<String>();
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                MemberServiceDbm dbm = MemberServiceDbm.getInstance();
-                String displaySql = info.getDisplaySql();
-                assertTrue(Srl.contains(displaySql, dbm.columnMemberServiceId().getColumnDbName()));
-                assertTrue(Srl.contains(displaySql, dbm.columnServicePointCount().getColumnDbName()));
-                assertFalse(Srl.contains(displaySql, dbm.columnServiceRankCode().getColumnDbName()));
-                markSet.add("handle");
-            }
+        CallbackContext.setSqlLogHandlerOnThread(info -> {
+            MemberServiceDbm dbm = MemberServiceDbm.getInstance();
+            String displaySql = info.getDisplaySql();
+            assertTrue(Srl.contains(displaySql, dbm.columnMemberServiceId().getColumnDbName()));
+            assertTrue(Srl.contains(displaySql, dbm.columnServicePointCount().getColumnDbName()));
+            assertFalse(Srl.contains(displaySql, dbm.columnServiceRankCode().getColumnDbName()));
+            markSet.add("handle");
         });
 
         // ## Act ##
         try {
-            memberServiceBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberServiceCB>() {
-                public void query(MemberServiceCB cb) {
-                    cb.specify().columnServicePointCount();
-                    cb.union(new UnionQuery<MemberServiceCB>() {
-                        public void query(MemberServiceCB unionCB) {
-                        }
-                    });
-                }
+            memberServiceBhv.scalarSelect(Integer.class).sum(cb -> {
+                cb.specify().columnServicePointCount();
+                cb.union(unionCB -> {});
             }).alwaysPresent(sum -> {
                 /* ## Assert ## */
                 log("sum = " + sum);
-                assertEquals(expected, sum); // should be selected uniquely
-                    assertTrue(markSet.contains("handle"));
-                });
+                assertEquals("should be selected uniquely", expected, sum);
+                assertTrue(markSet.contains("handle"));
+            });
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
         }
@@ -243,15 +237,13 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
     public void test_ScalarSelect_with_UnionQuery_PrimaryKey_sum() {
         // ## Arrange ##
         final Set<String> markSet = new HashSet<String>();
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            public void handle(SqlLogInfo info) {
-                MemberServiceDbm dbm = MemberServiceDbm.getInstance();
-                String displaySql = info.getDisplaySql();
-                assertTrue(Srl.contains(displaySql, dbm.columnMemberServiceId().getColumnDbName()));
-                assertFalse(Srl.contains(displaySql, dbm.columnServicePointCount().getColumnDbName()));
-                assertFalse(Srl.contains(displaySql, dbm.columnServiceRankCode().getColumnDbName()));
-                markSet.add("handle");
-            }
+        CallbackContext.setSqlLogHandlerOnThread(info -> {
+            MemberServiceDbm dbm = MemberServiceDbm.getInstance();
+            String displaySql = info.getDisplaySql();
+            assertTrue(Srl.contains(displaySql, dbm.columnMemberServiceId().getColumnDbName()));
+            assertFalse(Srl.contains(displaySql, dbm.columnServicePointCount().getColumnDbName()));
+            assertFalse(Srl.contains(displaySql, dbm.columnServiceRankCode().getColumnDbName()));
+            markSet.add("handle");
         });
 
         // ## Act ##
@@ -277,10 +269,8 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
     public void test_ScalarSelect_with_UnionQuery_noPrimaryKey_sum() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.specify().columnPurchasePrice();
-                }
+            cb.specify().derivedPurchase().max(purchaseCB -> {
+                purchaseCB.specify().columnPurchasePrice();
             }, Member.ALIAS_highestPurchasePrice);
             cb.query().setMemberStatusCode_Equal_Withdrawal();
             cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_highestPurchasePrice);
@@ -300,20 +290,15 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            summaryWithdrawalBhv.scalarSelect(Integer.class).sum(new ScalarQuery<SummaryWithdrawalCB>() {
-                public void query(SummaryWithdrawalCB cb) {
-                    cb.specify().columnMaxPurchasePrice();
-                    cb.union(new UnionQuery<SummaryWithdrawalCB>() {
-                        public void query(SummaryWithdrawalCB unionCB) {
-                        }
-                    });
-                }
+            summaryWithdrawalBhv.scalarSelect(Integer.class).sum(cb -> {
+                cb.specify().columnMaxPurchasePrice();
+                cb.union(unionCB -> {});
             }).alwaysPresent(sum -> {
                 /* ## Assert ## */
                 log("sum = " + sum);
-                assertEquals(expected, sum); // should be selected uniquely
-                    assertTrue(markSet.contains("handle"));
-                });
+                assertEquals("should be selected uniquely", expected, sum);
+                assertTrue(markSet.contains("handle"));
+            });
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
         }
@@ -326,11 +311,9 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         // ## Act ##
         try {
-            memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
-                public void query(MemberCB cb) {
-                    cb.specify().columnMemberAccount();
-                    cb.specify().columnBirthdate();
-                }
+            memberBhv.scalarSelect(Date.class).max(cb -> {
+                cb.specify().columnMemberAccount();
+                cb.specify().columnBirthdate();
             });
 
             // ## Assert ##
@@ -345,15 +328,11 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         // ## Act ##
         try {
-            memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
-                public void query(MemberCB cb) {
-                    cb.specify().columnMemberAccount();
-                    cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
-                        public void query(PurchaseCB subCB) {
-                            subCB.specify().columnPurchaseCount();
-                        }
-                    }, null);
-                }
+            memberBhv.scalarSelect(Date.class).max(cb -> {
+                cb.specify().columnMemberAccount();
+                cb.specify().derivedPurchase().max(purchaseCB -> {
+                    purchaseCB.specify().columnPurchaseCount();
+                }, null);
             });
 
             // ## Assert ##

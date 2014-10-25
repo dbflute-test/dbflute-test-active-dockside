@@ -192,7 +192,7 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
                 existsSet.add("latest");
             }
             assertNull(actual.getWithdrawalReasonCode());
-            assertEquals(member.getMemberStatus().getMemberStatusName(), actual.getWithdrawalReasonInputText());
+            assertEquals(member.getMemberStatus().get().getMemberStatusName(), actual.getWithdrawalReasonInputText());
         }
         assertEquals(2, existsSet.size());
     }

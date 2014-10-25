@@ -13,11 +13,9 @@ import org.docksidestage.dockside.dbflute.bsentity.dbmeta.SummaryProductDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.WithdrawalReasonDbm;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
-import org.docksidestage.dockside.dbflute.exentity.MemberWithdrawal;
 import org.docksidestage.dockside.dbflute.exentity.Product;
 import org.docksidestage.dockside.dbflute.exentity.ProductStatus;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
-import org.docksidestage.dockside.dbflute.exentity.WithdrawalReason;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -51,27 +49,24 @@ public class WxCBInnerJoinStructuralPossibleTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, purchaseList.size());
-        boolean existsWithdrawal = false;
         for (Purchase purchase : purchaseList) {
-            Product product = purchase.getProduct();
-            ProductStatus productStatus = product.getProductStatus();
+            Product product = purchase.getProduct().get();
+            ProductStatus productStatus = product.getProductStatus().get();
             assertNotNull(product);
             assertNotNull(productStatus);
             log("[PURCHASE]: " + purchase.getPurchaseId() + ", " + product.getProductName() + ", " + productStatus);
-            Member member = purchase.getMember();
+            Member member = purchase.getMember().get();
             assertNotNull(member);
             assertNotNull(member.getMemberStatus());
 
-            MemberWithdrawal memberWithdrawalAsOne = member.getMemberWithdrawalAsOne();
-            if (memberWithdrawalAsOne != null) {
-                WithdrawalReason withdrawalReason = memberWithdrawalAsOne.getWithdrawalReason();
-                if (withdrawalReason != null) {
-                    String reasonText = withdrawalReason.getWithdrawalReasonText();
+            member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
+                withdrawal.getWithdrawalReason().ifPresent(reason -> {
+                    String reasonText = reason.getWithdrawalReasonText();
                     log("    [WDL-MEMBER]: " + member.getMemberId() + ", " + member.getMemberName() + ", " + reasonText);
                     assertNotNull(reasonText);
-                    existsWithdrawal = true;
-                }
-            }
+                    markHere("existsWithdrawal");
+                });
+            });
         }
         String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("inner join " + MemberDbm.getInstance().getTableDbName()));
@@ -84,7 +79,7 @@ public class WxCBInnerJoinStructuralPossibleTest extends UnitContainerTestCase {
         assertTrue(sql.contains("inner join " + ProductDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("inner join " + ProductStatusDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("left outer join " + SummaryProductDbm.getInstance().getTableDbName()));
-        assertTrue(existsWithdrawal);
+        assertMarked("existsWithdrawal");
     }
 
     public void test_StructuralPossible_trace_is_ManualInnerJoin() {
@@ -105,27 +100,24 @@ public class WxCBInnerJoinStructuralPossibleTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, purchaseList.size());
-        boolean existsWithdrawal = false;
         for (Purchase purchase : purchaseList) {
-            Product product = purchase.getProduct();
-            ProductStatus productStatus = product.getProductStatus();
+            Product product = purchase.getProduct().get();
+            ProductStatus productStatus = product.getProductStatus().get();
             assertNotNull(product);
             assertNotNull(productStatus);
             log("[PURCHASE]: " + purchase.getPurchaseId() + ", " + product.getProductName() + ", " + productStatus);
-            Member member = purchase.getMember();
+            Member member = purchase.getMember().get();
             assertNotNull(member);
             assertNotNull(member.getMemberStatus());
 
-            MemberWithdrawal memberWithdrawalAsOne = member.getMemberWithdrawalAsOne();
-            if (memberWithdrawalAsOne != null) {
-                WithdrawalReason withdrawalReason = memberWithdrawalAsOne.getWithdrawalReason();
-                if (withdrawalReason != null) {
-                    String reasonText = withdrawalReason.getWithdrawalReasonText();
+            member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
+                withdrawal.getWithdrawalReason().ifPresent(reason -> {
+                    String reasonText = reason.getWithdrawalReasonText();
                     log("    [WDL-MEMBER]: " + member.getMemberId() + ", " + member.getMemberName() + ", " + reasonText);
                     assertNotNull(reasonText);
-                    existsWithdrawal = true;
-                }
-            }
+                    markHere("existsWithdrawal");
+                });
+            });
         }
         String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("inner join " + MemberDbm.getInstance().getTableDbName()));
@@ -138,7 +130,7 @@ public class WxCBInnerJoinStructuralPossibleTest extends UnitContainerTestCase {
         assertTrue(sql.contains("inner join " + ProductDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("inner join " + ProductStatusDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("left outer join " + SummaryProductDbm.getInstance().getTableDbName()));
-        assertTrue(existsWithdrawal);
+        assertMarked("existsWithdrawal");
     }
 
     public void test_StructuralPossible_trace_is_WhereUsedInnerJoin() {
@@ -158,28 +150,23 @@ public class WxCBInnerJoinStructuralPossibleTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertNotSame(0, purchaseList.size());
-        boolean existsWithdrawal = false;
+        assertHasAnyElement(purchaseList);
         for (Purchase purchase : purchaseList) {
-            Product product = purchase.getProduct();
-            ProductStatus productStatus = product.getProductStatus();
-            assertNotNull(product);
-            assertNotNull(productStatus);
-            log("[PURCHASE]: " + purchase.getPurchaseId() + ", " + product.getProductName() + ", " + productStatus);
-            Member member = purchase.getMember();
-            assertNotNull(member);
-            assertNotNull(member.getMemberStatus());
-
-            MemberWithdrawal memberWithdrawalAsOne = member.getMemberWithdrawalAsOne();
-            if (memberWithdrawalAsOne != null) {
-                WithdrawalReason withdrawalReason = memberWithdrawalAsOne.getWithdrawalReason();
-                if (withdrawalReason != null) {
-                    String reasonText = withdrawalReason.getWithdrawalReasonText();
-                    log("    [WDL-MEMBER]: " + member.getMemberId() + ", " + member.getMemberName() + ", " + reasonText);
-                    assertNotNull(reasonText);
-                    existsWithdrawal = true;
-                }
-            }
+            purchase.getProduct().alwaysPresent(product -> {
+                assertTrue(product.getProductStatus().isPresent());
+                log("[PURCHASE]: " + purchase.getPurchaseId() + ", " + product.getProductName() + ", " + product.getProductStatus());
+            });
+            purchase.getMember().alwaysPresent(member -> {
+                assertTrue(member.getMemberStatus().isPresent());
+                member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
+                    withdrawal.getWithdrawalReason().ifPresent(reason -> {
+                        String reasonText = reason.getWithdrawalReasonText();
+                        log("    [WDL-MEMBER]: " + member.getMemberId() + ", " + member.getMemberName() + ", " + reasonText);
+                        assertNotNull(reasonText);
+                        markHere("existsWithdrawal");
+                    });
+                });
+            });
         }
         String sql = popCB().toDisplaySql();
         assertTrue(sql.contains("inner join " + MemberDbm.getInstance().getTableDbName()));
@@ -192,6 +179,6 @@ public class WxCBInnerJoinStructuralPossibleTest extends UnitContainerTestCase {
         assertTrue(sql.contains("inner join " + ProductDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("inner join " + ProductStatusDbm.getInstance().getTableDbName()));
         assertTrue(sql.contains("left outer join " + SummaryProductDbm.getInstance().getTableDbName()));
-        assertTrue(existsWithdrawal);
+        assertMarked("existsWithdrawal");
     }
 }

@@ -368,8 +368,10 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Entit
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null) { sb.append(dm).append("member"); }
-        if (_withdrawalReason != null) { sb.append(dm).append("withdrawalReason"); }
+        if (_member != null && _member.isPresent())
+        { sb.append(dm).append("member"); }
+        if (_withdrawalReason != null && _withdrawalReason.isPresent())
+        { sb.append(dm).append("withdrawalReason"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

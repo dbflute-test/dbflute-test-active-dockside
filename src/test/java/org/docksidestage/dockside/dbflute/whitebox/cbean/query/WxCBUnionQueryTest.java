@@ -53,9 +53,6 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        boolean existsProv = false;
-        boolean existsStart = false;
-        boolean existsBoth = false;
         final Set<String> memberSet = new HashSet<String>();
         for (Member member : memberList) {
             String memberName = member.getMemberName();
@@ -63,23 +60,25 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
                 fail("Duplicate: " + memberName);
             }
             memberSet.add(memberName);
-            String memberStatusName = member.getMemberStatus().getMemberStatusName();
-            if (!memberName.startsWith("S")) {
-                log("[Provisional]: " + memberName + ", " + memberStatusName);
-                assertTrue(member.isMemberStatusCodeProvisional());
-                existsProv = true;
-            } else if (!member.isMemberStatusCodeProvisional()) {
-                log("[Starts with S]: " + memberName + ", " + memberStatusName);
-                assertTrue(memberName.startsWith("S"));
-                existsStart = true;
-            } else {
-                log("[Both]: " + memberName + ", " + memberStatusName);
-                existsBoth = true;
-            }
+            member.getMemberStatus().alwaysPresent(status -> {
+                String memberStatusName = status.getMemberStatusName();
+                if (!memberName.startsWith("S")) {
+                    log("[Provisional]: " + memberName + ", " + memberStatusName);
+                    assertTrue(member.isMemberStatusCodeProvisional());
+                    markHere("existsProv");
+                } else if (!member.isMemberStatusCodeProvisional()) {
+                    log("[Starts with S]: " + memberName + ", " + memberStatusName);
+                    assertTrue(memberName.startsWith("S"));
+                    markHere("existsStart");
+                } else {
+                    log("[Both]: " + memberName + ", " + memberStatusName);
+                    markHere("existsBoth");
+                }
+            });
         }
-        assertTrue(existsProv);
-        assertTrue(existsStart);
-        assertTrue(existsBoth);
+        assertMarked("existsProv");
+        assertMarked("existsStart");
+        assertMarked("existsBoth");
         String sql = popCB().toDisplaySql();
         assertTrue(sql.contains(" union"));
         assertFalse(sql.contains(" union all"));
@@ -112,7 +111,7 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
                 exsitsDuplicate = true;
             }
             memberSet.add(memberName);
-            String memberStatusName = member.getMemberStatus().getMemberStatusName();
+            String memberStatusName = member.getMemberStatus().get().getMemberStatusName();
             if (!memberName.startsWith("S")) {
                 log("[Provisional]: " + memberName + ", " + memberStatusName);
                 assertTrue(member.isMemberStatusCodeProvisional());

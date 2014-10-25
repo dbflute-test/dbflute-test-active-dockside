@@ -3,6 +3,7 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.genbafit;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.exception.FixedConditionParameterNotFoundException;
+import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -32,19 +33,18 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertHasAnyElement(memberList);
-        boolean exists = false;
         for (Member member : memberList) {
-            MemberAddress address = member.getMemberAddressAsValid();
-            log(member.getMemberName(), address != null ? address.getAddress() : null);
-            if (address != null) {
+            OptionalEntity<MemberAddress> optAddress = member.getMemberAddressAsValid();
+            log(member.getMemberName(), optAddress.isPresent() ? optAddress.get().getAddress() : null);
+            optAddress.ifPresent(address -> {
                 assertNotNull(address.getValidBeginDate());
                 assertNotNull(address.getValidEndDate());
                 assertNotNull(address.getAddress());
-                exists = true;
-            }
+                markHere("exists");
+            });
             assertTrue(member.getMemberAddressList().isEmpty());
         }
-        assertTrue(exists);
+        assertMarked("exists");
     }
 
     public void test_BizOneToOne_nullBinding() {
@@ -75,9 +75,10 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
         assertHasAnyElement(memberList);
         boolean exists = false;
         for (Member member : memberList) {
-            MemberAddress address = member.getMemberAddressAsValid();
-            log(member.getMemberName(), address != null ? address.getAddress() : null);
-            if (address != null) {
+            OptionalEntity<MemberAddress> optAddress = member.getMemberAddressAsValid();
+            log(member.getMemberName(), optAddress.isPresent() ? optAddress.get().getAddress() : null);
+            if (optAddress.isPresent()) {
+                MemberAddress address = optAddress.get();
                 if (address.getAddress() != null) {
                     exists = true;
                 }
@@ -100,9 +101,10 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
         assertHasAnyElement(memberList);
         boolean exists = false;
         for (Member member : memberList) {
-            MemberAddress address = member.getMemberAddressAsValid();
-            log(member.getMemberName(), address != null ? address.getAddress() : null);
-            if (address != null) {
+            OptionalEntity<MemberAddress> optAddress = member.getMemberAddressAsValid();
+            log(member.getMemberName(), optAddress.isPresent() ? optAddress.get().getAddress() : null);
+            if (optAddress.isPresent()) {
+                MemberAddress address = optAddress.get();
                 if (address.getAddress() != null) {
                     exists = true;
                 }

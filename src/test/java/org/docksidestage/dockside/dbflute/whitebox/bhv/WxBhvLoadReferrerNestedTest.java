@@ -8,6 +8,7 @@ import org.docksidestage.dockside.dbflute.exbhv.MemberServiceBhv;
 import org.docksidestage.dockside.dbflute.exbhv.ServiceRankBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberService;
+import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.dbflute.exentity.ServiceRank;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -64,14 +65,19 @@ public class WxBhvLoadReferrerNestedTest extends UnitContainerTestCase {
             log(rank.getServiceRankName());
             List<MemberService> serviceList = rank.getMemberServiceList();
             for (MemberService service : serviceList) {
-                Member member = service.getMember();
-                log("  " + member.getMemberId(), member.getMemberName(), member.getMemberStatus().getMemberStatusName(),
-                        service.getServiceRankCode(), service.getServicePointCount());
-                List<Purchase> purchaseList = member.getPurchaseList();
-                for (Purchase purchase : purchaseList) {
-                    log("    " + purchase.getMemberId(), purchase.getPurchasePrice());
-                    markHere("exists");
-                }
+                service.getMember().alwaysPresent(member -> {
+                    Integer memberId = member.getMemberId();
+                    String memberName = member.getMemberName();
+                    MemberStatus status = member.getMemberStatus().get();
+                    String rankCode = service.getServiceRankCode();
+                    Integer pointCount = service.getServicePointCount();
+                    log("  " + memberId, memberName, status.getMemberStatusName(), rankCode, pointCount);
+                    List<Purchase> purchaseList = member.getPurchaseList();
+                    for (Purchase purchase : purchaseList) {
+                        log("    " + purchase.getMemberId(), purchase.getPurchasePrice());
+                        markHere("exists");
+                    }
+                });
             }
         }
         assertMarked("exists");

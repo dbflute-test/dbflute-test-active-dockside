@@ -6,6 +6,7 @@ import java.util.List;
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.UnionQuery;
+import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -284,41 +285,42 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         assertTrue(existsMemberStatusBackTo);
 
         log("[MemberSecurity(AsOne)]");
-        List<MemberSecurity> memberSecurityAsOneList = memberBhv.pulloutMemberSecurityAsOne(memberList);
-        assertNotSame(0, memberSecurityAsOneList.size());
-        assertEquals(memberList.size(), memberSecurityAsOneList.size());
-        boolean existsMemberSecurityAsOneBackTo = false;
-        for (MemberSecurity memberSecurity : memberSecurityAsOneList) {
-            Member backTo = memberSecurity.getMember();
-            if (backTo != null) {
-                existsMemberSecurityAsOneBackTo = true;
-            }
-            log(memberSecurity.getReminderAnswer() + ", " + backTo);
+        List<MemberSecurity> securityList = memberBhv.pulloutMemberSecurityAsOne(memberList);
+        assertNotSame(0, securityList.size());
+        assertEquals(memberList.size(), securityList.size());
+        for (MemberSecurity security : securityList) {
+            String reminderAnswer = security.getReminderAnswer();
+            security.getMember().ifPresent(backTo -> {
+                log(reminderAnswer + ", " + backTo);
+                markHere("existsMemberSecurityAsOneBackTo");
+            }).orElse(() -> {
+                log(reminderAnswer);
+            });
         }
-        assertTrue(existsMemberSecurityAsOneBackTo);
+        assertMarked("existsMemberSecurityAsOneBackTo");
 
         log("[MemberWithdrawal(AsOne)]");
-        List<MemberWithdrawal> memberWithdrawalAsOneList = memberBhv.pulloutMemberWithdrawalAsOne(memberList);
-        assertNotSame(0, memberWithdrawalAsOneList.size());
-        assertTrue(memberList.size() > memberWithdrawalAsOneList.size());
-        boolean existsMemberWithdrawalAsOneBackTo = false;
-        for (MemberWithdrawal memberWithdrawal : memberWithdrawalAsOneList) {
-            Member backTo = memberWithdrawal.getMember();
-            if (backTo != null) {
-                existsMemberWithdrawalAsOneBackTo = true;
-            }
-            log(memberWithdrawal.getWithdrawalReasonCode() + ", " + backTo);
+        List<MemberWithdrawal> withdrawalList = memberBhv.pulloutMemberWithdrawalAsOne(memberList);
+        assertNotSame(0, withdrawalList.size());
+        assertTrue(memberList.size() > withdrawalList.size());
+        for (MemberWithdrawal withdrawal : withdrawalList) {
+            String reasonCode = withdrawal.getWithdrawalReasonCode();
+            withdrawal.getMember().ifPresent(backTo -> {
+                log(reasonCode + ", " + backTo);
+                markHere("existsMemberWithdrawalAsOneBackTo");
+            }).orElse(() -> {
+                log(reasonCode);
+            });
         }
-        assertTrue(existsMemberWithdrawalAsOneBackTo);
+        assertMarked("existsMemberWithdrawalAsOneBackTo");
 
         log("[MemberAddress(AsValie)]");
-        List<MemberAddress> memberAddressAsValieList = memberBhv.pulloutMemberAddressAsValid(memberList);
-        assertNotSame(0, memberAddressAsValieList.size());
-        for (MemberAddress memberAddress : memberAddressAsValieList) {
-            Member backTo = memberAddress.getMember();
-            log(memberAddress.getAddress() + ", " + memberAddress.getValidBeginDate() + ", " + memberAddress.getValidEndDate() + ", "
-                    + backTo);
-            assertNull(backTo);
+        List<MemberAddress> addressList = memberBhv.pulloutMemberAddressAsValid(memberList);
+        assertNotSame(0, addressList.size());
+        for (MemberAddress address : addressList) {
+            OptionalEntity<Member> backTo = address.getMember();
+            log(address.getAddress() + ", " + address.getValidBeginDate() + ", " + address.getValidEndDate() + ", " + backTo);
+            assertFalse(backTo.isPresent());
         }
     }
 }

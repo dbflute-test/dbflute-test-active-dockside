@@ -7,6 +7,8 @@ import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberServiceCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
+import org.docksidestage.dockside.dbflute.exentity.MemberService;
+import org.docksidestage.dockside.dbflute.exentity.ServiceRank;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -38,7 +40,7 @@ public class WxCBMyselfExistsTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
-            log(member.getMemberName() + ", " + member.getMemberStatus().getMemberStatusName());
+            log(member.getMemberName() + ", " + member.getMemberStatus().get().getMemberStatusName());
             assertTrue(member.isMemberStatusCodeFormalized());
             assertTrue(member.getMemberName().startsWith("S"));
         }
@@ -60,10 +62,11 @@ public class WxCBMyselfExistsTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
-            log(member.getMemberName() + ", " + member.getMemberStatusCode() + ", "
-                    + member.getMemberServiceAsOne().getServiceRank().getServiceRankName());
+            MemberService service = member.getMemberServiceAsOne().get();
+            ServiceRank rank = service.getServiceRank().get();
+            log(member.getMemberName() + ", " + member.getMemberStatusCode() + ", " + rank.getServiceRankName());
             assertTrue(member.isMemberStatusCodeFormalized());
-            assertTrue(member.getMemberServiceAsOne().isServiceRankCodeGold());
+            assertTrue(service.isServiceRankCodeGold());
         }
     }
 
@@ -87,8 +90,10 @@ public class WxCBMyselfExistsTest extends UnitContainerTestCase {
         // ## Assert ##
         assertHasAnyElement(memberList);
         for (Member member : memberList) {
-            log(member.getMemberName() + ", " + member.getMemberStatus().getMemberStatusName());
-            assertEquals(memberStatusCode, member.getMemberStatusCode());
+            member.getMemberStatus().alwaysPresent(status -> {
+                log(member.getMemberName() + ", " + status.getMemberStatusName());
+                assertEquals(memberStatusCode, member.getMemberStatusCode());
+            });
         }
     }
 
@@ -113,8 +118,10 @@ public class WxCBMyselfExistsTest extends UnitContainerTestCase {
         // ## Assert ##
         assertHasAnyElement(memberList);
         for (Member member : memberList) {
-            log(member.getMemberName() + ", " + member.getMemberStatus().getMemberStatusName());
-            assertEquals(memberStatusCode, member.getMemberStatusCode());
+            member.getMemberStatus().alwaysPresent(status -> {
+                log(member.getMemberName() + ", " + status.getMemberStatusName());
+                assertEquals(memberStatusCode, member.getMemberStatusCode());
+            });
         }
     }
 

@@ -43,8 +43,8 @@ public class WxCBRelationMappingCacheTest extends UnitContainerTestCase {
         for (int i = 0; i < cachedList.size(); i++) {
             Member cached = cachedList.get(i);
             Member nonCached = nonCachedList.get(i);
-            MemberStatus cachedStatus = cached.getMemberStatus();
-            MemberStatus nonCachedStatus = nonCached.getMemberStatus();
+            MemberStatus cachedStatus = cached.getMemberStatus().get();
+            MemberStatus nonCachedStatus = nonCached.getMemberStatus().get();
             List<MemberLogin> cachedLoginList = cachedStatus.getMemberLoginList();
             List<MemberLogin> nonCachedLoginList = nonCachedStatus.getMemberLoginList();
             int cachedLoginSize = cachedLoginList.size();

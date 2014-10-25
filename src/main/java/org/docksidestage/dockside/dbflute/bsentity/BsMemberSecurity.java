@@ -241,7 +241,8 @@ public abstract class BsMemberSecurity extends AbstractEntity implements EntityD
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null) { sb.append(dm).append("member"); }
+        if (_member != null && _member.isPresent())
+        { sb.append(dm).append("member"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

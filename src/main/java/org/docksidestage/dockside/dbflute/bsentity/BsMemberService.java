@@ -396,8 +396,10 @@ public abstract class BsMemberService extends AbstractEntity implements EntityDe
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null) { sb.append(dm).append("member"); }
-        if (_serviceRank != null) { sb.append(dm).append("serviceRank"); }
+        if (_member != null && _member.isPresent())
+        { sb.append(dm).append("member"); }
+        if (_serviceRank != null && _serviceRank.isPresent())
+        { sb.append(dm).append("serviceRank"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

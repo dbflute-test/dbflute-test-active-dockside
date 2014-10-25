@@ -21,7 +21,6 @@ import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
-import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
@@ -303,22 +302,20 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         boolean existsFormalized = false;
-        boolean existsDisplayOrder = false;
         for (Member member : memberList) {
             log(member);
             if (member.isMemberStatusCodeFormalized()) {
                 assertNotNull(member.getMemberStatus());
                 existsFormalized = true;
             } else {
-                MemberStatus memberStatus = member.getMemberStatus();
-                if (memberStatus != null) {
-                    assertTrue(memberStatus.getDisplayOrder() == 3);
-                    existsDisplayOrder = true;
-                }
+                member.getMemberStatus().ifPresent(status -> {
+                    assertEquals(3, status.getDisplayOrder());
+                    markHere("existsDisplayOrder");
+                });
             }
         }
         assertTrue(existsFormalized);
-        assertTrue(existsDisplayOrder);
+        assertMarked("existsDisplayOrder");
     }
 
     public void test_orScopeQuery_columnQuery_basic() {
@@ -347,7 +344,7 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             Integer memberId = member.getMemberId();
-            Integer displayOrder = member.getMemberStatus().getDisplayOrder();
+            Integer displayOrder = member.getMemberStatus().get().getDisplayOrder();
             if (memberId > displayOrder && memberId != 18) {
                 fail();
             }

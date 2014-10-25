@@ -277,7 +277,7 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             log(member.toString());
-            assertNull("条件(query)利用のみの結合である", member.getMemberWithdrawalAsOne());
+            assertFalse("条件(query)利用のみの結合である", member.getMemberWithdrawalAsOne().isPresent());
         }
 
         // [SQL]
@@ -285,17 +285,6 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         //   from MEMBER dfloc
         //     left outer join MEMBER_WITHDRAWAL dfrel_3 on dfloc.MEMBER_ID = dfrel_3.MEMBER_ID 
         //  where dfrel_3.WITHDRAWAL_REASON_CODE = 'PRD'
-
-        // [Description]
-        // A. queryXxx()しても、結合先テーブルのデータを取得(setupSelect)するわけではない。
-        // 
-        //    「結合先テーブルのデータを取得(setupSelect)」という目的と
-        //    「結合先テーブルの条件で絞り込み・ソート(queryXxx())」という目的を
-        //    明確に分けている。(予期せぬ無駄なメモリ展開(パフォーマンス劣化)を抑制するため)
-        //    「結合」はそれら目的のための「手段」であり、ConditionBeanが自動的に解決する。
-        // 
-        // B. 結合前に結合先テーブルを絞り込む場合はOnClause(or InlineView)を利用。
-        //    --> ConditionBeanPlatinumTestにて
     }
 
     // -----------------------------------------------------
@@ -371,7 +360,7 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             log(member.getMemberName() + ", " + member.getMemberStatusCode());
-            assertNull("ソート利用のみの結合である", member.getMemberStatus());
+            assertFalse("ソート利用のみの結合である", member.getMemberStatus().isPresent());
         }
 
         // [SQL]
@@ -379,13 +368,5 @@ public class ConditionBeanBasicTest extends UnitContainerTestCase {
         //   from MEMBER dfloc
         //     left outer join MEMBER_STATUS dfrel_0 on dfloc.MEMBER_STATUS_CODE = dfrel_0.MEMBER_STATUS_CODE   
         //  order by dfrel_0.DISPLAY_ORDER asc
-
-        // [Description]
-        // A. queryXxx()しても、結合先テーブルのデータを取得(setupSelect)するわけではない。
-        // 
-        //    「結合先テーブルのデータを取得(setupSelect)」という目的と
-        //    「結合先テーブルの条件で絞り込み・ソート(queryXxx())」という目的を
-        //    明確に分けている。(予期せぬ無駄なメモリ展開(パフォーマンス劣化)を抑制するため)
-        //    「結合」はそれら目的のための「手段」であり、ConditionBeanが自動的に解決する。
     }
 }

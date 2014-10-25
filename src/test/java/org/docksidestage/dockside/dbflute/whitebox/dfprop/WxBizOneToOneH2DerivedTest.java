@@ -53,21 +53,20 @@ public class WxBizOneToOneH2DerivedTest extends UnitContainerTestCase {
             }
         });
         StringBuilder sb = new StringBuilder();
-        boolean existsNull = false;
         for (Member member : memberList) {
-            MemberLogin actualLogin = member.getMemberLoginAsLatest();
-            if (actualLogin == null) {
-                existsNull = true;
-            }
-            List<MemberLogin> loginList = member.getMemberLoginList();
-            MemberLogin expectedLogin = !loginList.isEmpty() ? loginList.get(0) : null;
-            assertEquals(expectedLogin, actualLogin);
-            sb.append(ln());
-            sb.append(" ").append(member.getMemberName());
-            sb.append(", ").append(actualLogin);
+            member.getMemberLoginAsLatest().ifPresent(actualLogin -> {
+                List<MemberLogin> loginList = member.getMemberLoginList();
+                MemberLogin expectedLogin = !loginList.isEmpty() ? loginList.get(0) : null;
+                assertEquals(expectedLogin, actualLogin);
+                sb.append(ln());
+                sb.append(" ").append(member.getMemberName());
+                sb.append(", ").append(actualLogin);
+            }).orElse(() -> {
+                markHere("existsNull");
+            });
         }
         log(sb.toString());
-        assertTrue(existsNull);
+        assertMarked("existsNull");
     }
 
     // ===================================================================================
@@ -89,21 +88,20 @@ public class WxBizOneToOneH2DerivedTest extends UnitContainerTestCase {
             }
         });
         StringBuilder sb = new StringBuilder();
-        boolean existsNull = false;
         for (Member member : memberList) {
-            MemberLogin actualLogin = member.getMemberLoginAsLatest();
-            if (actualLogin == null) {
-                existsNull = true;
-            }
-            List<MemberLogin> loginList = member.getMemberLoginList();
-            MemberLogin expectedLogin = !loginList.isEmpty() ? loginList.get(0) : null;
-            assertEquals(expectedLogin, actualLogin);
-            sb.append(ln());
-            sb.append(" ").append(member.getMemberName());
-            sb.append(", ").append(actualLogin);
+            member.getMemberLoginAsLatest().ifPresent(actualLogin -> {
+                List<MemberLogin> loginList = member.getMemberLoginList();
+                MemberLogin expectedLogin = !loginList.isEmpty() ? loginList.get(0) : null;
+                assertEquals(expectedLogin, actualLogin);
+                sb.append(ln());
+                sb.append(" ").append(member.getMemberName());
+                sb.append(", ").append(actualLogin);
+            }).orElse(() -> {
+                markHere("existsNull");
+            });
         }
         log(sb.toString());
-        assertTrue(existsNull);
+        assertMarked("existsNull");
     }
 
     protected void moveFixedConditionToInlineView() {

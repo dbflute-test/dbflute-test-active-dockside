@@ -13,10 +13,7 @@ import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberLogin;
-import org.docksidestage.dockside.dbflute.exentity.MemberSecurity;
 import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
-import org.docksidestage.dockside.dbflute.exentity.MemberWithdrawal;
-import org.docksidestage.dockside.dbflute.exentity.Product;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
@@ -48,13 +45,14 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
         Set<String> statusCodeSet = newHashSet();
         Set<String> instanceHashSet = newHashSet();
         for (Member member : memberList) {
-            MemberStatus status = member.getMemberStatus();
-            String statusCode = member.getMemberStatusCode();
-            assertEquals(statusCode, status.getMemberStatusCode());
-            statusCodeSet.add(statusCode);
-            String instanceHash = Integer.toHexString(status.instanceHash());
-            instanceHashSet.add(instanceHash);
-            log(member.getMemberName(), statusCode, instanceHash);
+            member.getMemberStatus().alwaysPresent(status -> {
+                String statusCode = member.getMemberStatusCode();
+                assertEquals(statusCode, status.getMemberStatusCode());
+                statusCodeSet.add(statusCode);
+                String instanceHash = Integer.toHexString(status.instanceHash());
+                instanceHashSet.add(instanceHash);
+                log(member.getMemberName(), statusCode, instanceHash);
+            });
         }
         log(statusCodeSet.size() + " = " + instanceHashSet.size());
         assertEquals(statusCodeSet.size(), instanceHashSet.size());
@@ -74,13 +72,15 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
         Set<String> statusCodeSet = newHashSet();
         Set<String> instanceHashSet = newHashSet();
         for (Member member : memberList) {
-            MemberStatus status = member.getMemberStatus();
-            String statusCode = member.getMemberStatusCode();
-            assertEquals(statusCode, status.getMemberStatusCode());
-            statusCodeSet.add(statusCode);
-            String instanceHash = Integer.toHexString(status.instanceHash());
-            instanceHashSet.add(instanceHash);
-            log(member.getMemberName(), statusCode, instanceHash);
+            member.getMemberStatus().alwaysPresent(status -> {
+                String statusCode = member.getMemberStatusCode();
+                assertEquals(statusCode, status.getMemberStatusCode());
+                statusCodeSet.add(statusCode);
+                String instanceHash = Integer.toHexString(status.instanceHash());
+                instanceHashSet.add(instanceHash);
+                log(member.getMemberName(), statusCode, instanceHash);
+            });
+            ;
         }
         log(statusCodeSet.size() + " != " + instanceHashSet.size());
         assertNotSame(statusCodeSet.size(), instanceHashSet.size());
@@ -95,34 +95,31 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
         });
 
         List<MemberStatus> statusList = memberBhv.pulloutMemberStatus(memberList);
-        memberStatusBhv.loadMemberLogin(statusList, new ConditionBeanSetupper<MemberLoginCB>() {
-            public void setup(MemberLoginCB cb) {
-            }
-        });
+        memberStatusBhv.loadMemberLogin(statusList, cb -> {});
 
         // ## Assert ##
         assertHasAnyElement(memberList);
         Map<String, List<MemberLogin>> statusLoginMap = newHashMap();
-        boolean exists = false;
         for (Member member : memberList) {
             String statusCode = member.getMemberStatusCode();
-            MemberStatus status = member.getMemberStatus();
-            List<MemberLogin> prevoiusLoginList = statusLoginMap.get(statusCode);
-            List<MemberLogin> mappedLoginList = status.getMemberLoginList();
-            log(member.getMemberName(), statusCode, mappedLoginList.size());
-            if (prevoiusLoginList != null) {
-                if (prevoiusLoginList.isEmpty()) {
-                    assertTrue(mappedLoginList.isEmpty());
+            member.getMemberStatus().alwaysPresent(status -> {
+                List<MemberLogin> prevoiusLoginList = statusLoginMap.get(statusCode);
+                List<MemberLogin> mappedLoginList = status.getMemberLoginList();
+                log(member.getMemberName(), statusCode, mappedLoginList.size());
+                if (prevoiusLoginList != null) {
+                    if (prevoiusLoginList.isEmpty()) {
+                        assertTrue(mappedLoginList.isEmpty());
+                    } else {
+                        assertFalse(mappedLoginList.isEmpty());
+                    }
+                    assertEquals(prevoiusLoginList, mappedLoginList);
+                    markHere("exists");
                 } else {
-                    assertFalse(mappedLoginList.isEmpty());
+                    statusLoginMap.put(statusCode, mappedLoginList);
                 }
-                assertEquals(prevoiusLoginList, mappedLoginList);
-                exists = true;
-            } else {
-                statusLoginMap.put(statusCode, mappedLoginList);
-            }
+            });
         }
-        assertTrue(exists);
+        assertMarked("exists");
     }
 
     // ===================================================================================
@@ -143,21 +140,22 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
         Set<String> statusCodeSet = newHashSet();
         Set<String> statusHashSet = newHashSet();
         for (Purchase purchase : purchaseList) {
-            Member member = purchase.getMember();
-            Integer memberId = purchase.getMemberId();
-            assertEquals(memberId, member.getMemberId());
-            memberIdSet.add(memberId);
-            String memberHash = Integer.toHexString(member.instanceHash());
-            memberHashSet.add(memberHash);
+            purchase.getMember().alwaysPresent(member -> {
+                Integer memberId = purchase.getMemberId();
+                assertEquals(memberId, member.getMemberId());
+                memberIdSet.add(memberId);
+                String memberHash = Integer.toHexString(member.instanceHash());
+                memberHashSet.add(memberHash);
 
-            MemberStatus status = member.getMemberStatus();
-            String statusCode = member.getMemberStatusCode();
-            assertEquals(statusCode, status.getMemberStatusCode());
-            statusCodeSet.add(statusCode);
-            String statusHash = Integer.toHexString(status.instanceHash());
-            statusHashSet.add(statusHash);
-
-            log(purchase.getPurchaseId(), member.getMemberName(), memberHash, statusCode, statusHash);
+                member.getMemberStatus().alwaysPresent(status -> {
+                    String statusCode = member.getMemberStatusCode();
+                    assertEquals(statusCode, status.getMemberStatusCode());
+                    statusCodeSet.add(statusCode);
+                    String statusHash = Integer.toHexString(status.instanceHash());
+                    statusHashSet.add(statusHash);
+                    log(purchase.getPurchaseId(), member.getMemberName(), memberHash, statusCode, statusHash);
+                });
+            });
         }
         log("Member: " + memberIdSet.size() + " = " + memberHashSet.size());
         assertEquals(memberIdSet.size(), memberHashSet.size());
@@ -182,14 +180,14 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
         Set<String> statusCodeSet = newHashSet();
         Set<String> statusHashSet = newHashSet();
         for (Purchase purchase : purchaseList) {
-            Member member = purchase.getMember();
+            Member member = purchase.getMember().get();
             Integer memberId = purchase.getMemberId();
             assertEquals(memberId, member.getMemberId());
             memberIdSet.add(memberId);
             String memberHash = Integer.toHexString(member.instanceHash());
             memberHashSet.add(memberHash);
 
-            MemberStatus status = member.getMemberStatus();
+            MemberStatus status = member.getMemberStatus().get();
             String statusCode = member.getMemberStatusCode();
             assertEquals(statusCode, status.getMemberStatusCode());
             statusCodeSet.add(statusCode);
@@ -225,9 +223,9 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
         Map<String, List<MemberLogin>> statusLoginMap = newHashMap();
         boolean exists = false;
         for (Purchase purchase : purchaseList) {
-            Member member = purchase.getMember();
+            Member member = purchase.getMember().get();
             String statusCode = member.getMemberStatusCode();
-            MemberStatus status = member.getMemberStatus();
+            MemberStatus status = member.getMemberStatus().get();
             List<MemberLogin> previousLoginList = statusLoginMap.get(statusCode);
             List<MemberLogin> mappedLoginList = status.getMemberLoginList();
             log(member.getMemberName(), statusCode, mappedLoginList.size());
@@ -275,60 +273,60 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
         Set<String> firstStatusHashSet = newHashSet();
         Set<String> securityStatusCodeSet = newHashSet();
         Set<String> securityStatusHashSet = newHashSet();
-        boolean existsLoginStatus = false;
-        boolean existsWithdrawal = false;
         for (Purchase purchase : purchaseList) {
-            Member member = purchase.getMember();
-            assertNotNull(member);
-            assertEquals(member.getMemberId(), purchase.getMemberId());
-            firstMemberIdSet.add(member.getMemberId());
-            firstMemberHashSet.add(Integer.toHexString(member.instanceHash()));
+            purchase.getMember().alwaysPresent(member -> {
+                assertNotNull(member);
+                assertEquals(member.getMemberId(), purchase.getMemberId());
+                firstMemberIdSet.add(member.getMemberId());
+                firstMemberHashSet.add(Integer.toHexString(member.instanceHash()));
 
-            MemberStatus firstStatus = member.getMemberStatus();
-            assertNotNull(firstStatus);
-            assertEquals(firstStatus.getMemberStatusCode(), member.getMemberStatusCode());
-            firstStatusCodeSet.add(firstStatus.getMemberStatusCode());
-            firstStatusHashSet.add(Integer.toHexString(firstStatus.instanceHash()));
+                MemberStatus firstStatus = member.getMemberStatus().get();
+                assertNotNull(firstStatus);
+                assertEquals(firstStatus.getMemberStatusCode(), member.getMemberStatusCode());
+                firstStatusCodeSet.add(firstStatus.getMemberStatusCode());
+                firstStatusHashSet.add(Integer.toHexString(firstStatus.instanceHash()));
 
-            MemberLogin loginAsLatest = member.getMemberLoginAsLatest();
-            if (loginAsLatest != null) {
-                MemberStatus loginStatus = loginAsLatest.getMemberStatus();
-                assertNotNull(loginStatus);
-                if (firstStatus.getMemberStatusCode().equals(loginStatus.getMemberStatusCode())) {
-                    assertNotSame(firstStatus.instanceHash(), loginStatus.instanceHash());
-                    existsLoginStatus = true;
-                }
-            }
+                member.getMemberLoginAsLatest().ifPresent(loginAsLatest -> {
+                    loginAsLatest.getMemberStatus().alwaysPresent(loginStatus -> {
+                        if (firstStatus.getMemberStatusCode().equals(loginStatus.getMemberStatusCode())) {
+                            assertNotSame(firstStatus.instanceHash(), loginStatus.instanceHash());
+                            markHere("existsLoginStatus");
+                        }
+                    });
+                    ;
+                });
 
-            MemberSecurity security = member.getMemberSecurityAsOne();
-            assertNotNull(security);
-            assertEquals(member.getMemberId(), security.getMemberId());
-            assertNotNull(security.getMember());
-            assertEquals(member.getMemberId(), security.getMember().getMemberId());
-            assertNotSame(member.instanceHash(), security.getMember().instanceHash());
-            assertNotNull(security.getMember().getMemberStatus());
-            MemberStatus securityStatus = security.getMember().getMemberStatus();
+                member.getMemberSecurityAsOne().alwaysPresent(security -> {
+                    assertNotNull(security);
+                    assertEquals(member.getMemberId(), security.getMemberId());
+                    assertNotNull(security.getMember());
+                    Member securityMember = security.getMember().get();
+                    assertEquals(member.getMemberId(), securityMember.getMemberId());
+                    assertNotSame(member.instanceHash(), securityMember.instanceHash());
+                    assertNotNull(securityMember.getMemberStatus());
+                    MemberStatus securityStatus = securityMember.getMemberStatus().get();
 
-            assertEquals(securityStatus.getMemberStatusCode(), member.getMemberStatusCode());
-            securityStatusCodeSet.add(securityStatus.getMemberStatusCode());
-            securityStatusHashSet.add(Integer.toHexString(securityStatus.instanceHash()));
+                    assertEquals(securityStatus.getMemberStatusCode(), member.getMemberStatusCode());
+                    securityStatusCodeSet.add(securityStatus.getMemberStatusCode());
+                    securityStatusHashSet.add(Integer.toHexString(securityStatus.instanceHash()));
+                });
 
-            MemberWithdrawal withdrawal = member.getMemberWithdrawalAsOne();
-            if (withdrawal != null) {
-                assertEquals(member.getMemberId(), withdrawal.getMemberId());
-                assertNotNull(withdrawal.getMember());
-                assertNull(withdrawal.getMember().getMemberStatus());
-                existsWithdrawal = true;
-            }
+                member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
+                    assertEquals(member.getMemberId(), withdrawal.getMemberId());
+                    assertNotNull(withdrawal.getMember());
+                    assertFalse(withdrawal.getMember().get().getMemberStatus().isPresent());
+                    markHere("existsWithdrawal");
+                });
+            });
 
-            Product product = purchase.getProduct();
-            assertNotNull(product);
-            assertEquals(purchase.getProductId(), product.getProductId());
-            firstProductIdSet.add(product.getProductId());
-            firstProductHashSet.add(Integer.toHexString(product.instanceHash()));
+            purchase.getProduct().alwaysPresent(product -> {
+                assertEquals(purchase.getProductId(), product.getProductId());
+                firstProductIdSet.add(product.getProductId());
+                firstProductHashSet.add(Integer.toHexString(product.instanceHash()));
+            });
         }
-        assertTrue(existsLoginStatus);
-        assertTrue(existsWithdrawal);
+        assertMarked("existsLoginStatus");
+        assertMarked("existsWithdrawal");
         log("FirstMember: " + firstMemberIdSet.size() + " = " + firstMemberHashSet.size());
         assertEquals(firstMemberIdSet.size(), firstMemberHashSet.size());
         log("FirstStatus: " + firstStatusCodeSet.size() + " = " + firstStatusHashSet.size());

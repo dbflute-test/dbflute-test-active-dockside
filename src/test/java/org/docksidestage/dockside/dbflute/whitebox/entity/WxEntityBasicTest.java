@@ -288,13 +288,13 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
             sb.append(ln()).append(detail);
             assertTrue(detail.contains(member.getClass().getSimpleName()));
             assertFalse(detail.contains(dbm.foreignMemberStatus().getForeignPropertyName()));
-            if (member.getMemberAddressAsValid() != null) {
+            if (member.getMemberAddressAsValid().isPresent()) {
                 assertTrue(detail.contains(dbm.foreignMemberAddressAsValid().getForeignPropertyName()));
             }
-            if (member.getMemberSecurityAsOne() != null) {
+            if (member.getMemberSecurityAsOne().isPresent()) {
                 assertTrue(detail.contains(dbm.foreignMemberSecurityAsOne().getForeignPropertyName()));
             }
-            if (member.getMemberWithdrawalAsOne() != null) {
+            if (member.getMemberWithdrawalAsOne().isPresent()) {
                 assertTrue(detail.contains(dbm.foreignMemberWithdrawalAsOne().getForeignPropertyName()));
             }
             assertFalse(detail.contains(dbm.referrerPurchaseList().getReferrerPropertyName()));
@@ -381,13 +381,11 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
             sb.append(ln()).append(detail);
             assertTrue(detail.contains(member.getClass().getSimpleName()));
             assertTrue(detail.contains(dbm.foreignMemberStatus().getForeignPropertyName()));
-            if (member.getMemberAddressAsValid() != null) {
+            if (member.getMemberAddressAsValid().isPresent()) {
                 assertTrue(detail.contains(dbm.foreignMemberAddressAsValid().getForeignPropertyName()));
             }
-            if (member.getMemberSecurityAsOne() != null) {
-                assertTrue(detail.contains(dbm.foreignMemberSecurityAsOne().getForeignPropertyName()));
-            }
-            if (member.getMemberWithdrawalAsOne() != null) {
+            assertTrue(detail.contains(dbm.foreignMemberSecurityAsOne().getForeignPropertyName()));
+            if (member.getMemberWithdrawalAsOne().isPresent()) {
                 assertTrue(detail.contains(dbm.foreignMemberWithdrawalAsOne().getForeignPropertyName()));
             }
             if (!member.getMemberAddressList().isEmpty()) {
@@ -510,7 +508,7 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
             sb.append(ln()).append(detail);
             assertTrue(detail.contains(member.getClass().getSimpleName()));
             assertTrue(detail.contains(dbm.foreignMemberStatus().getForeignPropertyName()));
-            assertTrue(detail.contains(member.getMemberStatus().getMemberStatusName()));
+            assertTrue(detail.contains(member.getMemberStatus().get().getMemberStatusName()));
             assertFalse(detail.contains(dbm.referrerPurchaseList().getReferrerPropertyName()));
             assertTrue(detail.contains("@" + Integer.toHexString(member.hashCode())));
         }
@@ -535,17 +533,15 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
             assertTrue(detail.contains(member.getClass().getSimpleName()));
             assertFalse(detail.contains(dbm.foreignMemberStatus().getForeignPropertyName()));
             assertFalse(detail.contains(dbm.foreignMemberStatus().getForeignDBMeta().getEntityType().getSimpleName()));
-            if (member.getMemberAddressAsValid() != null) {
+            if (member.getMemberAddressAsValid().isPresent()) {
                 assertTrue(detail.contains(dbm.foreignMemberAddressAsValid().getForeignPropertyName()));
-                assertTrue(detail.contains(member.getMemberAddressAsValid().getAddress()));
+                assertTrue(detail.contains(member.getMemberAddressAsValid().get().getAddress()));
             }
-            if (member.getMemberSecurityAsOne() != null) {
-                assertTrue(detail.contains(dbm.foreignMemberSecurityAsOne().getForeignPropertyName()));
-                assertTrue(detail.contains(member.getMemberSecurityAsOne().getReminderAnswer()));
-            }
-            if (member.getMemberWithdrawalAsOne() != null) {
+            assertTrue(detail.contains(dbm.foreignMemberSecurityAsOne().getForeignPropertyName()));
+            assertTrue(detail.contains(member.getMemberSecurityAsOne().get().getReminderAnswer()));
+            if (member.getMemberWithdrawalAsOne().isPresent()) {
                 assertTrue(detail.contains(dbm.foreignMemberWithdrawalAsOne().getForeignPropertyName()));
-                assertTrue(detail.contains(member.getMemberWithdrawalAsOne().getWithdrawalDatetime().toString()));
+                assertTrue(detail.contains(member.getMemberWithdrawalAsOne().get().getWithdrawalDatetime().toString()));
             }
             assertFalse(detail.contains(dbm.referrerPurchaseList().getReferrerPropertyName()));
             assertTrue(detail.contains("@" + Integer.toHexString(member.hashCode())));
@@ -634,14 +630,12 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
             sb.append(ln()).append(detail);
             assertTrue(detail.contains(member.getClass().getSimpleName()));
             assertTrue(detail.contains(dbm.foreignMemberStatus().getForeignPropertyName()));
-            assertTrue(detail.contains(member.getMemberStatus().getMemberStatusName()));
-            if (member.getMemberAddressAsValid() != null) {
+            assertTrue(detail.contains(member.getMemberStatus().get().getMemberStatusName()));
+            if (member.getMemberAddressAsValid().isPresent()) {
                 assertTrue(detail.contains(dbm.foreignMemberAddressAsValid().getForeignPropertyName()));
             }
-            if (member.getMemberSecurityAsOne() != null) {
-                assertTrue(detail.contains(dbm.foreignMemberSecurityAsOne().getForeignPropertyName()));
-            }
-            if (member.getMemberWithdrawalAsOne() != null) {
+            assertTrue(detail.contains(dbm.foreignMemberSecurityAsOne().getForeignPropertyName()));
+            if (member.getMemberWithdrawalAsOne().isPresent()) {
                 assertTrue(detail.contains(dbm.foreignMemberWithdrawalAsOne().getForeignPropertyName()));
             }
             if (!member.getMemberAddressList().isEmpty()) {
@@ -738,10 +732,10 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         Member clone = member.clone();
 
         // ## Assert ##
-        MemberStatus cloneStatus = clone.getMemberStatus();
-        MemberStatus memberStatus = member.getMemberStatus();
+        MemberStatus cloneStatus = clone.getMemberStatus().get();
+        MemberStatus memberStatus = member.getMemberStatus().get();
         assertNotNull(member);
-        assertNull(clone.getMemberSecurityAsOne());
+        assertFalse(clone.getMemberSecurityAsOne().isPresent());
         cloneStatus.setDescription("clone-test");
         assertEquals("clone-test", cloneStatus.getDescription());
         assertEquals("clone-test", memberStatus.getDescription()); // shallow

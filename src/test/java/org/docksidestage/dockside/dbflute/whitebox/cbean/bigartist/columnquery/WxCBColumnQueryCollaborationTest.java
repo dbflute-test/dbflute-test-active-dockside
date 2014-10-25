@@ -19,6 +19,7 @@ import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
+import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -341,7 +342,7 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
-            Integer pointCount = member.getMemberServiceAsOne().getServicePointCount();
+            Integer pointCount = member.getMemberServiceAsOne().get().getServicePointCount();
             Integer productKindCount = member.getProductKindCount();
             log(member.getMemberName() + ", " + pointCount + ", " + productKindCount);
             assertTrue(pointCount > productKindCount);
@@ -627,10 +628,11 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
             assertNotNull(member.getMemberName());
             assertNotNull(member.getMemberStatusCode());
             assertNull(member.xznocheckGetMemberAccount());
-            assertNotNull(member.getMemberStatus().getMemberStatusName());
-            assertNonSpecifiedAccess(() -> member.getMemberStatus().getDisplayOrder());
-            assertNull(member.getMemberStatus().xznocheckGetDisplayOrder());
-            assertNull(member.getMemberStatus().xznocheckGetDescription());
+            MemberStatus status = member.getMemberStatus().get();
+            assertNotNull(status.getMemberStatusName());
+            assertNonSpecifiedAccess(() -> status.getDisplayOrder());
+            assertNull(status.xznocheckGetDisplayOrder());
+            assertNull(status.xznocheckGetDescription());
         }
     }
 

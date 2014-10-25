@@ -28,7 +28,6 @@ import org.docksidestage.dockside.dbflute.cbean.cq.MemberStatusCQ;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
-import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -81,7 +80,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         }).alwaysPresent(purchase -> {
             /* ## Assert ## */
             assertNotNull(purchase.getMember());
-            assertNotNull(purchase.getMember().getMemberStatus());
+            assertTrue(purchase.getMember().get().getMemberStatus().isPresent());
         });
     }
 
@@ -138,12 +137,12 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
             assertNotNull(member.getMemberId());
             assertNotNull(member.getMemberName());
             assertNotNull(member.getMemberAccount());
-            MemberStatus status = member.getMemberStatus();
-            assertNotNull(status);
-            assertNotNull(status.getMemberStatusCode());
-            assertNull(status.xznocheckGetMemberStatusName());
-            assertNonSpecifiedAccess(() -> status.getMemberStatusName());
-            assertNotNull(status.getDisplayOrder());
+            member.getMemberStatus().alwaysPresent(status -> {
+                assertNotNull(status.getMemberStatusCode());
+                assertNull(status.xznocheckGetMemberStatusName());
+                assertNonSpecifiedAccess(() -> status.getMemberStatusName());
+                assertNotNull(status.getDisplayOrder());
+            });
         }
         assertEquals(MemberStatusDbm.getInstance().columnDisplayOrder(), specifiedColumn.getColumnInfo());
     }

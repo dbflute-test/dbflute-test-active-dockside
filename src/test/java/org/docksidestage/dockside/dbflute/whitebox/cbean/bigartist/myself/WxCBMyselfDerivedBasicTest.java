@@ -56,7 +56,7 @@ public class WxCBMyselfDerivedBasicTest extends UnitContainerTestCase {
         boolean existsSame = false;
         for (Member member : memberList) {
             Integer memberId = member.getMemberId();
-            Integer servicePointCount = member.getMemberServiceAsOne().getServicePointCount();
+            Integer servicePointCount = member.getMemberServiceAsOne().get().getServicePointCount();
             Integer pointRank = member.getLoginCount();
             log(memberId + ", " + servicePointCount + ", " + pointRank);
             if (previousPoint != null && previousPoint < servicePointCount) {
@@ -122,7 +122,7 @@ public class WxCBMyselfDerivedBasicTest extends UnitContainerTestCase {
         boolean existsSame = false;
         for (Member member : memberList) {
             Integer memberId = member.getMemberId();
-            Integer servicePointCount = member.getMemberServiceAsOne().getServicePointCount();
+            Integer servicePointCount = member.getMemberServiceAsOne().get().getServicePointCount();
             Integer pointRank = member.getLoginCount();
             log(memberId + ", " + servicePointCount + ", " + pointRank);
             if (previousPoint != null && previousPoint < servicePointCount) {
@@ -231,33 +231,21 @@ public class WxCBMyselfDerivedBasicTest extends UnitContainerTestCase {
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             final MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            cb.specify().myselfDerived().count(new SubQuery<MemberCB>() {
-                public void query(MemberCB subCB) {
-                    subCB.specify().columnMemberId();
-                    subCB.columnQuery(new SpecifyQuery<MemberCB>() {
-                        public void specify(MemberCB cb) {
-                            cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                        }
-                    }).greaterThan(new SpecifyQuery<MemberCB>() {
-                        public void specify(MemberCB cb) {
-                            cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-                        }
-                    });
-                }
+            cb.specify().myselfDerived().count(myselfCB -> {
+                myselfCB.specify().columnMemberId();
+                myselfCB.columnQuery(colCB -> {
+                    colCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                }).greaterThan(colCB -> {
+                    colCB.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                });
             }, Member.ALIAS_loginCount, op -> op.plus(1));
-            cb.query().myselfDerived().count(new SubQuery<MemberCB>() {
-                public void query(MemberCB subCB) {
-                    subCB.specify().columnMemberId();
-                    subCB.columnQuery(new SpecifyQuery<MemberCB>() {
-                        public void specify(MemberCB cb) {
-                            cb.specify().specifyMemberServiceAsOne().columnServicePointCount();
-                        }
-                    }).greaterThan(new SpecifyQuery<MemberCB>() {
-                        public void specify(MemberCB cb) {
-                            cb.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
-                        }
-                    });
-                }
+            cb.query().myselfDerived().count(myselfCB -> {
+                myselfCB.specify().columnMemberId();
+                myselfCB.columnQuery(colCB -> {
+                    colCB.specify().specifyMemberServiceAsOne().columnServicePointCount();
+                }).greaterThan(colCB -> {
+                    colCB.overTheWaves(dreamCruiseCB.specify().specifyMemberServiceAsOne().columnServicePointCount());
+                });
             }, op -> op.plus(1)).lessEqual(3);
             cb.query().queryMemberServiceAsOne().addOrderBy_ServicePointCount_Desc();
         });
@@ -271,7 +259,7 @@ public class WxCBMyselfDerivedBasicTest extends UnitContainerTestCase {
             if (previousRank != null && previousRank > pointRank) {
                 fail();
             }
-            assertNull(member.getMemberServiceAsOne());
+            assertFalse(member.getMemberServiceAsOne().isPresent());
             assertTrue(pointRank <= 3);
             previousRank = pointRank;
         }

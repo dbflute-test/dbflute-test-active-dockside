@@ -242,7 +242,8 @@ public abstract class BsProductCategory extends AbstractEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_productCategorySelf != null) { sb.append(dm).append("productCategorySelf"); }
+        if (_productCategorySelf != null && _productCategorySelf.isPresent())
+        { sb.append(dm).append("productCategorySelf"); }
         if (_productList != null && !_productList.isEmpty())
         { sb.append(dm).append("productList"); }
         if (_productCategorySelfList != null && !_productCategorySelfList.isEmpty())

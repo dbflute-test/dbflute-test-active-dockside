@@ -15,6 +15,8 @@ import org.docksidestage.dockside.dbflute.exbhv.MemberAddressBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberAddress;
+import org.docksidestage.dockside.dbflute.exentity.MemberSecurity;
+import org.docksidestage.dockside.dbflute.exentity.MemberService;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -60,8 +62,9 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
         String previousStatus = null;
         Set<String> statusSet = newHashSet();
         for (Member member : memberList) {
-            log(member.getMemberStatusCode(), member.getMemberId(), member.getMemberServiceAsOne().getServicePointCount(), member
-                    .getMemberSecurityAsOne().getReminderUseCount());
+            MemberService service = member.getMemberServiceAsOne().get();
+            MemberSecurity security = member.getMemberSecurityAsOne().get();
+            log(member.getMemberStatusCode(), member.getMemberId(), service.getServicePointCount(), security.getReminderUseCount());
             if (member.isMemberStatusCodeFormalized()) {
                 fmlList.add(member);
             } else if (member.isMemberStatusCodeProvisional()) {
@@ -93,7 +96,8 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
             Integer previousPoint = null;
             assertHasPluralElement(prvList);
             for (Member member : prvList) {
-                Integer point = member.getMemberServiceAsOne().getServicePointCount();
+                MemberService service = member.getMemberServiceAsOne().get();
+                Integer point = service.getServicePointCount();
                 assertNotNull(point);
                 assertTrue(previousPoint == null || previousPoint < point);
                 previousPoint = point;
@@ -104,7 +108,8 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
             Integer previousCount = null;
             assertHasPluralElement(wdlList);
             for (Member member : wdlList) {
-                Integer count = member.getMemberSecurityAsOne().getReminderUseCount();
+                MemberSecurity security = member.getMemberSecurityAsOne().get();
+                Integer count = security.getReminderUseCount();
                 assertNotNull(count);
                 assertTrue(previousCount == null || previousCount < count);
                 previousCount = count;

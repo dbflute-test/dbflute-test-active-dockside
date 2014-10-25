@@ -5,7 +5,6 @@ import java.util.Map;
 import org.dbflute.cbean.result.ListResultBean;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
-import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -168,19 +167,20 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertNotNull(member.getUpdateUser());
             assertNotNull(member.getVersionNo());
 
-            MemberStatus status = member.getMemberStatus();
-            assertNotNull(status.getMemberStatusCode());
-            assertNonSpecifiedAccess(() -> status.getMemberStatusName());
-            assertNotNull(status.getDisplayOrder());
-            assertNonSpecifiedAccess(() -> status.getDescription());
-
-            assertEquals(2, status.myspecifiedProperties().size()); // PK and account and setupSelect
-
             log(member.toString()); // expected no exception
             log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
 
-            log(status.toString()); // expected no exception
-            log(status.getDBMeta().extractAllColumnMap(status)); // expected no exception
+            member.getMemberStatus().alwaysPresent(status -> {
+                assertNotNull(status.getMemberStatusCode());
+                assertNonSpecifiedAccess(() -> status.getMemberStatusName());
+                assertNotNull(status.getDisplayOrder());
+                assertNonSpecifiedAccess(() -> status.getDescription());
+
+                assertEquals(2, status.myspecifiedProperties().size()); // PK and account and setupSelect
+
+                    log(status.toString()); // expected no exception
+                    log(status.getDBMeta().extractAllColumnMap(status)); // expected no exception
+                });
         }
         assertMarked("birthdate");
         assertMarked("formalized");

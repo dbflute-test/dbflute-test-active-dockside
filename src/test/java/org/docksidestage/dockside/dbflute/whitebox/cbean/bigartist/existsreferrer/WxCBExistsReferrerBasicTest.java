@@ -19,7 +19,6 @@ import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberLoginBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
-import org.docksidestage.dockside.dbflute.exentity.MemberAddress;
 import org.docksidestage.dockside.dbflute.exentity.MemberLogin;
 import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
@@ -106,13 +105,14 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         // ## Assert ##
         assertNotSame(0, loginList.size());
         for (MemberLogin login : loginList) {
-            final Member member = login.getMember();
-            Long loginId = login.getMemberLoginId();
-            String statusName = login.getMemberStatus().getMemberStatusName();
-            Integer memberId = member.getMemberId();
-            String memberName = member.getMemberName();
-            log(loginId + ", " + statusName + ", " + memberId + ", " + memberName);
-            assertEquals(Integer.valueOf(3), memberId);
+            login.getMember().alwaysPresent(member -> {
+                Long loginId = login.getMemberLoginId();
+                String statusName = login.getMemberStatus().get().getMemberStatusName();
+                Integer memberId = member.getMemberId();
+                String memberName = member.getMemberName();
+                log(loginId + ", " + statusName + ", " + memberId + ", " + memberName);
+                assertEquals(Integer.valueOf(3), memberId);
+            });
         }
         String sql = popCB().toDisplaySql();
         assertTrue(Srl.containsIgnoreCase(sql, "inner join MEMBER_STATUS dfrel_1"));
@@ -187,15 +187,15 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         {
             assertEquals(0, memberLoginBhv.selectCount(actualCB -> {
                 actualCB.query().setMemberId_Equal(3);
-            pushCB(actualCB);
-        }));
+                pushCB(actualCB);
+            }));
 
         }
         {
             assertNotSame(0, memberLoginBhv.selectCount(actualCB -> {
                 actualCB.query().setMemberId_Equal(5);
-            pushCB(actualCB);
-        }));
+                pushCB(actualCB);
+            }));
 
         }
     }
@@ -220,9 +220,10 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
-            MemberAddress address = member.getMemberAddressAsValid();
-            log(member.getMemberName() + ", " + address.getAddress());
-            assertTrue(address.getAddress().startsWith("S"));
+            member.getMemberAddressAsValid().alwaysPresent(address -> {
+                log(member.getMemberName() + ", " + address.getAddress());
+                assertTrue(address.getAddress().startsWith("S"));
+            });
         }
     }
 
@@ -267,7 +268,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
         MemberCB cb = new MemberCB();
         cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
             public void query(PurchaseCB subCB) {
-        try {
+                try {
                     subCB.setupSelect_Member();
 
                     // ## Assert ##
@@ -276,7 +277,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
                     // OK
                     log(e.getMessage());
                 }
-        try {
+                try {
                     subCB.specify();
 
                     // ## Assert ##
@@ -285,7 +286,7 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
                     // OK
                     log(e.getMessage());
                 }
-        try {
+                try {
                     subCB.query().addOrderBy_MemberId_Asc();
 
                     // ## Assert ##

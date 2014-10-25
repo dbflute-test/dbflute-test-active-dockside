@@ -165,8 +165,7 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
             int expectedSum = 0;
             Set<Integer> productIdSet = new HashSet<Integer>();
             for (Purchase purchase : purchaseList) {
-                Integer regularPrice = purchase.getProduct().getRegularPrice();
-                expectedSum = expectedSum + regularPrice;
+                expectedSum = expectedSum + purchase.getProduct().get().getRegularPrice();
                 Integer productId = purchase.getProductId();
                 if (productIdSet.contains(productId)) {
                     existsDuplicate = true;

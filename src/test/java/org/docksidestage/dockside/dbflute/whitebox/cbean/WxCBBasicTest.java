@@ -320,8 +320,8 @@ public class WxCBBasicTest extends UnitContainerTestCase {
         });
         // ## Act & Assert ##
         {
-            MemberStatus memberStatus1 = list.get(0).getMemberStatus();
-            MemberStatus memberStatus2 = list.get(1).getMemberStatus();
+            MemberStatus memberStatus1 = list.get(0).getMemberStatus().get();
+            MemberStatus memberStatus2 = list.get(1).getMemberStatus().get();
             assertEquals(memberStatus1, memberStatus2);
             assertEquals(memberStatus1.hashCode(), memberStatus2.hashCode());
             assertTrue(memberStatus1 == memberStatus2);
@@ -337,9 +337,9 @@ public class WxCBBasicTest extends UnitContainerTestCase {
 
                 public void handle(Member entity) {
                     if (index == 0) {
-                        memberStatus1 = entity.getMemberStatus();
+                        memberStatus1 = entity.getMemberStatus().get();
                     } else if (index == 1) {
-                        MemberStatus memberStatus2 = entity.getMemberStatus();
+                        MemberStatus memberStatus2 = entity.getMemberStatus().get();
                         assertEquals(memberStatus1, memberStatus2);
                         assertEquals(memberStatus1.hashCode(), memberStatus2.hashCode());
                         assertTrue(memberStatus1 != memberStatus2);

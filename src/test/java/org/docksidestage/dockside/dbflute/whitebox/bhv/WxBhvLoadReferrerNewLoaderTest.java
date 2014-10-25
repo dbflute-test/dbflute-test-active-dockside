@@ -1,27 +1,22 @@
 package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
-import org.dbflute.bhv.referrer.ReferrerListHandler;
 import org.dbflute.bhv.referrer.ReferrerLoaderHandler;
 import org.dbflute.cbean.result.ListResultBean;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.bsbhv.loader.LoaderOfMember;
-import org.docksidestage.dockside.dbflute.bsbhv.loader.LoaderOfMemberLogin;
 import org.docksidestage.dockside.dbflute.bsbhv.loader.LoaderOfMemberService;
-import org.docksidestage.dockside.dbflute.bsbhv.loader.LoaderOfPurchase;
-import org.docksidestage.dockside.dbflute.bsbhv.loader.LoaderOfPurchasePayment;
 import org.docksidestage.dockside.dbflute.bsbhv.loader.LoaderOfServiceRank;
 import org.docksidestage.dockside.dbflute.bsbhv.loader.LoaderOfWithdrawalReason;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberServiceCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberWithdrawalCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
-import org.docksidestage.dockside.dbflute.cbean.PurchasePaymentCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
@@ -106,9 +101,9 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             Member expected = expectedMap.get(member.getMemberId());
             assertEquals(expected.toStringWithRelation(), member.toStringWithRelation());
             assertEquals(expected.getPurchaseList(), member.getPurchaseList());
-            assertNull(member.getMemberStatus());
-            assertNull(member.getMemberSecurityAsOne());
-            assertNull(member.getMemberServiceAsOne());
+            assertFalse(member.getMemberStatus().isPresent());
+            assertFalse(member.getMemberSecurityAsOne().isPresent());
+            assertFalse(member.getMemberServiceAsOne().isPresent());
             List<Purchase> purchaseList = expected.getPurchaseList();
             Map<Long, Purchase> expectedPurchaseMap = newHashMap();
             for (Purchase purchase : expected.getPurchaseList()) {
@@ -119,7 +114,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
                 Purchase expectedPurchase = expectedPurchaseMap.get(purchase.getPurchaseId());
                 assertEquals(expectedPurchase.toStringWithRelation(), purchase.toStringWithRelation());
                 assertEquals(expectedPurchase.getPurchasePaymentList(), purchase.getPurchasePaymentList());
-                assertNull(purchase.getProduct());
+                assertFalse(purchase.getProduct().isPresent());
                 assertTrue(purchase.getPurchasePaymentList().isEmpty());
                 markHere("purchase");
             }
@@ -137,27 +132,17 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             cb.query().addOrderBy_MemberId_Asc();
         });
 
-        memberBhv.load(memberList, new ReferrerLoaderHandler<LoaderOfMember>() {
-            public void handle(LoaderOfMember loader) {
-                loader.loadPurchase(new ConditionBeanSetupper<PurchaseCB>() {
-                    public void setup(PurchaseCB referrerCB) {
-                        referrerCB.query().addOrderBy_PurchasePrice_Asc();
-                    }
-                }).withNestedReferrer(new ReferrerLoaderHandler<LoaderOfPurchase>() {
-                    public void handle(LoaderOfPurchase loader) {
-                        loader.loadPurchasePayment(new ConditionBeanSetupper<PurchasePaymentCB>() {
-                            public void setup(PurchasePaymentCB referrerCB) {
-                                referrerCB.query().addOrderBy_PaymentAmount_Asc();
-                            }
-                        });
-                    }
+        memberBhv.load(memberList, memberLoader -> {
+            memberLoader.loadPurchase(purchaseCB -> {
+                purchaseCB.query().addOrderBy_PurchasePrice_Asc();
+            }).withNestedReferrer(purchaseLoader -> {
+                purchaseLoader.loadPurchasePayment(referrerCB -> {
+                    referrerCB.query().addOrderBy_PaymentAmount_Asc();
                 });
-                loader.loadMemberLogin(new ConditionBeanSetupper<MemberLoginCB>() {
-                    public void setup(MemberLoginCB referrerCB) {
-                        referrerCB.query().addOrderBy_LoginDatetime_Desc();
-                    }
-                });
-            }
+            });
+            memberLoader.loadMemberLogin(loginCB -> {
+                loginCB.query().addOrderBy_LoginDatetime_Desc();
+            });
         });
 
         // ## Assert ##
@@ -165,36 +150,28 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             cb.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
             cb.query().addOrderBy_MemberId_Asc();
         });
-        memberBhv.loadPurchase(expectedList, new ConditionBeanSetupper<PurchaseCB>() {
-            public void setup(PurchaseCB referrerCB) {
-                referrerCB.query().addOrderBy_PurchasePrice_Asc();
-            }
-        }).withNestedReferrer(new ReferrerListHandler<Purchase>() {
-            public void handle(List<Purchase> referrerList) {
-                purchaseBhv.loadPurchasePayment(referrerList, new ConditionBeanSetupper<PurchasePaymentCB>() {
-                    public void setup(PurchasePaymentCB referrerCB) {
-                        referrerCB.query().addOrderBy_PaymentAmount_Asc();
-                    }
-                });
-            }
+        memberBhv.loadPurchase(expectedList, purchaseCB -> {
+            purchaseCB.query().addOrderBy_PurchasePrice_Asc();
+        }).withNestedReferrer(purchaseList -> {
+            purchaseBhv.loadPurchasePayment(purchaseList, paymentCB -> {
+                paymentCB.query().addOrderBy_PaymentAmount_Asc();
+            });
         });
-        memberBhv.loadMemberLogin(expectedList, new ConditionBeanSetupper<MemberLoginCB>() {
-            public void setup(MemberLoginCB referrerCB) {
-                referrerCB.query().addOrderBy_LoginDatetime_Desc();
-            }
+        memberBhv.loadMemberLogin(expectedList, loginCB -> {
+            loginCB.query().addOrderBy_LoginDatetime_Desc();
         });
         assertEquals(expectedList, memberList);
         Map<Integer, Member> expectedMap = newHashMap();
-        for (Member member : expectedList) {
-            expectedMap.put(member.getMemberId(), member);
+        for (Member expected : expectedList) {
+            expectedMap.put(expected.getMemberId(), expected);
         }
         assertHasAnyElement(memberList);
         for (Member member : memberList) {
             log(member);
+            assertFalse(member.getMemberStatus().isPresent());
+            assertFalse(member.getMemberSecurityAsOne().isPresent());
+            assertFalse(member.getMemberServiceAsOne().isPresent());
             Member expected = expectedMap.get(member.getMemberId());
-            assertNull(member.getMemberStatus());
-            assertNull(member.getMemberSecurityAsOne());
-            assertNull(member.getMemberServiceAsOne());
             List<Purchase> purchaseList = expected.getPurchaseList();
             Map<Long, Purchase> expectedPurchaseMap = newHashMap();
             for (Purchase purchase : expected.getPurchaseList()) {
@@ -203,7 +180,7 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             for (Purchase purchase : purchaseList) {
                 log("  " + purchase);
                 Purchase expectedPurchase = expectedPurchaseMap.get(purchase.getPurchaseId());
-                assertNull(purchase.getProduct());
+                assertFalse(purchase.getProduct().isPresent());
                 List<PurchasePayment> paymentList = purchase.getPurchasePaymentList();
                 Map<Long, PurchasePayment> expectedPaymentMap = newHashMap();
                 for (PurchasePayment payment : expectedPurchase.getPurchasePaymentList()) {
@@ -219,12 +196,12 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             }
             List<MemberLogin> loginList = member.getMemberLoginList();
             Map<Long, MemberLogin> expectedLoginMap = newHashMap();
-            for (MemberLogin login : expected.getMemberLoginList()) {
-                expectedLoginMap.put(login.getMemberLoginId(), login);
+            for (MemberLogin expectedLogin : expected.getMemberLoginList()) {
+                expectedLoginMap.put(expectedLogin.getMemberLoginId(), expectedLogin);
             }
             for (MemberLogin login : loginList) {
                 MemberLogin expectedLogin = expectedLoginMap.get(login.getMemberLoginId());
-                assertNull(login.getMemberStatus());
+                assertFalse(login.getMemberStatus().isPresent());
                 assertEquals(expectedLogin.toStringWithRelation(), login.toStringWithRelation());
                 markHere("login");
             }
@@ -280,15 +257,15 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             log(member);
             Member expected = expectedMap.get(member.getMemberId());
             assertEquals(expected.getPurchaseList(), member.getPurchaseList());
-            assertNotNull(member.getMemberStatus());
-            assertNull(member.getMemberSecurityAsOne());
-            assertNull(member.getMemberServiceAsOne());
+            assertTrue(member.getMemberStatus().isPresent());
+            assertFalse(member.getMemberSecurityAsOne().isPresent());
+            assertFalse(member.getMemberServiceAsOne().isPresent());
             assertTrue(expected.getPurchaseList().isEmpty());
             assertTrue(member.getPurchaseList().isEmpty());
             assertTrue(expected.getMemberLoginList().isEmpty());
             assertTrue(member.getMemberLoginList().isEmpty());
-            MemberStatus status = member.getMemberStatus();
-            MemberStatus expectedStatus = expected.getMemberStatus();
+            MemberStatus status = member.getMemberStatus().get();
+            MemberStatus expectedStatus = expected.getMemberStatus().get();
             assertEquals(expectedStatus, status);
             Map<Long, MemberLogin> expectedLoginMap = newHashMap();
             for (MemberLogin login : status.getMemberLoginList()) {
@@ -351,14 +328,14 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             log(member);
             Member expected = expectedMap.get(member.getMemberId());
             assertEquals(expected.getPurchaseList(), member.getPurchaseList());
-            assertNull(member.getMemberStatus());
-            assertNull(member.getMemberSecurityAsOne());
-            assertNull(member.getMemberServiceAsOne());
+            assertFalse(member.getMemberStatus().isPresent());
+            assertFalse(member.getMemberSecurityAsOne().isPresent());
+            assertFalse(member.getMemberServiceAsOne().isPresent());
             assertTrue(expected.getPurchaseList().isEmpty());
             assertTrue(member.getPurchaseList().isEmpty());
             assertTrue(expected.getMemberLoginList().isEmpty());
             assertTrue(member.getMemberLoginList().isEmpty());
-            assertNull(expected.getMemberStatus());
+            assertFalse(expected.getMemberStatus().isPresent());
         }
     }
 
@@ -403,23 +380,26 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             log("  " + rank);
             List<MemberService> serviceList = rank.getMemberServiceList();
             for (MemberService service : serviceList) {
-                Member member = service.getMember();
-                log("  " + member.getMemberName(), service.getServicePointCount());
-                assertTrue(member.isMemberStatusCodeFormalized());
-                List<Purchase> purchaseList = member.getPurchaseList();
-                for (Purchase purchase : purchaseList) {
-                    assertNotNull(purchase.getProduct());
-                    log("    purchase: " + purchase.getPurchaseId(), purchase.getProduct().getProductName());
-                    assertTrue(purchase.isPaymentCompleteFlgTrue());
-                    markHere("purchase");
-                }
-                List<MemberLogin> loginList = member.getMemberLoginList();
-                for (MemberLogin login : loginList) {
-                    assertNotNull(login.getMemberStatus());
-                    log("    login: " + login.getMemberLoginId(), login.getMemberStatus().getMemberStatusName());
-                    assertTrue(login.isMobileLoginFlgFalse());
-                    markHere("login");
-                }
+                service.getMember().alwaysPresent(member -> {
+                    log("  " + member.getMemberName(), service.getServicePointCount());
+                    assertTrue(member.isMemberStatusCodeFormalized());
+                    List<Purchase> purchaseList = member.getPurchaseList();
+                    for (Purchase purchase : purchaseList) {
+                        assertNotNull(purchase.getProduct());
+                        String productName = purchase.getProduct().get().getProductName();
+                        log("    purchase: " + purchase.getPurchaseId(), productName);
+                        assertTrue(purchase.isPaymentCompleteFlgTrue());
+                        markHere("purchase");
+                    }
+                    List<MemberLogin> loginList = member.getMemberLoginList();
+                    for (MemberLogin login : loginList) {
+                        assertNotNull(login.getMemberStatus());
+                        String statusName = login.getMemberStatus().get().getMemberStatusName();
+                        log("    login: " + login.getMemberLoginId(), statusName);
+                        assertTrue(login.isMobileLoginFlgFalse());
+                        markHere("login");
+                    }
+                });
             }
         }
         assertMarked("purchase");
@@ -433,52 +413,32 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             cb.query().addOrderBy_DisplayOrder_Asc();
         });
 
-        serviceRankBhv.load(rankList, new ReferrerLoaderHandler<LoaderOfServiceRank>() {
-            public void handle(LoaderOfServiceRank loader) {
-                loader.loadMemberService(new ConditionBeanSetupper<MemberServiceCB>() {
-                    public void setup(MemberServiceCB referrerCB) {
-                        referrerCB.setupSelect_Member().withMemberStatus();
-                        List<CDef.MemberStatus> cdefList = new ArrayList<CDef.MemberStatus>();
-                        cdefList.add(CDef.MemberStatus.Provisional);
-                        cdefList.add(CDef.MemberStatus.Withdrawal);
-                        referrerCB.query().queryMember().setMemberStatusCode_InScope_AsMemberStatus(cdefList);
-                    }
-                }).withNestedReferrer(new ReferrerLoaderHandler<LoaderOfMemberService>() {
-                    public void handle(LoaderOfMemberService loader) {
-                        loader.pulloutMember().loadPurchase(new ConditionBeanSetupper<PurchaseCB>() {
-                            public void setup(PurchaseCB referrerCB) {
-                                referrerCB.setupSelect_Product();
-                                referrerCB.query().setPaymentCompleteFlg_Equal_True();
-                                referrerCB.query().addOrderBy_PurchaseDatetime_Asc();
-                            }
-                        }).withNestedReferrer(new ReferrerLoaderHandler<LoaderOfPurchase>() {
-                            public void handle(LoaderOfPurchase loader) {
-                                loader.loadPurchasePayment(new ConditionBeanSetupper<PurchasePaymentCB>() {
-                                    public void setup(PurchasePaymentCB referrerCB) {
-                                        referrerCB.query().setPaymentMethodCode_Equal_BankTransfer();
-                                        referrerCB.query().addOrderBy_PaymentDatetime_Desc();
-                                    }
-                                });
-                            }
-                        });
-                        loader.pulloutMember().loadMemberLogin(new ConditionBeanSetupper<MemberLoginCB>() {
-                            public void setup(MemberLoginCB referrerCB) {
-                                referrerCB.setupSelect_MemberStatus();
-                                referrerCB.query().setMobileLoginFlg_Equal_False();
-                                referrerCB.query().addOrderBy_LoginDatetime_Asc();
-                            }
-                        }).withNestedReferrer(new ReferrerLoaderHandler<LoaderOfMemberLogin>() {
-                            public void handle(LoaderOfMemberLogin loader) {
-                                loader.pulloutMemberStatus().loadMember(new ConditionBeanSetupper<MemberCB>() {
-                                    public void setup(MemberCB referrerCB) {
-                                        referrerCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
-                                    }
-                                });
-                            }
-                        });
-                    }
+        serviceRankBhv.load(rankList, rankLoader -> {
+            rankLoader.loadMemberService(serviceCB -> {
+                serviceCB.setupSelect_Member().withMemberStatus();
+                List<CDef.MemberStatus> cdefList = new ArrayList<CDef.MemberStatus>();
+                cdefList.add(CDef.MemberStatus.Provisional);
+                cdefList.add(CDef.MemberStatus.Withdrawal);
+                serviceCB.query().queryMember().setMemberStatusCode_InScope_AsMemberStatus(cdefList);
+            }).withNestedReferrer(serviceLoader -> {
+                serviceLoader.pulloutMember().loadPurchase(purchaseCB -> {
+                    purchaseCB.setupSelect_Product();
+                    purchaseCB.query().setPaymentCompleteFlg_Equal_True();
+                    purchaseCB.query().addOrderBy_PurchaseDatetime_Asc();
+                }).withNestedReferrer(purchaseLoader -> purchaseLoader.loadPurchasePayment(paymentCB -> {
+                    paymentCB.query().setPaymentMethodCode_Equal_BankTransfer();
+                    paymentCB.query().addOrderBy_PaymentDatetime_Desc();
+                }));
+                serviceLoader.pulloutMember().loadMemberLogin(loginCB -> {
+                    loginCB.setupSelect_MemberStatus();
+                    loginCB.query().setMobileLoginFlg_Equal_False();
+                    loginCB.query().addOrderBy_LoginDatetime_Asc();
+                }).withNestedReferrer(loginLoader -> {
+                    loginLoader.pulloutMemberStatus().loadMember(memberCB -> {
+                        memberCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                    });
                 });
-            }
+            });
         });
 
         // ## Assert ##
@@ -487,39 +447,43 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
             log("  " + rank);
             List<MemberService> serviceList = rank.getMemberServiceList();
             for (MemberService service : serviceList) {
-                Member member = service.getMember();
-                log("  " + member.getMemberName(), service.getServicePointCount(), member.getMemberStatus().getMemberStatusName());
-                assertTrue(member.isMemberStatusCodeProvisional() || member.isMemberStatusCodeWithdrawal());
-                List<Purchase> purchaseList = member.getPurchaseList();
-                for (Purchase purchase : purchaseList) {
-                    assertNotNull(purchase.getProduct());
-                    log("    purchase: " + purchase.getPurchaseId(), purchase.getProduct().getProductName());
-                    assertTrue(purchase.isPaymentCompleteFlgTrue());
-                    markHere("purchase");
-                    List<PurchasePayment> paymentList = purchase.getPurchasePaymentList();
-                    for (PurchasePayment payment : paymentList) {
-                        log("      payment: " + payment.getPaymentAmount());
-                        markHere("payment");
-                    }
-                }
-                List<MemberLogin> loginList = member.getMemberLoginList();
-                for (MemberLogin login : loginList) {
-                    assertNotNull(login.getMemberStatus());
-                    log("    login: " + login.getMemberLoginId(), login.getMemberStatus().getMemberStatusName());
-                    assertTrue(login.isMobileLoginFlgFalse());
-                    markHere("login");
-                    MemberStatus status = login.getMemberStatus();
-                    List<Member> memberList = status.getMemberList();
-                    for (Member statusMember : memberList) {
-                        log("      statusMember: " + status.getMemberStatusName() + ", " + statusMember.getMemberName());
-                        assertTrue(statusMember.getMemberName().startsWith("S"));
-                        assertEquals(status.getMemberStatusCode(), statusMember.getMemberStatusCode());
-                        markHere("statusMember");
-                        if (statusMember.isMemberStatusCodeFormalized()) {
-                            markHere("formalized");
+                service.getMember().alwaysPresent(member -> {
+                    member.getMemberStatus().alwaysPresent(status -> {
+                        log("  " + member.getMemberName(), service.getServicePointCount(), status.getMemberStatusName());
+                    });
+                    assertTrue(member.isMemberStatusCodeProvisional() || member.isMemberStatusCodeWithdrawal());
+                    List<Purchase> purchaseList = member.getPurchaseList();
+                    for (Purchase purchase : purchaseList) {
+                        assertNotNull(purchase.getProduct());
+                        String productName = purchase.getProduct().get().getProductName();
+                        log("    purchase: " + purchase.getPurchaseId(), productName);
+                        assertTrue(purchase.isPaymentCompleteFlgTrue());
+                        markHere("purchase");
+                        List<PurchasePayment> paymentList = purchase.getPurchasePaymentList();
+                        for (PurchasePayment payment : paymentList) {
+                            log("      payment: " + payment.getPaymentAmount());
+                            markHere("payment");
                         }
                     }
-                }
+                    List<MemberLogin> loginList = member.getMemberLoginList();
+                    for (MemberLogin login : loginList) {
+                        MemberStatus loginedStatus = login.getMemberStatus().get();
+                        assertNotNull(loginedStatus);
+                        log("    login: " + login.getMemberLoginId(), loginedStatus.getMemberStatusName());
+                        assertTrue(login.isMobileLoginFlgFalse());
+                        markHere("login");
+                        List<Member> memberList = loginedStatus.getMemberList();
+                        for (Member statusMember : memberList) {
+                            log("      statusMember: " + loginedStatus.getMemberStatusName() + ", " + statusMember.getMemberName());
+                            assertTrue(statusMember.getMemberName().startsWith("S"));
+                            assertEquals(loginedStatus.getMemberStatusCode(), statusMember.getMemberStatusCode());
+                            markHere("statusMember");
+                            if (statusMember.isMemberStatusCodeFormalized()) {
+                                markHere("formalized");
+                            }
+                        }
+                    }
+                });
             }
         }
         assertMarked("purchase");
@@ -544,21 +508,20 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
         // ## Assert ##
         assertHasAnyElement(memberList);
         for (Member member : memberList) {
-            MemberWithdrawal withdrawal = member.getMemberWithdrawalAsOne();
-            if (withdrawal != null) {
-                WithdrawalReason reason = withdrawal.getWithdrawalReason();
-                if (reason != null) {
+            member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
+                Timestamp withdrawalDatetime = withdrawal.getWithdrawalDatetime();
+                withdrawal.getWithdrawalReason().ifPresent(reason -> {
                     List<MemberWithdrawal> withdrawalList = reason.getMemberWithdrawalList();
-                    log(member.getMemberName(), withdrawal.getWithdrawalDatetime(), reason.getDisplayOrder(), withdrawalList.size());
+                    log(member.getMemberName(), withdrawalDatetime, reason.getDisplayOrder(), withdrawalList.size());
                     markHere("exists");
-                } else {
-                    log(member.getMemberName(), withdrawal.getWithdrawalDatetime());
+                }).orElse(() -> {
+                    log(member.getMemberName(), withdrawalDatetime);
                     markHere("noReason");
-                }
-            } else {
+                });
+            }).orElse(() -> {
                 log(member.getMemberName());
                 markHere("noWithdrawal");
-            }
+            });
         }
         log(currentDate().getTime());
         assertMarked("exists");
@@ -578,38 +541,30 @@ public class WxBhvLoadReferrerNewLoaderTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertHasAnyElement(paymentList);
-        purchasePaymentBhv.load(paymentList, new ReferrerLoaderHandler<LoaderOfPurchasePayment>() {
-            public void handle(LoaderOfPurchasePayment loader) {
-                loader.pulloutPurchase().pulloutMember().loadMemberLogin(new ConditionBeanSetupper<MemberLoginCB>() {
-                    public void setup(MemberLoginCB referrerCB) {
-                        referrerCB.setupSelect_MemberStatus();
-                    }
-                }).withNestedReferrer(new ReferrerLoaderHandler<LoaderOfMemberLogin>() {
-                    public void handle(LoaderOfMemberLogin loader) {
-                        loader.pulloutMemberStatus().loadMember(new ConditionBeanSetupper<MemberCB>() {
-                            public void setup(MemberCB referrerCB) {
-                                referrerCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
-                            }
-                        });
-                    }
+        purchasePaymentBhv.load(paymentList, paymentLoader -> {
+            paymentLoader.pulloutPurchase().pulloutMember().loadMemberLogin(loginCB -> {
+                loginCB.setupSelect_MemberStatus();
+            }).withNestedReferrer(loginLoader -> {
+                loginLoader.pulloutMemberStatus().loadMember(memberCB -> {
+                    memberCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
                 });
-            }
+            });
         });
         for (PurchasePayment payment : paymentList) {
-            Member member = payment.getPurchase().getMember();
-            if (!member.isMemberStatusCodeFormalized()) {
-                markHere("check");
-            }
-            List<MemberLogin> loginList = member.getMemberLoginList();
-            for (MemberLogin login : loginList) {
-                MemberStatus status = login.getMemberStatus();
-                assertNotNull(status);
-                List<Member> farMemberList = status.getMemberList();
-                for (Member farMember : farMemberList) {
-                    assertTrue(farMember.getMemberName().startsWith("S"));
-                    markHere("exists");
+            payment.getPurchase().get().getMember().alwaysPresent(member -> {
+                if (!member.isMemberStatusCodeFormalized()) {
+                    markHere("check");
                 }
-            }
+                List<MemberLogin> loginList = member.getMemberLoginList();
+                for (MemberLogin login : loginList) {
+                    login.getMemberStatus().alwaysPresent(status -> {
+                        status.getMemberList().forEach(farMember -> {
+                            assertTrue(farMember.getMemberName().startsWith("S"));
+                            markHere("exists");
+                        });
+                    });
+                }
+            });
         }
         assertMarked("check");
         assertMarked("exists");

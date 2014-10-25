@@ -319,7 +319,8 @@ public abstract class BsSummaryProduct extends AbstractEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_productStatus != null) { sb.append(dm).append("productStatus"); }
+        if (_productStatus != null && _productStatus.isPresent())
+        { sb.append(dm).append("productStatus"); }
         if (_purchaseList != null && !_purchaseList.isEmpty())
         { sb.append(dm).append("purchaseList"); }
         if (sb.length() > dm.length()) {

@@ -5,16 +5,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.cbean.scoping.OrQuery;
-import org.dbflute.cbean.scoping.UnionQuery;
-import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
-import org.docksidestage.dockside.dbflute.exentity.MemberAddress;
 import org.docksidestage.dockside.dbflute.exentity.MemberSecurity;
 import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
-import org.docksidestage.dockside.dbflute.exentity.MemberWithdrawal;
-import org.docksidestage.dockside.dbflute.exentity.WithdrawalReason;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -43,25 +37,23 @@ public class WxCBSetupSelectTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, memberList);
-        boolean existsReason = false;
         for (Member member : memberList) {
             assertNotNull(member.getMemberId());
             assertNotNull(member.getMemberStatusCode());
-            MemberStatus memberStatus = member.getMemberStatus();
-            assertEquals(member.getMemberStatusCode(), memberStatus.getMemberStatusCode());
-            MemberWithdrawal withdrawal = member.getMemberWithdrawalAsOne();
-            if (withdrawal != null) {
+            MemberStatus status = member.getMemberStatus().get();
+            assertEquals(member.getMemberStatusCode(), status.getMemberStatusCode());
+            member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
                 assertEquals(member.getMemberId(), withdrawal.getMemberId());
-                WithdrawalReason reason = withdrawal.getWithdrawalReason();
-                if (reason != null) {
-                    existsReason = true;
+                withdrawal.getWithdrawalReason().ifPresent(reason -> {
+                    markHere("existsReason");
                     assertEquals(withdrawal.getWithdrawalReasonCode(), reason.getWithdrawalReasonCode());
-                }
-            }
-            MemberSecurity security = member.getMemberSecurityAsOne();
-            assertEquals(member.getMemberId(), security.getMemberId());
+                });
+            });
+            member.getMemberSecurityAsOne().alwaysPresent(security -> {
+                assertEquals(member.getMemberId(), security.getMemberId());
+            });
         }
-        assertTrue(existsReason);
+        assertMarked("existsReason");
     }
 
     // ===================================================================================
@@ -81,29 +73,26 @@ public class WxCBSetupSelectTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
-        boolean existsAddress = false;
+        assertHasAnyElement(memberList);
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
         String formattedTargetDate = fmt.format(targetDate);
         log("[" + formattedTargetDate + "]");
         for (Member member : memberList) {
             String memberName = member.getMemberName();
-            MemberAddress memberAddressAsValid = member.getMemberAddressAsValid();
-            if (memberAddressAsValid != null) {
-                assertNotNull(memberAddressAsValid.getValidBeginDate());
-                assertNotNull(memberAddressAsValid.getValidEndDate());
-                String validBeginDate = fmt.format(memberAddressAsValid.getValidBeginDate());
-                String validEndDate = fmt.format(memberAddressAsValid.getValidEndDate());
+            member.getMemberAddressAsValid().ifPresent(address -> {
+                assertNotNull(address.getValidBeginDate());
+                assertNotNull(address.getValidEndDate());
+                String validBeginDate = fmt.format(address.getValidBeginDate());
+                String validEndDate = fmt.format(address.getValidEndDate());
                 assertTrue(validBeginDate.compareTo(formattedTargetDate) <= 0);
                 assertTrue(validEndDate.compareTo(formattedTargetDate) >= 0);
-                String address = memberAddressAsValid.getAddress();
-                log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address);
-                existsAddress = true;
-            } else {
+                log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address.getAddress());
+                markHere("existsAddress");
+            }).orElse(() -> {
                 log(memberName + ", null");
-            }
+            });
         }
-        assertTrue(existsAddress);
+        assertMarked("existsAddress");
         assertFalse(popCB().toDisplaySql().contains("where")); // not use where clause
     }
 
@@ -114,15 +103,11 @@ public class WxCBSetupSelectTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.union(new UnionQuery<MemberCB>() {
-                public void query(MemberCB unionCB) {
-                    unionCB.orScopeQuery(new OrQuery<MemberCB>() {
-                        public void query(MemberCB orCB) {
-                            orCB.query().setMemberStatusCode_Equal_Provisional();
-                            orCB.query().setMemberStatusCode_Equal_Withdrawal();
-                        }
-                    });
-                }
+            cb.union(unionCB -> {
+                unionCB.orScopeQuery(orCB -> {
+                    orCB.query().setMemberStatusCode_Equal_Provisional();
+                    orCB.query().setMemberStatusCode_Equal_Withdrawal();
+                });
             });
             cb.setupSelect_MemberStatus();
             cb.setupSelect_MemberWithdrawalAsOne().withWithdrawalReason();
@@ -133,24 +118,21 @@ public class WxCBSetupSelectTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, memberList);
-        boolean existsReason = false;
         for (Member member : memberList) {
             assertNotNull(member.getMemberId());
             assertNotNull(member.getMemberStatusCode());
-            MemberStatus memberStatus = member.getMemberStatus();
-            assertEquals(member.getMemberStatusCode(), memberStatus.getMemberStatusCode());
-            MemberWithdrawal withdrawal = member.getMemberWithdrawalAsOne();
-            if (withdrawal != null) {
+            MemberStatus status = member.getMemberStatus().get();
+            assertEquals(member.getMemberStatusCode(), status.getMemberStatusCode());
+            member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
                 assertEquals(member.getMemberId(), withdrawal.getMemberId());
-                WithdrawalReason reason = withdrawal.getWithdrawalReason();
-                if (reason != null) {
-                    existsReason = true;
+                withdrawal.getWithdrawalReason().ifPresent(reason -> {
                     assertEquals(withdrawal.getWithdrawalReasonCode(), reason.getWithdrawalReasonCode());
-                }
-            }
-            MemberSecurity security = member.getMemberSecurityAsOne();
+                    markHere("existsReason");
+                });
+            });
+            MemberSecurity security = member.getMemberSecurityAsOne().get();
             assertEquals(member.getMemberId(), security.getMemberId());
         }
-        assertTrue(existsReason);
+        assertMarked("existsReason");
     }
 }

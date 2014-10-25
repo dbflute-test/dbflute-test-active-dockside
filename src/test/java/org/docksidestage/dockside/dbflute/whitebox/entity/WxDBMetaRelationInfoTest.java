@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.dbflute.dbmeta.info.ForeignInfo;
 import org.dbflute.dbmeta.info.ReferrerInfo;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.utflute.core.PlainTestCase;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberStatusDbm;
@@ -37,16 +38,17 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
         MemberStatus status = new MemberStatus();
         status.mynativeMappingMemberStatusCode("foo");
         status.setMemberStatusName("bar");
-        member.setMemberStatus(status);
+        member.setMemberStatus(OptionalEntity.of(status));
 
         // ## Act ##
-        MemberStatus actualStatus = (MemberStatus) foreignInfo.read(member);
+        @SuppressWarnings("unchecked")
+        OptionalEntity<MemberStatus> actualStatus = (OptionalEntity<MemberStatus>) foreignInfo.read(member);
 
         // ## Assert ##
-        assertNotNull(actualStatus);
-        assertEquals(status, actualStatus);
-        assertEquals("foo", actualStatus.getMemberStatusCode());
-        assertEquals("bar", actualStatus.getMemberStatusName());
+        assertTrue(actualStatus.isPresent());
+        assertEquals(status, actualStatus.get());
+        assertEquals("foo", actualStatus.get().getMemberStatusCode());
+        assertEquals("bar", actualStatus.get().getMemberStatusName());
     }
 
     public void test_foreignInfo_write() {
@@ -58,14 +60,15 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
         status.setMemberStatusName("bar");
 
         // ## Act ##
-        foreignInfo.write(member, status);
+        foreignInfo.write(member, OptionalEntity.of(status));
 
         // ## Assert ##
-        MemberStatus actualStatus = member.getMemberStatus();
-        assertNotNull(actualStatus);
-        assertEquals(status, actualStatus);
-        assertEquals("foo", actualStatus.getMemberStatusCode());
-        assertEquals("bar", actualStatus.getMemberStatusName());
+        member.getMemberStatus().alwaysPresent(actualStatus -> {
+            assertNotNull(actualStatus);
+            assertEquals(status, actualStatus);
+            assertEquals("foo", actualStatus.getMemberStatusCode());
+            assertEquals("bar", actualStatus.getMemberStatusName());
+        });
     }
 
     // ===================================================================================

@@ -17,6 +17,7 @@ import org.dbflute.exception.SpecifyExceptColumnAlreadySpecifiedColumnException;
 import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlLogHandler;
 import org.dbflute.hook.SqlLogInfo;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.SummaryWithdrawalDbm;
@@ -26,10 +27,10 @@ import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exbhv.SummaryWithdrawalBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
-import org.docksidestage.dockside.dbflute.exentity.MemberAddress;
 import org.docksidestage.dockside.dbflute.exentity.MemberSecurity;
 import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
 import org.docksidestage.dockside.dbflute.exentity.MemberWithdrawal;
+import org.docksidestage.dockside.dbflute.exentity.Product;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.dbflute.exentity.WithdrawalReason;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -91,9 +92,8 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
         assertHasAnyElement(memberList);
         boolean existsReason = false;
         for (Member member : memberList) {
-            MemberStatus status = member.getMemberStatus();
-            MemberSecurity security = member.getMemberSecurityAsOne();
-            MemberWithdrawal withdrawal = member.getMemberWithdrawalAsOne();
+            MemberStatus status = member.getMemberStatus().get();
+            MemberSecurity security = member.getMemberSecurityAsOne().get();
             log(member.getMemberName() + ", " + member.getMemberStatusCode() + ", " + status);
             assertNotNull(member.getMemberId());
             assertNotNull(member.getMemberName());
@@ -111,14 +111,16 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
             assertNonSpecifiedAccess(() -> security.getReminderQuestion());
             assertNotNull(security.getReminderAnswer());
             if (member.isMemberStatusCodeWithdrawal()) {
+                MemberWithdrawal withdrawal = member.getMemberWithdrawalAsOne().get();
                 assertNotNull(withdrawal);
                 assertNotNull(withdrawal.getWithdrawalDatetime());
                 assertNotNull(withdrawal.getRegisterUser());
-                WithdrawalReason reason = withdrawal.getWithdrawalReason();
-                if (reason != null) {
-                    existsReason = true;
+                OptionalEntity<WithdrawalReason> optReason = withdrawal.getWithdrawalReason();
+                if (optReason.isPresent()) {
+                    WithdrawalReason reason = optReason.get();
                     assertNotNull(reason.getWithdrawalReasonText());
                     assertNonSpecifiedAccess(() -> reason.getDisplayOrder());
+                    existsReason = true;
                 }
             }
             assertNull(status.xznocheckGetDisplayOrder());
@@ -141,7 +143,7 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
-            MemberStatus status = member.getMemberStatus();
+            MemberStatus status = member.getMemberStatus().get();
             log(member.getMemberName() + ", " + member.getMemberStatusCode() + ", " + status);
             assertNotNull(member.getMemberId());
             assertNotNull(member.getMemberName());
@@ -175,7 +177,7 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
-            MemberStatus status = member.getMemberStatus();
+            MemberStatus status = member.getMemberStatus().get();
             log(member.getMemberName() + ", " + member.getMemberStatusCode() + ", " + status);
             assertNotNull(member.getMemberId());
             assertNotNull(member.getMemberName());
@@ -359,9 +361,10 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
             assertNotNull(purchase.getProductId());
             assertNotNull(purchase.getPurchaseCount());
             assertNotNull(purchase.getPurchaseDatetime());
-            assertNotNull(purchase.getProduct().getProductId());
-            assertNotNull(purchase.getProduct().getProductName());
-            assertNonSpecifiedAccess(() -> purchase.getProduct().getProductStatusCode());
+            Product product = purchase.getProduct().get();
+            assertNotNull(product.getProductId());
+            assertNotNull(product.getProductName());
+            assertNonSpecifiedAccess(() -> product.getProductStatusCode());
         }
     }
 
@@ -394,13 +397,13 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
-            MemberStatus memberStatus = member.getMemberStatus();
-            log(member.getMemberName() + ", " + member.getMemberStatusCode() + ", " + memberStatus);
+            MemberStatus status = member.getMemberStatus().get();
+            log(member.getMemberName() + ", " + member.getMemberStatusCode() + ", " + status);
             assertNotNull(member.getMemberName());
             assertNull(member.xznocheckGetMemberAccount());
             assertNonSpecifiedAccess(() -> member.getMemberAccount());
             assertNotNull(member.getMemberStatusCode());
-            assertNotNull(memberStatus);
+            assertNotNull(status);
         }
         assertTrue(popCB().toDisplaySql().contains("dfloc.MEMBER_STATUS_CODE"));
     }
@@ -421,13 +424,13 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
         // ## Assert ##
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
-            MemberStatus memberStatus = member.getMemberStatus();
-            log(member.getMemberName() + ", " + member.getMemberStatusCode() + ", " + memberStatus);
+            MemberStatus status = member.getMemberStatus().get();
+            log(member.getMemberName() + ", " + member.getMemberStatusCode() + ", " + status);
             assertNotNull(member.getMemberName());
             assertNotNull(member.getMemberAccount());
             assertNotNull(member.getMemberStatusCode());
             assertNotNull(member.getProductKindCount());
-            assertNotNull(memberStatus);
+            assertNotNull(status);
         }
         assertTrue(popCB().toDisplaySql().contains("dfloc.MEMBER_STATUS_CODE"));
     }
@@ -452,7 +455,7 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
-        boolean existsAddress = false;
+        assertHasAnyElement(memberList);
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
         String formattedTargetDate = fmt.format(targetDate);
         log("[" + formattedTargetDate + "]");
@@ -461,21 +464,19 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
             assertNotNull(memberName);
             assertNull(member.xznocheckGetMemberAccount());
             assertNonSpecifiedAccess(() -> member.getMemberAccount());
-            MemberAddress memberAddressAsValid = member.getMemberAddressAsValid();
-            if (memberAddressAsValid != null) {
-                assertNull(memberAddressAsValid.xznocheckGetValidBeginDate());
-                assertNonSpecifiedAccess(() -> memberAddressAsValid.getValidBeginDate());
-                assertNull(memberAddressAsValid.xznocheckGetValidEndDate());
-                assertNonSpecifiedAccess(() -> memberAddressAsValid.getValidEndDate());
-                String address = memberAddressAsValid.getAddress();
-                assertNotNull(address);
-                log(memberName + ", " + address);
-                existsAddress = true;
-            } else {
+            member.getMemberAddressAsValid().ifPresent(address -> {
+                assertNull(address.xznocheckGetValidBeginDate());
+                assertNonSpecifiedAccess(() -> address.getValidBeginDate());
+                assertNull(address.xznocheckGetValidEndDate());
+                assertNonSpecifiedAccess(() -> address.getValidEndDate());
+                assertNotNull(address.getAddress());
+                log(memberName + ", " + address.getAddress());
+                markHere("existsAddress");
+            }).orElse(() -> {
                 log(memberName + ", null");
-            }
+            });
         }
-        assertTrue(existsAddress);
+        assertMarked("existsAddress");
         assertFalse(popCB().toDisplaySql().contains("where")); // not use where clause
     }
 
@@ -497,29 +498,26 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, purchaseList.size());
-        boolean existsAddress = false;
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
         String formattedTargetDate = fmt.format(targetDate);
         log("[" + formattedTargetDate + "]");
         for (Purchase purchase : purchaseList) {
-            Member member = purchase.getMember();
+            Member member = purchase.getMember().get();
             String memberName = member.getMemberName();
             assertNotNull(memberName);
             assertNull(member.xznocheckGetMemberAccount());
             assertNonSpecifiedAccess(() -> member.getMemberAccount());
-            MemberAddress memberAddressAsValid = member.getMemberAddressAsValid();
-            if (memberAddressAsValid != null) {
-                assertNonSpecifiedAccess(() -> memberAddressAsValid.getValidBeginDate());
-                assertNonSpecifiedAccess(() -> memberAddressAsValid.getValidEndDate());
-                String address = memberAddressAsValid.getAddress();
-                assertNotNull(address);
-                log(memberName + ", " + address);
-                existsAddress = true;
-            } else {
+            member.getMemberAddressAsValid().ifPresent(address -> {
+                assertNonSpecifiedAccess(() -> address.getValidBeginDate());
+                assertNonSpecifiedAccess(() -> address.getValidEndDate());
+                assertNotNull(address.getAddress());
+                log(memberName + ", " + address.getAddress());
+                markHere("existsAddress");
+            }).orElse(() -> {
                 log(memberName + ", null");
-            }
+            });
         }
-        assertTrue(existsAddress);
+        assertMarked("existsAddress");
         assertFalse(popCB().toDisplaySql().contains("where")); // not use where clause
     }
 
@@ -576,15 +574,16 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
         assertNotNull(member.getUpdateDatetime());
         assertNotNull(member.getVersionNo());
 
-        MemberSecurity security = member.getMemberSecurityAsOne();
-        assertNotNull(security.getReminderQuestion());
-        assertNotNull(security.getReminderAnswer());
-        assertNonSpecifiedAccess(() -> security.getRegisterDatetime());
-        assertNonSpecifiedAccess(() -> security.getRegisterUser());
-        assertNonSpecifiedAccess(() -> security.getUpdateUser());
-        assertNull(security.xznocheckGetUpdateDatetime());
-        assertNonSpecifiedAccess(() -> security.getUpdateDatetime());
-        assertNonSpecifiedAccess(() -> security.getVersionNo());
+        member.getMemberSecurityAsOne().alwaysPresent(security -> {
+            assertNotNull(security.getReminderQuestion());
+            assertNotNull(security.getReminderAnswer());
+            assertNonSpecifiedAccess(() -> security.getRegisterDatetime());
+            assertNonSpecifiedAccess(() -> security.getRegisterUser());
+            assertNonSpecifiedAccess(() -> security.getUpdateUser());
+            assertNull(security.xznocheckGetUpdateDatetime());
+            assertNonSpecifiedAccess(() -> security.getUpdateDatetime());
+            assertNonSpecifiedAccess(() -> security.getVersionNo());
+        });
     }
 
     public void test_SpecifyExceptColumn_mixed() throws Exception {
@@ -615,16 +614,17 @@ public class WxCBSpecifyColumnBasicTest extends UnitContainerTestCase {
         assertNull(member.xznocheckGetVersionNo());
         assertNonSpecifiedAccess(() -> member.getVersionNo());
 
-        MemberSecurity security = member.getMemberSecurityAsOne();
-        assertNotNull(security.getReminderQuestion());
-        assertNotNull(security.getReminderAnswer());
-        assertNonSpecifiedAccess(() -> security.getRegisterDatetime());
-        assertNonSpecifiedAccess(() -> security.getRegisterUser());
-        assertNonSpecifiedAccess(() -> security.getUpdateUser());
-        assertNull(security.xznocheckGetUpdateDatetime());
-        assertNonSpecifiedAccess(() -> security.getUpdateDatetime());
-        assertNull(security.xznocheckGetVersionNo());
-        assertNonSpecifiedAccess(() -> security.getVersionNo());
+        member.getMemberSecurityAsOne().alwaysPresent(security -> {
+            assertNotNull(security.getReminderQuestion());
+            assertNotNull(security.getReminderAnswer());
+            assertNonSpecifiedAccess(() -> security.getRegisterDatetime());
+            assertNonSpecifiedAccess(() -> security.getRegisterUser());
+            assertNonSpecifiedAccess(() -> security.getUpdateUser());
+            assertNull(security.xznocheckGetUpdateDatetime());
+            assertNonSpecifiedAccess(() -> security.getUpdateDatetime());
+            assertNull(security.xznocheckGetVersionNo());
+            assertNonSpecifiedAccess(() -> security.getVersionNo());
+        });
     }
 
     public void test_SpecifyExceptColumn_illegal() throws Exception {

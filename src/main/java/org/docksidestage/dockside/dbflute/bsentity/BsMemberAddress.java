@@ -392,8 +392,10 @@ public abstract class BsMemberAddress extends AbstractEntity implements EntityDe
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_member != null) { sb.append(dm).append("member"); }
-        if (_region != null) { sb.append(dm).append("region"); }
+        if (_member != null && _member.isPresent())
+        { sb.append(dm).append("member"); }
+        if (_region != null && _region.isPresent())
+        { sb.append(dm).append("region"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

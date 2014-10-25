@@ -84,20 +84,17 @@ public class WxCBRangeOfTest extends UnitContainerTestCase {
                 pushCB(cb);
             });
 
-            boolean existsMemberId = false;
-            boolean existsMemberNull = false;
             for (Purchase purchase : purchaseList) {
-                Member member = purchase.getMember();
-                if (member != null) {
+                purchase.getMember().ifPresent(member -> {
                     Integer memberId = member.getMemberId();
                     assertTrue(memberId.equals(5) || memberId.equals(7));
-                    existsMemberId = true;
-                } else {
-                    existsMemberNull = true;
-                }
+                    markHere("existsMemberId");
+                }).orElse(() -> {
+                    markHere("existsMemberNull");
+                });
             }
-            assertTrue(existsMemberId);
-            assertTrue(existsMemberNull);
+            assertMarked("existsMemberId");
+            assertMarked("existsMemberNull");
         }
         {
             ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
@@ -107,20 +104,17 @@ public class WxCBRangeOfTest extends UnitContainerTestCase {
                 pushCB(cb);
             });
 
-            boolean existsMemberId = false;
-            boolean existsMemberNull = false;
             for (Purchase purchase : purchaseList) {
-                Member member = purchase.getMember();
-                if (member != null) {
+                purchase.getMember().ifPresent(member -> {
                     Integer memberId = member.getMemberId();
                     assertTrue(memberId.equals(5) || memberId.equals(7));
-                    existsMemberId = true;
-                } else {
-                    existsMemberNull = true;
-                }
+                    markHere("existsMemberId");
+                }).orElse(() -> {
+                    markHere("existsMemberNull");
+                });
             }
-            assertTrue(existsMemberId);
-            assertTrue(existsMemberNull);
+            assertMarked("existsMemberId");
+            assertMarked("existsMemberNull");
         }
     }
 
@@ -141,10 +135,12 @@ public class WxCBRangeOfTest extends UnitContainerTestCase {
         assertHasAnyElement(memberList);
         for (Member member : memberList) {
             Integer memberId = member.getMemberId();
-            Integer displayOrder = member.getMemberStatus().getDisplayOrder();
-            BigDecimal avg = new BigDecimal(memberId + displayOrder).divide(new BigDecimal(2));
-            log(memberId + ", " + displayOrder + " => " + avg);
-            assertTrue(avg.intValue() > 6);
+            member.getMemberStatus().alwaysPresent(status -> {
+                Integer displayOrder = status.getDisplayOrder();
+                BigDecimal avg = new BigDecimal(memberId + displayOrder).divide(new BigDecimal(2));
+                log(memberId + ", " + displayOrder + " => " + avg);
+                assertTrue(avg.intValue() > 6);
+            });
         }
     }
 
@@ -165,7 +161,7 @@ public class WxCBRangeOfTest extends UnitContainerTestCase {
         assertHasAnyElement(memberList);
         for (Member member : memberList) {
             Integer memberId = member.getMemberId();
-            Integer displayOrder = member.getMemberStatus().getDisplayOrder();
+            Integer displayOrder = member.getMemberStatus().get().getDisplayOrder();
             BigDecimal avg = new BigDecimal(memberId + displayOrder).divide(new BigDecimal(2));
             log(memberId + ", " + displayOrder + " => " + avg);
             assertTrue(avg.intValue() > 6);

@@ -355,7 +355,8 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Entity
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_purchase != null) { sb.append(dm).append("purchase"); }
+        if (_purchase != null && _purchase.isPresent())
+        { sb.append(dm).append("purchase"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

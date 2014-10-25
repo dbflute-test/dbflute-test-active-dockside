@@ -272,8 +272,8 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         assertHasAnyElement(memberList);
         Set<String> rankSet = new HashSet<String>();
         for (Member member : memberList) {
-            MemberService service = member.getMemberServiceAsOne();
-            ServiceRank rank = service.getServiceRank();
+            MemberService service = member.getMemberServiceAsOne().get();
+            ServiceRank rank = service.getServiceRank().get();
             log(member.getMemberName() + ", " + service.getServicePointCount() + ", " + rank.getServiceRankName());
             rankSet.add(rank.getServiceRankCode());
         }

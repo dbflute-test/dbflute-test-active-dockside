@@ -802,12 +802,13 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
                     String productName = product.getProductName();
                     log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
                     if (purchaseCount > 2) {
-                        markHere("existsPurchase");
+                        fail();
                     }
+                    markHere("existsPurchase");
                 });
             }
-            assertMarked("existsPurchase");
         }
+        assertMarked("existsPurchase");
     }
 
     // -----------------------------------------------------
@@ -873,10 +874,6 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
             }
             assertMarked("existsProduct");
         }
-
-        // [Description]
-        // A. ExistsReferrerと結果は全く同じになる。
-        //    --> 実行計画が変わる可能性あり
     }
 
     public void test_query_notInScope_ReferrerCondition() {
@@ -901,12 +898,13 @@ public class ConditionBeanMiddleTest extends UnitContainerTestCase {
                     String productName = product.getProductName();
                     log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
                     if (purchaseCount > 2) {
-                        markHere("existsPurchase");
+                        fail();
                     }
+                    markHere("existsPurchase");
                 });
             }
-            assertMarked("existsPurchase");
         }
+        assertMarked("existsPurchase");
     }
 
     // -----------------------------------------------------

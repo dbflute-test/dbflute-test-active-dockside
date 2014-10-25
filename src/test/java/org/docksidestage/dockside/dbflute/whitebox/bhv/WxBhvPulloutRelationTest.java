@@ -3,6 +3,7 @@ package org.docksidestage.dockside.dbflute.whitebox.bhv;
 import java.util.List;
 import java.util.Set;
 
+import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberAddress;
@@ -36,8 +37,9 @@ public class WxBhvPulloutRelationTest extends UnitContainerTestCase {
         // ## Assert ##
         Set<String> expectedCodeSet = newHashSet();
         for (Member member : memberList) {
-            MemberStatus status = member.getMemberStatus();
-            expectedCodeSet.add(status.getMemberStatusCode());
+            member.getMemberStatus().alwaysPresent(status -> {
+                expectedCodeSet.add(status.getMemberStatusCode());
+            });
         }
         assertEquals(expectedCodeSet.size(), pulloutList.size());
         Set<String> actualCodeSet = newHashSet();
@@ -69,8 +71,9 @@ public class WxBhvPulloutRelationTest extends UnitContainerTestCase {
         // ## Assert ##
         Set<Integer> expectedIdSet = newHashSet();
         for (Member member : memberList) {
-            MemberSecurity security = member.getMemberSecurityAsOne();
-            expectedIdSet.add(security.getMemberId());
+            member.getMemberSecurityAsOne().alwaysPresent(security -> {
+                expectedIdSet.add(security.getMemberId());
+            });
         }
         assertEquals(expectedIdSet.size(), pulloutList.size());
         Set<Integer> actualIdSet = newHashSet();
@@ -93,10 +96,9 @@ public class WxBhvPulloutRelationTest extends UnitContainerTestCase {
         // ## Assert ##
         Set<Integer> expectedIdSet = newHashSet();
         for (Member member : memberList) {
-            MemberAddress address = member.getMemberAddressAsValid();
-            if (address != null) {
+            member.getMemberAddressAsValid().ifPresent(address -> {
                 expectedIdSet.add(address.getMemberId());
-            }
+            });
         }
         assertEquals(expectedIdSet.size(), pulloutList.size());
         Set<Integer> actualIdSet = newHashSet();
@@ -127,8 +129,9 @@ public class WxBhvPulloutRelationTest extends UnitContainerTestCase {
         // ## Assert ##
         Set<Integer> expectedIdSet = newHashSet();
         for (Member member : memberList) {
-            MemberSecurity security = member.getMemberSecurityAsOne();
-            expectedIdSet.add(security.getMemberId());
+            member.getMemberSecurityAsOne().alwaysPresent(security -> {
+                expectedIdSet.add(security.getMemberId());
+            });
         }
         assertEquals(expectedIdSet.size(), pulloutList.size());
         Set<Integer> actualIdSet = newHashSet();
@@ -154,8 +157,9 @@ public class WxBhvPulloutRelationTest extends UnitContainerTestCase {
         // ## Assert ##
         Set<String> expectedCodeSet = newHashSet();
         for (Member member : memberList) {
-            MemberStatus status = member.getMemberStatus();
-            expectedCodeSet.add(status.getMemberStatusCode());
+            member.getMemberStatus().alwaysPresent(status -> {
+                expectedCodeSet.add(status.getMemberStatusCode());
+            });
         }
         assertEquals(expectedCodeSet.size(), pulloutList.size());
         Set<String> actualCodeSet = newHashSet();
@@ -185,7 +189,7 @@ public class WxBhvPulloutRelationTest extends UnitContainerTestCase {
             };
             firstStatus.setMemberStatusCode_Formalized();
             firstStatus.setMemberStatusName("sea");
-            member.setMemberStatus(firstStatus);
+            member.setMemberStatus(OptionalEntity.of(firstStatus));
             memberList.add(member);
         }
         {
@@ -201,7 +205,7 @@ public class WxBhvPulloutRelationTest extends UnitContainerTestCase {
             };
             status.setMemberStatusCode_Provisional();
             status.setMemberStatusName("land");
-            member.setMemberStatus(status);
+            member.setMemberStatus(OptionalEntity.of(status));
             memberList.add(member);
         }
         {
@@ -217,13 +221,13 @@ public class WxBhvPulloutRelationTest extends UnitContainerTestCase {
             };
             status.setMemberStatusCode_Formalized();
             status.setMemberStatusName("iks");
-            member.setMemberStatus(status);
+            member.setMemberStatus(OptionalEntity.of(status));
             memberList.add(member);
         }
         {
             Member member = new Member();
             member.setMemberId(4);
-            member.setMemberStatus(firstStatus);
+            member.setMemberStatus(OptionalEntity.of(firstStatus));
             memberList.add(member);
         }
 
