@@ -127,9 +127,9 @@ public class WxCBColumnQueryDreamCruiseMysticRhythmsTest extends UnitContainerTe
             assertTrue(member.getMemberId() >= 10);
         }
         String sql = popCB().toDisplaySql();
-        assertContains(sql, "where dfloc.FORMALIZED_DATETIME <= dateadd(month, dfloc.VERSION_NO, '2015-04-05T12:34:56')");
-        assertContains(sql, "and dfloc.FORMALIZED_DATETIME <= dateadd(hour, -3, dateadd(day, dfloc.MEMBER_ID, '2014-09-01T15:00'))");
-        assertContains(sql, "and dfloc.FORMALIZED_DATETIME >= '2006-09-26T12:34:56.789'");
+        assertContains(sql, "where dfloc.FORMALIZED_DATETIME <= dateadd(month, dfloc.VERSION_NO, '2015-04-05 12:34:56.000')");
+        assertContains(sql, "and dfloc.FORMALIZED_DATETIME <= dateadd(hour, -3, dateadd(day, dfloc.MEMBER_ID, '2014-09-01 15:00:00.000'))");
+        assertContains(sql, "and dfloc.FORMALIZED_DATETIME >= '2006-09-26 12:34:56.789'");
     }
 
     // ===================================================================================

@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.sql.DataSource;
 
@@ -80,21 +81,23 @@ public class VendorPlainTest extends UnitContainerTestCase {
         assertTrue(formalizedDatetime.getYear() == -1233);
     }
 
-    // TODO jflute impl: HandyDate beforeChrist year==0
-    //public void test_BC_test_precondition_also_JDK_test() {
-    //    // ## Arrange ##
-    //    String beforeExp = "BC0001/12/31 23:59:59.999";
-    //    String afterExp = "0001/01/01 00:00:00.000";
-    //
-    //    // ## Act ##
-    //    LocalDate before = toLocalDate(beforeExp);
-    //    LocalDate after = toLocalDate(afterExp);
-    //
-    //    // ## Assert ##
-    //    assertTrue("before=" + before, new HandyDate(before).isYear_BeforeChrist());
-    //    assertFalse("after=" + after, new HandyDate(after).isYear_BeforeChrist());
-    //    assertEquals(after, new HandyDate(before).addMillisecond(1).getLocalDate());
-    //}
+    public void test_BC_test_precondition_also_JDK_test() {
+        // ## Arrange ##
+        String beforeExp = "BC0001/12/31 23:59:59.999";
+        String afterExp = "0001/01/01 00:00:00.000";
+
+        // ## Act ##
+        LocalDateTime before = toLocalDateTime(beforeExp);
+        LocalDateTime after = toLocalDateTime(afterExp);
+
+        // ## Assert ##
+        // *date conversion is not correct in old date: 0000-12-31, 0001/01/02 00:00:00.000
+        HandyDate handyBefore = new HandyDate(before, TimeZone.getTimeZone("GMT")); // GMT for 1888 timeZone in Japanese
+        assertFalse("before=" + before + ", handy=" + handyBefore, handyBefore.isYear_BeforeChrist());
+        HandyDate handyAfter = new HandyDate(after, TimeZone.getTimeZone("GMT")); // GMT for 1888 timeZone in Japanese
+        assertFalse("after=" + after, handyAfter.isYear_BeforeChrist());
+        assertEquals(after, new HandyDate(before).addMillisecond(1).getLocalDateTime()); // however, can reverse so OK
+    }
 
     // ===================================================================================
     //                                                                          Short Char

@@ -402,21 +402,35 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         log(sb.toString());
     }
 
-    // TODO jflute impl: BC date headache
-    //public void test_toString_BC_date_exists() {
-    //    // ## Arrange ##
-    //    Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
-    //        /* ## Act ## */
-    //        cb.query().setMemberId_Equal(18);
-    //    });
-    //
-    //    member.setBirthdate(toLocalDate("BC0001/12/31 23:59:59.999"));
-    //    String detail = member.toString();
-    //
-    //    // ## Assert ##
-    //    log(detail);
-    //    assertTrue(detail.contains("-0000"));
-    //}
+    public void test_toString_BC_date_exists_BC0001() {
+        // ## Arrange ##
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(18);
+        });
+
+        member.setBirthdate(toLocalDate("BC0001/12/31 23:59:59.999"));
+        String detail = member.toString();
+
+        // ## Assert ##
+        log(detail);
+        assertTrue(detail.contains("0000")); // local date shows as 0000
+    }
+
+    public void test_toString_BC_date_exists_BC1000() {
+        // ## Arrange ##
+        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().setMemberId_Equal(18);
+        });
+
+        member.setBirthdate(toLocalDate("BC1000/12/31 23:59:59.999"));
+        String detail = member.toString();
+
+        // ## Assert ##
+        log(detail);
+        assertTrue(detail.contains("-0999"));
+    }
 
     public void test_toString_BC_date_notExists() {
         // ## Arrange ##
@@ -430,8 +444,8 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
 
         // ## Assert ##
         log(detail);
-        assertFalse(detail.contains("-0001"));
-        assertTrue(detail.contains("0000"));
+        assertFalse(detail.contains("0000"));
+        assertTrue(detail.contains("0001"));
     }
 
     public void test_toString_largeData() {

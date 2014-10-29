@@ -2,7 +2,6 @@ package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
 import org.dbflute.cbean.ckey.ConditionKey;
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.exception.EntityAlreadyExistsException;
 import org.dbflute.exception.NonQueryUpdateNotAllowedException;
@@ -10,7 +9,6 @@ import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberServiceDbm;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
-import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberLoginBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
@@ -161,27 +159,25 @@ public class WxBhvQueryUpdateBasicTest extends UnitContainerTestCase {
     public void test_queryUpdate_ExistsReferrer() {
         // ## Arrange ##
         Member member = new Member();
+        member.setMemberName("queryUpdate()");
         member.setMemberStatusCode_Provisional();
         member.setFormalizedDatetime(null);
 
         int updatedCount = memberBhv.queryUpdate(member, cb -> {
             /* ## Act ## */
             cb.query().setMemberStatusCode_Equal_Formalized();
-            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.query().setPaymentCompleteFlg_Equal_False();
-                }
+            cb.query().existsPurchase(purchaseCB -> {
+                purchaseCB.query().setPaymentCompleteFlg_Equal_False();
             });
         });
 
         // ## Assert ##
         assertNotSame(0, updatedCount);
         ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
-            actualCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                    subCB.query().setPaymentCompleteFlg_Equal_False();
-                }
+            actualCB.query().existsPurchase(purchaseCB -> {
+                purchaseCB.query().setPaymentCompleteFlg_Equal_False();
             });
+            actualCB.query().setMemberName_Equal("queryUpdate()");
             actualCB.query().setMemberStatusCode_Equal_Provisional();
             actualCB.query().setFormalizedDatetime_IsNull();
             actualCB.query().setUpdateUser_Equal(getAccessContext().getAccessUser());

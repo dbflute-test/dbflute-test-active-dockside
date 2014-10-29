@@ -271,10 +271,10 @@ public class WxCBQueryBasicTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        String fromActual = toString(fromDate, "yyyy/MM/dd HH:mm:ss.SSS");
+        String fromActual = toString(fromDate, "yyyy/MM/dd 00:00:00.000");
         log(fromActual);
         assertEquals(expected, fromActual);
-        String toActual = toString(toDate, "yyyy/MM/dd HH:mm:ss.SSS");
+        String toActual = toString(toDate, "yyyy/MM/dd 00:00:00.000");
         log(toActual);
         assertEquals(expected, toActual);
     }

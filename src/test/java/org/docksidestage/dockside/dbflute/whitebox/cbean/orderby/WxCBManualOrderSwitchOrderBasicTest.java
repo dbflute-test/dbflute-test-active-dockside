@@ -192,32 +192,30 @@ public class WxCBManualOrderSwitchOrderBasicTest extends UnitContainerTestCase {
 
     public void test_SwitchOrder_binding_suppress_Date() {
         // ## Arrange ##
-        // TODO jflute impl: ManualOrder resolveBoundValue() LocalDate
-        //adjustMemberStatusCount();
-        //ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-        //    /* ## Act ## */
-        //    cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(op -> {
-        //        op.suppressThenBinding().suppressElseBinding();
-        //        op.when_Equal(CDef.MemberStatus.Formalized).then(toLocalDate("2012/10/31"));
-        //        op.when_Equal(CDef.MemberStatus.Provisional).then(toLocalDate("2001/10/31"));
-        //        op.elseEnd(toLocalDate("2007/10/31"));
-        //    });
-        //    pushCB(cb);
-        //});
-        //
-        //// ## Assert ##
-        //assertHasAnyElement(memberList);
-        //List<CDef.MemberStatus> expectedList =
-        //        newArrayList(CDef.MemberStatus.Provisional, CDef.MemberStatus.Withdrawal, CDef.MemberStatus.Formalized);
-        //Set<CDef.MemberStatus> actualSet = newLinkedHashSet();
-        //for (Member member : memberList) {
-        //    actualSet.add(member.getMemberStatusCodeAsMemberStatus());
-        //}
-        //Iterator<CDef.MemberStatus> expectedIte = expectedList.iterator();
-        //Iterator<CDef.MemberStatus> actualIte = actualSet.iterator();
-        //assertEquals(expectedIte.next(), actualIte.next());
-        //assertEquals(expectedIte.next(), actualIte.next());
-        //assertEquals(expectedIte.next(), actualIte.next());
+        adjustMemberStatusCount();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(op -> {
+                op.suppressThenBinding().suppressElseBinding();
+                op.when_Equal(CDef.MemberStatus.Formalized).then(toLocalDate("2012/10/31"));
+                op.when_Equal(CDef.MemberStatus.Provisional).then(toLocalDate("2001/10/31"));
+                op.elseEnd(toLocalDate("2007/10/31"));
+            });
+        });
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        List<CDef.MemberStatus> expectedList =
+                newArrayList(CDef.MemberStatus.Provisional, CDef.MemberStatus.Withdrawal, CDef.MemberStatus.Formalized);
+        Set<CDef.MemberStatus> actualSet = newLinkedHashSet();
+        for (Member member : memberList) {
+            actualSet.add(member.getMemberStatusCodeAsMemberStatus());
+        }
+        Iterator<CDef.MemberStatus> expectedIte = expectedList.iterator();
+        Iterator<CDef.MemberStatus> actualIte = actualSet.iterator();
+        assertEquals(expectedIte.next(), actualIte.next());
+        assertEquals(expectedIte.next(), actualIte.next());
+        assertEquals(expectedIte.next(), actualIte.next());
     }
 
     public void test_SwitchOrder_binding_suppress_CDef_String() {

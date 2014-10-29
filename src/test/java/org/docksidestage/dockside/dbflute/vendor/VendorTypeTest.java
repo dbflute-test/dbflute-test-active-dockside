@@ -125,9 +125,9 @@ public class VendorTypeTest extends UnitContainerTestCase {
 
             // ## Assert ##
             LocalDate actualValue = actual.getBirthdate();
-            String formatted = DfTypeUtil.toString(actualValue, "yyyy/MM/dd HH:mm:ss.SSS");
+            String formatted = DfTypeUtil.toStringLocalDate(actualValue, "yyyy/MM/dd");
             log("actualValue = " + formatted);
-            assertEquals("2008/06/15 00:00:00.000", formatted);
+            assertEquals("2008/06/15", formatted);
         }
         {
             Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
@@ -137,9 +137,9 @@ public class VendorTypeTest extends UnitContainerTestCase {
 
             // ## Assert ##
             LocalDate actualValue = actual.getBirthdate();
-            String formatted = DfTypeUtil.toString(actualValue, "yyyy/MM/dd HH:mm:ss.SSS");
+            String formatted = DfTypeUtil.toStringLocalDate(actualValue, "yyyy/MM/dd");
             log("actualValue = " + formatted);
-            assertEquals("2008/06/15 00:00:00.000", formatted);
+            assertEquals("2008/06/15", formatted);
         }
         {
             Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
@@ -149,9 +149,9 @@ public class VendorTypeTest extends UnitContainerTestCase {
 
             // ## Assert ##
             LocalDate actualValue = actual.getBirthdate();
-            String formatted = DfTypeUtil.toString(actualValue, "yyyy/MM/dd HH:mm:ss.SSS");
+            String formatted = DfTypeUtil.toStringLocalDate(actualValue, "yyyy/MM/dd");
             log("actualValue = " + formatted);
-            assertEquals("2008/06/15 00:00:00.000", formatted);
+            assertEquals("2008/06/15", formatted);
         }
     }
 
@@ -175,9 +175,9 @@ public class VendorTypeTest extends UnitContainerTestCase {
 
         // ## Assert ##
         LocalDate actualValue = actual.getBirthdate();
-        String formatted = DfTypeUtil.toString(actualValue, "yyyy/MM/dd HH:mm:ss.SSS");
+        String formatted = DfTypeUtil.toString(actualValue, "yyyy/MM/dd");
         log("actualValue = " + formatted);
-        assertEquals("9001/06/15 00:00:00.000", formatted);
+        assertEquals("9001/06/15", formatted);
     }
 
     public void test_DATE_selectPureDate() { // *Important!
@@ -218,9 +218,9 @@ public class VendorTypeTest extends UnitContainerTestCase {
 
         // ## Assert ##
         LocalDate actualValue = actual.getBirthdate();
-        String formatted = DfTypeUtil.toString(actualValue, "yyyy/MM/dd HH:mm:ss.SSS");
+        String formatted = DfTypeUtil.toString(actualValue, "yyyy/MM/dd");
         log("actualValue = " + formatted);
-        assertEquals("9001/06/15 00:00:00.000", formatted);
+        assertEquals("9001/06/15", formatted);
     }
 
     // -----------------------------------------------------

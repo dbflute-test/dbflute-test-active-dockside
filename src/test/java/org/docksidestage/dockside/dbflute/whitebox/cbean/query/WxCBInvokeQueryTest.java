@@ -1,5 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.query;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.dbflute.Entity;
 import org.dbflute.cbean.ConditionBean;
 import org.dbflute.cbean.ConditionQuery;
 import org.dbflute.cbean.ckey.ConditionKey;
+import org.dbflute.cbean.coption.FromToOption;
 import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.coption.RangeOfOption;
 import org.dbflute.cbean.cvalue.ConditionValue;
@@ -206,36 +208,35 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
     // -----------------------------------------------------
     //                                                FromTo
     //                                                ------
-    // TODO jflute impl: invokeQuery() FromTo LocalDate
-    //public void test_invokeQuery_FromTo() {
-    //    // ## Arrange ##
-    //    ConditionBean cb = memberBhv.newConditionBean();
-    //    String name = MemberDbm.getInstance().columnBirthdate().getColumnDbName();
-    //
-    //    // ## Act ##
-    //    cb.localCQ().invokeQuery(name, ConditionKey.CK_EQUAL.getConditionKey(), toLocalDate("2011/08/22"));
-    //    List<LocalDate> bothList = newArrayList(toLocalDate("2011/08/23"), toLocalDate("2011/08/24"));
-    //    List<LocalDate> fromOnlyList = newArrayList(toLocalDate("2011/08/25"), null);
-    //    List<LocalDate> toOnlyList = newArrayList(null, toLocalDate("2011/08/26"));
-    //    List<LocalDate> nullNullList = newArrayList(null, null);
-    //    cb.localCQ().invokeQuery(name, "FromTo", bothList, new FromToOption().compareAsDate());
-    //    cb.enableOverridingQuery(() -> {
-    //        cb.localCQ().invokeQuery(name, "FromTo", fromOnlyList, new FromToOption().compareAsDate().allowOneSide());
-    //        cb.localCQ().invokeQuery(name, "FromTo", toOnlyList, new FromToOption().compareAsDate().allowOneSide());
-    //        cb.ignoreNullOrEmptyQuery();
-    //        cb.localCQ().invokeQuery(name, "FromTo", nullNullList, new FromToOption().compareAsDate());
-    //    });
-    //
-    //    // ## Assert ##
-    //    assertTrue(cb.hasWhereClauseOnBaseQuery());
-    //    String sql = cb.toDisplaySql();
-    //    log(ln() + sql);
-    //    assertTrue(sql.contains(" = '2011-08-22'"));
-    //    assertFalse(sql.contains(" >= '2011-08-23'")); // overridden
-    //    assertFalse(sql.contains(" < '2011-08-25'")); // overridden
-    //    assertTrue(sql.contains(" >= '2011-08-25'"));
-    //    assertTrue(sql.contains(" < '2011-08-27'"));
-    //}
+    public void test_invokeQuery_FromTo() {
+        // ## Arrange ##
+        ConditionBean cb = memberBhv.newConditionBean();
+        String name = MemberDbm.getInstance().columnBirthdate().getColumnDbName();
+
+        // ## Act ##
+        cb.localCQ().invokeQuery(name, ConditionKey.CK_EQUAL.getConditionKey(), toLocalDate("2011/08/22"));
+        List<LocalDate> bothList = newArrayList(toLocalDate("2011/08/23"), toLocalDate("2011/08/24"));
+        List<LocalDate> fromOnlyList = newArrayList(toLocalDate("2011/08/25"), null);
+        List<LocalDate> toOnlyList = newArrayList(null, toLocalDate("2011/08/26"));
+        List<LocalDate> nullNullList = newArrayList(null, null);
+        cb.localCQ().invokeQuery(name, "FromTo", bothList, new FromToOption().compareAsDate());
+        cb.enableOverridingQuery(() -> {
+            cb.localCQ().invokeQuery(name, "FromTo", fromOnlyList, new FromToOption().compareAsDate().allowOneSide());
+            cb.localCQ().invokeQuery(name, "FromTo", toOnlyList, new FromToOption().compareAsDate().allowOneSide());
+            cb.ignoreNullOrEmptyQuery();
+            cb.localCQ().invokeQuery(name, "FromTo", nullNullList, new FromToOption().compareAsDate());
+        });
+
+        // ## Assert ##
+        assertTrue(cb.hasWhereClauseOnBaseQuery());
+        String sql = cb.toDisplaySql();
+        log(ln() + sql);
+        assertTrue(sql.contains(" = '2011-08-22'"));
+        assertFalse(sql.contains(" >= '2011-08-23'")); // overridden
+        assertFalse(sql.contains(" < '2011-08-25'")); // overridden
+        assertTrue(sql.contains(" >= '2011-08-25'"));
+        assertTrue(sql.contains(" < '2011-08-27'"));
+    }
 
     // DateFromTo not generated
     //public void test_invokeQuery_DateFromTo() {

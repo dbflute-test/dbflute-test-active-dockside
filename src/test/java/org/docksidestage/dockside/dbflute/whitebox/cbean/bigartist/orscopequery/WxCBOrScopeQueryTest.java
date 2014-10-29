@@ -355,39 +355,39 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
     //                                                                              FromTo
     //                                                                              ======
     // TODO jflute test: after LogDatePattern customization
-    //public void test_orScopeQuery_with_fromTo_basic() {
-    //    // ## Arrange ##
-    //    PurchaseCB cb = new PurchaseCB();
-    //    cb.query().setPurchaseDatetime_FromTo(toLocalDateTime("2012/03/13"), toLocalDateTime("2012/03/14"), op -> op.compareAsDate());
-    //    cb.orScopeQuery(orCB -> {
-    //        orCB.query().setRegisterDatetime_FromTo(toLocalDateTime("2012/03/15"), toLocalDateTime("2012/03/16"), op -> op.compareAsDate());
-    //        orCB.orScopeQueryAndPart(andCB -> {
-    //            andCB.query().queryMember()
-    //                    .setBirthdate_FromTo(toLocalDate("2012/03/17"), toLocalDate("2012/03/18"), op1 -> op1.compareAsDate());
-    //            andCB.query().queryMember()
-    //                    .setFormalizedDatetime_FromTo(toLocalDateTime("2012/03/19"), toLocalDateTime("2012/03/20"), op2 -> op2.orIsNull());
-    //        });
-    //        orCB.orScopeQueryAndPart(andCB -> {
-    //            andCB.query().setUpdateDatetime_FromTo(toLocalDateTime("2012/03/21"), toLocalDateTime("2012/03/22"),
-    //                    op -> op.compareAsDate());
-    //        });
-    //    });
-    //    String sql = cb.toDisplaySql();
-    //
-    //    // ## Assert ##
-    //    log(sql);
-    //    assertTrue(sql.contains("where dfloc.PURCHASE_DATETIME >= '2012-03-13 00:00:00.000'"));
-    //    assertTrue(sql.contains(" and dfloc.PURCHASE_DATETIME < '2012-03-15 00:00:00.000'"));
-    //    assertTrue(sql.contains(" and ((dfloc.REGISTER_DATETIME >= '2012-03-15 00:00:00.000' and "));
-    //    assertTrue(sql.contains(" and dfloc.REGISTER_DATETIME < '2012-03-17 00:00:00.000')"));
-    //    assertTrue(sql.contains("   or (dfrel_0.BIRTHDATE >= '2012-03-17' and dfrel_0.BIRTHDATE < '2012-03-19' and "));
-    //    assertTrue(sql.contains(" and (dfrel_0.FORMALIZED_DATETIME >= '2012-03-19 00:00:00.000' or "));
-    //    assertTrue(sql.contains(" or dfrel_0.FORMALIZED_DATETIME is null) and "));
-    //    assertTrue(sql.contains(" and (dfrel_0.FORMALIZED_DATETIME <= '2012-03-20 00:00:00.000' or "));
-    //    assertTrue(sql.contains(" or dfrel_0.FORMALIZED_DATETIME is null))"));
-    //    assertTrue(Srl.contains(sql, " or (dfloc.UPDATE_DATETIME >= '2012-03-21 00:00:00.000' and "));
-    //    assertTrue(Srl.contains(sql, " and dfloc.UPDATE_DATETIME < '2012-03-23 00:00:00.000')"));
-    //}
+    public void test_orScopeQuery_with_fromTo_basic() {
+        // ## Arrange ##
+        PurchaseCB cb = new PurchaseCB();
+        cb.query().setPurchaseDatetime_FromTo(toLocalDateTime("2012/03/13"), toLocalDateTime("2012/03/14"), op -> op.compareAsDate());
+        cb.orScopeQuery(orCB -> {
+            orCB.query().setRegisterDatetime_FromTo(toLocalDateTime("2012/03/15"), toLocalDateTime("2012/03/16"), op -> op.compareAsDate());
+            orCB.orScopeQueryAndPart(andCB -> {
+                andCB.query().queryMember()
+                        .setBirthdate_FromTo(toLocalDate("2012/03/17"), toLocalDate("2012/03/18"), op1 -> op1.compareAsDate());
+                andCB.query().queryMember()
+                        .setFormalizedDatetime_FromTo(toLocalDateTime("2012/03/19"), toLocalDateTime("2012/03/20"), op2 -> op2.orIsNull());
+            });
+            orCB.orScopeQueryAndPart(andCB -> {
+                andCB.query().setUpdateDatetime_FromTo(toLocalDateTime("2012/03/21"), toLocalDateTime("2012/03/22"),
+                        op -> op.compareAsDate());
+            });
+        });
+        String sql = cb.toDisplaySql();
+
+        // ## Assert ##
+        log(sql);
+        assertTrue(sql.contains("where dfloc.PURCHASE_DATETIME >= '2012-03-13 00:00:00.000'"));
+        assertTrue(sql.contains(" and dfloc.PURCHASE_DATETIME < '2012-03-15 00:00:00.000'"));
+        assertTrue(sql.contains(" and ((dfloc.REGISTER_DATETIME >= '2012-03-15 00:00:00.000' and "));
+        assertTrue(sql.contains(" and dfloc.REGISTER_DATETIME < '2012-03-17 00:00:00.000')"));
+        assertTrue(sql.contains("   or (dfrel_0.BIRTHDATE >= '2012-03-17' and dfrel_0.BIRTHDATE < '2012-03-19' and "));
+        assertTrue(sql.contains(" and (dfrel_0.FORMALIZED_DATETIME >= '2012-03-19 00:00:00.000' or "));
+        assertTrue(sql.contains(" or dfrel_0.FORMALIZED_DATETIME is null) and "));
+        assertTrue(sql.contains(" and (dfrel_0.FORMALIZED_DATETIME <= '2012-03-20 00:00:00.000' or "));
+        assertTrue(sql.contains(" or dfrel_0.FORMALIZED_DATETIME is null))"));
+        assertTrue(Srl.contains(sql, " or (dfloc.UPDATE_DATETIME >= '2012-03-21 00:00:00.000' and "));
+        assertTrue(Srl.contains(sql, " and dfloc.UPDATE_DATETIME < '2012-03-23 00:00:00.000')"));
+    }
 
     // ===================================================================================
     //                                                                             RangeOf

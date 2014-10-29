@@ -13,10 +13,10 @@
 	<inceptionYear>2014</inceptionYear>
 
 	<properties>
-		<dbflute.version>1.1-pilot8-SNAPSHOT</dbflute.version>
+		<dbflute.version>1.1.0-pilotA-SNAPSHOT</dbflute.version>
 		<h2.jdbc.version>1.4.182</h2.jdbc.version>
 		<spring.version>4.1.1.RELEASE</spring.version>
-		<utflute.version>0.5.0-pilot8-SNAPSHOT</utflute.version>
+		<utflute.version>0.5.0-pilotA-SNAPSHOT</utflute.version>
 	</properties>
 
 	<licenses>
@@ -112,15 +112,6 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.seasar.uruma</groupId>
-				<artifactId>maven-eclipath-plugin</artifactId>
-				<version>0.0.11</version>
-				<configuration>
-					<downloadJavadocs>false</downloadJavadocs>
-					<autoRefresh>true</autoRefresh>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.seasar.dbflute</groupId>
 				<artifactId>dbflute-maven-plugin</artifactId>
 				<version>1.0.0</version>
@@ -130,31 +121,19 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<extensions>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-webdav</artifactId>
-				<version>1.0-beta-2</version>
-			</extension>
-		</extensions>
 	</build>
 
-	<distributionManagement>
-		<repository>
-			<uniqueVersion>false</uniqueVersion>
-			<id>maven.seasar.org</id>
-			<name>The Seasar Foundation Maven2 Repository</name>
-			<url>dav:https://www.seasar.org/maven/maven2</url>
-		</repository>
-		<snapshotRepository>
-			<uniqueVersion>true</uniqueVersion>
-			<id>maven.seasar.org</id>
-			<name>The Seasar Foundation Maven2 Snapshot Repository</name>
-			<url>dav:https://www.seasar.org/maven/maven2-snapshot</url>
-		</snapshotRepository>
-	</distributionManagement>
-
 	<repositories>
+		<repository>
+			<id>sonatype-oss-public</id>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 		<repository>
 			<id>maven.seasar.org</id>
 			<name>The Seasar Foundation Maven2 Repository</name>
@@ -189,7 +168,7 @@
 		<!--                                                                 = = = = = = = -->
 		<!-- dbflute -->
 		<dependency>
-			<groupId>org.seasar.dbflute</groupId>
+			<groupId>org.dbflute</groupId>
 			<artifactId>dbflute-runtime</artifactId>
 			<version>${dbflute.version}</version>
 		</dependency>
@@ -234,7 +213,7 @@
 		<!--                                                                       Testing -->
 		<!--                                                                       = = = = -->
 		<dependency>
-			<groupId>org.seasar.dbflute.utflute</groupId>
+			<groupId>org.dbflute.utflute</groupId>
 			<artifactId>utflute-spring</artifactId>
 			<version>${utflute.version}</version>
 			<scope>test</scope>

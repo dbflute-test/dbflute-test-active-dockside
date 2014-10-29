@@ -46,8 +46,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Assert ##
         String sql = popCB().toDisplaySql();
         log(ln() + sql);
-        assertTrue(Srl.contains(sql, " >= '2011-11-17T12:34:56.789'"));
-        assertTrue(Srl.contains(sql, " <= '2011-11-19T02:04:06.009'"));
+        assertTrue(Srl.contains(sql, " >= '2011-11-17 12:34:56.789'"));
+        assertTrue(Srl.contains(sql, " <= '2011-11-19 02:04:06.009'"));
         log(member.getFormalizedDatetime());
         assertEquals(updated.getFormalizedDatetime(), member.getFormalizedDatetime());
     }
@@ -69,8 +69,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Assert ##
         String sql = popCB().toDisplaySql();
         log(ln() + sql);
-        assertTrue(Srl.contains(sql, " >= '2011-01-01T00:00'"));
-        assertTrue(Srl.contains(sql, " < '2012-01-01T00:00'"));
+        assertTrue(Srl.contains(sql, " >= '2011-01-01 00:00:00.000'"));
+        assertTrue(Srl.contains(sql, " < '2012-01-01 00:00:00.000'"));
         log(member.getFormalizedDatetime());
         assertEquals(updated.getFormalizedDatetime(), member.getFormalizedDatetime());
     }
@@ -92,8 +92,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Assert ##
         String sql = popCB().toDisplaySql();
         log(ln() + sql);
-        assertTrue(Srl.contains(sql, " >= '2011-11-01T00:00'"));
-        assertTrue(Srl.contains(sql, " < '2011-12-01T00:00'"));
+        assertTrue(Srl.contains(sql, " >= '2011-11-01 00:00:00.000'"));
+        assertTrue(Srl.contains(sql, " < '2011-12-01 00:00:00.000'"));
         log(member.getFormalizedDatetime());
         assertEquals(updated.getFormalizedDatetime(), member.getFormalizedDatetime());
     }
@@ -115,8 +115,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Assert ##
         String sql = popCB().toDisplaySql();
         log(ln() + sql);
-        assertTrue(Srl.contains(sql, " >= '2011-11-17T00:00'"));
-        assertTrue(Srl.contains(sql, " < '2011-11-20T00:00'"));
+        assertTrue(Srl.contains(sql, " >= '2011-11-17 00:00:00.000'"));
+        assertTrue(Srl.contains(sql, " < '2011-11-20 00:00:00.000'"));
         log(member.getFormalizedDatetime());
         assertEquals(updated.getFormalizedDatetime(), member.getFormalizedDatetime());
     }
@@ -138,8 +138,8 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Assert ##
         String sql = popCB().toDisplaySql();
         log(ln() + sql);
-        assertTrue(Srl.contains(sql, " >= '2011-11-17T12:00'"));
-        assertTrue(Srl.contains(sql, " < '2011-11-17T19:00'"));
+        assertTrue(Srl.contains(sql, " >= '2011-11-17 12:00:00.000'"));
+        assertTrue(Srl.contains(sql, " < '2011-11-17 19:00:00.000'"));
         log(member.getFormalizedDatetime());
         assertEquals(updated.getFormalizedDatetime(), member.getFormalizedDatetime());
     }
@@ -151,14 +151,13 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         LocalDateTime targetDate = toLocalDateTime("2011/11/17");
-        Date beginDate = toDate("2011/11/17"); // TODO jflute impl: HandyDate begin LocalDate
-        cb.query().setFormalizedDatetime_FromTo(targetDate, targetDate, op -> op.compareAsWeek().beginWeek_DayOfWeek(beginDate));
+        cb.query().setFormalizedDatetime_FromTo(targetDate, targetDate, op -> op.compareAsWeek().beginWeek_DayOfWeek(targetDate));
 
         // ## Assert ##
         String sql = cb.toDisplaySql();
         log(ln() + sql);
-        assertTrue(Srl.contains(sql, " >= '2011-11-17T00:00'"));
-        assertTrue(Srl.contains(sql, " < '2011-11-24T00:00'"));
+        assertTrue(Srl.contains(sql, " >= '2011-11-17 00:00:00.000'"));
+        assertTrue(Srl.contains(sql, " < '2011-11-24 00:00:00.000'"));
     }
 
     public void test_FromTo_compareAsWeek_beginWeek_moveToScope() throws Exception {
@@ -412,7 +411,7 @@ public class WxCBFromToTest extends UnitContainerTestCase {
         log(ln() + sql);
         assertTrue(Srl.contains(sql, "where ((dfloc.BIRTHDATE < '1970-01-01' or dfloc.BIRTHDATE is null)"));
         assertTrue(Srl.contains(sql, "or (dfloc.MEMBER_ID = 3 and (dfloc.FORMALIZED_DATETIME > '"));
-        assertTrue(Srl.contains(sql, "FORMALIZED_DATETIME > '1970-01-01T00:00' or dfloc.FORMALIZED_DATETIME is null))"));
+        assertTrue(Srl.contains(sql, "FORMALIZED_DATETIME > '1970-01-01 00:00:00.000' or dfloc.FORMALIZED_DATETIME is null))"));
     }
 
     // ===================================================================================

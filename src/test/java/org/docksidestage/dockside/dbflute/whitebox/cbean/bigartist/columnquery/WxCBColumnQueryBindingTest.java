@@ -274,7 +274,7 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
         assertTrue(rear.contains(" = 'ColumnQueryUser2'"));
         assertTrue(rear.contains(", 456), 7)"));
         assertTrue(rear.contains(" ) + 888) - 654"));
-        assertTrue(rear.contains(">= '2011-12-21T00:00'"));
+        assertTrue(rear.contains(">= '2011-12-21 00:00:00.000'"));
     }
 
     public void test_ColumnQuery_in_ExistsReferrer_rightDerived_SpecifyCalculation() throws Exception {

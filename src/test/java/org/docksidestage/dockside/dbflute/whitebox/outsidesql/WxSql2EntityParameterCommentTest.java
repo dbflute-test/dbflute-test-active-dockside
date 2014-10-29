@@ -1,9 +1,11 @@
 package org.docksidestage.dockside.dbflute.whitebox.outsidesql;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.dbflute.cbean.result.ListResultBean;
@@ -20,10 +22,12 @@ import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentCollectionPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentEmbeddedPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentHintPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentOrderByIfPmb;
+import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentPossiblePmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PurchaseMaxPriceMemberPmb;
 import org.docksidestage.dockside.dbflute.exentity.customize.PmCommentCollection;
 import org.docksidestage.dockside.dbflute.exentity.customize.PmCommentOrderByIf;
 import org.docksidestage.dockside.dbflute.exentity.customize.PurchaseMaxPriceMember;
+import org.docksidestage.dockside.dbflute.whitebox.outsidesql.WxOutsideSqlBasicTest.MySimpleMember;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -41,44 +45,43 @@ public class WxSql2EntityParameterCommentTest extends UnitContainerTestCase {
     //                                                                           Supported
     //                                                                           =========
     public void test_outsideSql_supportedExpression() {
-        // TODO jflute impl: IfComment LocalDate
-        //// ## Arrange ##
-        //String path = MemberBhv.PATH_whitebox_pmcomment_selectPmCommentPossible;
-        //PmCommentPossiblePmb pmb = new PmCommentPossiblePmb();
-        //pmb.setString("Pixy");
-        //pmb.setInteger(3);
-        //pmb.setBigDecimal(new BigDecimal("2.3"));
-        //pmb.setDate(toLocalDate("2009/11/22"));
-        //pmb.setTimestamp(toLocalDateTime("2009/11/22"));
-        //pmb.setExists(true);
-        //pmb.setList(DfCollectionUtil.newArrayList("a", "b"));
-        //Map<String, Integer> map = DfCollectionUtil.newHashMap();
-        //map.put("fooKey", 99);
-        //pmb.setMap(map);
-        //pmb.setCdef(CDef.MemberStatus.Formalized);
-        //Class<MySimpleMember> entityType = MySimpleMember.class;
-        //
-        //// ## Act & Assert ##
-        //CallbackContext context = new CallbackContext();
-        //context.setSqlLogHandler(info -> {
-        //    String displaySql = info.getDisplaySql();
-        //    assertTrue(displaySql.contains("where"));
-        //    assertTrue(displaySql.contains("member.MEMBER_NAME"));
-        //    assertTrue(displaySql.contains("and member.MEMBER_ACCOUNT like 'a'"));
-        //    assertFalse(displaySql.contains("and member.MEMBER_ACCOUNT like 'b'")); // IF in FOR
-        //    assertTrue(displaySql.contains("member.BIRTHDATE"));
-        //    assertTrue(displaySql.contains("and member.MEMBER_STATUS_CODE"));
-        //    assertTrue(displaySql.contains("order"));
-        //    assertTrue(displaySql.contains("member.MEMBER_ID asc"));
-        //    markHere("called");
-        //});
-        //try {
-        //    CallbackContext.setCallbackContextOnThread(context);
-        //    memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, entityType); // no exception
-        //} finally {
-        //    CallbackContext.clearCallbackContextOnThread();
-        //}
-        //assertMarked("called");
+        // ## Arrange ##
+        String path = MemberBhv.PATH_whitebox_pmcomment_selectPmCommentPossible;
+        PmCommentPossiblePmb pmb = new PmCommentPossiblePmb();
+        pmb.setString("Pixy");
+        pmb.setInteger(3);
+        pmb.setBigDecimal(new BigDecimal("2.3"));
+        pmb.setDate(toLocalDate("2009/11/22"));
+        pmb.setTimestamp(toLocalDateTime("2009/11/22"));
+        pmb.setExists(true);
+        pmb.setList(DfCollectionUtil.newArrayList("a", "b"));
+        Map<String, Integer> map = DfCollectionUtil.newHashMap();
+        map.put("fooKey", 99);
+        pmb.setMap(map);
+        pmb.setCdef(CDef.MemberStatus.Formalized);
+        Class<MySimpleMember> entityType = MySimpleMember.class;
+
+        // ## Act & Assert ##
+        CallbackContext context = new CallbackContext();
+        context.setSqlLogHandler(info -> {
+            String displaySql = info.getDisplaySql();
+            assertTrue(displaySql.contains("where"));
+            assertTrue(displaySql.contains("member.MEMBER_NAME"));
+            assertTrue(displaySql.contains("and member.MEMBER_ACCOUNT like 'a'"));
+            assertFalse(displaySql.contains("and member.MEMBER_ACCOUNT like 'b'")); // IF in FOR
+            assertTrue(displaySql.contains("member.BIRTHDATE"));
+            assertTrue(displaySql.contains("and member.MEMBER_STATUS_CODE"));
+            assertTrue(displaySql.contains("order"));
+            assertTrue(displaySql.contains("member.MEMBER_ID asc"));
+            markHere("called");
+        });
+        try {
+            CallbackContext.setCallbackContextOnThread(context);
+            memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, entityType); // no exception
+        } finally {
+            CallbackContext.clearCallbackContextOnThread();
+        }
+        assertMarked("called");
     }
 
     // ===================================================================================
