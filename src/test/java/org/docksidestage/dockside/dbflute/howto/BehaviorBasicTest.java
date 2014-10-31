@@ -43,10 +43,6 @@ public class BehaviorBasicTest extends UnitContainerTestCase {
     /** The behavior of Member. (Injection Component) */
     private MemberBhv memberBhv;
 
-    // [Description]
-    // A. Seasar-2.4の場合はプロパティ名が「クラス名に先頭を小文字にしたもの」であること。
-    // B. Spring-2.5の場合は型でインジェクションされる。
-
     // ===================================================================================
     //                                                                       Entity Select
     //                                                                       =============
