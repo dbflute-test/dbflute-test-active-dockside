@@ -26,7 +26,7 @@ import org.docksidestage.dockside.dbflute.allcommon.*;
 import org.docksidestage.dockside.dbflute.exbhv.*;
 
 /**
- * The base class for typed parameter-bean of MemberName. <br />
+ * The base class for typed parameter-bean of MemberName. <br>
  * This is related to "<span style="color: #AD4747">selectMemberName</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -54,7 +54,7 @@ public abstract class BsMemberNamePmb implements ListHandlingPmb<MemberBhv, Stri
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of MemberName. <br />
+     * Constructor for the typed parameter-bean of MemberName. <br>
      * This is related to "<span style="color: #AD4747">selectMemberName</span>" on MemberBhv.
      */
     public BsMemberNamePmb() {
@@ -120,8 +120,8 @@ public abstract class BsMemberNamePmb implements ListHandlingPmb<MemberBhv, Stri
     protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
 
     /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
+     * Set time-zone, basically for LocalDate conversion. <br>
+     * Normally you don't need to set this, you can adjust other ways. <br>
      * (DBFlute system's time-zone is used as default)
      * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
      */
@@ -163,7 +163,7 @@ public abstract class BsMemberNamePmb implements ListHandlingPmb<MemberBhv, Stri
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] memberId <br />
+     * [get] memberId <br>
      * @return The value of memberId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getMemberId() {
@@ -171,7 +171,7 @@ public abstract class BsMemberNamePmb implements ListHandlingPmb<MemberBhv, Stri
     }
 
     /**
-     * [set] memberId <br />
+     * [set] memberId <br>
      * @param memberId The value of memberId. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -179,7 +179,7 @@ public abstract class BsMemberNamePmb implements ListHandlingPmb<MemberBhv, Stri
     }
 
     /**
-     * [get] memberName:likePrefix <br />
+     * [get] memberName:likePrefix <br>
      * @return The value of memberName. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberName() {
@@ -187,7 +187,7 @@ public abstract class BsMemberNamePmb implements ListHandlingPmb<MemberBhv, Stri
     }
 
     /**
-     * [set as prefixSearch] memberName:likePrefix <br />
+     * [set as prefixSearch] memberName:likePrefix <br>
      * @param memberName The value of memberName. (NullAllowed)
      */
     public void setMemberName_PrefixSearch(String memberName) {

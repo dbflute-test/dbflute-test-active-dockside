@@ -22,7 +22,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The referrer loader of VENDOR_$_DOLLAR as TABLE. <br />
+ * The referrer loader of VENDOR_$_DOLLAR as TABLE. <br>
  * <pre>
  * [primary key]
  *     VENDOR_$_DOLLAR_ID

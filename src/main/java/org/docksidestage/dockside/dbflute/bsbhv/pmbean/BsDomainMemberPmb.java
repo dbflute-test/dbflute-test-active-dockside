@@ -26,7 +26,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The base class for typed parameter-bean of DomainMember. <br />
+ * The base class for typed parameter-bean of DomainMember. <br>
  * This is related to "<span style="color: #AD4747">selectDomainMember</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -45,7 +45,7 @@ public class BsDomainMemberPmb implements ListHandlingPmb<MemberBhv, Member>, En
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of DomainMember. <br />
+     * Constructor for the typed parameter-bean of DomainMember. <br>
      * This is related to "<span style="color: #AD4747">selectDomainMember</span>" on MemberBhv.
      */
     public BsDomainMemberPmb() {
@@ -100,8 +100,8 @@ public class BsDomainMemberPmb implements ListHandlingPmb<MemberBhv, Member>, En
     protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
 
     /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
+     * Set time-zone, basically for LocalDate conversion. <br>
+     * Normally you don't need to set this, you can adjust other ways. <br>
      * (DBFlute system's time-zone is used as default)
      * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
      */

@@ -24,7 +24,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The referrer loader of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN as TABLE. <br />
+ * The referrer loader of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN as TABLE. <br>
  * <pre>
  * [primary key]
  *     THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID
@@ -79,7 +79,7 @@ public class LoaderOfVendorTheLongAndWindingTableAndColumn {
     protected List<VendorTheLongAndWindingTableAndColumnRef> _referrerVendorTheLongAndWindingTableAndColumnRef;
 
     /**
-     * Load referrer of vendorTheLongAndWindingTableAndColumnRefList by the set-upper of referrer. <br />
+     * Load referrer of vendorTheLongAndWindingTableAndColumnRefList by the set-upper of referrer. <br>
      * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF by THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumnRefList'.
      * <pre>
      * <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">vendorTheLongAndWindingTableAndColumnList</span>, <span style="color: #553000">columnLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -88,7 +88,7 @@ public class LoaderOfVendorTheLongAndWindingTableAndColumn {
      *         <span style="color: #553000">refCB</span>.query().set...
      *         <span style="color: #553000">refCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">refLoader</span> -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">refLoader</span> -&gt; {</span>
      *     <span style="color: #3F7E5E">//    refLoader.load...</span>
      *     <span style="color: #3F7E5E">//});</span>
      * });
@@ -96,7 +96,7 @@ public class LoaderOfVendorTheLongAndWindingTableAndColumn {
      *     ... = vendorTheLongAndWindingTableAndColumn.<span style="color: #CC4747">getVendorTheLongAndWindingTableAndColumnRefList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setTheLongAndWindingTableAndColumnId_InScope(pkList);

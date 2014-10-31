@@ -23,7 +23,7 @@ import org.dbflute.util.DfResourceUtil;
 import org.springframework.beans.factory.FactoryBean;
 
 /**
- * The bean for resolving a path to a database of H2 Database. <br />
+ * The bean for resolving a path to a database of H2 Database. <br>
  * This is NOT an important class as example. So you don't need to read this.
  * @author jflute
  */

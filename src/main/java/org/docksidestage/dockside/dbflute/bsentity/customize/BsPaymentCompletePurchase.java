@@ -20,10 +20,11 @@ import java.util.ArrayList;
 
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.dbmeta.accessory.CustomizeEntity;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The entity of PaymentCompletePurchase. <br />
+ * The entity of PaymentCompletePurchase. <br>
  * <pre>
  * [primary-key]
  *     
@@ -70,7 +71,7 @@ import org.docksidestage.dockside.dbflute.exentity.customize.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsPaymentCompletePurchase extends AbstractEntity {
+public abstract class BsPaymentCompletePurchase extends AbstractEntity implements CustomizeEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -205,7 +206,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] PURCHASE_ID: {BIGINT(19), refers to PURCHASE.PURCHASE_ID} <br />
+     * [get] PURCHASE_ID: {BIGINT(19), refers to PURCHASE.PURCHASE_ID} <br>
      * @return The value of the column 'PURCHASE_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Long getPurchaseId() {
@@ -214,7 +215,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     }
 
     /**
-     * [set] PURCHASE_ID: {BIGINT(19), refers to PURCHASE.PURCHASE_ID} <br />
+     * [set] PURCHASE_ID: {BIGINT(19), refers to PURCHASE.PURCHASE_ID} <br>
      * @param purchaseId The value of the column 'PURCHASE_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setPurchaseId(Long purchaseId) {
@@ -223,8 +224,8 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to PURCHASE.MEMBER_ID} <br />
-     * 会員を参照するID。<br />
+     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to PURCHASE.MEMBER_ID} <br>
+     * 会員を参照するID。<br>
      * 購入を識別する自然キー(複合ユニーク制約)の筆頭要素。
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
@@ -234,8 +235,8 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to PURCHASE.MEMBER_ID} <br />
-     * 会員を参照するID。<br />
+     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to PURCHASE.MEMBER_ID} <br>
+     * 会員を参照するID。<br>
      * 購入を識別する自然キー(複合ユニーク制約)の筆頭要素。
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
@@ -245,8 +246,8 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     }
 
     /**
-     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
-     * 会員のフルネームの名称。<br />
+     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
+     * 会員のフルネームの名称。<br>
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
      */
@@ -256,8 +257,8 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     }
 
     /**
-     * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
-     * 会員のフルネームの名称。<br />
+     * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
+     * 会員のフルネームの名称。<br>
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed: null update allowed for no constraint)
      */
@@ -267,7 +268,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     }
 
     /**
-     * [get] (商品ID)PRODUCT_ID: {INTEGER(10), refers to PURCHASE.PRODUCT_ID} <br />
+     * [get] (商品ID)PRODUCT_ID: {INTEGER(10), refers to PURCHASE.PRODUCT_ID} <br>
      * あなたは何を買ったのか？
      * @return The value of the column 'PRODUCT_ID'. (NullAllowed even if selected: for no constraint)
      */
@@ -277,7 +278,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     }
 
     /**
-     * [set] (商品ID)PRODUCT_ID: {INTEGER(10), refers to PURCHASE.PRODUCT_ID} <br />
+     * [set] (商品ID)PRODUCT_ID: {INTEGER(10), refers to PURCHASE.PRODUCT_ID} <br>
      * あなたは何を買ったのか？
      * @param productId The value of the column 'PRODUCT_ID'. (NullAllowed: null update allowed for no constraint)
      */
@@ -287,8 +288,8 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     }
 
     /**
-     * [get] (商品名称)PRODUCT_NAME: {VARCHAR(50), refers to PRODUCT.PRODUCT_NAME} <br />
-     * ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。<br />
+     * [get] (商品名称)PRODUCT_NAME: {VARCHAR(50), refers to PRODUCT.PRODUCT_NAME} <br>
+     * ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。<br>
      * 実業務ではしっかりとコメントを入れることが強く強く推奨される。「よりによってこのテーブルでやらないでよ！」あわわ、何も聞こえません〜
      * @return The value of the column 'PRODUCT_NAME'. (NullAllowed even if selected: for no constraint)
      */
@@ -298,8 +299,8 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     }
 
     /**
-     * [set] (商品名称)PRODUCT_NAME: {VARCHAR(50), refers to PRODUCT.PRODUCT_NAME} <br />
-     * ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。<br />
+     * [set] (商品名称)PRODUCT_NAME: {VARCHAR(50), refers to PRODUCT.PRODUCT_NAME} <br>
+     * ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。<br>
      * 実業務ではしっかりとコメントを入れることが強く強く推奨される。「よりによってこのテーブルでやらないでよ！」あわわ、何も聞こえません〜
      * @param productName The value of the column 'PRODUCT_NAME'. (NullAllowed: null update allowed for no constraint)
      */
@@ -309,7 +310,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     }
 
     /**
-     * [get] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} <br />
+     * [get] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} <br>
      * 購入した瞬間の日時。
      * @return The value of the column 'PURCHASE_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
@@ -319,7 +320,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity {
     }
 
     /**
-     * [set] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} <br />
+     * [set] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} <br>
      * 購入した瞬間の日時。
      * @param purchaseDatetime The value of the column 'PURCHASE_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */

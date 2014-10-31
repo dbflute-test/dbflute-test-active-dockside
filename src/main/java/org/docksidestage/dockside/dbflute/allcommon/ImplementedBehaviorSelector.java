@@ -184,9 +184,9 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
     //                                         -------------
     /**
      * Assert that the object is not null.
-     * @param variableName Variable name. (NotNull)
-     * @param value Value. (NotNull)
-     * @throws IllegalArgumentException
+     * @param variableName The variable name for message. (NotNull)
+     * @param value The value the checked variable. (NotNull)
+     * @throws IllegalArgumentException When the variable name or the variable is null.
      */
     protected void assertObjectNotNull(String variableName, Object value) {
         if (variableName == null) {
@@ -204,8 +204,9 @@ public class ImplementedBehaviorSelector implements BehaviorSelector {
     //                                         -------------
     /**
      * Assert that the entity is not null and not trimmed empty.
-     * @param variableName Variable name. (NotNull)
-     * @param value Value. (NotNull)
+     * @param variableName The variable name for message. (NotNull)
+     * @param value The value the checked variable. (NotNull)
+     * @throws IllegalArgumentException When the argument is null or empty.
      */
     protected void assertStringNotNullAndNotTrimmedEmpty(String variableName, String value) {
         assertObjectNotNull("variableName", variableName);

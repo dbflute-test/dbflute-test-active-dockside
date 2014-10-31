@@ -34,7 +34,7 @@ public class MemberFollowingNss {
     //                                                                     Nested Relation
     //                                                                     ===============
     /**
-     * With nested relation columns to select clause. <br />
+     * With nested relation columns to select clause. <br>
      * (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
@@ -43,7 +43,7 @@ public class MemberFollowingNss {
         return new MemberNss(_query.queryMemberByMyMemberId());
     }
     /**
-     * With nested relation columns to select clause. <br />
+     * With nested relation columns to select clause. <br>
      * (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */

@@ -20,11 +20,12 @@ import java.util.ArrayList;
 
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of VENDOR_IDENTITY_ONLY as TABLE. <br />
+ * The entity of VENDOR_IDENTITY_ONLY as TABLE. <br>
  * <pre>
  * [primary-key]
  *     IDENTITY_ONLY_ID
@@ -61,7 +62,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsVendorIdentityOnly extends AbstractEntity {
+public abstract class BsVendorIdentityOnly extends AbstractEntity implements DomainEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -167,7 +168,7 @@ public abstract class BsVendorIdentityOnly extends AbstractEntity {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)} <br />
+     * [get] IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)} <br>
      * @return The value of the column 'IDENTITY_ONLY_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getIdentityOnlyId() {
@@ -176,7 +177,7 @@ public abstract class BsVendorIdentityOnly extends AbstractEntity {
     }
 
     /**
-     * [set] IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)} <br />
+     * [set] IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)} <br>
      * @param identityOnlyId The value of the column 'IDENTITY_ONLY_ID'. (basically NotNull if update: for the constraint)
      */
     public void setIdentityOnlyId(Long identityOnlyId) {

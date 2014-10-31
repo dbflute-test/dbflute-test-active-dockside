@@ -27,7 +27,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The base class for typed parameter-bean of SubDirectoryCheck. <br />
+ * The base class for typed parameter-bean of SubDirectoryCheck. <br>
  * This is related to "<span style="color: #AD4747">subdirectory:selectSubDirectoryCheck</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -55,7 +55,7 @@ public class BsSubDirectoryCheckPmb implements ListHandlingPmb<MemberBhv, SubDir
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of SubDirectoryCheck. <br />
+     * Constructor for the typed parameter-bean of SubDirectoryCheck. <br>
      * This is related to "<span style="color: #AD4747">subdirectory:selectSubDirectoryCheck</span>" on MemberBhv.
      */
     public BsSubDirectoryCheckPmb() {
@@ -112,8 +112,8 @@ public class BsSubDirectoryCheckPmb implements ListHandlingPmb<MemberBhv, SubDir
     protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
 
     /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
+     * Set time-zone, basically for LocalDate conversion. <br>
+     * Normally you don't need to set this, you can adjust other ways. <br>
      * (DBFlute system's time-zone is used as default)
      * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
      */
@@ -155,7 +155,7 @@ public class BsSubDirectoryCheckPmb implements ListHandlingPmb<MemberBhv, SubDir
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] memberId <br />
+     * [get] memberId <br>
      * @return The value of memberId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getMemberId() {
@@ -163,7 +163,7 @@ public class BsSubDirectoryCheckPmb implements ListHandlingPmb<MemberBhv, SubDir
     }
 
     /**
-     * [set] memberId <br />
+     * [set] memberId <br>
      * @param memberId The value of memberId. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -171,7 +171,7 @@ public class BsSubDirectoryCheckPmb implements ListHandlingPmb<MemberBhv, SubDir
     }
 
     /**
-     * [get] memberName:likePrefix <br />
+     * [get] memberName:likePrefix <br>
      * @return The value of memberName. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberName() {
@@ -179,7 +179,7 @@ public class BsSubDirectoryCheckPmb implements ListHandlingPmb<MemberBhv, SubDir
     }
 
     /**
-     * [set as prefixSearch] memberName:likePrefix <br />
+     * [set as prefixSearch] memberName:likePrefix <br>
      * @param memberName The value of memberName. (NullAllowed)
      */
     public void setMemberName_PrefixSearch(String memberName) {

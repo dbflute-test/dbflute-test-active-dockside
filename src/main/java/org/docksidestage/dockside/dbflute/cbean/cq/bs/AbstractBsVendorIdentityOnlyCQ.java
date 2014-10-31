@@ -62,7 +62,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     //                                                                               Query
     //                                                                               =====
     /**
-     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param identityOnlyId The value of identityOnlyId as equal. (NullAllowed: if null, no condition)
      */
@@ -75,7 +75,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param identityOnlyId The value of identityOnlyId as notEqual. (NullAllowed: if null, no condition)
      */
@@ -88,7 +88,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param identityOnlyId The value of identityOnlyId as greaterThan. (NullAllowed: if null, no condition)
      */
@@ -97,7 +97,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param identityOnlyId The value of identityOnlyId as lessThan. (NullAllowed: if null, no condition)
      */
@@ -106,7 +106,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param identityOnlyId The value of identityOnlyId as greaterEqual. (NullAllowed: if null, no condition)
      */
@@ -115,7 +115,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param identityOnlyId The value of identityOnlyId as lessEqual. (NullAllowed: if null, no condition)
      */
@@ -124,9 +124,9 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * RangeOf with various options. (versatile) <br />
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param minNumber The min number of identityOnlyId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of identityOnlyId. (NullAllowed: if null, no to-condition)
@@ -137,9 +137,9 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * RangeOf with various options. (versatile) <br />
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param minNumber The min number of identityOnlyId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of identityOnlyId. (NullAllowed: if null, no to-condition)
@@ -150,7 +150,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param identityOnlyIdList The collection of identityOnlyId as inScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -163,7 +163,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      * @param identityOnlyIdList The collection of identityOnlyId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -176,13 +176,13 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * IsNull {is null}. And OnlyOnceRegistered. <br />
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      */
     public void setIdentityOnlyId_IsNull() { regIdentityOnlyId(CK_ISN, DOBJ); }
 
     /**
-     * IsNotNull {is not null}. And OnlyOnceRegistered. <br />
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      */
     public void setIdentityOnlyId_IsNotNull() { regIdentityOnlyId(CK_ISNN, DOBJ); }
@@ -194,7 +194,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     //                                                                     ScalarCondition
     //                                                                     ===============
     /**
-     * Prepare ScalarCondition as equal. <br />
+     * Prepare ScalarCondition as equal. <br>
      * {where FOO = (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_Equal()</span>.max(new SubQuery&lt;VendorIdentityOnlyCB&gt;() {
@@ -211,7 +211,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * Prepare ScalarCondition as equal. <br />
+     * Prepare ScalarCondition as equal. <br>
      * {where FOO &lt;&gt; (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_NotEqual()</span>.max(new SubQuery&lt;VendorIdentityOnlyCB&gt;() {
@@ -228,7 +228,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * Prepare ScalarCondition as greaterThan. <br />
+     * Prepare ScalarCondition as greaterThan. <br>
      * {where FOO &gt; (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;VendorIdentityOnlyCB&gt;() {
@@ -245,7 +245,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * Prepare ScalarCondition as lessThan. <br />
+     * Prepare ScalarCondition as lessThan. <br>
      * {where FOO &lt; (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_LessThan()</span>.max(new SubQuery&lt;VendorIdentityOnlyCB&gt;() {
@@ -262,7 +262,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * Prepare ScalarCondition as greaterEqual. <br />
+     * Prepare ScalarCondition as greaterEqual. <br>
      * {where FOO &gt;= (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;VendorIdentityOnlyCB&gt;() {
@@ -279,7 +279,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     }
 
     /**
-     * Prepare ScalarCondition as lessEqual. <br />
+     * Prepare ScalarCondition as lessEqual. <br>
      * {where FOO &lt;= (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_LessEqual()</span>.max(new SubQuery&lt;VendorIdentityOnlyCB&gt;() {

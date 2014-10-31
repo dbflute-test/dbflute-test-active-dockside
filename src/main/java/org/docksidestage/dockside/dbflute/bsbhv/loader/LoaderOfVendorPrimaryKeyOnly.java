@@ -22,7 +22,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The referrer loader of VENDOR_PRIMARY_KEY_ONLY as TABLE. <br />
+ * The referrer loader of VENDOR_PRIMARY_KEY_ONLY as TABLE. <br>
  * <pre>
  * [primary key]
  *     PRIMARY_KEY_ONLY_ID

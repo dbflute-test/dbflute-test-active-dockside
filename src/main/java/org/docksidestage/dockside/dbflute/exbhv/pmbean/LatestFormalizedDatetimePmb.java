@@ -19,9 +19,9 @@ import org.docksidestage.dockside.dbflute.bsbhv.pmbean.BsLatestFormalizedDatetim
 
 /**
  * <!-- df:beginClassDescription -->
- * The typed parameter-bean of LatestFormalizedDatetime. <span style="color: #AD4747">(typed to list, entity)</span><br />
- * This is related to "<span style="color: #AD4747">selectLatestFormalizedDatetime</span>" on MemberBhv, <br />
- * described as "The example for selecting scalar value". <br />
+ * The typed parameter-bean of LatestFormalizedDatetime. <span style="color: #AD4747">(typed to list, entity)</span><br>
+ * This is related to "<span style="color: #AD4747">selectLatestFormalizedDatetime</span>" on MemberBhv, <br>
+ * described as "The example for selecting scalar value". <br>
  * <!-- df:endClassDescription -->
  * <p>
  * You can implement your original methods here.

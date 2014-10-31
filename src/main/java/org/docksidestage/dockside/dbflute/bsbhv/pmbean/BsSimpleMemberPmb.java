@@ -27,7 +27,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The base class for typed parameter-bean of SimpleMember. <br />
+ * The base class for typed parameter-bean of SimpleMember. <br>
  * This is related to "<span style="color: #AD4747">selectSimpleMember</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -58,7 +58,7 @@ public class BsSimpleMemberPmb implements ListHandlingPmb<MemberBhv, SimpleMembe
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of SimpleMember. <br />
+     * Constructor for the typed parameter-bean of SimpleMember. <br>
      * This is related to "<span style="color: #AD4747">selectSimpleMember</span>" on MemberBhv.
      */
     public BsSimpleMemberPmb() {
@@ -115,8 +115,8 @@ public class BsSimpleMemberPmb implements ListHandlingPmb<MemberBhv, SimpleMembe
     protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
 
     /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
+     * Set time-zone, basically for LocalDate conversion. <br>
+     * Normally you don't need to set this, you can adjust other ways. <br>
      * (DBFlute system's time-zone is used as default)
      * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
      */
@@ -159,7 +159,7 @@ public class BsSimpleMemberPmb implements ListHandlingPmb<MemberBhv, SimpleMembe
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] memberId <br />
+     * [get] memberId <br>
      * @return The value of memberId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getMemberId() {
@@ -167,7 +167,7 @@ public class BsSimpleMemberPmb implements ListHandlingPmb<MemberBhv, SimpleMembe
     }
 
     /**
-     * [set] memberId <br />
+     * [set] memberId <br>
      * @param memberId The value of memberId. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -175,7 +175,7 @@ public class BsSimpleMemberPmb implements ListHandlingPmb<MemberBhv, SimpleMembe
     }
 
     /**
-     * [get] memberName:likePrefix <br />
+     * [get] memberName:likePrefix <br>
      * @return The value of memberName. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberName() {
@@ -183,7 +183,7 @@ public class BsSimpleMemberPmb implements ListHandlingPmb<MemberBhv, SimpleMembe
     }
 
     /**
-     * [set as prefixSearch] memberName:likePrefix <br />
+     * [set as prefixSearch] memberName:likePrefix <br>
      * @param memberName The value of memberName. (NullAllowed)
      */
     public void setMemberName_PrefixSearch(String memberName) {
@@ -200,7 +200,7 @@ public class BsSimpleMemberPmb implements ListHandlingPmb<MemberBhv, SimpleMembe
     }
 
     /**
-     * [get] birthdate <br />
+     * [get] birthdate <br>
      * used as equal
      * @return The value of birthdate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
@@ -209,7 +209,7 @@ public class BsSimpleMemberPmb implements ListHandlingPmb<MemberBhv, SimpleMembe
     }
 
     /**
-     * [set] birthdate <br />
+     * [set] birthdate <br>
      * used as equal
      * @param birthdate The value of birthdate. (NullAllowed)
      */

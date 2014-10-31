@@ -20,11 +20,12 @@ import java.util.ArrayList;
 
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of VENDOR_$_DOLLAR as TABLE. <br />
+ * The entity of VENDOR_$_DOLLAR as TABLE. <br>
  * <pre>
  * [primary-key]
  *     VENDOR_$_DOLLAR_ID
@@ -63,7 +64,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsVendor$Dollar extends AbstractEntity {
+public abstract class BsVendor$Dollar extends AbstractEntity implements DomainEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -173,7 +174,7 @@ public abstract class BsVendor$Dollar extends AbstractEntity {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)} <br />
+     * [get] VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)} <br>
      * @return The value of the column 'VENDOR_$_DOLLAR_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getVendor$DollarId() {
@@ -182,7 +183,7 @@ public abstract class BsVendor$Dollar extends AbstractEntity {
     }
 
     /**
-     * [set] VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)} <br />
+     * [set] VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)} <br>
      * @param vendor$DollarId The value of the column 'VENDOR_$_DOLLAR_ID'. (basically NotNull if update: for the constraint)
      */
     public void setVendor$DollarId(Integer vendor$DollarId) {
@@ -191,7 +192,7 @@ public abstract class BsVendor$Dollar extends AbstractEntity {
     }
 
     /**
-     * [get] VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br />
+     * [get] VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br>
      * @return The value of the column 'VENDOR_$_DOLLAR_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getVendor$DollarName() {
@@ -200,7 +201,7 @@ public abstract class BsVendor$Dollar extends AbstractEntity {
     }
 
     /**
-     * [set] VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br />
+     * [set] VENDOR_$_DOLLAR_NAME: {VARCHAR(32)} <br>
      * @param vendor$DollarName The value of the column 'VENDOR_$_DOLLAR_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setVendor$DollarName(String vendor$DollarName) {

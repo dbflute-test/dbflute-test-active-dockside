@@ -24,7 +24,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The referrer loader of (サービスランク)SERVICE_RANK as TABLE. <br />
+ * The referrer loader of (サービスランク)SERVICE_RANK as TABLE. <br>
  * <pre>
  * [primary key]
  *     SERVICE_RANK_CODE
@@ -79,7 +79,7 @@ public class LoaderOfServiceRank {
     protected List<MemberService> _referrerMemberService;
 
     /**
-     * Load referrer of memberServiceList by the set-upper of referrer. <br />
+     * Load referrer of memberServiceList by the set-upper of referrer. <br>
      * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
      * <pre>
      * <span style="color: #0000C0">serviceRankBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">serviceRankList</span>, <span style="color: #553000">rankLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -88,7 +88,7 @@ public class LoaderOfServiceRank {
      *         <span style="color: #553000">serviceCB</span>.query().set...
      *         <span style="color: #553000">serviceCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">serviceLoader</span> -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">serviceLoader</span> -&gt; {</span>
      *     <span style="color: #3F7E5E">//    serviceLoader.load...</span>
      *     <span style="color: #3F7E5E">//});</span>
      * });
@@ -96,7 +96,7 @@ public class LoaderOfServiceRank {
      *     ... = serviceRank.<span style="color: #CC4747">getMemberServiceList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setServiceRankCode_InScope(pkList);

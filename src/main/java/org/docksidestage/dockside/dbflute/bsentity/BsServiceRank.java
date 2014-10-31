@@ -20,12 +20,13 @@ import java.util.ArrayList;
 
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of (サービスランク)SERVICE_RANK as TABLE. <br />
+ * The entity of (サービスランク)SERVICE_RANK as TABLE. <br>
  * 会員のサービスレベルを表現するランク。(ゴールドとかプラチナとか)
  * <pre>
  * [primary-key]
@@ -73,7 +74,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsServiceRank extends AbstractEntity {
+public abstract class BsServiceRank extends AbstractEntity implements DomainEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -133,7 +134,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * To be unique by the unique column. <br />
+     * To be unique by the unique column. <br>
      * You can update the entity by the key when entity update (NOT batch update).
      * @param displayOrder (表示順): UQ, NotNull, INTEGER(10). (NotNull)
      */
@@ -147,8 +148,8 @@ public abstract class BsServiceRank extends AbstractEntity {
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Get the value of serviceRankCode as the classification of ServiceRank. <br />
-     * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br />
+     * Get the value of serviceRankCode as the classification of ServiceRank. <br>
+     * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
      * rank of service member gets
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
@@ -158,8 +159,8 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Set the value of serviceRankCode as the classification of ServiceRank. <br />
-     * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br />
+     * Set the value of serviceRankCode as the classification of ServiceRank. <br>
+     * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
      * rank of service member gets
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
@@ -168,8 +169,8 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Get the value of newAcceptableFlg as the classification of Flg. <br />
-     * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * Get the value of newAcceptableFlg as the classification of Flg. <br>
+     * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * general boolean classification for every flg-column
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
@@ -179,8 +180,8 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Set the value of newAcceptableFlg as the classification of Flg. <br />
-     * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * Set the value of newAcceptableFlg as the classification of Flg. <br>
+     * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * general boolean classification for every flg-column
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
@@ -189,8 +190,8 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Set the value of newAcceptableFlg as boolean. <br />
-     * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * Set the value of newAcceptableFlg as boolean. <br>
+     * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * general boolean classification for every flg-column
      * @param determination The determination, true or false. (NullAllowed: if null, null value is set to the column)
      */
@@ -202,7 +203,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of serviceRankCode as Platinum (PLT). <br />
+     * Set the value of serviceRankCode as Platinum (PLT). <br>
      * PLATINUM: platinum rank
      */
     public void setServiceRankCode_Platinum() {
@@ -210,7 +211,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Set the value of serviceRankCode as Gold (GLD). <br />
+     * Set the value of serviceRankCode as Gold (GLD). <br>
      * GOLD: gold rank
      */
     public void setServiceRankCode_Gold() {
@@ -218,7 +219,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Set the value of serviceRankCode as Silver (SIL). <br />
+     * Set the value of serviceRankCode as Silver (SIL). <br>
      * SILVER: silver rank
      */
     public void setServiceRankCode_Silver() {
@@ -226,7 +227,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Set the value of serviceRankCode as Bronze (BRZ). <br />
+     * Set the value of serviceRankCode as Bronze (BRZ). <br>
      * BRONZE: bronze rank
      */
     public void setServiceRankCode_Bronze() {
@@ -234,7 +235,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Set the value of serviceRankCode as Plastic (PLS). <br />
+     * Set the value of serviceRankCode as Plastic (PLS). <br>
      * PLASTIC: plastic rank
      */
     public void setServiceRankCode_Plastic() {
@@ -242,7 +243,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Set the value of newAcceptableFlg as True (1). <br />
+     * Set the value of newAcceptableFlg as True (1). <br>
      * Checked: means yes
      */
     public void setNewAcceptableFlg_True() {
@@ -250,7 +251,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Set the value of newAcceptableFlg as False (0). <br />
+     * Set the value of newAcceptableFlg as False (0). <br>
      * Unchecked: means no
      */
     public void setNewAcceptableFlg_False() {
@@ -261,7 +262,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of serviceRankCode Platinum? <br />
+     * Is the value of serviceRankCode Platinum? <br>
      * PLATINUM: platinum rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -272,7 +273,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Is the value of serviceRankCode Gold? <br />
+     * Is the value of serviceRankCode Gold? <br>
      * GOLD: gold rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -283,7 +284,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Is the value of serviceRankCode Silver? <br />
+     * Is the value of serviceRankCode Silver? <br>
      * SILVER: silver rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -294,7 +295,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Is the value of serviceRankCode Bronze? <br />
+     * Is the value of serviceRankCode Bronze? <br>
      * BRONZE: bronze rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -305,7 +306,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Is the value of serviceRankCode Plastic? <br />
+     * Is the value of serviceRankCode Plastic? <br>
      * PLASTIC: plastic rank
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -316,7 +317,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Is the value of newAcceptableFlg True? <br />
+     * Is the value of newAcceptableFlg True? <br>
      * Checked: means yes
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -327,7 +328,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * Is the value of newAcceptableFlg False? <br />
+     * Is the value of newAcceptableFlg False? <br>
      * Unchecked: means no
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -454,7 +455,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br />
+     * [get] (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
      * サービスランクを識別するコード。
      * @return The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if selected: for the constraint)
      */
@@ -464,7 +465,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * [set] (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br />
+     * [set] (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
      * サービスランクを識別するコード。
      * @param serviceRankCode The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if update: for the constraint)
      */
@@ -475,8 +476,8 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * [get] (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)} <br />
-     * サービスランクの名称。<br />
+     * [get] (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)} <br>
+     * サービスランクの名称。<br>
      * ゴールドとかプラチナとか基本的には威厳のある名前
      * @return The value of the column 'SERVICE_RANK_NAME'. (basically NotNull if selected: for the constraint)
      */
@@ -486,8 +487,8 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * [set] (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)} <br />
-     * サービスランクの名称。<br />
+     * [set] (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)} <br>
+     * サービスランクの名称。<br>
      * ゴールドとかプラチナとか基本的には威厳のある名前
      * @param serviceRankName The value of the column 'SERVICE_RANK_NAME'. (basically NotNull if update: for the constraint)
      */
@@ -497,8 +498,8 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * [get] (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)} <br />
-     * 購入ごとのサービスポイントの発生率。<br />
+     * [get] (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)} <br>
+     * 購入ごとのサービスポイントの発生率。<br>
      * 購入価格にこの値をかけた数が発生ポイント。ExampleDBとして数少ない貴重な小数点ありのカラム。
      * @return The value of the column 'SERVICE_POINT_INCIDENCE'. (basically NotNull if selected: for the constraint)
      */
@@ -508,8 +509,8 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * [set] (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)} <br />
-     * 購入ごとのサービスポイントの発生率。<br />
+     * [set] (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)} <br>
+     * 購入ごとのサービスポイントの発生率。<br>
      * 購入価格にこの値をかけた数が発生ポイント。ExampleDBとして数少ない貴重な小数点ありのカラム。
      * @param servicePointIncidence The value of the column 'SERVICE_POINT_INCIDENCE'. (basically NotNull if update: for the constraint)
      */
@@ -519,7 +520,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * [get] (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * [get] (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * このランクへの新規受け入れができるかどうか。
      * @return The value of the column 'NEW_ACCEPTABLE_FLG'. (basically NotNull if selected: for the constraint)
      */
@@ -529,7 +530,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * [set] (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br />
+     * [set] (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * このランクへの新規受け入れができるかどうか。
      * @param newAcceptableFlg The value of the column 'NEW_ACCEPTABLE_FLG'. (basically NotNull if update: for the constraint)
      */
@@ -540,7 +541,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * [get] (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br />
+     * [get] (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br>
      * ランクに関する業務的な説明。
      * @return The value of the column 'DESCRIPTION'. (basically NotNull if selected: for the constraint)
      */
@@ -550,7 +551,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * [set] (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br />
+     * [set] (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br>
      * ランクに関する業務的な説明。
      * @param description The value of the column 'DESCRIPTION'. (basically NotNull if update: for the constraint)
      */
@@ -560,7 +561,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * [get] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
+     * [get] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
      * UI上の表示順を表現する番号。
      * @return The value of the column 'DISPLAY_ORDER'. (basically NotNull if selected: for the constraint)
      */
@@ -570,7 +571,7 @@ public abstract class BsServiceRank extends AbstractEntity {
     }
 
     /**
-     * [set] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br />
+     * [set] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
      * UI上の表示順を表現する番号。
      * @param displayOrder The value of the column 'DISPLAY_ORDER'. (basically NotNull if update: for the constraint)
      */

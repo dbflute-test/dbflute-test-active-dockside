@@ -24,7 +24,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The referrer loader of (購入)PURCHASE as TABLE. <br />
+ * The referrer loader of (購入)PURCHASE as TABLE. <br>
  * <pre>
  * [primary key]
  *     PURCHASE_ID
@@ -79,7 +79,7 @@ public class LoaderOfPurchase {
     protected List<PurchasePayment> _referrerPurchasePayment;
 
     /**
-     * Load referrer of purchasePaymentList by the set-upper of referrer. <br />
+     * Load referrer of purchasePaymentList by the set-upper of referrer. <br>
      * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
      * <pre>
      * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">purchaseList</span>, <span style="color: #553000">purchaseLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -88,7 +88,7 @@ public class LoaderOfPurchase {
      *         <span style="color: #553000">paymentCB</span>.query().set...
      *         <span style="color: #553000">paymentCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">paymentLoader</span> -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">paymentLoader</span> -&gt; {</span>
      *     <span style="color: #3F7E5E">//    paymentLoader.load...</span>
      *     <span style="color: #3F7E5E">//});</span>
      * });
@@ -96,7 +96,7 @@ public class LoaderOfPurchase {
      *     ... = purchase.<span style="color: #CC4747">getPurchasePaymentList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setPurchaseId_InScope(pkList);

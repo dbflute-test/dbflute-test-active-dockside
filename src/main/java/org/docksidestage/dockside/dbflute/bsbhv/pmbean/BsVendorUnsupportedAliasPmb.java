@@ -25,7 +25,7 @@ import org.docksidestage.dockside.dbflute.allcommon.*;
 import org.docksidestage.dockside.dbflute.exbhv.*;
 
 /**
- * The base class for typed parameter-bean of VendorUnsupportedAlias. <br />
+ * The base class for typed parameter-bean of VendorUnsupportedAlias. <br>
  * This is related to "<span style="color: #AD4747">whitebox:vendorcheck:selectVendorUnsupportedAlias</span>" on VendorCheckBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -47,7 +47,7 @@ public class BsVendorUnsupportedAliasPmb implements ExecuteHandlingPmb<VendorChe
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of VendorUnsupportedAlias. <br />
+     * Constructor for the typed parameter-bean of VendorUnsupportedAlias. <br>
      * This is related to "<span style="color: #AD4747">whitebox:vendorcheck:selectVendorUnsupportedAlias</span>" on VendorCheckBhv.
      */
     public BsVendorUnsupportedAliasPmb() {
@@ -96,8 +96,8 @@ public class BsVendorUnsupportedAliasPmb implements ExecuteHandlingPmb<VendorChe
     protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
 
     /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
+     * Set time-zone, basically for LocalDate conversion. <br>
+     * Normally you don't need to set this, you can adjust other ways. <br>
      * (DBFlute system's time-zone is used as default)
      * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
      */
@@ -138,7 +138,7 @@ public class BsVendorUnsupportedAliasPmb implements ExecuteHandlingPmb<VendorChe
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] vendorCheckId:ref(VENDOR_CHECK) :: refers to VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)} <br />
+     * [get] vendorCheckId:ref(VENDOR_CHECK) :: refers to VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)} <br>
      * @return The value of vendorCheckId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Long getVendorCheckId() {
@@ -146,7 +146,7 @@ public class BsVendorUnsupportedAliasPmb implements ExecuteHandlingPmb<VendorChe
     }
 
     /**
-     * [set] vendorCheckId:ref(VENDOR_CHECK) :: refers to VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)} <br />
+     * [set] vendorCheckId:ref(VENDOR_CHECK) :: refers to VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)} <br>
      * @param vendorCheckId The value of vendorCheckId. (NullAllowed)
      */
     public void setVendorCheckId(Long vendorCheckId) {

@@ -20,10 +20,11 @@ import java.util.ArrayList;
 
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.dbmeta.accessory.CustomizeEntity;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The entity of VendorDoubleByteOnSql. <br />
+ * The entity of VendorDoubleByteOnSql. <br>
  * <pre>
  * [primary-key]
  *     
@@ -64,7 +65,7 @@ import org.docksidestage.dockside.dbflute.exentity.customize.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
+public abstract class BsVendorDoubleByteOnSql extends AbstractEntity implements CustomizeEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -181,7 +182,7 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
@@ -191,7 +192,7 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br />
+     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
      * 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
@@ -201,7 +202,7 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
     }
 
     /**
-     * [get] MEMBER_NAME_WITH_SPACE: {VARCHAR(201)} <br />
+     * [get] MEMBER_NAME_WITH_SPACE: {VARCHAR(201)} <br>
      * @return The value of the column 'MEMBER_NAME_WITH_SPACE'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberNameWithSpace() {
@@ -210,7 +211,7 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
     }
 
     /**
-     * [set] MEMBER_NAME_WITH_SPACE: {VARCHAR(201)} <br />
+     * [set] MEMBER_NAME_WITH_SPACE: {VARCHAR(201)} <br>
      * @param memberNameWithSpace The value of the column 'MEMBER_NAME_WITH_SPACE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberNameWithSpace(String memberNameWithSpace) {
@@ -219,8 +220,8 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
     }
 
     /**
-     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
-     * 表示用の名称。<br />
+     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
+     * 表示用の名称。<br>
      * 国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。
      * @return The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed even if selected: for no constraint)
      */
@@ -230,8 +231,8 @@ public abstract class BsVendorDoubleByteOnSql extends AbstractEntity {
     }
 
     /**
-     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br />
-     * 表示用の名称。<br />
+     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
+     * 表示用の名称。<br>
      * 国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。
      * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (NullAllowed: null update allowed for no constraint)
      */

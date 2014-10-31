@@ -26,7 +26,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The base class for typed parameter-bean of PmCommentEmbedded. <br />
+ * The base class for typed parameter-bean of PmCommentEmbedded. <br>
  * This is related to "<span style="color: #AD4747">whitebox:pmcomment:selectPmCommentEmbedded</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -51,7 +51,7 @@ public class BsPmCommentEmbeddedPmb implements ListHandlingPmb<MemberBhv, PmComm
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of PmCommentEmbedded. <br />
+     * Constructor for the typed parameter-bean of PmCommentEmbedded. <br>
      * This is related to "<span style="color: #AD4747">whitebox:pmcomment:selectPmCommentEmbedded</span>" on MemberBhv.
      */
     public BsPmCommentEmbeddedPmb() {
@@ -106,8 +106,8 @@ public class BsPmCommentEmbeddedPmb implements ListHandlingPmb<MemberBhv, PmComm
     protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
 
     /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
+     * Set time-zone, basically for LocalDate conversion. <br>
+     * Normally you don't need to set this, you can adjust other ways. <br>
      * (DBFlute system's time-zone is used as default)
      * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
      */
@@ -149,7 +149,7 @@ public class BsPmCommentEmbeddedPmb implements ListHandlingPmb<MemberBhv, PmComm
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] schema <br />
+     * [get] schema <br>
      * @return The value of schema. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getSchema() {
@@ -157,7 +157,7 @@ public class BsPmCommentEmbeddedPmb implements ListHandlingPmb<MemberBhv, PmComm
     }
 
     /**
-     * [set] schema <br />
+     * [set] schema <br>
      * @param schema The value of schema. (NullAllowed)
      */
     public void setSchema(String schema) {
@@ -165,7 +165,7 @@ public class BsPmCommentEmbeddedPmb implements ListHandlingPmb<MemberBhv, PmComm
     }
 
     /**
-     * [get] schemaDot <br />
+     * [get] schemaDot <br>
      * @return The value of schemaDot. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getSchemaDot() {
@@ -173,7 +173,7 @@ public class BsPmCommentEmbeddedPmb implements ListHandlingPmb<MemberBhv, PmComm
     }
 
     /**
-     * [set] schemaDot <br />
+     * [set] schemaDot <br>
      * @param schemaDot The value of schemaDot. (NullAllowed)
      */
     public void setSchemaDot(String schemaDot) {

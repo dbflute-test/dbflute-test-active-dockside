@@ -24,7 +24,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The referrer loader of (地域)REGION as TABLE. <br />
+ * The referrer loader of (地域)REGION as TABLE. <br>
  * <pre>
  * [primary key]
  *     REGION_ID
@@ -79,7 +79,7 @@ public class LoaderOfRegion {
     protected List<MemberAddress> _referrerMemberAddress;
 
     /**
-     * Load referrer of memberAddressList by the set-upper of referrer. <br />
+     * Load referrer of memberAddressList by the set-upper of referrer. <br>
      * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * <pre>
      * <span style="color: #0000C0">regionBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">regionList</span>, <span style="color: #553000">regionLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -88,7 +88,7 @@ public class LoaderOfRegion {
      *         <span style="color: #553000">addressCB</span>.query().set...
      *         <span style="color: #553000">addressCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">addressLoader</span> -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">addressLoader</span> -&gt; {</span>
      *     <span style="color: #3F7E5E">//    addressLoader.load...</span>
      *     <span style="color: #3F7E5E">//});</span>
      * });
@@ -96,7 +96,7 @@ public class LoaderOfRegion {
      *     ... = region.<span style="color: #CC4747">getMemberAddressList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setRegionId_InScope(pkList);

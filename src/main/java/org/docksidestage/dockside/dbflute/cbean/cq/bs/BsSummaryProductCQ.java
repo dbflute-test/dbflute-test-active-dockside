@@ -49,7 +49,7 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     //                                                                 InlineView/OrClause
     //                                                                 ===================
     /**
-     * Prepare InlineView query. <br />
+     * Prepare InlineView query. <br>
      * {select ... from ... left outer join (select * from SUMMARY_PRODUCT) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">inline()</span>.setFoo...;
@@ -72,7 +72,7 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     }
 
     /**
-     * Prepare OnClause query. <br />
+     * Prepare OnClause query. <br>
      * {select ... from ... left outer join SUMMARY_PRODUCT on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">on()</span>.setFoo...;
@@ -109,14 +109,14 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     public String keepProductId_QueryDerivedReferrer_PurchaseListParameter(Object pm) { return xkeepSQuePm("productId_QueryDerivedReferrer_PurchaseList", pm); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * PRODUCT_ID: {PK, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsSummaryProductCQ addOrderBy_ProductId_Asc() { regOBA("PRODUCT_ID"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * PRODUCT_ID: {PK, INTEGER(10)}
      * @return this. (NotNull)
      */
@@ -129,14 +129,14 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     protected ConditionValue xgetCValueProductName() { return xdfgetProductName(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * PRODUCT_NAME: {VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsSummaryProductCQ addOrderBy_ProductName_Asc() { regOBA("PRODUCT_NAME"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * PRODUCT_NAME: {VARCHAR(50)}
      * @return this. (NotNull)
      */
@@ -149,14 +149,14 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     protected ConditionValue xgetCValueProductHandleCode() { return xdfgetProductHandleCode(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * PRODUCT_HANDLE_CODE: {VARCHAR(100)}
      * @return this. (NotNull)
      */
     public BsSummaryProductCQ addOrderBy_ProductHandleCode_Asc() { regOBA("PRODUCT_HANDLE_CODE"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * PRODUCT_HANDLE_CODE: {VARCHAR(100)}
      * @return this. (NotNull)
      */
@@ -169,14 +169,14 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     protected ConditionValue xgetCValueProductStatusCode() { return xdfgetProductStatusCode(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus}
      * @return this. (NotNull)
      */
     public BsSummaryProductCQ addOrderBy_ProductStatusCode_Asc() { regOBA("PRODUCT_STATUS_CODE"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus}
      * @return this. (NotNull)
      */
@@ -189,14 +189,14 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     protected ConditionValue xgetCValueLatestPurchaseDatetime() { return xdfgetLatestPurchaseDatetime(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
      * @return this. (NotNull)
      */
     public BsSummaryProductCQ addOrderBy_LatestPurchaseDatetime_Asc() { regOBA("LATEST_PURCHASE_DATETIME"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
      * @return this. (NotNull)
      */
@@ -252,7 +252,7 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     //                                                                       Foreign Query
     //                                                                       =============
     /**
-     * Get the condition-query for relation table. <br />
+     * Get the condition-query for relation table. <br>
      * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      * @return The instance of condition-query. (NotNull)
      */

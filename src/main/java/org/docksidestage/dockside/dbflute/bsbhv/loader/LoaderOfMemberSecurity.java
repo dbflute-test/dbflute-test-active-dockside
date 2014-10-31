@@ -22,7 +22,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The referrer loader of (会員セキュリティ情報)MEMBER_SECURITY as TABLE. <br />
+ * The referrer loader of (会員セキュリティ情報)MEMBER_SECURITY as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_ID

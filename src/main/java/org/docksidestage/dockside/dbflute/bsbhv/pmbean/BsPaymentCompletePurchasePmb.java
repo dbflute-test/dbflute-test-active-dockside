@@ -27,7 +27,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The base class for typed parameter-bean of PaymentCompletePurchase. <br />
+ * The base class for typed parameter-bean of PaymentCompletePurchase. <br>
  * This is related to "<span style="color: #AD4747">selectPaymentCompletePurchase</span>" on PurchaseBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -46,7 +46,7 @@ public abstract class BsPaymentCompletePurchasePmb extends SimplePagingBean impl
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of PaymentCompletePurchase. <br />
+     * Constructor for the typed parameter-bean of PaymentCompletePurchase. <br>
      * This is related to "<span style="color: #AD4747">selectPaymentCompletePurchase</span>" on PurchaseBhv.
      */
     public BsPaymentCompletePurchasePmb() {
@@ -96,8 +96,8 @@ public abstract class BsPaymentCompletePurchasePmb extends SimplePagingBean impl
     protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
 
     /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
+     * Set time-zone, basically for LocalDate conversion. <br>
+     * Normally you don't need to set this, you can adjust other ways. <br>
      * (DBFlute system's time-zone is used as default)
      * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
      */
@@ -138,7 +138,7 @@ public abstract class BsPaymentCompletePurchasePmb extends SimplePagingBean impl
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] paymentCompleteFlg:cls(Flg.True) <br />
+     * [get] paymentCompleteFlg:cls(Flg.True) <br>
      * @return The value of paymentCompleteFlg. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getPaymentCompleteFlg() {

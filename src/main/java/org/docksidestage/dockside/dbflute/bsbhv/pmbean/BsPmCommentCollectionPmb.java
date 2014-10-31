@@ -26,7 +26,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The base class for typed parameter-bean of PmCommentCollection. <br />
+ * The base class for typed parameter-bean of PmCommentCollection. <br>
  * This is related to "<span style="color: #AD4747">whitebox:pmcomment:selectPmCommentCollection</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -51,7 +51,7 @@ public class BsPmCommentCollectionPmb implements ListHandlingPmb<MemberBhv, PmCo
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of PmCommentCollection. <br />
+     * Constructor for the typed parameter-bean of PmCommentCollection. <br>
      * This is related to "<span style="color: #AD4747">whitebox:pmcomment:selectPmCommentCollection</span>" on MemberBhv.
      */
     public BsPmCommentCollectionPmb() {
@@ -106,8 +106,8 @@ public class BsPmCommentCollectionPmb implements ListHandlingPmb<MemberBhv, PmCo
     protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
 
     /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
+     * Set time-zone, basically for LocalDate conversion. <br>
+     * Normally you don't need to set this, you can adjust other ways. <br>
      * (DBFlute system's time-zone is used as default)
      * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
      */
@@ -149,7 +149,7 @@ public class BsPmCommentCollectionPmb implements ListHandlingPmb<MemberBhv, PmCo
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] emptyMethodCheck <br />
+     * [get] emptyMethodCheck <br>
      * @return The value of emptyMethodCheck. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getEmptyMethodCheck() {
@@ -157,7 +157,7 @@ public class BsPmCommentCollectionPmb implements ListHandlingPmb<MemberBhv, PmCo
     }
 
     /**
-     * [set] emptyMethodCheck <br />
+     * [set] emptyMethodCheck <br>
      * @param emptyMethodCheck The value of emptyMethodCheck. (NullAllowed)
      */
     public void setEmptyMethodCheck(boolean emptyMethodCheck) {
@@ -165,7 +165,7 @@ public class BsPmCommentCollectionPmb implements ListHandlingPmb<MemberBhv, PmCo
     }
 
     /**
-     * [get] statusList <br />
+     * [get] statusList <br>
      * @return The value of statusList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Collection<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> getStatusList() {
@@ -173,7 +173,7 @@ public class BsPmCommentCollectionPmb implements ListHandlingPmb<MemberBhv, PmCo
     }
 
     /**
-     * [set] statusList <br />
+     * [set] statusList <br>
      * @param statusList The value of statusList. (NullAllowed)
      */
     public void setStatusList(Collection<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> statusList) {

@@ -21,12 +21,13 @@ import java.util.ArrayList;
 import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of (商品カテゴリ)PRODUCT_CATEGORY as TABLE. <br />
+ * The entity of (商品カテゴリ)PRODUCT_CATEGORY as TABLE. <br>
  * 商品のカテゴリを表現するマスタ。自己参照FKの階層になっている。
  * <pre>
  * [primary-key]
@@ -68,7 +69,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsProductCategory extends AbstractEntity {
+public abstract class BsProductCategory extends AbstractEntity implements DomainEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -125,7 +126,7 @@ public abstract class BsProductCategory extends AbstractEntity {
     protected OptionalEntity<ProductCategory> _productCategorySelf;
 
     /**
-     * [get] (商品カテゴリ)PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'. <br />
+     * [get] (商品カテゴリ)PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'productCategorySelf'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -263,7 +264,7 @@ public abstract class BsProductCategory extends AbstractEntity {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)} <br />
+     * [get] (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)} <br>
      * 自分のテーブルの別のレコードからも参照される。
      * @return The value of the column 'PRODUCT_CATEGORY_CODE'. (basically NotNull if selected: for the constraint)
      */
@@ -273,7 +274,7 @@ public abstract class BsProductCategory extends AbstractEntity {
     }
 
     /**
-     * [set] (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)} <br />
+     * [set] (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)} <br>
      * 自分のテーブルの別のレコードからも参照される。
      * @param productCategoryCode The value of the column 'PRODUCT_CATEGORY_CODE'. (basically NotNull if update: for the constraint)
      */
@@ -283,7 +284,7 @@ public abstract class BsProductCategory extends AbstractEntity {
     }
 
     /**
-     * [get] (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)} <br />
+     * [get] (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)} <br>
      * @return The value of the column 'PRODUCT_CATEGORY_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getProductCategoryName() {
@@ -292,7 +293,7 @@ public abstract class BsProductCategory extends AbstractEntity {
     }
 
     /**
-     * [set] (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)} <br />
+     * [set] (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)} <br>
      * @param productCategoryName The value of the column 'PRODUCT_CATEGORY_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setProductCategoryName(String productCategoryName) {
@@ -301,7 +302,7 @@ public abstract class BsProductCategory extends AbstractEntity {
     }
 
     /**
-     * [get] (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY} <br />
+     * [get] (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY} <br>
      * 最上位の場合はデータなし。まさひく自己参照FKカラム！
      * @return The value of the column 'PARENT_CATEGORY_CODE'. (NullAllowed even if selected: for no constraint)
      */
@@ -311,7 +312,7 @@ public abstract class BsProductCategory extends AbstractEntity {
     }
 
     /**
-     * [set] (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY} <br />
+     * [set] (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY} <br>
      * 最上位の場合はデータなし。まさひく自己参照FKカラム！
      * @param parentCategoryCode The value of the column 'PARENT_CATEGORY_CODE'. (NullAllowed: null update allowed for no constraint)
      */

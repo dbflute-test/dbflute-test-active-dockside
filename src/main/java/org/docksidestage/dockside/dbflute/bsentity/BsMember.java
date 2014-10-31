@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.allcommon.EntityDefinedCommonColumn;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
@@ -28,9 +29,9 @@ import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of (会員)MEMBER as TABLE. <br />
- * 会員のプロフィールやアカウントなどの基本情報を保持する。<br />
- * 基本的に物理削除はなく、退会したらステータスが退会会員になる。<br />
+ * The entity of (会員)MEMBER as TABLE. <br>
+ * 会員のプロフィールやアカウントなどの基本情報を保持する。<br>
+ * 基本的に物理削除はなく、退会したらステータスが退会会員になる。<br>
  * ライフサイクルやカテゴリの違う会員情報は、one-to-oneなどの関連テーブルにて。
  * <pre>
  * [primary-key]
@@ -88,7 +89,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsMember extends AbstractEntity implements EntityDefinedCommonColumn {
+public abstract class BsMember extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -163,7 +164,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * To be unique by the unique column. <br />
+     * To be unique by the unique column. <br>
      * You can update the entity by the key when entity update (NOT batch update).
      * @param memberAccount (会員アカウント): UQ, NotNull, VARCHAR(50). (NotNull)
      */
@@ -177,8 +178,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Get the value of memberStatusCode as the classification of MemberStatus. <br />
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
+     * Get the value of memberStatusCode as the classification of MemberStatus. <br>
+     * (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * status of member from entry to withdrawal
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
@@ -188,8 +189,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * Set the value of memberStatusCode as the classification of MemberStatus. <br />
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
+     * Set the value of memberStatusCode as the classification of MemberStatus. <br>
+     * (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * status of member from entry to withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
@@ -201,7 +202,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of memberStatusCode as Formalized (FML). <br />
+     * Set the value of memberStatusCode as Formalized (FML). <br>
      * Formalized: as formal member, allowed to use all service
      */
     public void setMemberStatusCode_Formalized() {
@@ -209,7 +210,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * Set the value of memberStatusCode as Withdrawal (WDL). <br />
+     * Set the value of memberStatusCode as Withdrawal (WDL). <br>
      * Withdrawal: withdrawal is fixed, not allowed to use service
      */
     public void setMemberStatusCode_Withdrawal() {
@@ -217,7 +218,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * Set the value of memberStatusCode as Provisional (PRV). <br />
+     * Set the value of memberStatusCode as Provisional (PRV). <br>
      * Provisional: first status after entry, allowed to use only part of service
      */
     public void setMemberStatusCode_Provisional() {
@@ -228,7 +229,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of memberStatusCode Formalized? <br />
+     * Is the value of memberStatusCode Formalized? <br>
      * Formalized: as formal member, allowed to use all service
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -239,7 +240,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * Is the value of memberStatusCode Withdrawal? <br />
+     * Is the value of memberStatusCode Withdrawal? <br>
      * Withdrawal: withdrawal is fixed, not allowed to use service
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -250,7 +251,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * Is the value of memberStatusCode Provisional? <br />
+     * Is the value of memberStatusCode Provisional? <br>
      * Provisional: first status after entry, allowed to use only part of service
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -261,7 +262,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * means member that can use services <br />
+     * means member that can use services <br>
      * The group elements:[Formalized, Provisional]
      * @return The determination, true or false.
      */
@@ -277,7 +278,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     protected OptionalEntity<MemberStatus> _memberStatus;
 
     /**
-     * [get] (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'. <br />
+     * [get] (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'memberStatus'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -298,8 +299,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     protected OptionalEntity<MemberAddress> _memberAddressAsValid;
 
     /**
-     * [get] (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br />
-     * Member's address at the target date. <br />
+     * [get] (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br>
+     * Member's address at the target date. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'memberAddressAsValid'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -309,7 +310,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [set] (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br />
+     * [set] (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br>
      * Member's address at the target date.
      * @param memberAddressAsValid The entity of foreign property 'memberAddressAsValid'. (NullAllowed)
      */
@@ -321,8 +322,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     protected OptionalEntity<MemberLogin> _memberLoginAsLatest;
 
     /**
-     * [get] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
-     * Member's latest login <br />
+     * [get] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br>
+     * Member's latest login <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'memberLoginAsLatest'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -332,7 +333,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [set] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br />
+     * [set] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br>
      * Member's latest login
      * @param memberLoginAsLatest The entity of foreign property 'memberLoginAsLatest'. (NullAllowed)
      */
@@ -624,7 +625,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員ID)MEMBER_ID: {PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS} <br />
+     * [get] (会員ID)MEMBER_ID: {PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS} <br>
      * 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
@@ -634,7 +635,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS} <br />
+     * [set] (会員ID)MEMBER_ID: {PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS} <br>
      * 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @param memberId The value of the column 'MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
@@ -644,8 +645,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [get] (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)} <br />
-     * 会員のフルネームの名称。<br />
+     * [get] (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)} <br>
+     * 会員のフルネームの名称。<br>
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @return The value of the column 'MEMBER_NAME'. (basically NotNull if selected: for the constraint)
      */
@@ -655,8 +656,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [set] (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)} <br />
-     * 会員のフルネームの名称。<br />
+     * [set] (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)} <br>
+     * 会員のフルネームの名称。<br>
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @param memberName The value of the column 'MEMBER_NAME'. (basically NotNull if update: for the constraint)
      */
@@ -666,8 +667,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [get] (会員アカウント)MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)} <br />
-     * ログインIDとして利用する。<br />
+     * [get] (会員アカウント)MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)} <br>
+     * ログインIDとして利用する。<br>
      * 昨今メールアドレスをログインIDとすることが多いので、あまり見かけないかも!?
      * @return The value of the column 'MEMBER_ACCOUNT'. (basically NotNull if selected: for the constraint)
      */
@@ -677,8 +678,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [set] (会員アカウント)MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)} <br />
-     * ログインIDとして利用する。<br />
+     * [set] (会員アカウント)MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)} <br>
+     * ログインIDとして利用する。<br>
      * 昨今メールアドレスをログインIDとすることが多いので、あまり見かけないかも!?
      * @param memberAccount The value of the column 'MEMBER_ACCOUNT'. (basically NotNull if update: for the constraint)
      */
@@ -688,8 +689,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [get] (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * 会員ステータスを参照するコード。<br />
+     * [get] (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * 会員ステータスを参照するコード。<br>
      * ステータスが変わるたびに、このカラムが更新される。
      * @return The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
@@ -699,8 +700,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [set] (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br />
-     * 会員ステータスを参照するコード。<br />
+     * [set] (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * 会員ステータスを参照するコード。<br>
      * ステータスが変わるたびに、このカラムが更新される。
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if update: for the constraint)
      */
@@ -711,8 +712,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [get] (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} <br />
-     * 会員が正式に確定した(正式会員になった)日時。<br />
+     * [get] (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} <br>
+     * 会員が正式に確定した(正式会員になった)日時。<br>
      * 一度確定したらもう二度と更新されないはずだ！
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
@@ -722,8 +723,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [set] (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} <br />
-     * 会員が正式に確定した(正式会員になった)日時。<br />
+     * [set] (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(23, 10)} <br>
+     * 会員が正式に確定した(正式会員になった)日時。<br>
      * 一度確定したらもう二度と更新されないはずだ！
      * @param formalizedDatetime The value of the column 'FORMALIZED_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
@@ -733,7 +734,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [get] (生年月日)BIRTHDATE: {DATE(8)} <br />
+     * [get] (生年月日)BIRTHDATE: {DATE(8)} <br>
      * 必須項目ではないので、このデータがない会員もいる。
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
@@ -743,7 +744,7 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [set] (生年月日)BIRTHDATE: {DATE(8)} <br />
+     * [set] (生年月日)BIRTHDATE: {DATE(8)} <br>
      * 必須項目ではないので、このデータがない会員もいる。
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed: null update allowed for no constraint)
      */
@@ -753,9 +754,9 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [get] (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
-     * レコードが登録された日時。<br />
-     * 会員が登録された日時とほぼ等しいが、そういった業務的な役割を兼務させるのはあまり推奨されない。といいつつ、このテーブルには会員登録日時がない...<br />
+     * [get] (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * レコードが登録された日時。<br>
+     * 会員が登録された日時とほぼ等しいが、そういった業務的な役割を兼務させるのはあまり推奨されない。といいつつ、このテーブルには会員登録日時がない...<br>
      * 仕様はどのテーブルでも同じなので、共通カラムの説明はこのテーブルでしか書かない。
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
@@ -765,9 +766,9 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [set] (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
-     * レコードが登録された日時。<br />
-     * 会員が登録された日時とほぼ等しいが、そういった業務的な役割を兼務させるのはあまり推奨されない。といいつつ、このテーブルには会員登録日時がない...<br />
+     * [set] (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * レコードが登録された日時。<br>
+     * 会員が登録された日時とほぼ等しいが、そういった業務的な役割を兼務させるのはあまり推奨されない。といいつつ、このテーブルには会員登録日時がない...<br>
      * 仕様はどのテーブルでも同じなので、共通カラムの説明はこのテーブルでしか書かない。
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
@@ -777,8 +778,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [get] (登録ユーザ)REGISTER_USER: {NotNull, VARCHAR(200)} <br />
-     * レコードを登録したユーザ。<br />
+     * [get] (登録ユーザ)REGISTER_USER: {NotNull, VARCHAR(200)} <br>
+     * レコードを登録したユーザ。<br>
      * 会員テーブルであれば当然、会員自身であるはずだが、他のテーブルの場合では管理画面から運用者による登録など考えられるので、しっかり保持しておく。
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
@@ -788,8 +789,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [set] (登録ユーザ)REGISTER_USER: {NotNull, VARCHAR(200)} <br />
-     * レコードを登録したユーザ。<br />
+     * [set] (登録ユーザ)REGISTER_USER: {NotNull, VARCHAR(200)} <br>
+     * レコードを登録したユーザ。<br>
      * 会員テーブルであれば当然、会員自身であるはずだが、他のテーブルの場合では管理画面から運用者による登録など考えられるので、しっかり保持しておく。
      * @param registerUser The value of the column 'REGISTER_USER'. (basically NotNull if update: for the constraint)
      */
@@ -799,8 +800,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [get] (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
-     * レコードが（最後に）更新された日時。<br />
+     * [get] (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * レコードが（最後に）更新された日時。<br>
      * 業務的な利用はあまり推奨されないと別項目で説明したが、このカラムはソートの要素としてよく利用される。
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
@@ -810,8 +811,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [set] (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br />
-     * レコードが（最後に）更新された日時。<br />
+     * [set] (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * レコードが（最後に）更新された日時。<br>
      * 業務的な利用はあまり推奨されないと別項目で説明したが、このカラムはソートの要素としてよく利用される。
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
@@ -821,8 +822,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [get] (更新ユーザ)UPDATE_USER: {NotNull, VARCHAR(200)} <br />
-     * レコードを更新したユーザ。<br />
+     * [get] (更新ユーザ)UPDATE_USER: {NotNull, VARCHAR(200)} <br>
+     * レコードを更新したユーザ。<br>
      * システムは誰が何をしたのかちゃんと覚えているのさ。
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
@@ -832,8 +833,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [set] (更新ユーザ)UPDATE_USER: {NotNull, VARCHAR(200)} <br />
-     * レコードを更新したユーザ。<br />
+     * [set] (更新ユーザ)UPDATE_USER: {NotNull, VARCHAR(200)} <br>
+     * レコードを更新したユーザ。<br>
      * システムは誰が何をしたのかちゃんと覚えているのさ。
      * @param updateUser The value of the column 'UPDATE_USER'. (basically NotNull if update: for the constraint)
      */
@@ -843,8 +844,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [get] (バージョンNO)VERSION_NO: {NotNull, BIGINT(19)} <br />
-     * データのバージョンを示すナンバー。<br />
+     * [get] (バージョンNO)VERSION_NO: {NotNull, BIGINT(19)} <br>
+     * データのバージョンを示すナンバー。<br>
      * 更新回数と等しく、主に排他制御のために利用される。
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
@@ -854,8 +855,8 @@ public abstract class BsMember extends AbstractEntity implements EntityDefinedCo
     }
 
     /**
-     * [set] (バージョンNO)VERSION_NO: {NotNull, BIGINT(19)} <br />
-     * データのバージョンを示すナンバー。<br />
+     * [set] (バージョンNO)VERSION_NO: {NotNull, BIGINT(19)} <br>
+     * データのバージョンを示すナンバー。<br>
      * 更新回数と等しく、主に排他制御のために利用される。
      * @param versionNo The value of the column 'VERSION_NO'. (basically NotNull if update: for the constraint)
      */

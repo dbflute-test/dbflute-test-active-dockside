@@ -34,7 +34,7 @@ public class MemberAddressNss {
     //                                                                     Nested Relation
     //                                                                     ===============
     /**
-     * With nested relation columns to select clause. <br />
+     * With nested relation columns to select clause. <br>
      * (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
@@ -43,7 +43,7 @@ public class MemberAddressNss {
         return new MemberNss(_query.queryMember());
     }
     /**
-     * With nested relation columns to select clause. <br />
+     * With nested relation columns to select clause. <br>
      * (地域)REGION by my REGION_ID, named 'region'.
      */
     public void withRegion() {

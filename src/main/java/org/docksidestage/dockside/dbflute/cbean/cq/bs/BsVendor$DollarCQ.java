@@ -49,7 +49,7 @@ public class BsVendor$DollarCQ extends AbstractBsVendor$DollarCQ {
     //                                                                 InlineView/OrClause
     //                                                                 ===================
     /**
-     * Prepare InlineView query. <br />
+     * Prepare InlineView query. <br>
      * {select ... from ... left outer join (select * from VENDOR_$_DOLLAR) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">inline()</span>.setFoo...;
@@ -72,7 +72,7 @@ public class BsVendor$DollarCQ extends AbstractBsVendor$DollarCQ {
     }
 
     /**
-     * Prepare OnClause query. <br />
+     * Prepare OnClause query. <br>
      * {select ... from ... left outer join VENDOR_$_DOLLAR on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">on()</span>.setFoo...;
@@ -95,14 +95,14 @@ public class BsVendor$DollarCQ extends AbstractBsVendor$DollarCQ {
     protected ConditionValue xgetCValueVendor$DollarId() { return xdfgetVendor$DollarId(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsVendor$DollarCQ addOrderBy_Vendor$DollarId_Asc() { regOBA("VENDOR_$_DOLLAR_ID"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
@@ -115,14 +115,14 @@ public class BsVendor$DollarCQ extends AbstractBsVendor$DollarCQ {
     protected ConditionValue xgetCValueVendor$DollarName() { return xdfgetVendor$DollarName(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * VENDOR_$_DOLLAR_NAME: {VARCHAR(32)}
      * @return this. (NotNull)
      */
     public BsVendor$DollarCQ addOrderBy_Vendor$DollarName_Asc() { regOBA("VENDOR_$_DOLLAR_NAME"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * VENDOR_$_DOLLAR_NAME: {VARCHAR(32)}
      * @return this. (NotNull)
      */

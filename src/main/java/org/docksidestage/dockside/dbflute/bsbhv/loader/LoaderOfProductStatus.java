@@ -24,7 +24,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The referrer loader of (商品ステータス)PRODUCT_STATUS as TABLE. <br />
+ * The referrer loader of (商品ステータス)PRODUCT_STATUS as TABLE. <br>
  * <pre>
  * [primary key]
  *     PRODUCT_STATUS_CODE
@@ -79,7 +79,7 @@ public class LoaderOfProductStatus {
     protected List<Product> _referrerProduct;
 
     /**
-     * Load referrer of productList by the set-upper of referrer. <br />
+     * Load referrer of productList by the set-upper of referrer. <br>
      * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
      * <pre>
      * <span style="color: #0000C0">productStatusBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">productStatusList</span>, <span style="color: #553000">statusLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -88,7 +88,7 @@ public class LoaderOfProductStatus {
      *         <span style="color: #553000">productCB</span>.query().set...
      *         <span style="color: #553000">productCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">productLoader</span> -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">productLoader</span> -&gt; {</span>
      *     <span style="color: #3F7E5E">//    productLoader.load...</span>
      *     <span style="color: #3F7E5E">//});</span>
      * });
@@ -96,7 +96,7 @@ public class LoaderOfProductStatus {
      *     ... = productStatus.<span style="color: #CC4747">getProductList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setProductStatusCode_InScope(pkList);
@@ -113,7 +113,7 @@ public class LoaderOfProductStatus {
     protected List<SummaryProduct> _referrerSummaryProduct;
 
     /**
-     * Load referrer of summaryProductList by the set-upper of referrer. <br />
+     * Load referrer of summaryProductList by the set-upper of referrer. <br>
      * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'.
      * <pre>
      * <span style="color: #0000C0">productStatusBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">productStatusList</span>, <span style="color: #553000">statusLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -122,7 +122,7 @@ public class LoaderOfProductStatus {
      *         <span style="color: #553000">productCB</span>.query().set...
      *         <span style="color: #553000">productCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">productLoader</span> -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">productLoader</span> -&gt; {</span>
      *     <span style="color: #3F7E5E">//    productLoader.load...</span>
      *     <span style="color: #3F7E5E">//});</span>
      * });
@@ -130,7 +130,7 @@ public class LoaderOfProductStatus {
      *     ... = productStatus.<span style="color: #CC4747">getSummaryProductList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setProductStatusCode_InScope(pkList);

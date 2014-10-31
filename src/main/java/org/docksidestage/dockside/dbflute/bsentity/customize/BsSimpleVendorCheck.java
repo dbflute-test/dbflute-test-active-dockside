@@ -20,10 +20,11 @@ import java.util.ArrayList;
 
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.dbmeta.accessory.CustomizeEntity;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The entity of SimpleVendorCheck. <br />
+ * The entity of SimpleVendorCheck. <br>
  * <pre>
  * [primary-key]
  *     
@@ -86,7 +87,7 @@ import org.docksidestage.dockside.dbflute.exentity.customize.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsSimpleVendorCheck extends AbstractEntity {
+public abstract class BsSimpleVendorCheck extends AbstractEntity implements CustomizeEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -269,7 +270,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] VENDOR_CHECK_ID: {DECIMAL(16), refers to VENDOR_CHECK.VENDOR_CHECK_ID} <br />
+     * [get] VENDOR_CHECK_ID: {DECIMAL(16), refers to VENDOR_CHECK.VENDOR_CHECK_ID} <br>
      * @return The value of the column 'VENDOR_CHECK_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Long getVendorCheckId() {
@@ -278,7 +279,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] VENDOR_CHECK_ID: {DECIMAL(16), refers to VENDOR_CHECK.VENDOR_CHECK_ID} <br />
+     * [set] VENDOR_CHECK_ID: {DECIMAL(16), refers to VENDOR_CHECK.VENDOR_CHECK_ID} <br>
      * @param vendorCheckId The value of the column 'VENDOR_CHECK_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setVendorCheckId(Long vendorCheckId) {
@@ -287,7 +288,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [get] TYPE_OF_TEXT: {CLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_TEXT} <br />
+     * [get] TYPE_OF_TEXT: {CLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_TEXT} <br>
      * @return The value of the column 'TYPE_OF_TEXT'. (NullAllowed even if selected: for no constraint)
      */
     public String getTypeOfText() {
@@ -296,7 +297,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] TYPE_OF_TEXT: {CLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_TEXT} <br />
+     * [set] TYPE_OF_TEXT: {CLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_TEXT} <br>
      * @param typeOfText The value of the column 'TYPE_OF_TEXT'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfText(String typeOfText) {
@@ -305,7 +306,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [get] TYPE_OF_BOOLEAN: {BOOLEAN(1), refers to VENDOR_CHECK.TYPE_OF_BOOLEAN} <br />
+     * [get] TYPE_OF_BOOLEAN: {BOOLEAN(1), refers to VENDOR_CHECK.TYPE_OF_BOOLEAN} <br>
      * @return The value of the column 'TYPE_OF_BOOLEAN'. (NullAllowed even if selected: for no constraint)
      */
     public Boolean getTypeOfBoolean() {
@@ -314,7 +315,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] TYPE_OF_BOOLEAN: {BOOLEAN(1), refers to VENDOR_CHECK.TYPE_OF_BOOLEAN} <br />
+     * [set] TYPE_OF_BOOLEAN: {BOOLEAN(1), refers to VENDOR_CHECK.TYPE_OF_BOOLEAN} <br>
      * @param typeOfBoolean The value of the column 'TYPE_OF_BOOLEAN'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfBoolean(Boolean typeOfBoolean) {
@@ -323,7 +324,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER} <br />
+     * [get] TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getTypeOfNumericInteger() {
@@ -332,7 +333,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER} <br />
+     * [set] TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER} <br>
      * @param typeOfNumericInteger The value of the column 'TYPE_OF_NUMERIC_INTEGER'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericInteger(Integer typeOfNumericInteger) {
@@ -341,7 +342,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT} <br />
+     * [get] TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT'. (NullAllowed even if selected: for no constraint)
      */
     public Long getTypeOfNumericBigint() {
@@ -350,7 +351,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT} <br />
+     * [set] TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT} <br>
      * @param typeOfNumericBigint The value of the column 'TYPE_OF_NUMERIC_BIGINT'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericBigint(Long typeOfNumericBigint) {
@@ -359,7 +360,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_DECIMAL} <br />
+     * [get] TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_DECIMAL} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_DECIMAL'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getTypeOfNumericDecimal() {
@@ -368,7 +369,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_DECIMAL} <br />
+     * [set] TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_DECIMAL} <br>
      * @param typeOfNumericDecimal The value of the column 'TYPE_OF_NUMERIC_DECIMAL'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericDecimal(java.math.BigDecimal typeOfNumericDecimal) {
@@ -377,7 +378,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MIN} <br />
+     * [get] TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MIN} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER_MIN'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getTypeOfNumericIntegerMin() {
@@ -386,7 +387,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MIN} <br />
+     * [set] TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MIN} <br>
      * @param typeOfNumericIntegerMin The value of the column 'TYPE_OF_NUMERIC_INTEGER_MIN'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericIntegerMin(Integer typeOfNumericIntegerMin) {
@@ -395,7 +396,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MAX} <br />
+     * [get] TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MAX} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_INTEGER_MAX'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getTypeOfNumericIntegerMax() {
@@ -404,7 +405,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MAX} <br />
+     * [set] TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_INTEGER_MAX} <br>
      * @param typeOfNumericIntegerMax The value of the column 'TYPE_OF_NUMERIC_INTEGER_MAX'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericIntegerMax(Integer typeOfNumericIntegerMax) {
@@ -413,7 +414,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MIN} <br />
+     * [get] TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MIN} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT_MIN'. (NullAllowed even if selected: for no constraint)
      */
     public Long getTypeOfNumericBigintMin() {
@@ -422,7 +423,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MIN} <br />
+     * [set] TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MIN} <br>
      * @param typeOfNumericBigintMin The value of the column 'TYPE_OF_NUMERIC_BIGINT_MIN'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericBigintMin(Long typeOfNumericBigintMin) {
@@ -431,7 +432,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MAX} <br />
+     * [get] TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MAX} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_BIGINT_MAX'. (NullAllowed even if selected: for no constraint)
      */
     public Long getTypeOfNumericBigintMax() {
@@ -440,7 +441,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MAX} <br />
+     * [set] TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_BIGINT_MAX} <br>
      * @param typeOfNumericBigintMax The value of the column 'TYPE_OF_NUMERIC_BIGINT_MAX'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericBigintMax(Long typeOfNumericBigintMax) {
@@ -449,7 +450,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MIN} <br />
+     * [get] TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MIN} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MIN'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getTypeOfNumericSuperintMin() {
@@ -458,7 +459,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MIN} <br />
+     * [set] TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MIN} <br>
      * @param typeOfNumericSuperintMin The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MIN'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericSuperintMin(java.math.BigDecimal typeOfNumericSuperintMin) {
@@ -467,7 +468,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MAX} <br />
+     * [get] TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MAX} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MAX'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getTypeOfNumericSuperintMax() {
@@ -476,7 +477,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MAX} <br />
+     * [set] TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_SUPERINT_MAX} <br>
      * @param typeOfNumericSuperintMax The value of the column 'TYPE_OF_NUMERIC_SUPERINT_MAX'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericSuperintMax(java.math.BigDecimal typeOfNumericSuperintMax) {
@@ -485,7 +486,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [get] TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_MAXDECIMAL} <br />
+     * [get] TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_MAXDECIMAL} <br>
      * @return The value of the column 'TYPE_OF_NUMERIC_MAXDECIMAL'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getTypeOfNumericMaxdecimal() {
@@ -494,7 +495,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_MAXDECIMAL} <br />
+     * [set] TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38), refers to VENDOR_CHECK.TYPE_OF_NUMERIC_MAXDECIMAL} <br>
      * @param typeOfNumericMaxdecimal The value of the column 'TYPE_OF_NUMERIC_MAXDECIMAL'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfNumericMaxdecimal(java.math.BigDecimal typeOfNumericMaxdecimal) {
@@ -503,7 +504,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [get] TYPE_OF_BLOB: {BLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_BLOB} <br />
+     * [get] TYPE_OF_BLOB: {BLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_BLOB} <br>
      * @return The value of the column 'TYPE_OF_BLOB'. (NullAllowed even if selected: for no constraint)
      */
     public byte[] getTypeOfBlob() {
@@ -512,7 +513,7 @@ public abstract class BsSimpleVendorCheck extends AbstractEntity {
     }
 
     /**
-     * [set] TYPE_OF_BLOB: {BLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_BLOB} <br />
+     * [set] TYPE_OF_BLOB: {BLOB(2147483647), refers to VENDOR_CHECK.TYPE_OF_BLOB} <br>
      * @param typeOfBlob The value of the column 'TYPE_OF_BLOB'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfBlob(byte[] typeOfBlob) {

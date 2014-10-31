@@ -62,7 +62,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     //                                                                               Query
     //                                                                               =====
     /**
-     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as equal. (NullAllowed: if null, no condition)
      */
@@ -75,7 +75,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as notEqual. (NullAllowed: if null, no condition)
      */
@@ -88,7 +88,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as greaterThan. (NullAllowed: if null, no condition)
      */
@@ -97,7 +97,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as lessThan. (NullAllowed: if null, no condition)
      */
@@ -106,7 +106,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as greaterEqual. (NullAllowed: if null, no condition)
      */
@@ -115,7 +115,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as lessEqual. (NullAllowed: if null, no condition)
      */
@@ -124,9 +124,9 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * RangeOf with various options. (versatile) <br />
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      * @param minNumber The min number of theLongAndWindingTableAndColumnId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of theLongAndWindingTableAndColumnId. (NullAllowed: if null, no to-condition)
@@ -137,9 +137,9 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * RangeOf with various options. (versatile) <br />
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      * @param minNumber The min number of theLongAndWindingTableAndColumnId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of theLongAndWindingTableAndColumnId. (NullAllowed: if null, no to-condition)
@@ -150,7 +150,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      * @param theLongAndWindingTableAndColumnIdList The collection of theLongAndWindingTableAndColumnId as inScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -163,7 +163,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      * @param theLongAndWindingTableAndColumnIdList The collection of theLongAndWindingTableAndColumnId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -176,8 +176,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * Set up ExistsReferrer (correlated sub-query). <br />
-     * {exists (select THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID from VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF where ...)} <br />
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID from VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF where ...)} <br>
      * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF by THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumnRefAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">existsVendorTheLongAndWindingTableAndColumnRef</span>(refCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -195,8 +195,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     public abstract String keepTheLongAndWindingTableAndColumnId_ExistsReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ sq);
 
     /**
-     * Set up NotExistsReferrer (correlated sub-query). <br />
-     * {not exists (select THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID from VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF where ...)} <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID from VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF where ...)} <br>
      * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF by THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumnRefAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">notExistsVendorTheLongAndWindingTableAndColumnRef</span>(refCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -222,8 +222,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     public abstract String keepTheLongAndWindingTableAndColumnId_SpecifyDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList(VendorTheLongAndWindingTableAndColumnRefCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
-     * {FOO &lt;= (select max(BAR) from VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF where ...)} <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF where ...)} <br>
      * VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF by THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, named 'vendorTheLongAndWindingTableAndColumnRefAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">derivedVendorTheLongAndWindingTableAndColumnRef()</span>.<span style="color: #CC4747">max</span>(refCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -249,13 +249,13 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     public abstract String keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefListParameter(Object vl);
 
     /**
-     * IsNull {is null}. And OnlyOnceRegistered. <br />
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      */
     public void setTheLongAndWindingTableAndColumnId_IsNull() { regTheLongAndWindingTableAndColumnId(CK_ISN, DOBJ); }
 
     /**
-     * IsNotNull {is not null}. And OnlyOnceRegistered. <br />
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      */
     public void setTheLongAndWindingTableAndColumnId_IsNotNull() { regTheLongAndWindingTableAndColumnId(CK_ISNN, DOBJ); }
@@ -264,7 +264,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     protected abstract ConditionValue xgetCValueTheLongAndWindingTableAndColumnId();
 
     /**
-     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
      * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as equal. (NullAllowed: if null (or empty), no condition)
      */
@@ -277,7 +277,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
      * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as notEqual. (NullAllowed: if null (or empty), no condition)
      */
@@ -290,7 +290,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
      * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as greaterThan. (NullAllowed: if null (or empty), no condition)
      */
@@ -299,7 +299,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
      * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as lessThan. (NullAllowed: if null (or empty), no condition)
      */
@@ -308,7 +308,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
      * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as greaterEqual. (NullAllowed: if null (or empty), no condition)
      */
@@ -317,7 +317,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
      * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as lessEqual. (NullAllowed: if null (or empty), no condition)
      */
@@ -326,7 +326,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
      * @param theLongAndWindingTableAndColumnNameList The collection of theLongAndWindingTableAndColumnName as inScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -339,7 +339,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
      * @param theLongAndWindingTableAndColumnNameList The collection of theLongAndWindingTableAndColumnName as notInScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -352,8 +352,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br />
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setTheLongAndWindingTableAndColumnName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
@@ -363,8 +363,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br />
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setTheLongAndWindingTableAndColumnName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
@@ -374,8 +374,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br />
-     * And NullOrEmptyIgnored, SeveralRegistered. <br />
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
      * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
@@ -385,8 +385,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br />
-     * And NullOrEmptyIgnored, SeveralRegistered. <br />
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
      * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
@@ -399,7 +399,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     protected abstract ConditionValue xgetCValueTheLongAndWindingTableAndColumnName();
 
     /**
-     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
      * @param shortName The value of shortName as equal. (NullAllowed: if null (or empty), no condition)
      */
@@ -412,7 +412,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
      * @param shortName The value of shortName as notEqual. (NullAllowed: if null (or empty), no condition)
      */
@@ -425,7 +425,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
      * @param shortName The value of shortName as greaterThan. (NullAllowed: if null (or empty), no condition)
      */
@@ -434,7 +434,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
      * @param shortName The value of shortName as lessThan. (NullAllowed: if null (or empty), no condition)
      */
@@ -443,7 +443,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
      * @param shortName The value of shortName as greaterEqual. (NullAllowed: if null (or empty), no condition)
      */
@@ -452,7 +452,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
      * @param shortName The value of shortName as lessEqual. (NullAllowed: if null (or empty), no condition)
      */
@@ -461,7 +461,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
      * @param shortNameList The collection of shortName as inScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -474,7 +474,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
      * @param shortNameList The collection of shortName as notInScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -487,8 +487,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * SHORT_NAME: {NotNull, VARCHAR(200)} <br />
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * SHORT_NAME: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setShortName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param shortName The value of shortName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
@@ -498,8 +498,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * SHORT_NAME: {NotNull, VARCHAR(200)} <br />
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * SHORT_NAME: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setShortName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param shortName The value of shortName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
@@ -509,8 +509,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br />
-     * And NullOrEmptyIgnored, SeveralRegistered. <br />
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
      * @param shortName The value of shortName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
@@ -520,8 +520,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br />
-     * And NullOrEmptyIgnored, SeveralRegistered. <br />
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
      * @param shortName The value of shortName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
@@ -534,7 +534,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     protected abstract ConditionValue xgetCValueShortName();
 
     /**
-     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
      * @param shortSize The value of shortSize as equal. (NullAllowed: if null, no condition)
      */
@@ -547,7 +547,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
      * @param shortSize The value of shortSize as notEqual. (NullAllowed: if null, no condition)
      */
@@ -560,7 +560,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
      * @param shortSize The value of shortSize as greaterThan. (NullAllowed: if null, no condition)
      */
@@ -569,7 +569,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
      * @param shortSize The value of shortSize as lessThan. (NullAllowed: if null, no condition)
      */
@@ -578,7 +578,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
      * @param shortSize The value of shortSize as greaterEqual. (NullAllowed: if null, no condition)
      */
@@ -587,7 +587,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
      * @param shortSize The value of shortSize as lessEqual. (NullAllowed: if null, no condition)
      */
@@ -596,9 +596,9 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * RangeOf with various options. (versatile) <br />
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
      * @param minNumber The min number of shortSize. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of shortSize. (NullAllowed: if null, no to-condition)
@@ -609,9 +609,9 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * RangeOf with various options. (versatile) <br />
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
      * @param minNumber The min number of shortSize. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of shortSize. (NullAllowed: if null, no to-condition)
@@ -622,7 +622,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
      * @param shortSizeList The collection of shortSize as inScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -635,7 +635,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
      * @param shortSizeList The collection of shortSize as notInScope. (NullAllowed: if null (or empty), no condition)
      */
@@ -654,7 +654,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     //                                                                     ScalarCondition
     //                                                                     ===============
     /**
-     * Prepare ScalarCondition as equal. <br />
+     * Prepare ScalarCondition as equal. <br>
      * {where FOO = (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_Equal()</span>.max(new SubQuery&lt;VendorTheLongAndWindingTableAndColumnCB&gt;() {
@@ -671,7 +671,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * Prepare ScalarCondition as equal. <br />
+     * Prepare ScalarCondition as equal. <br>
      * {where FOO &lt;&gt; (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_NotEqual()</span>.max(new SubQuery&lt;VendorTheLongAndWindingTableAndColumnCB&gt;() {
@@ -688,7 +688,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * Prepare ScalarCondition as greaterThan. <br />
+     * Prepare ScalarCondition as greaterThan. <br>
      * {where FOO &gt; (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;VendorTheLongAndWindingTableAndColumnCB&gt;() {
@@ -705,7 +705,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * Prepare ScalarCondition as lessThan. <br />
+     * Prepare ScalarCondition as lessThan. <br>
      * {where FOO &lt; (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_LessThan()</span>.max(new SubQuery&lt;VendorTheLongAndWindingTableAndColumnCB&gt;() {
@@ -722,7 +722,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * Prepare ScalarCondition as greaterEqual. <br />
+     * Prepare ScalarCondition as greaterEqual. <br>
      * {where FOO &gt;= (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;VendorTheLongAndWindingTableAndColumnCB&gt;() {
@@ -739,7 +739,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     }
 
     /**
-     * Prepare ScalarCondition as lessEqual. <br />
+     * Prepare ScalarCondition as lessEqual. <br>
      * {where FOO &lt;= (select max(BAR) from ...)
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_LessEqual()</span>.max(new SubQuery&lt;VendorTheLongAndWindingTableAndColumnCB&gt;() {

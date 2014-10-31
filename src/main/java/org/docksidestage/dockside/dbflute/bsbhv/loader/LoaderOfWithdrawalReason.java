@@ -24,7 +24,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The referrer loader of (退会理由)WITHDRAWAL_REASON as TABLE. <br />
+ * The referrer loader of (退会理由)WITHDRAWAL_REASON as TABLE. <br>
  * <pre>
  * [primary key]
  *     WITHDRAWAL_REASON_CODE
@@ -79,7 +79,7 @@ public class LoaderOfWithdrawalReason {
     protected List<MemberWithdrawal> _referrerMemberWithdrawal;
 
     /**
-     * Load referrer of memberWithdrawalList by the set-upper of referrer. <br />
+     * Load referrer of memberWithdrawalList by the set-upper of referrer. <br>
      * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * <pre>
      * <span style="color: #0000C0">withdrawalReasonBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">withdrawalReasonList</span>, <span style="color: #553000">reasonLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -88,7 +88,7 @@ public class LoaderOfWithdrawalReason {
      *         <span style="color: #553000">withdrawalCB</span>.query().set...
      *         <span style="color: #553000">withdrawalCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">withdrawalLoader</span> -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">withdrawalLoader</span> -&gt; {</span>
      *     <span style="color: #3F7E5E">//    withdrawalLoader.load...</span>
      *     <span style="color: #3F7E5E">//});</span>
      * });
@@ -96,7 +96,7 @@ public class LoaderOfWithdrawalReason {
      *     ... = withdrawalReason.<span style="color: #CC4747">getMemberWithdrawalList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setWithdrawalReasonCode_InScope(pkList);

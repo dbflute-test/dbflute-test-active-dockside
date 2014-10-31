@@ -49,7 +49,7 @@ public class BsVendorIdentityOnlyCQ extends AbstractBsVendorIdentityOnlyCQ {
     //                                                                 InlineView/OrClause
     //                                                                 ===================
     /**
-     * Prepare InlineView query. <br />
+     * Prepare InlineView query. <br>
      * {select ... from ... left outer join (select * from VENDOR_IDENTITY_ONLY) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">inline()</span>.setFoo...;
@@ -72,7 +72,7 @@ public class BsVendorIdentityOnlyCQ extends AbstractBsVendorIdentityOnlyCQ {
     }
 
     /**
-     * Prepare OnClause query. <br />
+     * Prepare OnClause query. <br>
      * {select ... from ... left outer join VENDOR_IDENTITY_ONLY on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">on()</span>.setFoo...;
@@ -95,14 +95,14 @@ public class BsVendorIdentityOnlyCQ extends AbstractBsVendorIdentityOnlyCQ {
     protected ConditionValue xgetCValueIdentityOnlyId() { return xdfgetIdentityOnlyId(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      * @return this. (NotNull)
      */
     public BsVendorIdentityOnlyCQ addOrderBy_IdentityOnlyId_Asc() { regOBA("IDENTITY_ONLY_ID"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      * @return this. (NotNull)
      */

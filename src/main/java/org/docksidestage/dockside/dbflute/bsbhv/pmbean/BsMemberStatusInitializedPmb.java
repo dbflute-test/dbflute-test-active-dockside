@@ -25,7 +25,7 @@ import org.docksidestage.dockside.dbflute.allcommon.*;
 import org.docksidestage.dockside.dbflute.exbhv.*;
 
 /**
- * The base class for typed parameter-bean of MemberStatusInitialized. <br />
+ * The base class for typed parameter-bean of MemberStatusInitialized. <br>
  * This is related to "<span style="color: #AD4747">truncateMemberStatusInitialized</span>" on MemberStatusBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -44,7 +44,7 @@ public class BsMemberStatusInitializedPmb implements ExecuteHandlingPmb<MemberSt
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of MemberStatusInitialized. <br />
+     * Constructor for the typed parameter-bean of MemberStatusInitialized. <br>
      * This is related to "<span style="color: #AD4747">truncateMemberStatusInitialized</span>" on MemberStatusBhv.
      */
     public BsMemberStatusInitializedPmb() {
@@ -93,8 +93,8 @@ public class BsMemberStatusInitializedPmb implements ExecuteHandlingPmb<MemberSt
     protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
 
     /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
+     * Set time-zone, basically for LocalDate conversion. <br>
+     * Normally you don't need to set this, you can adjust other ways. <br>
      * (DBFlute system's time-zone is used as default)
      * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
      */

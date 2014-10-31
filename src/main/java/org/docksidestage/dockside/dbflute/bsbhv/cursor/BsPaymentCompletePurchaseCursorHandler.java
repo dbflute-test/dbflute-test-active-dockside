@@ -30,7 +30,7 @@ public abstract class BsPaymentCompletePurchaseCursorHandler implements CursorHa
      * Handle the cursor.
      * @param rs The cursor (result set) for the query, which has first pointer. (NotNull)
      * @return The result object of handling process. (NullAllowed)
-     * @throws SQLException
+     * @throws SQLException When it fails to handle the SQL.
      */
     public Object handle(ResultSet rs) throws SQLException {
         return fetchCursor(createTypeSafeCursor(rs));
@@ -40,7 +40,7 @@ public abstract class BsPaymentCompletePurchaseCursorHandler implements CursorHa
      * Create the type-safe cursor.
      * @param rs The cursor (result set) for the query, which has first pointer. (NotNull)
      * @return The created type-safe cursor. (NotNull)
-     * @throws SQLException
+     * @throws SQLException When it fails to handle the SQL.
      */
     protected PaymentCompletePurchaseCursor createTypeSafeCursor(ResultSet rs) throws SQLException {
         final PaymentCompletePurchaseCursor cursor = new PaymentCompletePurchaseCursor();
@@ -52,7 +52,7 @@ public abstract class BsPaymentCompletePurchaseCursorHandler implements CursorHa
      * Fetch the cursor.
      * @param cursor The type-safe cursor for the query, which has first pointer. (NotNull)
      * @return The result object of handling process. (NullAllowed)
-     * @throws SQLException
+     * @throws SQLException When it fails to handle the SQL.
      */
     protected abstract Object fetchCursor(PaymentCompletePurchaseCursor cursor) throws SQLException;
 }

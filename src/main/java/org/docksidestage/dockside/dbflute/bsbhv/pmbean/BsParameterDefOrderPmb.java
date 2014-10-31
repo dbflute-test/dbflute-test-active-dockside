@@ -25,7 +25,7 @@ import org.docksidestage.dockside.dbflute.allcommon.*;
 import org.docksidestage.dockside.dbflute.exbhv.*;
 
 /**
- * The base class for typed parameter-bean of ParameterDefOrder. <br />
+ * The base class for typed parameter-bean of ParameterDefOrder. <br>
  * This is related to "<span style="color: #AD4747">whitebox:pmbean:selectParameterDefOrder</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -50,7 +50,7 @@ public class BsParameterDefOrderPmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of ParameterDefOrder. <br />
+     * Constructor for the typed parameter-bean of ParameterDefOrder. <br>
      * This is related to "<span style="color: #AD4747">whitebox:pmbean:selectParameterDefOrder</span>" on MemberBhv.
      */
     public BsParameterDefOrderPmb() {
@@ -99,8 +99,8 @@ public class BsParameterDefOrderPmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
 
     /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
+     * Set time-zone, basically for LocalDate conversion. <br>
+     * Normally you don't need to set this, you can adjust other ways. <br>
      * (DBFlute system's time-zone is used as default)
      * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
      */
@@ -142,7 +142,7 @@ public class BsParameterDefOrderPmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] overProp <br />
+     * [get] overProp <br>
      * @return The value of overProp. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getOverProp() {
@@ -150,7 +150,7 @@ public class BsParameterDefOrderPmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [set] overProp <br />
+     * [set] overProp <br>
      * @param overProp The value of overProp. (NullAllowed)
      */
     public void setOverProp(Integer overProp) {
@@ -158,7 +158,7 @@ public class BsParameterDefOrderPmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [get] underProp <br />
+     * [get] underProp <br>
      * @return The value of underProp. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getUnderProp() {
@@ -166,7 +166,7 @@ public class BsParameterDefOrderPmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     }
 
     /**
-     * [set] underProp <br />
+     * [set] underProp <br>
      * @param underProp The value of underProp. (NullAllowed)
      */
     public void setUnderProp(Integer underProp) {

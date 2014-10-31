@@ -20,10 +20,11 @@ import java.util.ArrayList;
 
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.dbmeta.accessory.CustomizeEntity;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The entity of VendorNumericDecimalSum. <br />
+ * The entity of VendorNumericDecimalSum. <br>
  * <pre>
  * [primary-key]
  *     
@@ -60,7 +61,7 @@ import org.docksidestage.dockside.dbflute.exentity.customize.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsVendorNumericDecimalSum extends AbstractEntity {
+public abstract class BsVendorNumericDecimalSum extends AbstractEntity implements CustomizeEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -165,7 +166,7 @@ public abstract class BsVendorNumericDecimalSum extends AbstractEntity {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] DECIMAL_DIGIT_SUM: {DECIMAL(5, 3)} <br />
+     * [get] DECIMAL_DIGIT_SUM: {DECIMAL(5, 3)} <br>
      * @return The value of the column 'DECIMAL_DIGIT_SUM'. (NullAllowed even if selected: for no constraint)
      */
     public java.math.BigDecimal getDecimalDigitSum() {
@@ -174,7 +175,7 @@ public abstract class BsVendorNumericDecimalSum extends AbstractEntity {
     }
 
     /**
-     * [set] DECIMAL_DIGIT_SUM: {DECIMAL(5, 3)} <br />
+     * [set] DECIMAL_DIGIT_SUM: {DECIMAL(5, 3)} <br>
      * @param decimalDigitSum The value of the column 'DECIMAL_DIGIT_SUM'. (NullAllowed: null update allowed for no constraint)
      */
     public void setDecimalDigitSum(java.math.BigDecimal decimalDigitSum) {

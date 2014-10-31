@@ -26,7 +26,7 @@ import org.docksidestage.dockside.dbflute.allcommon.*;
 import org.docksidestage.dockside.dbflute.exbhv.*;
 
 /**
- * The base class for typed parameter-bean of MapLikeSearch. <br />
+ * The base class for typed parameter-bean of MapLikeSearch. <br>
  * This is related to "<span style="color: #AD4747">whitebox:pmbean:selectMapLikeSearch</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
@@ -51,7 +51,7 @@ public class BsMapLikeSearchPmb implements ExecuteHandlingPmb<MemberBhv>, FetchB
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of MapLikeSearch. <br />
+     * Constructor for the typed parameter-bean of MapLikeSearch. <br>
      * This is related to "<span style="color: #AD4747">whitebox:pmbean:selectMapLikeSearch</span>" on MemberBhv.
      */
     public BsMapLikeSearchPmb() {
@@ -102,8 +102,8 @@ public class BsMapLikeSearchPmb implements ExecuteHandlingPmb<MemberBhv>, FetchB
     protected TimeZone chooseRealTimeZone() { return PmbCustodial.chooseRealTimeZone(_timeZone); }
 
     /**
-     * Set time-zone, basically for LocalDate conversion. <br />
-     * Normally you don't need to set this, you can adjust other ways. <br />
+     * Set time-zone, basically for LocalDate conversion. <br>
+     * Normally you don't need to set this, you can adjust other ways. <br>
      * (DBFlute system's time-zone is used as default)
      * @param timeZone The time-zone for filtering. (NullAllowed: if null, default zone)
      */
@@ -144,7 +144,7 @@ public class BsMapLikeSearchPmb implements ExecuteHandlingPmb<MemberBhv>, FetchB
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] conditionMap:like <br />
+     * [get] conditionMap:like <br>
      * @return The value of conditionMap. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Map<String, Object> getConditionMap() {
@@ -152,7 +152,7 @@ public class BsMapLikeSearchPmb implements ExecuteHandlingPmb<MemberBhv>, FetchB
     }
 
     /**
-     * [set as likeSearch] conditionMap:like <br />
+     * [set as likeSearch] conditionMap:like <br>
      * @param conditionMap The value of conditionMap. (NullAllowed)
      * @param conditionMapOption The option of likeSearch for conditionMap which is NOT split mode. (NotNull)
      */

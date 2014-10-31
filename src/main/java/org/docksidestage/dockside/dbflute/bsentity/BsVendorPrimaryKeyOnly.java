@@ -20,11 +20,12 @@ import java.util.ArrayList;
 
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of VENDOR_PRIMARY_KEY_ONLY as TABLE. <br />
+ * The entity of VENDOR_PRIMARY_KEY_ONLY as TABLE. <br>
  * <pre>
  * [primary-key]
  *     PRIMARY_KEY_ONLY_ID
@@ -61,7 +62,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsVendorPrimaryKeyOnly extends AbstractEntity {
+public abstract class BsVendorPrimaryKeyOnly extends AbstractEntity implements DomainEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -167,7 +168,7 @@ public abstract class BsVendorPrimaryKeyOnly extends AbstractEntity {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)} <br />
+     * [get] PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)} <br>
      * @return The value of the column 'PRIMARY_KEY_ONLY_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getPrimaryKeyOnlyId() {
@@ -176,7 +177,7 @@ public abstract class BsVendorPrimaryKeyOnly extends AbstractEntity {
     }
 
     /**
-     * [set] PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)} <br />
+     * [set] PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)} <br>
      * @param primaryKeyOnlyId The value of the column 'PRIMARY_KEY_ONLY_ID'. (basically NotNull if update: for the constraint)
      */
     public void setPrimaryKeyOnlyId(Long primaryKeyOnlyId) {

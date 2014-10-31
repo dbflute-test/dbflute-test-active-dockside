@@ -20,13 +20,14 @@ import java.util.ArrayList;
 
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
+import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of (地域)REGION as TABLE. <br />
- * 主に会員の住所に対応する漠然とした地域。<br />
+ * The entity of (地域)REGION as TABLE. <br>
+ * 主に会員の住所に対応する漠然とした地域。<br>
  * かなりざっくりした感じではある。唯一の業務的one-to-oneの親テーブルのケース。
  * <pre>
  * [primary-key]
@@ -66,7 +67,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsRegion extends AbstractEntity {
+public abstract class BsRegion extends AbstractEntity implements DomainEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -117,8 +118,8 @@ public abstract class BsRegion extends AbstractEntity {
     //                                                             Classification Property
     //                                                             =======================
     /**
-     * Get the value of regionId as the classification of Region. <br />
-     * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br />
+     * Get the value of regionId as the classification of Region. <br>
+     * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
      * mainly region of member address
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
@@ -128,8 +129,8 @@ public abstract class BsRegion extends AbstractEntity {
     }
 
     /**
-     * Set the value of regionId as the classification of Region. <br />
-     * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br />
+     * Set the value of regionId as the classification of Region. <br>
+     * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
      * mainly region of member address
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
@@ -141,7 +142,7 @@ public abstract class BsRegion extends AbstractEntity {
     //                                                              Classification Setting
     //                                                              ======================
     /**
-     * Set the value of regionId as America (1). <br />
+     * Set the value of regionId as America (1). <br>
      * AMERICA
      */
     public void setRegionId_America() {
@@ -149,7 +150,7 @@ public abstract class BsRegion extends AbstractEntity {
     }
 
     /**
-     * Set the value of regionId as Canada (2). <br />
+     * Set the value of regionId as Canada (2). <br>
      * CANADA
      */
     public void setRegionId_Canada() {
@@ -157,7 +158,7 @@ public abstract class BsRegion extends AbstractEntity {
     }
 
     /**
-     * Set the value of regionId as China (3). <br />
+     * Set the value of regionId as China (3). <br>
      * CHINA
      */
     public void setRegionId_China() {
@@ -165,7 +166,7 @@ public abstract class BsRegion extends AbstractEntity {
     }
 
     /**
-     * Set the value of regionId as Chiba (4). <br />
+     * Set the value of regionId as Chiba (4). <br>
      * CHIBA
      */
     public void setRegionId_Chiba() {
@@ -176,7 +177,7 @@ public abstract class BsRegion extends AbstractEntity {
     //                                                        Classification Determination
     //                                                        ============================
     /**
-     * Is the value of regionId America? <br />
+     * Is the value of regionId America? <br>
      * AMERICA
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -187,7 +188,7 @@ public abstract class BsRegion extends AbstractEntity {
     }
 
     /**
-     * Is the value of regionId Canada? <br />
+     * Is the value of regionId Canada? <br>
      * CANADA
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -198,7 +199,7 @@ public abstract class BsRegion extends AbstractEntity {
     }
 
     /**
-     * Is the value of regionId China? <br />
+     * Is the value of regionId China? <br>
      * CHINA
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -209,7 +210,7 @@ public abstract class BsRegion extends AbstractEntity {
     }
 
     /**
-     * Is the value of regionId Chiba? <br />
+     * Is the value of regionId Chiba? <br>
      * CHIBA
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
      * @return The determination, true or false.
@@ -311,8 +312,8 @@ public abstract class BsRegion extends AbstractEntity {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br />
-     * 地域をしっかりと識別するID。<br />
+     * [get] (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
+     * 地域をしっかりと識別するID。<br>
      * 珍しく(固定的な)マスタテーブルとしては数値だが、Exampleなのでやはり色々なパターンがないとね、ってところで。
      * @return The value of the column 'REGION_ID'. (basically NotNull if selected: for the constraint)
      */
@@ -322,8 +323,8 @@ public abstract class BsRegion extends AbstractEntity {
     }
 
     /**
-     * [set] (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br />
-     * 地域をしっかりと識別するID。<br />
+     * [set] (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
+     * 地域をしっかりと識別するID。<br>
      * 珍しく(固定的な)マスタテーブルとしては数値だが、Exampleなのでやはり色々なパターンがないとね、ってところで。
      * @param regionId The value of the column 'REGION_ID'. (basically NotNull if update: for the constraint)
      */
@@ -334,7 +335,7 @@ public abstract class BsRegion extends AbstractEntity {
     }
 
     /**
-     * [get] (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} <br />
+     * [get] (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} <br>
      * 地域を漠然と表す名称。
      * @return The value of the column 'REGION_NAME'. (basically NotNull if selected: for the constraint)
      */
@@ -344,7 +345,7 @@ public abstract class BsRegion extends AbstractEntity {
     }
 
     /**
-     * [set] (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} <br />
+     * [set] (地域名称)REGION_NAME: {NotNull, VARCHAR(50)} <br>
      * 地域を漠然と表す名称。
      * @param regionName The value of the column 'REGION_NAME'. (basically NotNull if update: for the constraint)
      */

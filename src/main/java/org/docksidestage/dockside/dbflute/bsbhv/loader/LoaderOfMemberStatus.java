@@ -24,7 +24,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The referrer loader of (会員ステータス)MEMBER_STATUS as TABLE. <br />
+ * The referrer loader of (会員ステータス)MEMBER_STATUS as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_STATUS_CODE
@@ -79,7 +79,7 @@ public class LoaderOfMemberStatus {
     protected List<Member> _referrerMember;
 
     /**
-     * Load referrer of memberList by the set-upper of referrer. <br />
+     * Load referrer of memberList by the set-upper of referrer. <br>
      * (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
      * <pre>
      * <span style="color: #0000C0">memberStatusBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">memberStatusList</span>, <span style="color: #553000">statusLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -88,7 +88,7 @@ public class LoaderOfMemberStatus {
      *         <span style="color: #553000">memberCB</span>.query().set...
      *         <span style="color: #553000">memberCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">memberLoader</span> -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">memberLoader</span> -&gt; {</span>
      *     <span style="color: #3F7E5E">//    memberLoader.load...</span>
      *     <span style="color: #3F7E5E">//});</span>
      * });
@@ -96,7 +96,7 @@ public class LoaderOfMemberStatus {
      *     ... = memberStatus.<span style="color: #CC4747">getMemberList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setMemberStatusCode_InScope(pkList);
@@ -113,7 +113,7 @@ public class LoaderOfMemberStatus {
     protected List<MemberLogin> _referrerMemberLogin;
 
     /**
-     * Load referrer of memberLoginList by the set-upper of referrer. <br />
+     * Load referrer of memberLoginList by the set-upper of referrer. <br>
      * (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
      * <pre>
      * <span style="color: #0000C0">memberStatusBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">memberStatusList</span>, <span style="color: #553000">statusLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -122,7 +122,7 @@ public class LoaderOfMemberStatus {
      *         <span style="color: #553000">loginCB</span>.query().set...
      *         <span style="color: #553000">loginCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">loginLoader</span> -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">loginLoader</span> -&gt; {</span>
      *     <span style="color: #3F7E5E">//    loginLoader.load...</span>
      *     <span style="color: #3F7E5E">//});</span>
      * });
@@ -130,7 +130,7 @@ public class LoaderOfMemberStatus {
      *     ... = memberStatus.<span style="color: #CC4747">getMemberLoginList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setLoginMemberStatusCode_InScope(pkList);

@@ -49,7 +49,7 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     //                                                                 InlineView/OrClause
     //                                                                 ===================
     /**
-     * Prepare InlineView query. <br />
+     * Prepare InlineView query. <br>
      * {select ... from ... left outer join (select * from SUMMARY_WITHDRAWAL) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">inline()</span>.setFoo...;
@@ -72,7 +72,7 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     }
 
     /**
-     * Prepare OnClause query. <br />
+     * Prepare OnClause query. <br>
      * {select ... from ... left outer join SUMMARY_WITHDRAWAL on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">on()</span>.setFoo...;
@@ -95,14 +95,14 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     protected ConditionValue xgetCValueMemberId() { return xdfgetMemberId(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * MEMBER_ID: {INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsSummaryWithdrawalCQ addOrderBy_MemberId_Asc() { regOBA("MEMBER_ID"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * MEMBER_ID: {INTEGER(10)}
      * @return this. (NotNull)
      */
@@ -115,14 +115,14 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     protected ConditionValue xgetCValueMemberName() { return xdfgetMemberName(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * MEMBER_NAME: {VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsSummaryWithdrawalCQ addOrderBy_MemberName_Asc() { regOBA("MEMBER_NAME"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * MEMBER_NAME: {VARCHAR(200)}
      * @return this. (NotNull)
      */
@@ -135,14 +135,14 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     protected ConditionValue xgetCValueWithdrawalReasonCode() { return xdfgetWithdrawalReasonCode(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)}
      * @return this. (NotNull)
      */
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalReasonCode_Asc() { regOBA("WITHDRAWAL_REASON_CODE"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)}
      * @return this. (NotNull)
      */
@@ -155,14 +155,14 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     protected ConditionValue xgetCValueWithdrawalReasonText() { return xdfgetWithdrawalReasonText(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
      * @return this. (NotNull)
      */
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalReasonText_Asc() { regOBA("WITHDRAWAL_REASON_TEXT"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
      * @return this. (NotNull)
      */
@@ -175,14 +175,14 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     protected ConditionValue xgetCValueWithdrawalReasonInputText() { return xdfgetWithdrawalReasonInputText(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
      * @return this. (NotNull)
      */
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalReasonInputText_Asc() { regOBA("WITHDRAWAL_REASON_INPUT_TEXT"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
      * @return this. (NotNull)
      */
@@ -195,14 +195,14 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     protected ConditionValue xgetCValueWithdrawalDatetime() { return xdfgetWithdrawalDatetime(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
      * @return this. (NotNull)
      */
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalDatetime_Asc() { regOBA("WITHDRAWAL_DATETIME"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
      * @return this. (NotNull)
      */
@@ -215,14 +215,14 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     protected ConditionValue xgetCValueMemberStatusCode() { return xdfgetMemberStatusCode(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)}
      * @return this. (NotNull)
      */
     public BsSummaryWithdrawalCQ addOrderBy_MemberStatusCode_Asc() { regOBA("MEMBER_STATUS_CODE"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)}
      * @return this. (NotNull)
      */
@@ -235,14 +235,14 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     protected ConditionValue xgetCValueMemberStatusName() { return xdfgetMemberStatusName(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsSummaryWithdrawalCQ addOrderBy_MemberStatusName_Asc() { regOBA("MEMBER_STATUS_NAME"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)}
      * @return this. (NotNull)
      */
@@ -255,14 +255,14 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
     protected ConditionValue xgetCValueMaxPurchasePrice() { return xdfgetMaxPurchasePrice(); }
 
     /** 
-     * Add order-by as ascend. <br />
+     * Add order-by as ascend. <br>
      * MAX_PURCHASE_PRICE: {INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsSummaryWithdrawalCQ addOrderBy_MaxPurchasePrice_Asc() { regOBA("MAX_PURCHASE_PRICE"); return this; }
 
     /**
-     * Add order-by as descend. <br />
+     * Add order-by as descend. <br>
      * MAX_PURCHASE_PRICE: {INTEGER(10)}
      * @return this. (NotNull)
      */

@@ -34,7 +34,7 @@ import org.docksidestage.dockside.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The behavior of SUMMARY_WITHDRAWAL as VIEW. <br />
+ * The behavior of SUMMARY_WITHDRAWAL as VIEW. <br>
  * <pre>
  * [primary key]
  *     
@@ -89,7 +89,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
     //                                                                        Count Select
     //                                                                        ============
     /**
-     * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br />
+     * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br>
      * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
      * <pre>
      * int count = <span style="color: #0000C0">summaryWithdrawalBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -107,9 +107,9 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean. <br />
-     * It returns not-null optional entity, so you should ... <br />
-     * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, alwaysPresent().</span> <br />
+     * Select the entity by the condition-bean. <br>
+     * It returns not-null optional entity, so you should ... <br>
+     * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, alwaysPresent().</span> <br>
      * <span style="color: #AD4747; font-size: 120%">If it might be no data, isPresent() and orElse(), ...</span>
      * <pre>
      * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
@@ -151,7 +151,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
     protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)).orElseNull(); }
 
     /**
-     * Select the entity by the condition-bean with deleted check. <br />
+     * Select the entity by the condition-bean with deleted check. <br>
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, this method is good.</span>
      * <pre>
      * SummaryWithdrawal <span style="color: #553000">summaryWithdrawal</span> = <span style="color: #0000C0">summaryWithdrawalBhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> cb.acceptPK(1));
@@ -179,7 +179,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      * });
      * for (SummaryWithdrawal <span style="color: #553000">summaryWithdrawal</span> : <span style="color: #553000">summaryWithdrawalList</span>) {
      *     ... = <span style="color: #553000">summaryWithdrawal</span>.get...();
-     * });
+     * }
      * </pre>
      * @param cbLambda The callback for condition-bean of SummaryWithdrawal. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
@@ -196,7 +196,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
     //                                                                         Page Select
     //                                                                         ===========
     /**
-     * Select the page as result bean. <br />
+     * Select the page as result bean. <br>
      * (both count-select and paging-select are executed)
      * <pre>
      * PagingResultBean&lt;SummaryWithdrawal&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">summaryWithdrawalBhv</span>.<span style="color: #CC4747">selectPage</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -244,7 +244,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
     //                                                                       Scalar Select
     //                                                                       =============
     /**
-     * Select the scalar value derived by a function from uniquely-selected records. <br />
+     * Select the scalar value derived by a function from uniquely-selected records. <br>
      * You should call a function method after this method called like as follows:
      * <pre>
      * <span style="color: #0000C0">summaryWithdrawalBhv</span>.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -284,7 +284,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      *         <span style="color: #553000">purchaseCB</span>.query().set...
      *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt; {</span>
      *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
@@ -299,7 +299,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      *     }
      * }
      * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has order by FK before callback.
      * @param summaryWithdrawalList The entity list of summaryWithdrawal. (NotNull)
      * @param loaderLambda The callback to handle the referrer loader for actually loading referrer. (NotNull)
@@ -319,7 +319,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      *         <span style="color: #553000">purchaseCB</span>.query().set...
      *         <span style="color: #553000">purchaseCB</span>.query().addOrderBy...
      *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(purchaseLoader -&gt; {</span>
      *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePayment(...);</span>
      *     <span style="color: #3F7E5E">//});</span>
      *
@@ -332,7 +332,7 @@ public abstract class BsSummaryWithdrawalBhv extends AbstractBehaviorReadable<Su
      *     ...
      * }
      * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has order by FK before callback.
      * @param summaryWithdrawal The entity of summaryWithdrawal. (NotNull)
      * @param loaderLambda The callback to handle the referrer loader for actually loading referrer. (NotNull)

@@ -22,7 +22,7 @@ import org.dbflute.jdbc.ValueType;
 import org.dbflute.s2dao.valuetype.TnValueTypes;
 
 /**
- * The cursor of PaymentCompletePurchase. <br />
+ * The cursor of PaymentCompletePurchase. <br>
  * @author DBFlute(AutoGenerator)
  */
 public class BsPaymentCompletePurchaseCursor {
@@ -107,7 +107,7 @@ public class BsPaymentCompletePurchaseCursor {
     /**
      * Move to next result.
      * @return Is exist next result.
-     * @throws SQLException
+     * @throws SQLException When it fails to move the cursor to next point.
      */
     public boolean next() throws SQLException {
         return _rs.next();
@@ -117,62 +117,62 @@ public class BsPaymentCompletePurchaseCursor {
     //                                                                  Type Safe Accessor
     //                                                                  ==================
     /**
-     * [get] PURCHASE_ID: {BIGINT(19), refers to PURCHASE.PURCHASE_ID} <br />
+     * [get] PURCHASE_ID: {BIGINT(19), refers to PURCHASE.PURCHASE_ID} <br>
      * @return The value of purchaseId. (NullAllowed)
-     * @throws java.sql.SQLException
+     * @throws SQLException When it fails to get the value from result set.
      */
     public Long getPurchaseId() throws SQLException {
         return (Long)_vtPurchaseId.getValue(_rs, DB_NAME_PURCHASE_ID);
     }
 
     /**
-     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to PURCHASE.MEMBER_ID} <br />
-     * 会員を参照するID。<br />
+     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to PURCHASE.MEMBER_ID} <br>
+     * 会員を参照するID。<br>
      * 購入を識別する自然キー(複合ユニーク制約)の筆頭要素。
      * @return The value of memberId. (NullAllowed)
-     * @throws java.sql.SQLException
+     * @throws SQLException When it fails to get the value from result set.
      */
     public Integer getMemberId() throws SQLException {
         return (Integer)_vtMemberId.getValue(_rs, DB_NAME_MEMBER_ID);
     }
 
     /**
-     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br />
-     * 会員のフルネームの名称。<br />
+     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
+     * 会員のフルネームの名称。<br>
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @return The value of memberName. (NullAllowed)
-     * @throws java.sql.SQLException
+     * @throws SQLException When it fails to get the value from result set.
      */
     public String getMemberName() throws SQLException {
         return (String)_vtMemberName.getValue(_rs, DB_NAME_MEMBER_NAME);
     }
 
     /**
-     * [get] (商品ID)PRODUCT_ID: {INTEGER(10), refers to PURCHASE.PRODUCT_ID} <br />
+     * [get] (商品ID)PRODUCT_ID: {INTEGER(10), refers to PURCHASE.PRODUCT_ID} <br>
      * あなたは何を買ったのか？
      * @return The value of productId. (NullAllowed)
-     * @throws java.sql.SQLException
+     * @throws SQLException When it fails to get the value from result set.
      */
     public Integer getProductId() throws SQLException {
         return (Integer)_vtProductId.getValue(_rs, DB_NAME_PRODUCT_ID);
     }
 
     /**
-     * [get] (商品名称)PRODUCT_NAME: {VARCHAR(50), refers to PRODUCT.PRODUCT_NAME} <br />
-     * ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。<br />
+     * [get] (商品名称)PRODUCT_NAME: {VARCHAR(50), refers to PRODUCT.PRODUCT_NAME} <br>
+     * ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。<br>
      * 実業務ではしっかりとコメントを入れることが強く強く推奨される。「よりによってこのテーブルでやらないでよ！」あわわ、何も聞こえません〜
      * @return The value of productName. (NullAllowed)
-     * @throws java.sql.SQLException
+     * @throws SQLException When it fails to get the value from result set.
      */
     public String getProductName() throws SQLException {
         return (String)_vtProductName.getValue(_rs, DB_NAME_PRODUCT_NAME);
     }
 
     /**
-     * [get] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} <br />
+     * [get] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} <br>
      * 購入した瞬間の日時。
      * @return The value of purchaseDatetime. (NullAllowed)
-     * @throws java.sql.SQLException
+     * @throws SQLException When it fails to get the value from result set.
      */
     public java.time.LocalDateTime getPurchaseDatetime() throws SQLException {
         return (java.time.LocalDateTime)_vtPurchaseDatetime.getValue(_rs, DB_NAME_PURCHASE_DATETIME);
