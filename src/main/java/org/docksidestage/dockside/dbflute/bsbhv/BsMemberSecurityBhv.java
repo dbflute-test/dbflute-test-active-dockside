@@ -93,7 +93,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br>
      * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
      * <pre>
-     * int count = <span style="color: #0000C0">memberSecurityBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #70226C">int</span> count = <span style="color: #0000C0">memberSecurityBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
@@ -207,8 +207,8 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      *     <span style="color: #553000">cb</span>.query().set...;
      *     <span style="color: #553000">cb</span>.query().addOrderBy...;
      * });
-     * for (MemberSecurity <span style="color: #553000">memberSecurity</span> : <span style="color: #553000">memberSecurityList</span>) {
-     *     ... = <span style="color: #553000">memberSecurity</span>.get...();
+     * <span style="color: #70226C">for</span> (MemberSecurity <span style="color: #553000">memberSecurity</span> : <span style="color: #553000">memberSecurityList</span>) {
+     *     ... = <span style="color: #553000">memberSecurity</span>.get...;
      * }
      * </pre>
      * @param cbLambda The callback for condition-bean of MemberSecurity. (NotNull)
@@ -234,13 +234,13 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      *     <span style="color: #553000">cb</span>.query().addOrderBy...
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
      * });
-     * int allRecordCount = <span style="color: #553000">page</span>.getAllRecordCount();
-     * int allPageCount = <span style="color: #553000">page</span>.getAllPageCount();
-     * boolean isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
-     * boolean isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
+     * <span style="color: #70226C">int</span> allRecordCount = <span style="color: #553000">page</span>.getAllRecordCount();
+     * <span style="color: #70226C">int</span> allPageCount = <span style="color: #553000">page</span>.getAllPageCount();
+     * <span style="color: #70226C">boolean</span> isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
+     * <span style="color: #70226C">boolean</span> isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
      * ...
-     * for (MemberSecurity memberSecurity : <span style="color: #553000">page</span>) {
-     *     ... = memberSecurity.get...();
+     * <span style="color: #70226C">for</span> (MemberSecurity memberSecurity : <span style="color: #553000">page</span>) {
+     *     ... = memberSecurity.get...;
      * }
      * </pre>
      * @param cbLambda The callback for condition-bean of MemberSecurity. (NotNull)
@@ -278,7 +278,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * You should call a function method after this method called like as follows:
      * <pre>
      * <span style="color: #0000C0">memberSecurityBhv</span>.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...()</span>; <span style="color: #3F7E5E">// required for the function</span>
+     *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...</span>; <span style="color: #3F7E5E">// required for the function</span>
      *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
@@ -322,9 +322,9 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
      *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
      * });
-     * for (Member member : <span style="color: #553000">memberList</span>) {
+     * <span style="color: #70226C">for</span> (Member member : <span style="color: #553000">memberList</span>) {
      *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
-     *     for (Purchase purchase : purchaseList) {
+     *     <span style="color: #70226C">for</span> (Purchase purchase : purchaseList) {
      *         ...
      *     }
      * }
@@ -358,7 +358,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
      * });
      * List&lt;Purchase&gt; purchaseList = <span style="color: #553000">member</span>.<span style="color: #CC4747">getPurchaseList()</span>;
-     * for (Purchase purchase : purchaseList) {
+     * <span style="color: #70226C">for</span> (Purchase purchase : purchaseList) {
      *     ...
      * }
      * </pre>
@@ -400,7 +400,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
     /**
      * Insert the entity modified-only. (DefaultConstraintsEnabled)
      * <pre>
-     * MemberSecurity memberSecurity = new MemberSecurity();
+     * MemberSecurity memberSecurity = <span style="color: #70226C">new</span> MemberSecurity();
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
      * memberSecurity.setFoo...(value);
      * memberSecurity.setBar...(value);
@@ -421,7 +421,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
     /**
      * Update the entity modified-only. (ZeroUpdateException, ExclusiveControl)
      * <pre>
-     * MemberSecurity memberSecurity = new MemberSecurity();
+     * MemberSecurity memberSecurity = <span style="color: #70226C">new</span> MemberSecurity();
      * memberSecurity.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * memberSecurity.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
@@ -447,7 +447,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
     /**
      * Update the entity non-strictly modified-only. (ZeroUpdateException, NonExclusiveControl)
      * <pre>
-     * MemberSecurity memberSecurity = new MemberSecurity();
+     * MemberSecurity memberSecurity = <span style="color: #70226C">new</span> MemberSecurity();
      * memberSecurity.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * memberSecurity.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
@@ -496,13 +496,13 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
     /**
      * Delete the entity. (ZeroUpdateException, ExclusiveControl)
      * <pre>
-     * MemberSecurity memberSecurity = new MemberSecurity();
+     * MemberSecurity memberSecurity = <span style="color: #70226C">new</span> MemberSecurity();
      * memberSecurity.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * memberSecurity.<span style="color: #CC4747">setVersionNo</span>(value);
-     * try {
+     * <span style="color: #70226C">try</span> {
      *     <span style="color: #0000C0">memberSecurityBhv</span>.<span style="color: #CC4747">delete</span>(memberSecurity);
-     * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
+     * } <span style="color: #70226C">catch</span> (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
@@ -517,7 +517,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
     /**
      * Delete the entity non-strictly. {ZeroUpdateException, NonExclusiveControl}
      * <pre>
-     * MemberSecurity memberSecurity = new MemberSecurity();
+     * MemberSecurity memberSecurity = <span style="color: #70226C">new</span> MemberSecurity();
      * memberSecurity.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
@@ -540,10 +540,10 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * This method uses executeBatch() of java.sql.PreparedStatement. <br>
      * <p><span style="color: #CC4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
-     * for (... : ...) {
-     *     MemberSecurity memberSecurity = new MemberSecurity();
+     * <span style="color: #70226C">for</span> (... : ...) {
+     *     MemberSecurity memberSecurity = <span style="color: #70226C">new</span> MemberSecurity();
      *     memberSecurity.setFooName("foo");
-     *     if (...) {
+     *     <span style="color: #70226C">if</span> (...) {
      *         memberSecurity.setFooPrice(123);
      *     }
      *     <span style="color: #3F7E5E">// FOO_NAME and FOO_PRICE (and record meta columns) are registered</span>
@@ -569,11 +569,11 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * <span style="color: #CC4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
-     *     MemberSecurity memberSecurity = new MemberSecurity();
+     *     MemberSecurity memberSecurity = <span style="color: #70226C">new</span> MemberSecurity();
      *     memberSecurity.setFooName("foo");
-     *     if (...) {
+     *     <span style="color: #70226C">if</span> (...) {
      *         memberSecurity.setFooPrice(123);
-     *     } else {
+     *     } <span style="color: #70226C">else</span> {
      *         memberSecurity.setFooPrice(null); <span style="color: #3F7E5E">// updated as null</span>
      *         <span style="color: #3F7E5E">//memberSecurity.setFooDate(...); // *not allowed, fragmented</span>
      *     }
@@ -596,12 +596,12 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * This method uses executeBatch() of java.sql.PreparedStatement. <br>
      * <span style="color: #CC4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
      * <pre>
-     * for (... : ...) {
-     *     MemberSecurity memberSecurity = new MemberSecurity();
+     * <span style="color: #70226C">for</span> (... : ...) {
+     *     MemberSecurity memberSecurity = <span style="color: #70226C">new</span> MemberSecurity();
      *     memberSecurity.setFooName("foo");
-     *     if (...) {
+     *     <span style="color: #70226C">if</span> (...) {
      *         memberSecurity.setFooPrice(123);
-     *     } else {
+     *     } <span style="color: #70226C">else</span> {
      *         memberSecurity.setFooPrice(null); <span style="color: #3F7E5E">// updated as null</span>
      *         <span style="color: #3F7E5E">//memberSecurity.setFooDate(...); // *not allowed, fragmented</span>
      *     }
@@ -677,7 +677,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
      * <pre>
-     * MemberSecurity memberSecurity = new MemberSecurity();
+     * MemberSecurity memberSecurity = <span style="color: #70226C">new</span> MemberSecurity();
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//memberSecurity.setPK...(value);</span>
      * memberSecurity.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
@@ -687,7 +687,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//memberSecurity.setVersionNo(value);</span>
-     * MemberSecurityCB cb = new MemberSecurityCB();
+     * MemberSecurityCB cb = <span style="color: #70226C">new</span> MemberSecurityCB();
      * cb.query().setFoo...(value);
      * <span style="color: #0000C0">memberSecurityBhv</span>.<span style="color: #CC4747">queryUpdate</span>(memberSecurity, cb);
      * </pre>
@@ -726,7 +726,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br>
      * Other specifications are same as insert(entity).
      * <pre>
-     * MemberSecurity memberSecurity = new MemberSecurity();
+     * MemberSecurity memberSecurity = <span style="color: #70226C">new</span> MemberSecurity();
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
      * memberSecurity.setFoo...(value);
      * memberSecurity.setBar...(value);
@@ -749,12 +749,12 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification), disableCommonColumnAutoSetup(). <br>
      * Other specifications are same as update(entity).
      * <pre>
-     * MemberSecurity memberSecurity = new MemberSecurity();
+     * MemberSecurity memberSecurity = <span style="color: #70226C">new</span> MemberSecurity();
      * memberSecurity.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * memberSecurity.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * memberSecurity.<span style="color: #CC4747">setVersionNo</span>(value);
-     * try {
+     * <span style="color: #70226C">try</span> {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;MemberSecurityCB&gt; option = new UpdateOption&lt;MemberSecurityCB&gt;();
      *     option.self(new SpecifyQuery&lt;MemberSecurityCB&gt;() {
@@ -763,7 +763,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
      *     <span style="color: #0000C0">memberSecurityBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(memberSecurity, option);
-     * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
+     * } <span style="color: #70226C">catch</span> (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
@@ -783,13 +783,13 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * Other specifications are same as updateNonstrict(entity).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
-     * MemberSecurity memberSecurity = new MemberSecurity();
+     * MemberSecurity memberSecurity = <span style="color: #70226C">new</span> MemberSecurity();
      * memberSecurity.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * memberSecurity.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//memberSecurity.setVersionNo(value);</span>
-     * UpdateOption&lt;MemberSecurityCB&gt; option = new UpdateOption&lt;MemberSecurityCB&gt;();
+     * UpdateOption&lt;MemberSecurityCB&gt; option = <span style="color: #70226C">new</span> UpdateOption&lt;MemberSecurityCB&gt;();
      * option.self(new SpecifyQuery&lt;MemberSecurityCB&gt;() {
      *     public void specify(MemberSecurityCB cb) {
      *         cb.specify().<span style="color: #CC4747">columnFooCount()</span>;
@@ -949,7 +949,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * Other specifications are same as queryUpdate(entity, cb).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
-     * MemberSecurity memberSecurity = new MemberSecurity();
+     * MemberSecurity memberSecurity = <span style="color: #70226C">new</span> MemberSecurity();
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//memberSecurity.setPK...(value);</span>
      * memberSecurity.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
@@ -958,7 +958,7 @@ public abstract class BsMemberSecurityBhv extends AbstractBehaviorWritable<Membe
      * <span style="color: #3F7E5E">//memberSecurity.setVersionNo(value);</span>
      * MemberSecurityCB cb = new MemberSecurityCB();
      * cb.query().setFoo...(value);
-     * UpdateOption&lt;MemberSecurityCB&gt; option = new UpdateOption&lt;MemberSecurityCB&gt;();
+     * UpdateOption&lt;MemberSecurityCB&gt; option = <span style="color: #70226C">new</span> UpdateOption&lt;MemberSecurityCB&gt;();
      * option.self(new SpecifyQuery&lt;MemberSecurityCB&gt;() {
      *     public void specify(MemberSecurityCB cb) {
      *         cb.specify().<span style="color: #CC4747">columnFooCount()</span>;

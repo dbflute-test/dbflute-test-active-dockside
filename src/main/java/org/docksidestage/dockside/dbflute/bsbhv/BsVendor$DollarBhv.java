@@ -93,7 +93,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br>
      * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
      * <pre>
-     * int count = <span style="color: #0000C0">vendor$DollarBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #70226C">int</span> count = <span style="color: #0000C0">vendor$DollarBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
@@ -207,8 +207,8 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      *     <span style="color: #553000">cb</span>.query().set...;
      *     <span style="color: #553000">cb</span>.query().addOrderBy...;
      * });
-     * for (Vendor$Dollar <span style="color: #553000">vendor$Dollar</span> : <span style="color: #553000">vendor$DollarList</span>) {
-     *     ... = <span style="color: #553000">vendor$Dollar</span>.get...();
+     * <span style="color: #70226C">for</span> (Vendor$Dollar <span style="color: #553000">vendor$Dollar</span> : <span style="color: #553000">vendor$DollarList</span>) {
+     *     ... = <span style="color: #553000">vendor$Dollar</span>.get...;
      * }
      * </pre>
      * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
@@ -234,13 +234,13 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      *     <span style="color: #553000">cb</span>.query().addOrderBy...
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
      * });
-     * int allRecordCount = <span style="color: #553000">page</span>.getAllRecordCount();
-     * int allPageCount = <span style="color: #553000">page</span>.getAllPageCount();
-     * boolean isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
-     * boolean isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
+     * <span style="color: #70226C">int</span> allRecordCount = <span style="color: #553000">page</span>.getAllRecordCount();
+     * <span style="color: #70226C">int</span> allPageCount = <span style="color: #553000">page</span>.getAllPageCount();
+     * <span style="color: #70226C">boolean</span> isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
+     * <span style="color: #70226C">boolean</span> isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
      * ...
-     * for (Vendor$Dollar vendor$Dollar : <span style="color: #553000">page</span>) {
-     *     ... = vendor$Dollar.get...();
+     * <span style="color: #70226C">for</span> (Vendor$Dollar vendor$Dollar : <span style="color: #553000">page</span>) {
+     *     ... = vendor$Dollar.get...;
      * }
      * </pre>
      * @param cbLambda The callback for condition-bean of Vendor$Dollar. (NotNull)
@@ -278,7 +278,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * You should call a function method after this method called like as follows:
      * <pre>
      * <span style="color: #0000C0">vendor$DollarBhv</span>.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...()</span>; <span style="color: #3F7E5E">// required for the function</span>
+     *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...</span>; <span style="color: #3F7E5E">// required for the function</span>
      *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
@@ -322,9 +322,9 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
      *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
      * });
-     * for (Member member : <span style="color: #553000">memberList</span>) {
+     * <span style="color: #70226C">for</span> (Member member : <span style="color: #553000">memberList</span>) {
      *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
-     *     for (Purchase purchase : purchaseList) {
+     *     <span style="color: #70226C">for</span> (Purchase purchase : purchaseList) {
      *         ...
      *     }
      * }
@@ -358,7 +358,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
      * });
      * List&lt;Purchase&gt; purchaseList = <span style="color: #553000">member</span>.<span style="color: #CC4747">getPurchaseList()</span>;
-     * for (Purchase purchase : purchaseList) {
+     * <span style="color: #70226C">for</span> (Purchase purchase : purchaseList) {
      *     ...
      * }
      * </pre>
@@ -392,7 +392,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
     /**
      * Insert the entity modified-only. (DefaultConstraintsEnabled)
      * <pre>
-     * Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
+     * Vendor$Dollar vendor$Dollar = <span style="color: #70226C">new</span> Vendor$Dollar();
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
      * vendor$Dollar.setFoo...(value);
      * vendor$Dollar.setBar...(value);
@@ -413,7 +413,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
     /**
      * Update the entity modified-only. (ZeroUpdateException, NonExclusiveControl)
      * <pre>
-     * Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
+     * Vendor$Dollar vendor$Dollar = <span style="color: #70226C">new</span> Vendor$Dollar();
      * vendor$Dollar.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * vendor$Dollar.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
@@ -452,13 +452,13 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
     /**
      * Delete the entity. (ZeroUpdateException, NonExclusiveControl)
      * <pre>
-     * Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
+     * Vendor$Dollar vendor$Dollar = <span style="color: #70226C">new</span> Vendor$Dollar();
      * vendor$Dollar.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * vendor$Dollar.<span style="color: #CC4747">setVersionNo</span>(value);
-     * try {
+     * <span style="color: #70226C">try</span> {
      *     <span style="color: #0000C0">vendor$DollarBhv</span>.<span style="color: #CC4747">delete</span>(vendor$Dollar);
-     * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
+     * } <span style="color: #70226C">catch</span> (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
@@ -478,10 +478,10 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * This method uses executeBatch() of java.sql.PreparedStatement. <br>
      * <p><span style="color: #CC4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
-     * for (... : ...) {
-     *     Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
+     * <span style="color: #70226C">for</span> (... : ...) {
+     *     Vendor$Dollar vendor$Dollar = <span style="color: #70226C">new</span> Vendor$Dollar();
      *     vendor$Dollar.setFooName("foo");
-     *     if (...) {
+     *     <span style="color: #70226C">if</span> (...) {
      *         vendor$Dollar.setFooPrice(123);
      *     }
      *     <span style="color: #3F7E5E">// FOO_NAME and FOO_PRICE (and record meta columns) are registered</span>
@@ -507,11 +507,11 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * <span style="color: #CC4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
-     *     Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
+     *     Vendor$Dollar vendor$Dollar = <span style="color: #70226C">new</span> Vendor$Dollar();
      *     vendor$Dollar.setFooName("foo");
-     *     if (...) {
+     *     <span style="color: #70226C">if</span> (...) {
      *         vendor$Dollar.setFooPrice(123);
-     *     } else {
+     *     } <span style="color: #70226C">else</span> {
      *         vendor$Dollar.setFooPrice(null); <span style="color: #3F7E5E">// updated as null</span>
      *         <span style="color: #3F7E5E">//vendor$Dollar.setFooDate(...); // *not allowed, fragmented</span>
      *     }
@@ -576,7 +576,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
      * <pre>
-     * Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
+     * Vendor$Dollar vendor$Dollar = <span style="color: #70226C">new</span> Vendor$Dollar();
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//vendor$Dollar.setPK...(value);</span>
      * vendor$Dollar.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
@@ -586,7 +586,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//vendor$Dollar.setVersionNo(value);</span>
-     * Vendor$DollarCB cb = new Vendor$DollarCB();
+     * Vendor$DollarCB cb = <span style="color: #70226C">new</span> Vendor$DollarCB();
      * cb.query().setFoo...(value);
      * <span style="color: #0000C0">vendor$DollarBhv</span>.<span style="color: #CC4747">queryUpdate</span>(vendor$Dollar, cb);
      * </pre>
@@ -625,7 +625,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br>
      * Other specifications are same as insert(entity).
      * <pre>
-     * Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
+     * Vendor$Dollar vendor$Dollar = <span style="color: #70226C">new</span> Vendor$Dollar();
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
      * vendor$Dollar.setFoo...(value);
      * vendor$Dollar.setBar...(value);
@@ -648,12 +648,12 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification), disableCommonColumnAutoSetup(). <br>
      * Other specifications are same as update(entity).
      * <pre>
-     * Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
+     * Vendor$Dollar vendor$Dollar = <span style="color: #70226C">new</span> Vendor$Dollar();
      * vendor$Dollar.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * vendor$Dollar.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * vendor$Dollar.<span style="color: #CC4747">setVersionNo</span>(value);
-     * try {
+     * <span style="color: #70226C">try</span> {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;Vendor$DollarCB&gt; option = new UpdateOption&lt;Vendor$DollarCB&gt;();
      *     option.self(new SpecifyQuery&lt;Vendor$DollarCB&gt;() {
@@ -662,7 +662,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
      *     <span style="color: #0000C0">vendor$DollarBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(vendor$Dollar, option);
-     * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
+     * } <span style="color: #70226C">catch</span> (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
@@ -766,7 +766,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * Other specifications are same as queryUpdate(entity, cb).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
-     * Vendor$Dollar vendor$Dollar = new Vendor$Dollar();
+     * Vendor$Dollar vendor$Dollar = <span style="color: #70226C">new</span> Vendor$Dollar();
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//vendor$Dollar.setPK...(value);</span>
      * vendor$Dollar.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
@@ -775,7 +775,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * <span style="color: #3F7E5E">//vendor$Dollar.setVersionNo(value);</span>
      * Vendor$DollarCB cb = new Vendor$DollarCB();
      * cb.query().setFoo...(value);
-     * UpdateOption&lt;Vendor$DollarCB&gt; option = new UpdateOption&lt;Vendor$DollarCB&gt;();
+     * UpdateOption&lt;Vendor$DollarCB&gt; option = <span style="color: #70226C">new</span> UpdateOption&lt;Vendor$DollarCB&gt;();
      * option.self(new SpecifyQuery&lt;Vendor$DollarCB&gt;() {
      *     public void specify(Vendor$DollarCB cb) {
      *         cb.specify().<span style="color: #CC4747">columnFooCount()</span>;

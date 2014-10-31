@@ -93,7 +93,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br>
      * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
      * <pre>
-     * int count = <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #70226C">int</span> count = <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
@@ -232,8 +232,8 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      *     <span style="color: #553000">cb</span>.query().set...;
      *     <span style="color: #553000">cb</span>.query().addOrderBy...;
      * });
-     * for (Product <span style="color: #553000">product</span> : <span style="color: #553000">productList</span>) {
-     *     ... = <span style="color: #553000">product</span>.get...();
+     * <span style="color: #70226C">for</span> (Product <span style="color: #553000">product</span> : <span style="color: #553000">productList</span>) {
+     *     ... = <span style="color: #553000">product</span>.get...;
      * }
      * </pre>
      * @param cbLambda The callback for condition-bean of Product. (NotNull)
@@ -259,13 +259,13 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      *     <span style="color: #553000">cb</span>.query().addOrderBy...
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
      * });
-     * int allRecordCount = <span style="color: #553000">page</span>.getAllRecordCount();
-     * int allPageCount = <span style="color: #553000">page</span>.getAllPageCount();
-     * boolean isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
-     * boolean isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
+     * <span style="color: #70226C">int</span> allRecordCount = <span style="color: #553000">page</span>.getAllRecordCount();
+     * <span style="color: #70226C">int</span> allPageCount = <span style="color: #553000">page</span>.getAllPageCount();
+     * <span style="color: #70226C">boolean</span> isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
+     * <span style="color: #70226C">boolean</span> isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
      * ...
-     * for (Product product : <span style="color: #553000">page</span>) {
-     *     ... = product.get...();
+     * <span style="color: #70226C">for</span> (Product product : <span style="color: #553000">page</span>) {
+     *     ... = product.get...;
      * }
      * </pre>
      * @param cbLambda The callback for condition-bean of Product. (NotNull)
@@ -303,7 +303,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * You should call a function method after this method called like as follows:
      * <pre>
      * <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...()</span>; <span style="color: #3F7E5E">// required for the function</span>
+     *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...</span>; <span style="color: #3F7E5E">// required for the function</span>
      *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
@@ -347,9 +347,9 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
      *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
      * });
-     * for (Member member : <span style="color: #553000">memberList</span>) {
+     * <span style="color: #70226C">for</span> (Member member : <span style="color: #553000">memberList</span>) {
      *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #CC4747">getPurchaseList()</span>;
-     *     for (Purchase purchase : purchaseList) {
+     *     <span style="color: #70226C">for</span> (Purchase purchase : purchaseList) {
      *         ...
      *     }
      * }
@@ -383,7 +383,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      *     <span style="color: #3F7E5E">//memberLoader.pulloutMemberStatus().loadMemberLogin(...)</span>
      * });
      * List&lt;Purchase&gt; purchaseList = <span style="color: #553000">member</span>.<span style="color: #CC4747">getPurchaseList()</span>;
-     * for (Purchase purchase : purchaseList) {
+     * <span style="color: #70226C">for</span> (Purchase purchase : purchaseList) {
      *     ...
      * }
      * </pre>
@@ -409,7 +409,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
-     * for (Product product : <span style="color: #553000">productList</span>) {
+     * <span style="color: #70226C">for</span> (Product product : <span style="color: #553000">productList</span>) {
      *     ... = product.<span style="color: #CC4747">getPurchaseList()</span>;
      * }
      * </pre>
@@ -505,7 +505,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
     /**
      * Insert the entity modified-only. (DefaultConstraintsEnabled)
      * <pre>
-     * Product product = new Product();
+     * Product product = <span style="color: #70226C">new</span> Product();
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
      * product.setFoo...(value);
      * product.setBar...(value);
@@ -526,7 +526,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
     /**
      * Update the entity modified-only. (ZeroUpdateException, ExclusiveControl)
      * <pre>
-     * Product product = new Product();
+     * Product product = <span style="color: #70226C">new</span> Product();
      * product.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * product.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
@@ -552,7 +552,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
     /**
      * Update the entity non-strictly modified-only. (ZeroUpdateException, NonExclusiveControl)
      * <pre>
-     * Product product = new Product();
+     * Product product = <span style="color: #70226C">new</span> Product();
      * product.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * product.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
@@ -601,13 +601,13 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
     /**
      * Delete the entity. (ZeroUpdateException, ExclusiveControl)
      * <pre>
-     * Product product = new Product();
+     * Product product = <span style="color: #70226C">new</span> Product();
      * product.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * product.<span style="color: #CC4747">setVersionNo</span>(value);
-     * try {
+     * <span style="color: #70226C">try</span> {
      *     <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">delete</span>(product);
-     * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
+     * } <span style="color: #70226C">catch</span> (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
@@ -622,7 +622,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
     /**
      * Delete the entity non-strictly. {ZeroUpdateException, NonExclusiveControl}
      * <pre>
-     * Product product = new Product();
+     * Product product = <span style="color: #70226C">new</span> Product();
      * product.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
@@ -645,10 +645,10 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * This method uses executeBatch() of java.sql.PreparedStatement. <br>
      * <p><span style="color: #CC4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
-     * for (... : ...) {
-     *     Product product = new Product();
+     * <span style="color: #70226C">for</span> (... : ...) {
+     *     Product product = <span style="color: #70226C">new</span> Product();
      *     product.setFooName("foo");
-     *     if (...) {
+     *     <span style="color: #70226C">if</span> (...) {
      *         product.setFooPrice(123);
      *     }
      *     <span style="color: #3F7E5E">// FOO_NAME and FOO_PRICE (and record meta columns) are registered</span>
@@ -674,11 +674,11 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * <span style="color: #CC4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
-     *     Product product = new Product();
+     *     Product product = <span style="color: #70226C">new</span> Product();
      *     product.setFooName("foo");
-     *     if (...) {
+     *     <span style="color: #70226C">if</span> (...) {
      *         product.setFooPrice(123);
-     *     } else {
+     *     } <span style="color: #70226C">else</span> {
      *         product.setFooPrice(null); <span style="color: #3F7E5E">// updated as null</span>
      *         <span style="color: #3F7E5E">//product.setFooDate(...); // *not allowed, fragmented</span>
      *     }
@@ -701,12 +701,12 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * This method uses executeBatch() of java.sql.PreparedStatement. <br>
      * <span style="color: #CC4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
      * <pre>
-     * for (... : ...) {
-     *     Product product = new Product();
+     * <span style="color: #70226C">for</span> (... : ...) {
+     *     Product product = <span style="color: #70226C">new</span> Product();
      *     product.setFooName("foo");
-     *     if (...) {
+     *     <span style="color: #70226C">if</span> (...) {
      *         product.setFooPrice(123);
-     *     } else {
+     *     } <span style="color: #70226C">else</span> {
      *         product.setFooPrice(null); <span style="color: #3F7E5E">// updated as null</span>
      *         <span style="color: #3F7E5E">//product.setFooDate(...); // *not allowed, fragmented</span>
      *     }
@@ -782,7 +782,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
      * <pre>
-     * Product product = new Product();
+     * Product product = <span style="color: #70226C">new</span> Product();
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//product.setPK...(value);</span>
      * product.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
@@ -792,7 +792,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//product.setVersionNo(value);</span>
-     * ProductCB cb = new ProductCB();
+     * ProductCB cb = <span style="color: #70226C">new</span> ProductCB();
      * cb.query().setFoo...(value);
      * <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">queryUpdate</span>(product, cb);
      * </pre>
@@ -831,7 +831,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br>
      * Other specifications are same as insert(entity).
      * <pre>
-     * Product product = new Product();
+     * Product product = <span style="color: #70226C">new</span> Product();
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
      * product.setFoo...(value);
      * product.setBar...(value);
@@ -854,12 +854,12 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification), disableCommonColumnAutoSetup(). <br>
      * Other specifications are same as update(entity).
      * <pre>
-     * Product product = new Product();
+     * Product product = <span style="color: #70226C">new</span> Product();
      * product.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * product.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * product.<span style="color: #CC4747">setVersionNo</span>(value);
-     * try {
+     * <span style="color: #70226C">try</span> {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;ProductCB&gt; option = new UpdateOption&lt;ProductCB&gt;();
      *     option.self(new SpecifyQuery&lt;ProductCB&gt;() {
@@ -868,7 +868,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
      *     <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(product, option);
-     * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
+     * } <span style="color: #70226C">catch</span> (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
@@ -888,13 +888,13 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * Other specifications are same as updateNonstrict(entity).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
-     * Product product = new Product();
+     * Product product = <span style="color: #70226C">new</span> Product();
      * product.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * product.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//product.setVersionNo(value);</span>
-     * UpdateOption&lt;ProductCB&gt; option = new UpdateOption&lt;ProductCB&gt;();
+     * UpdateOption&lt;ProductCB&gt; option = <span style="color: #70226C">new</span> UpdateOption&lt;ProductCB&gt;();
      * option.self(new SpecifyQuery&lt;ProductCB&gt;() {
      *     public void specify(ProductCB cb) {
      *         cb.specify().<span style="color: #CC4747">columnFooCount()</span>;
@@ -1054,7 +1054,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * Other specifications are same as queryUpdate(entity, cb).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
-     * Product product = new Product();
+     * Product product = <span style="color: #70226C">new</span> Product();
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//product.setPK...(value);</span>
      * product.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
@@ -1063,7 +1063,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * <span style="color: #3F7E5E">//product.setVersionNo(value);</span>
      * ProductCB cb = new ProductCB();
      * cb.query().setFoo...(value);
-     * UpdateOption&lt;ProductCB&gt; option = new UpdateOption&lt;ProductCB&gt;();
+     * UpdateOption&lt;ProductCB&gt; option = <span style="color: #70226C">new</span> UpdateOption&lt;ProductCB&gt;();
      * option.self(new SpecifyQuery&lt;ProductCB&gt;() {
      *     public void specify(ProductCB cb) {
      *         cb.specify().<span style="color: #CC4747">columnFooCount()</span>;
