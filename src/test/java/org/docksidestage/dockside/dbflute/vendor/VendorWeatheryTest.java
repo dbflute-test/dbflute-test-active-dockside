@@ -1,26 +1,23 @@
 package org.docksidestage.dockside.dbflute.vendor;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.sql.DataSource;
+import java.util.TimeZone;
 
 import org.dbflute.cbean.coption.LikeSearchOption;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.result.PagingResultBean;
 import org.dbflute.cbean.sqlclause.SqlClauseH2;
 import org.dbflute.dbway.DBWay;
-import org.dbflute.exception.BatchEntityAlreadyUpdatedException;
-import org.dbflute.exception.EntityAlreadyDeletedException;
-import org.dbflute.exception.EntityAlreadyUpdatedException;
+import org.dbflute.helper.HandyDate;
 import org.docksidestage.dockside.dbflute.allcommon.DBCurrent;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
-import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
+import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.SimpleMemberPmb;
 import org.docksidestage.dockside.dbflute.exentity.Member;
+import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
 import org.docksidestage.dockside.dbflute.exentity.customize.SimpleMember;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
@@ -28,108 +25,13 @@ import org.docksidestage.dockside.unit.UnitContainerTestCase;
  * @author jflute
  * @since 0.6.1 (2008/01/23 Wednesday)
  */
-public class VendorCheckTest extends UnitContainerTestCase {
+public class VendorWeatheryTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
     private MemberBhv memberBhv;
-    private PurchaseBhv purchaseBhv;
-
-    // ===================================================================================
-    //                                                              Batch Update Exception
-    //                                                              ======================
-    public void test_batchUpdate_and_batchDelete_AlreadyUpdated() {
-        // ## Arrange ##
-        List<Integer> memberIdList = new ArrayList<Integer>();
-        memberIdList.add(1);
-        memberIdList.add(3);
-        memberIdList.add(7);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.query().setMemberId_InScope(memberIdList);
-            pushCB(cb);
-        });
-
-        int count = 0;
-        for (Member member : memberList) {
-            member.setMemberName("testName" + count);
-            member.setMemberAccount("testAccount" + count);
-            member.setMemberStatusCode_Provisional();
-            member.setFormalizedDatetime(currentLocalDateTime());
-            member.setBirthdate(currentLocalDate());
-            if (count == 1) {
-                member.setVersionNo(999999999L);
-            } else {
-                member.setVersionNo(member.getVersionNo());
-            }
-            ++count;
-        }
-
-        // ## Act & Assert ##
-        try {
-            memberBhv.batchUpdate(memberList);
-            fail();
-        } catch (EntityAlreadyUpdatedException e) {
-            // OK
-            log(e.getMessage());
-            assertTrue(e instanceof BatchEntityAlreadyUpdatedException);
-            log("batchUpdateCount=" + ((BatchEntityAlreadyUpdatedException) e).getBatchUpdateCount());
-        }
-        deleteMemberReferrer();
-        try {
-            memberBhv.batchDelete(memberList);
-            fail();
-        } catch (EntityAlreadyUpdatedException e) {
-            // OK
-            log(e.getMessage());
-            assertTrue(e instanceof BatchEntityAlreadyUpdatedException);
-            log("batchUpdateCount=" + ((BatchEntityAlreadyUpdatedException) e).getBatchUpdateCount());
-        }
-    }
-
-    public void test_batchUpdateNonstrict_and_batchDeleteNonstrict_AlreadyDeleted() {
-        // ## Arrange ##
-        List<Integer> memberIdList = new ArrayList<Integer>();
-        memberIdList.add(1);
-        memberIdList.add(3);
-        memberIdList.add(7);
-        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            cb.query().setMemberId_InScope(memberIdList);
-            pushCB(cb);
-        });
-
-        int count = 0;
-        for (Member member : memberList) {
-            member.setMemberName("testName" + count);
-            member.setMemberAccount("testAccount" + count);
-            member.setMemberStatusCode_Provisional();
-            member.setFormalizedDatetime(currentLocalDateTime());
-            member.setBirthdate(currentLocalDate());
-            if (count == 1) {
-                member.setMemberId(9999999);
-            } else {
-                member.setMemberId(member.getMemberId());
-            }
-            ++count;
-        }
-
-        // ## Act & Assert ##
-        try {
-            memberBhv.batchUpdateNonstrict(memberList);
-            fail();
-        } catch (EntityAlreadyDeletedException e) {
-            // OK
-            log(e.getMessage());
-        }
-        deleteMemberReferrer();
-        try {
-            memberBhv.batchDeleteNonstrict(memberList);
-            fail();
-        } catch (EntityAlreadyDeletedException e) {
-            // OK
-            log(e.getMessage());
-        }
-    }
+    private MemberStatusBhv memberStatusBhv;
 
     // ===================================================================================
     //                                                                 LikeSearch WildCard
@@ -271,125 +173,6 @@ public class VendorCheckTest extends UnitContainerTestCase {
     }
 
     // ===================================================================================
-    //                                                                     Optimistic Lock
-    //                                                                     ===============
-    public void test_VersionNoNotIncremented_after_EntityAlreadUpdated() {
-        // ## Arrange ##
-        Member member = new Member();
-        member.setMemberId(3);
-        member.setMemberName("Test");
-        member.setVersionNo(99999L); // The version no is not existing.
-
-        // ## Act ##
-        try {
-            memberBhv.update(member);
-            fail();
-        } catch (EntityAlreadyUpdatedException e) {
-            // OK
-            log(e.getMessage());
-            log("member.getVersionNo() = " + member.getVersionNo());
-            assertEquals(Long.valueOf(99999L), member.getVersionNo());
-        }
-    }
-
-    // ===================================================================================
-    //                                                                       Repeat Select
-    //                                                                       =============
-    public void test_repeat_select_after_select_and_update() {
-        // ## Arrange ##
-        Long versionNo = memberBhv.selectByPK(3).map(member -> member.getVersionNo()).get();
-
-        Member member = new Member();
-        member.setMemberId(3);
-        member.setMemberName("testName");
-        member.setVersionNo(versionNo);
-
-        // ## Act ##
-        memberBhv.update(member);
-
-        // ## Assert ##
-        // repeat the member as same local table
-        memberBhv.selectByPK(3).alwaysPresent(actual -> {
-            log("local actual=" + actual);
-            assertEquals("testName", actual.getMemberName());
-        });
-        // repeat the member as joined table
-        purchaseBhv.selectList(purchaseCB -> {
-            purchaseCB.setupSelect_Member();
-            purchaseCB.query().setMemberId_Equal(3);
-        }).stream().findFirst().get().getMember().alwaysPresent(actual -> {
-            log("joined actual=" + actual);
-            assertEquals("testName", actual.getMemberName());
-        });
-    }
-
-    public void test_repeat_select_after_update() {
-        // ## Arrange ##
-        Member member = new Member();
-        member.setMemberId(3);
-        member.setMemberName("testName");
-
-        // ## Act ##
-        memberBhv.updateNonstrict(member);
-
-        // ## Assert ##
-        // repeat the member as same local table
-        memberBhv.selectByPK(3).alwaysPresent(actual -> {
-            log("local actual=" + actual);
-            assertEquals("testName", actual.getMemberName());
-        });
-        // repeat the member as joined table
-        purchaseBhv.selectList(purchaseCB -> {
-            purchaseCB.setupSelect_Member();
-            purchaseCB.query().setMemberId_Equal(3);
-        }).get(0).getMember().alwaysPresent(actual -> {
-            log("joined actual=" + actual);
-            assertEquals("testName", actual.getMemberName());
-        });
-    }
-
-    public void test_repeat_select_after_update_by_JDBC() throws Exception {
-        // ## Arrange ##
-        DataSource ds = getDataSource();
-        Connection conn = ds.getConnection();
-
-        // ## Act ##
-        {
-            String sql = "update MEMBER set MEMBER_NAME = ? where MEMBER_ID = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, "testName");
-            ps.setInt(2, 3);
-            ps.executeUpdate();
-        }
-
-        // ## Assert ##
-        // Repeat the member as same local table
-        {
-            String sql = "select * from MEMBER where MEMBER_ID = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, 3);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            String actual = rs.getString("MEMBER_NAME");
-            log("local actual=" + actual);
-            assertEquals("testName", actual);
-        }
-        // Repeat the member as joined table
-        {
-            String select = "select PURCHASE.PURCHASE_ID, MEMBER.MEMBER_NAME";
-            String from = " from PURCHASE left outer join MEMBER on PURCHASE.MEMBER_ID = MEMBER.MEMBER_ID";
-            String where = " where PURCHASE.MEMBER_ID = ?";
-            PreparedStatement ps = conn.prepareStatement(select + from + where);
-            ps.setInt(1, 3);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            String actual = rs.getString("MEMBER_NAME");
-            log("joined actual=" + actual);
-            assertEquals("testName", actual);
-        }
-    }
-
-    // ===================================================================================
     //                                                                      Paging Binding
     //                                                                      ==============
     public void test_paging_binding_basic() {
@@ -428,5 +211,147 @@ public class VendorCheckTest extends UnitContainerTestCase {
         } else {
             assertTrue(clause.contains("limit /*pmb.sqlClause.pagingBindingLimit*/0 offset /*pmb.sqlClause.pagingBindingOffset*/0"));
         }
+    }
+
+    // ===================================================================================
+    //                                                                             BC Date
+    //                                                                             =======
+    public void test_BC_date() {
+        // ## Arrange ##
+        Member member = memberBhv.selectEntity(cb -> {
+            cb.query().setBirthdate_IsNotNull();
+            cb.fetchFirst(1);
+            cb.addOrderBy_PK_Asc();
+            pushCB(cb);
+        }).get();
+
+        member.setBirthdate(toLocalDate("BC1234/12/25"));
+
+        // ## Act ##
+        memberBhv.update(member);
+
+        // ## Assert ##
+        Member actual = memberBhv.selectByPK(member.getMemberId()).get();
+        LocalDate birthdate = actual.getBirthdate();
+        log(birthdate);
+        assertTrue(new HandyDate(birthdate).isYear_BeforeChrist());
+        assertTrue(birthdate.getYear() == -1233);
+    }
+
+    public void test_BC_datetime() {
+        // ## Arrange ##
+        Member member = memberBhv.selectEntity(cb -> {
+            cb.query().setFormalizedDatetime_IsNotNull();
+            cb.fetchFirst(1);
+            cb.addOrderBy_PK_Asc();
+            pushCB(cb);
+        }).get();
+
+        member.setFormalizedDatetime(toLocalDateTime("BC1234/12/25 12:34:56.147"));
+
+        // ## Act ##
+        memberBhv.update(member);
+
+        // ## Assert ##
+        Member actual = memberBhv.selectByPK(member.getMemberId()).get();
+        LocalDateTime formalizedDatetime = actual.getFormalizedDatetime();
+        log(formalizedDatetime);
+        assertTrue(new HandyDate(formalizedDatetime).isYear_BeforeChrist());
+        assertTrue(formalizedDatetime.getYear() == -1233);
+    }
+
+    public void test_BC_test_precondition_also_JDK_test() {
+        // ## Arrange ##
+        String beforeExp = "BC0001/12/31 23:59:59.999";
+        String afterExp = "0001/01/01 00:00:00.000";
+
+        // ## Act ##
+        LocalDateTime before = toLocalDateTime(beforeExp);
+        LocalDateTime after = toLocalDateTime(afterExp);
+
+        // ## Assert ##
+        // *date conversion is not correct in old date: 0000-12-31, 0001/01/02 00:00:00.000
+        HandyDate handyBefore = new HandyDate(before, TimeZone.getTimeZone("GMT")); // GMT for 1888 timeZone in Japanese
+        assertFalse("before=" + before + ", handy=" + handyBefore, handyBefore.isYear_BeforeChrist());
+        HandyDate handyAfter = new HandyDate(after, TimeZone.getTimeZone("GMT")); // GMT for 1888 timeZone in Japanese
+        assertFalse("after=" + after, handyAfter.isYear_BeforeChrist());
+        assertEquals(after, new HandyDate(before).addMillisecond(1).getLocalDateTime()); // however, can reverse so OK
+    }
+
+    // ===================================================================================
+    //                                                                          Short Char
+    //                                                                          ==========
+    public void test_shortChar_inout_trimmed_value() {
+        // *This test does not depend on shortCharHandlingMode of DBFlute 
+        // ## Arrange ##
+        String code = "AB";
+        String name = "ShortTest";
+        Integer order = 96473;
+        MemberStatus memberStatus = new MemberStatus();
+        memberStatus.mynativeMappingMemberStatusCode(code); // char
+        memberStatus.setMemberStatusName(name); // varchar
+        memberStatus.setDescription("foo");
+        memberStatus.setDisplayOrder(order);
+        memberStatusBhv.insert(memberStatus);
+
+        MemberStatus actual = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().xznocheckSetMemberStatusCode_Equal(code + " ");
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        assertEquals(code, actual.getMemberStatusCode()); // DB trims it
+        assertEquals(name, actual.getMemberStatusName());
+    }
+
+    public void test_shortChar_inout_filled_value() {
+        // *This test does not depend on shortCharHandlingMode of DBFlute 
+        // ## Arrange ##
+        String code = "AB ";
+        String name = "ShortTest";
+        Integer order = 96473;
+        MemberStatus memberStatus = new MemberStatus();
+        memberStatus.mynativeMappingMemberStatusCode(code); // char
+        memberStatus.setMemberStatusName(name); // varchar
+        memberStatus.setDescription("foo");
+        memberStatus.setDisplayOrder(order);
+        memberStatusBhv.insert(memberStatus);
+
+        MemberStatus actual = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.query().xznocheckSetMemberStatusCode_Equal(code);
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        assertEquals(code.trim(), actual.getMemberStatusCode()); // DB trims it
+        assertEquals(name, actual.getMemberStatusName());
+    }
+
+    public void test_shortChar_condition() {
+        // *This test does not depend on shortCharHandlingMode of DBFlute 
+        // ## Arrange ##
+        String code = "AB ";
+        String name = "ShortTest";
+        Integer order = 96473; // should be unique order
+        MemberStatus memberStatus = new MemberStatus();
+        memberStatus.mynativeMappingMemberStatusCode(code); // char
+        memberStatus.setMemberStatusName(name); // varchar
+        memberStatus.setDescription("foo");
+        memberStatus.setDisplayOrder(order);
+        memberStatusBhv.insert(memberStatus);
+
+        MemberStatus actual = memberStatusBhv.selectEntityWithDeletedCheck(cb -> {
+            /* ## Act ## */
+            cb.xzdisableShortCharHandling();
+            cb.query().xznocheckSetMemberStatusCode_Equal(code.trim());
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        assertTrue(popCB().toDisplaySql().contains("'AB'"));
+        assertEquals(code.trim(), actual.getMemberStatusCode());
+        assertEquals(name, actual.getMemberStatusName());
     }
 }

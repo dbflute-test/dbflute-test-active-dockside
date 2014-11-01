@@ -320,6 +320,24 @@ public class BsVendorPrimaryKeyOnlyCB extends AbstractConditionBean {
         }
     }
 
+    // ===================================================================================
+    //                                                                        Dream Cruise
+    //                                                                        ============
+    /**
+     * Welcome to the Dream Cruise for condition-bean deep world. <br>
+     * This is very specialty so you can get the frontier spirit. Bon voyage!
+     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
+     */
+    public VendorPrimaryKeyOnlyCB dreamCruiseCB() {
+        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB();
+        cb.xsetupForDreamCruise((VendorPrimaryKeyOnlyCB) this);
+        return cb;
+    }
+
+    protected ConditionBean xdoCreateDreamCruiseCB() {
+        return dreamCruiseCB();
+    }
+
     // [DBFlute-0.9.5.3]
     // ===================================================================================
     //                                                                        Column Query
@@ -351,24 +369,6 @@ public class BsVendorPrimaryKeyOnlyCB extends AbstractConditionBean {
         VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB();
         cb.xsetupForColumnQuery((VendorPrimaryKeyOnlyCB)this);
         return cb;
-    }
-
-    // ===================================================================================
-    //                                                                        Dream Cruise
-    //                                                                        ============
-    /**
-     * Welcome to the Dream Cruise for condition-bean deep world. <br>
-     * This is very specialty so you can get the frontier spirit. Bon voyage!
-     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
-     */
-    public VendorPrimaryKeyOnlyCB dreamCruiseCB() {
-        VendorPrimaryKeyOnlyCB cb = new VendorPrimaryKeyOnlyCB();
-        cb.xsetupForDreamCruise((VendorPrimaryKeyOnlyCB) this);
-        return cb;
-    }
-
-    protected ConditionBean xdoCreateDreamCruiseCB() {
-        return dreamCruiseCB();
     }
 
     // [DBFlute-0.9.6.3]

@@ -453,6 +453,24 @@ public class BsMemberLoginCB extends AbstractConditionBean {
         }
     }
 
+    // ===================================================================================
+    //                                                                        Dream Cruise
+    //                                                                        ============
+    /**
+     * Welcome to the Dream Cruise for condition-bean deep world. <br>
+     * This is very specialty so you can get the frontier spirit. Bon voyage!
+     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
+     */
+    public MemberLoginCB dreamCruiseCB() {
+        MemberLoginCB cb = new MemberLoginCB();
+        cb.xsetupForDreamCruise((MemberLoginCB) this);
+        return cb;
+    }
+
+    protected ConditionBean xdoCreateDreamCruiseCB() {
+        return dreamCruiseCB();
+    }
+
     // [DBFlute-0.9.5.3]
     // ===================================================================================
     //                                                                        Column Query
@@ -484,24 +502,6 @@ public class BsMemberLoginCB extends AbstractConditionBean {
         MemberLoginCB cb = new MemberLoginCB();
         cb.xsetupForColumnQuery((MemberLoginCB)this);
         return cb;
-    }
-
-    // ===================================================================================
-    //                                                                        Dream Cruise
-    //                                                                        ============
-    /**
-     * Welcome to the Dream Cruise for condition-bean deep world. <br>
-     * This is very specialty so you can get the frontier spirit. Bon voyage!
-     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
-     */
-    public MemberLoginCB dreamCruiseCB() {
-        MemberLoginCB cb = new MemberLoginCB();
-        cb.xsetupForDreamCruise((MemberLoginCB) this);
-        return cb;
-    }
-
-    protected ConditionBean xdoCreateDreamCruiseCB() {
-        return dreamCruiseCB();
     }
 
     // [DBFlute-0.9.6.3]

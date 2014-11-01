@@ -413,6 +413,24 @@ public class BsMemberSecurityCB extends AbstractConditionBean {
         }
     }
 
+    // ===================================================================================
+    //                                                                        Dream Cruise
+    //                                                                        ============
+    /**
+     * Welcome to the Dream Cruise for condition-bean deep world. <br>
+     * This is very specialty so you can get the frontier spirit. Bon voyage!
+     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
+     */
+    public MemberSecurityCB dreamCruiseCB() {
+        MemberSecurityCB cb = new MemberSecurityCB();
+        cb.xsetupForDreamCruise((MemberSecurityCB) this);
+        return cb;
+    }
+
+    protected ConditionBean xdoCreateDreamCruiseCB() {
+        return dreamCruiseCB();
+    }
+
     // [DBFlute-0.9.5.3]
     // ===================================================================================
     //                                                                        Column Query
@@ -444,24 +462,6 @@ public class BsMemberSecurityCB extends AbstractConditionBean {
         MemberSecurityCB cb = new MemberSecurityCB();
         cb.xsetupForColumnQuery((MemberSecurityCB)this);
         return cb;
-    }
-
-    // ===================================================================================
-    //                                                                        Dream Cruise
-    //                                                                        ============
-    /**
-     * Welcome to the Dream Cruise for condition-bean deep world. <br>
-     * This is very specialty so you can get the frontier spirit. Bon voyage!
-     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
-     */
-    public MemberSecurityCB dreamCruiseCB() {
-        MemberSecurityCB cb = new MemberSecurityCB();
-        cb.xsetupForDreamCruise((MemberSecurityCB) this);
-        return cb;
-    }
-
-    protected ConditionBean xdoCreateDreamCruiseCB() {
-        return dreamCruiseCB();
     }
 
     // [DBFlute-0.9.6.3]

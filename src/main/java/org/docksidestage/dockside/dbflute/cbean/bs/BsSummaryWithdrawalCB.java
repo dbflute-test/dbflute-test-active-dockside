@@ -339,6 +339,24 @@ public class BsSummaryWithdrawalCB extends AbstractConditionBean {
         protected String getTableDbName() { return "SUMMARY_WITHDRAWAL"; }
     }
 
+    // ===================================================================================
+    //                                                                        Dream Cruise
+    //                                                                        ============
+    /**
+     * Welcome to the Dream Cruise for condition-bean deep world. <br>
+     * This is very specialty so you can get the frontier spirit. Bon voyage!
+     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
+     */
+    public SummaryWithdrawalCB dreamCruiseCB() {
+        SummaryWithdrawalCB cb = new SummaryWithdrawalCB();
+        cb.xsetupForDreamCruise((SummaryWithdrawalCB) this);
+        return cb;
+    }
+
+    protected ConditionBean xdoCreateDreamCruiseCB() {
+        return dreamCruiseCB();
+    }
+
     // [DBFlute-0.9.5.3]
     // ===================================================================================
     //                                                                        Column Query
@@ -370,24 +388,6 @@ public class BsSummaryWithdrawalCB extends AbstractConditionBean {
         SummaryWithdrawalCB cb = new SummaryWithdrawalCB();
         cb.xsetupForColumnQuery((SummaryWithdrawalCB)this);
         return cb;
-    }
-
-    // ===================================================================================
-    //                                                                        Dream Cruise
-    //                                                                        ============
-    /**
-     * Welcome to the Dream Cruise for condition-bean deep world. <br>
-     * This is very specialty so you can get the frontier spirit. Bon voyage!
-     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
-     */
-    public SummaryWithdrawalCB dreamCruiseCB() {
-        SummaryWithdrawalCB cb = new SummaryWithdrawalCB();
-        cb.xsetupForDreamCruise((SummaryWithdrawalCB) this);
-        return cb;
-    }
-
-    protected ConditionBean xdoCreateDreamCruiseCB() {
-        return dreamCruiseCB();
     }
 
     // [DBFlute-0.9.6.3]

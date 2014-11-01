@@ -22,6 +22,49 @@ public class WxBhvInsertOrUpdateTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                               Basic
     //                                                                               =====
+    public void test_insertOrUpdate_basic() {
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberName("testName");
+        member.setMemberAccount("testAccount");
+        member.setMemberStatusCode_Formalized();
+
+        // ## Act ##
+        memberBhv.insertOrUpdate(member);
+        member.setMemberName("testName2");
+        memberBhv.insertOrUpdate(member);
+
+        // ## Assert ##
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(member.getMemberId());
+        });
+
+        log(actual);
+        assertEquals("testName2", actual.getMemberName());
+    }
+
+    public void test_insertOrUpdate_nonstrict() {
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberName("testName");
+        member.setMemberAccount("testAccount");
+        member.setMemberStatusCode_Formalized();
+
+        // ## Act ##
+        memberBhv.insertOrUpdateNonstrict(member);
+        member.setMemberName("testName2");
+        member.setVersionNo(null);
+        memberBhv.insertOrUpdateNonstrict(member);
+
+        // ## Assert ##
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(member.getMemberId());
+        });
+
+        log(actual);
+        assertEquals("testName2", actual.getMemberName());
+    }
+
     public void test_insertOrUpdate_insert_noPK() throws Exception {
         // ## Arrange ##
         Member member = new Member();

@@ -34,7 +34,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_sepcify_derivedReferrer_OneToManyToMany_max_basic() {
         // ## Arrange ##
-        Integer formalizedMax = memberStatusBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberStatusCB>() {
+        Integer formalizedMax = memberStatusBhv.selectScalar(Integer.class).max(new ScalarQuery<MemberStatusCB>() {
             public void query(MemberStatusCB cb) {
                 cb.specify().derivedMember().max(new SubQuery<MemberCB>() {
                     public void query(MemberCB subCB) {
@@ -50,7 +50,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                 cb.query().setMemberStatusCode_Equal_Formalized();
             }
         }).get();
-        Integer provisinalMax = memberStatusBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberStatusCB>() {
+        Integer provisinalMax = memberStatusBhv.selectScalar(Integer.class).max(new ScalarQuery<MemberStatusCB>() {
             public void query(MemberStatusCB cb) {
                 cb.specify().derivedMember().max(new SubQuery<MemberCB>() {
                     public void query(MemberCB subCB) {
@@ -66,7 +66,7 @@ public class WxCBDerivedReferrerNestedTest extends UnitContainerTestCase {
                 cb.query().setMemberStatusCode_Equal_Provisional();
             }
         }).get();
-        Integer withdrawalMax = memberStatusBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberStatusCB>() {
+        Integer withdrawalMax = memberStatusBhv.selectScalar(Integer.class).max(new ScalarQuery<MemberStatusCB>() {
             public void query(MemberStatusCB cb) {
                 cb.specify().derivedMember().max(new SubQuery<MemberCB>() {
                     public void query(MemberCB subCB) {

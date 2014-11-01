@@ -1,9 +1,14 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.genbafit;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.exception.FixedConditionParameterNotFoundException;
 import org.dbflute.optional.OptionalEntity;
+import org.docksidestage.dockside.dbflute.cbean.MemberAddressCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -57,6 +62,79 @@ public class WxCBBizOneToOneTest extends UnitContainerTestCase {
             fail();
         } catch (FixedConditionParameterNotFoundException e) {
             log(e.getMessage());
+        }
+    }
+
+    // ===================================================================================
+    //                                                                               Query
+    //                                                                               =====
+    public void test_BizOneToOne_setupSelect() {
+        // ## Arrange ##
+        LocalDate targetDate = toLocalDate("2015/12/12");
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberAddressAsValid(targetDate);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        log("[" + targetDate + "]");
+        for (Member member : memberList) {
+            String memberName = member.getMemberName();
+            member.getMemberAddressAsValid().ifPresent(address -> {
+                assertNotNull(address.getValidBeginDate());
+                assertNotNull(address.getValidEndDate());
+                LocalDate validBeginDate = address.getValidBeginDate();
+                LocalDate validEndDate = address.getValidEndDate();
+                assertTrue(validBeginDate.compareTo(targetDate) <= 0);
+                assertTrue(validEndDate.compareTo(targetDate) >= 0);
+                log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address.getAddress());
+                markHere("existsAddress");
+            }).orElse(() -> {
+                log(memberName + ", null");
+            });
+        }
+        assertMarked("existsAddress");
+        assertFalse(popCB().toDisplaySql().contains("where")); // not use where clause
+    }
+
+    public void test_BizOneToOne_query() {
+        // ## Arrange ##
+        final LocalDate targetDate = toLocalDate("2005/12/12");
+        final String targetChar = "i";
+
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().queryMemberAddressAsValid(targetDate).setAddress_LikeSearch(targetChar, op -> op.likeContain());
+            cb.query().queryMemberAddressAsValid(targetDate).addOrderBy_Address_Asc();
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        assertFalse(memberList.isEmpty());
+        memberBhv.loadMemberAddress(memberList, new ConditionBeanSetupper<MemberAddressCB>() {
+            public void setup(MemberAddressCB cb) {
+                cb.query().setAddress_LikeSearch(targetChar, op -> op.likeContain());
+                cb.query().setValidBeginDate_LessEqual(targetDate);
+                cb.query().setValidEndDate_GreaterEqual(targetDate);
+            }
+        });
+        log("[" + targetDate + "]");
+        for (Member member : memberList) {
+            assertFalse(member.getMemberAddressAsValid().isPresent());
+            List<MemberAddress> memberAddressList = member.getMemberAddressList();
+            assertEquals(1, memberAddressList.size());
+            MemberAddress firstAddress = memberAddressList.get(0);
+            String memberName = member.getMemberName();
+            LocalDate validBeginDate = firstAddress.getValidBeginDate();
+            LocalDate validEndDate = firstAddress.getValidEndDate();
+            String address = firstAddress.getAddress();
+            log(memberName + ", " + validBeginDate + ", " + validEndDate + ", " + address);
+            assertTrue(firstAddress.getAddress().contains(targetChar));
         }
     }
 

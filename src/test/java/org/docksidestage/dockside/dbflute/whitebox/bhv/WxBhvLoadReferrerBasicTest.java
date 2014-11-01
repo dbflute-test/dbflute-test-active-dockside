@@ -13,10 +13,12 @@ import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberAddress;
+import org.docksidestage.dockside.dbflute.exentity.MemberLogin;
 import org.docksidestage.dockside.dbflute.exentity.MemberSecurity;
 import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
 import org.docksidestage.dockside.dbflute.exentity.MemberWithdrawal;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
+import org.docksidestage.dockside.dbflute.exentity.PurchasePayment;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -34,7 +36,58 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                               Basic
     //                                                                               =====
-    public void test_loadReferrer_one_entity() {
+    public void test_LoadReferrer_basic() { // one-to-many
+        // ## Arrange ##
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().addOrderBy_Birthdate_Desc();
+        });
+        memberBhv.load(memberList, memberLoader -> {
+            memberLoader.loadMemberLogin(loginCB -> {
+                loginCB.query().setMobileLoginFlg_Equal_False();
+                loginCB.query().addOrderBy_LoginDatetime_Desc();
+            });
+            memberLoader.loadPurchase(purchaseCB -> {
+                purchaseCB.setupSelect_Product();
+                purchaseCB.query().addOrderBy_PurchaseDatetime_Desc();
+            }).withNestedReferrer(purchaseLoader -> {
+                purchaseLoader.loadPurchasePayment(paymentCB -> {
+                    paymentCB.query().setPaymentMethodCode_Equal_BankTransfer();
+                    paymentCB.query().addOrderBy_PaymentDatetime_Desc();
+                });
+            });
+        });
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        for (Member member : memberList) {
+            log(member.getMemberId(), member.getMemberName());
+            List<MemberLogin> loginList = member.getMemberLoginList();
+            for (MemberLogin login : loginList) {
+                log("  " + login);
+                assertFalse(login.isMobileLoginFlgTrue());
+                markHere("login exists");
+            }
+            List<Purchase> purchaseList = member.getPurchaseList();
+            for (Purchase purchase : purchaseList) {
+                log("  " + purchase);
+                assertNotNull(purchase.getProduct()); // setupSelect
+                markHere("purchase exists");
+                List<PurchasePayment> paymentList = purchase.getPurchasePaymentList();
+                for (PurchasePayment payment : paymentList) {
+                    log("    " + payment);
+                    assertTrue(payment.isPaymentMethodCodeBankTransfer());
+                    markHere("payment exists");
+                }
+            }
+            assertHasZeroElement(member.getMemberAddressList()); // not loaded
+        }
+        assertMarked("login exists");
+        assertMarked("purchase exists");
+        assertMarked("payment exists");
+    }
+
+    public void test_LoadReferrer_one_entity() {
         // ## Arrange ##
         memberBhv.selectEntity(cb -> {
             cb.query().setMemberId_Equal(3);
@@ -58,7 +111,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         });
     }
 
-    public void test_loadReferrer_loadReferrerReferrer() {
+    public void test_LoadReferrer_loadReferrerReferrer() {
         // ## Arrange ##
         // A base table is MemberStatus at this test case.
         memberStatusBhv.selectEntity(cb -> {
@@ -93,7 +146,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         });
     }
 
-    public void test_loadReferrer_union_querySynchronization() {
+    public void test_LoadReferrer_union_querySynchronization() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
@@ -145,7 +198,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                    Case Insensitive
     //                                                                    ================
-    public void test_loadReferrer_caseInsensitive_basic() {
+    public void test_LoadReferrer_caseInsensitive_basic() {
         // ## Arrange ##
         List<MemberStatus> statusList = new ArrayList<MemberStatus>();
         {
@@ -178,7 +231,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                       SpecifyColumn
     //                                                                       =============
-    public void test_loadReferrer_with_SpecifyColumn_noFK() {
+    public void test_LoadReferrer_with_SpecifyColumn_noFK() {
         // ## Arrange ##
         Member member = memberBhv.selectEntity(cb -> {
             cb.query().setMemberId_Equal(3);
@@ -214,7 +267,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                             Illegal
     //                                                                             =======
-    public void test_loadReferrer_null_entity() {
+    public void test_LoadReferrer_null_entity() {
         // ## Arrange ##
         try {
             // ## Act ##
@@ -233,7 +286,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_loadReferrer_null_primaryKey() {
+    public void test_LoadReferrer_null_primaryKey() {
         // ## Arrange ##
         try {
             // ## Act ##
@@ -255,7 +308,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                            Pull out
     //                                                                            ========
-    public void test_loadReferrer_pulloutMember() {
+    public void test_LoadReferrer_pulloutMember() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             cb.setupSelect_MemberStatus();

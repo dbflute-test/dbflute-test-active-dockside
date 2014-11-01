@@ -1,8 +1,11 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.query;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.result.PagingResultBean;
 import org.dbflute.cbean.scoping.SubQuery;
@@ -21,6 +24,7 @@ import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.SummaryWithdrawalBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
+import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.dbflute.exentity.SummaryWithdrawal;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
@@ -327,6 +331,189 @@ public class WxCBUnionQueryTest extends UnitContainerTestCase {
             assertNotNull(withdrawal.getMemberStatusCode());
             assertNull(withdrawal.xznocheckGetWithdrawalDatetime());
             assertNonSpecifiedAccess(() -> withdrawal.getWithdrawalDatetime());
+        }
+    }
+
+    // ===================================================================================
+    //                                                                             Various
+    //                                                                             =======
+    /**
+     * Unionのループによる不定数設定: for { cb.union() }.
+     */
+    public void test_selectList_union_LoopIndefiniteSetting() {
+        // ## Arrange ##
+        String keywordDelimiterString = "S M D";
+        List<String> keywordList = Arrays.asList(keywordDelimiterString.split(" "));
+
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+
+            boolean first = true;
+            for (final String keyword : keywordList) {
+                if (first) {
+                    cb.query().setMemberAccount_LikeSearch(keyword, op -> op.likePrefix());
+                    first = false;
+                    continue;
+                }
+                cb.union(new UnionQuery<MemberCB>() {
+                    public void query(MemberCB unionCB) {
+                        unionCB.query().setMemberAccount_LikeSearch(keyword, op -> op.likePrefix());
+                    }
+                });
+            }
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        log("/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ");
+        assertFalse(memberList.isEmpty());
+        for (Member member : memberList) {
+            String memberName = member.getMemberName();
+            String memberAccount = member.getMemberAccount();
+            log(memberName + "(" + memberAccount + ")");
+            assertTrue("Unexpected memberAccount = " + memberAccount, memberAccount.startsWith("S") || memberAccount.startsWith("M")
+                    || memberAccount.startsWith("D"));
+        }
+        log("* * * * * * * * * */");
+    }
+
+    /**
+     * Unionを使ったページング検索: union(), selectPage().
+     * 絞り込み条件は「退会会員であること」もしくは「１５００円以上の購入をしたことがある」。
+     * 「誕生日の降順＆会員IDの昇順」で並べて、１ページを３件としてページング検索。
+     * <pre>
+     * selectPage()だけでページングの基本が全て実行される：
+     *   1. ページングなし件数取得
+     *   2. ページング実データ検索
+     *   3. ページング結果計算処理
+     * 
+     * PagingResultBeanから様々な要素が取得可能：
+     *   o ページングなし総件数
+     *   o 現在ページ番号
+     *   o 総ページ数
+     *   o 前ページの有無判定
+     *   o 次ページの有無判定
+     *   o ページングナビゲーション要素ページリスト
+     *   o などなど
+     * </pre>
+     */
+    public void test_selectPage_union_existsSubQuery() {
+        // ## Arrange ##
+        int fetchSize = 3;
+        PagingResultBean<Member> page1 = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            arrangeUnionForPaging(cb);
+            cb.paging(fetchSize, 1);
+        });
+        PagingResultBean<Member> page2 = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            arrangeUnionForPaging(cb);
+            cb.paging(fetchSize, 2);
+        });
+        PagingResultBean<Member> page3 = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            arrangeUnionForPaging(cb);
+            cb.paging(fetchSize, 3);
+        });
+        PagingResultBean<Member> lastPage = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            arrangeUnionForPaging(cb);
+            cb.paging(fetchSize, page1.getAllPageCount());
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        showPage(page1, page2, page3, lastPage);
+        assertEquals(fetchSize, page1.size());
+        assertEquals(fetchSize, page2.size());
+        assertEquals(fetchSize, page3.size());
+        assertNotSame(page1.get(0).getMemberId(), page2.get(0).getMemberId());
+        assertNotSame(page2.get(0).getMemberId(), page3.get(0).getMemberId());
+        assertNotSame(page3.get(0).getMemberId(), lastPage.get(0).getMemberId());
+        assertEquals(1, page1.getCurrentPageNumber());
+        assertEquals(2, page2.getCurrentPageNumber());
+        assertEquals(3, page3.getCurrentPageNumber());
+        assertEquals(page1.getAllPageCount(), lastPage.getCurrentPageNumber());
+        assertEquals(page1.getAllRecordCount(), page2.getAllRecordCount());
+        assertEquals(page2.getAllRecordCount(), page3.getAllRecordCount());
+        assertEquals(page3.getAllRecordCount(), lastPage.getAllRecordCount());
+        assertEquals(page1.getAllPageCount(), page2.getAllPageCount());
+        assertEquals(page2.getAllPageCount(), page3.getAllPageCount());
+        assertEquals(page3.getAllPageCount(), lastPage.getAllPageCount());
+        assertFalse(page1.existsPreviousPage());
+        assertTrue(page1.existsNextPage());
+        assertTrue(lastPage.existsPreviousPage());
+        assertFalse(lastPage.existsNextPage());
+
+        ConditionBeanSetupper<PurchaseCB> setupper = cb -> cb.query().setPurchasePrice_GreaterEqual(1500);
+        memberBhv.loadPurchase(page1, setupper);
+        memberBhv.loadPurchase(page2, setupper);
+        memberBhv.loadPurchase(page3, setupper);
+        memberBhv.loadPurchase(lastPage, setupper);
+        SelectPageUnionExistsReferrerAssertBoolean bl = new SelectPageUnionExistsReferrerAssertBoolean();
+        findTarget_of_selectPage_union_existsSubQuery(page1, bl);
+        findTarget_of_selectPage_union_existsSubQuery(page2, bl);
+        findTarget_of_selectPage_union_existsSubQuery(page3, bl);
+        findTarget_of_selectPage_union_existsSubQuery(lastPage, bl);
+        assertTrue(bl.existssWithdrawalOnly());
+        assertTrue(bl.existssPurchasePriceOnly());
+
+        log("/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ");
+        log(ln() + popCB().toDisplaySql());
+        log("* * * * * * * * * */");
+    }
+
+    protected void arrangeUnionForPaging(MemberCB cb) {
+        cb.query().setMemberStatusCode_Equal_Withdrawal();
+        cb.union(new UnionQuery<MemberCB>() {
+            public void query(MemberCB unionCB) {
+                unionCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
+                    public void query(PurchaseCB subCB) {
+                        subCB.query().setPurchasePrice_GreaterEqual(1500);
+                    }
+                });
+            }
+        });
+        cb.query().addOrderBy_Birthdate_Desc().addOrderBy_MemberId_Asc();
+    }
+
+    protected void findTarget_of_selectPage_union_existsSubQuery(PagingResultBean<Member> memberPage,
+            SelectPageUnionExistsReferrerAssertBoolean bl) {
+        for (Member member : memberPage) {
+            List<Purchase> purchaseList = member.getPurchaseList();
+            boolean existsPurchaseTarget = false;
+            for (Purchase purchase : purchaseList) {
+                if (purchase.getPurchasePrice() >= 1500) {
+                    existsPurchaseTarget = true;
+                }
+            }
+            if (!existsPurchaseTarget && member.isMemberStatusCodeWithdrawal()) {
+                bl.setExistsWithdrawalOnly(true);
+            } else if (existsPurchaseTarget && !member.isMemberStatusCodeWithdrawal()) {
+                bl.setExistsPurchasePriceOnly(true);
+            }
+        }
+    }
+
+    protected static class SelectPageUnionExistsReferrerAssertBoolean {
+        protected boolean existsWithdrawalOnly = false;
+        protected boolean existsPurchasePriceOnly = false;
+
+        public boolean existssWithdrawalOnly() {
+            return existsWithdrawalOnly;
+        }
+
+        public void setExistsWithdrawalOnly(boolean existsWithdrawalOnly) {
+            this.existsWithdrawalOnly = existsWithdrawalOnly;
+        }
+
+        public boolean existssPurchasePriceOnly() {
+            return existsPurchasePriceOnly;
+        }
+
+        public void setExistsPurchasePriceOnly(boolean existsPurchasePriceOnly) {
+            this.existsPurchasePriceOnly = existsPurchasePriceOnly;
         }
     }
 

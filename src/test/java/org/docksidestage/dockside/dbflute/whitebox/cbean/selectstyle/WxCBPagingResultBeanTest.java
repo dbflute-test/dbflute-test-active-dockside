@@ -70,14 +70,14 @@ public class WxCBPagingResultBeanTest extends UnitContainerTestCase {
         {
             {
                 PageRangeBean pageRange = page2.pageRange(op -> op.rangeSize(2));
-                boolean existsPre = pageRange.isExistPrePageRange();
-                boolean existsNext = pageRange.isExistNextPageRange();
+                boolean existsPre = pageRange.existsPreviousRange();
+                boolean existsNext = pageRange.existsNextRange();
                 log("    page2: " + existsPre + " " + pageRange.createPageNumberList() + " " + existsNext);
             }
             {
                 PageRangeBean pageRange = page3.pageRange(op -> op.rangeSize(2));
-                boolean existsPre = pageRange.isExistPrePageRange();
-                boolean existsNext = pageRange.isExistNextPageRange();
+                boolean existsPre = pageRange.existsPreviousRange();
+                boolean existsNext = pageRange.existsNextRange();
                 log("    page3: " + existsPre + " " + pageRange.createPageNumberList() + " " + existsNext);
             }
             log("PagingResultBean.toString():" + ln() + " " + page2 + ln() + " " + page3);
@@ -87,14 +87,14 @@ public class WxCBPagingResultBeanTest extends UnitContainerTestCase {
         {
             {
                 PageRangeBean pageRange = page2.pageRange(op -> op.rangeSize(2).fillLimit());
-                boolean existsPre = pageRange.isExistPrePageRange();
-                boolean existsNext = pageRange.isExistNextPageRange();
+                boolean existsPre = pageRange.existsPreviousRange();
+                boolean existsNext = pageRange.existsNextRange();
                 log("    page2: " + existsPre + " " + pageRange.createPageNumberList() + " " + existsNext);
             }
             {
                 PageRangeBean pageRange = page3.pageRange(op -> op.rangeSize(2).fillLimit());
-                boolean existsPre = pageRange.isExistPrePageRange();
-                boolean existsNext = pageRange.isExistNextPageRange();
+                boolean existsPre = pageRange.existsPreviousRange();
+                boolean existsNext = pageRange.existsNextRange();
                 log("    page3: " + existsPre + " " + pageRange.createPageNumberList() + " " + existsNext);
             }
             log("PagingResultBean.toString():" + ln() + " " + page2 + ln() + " " + page3);
@@ -104,14 +104,14 @@ public class WxCBPagingResultBeanTest extends UnitContainerTestCase {
         {
             {
                 PageGroupBean pageGroup = page2.pageGroup(op -> op.groupSize(2));
-                boolean existsPre = pageGroup.isExistPrePageGroup();
-                boolean existsNext = pageGroup.isExistNextPageGroup();
+                boolean existsPre = pageGroup.existsPreviousGroup();
+                boolean existsNext = pageGroup.existsNextGroup();
                 log("    page2: " + existsPre + " " + pageGroup.createPageNumberList() + " " + existsNext);
             }
             {
                 PageGroupBean pageGroup = page3.pageGroup(op -> op.groupSize(2));
-                boolean existsPre = pageGroup.isExistPrePageGroup();
-                boolean existsNext = pageGroup.isExistNextPageGroup();
+                boolean existsPre = pageGroup.existsPreviousGroup();
+                boolean existsNext = pageGroup.existsNextGroup();
                 log("    page3: " + existsPre + " " + pageGroup.createPageNumberList() + " " + existsNext);
             }
             log("PagingResultBean.toString():" + ln() + " " + page2 + ln() + " " + page3);

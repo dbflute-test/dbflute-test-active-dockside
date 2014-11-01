@@ -30,6 +30,46 @@ public class WxCBManualOrderPriorityOrderTest extends UnitContainerTestCase {
     private MemberBhv memberBhv;
 
     // ===================================================================================
+    //                                                                               Basic
+    //                                                                               =====
+    public void test_PriorityOrder_basic() {
+        // ## Arrange ##
+        // 1966 to 1968 ordered in front (also contains 1968/12/31)
+        LocalDate fromDate = toLocalDate("1966-01-01");
+        LocalDate toDate = toLocalDate("1968-01-01");
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().addOrderBy_Birthdate_Asc().withManualOrder(op -> {
+                op.when_FromTo(fromDate, toDate, fr -> fr.compareAsYear());
+            });
+            cb.query().addOrderBy_MemberId_Asc();
+        });
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        LocalDate toNextYear = toDate.plusYears(1);
+        boolean passedBorder = false;
+        for (Member member : memberList) {
+            LocalDate birthdate = member.getBirthdate();
+            log(birthdate, member.getMemberId());
+            if (birthdate != null && birthdate.compareTo(fromDate) >= 0 && birthdate.compareTo(toNextYear) < 0) {
+                assertFalse(passedBorder);
+            } else {
+                passedBorder = true;
+            }
+        }
+        assertTrue(passedBorder);
+
+        // [SQL]
+        //  order by 
+        //    case
+        //      when dfloc.BIRTHDATE >= '1966-01-01' and dfloc.BIRTHDATE < '1969-01-01' then 0
+        //      else 1
+        //    end asc, dfloc.MEMBER_ID asc
+    }
+
+    // ===================================================================================
     //                                                                   And/Or Connection
     //                                                                   =================
     public void test_PriorityOrder_AndOrConnection_basic() {

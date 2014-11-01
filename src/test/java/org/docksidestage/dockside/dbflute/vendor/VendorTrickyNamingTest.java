@@ -18,7 +18,7 @@ import org.docksidestage.dockside.unit.UnitContainerTestCase;
  * @author jflute
  * @since 0.9.7.2 (2010/06/15 Tuesday)
  */
-public class VendorNameTest extends UnitContainerTestCase {
+public class VendorTrickyNamingTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute

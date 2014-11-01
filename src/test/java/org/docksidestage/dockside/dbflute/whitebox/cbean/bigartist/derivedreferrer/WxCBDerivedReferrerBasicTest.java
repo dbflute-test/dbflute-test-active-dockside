@@ -105,6 +105,33 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
         assertTrue(exists);
     }
 
+    // -----------------------------------------------------
+    //                                       countDistinct()
+    //                                       ---------------
+    public void test_sepcify_derivedReferrer_countDistinct() {
+        // ## Arrange ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedPurchase().countDistinct(purchaseCB -> {
+                purchaseCB.specify().columnProductId();
+                purchaseCB.query().setPaymentCompleteFlg_Equal_True();
+            }, Member.ALIAS_productKindCount);
+            cb.query().addSpecifiedDerivedOrderBy_Desc(Member.ALIAS_productKindCount);
+            cb.query().addOrderBy_MemberId_Asc();
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        assertFalse(memberList.isEmpty());
+        for (Member member : memberList) {
+            String memberName = member.getMemberName();
+            Integer productKindCount = member.getProductKindCount();
+            assertNotNull(productKindCount);// count()なので0件の場合は0になる(DB次第かも...)
+            log("memberName=" + memberName + ", productKindCount=" + productKindCount);
+        }
+        assertTrue(popCB().toDisplaySql().contains("count(distinct"));
+    }
+
     // ===================================================================================
     //                                                                  one-to-many-to-one
     //                                                                  ==================

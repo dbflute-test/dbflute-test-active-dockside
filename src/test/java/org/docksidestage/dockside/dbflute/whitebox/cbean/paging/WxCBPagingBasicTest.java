@@ -42,8 +42,8 @@ public class WxCBPagingBasicTest extends UnitContainerTestCase {
         assertEquals(3, page3.getCurrentPageNumber());
         assertEquals(9, page3.getCurrentStartRecordNumber());
         assertEquals(12, page3.getCurrentEndRecordNumber());
-        assertTrue(page3.isExistPrePage());
-        assertTrue(page3.isExistNextPage());
+        assertTrue(page3.existsPreviousPage());
+        assertTrue(page3.existsNextPage());
     }
 
     public void test_paging_zeroResult() {
@@ -83,6 +83,19 @@ public class WxCBPagingBasicTest extends UnitContainerTestCase {
         assertEquals(1, page.getAllRecordCount());
         assertEquals(1, page.getAllPageCount());
         assertEquals(Integer.valueOf(3), page.get(0).getMemberId());
+    }
+
+    public void test_conditionBean_paging_disablePagingReSelect() {
+        // ## Arrange ##
+        PagingResultBean<Member> page99999 = memberBhv.selectPage(cb -> {
+            /* ## Act ## */
+            cb.query().addOrderBy_MemberName_Asc();
+            cb.paging(4, 99999);
+            cb.disablePagingReSelect();
+        });
+
+        // ## Assert ##
+        assertTrue(page99999.isEmpty());
     }
 
     // ===================================================================================
