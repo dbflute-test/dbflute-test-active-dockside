@@ -52,7 +52,8 @@ public class ServiceRankDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((ServiceRank)et).getServiceRankCode(), (et, vl) -> {
             ColumnInfo col = columnServiceRankCode();
             CDef.ServiceRank cls = (CDef.ServiceRank)gcls(col, vl);

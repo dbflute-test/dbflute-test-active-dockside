@@ -52,7 +52,8 @@ public class PrimaryKeyCommentDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((PrimaryKeyComment)et).getMemberId(), (et, vl) -> ((PrimaryKeyComment)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((PrimaryKeyComment)et).getMemberName(), (et, vl) -> ((PrimaryKeyComment)et).setMemberName((String)vl), "memberName");
         setupEpg(_epgMap, et -> ((PrimaryKeyComment)et).getRegisterDatetime(), (et, vl) -> ((PrimaryKeyComment)et).setRegisterDatetime((java.time.LocalDateTime)vl), "registerDatetime");

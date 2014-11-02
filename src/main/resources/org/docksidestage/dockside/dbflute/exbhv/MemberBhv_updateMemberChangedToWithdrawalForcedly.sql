@@ -1,4 +1,10 @@
-
+/*
+ [df:title]
+ Force Withdrawal Update
+ 
+ [df:description]
+ This SQL is normal update.
+*/
 -- !df:pmb!
 -- !!Timestamp formalizedDatetime!!
 -- !!AutoDetect!!

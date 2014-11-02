@@ -52,7 +52,8 @@ public class VendorTheLongAndWindingTableAndColumnDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumn)et).getTheLongAndWindingTableAndColumnId(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumn)et).setTheLongAndWindingTableAndColumnId(ctl(vl)), "theLongAndWindingTableAndColumnId");
         setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumn)et).getTheLongAndWindingTableAndColumnName(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumn)et).setTheLongAndWindingTableAndColumnName((String)vl), "theLongAndWindingTableAndColumnName");
         setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumn)et).getShortName(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumn)et).setShortName((String)vl), "shortName");

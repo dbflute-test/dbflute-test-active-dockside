@@ -53,7 +53,8 @@ public class ProductCategoryDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((ProductCategory)et).getProductCategoryCode(), (et, vl) -> ((ProductCategory)et).setProductCategoryCode((String)vl), "productCategoryCode");
         setupEpg(_epgMap, et -> ((ProductCategory)et).getProductCategoryName(), (et, vl) -> ((ProductCategory)et).setProductCategoryName((String)vl), "productCategoryName");
         setupEpg(_epgMap, et -> ((ProductCategory)et).getParentCategoryCode(), (et, vl) -> ((ProductCategory)et).setParentCategoryCode((String)vl), "parentCategoryCode");

@@ -52,7 +52,8 @@ public class RegionDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((Region)et).getRegionId(), (et, vl) -> {
             ColumnInfo col = columnRegionId();
             CDef.Region cls = (CDef.Region)gcls(col, vl);

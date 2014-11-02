@@ -52,7 +52,8 @@ public class VendorDoubleByteOnSqlDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((VendorDoubleByteOnSql)et).getMemberId(), (et, vl) -> ((VendorDoubleByteOnSql)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((VendorDoubleByteOnSql)et).getMemberNameWithSpace(), (et, vl) -> ((VendorDoubleByteOnSql)et).setMemberNameWithSpace((String)vl), "memberNameWithSpace");
         setupEpg(_epgMap, et -> ((VendorDoubleByteOnSql)et).getMemberStatusName(), (et, vl) -> ((VendorDoubleByteOnSql)et).setMemberStatusName((String)vl), "memberStatusName");

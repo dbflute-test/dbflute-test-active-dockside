@@ -52,7 +52,8 @@ public class SummaryWithdrawalDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((SummaryWithdrawal)et).getMemberId(), (et, vl) -> ((SummaryWithdrawal)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((SummaryWithdrawal)et).getMemberName(), (et, vl) -> ((SummaryWithdrawal)et).setMemberName((String)vl), "memberName");
         setupEpg(_epgMap, et -> ((SummaryWithdrawal)et).getWithdrawalReasonCode(), (et, vl) -> ((SummaryWithdrawal)et).setWithdrawalReasonCode((String)vl), "withdrawalReasonCode");

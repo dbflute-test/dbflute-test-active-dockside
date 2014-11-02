@@ -52,7 +52,8 @@ public class PmCommentHintDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((PmCommentHint)et).getMemberId(), (et, vl) -> ((PmCommentHint)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((PmCommentHint)et).getMemberName(), (et, vl) -> ((PmCommentHint)et).setMemberName((String)vl), "memberName");
     }

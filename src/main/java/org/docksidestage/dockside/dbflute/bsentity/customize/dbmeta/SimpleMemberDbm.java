@@ -52,7 +52,8 @@ public class SimpleMemberDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((SimpleMember)et).getMemberId(), (et, vl) -> ((SimpleMember)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((SimpleMember)et).getMemberName(), (et, vl) -> ((SimpleMember)et).setMemberName((String)vl), "memberName");
         setupEpg(_epgMap, et -> ((SimpleMember)et).getBirthdate(), (et, vl) -> ((SimpleMember)et).setBirthdate((java.time.LocalDate)vl), "birthdate");

@@ -52,7 +52,8 @@ public class CommonColumnMemberDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((CommonColumnMember)et).getMemberId(), (et, vl) -> ((CommonColumnMember)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((CommonColumnMember)et).getMemberName(), (et, vl) -> ((CommonColumnMember)et).setMemberName((String)vl), "memberName");
         setupEpg(_epgMap, et -> ((CommonColumnMember)et).getRegisterDatetime(), (et, vl) -> ((CommonColumnMember)et).setRegisterDatetime((java.time.LocalDateTime)vl), "registerDatetime");

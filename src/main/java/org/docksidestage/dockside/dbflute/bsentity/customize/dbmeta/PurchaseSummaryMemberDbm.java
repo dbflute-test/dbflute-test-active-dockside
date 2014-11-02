@@ -52,7 +52,8 @@ public class PurchaseSummaryMemberDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((PurchaseSummaryMember)et).getMemberId(), (et, vl) -> ((PurchaseSummaryMember)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((PurchaseSummaryMember)et).getMemberName(), (et, vl) -> ((PurchaseSummaryMember)et).setMemberName((String)vl), "memberName");
         setupEpg(_epgMap, et -> ((PurchaseSummaryMember)et).getBirthdate(), (et, vl) -> ((PurchaseSummaryMember)et).setBirthdate((java.time.LocalDate)vl), "birthdate");

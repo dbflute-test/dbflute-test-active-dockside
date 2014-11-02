@@ -137,7 +137,6 @@ public class SpecialtySelectTest extends UnitContainerTestCase {
             /* cb.query().queryMemberWithdrawalAsOne().inline().setWithdrawalReasonCode_IsNotNull(); */
 
             cb.query().queryMemberWithdrawalAsOne().addOrderBy_WithdrawalDatetime_Desc();
-            pushCB(cb);
         });
 
         // ## Assert ##

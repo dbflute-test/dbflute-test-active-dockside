@@ -52,7 +52,8 @@ public class UnpaidSummaryMemberDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((UnpaidSummaryMember)et).getUnpaidManId(), (et, vl) -> ((UnpaidSummaryMember)et).setUnpaidManId(cti(vl)), "unpaidManId");
         setupEpg(_epgMap, et -> ((UnpaidSummaryMember)et).getUnpaidManName(), (et, vl) -> ((UnpaidSummaryMember)et).setUnpaidManName((String)vl), "unpaidManName");
         setupEpg(_epgMap, et -> ((UnpaidSummaryMember)et).getUnpaidPriceSummary(), (et, vl) -> ((UnpaidSummaryMember)et).setUnpaidPriceSummary(ctl(vl)), "unpaidPriceSummary");

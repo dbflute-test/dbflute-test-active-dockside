@@ -52,7 +52,8 @@ public class SubDirectoryCheckDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((SubDirectoryCheck)et).getMemberId(), (et, vl) -> ((SubDirectoryCheck)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((SubDirectoryCheck)et).getMemberName(), (et, vl) -> ((SubDirectoryCheck)et).setMemberName((String)vl), "memberName");
         setupEpg(_epgMap, et -> ((SubDirectoryCheck)et).getMemberStatusName(), (et, vl) -> ((SubDirectoryCheck)et).setMemberStatusName((String)vl), "memberStatusName");

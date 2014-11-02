@@ -52,7 +52,8 @@ public class VendorPrimaryKeyOnlyDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((VendorPrimaryKeyOnly)et).getPrimaryKeyOnlyId(), (et, vl) -> ((VendorPrimaryKeyOnly)et).setPrimaryKeyOnlyId(ctl(vl)), "primaryKeyOnlyId");
     }
     public PropertyGateway findPropertyGateway(String prop)

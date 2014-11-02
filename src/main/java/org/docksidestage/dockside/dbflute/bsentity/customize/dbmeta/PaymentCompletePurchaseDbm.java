@@ -52,7 +52,8 @@ public class PaymentCompletePurchaseDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((PaymentCompletePurchase)et).getPurchaseId(), (et, vl) -> ((PaymentCompletePurchase)et).setPurchaseId(ctl(vl)), "purchaseId");
         setupEpg(_epgMap, et -> ((PaymentCompletePurchase)et).getMemberId(), (et, vl) -> ((PaymentCompletePurchase)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((PaymentCompletePurchase)et).getMemberName(), (et, vl) -> ((PaymentCompletePurchase)et).setMemberName((String)vl), "memberName");

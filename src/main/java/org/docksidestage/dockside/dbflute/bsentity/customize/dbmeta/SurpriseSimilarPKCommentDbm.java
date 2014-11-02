@@ -52,7 +52,8 @@ public class SurpriseSimilarPKCommentDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getMemberId(), (et, vl) -> ((SurpriseSimilarPKComment)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getMemberName(), (et, vl) -> ((SurpriseSimilarPKComment)et).setMemberName((String)vl), "memberName");
         setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getRegisterDatetime(), (et, vl) -> ((SurpriseSimilarPKComment)et).setRegisterDatetime((java.time.LocalDateTime)vl), "registerDatetime");

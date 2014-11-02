@@ -52,7 +52,8 @@ public class PurchaseMaxPriceMemberDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((PurchaseMaxPriceMember)et).getMemberId(), (et, vl) -> ((PurchaseMaxPriceMember)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((PurchaseMaxPriceMember)et).getMemberName(), (et, vl) -> ((PurchaseMaxPriceMember)et).setMemberName((String)vl), "memberName");
         setupEpg(_epgMap, et -> ((PurchaseMaxPriceMember)et).getPurchaseMaxPrice(), (et, vl) -> ((PurchaseMaxPriceMember)et).setPurchaseMaxPrice(cti(vl)), "purchaseMaxPrice");

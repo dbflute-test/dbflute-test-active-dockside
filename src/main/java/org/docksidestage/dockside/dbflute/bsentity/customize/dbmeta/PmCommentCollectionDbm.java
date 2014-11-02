@@ -52,7 +52,8 @@ public class PmCommentCollectionDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((PmCommentCollection)et).getMemberId(), (et, vl) -> ((PmCommentCollection)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((PmCommentCollection)et).getMemberName(), (et, vl) -> ((PmCommentCollection)et).setMemberName((String)vl), "memberName");
     }

@@ -52,7 +52,8 @@ public class Vendor$DollarDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((Vendor$Dollar)et).getVendor$DollarId(), (et, vl) -> ((Vendor$Dollar)et).setVendor$DollarId(cti(vl)), "vendor$DollarId");
         setupEpg(_epgMap, et -> ((Vendor$Dollar)et).getVendor$DollarName(), (et, vl) -> ((Vendor$Dollar)et).setVendor$DollarName((String)vl), "vendor$DollarName");
     }

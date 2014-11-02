@@ -53,7 +53,8 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getTheLongAndWindingTableAndColumnRefId(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setTheLongAndWindingTableAndColumnRefId(ctl(vl)), "theLongAndWindingTableAndColumnRefId");
         setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getTheLongAndWindingTableAndColumnId(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setTheLongAndWindingTableAndColumnId(ctl(vl)), "theLongAndWindingTableAndColumnId");
         setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getTheLongAndWindingTableAndColumnRefDate(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setTheLongAndWindingTableAndColumnRefDate((java.time.LocalDate)vl), "theLongAndWindingTableAndColumnRefDate");

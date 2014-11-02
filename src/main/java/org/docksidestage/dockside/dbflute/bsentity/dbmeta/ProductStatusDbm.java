@@ -52,7 +52,8 @@ public class ProductStatusDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((ProductStatus)et).getProductStatusCode(), (et, vl) -> {
             ColumnInfo col = columnProductStatusCode();
             CDef.ProductStatus cls = (CDef.ProductStatus)gcls(col, vl);

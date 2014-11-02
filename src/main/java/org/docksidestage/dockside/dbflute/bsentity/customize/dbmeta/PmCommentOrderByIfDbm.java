@@ -52,7 +52,8 @@ public class PmCommentOrderByIfDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((PmCommentOrderByIf)et).getMemberId(), (et, vl) -> ((PmCommentOrderByIf)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((PmCommentOrderByIf)et).getMemberName(), (et, vl) -> ((PmCommentOrderByIf)et).setMemberName((String)vl), "memberName");
         setupEpg(_epgMap, et -> ((PmCommentOrderByIf)et).getMemberAccount(), (et, vl) -> ((PmCommentOrderByIf)et).setMemberAccount((String)vl), "memberAccount");

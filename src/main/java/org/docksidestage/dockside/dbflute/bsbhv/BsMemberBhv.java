@@ -87,6 +87,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     public static final String PATH_selectSimpleMember = "selectSimpleMember";
     /** Example for AutoPaging */
     public static final String PATH_selectUnpaidSummaryMember = "selectUnpaidSummaryMember";
+    /** Force Withdrawal Update */
     public static final String PATH_updateMemberChangedToWithdrawalForcedly = "updateMemberChangedToWithdrawalForcedly";
     public static final String PATH_subdirectory_selectSubDirectoryCheck = "subdirectory:selectSubDirectoryCheck";
     public static final String PATH_whitebox_cmentity_selectCommonColumnMember = "whitebox:cmentity:selectCommonColumnMember";
@@ -190,7 +191,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
-    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)).orElseNull(); }
+    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)).orElse(null); }
 
     /**
      * Select the entity by the condition-bean with deleted check. <br>

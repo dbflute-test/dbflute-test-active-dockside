@@ -52,7 +52,8 @@ public class UndetectableClassificationHintDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((UndetectableClassificationHint)et).getMemberId(), (et, vl) -> ((UndetectableClassificationHint)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((UndetectableClassificationHint)et).getMemberStatusCode(), (et, vl) -> {
             ColumnInfo col = columnMemberStatusCode();

@@ -3,6 +3,7 @@ package org.docksidestage.dockside.dbflute.vendor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.dbflute.cbean.result.ListResultBean;
@@ -108,6 +109,9 @@ public class VendorDataTypeTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                           Date Type
     //                                                                           =========
+    // -----------------------------------------------------
+    //                                                  DATE
+    //                                                  ----
     public void test_DATE_HHmmss_conditionBean() { // *Important!
         // ## Arrange ##
         Member member = new Member();
@@ -224,13 +228,58 @@ public class VendorDataTypeTest extends UnitContainerTestCase {
     }
 
     // -----------------------------------------------------
+    //                                               DATE BC
+    //                                               -------
+    public void test_DATE_BC_date() {
+        // ## Arrange ##
+        Member member = memberBhv.selectEntity(cb -> {
+            cb.query().setBirthdate_IsNotNull();
+            cb.fetchFirst(1);
+            cb.addOrderBy_PK_Asc();
+        }).get();
+        member.setBirthdate(toLocalDate("BC1234/12/25"));
+
+        // ## Act ##
+        memberBhv.update(member);
+
+        // ## Assert ##
+        Member actual = memberBhv.selectByPK(member.getMemberId()).get();
+        LocalDate birthdate = actual.getBirthdate();
+        log(birthdate, birthdate.getYear(), birthdate.getMonth(), birthdate.getDayOfMonth());
+        assertTrue(DfTypeUtil.isDateBC(toDate(birthdate))); // can handle BC date
+        String formatted = toString(birthdate, "yyyy/MM/dd");
+        assertEquals("1234/12/25", formatted);
+    }
+
+    public void test_DATE_BC_datetime() {
+        // ## Arrange ##
+        Member member = memberBhv.selectEntity(cb -> {
+            cb.query().setFormalizedDatetime_IsNotNull();
+            cb.fetchFirst(1);
+            cb.addOrderBy_PK_Asc();
+        }).get();
+        member.setFormalizedDatetime(toLocalDateTime("BC1234/12/25 12:34:56.147"));
+
+        // ## Act ##
+        memberBhv.update(member);
+
+        // ## Assert ##
+        Member actual = memberBhv.selectByPK(member.getMemberId()).get();
+        LocalDateTime formalizedDatetime = actual.getFormalizedDatetime();
+        log(formalizedDatetime);
+        assertTrue(DfTypeUtil.isDateBC(toDate(formalizedDatetime))); // can handle BC date
+        String formatted = toString(formalizedDatetime, "yyyy/MM/dd");
+        assertEquals("1234/12/25", formatted);
+    }
+
+    // -----------------------------------------------------
     //                                                  TIME
     //                                                  ----
     public void test_TIME_insert_and_query() {
         // ## Arrange ##
-        LocalTime specifiedTime = DfTypeUtil.toLocalTime("2002/06/15 12:34:56", getFinalTimeZone());
-        LocalTime oneSecondBeforeTime = DfTypeUtil.toLocalTime("2002/06/15 12:34:55", getFinalTimeZone());
-        LocalTime oneSecondAfterTime = DfTypeUtil.toLocalTime("2002/06/15 12:34:57", getFinalTimeZone());
+        LocalTime specifiedTime = DfTypeUtil.toLocalTime("2002/06/15 12:34:56", getUnitTimeZone());
+        LocalTime oneSecondBeforeTime = DfTypeUtil.toLocalTime("2002/06/15 12:34:55", getUnitTimeZone());
+        LocalTime oneSecondAfterTime = DfTypeUtil.toLocalTime("2002/06/15 12:34:57", getUnitTimeZone());
 
         VendorCheck vendorCheck = createVendorCheck();
         vendorCheck.setTypeOfTime(specifiedTime);
