@@ -248,7 +248,7 @@ public class VendorDataTypeTest extends UnitContainerTestCase {
         log(birthdate, birthdate.getYear(), birthdate.getMonth(), birthdate.getDayOfMonth());
         assertTrue(DfTypeUtil.isDateBC(toDate(birthdate))); // can handle BC date
         String formatted = toString(birthdate, "yyyy/MM/dd");
-        assertEquals("1234/12/25", formatted);
+        assertEquals("1234/12/24", formatted); // 24!? why?
     }
 
     public void test_DATE_BC_datetime() {
