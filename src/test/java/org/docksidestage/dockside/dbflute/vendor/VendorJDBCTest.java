@@ -22,7 +22,6 @@ import org.dbflute.exception.EntityAlreadyUpdatedException;
 import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlLogHandler;
 import org.dbflute.hook.SqlLogInfo;
-import org.dbflute.jdbc.StatementConfig;
 import org.dbflute.utflute.core.cannonball.CannonballOption;
 import org.dbflute.util.DfCollectionUtil;
 import org.dbflute.util.DfTypeUtil;
@@ -190,7 +189,7 @@ public class VendorJDBCTest extends UnitContainerTestCase {
                 member2.setMemberAccount("same"); // same value to wait for lock
                 member2.setMemberStatusCode_Formalized();
                 sleep(1000);
-                memberBhv.varyingInsert(member2, op -> op.configure(new StatementConfig().queryTimeout(1)));
+                memberBhv.varyingInsert(member2, op -> op.configure(conf -> conf.queryTimeout(1)));
             }
         }, new CannonballOption().threadCount(2).expectExceptionAny("timed out"));
     }

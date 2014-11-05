@@ -2,7 +2,6 @@ package org.docksidestage.dockside.dbflute.whitebox.outsidesql;
 
 import java.util.List;
 
-import org.dbflute.jdbc.StatementConfig;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.SimpleMemberPmb;
 import org.docksidestage.dockside.dbflute.exentity.customize.SimpleMember;
@@ -26,10 +25,10 @@ public class WxOutsideSqlConfigureTest extends UnitContainerTestCase {
         // ## Arrange ##
         SimpleMemberPmb pmb = new SimpleMemberPmb();
         pmb.setMemberName_PrefixSearch("S");
-        StatementConfig statementConfig = new StatementConfig().typeForwardOnly().queryTimeout(7).maxRows(2);
 
         // ## Act ##
-        List<SimpleMember> memberList = memberBhv.outsideSql().configure(statementConfig).selectList(pmb);
+        List<SimpleMember> memberList =
+                memberBhv.outsideSql().configure(conf -> conf.typeForwardOnly().queryTimeout(7).maxRows(2)).selectList(pmb);
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());

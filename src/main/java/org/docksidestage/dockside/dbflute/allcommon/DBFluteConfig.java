@@ -124,14 +124,6 @@ public class DBFluteConfig {
     private DBFluteConfig() { // adjusts default settings
         _physicalConnectionDigger = new ImplementedPhysicalConnectionDigger();
         _sqlExceptionDigger = new ImplementedSQLExceptionDigger();
-
-        if (isCurrentDBDef(DBDef.Oracle)) {
-            // date formatting has two points:
-            //   o the DATE type of Oracle has seconds  
-            //   o it uses a date literal of Oracle
-            _logDatePattern = "timestamp $df:{yyyy-MM-dd HH:mm:ss}";
-            _logTimestampPattern = "timestamp $df:{" + DisplaySqlBuilder.DEFAULT_TIMESTAMP_FORMAT + "}";
-        }
     }
 
     // ===================================================================================
@@ -857,4 +849,5 @@ public class DBFluteConfig {
     protected String xTms() { return Timestamp.class.getName(); }
     protected String xDSc() { return DataSource.class.getName(); }
     protected String xSQLEx() { return SQLException.class.getName(); }
+    protected String xDSqB() { return DisplaySqlBuilder.class.getName(); }
 }

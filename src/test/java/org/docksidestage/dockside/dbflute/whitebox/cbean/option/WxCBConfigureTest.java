@@ -1,7 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.option;
 
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.jdbc.StatementConfig;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -18,7 +17,7 @@ public class WxCBConfigureTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.configure(new StatementConfig().typeForwardOnly().queryTimeout(7).fetchSize(4).maxRows(3));
+            cb.configure(conf -> conf.typeForwardOnly().queryTimeout(7).fetchSize(4).maxRows(3));
         });
 
         // ## Assert ##
