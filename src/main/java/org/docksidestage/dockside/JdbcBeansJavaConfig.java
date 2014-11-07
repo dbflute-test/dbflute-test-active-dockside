@@ -41,7 +41,7 @@ public class JdbcBeansJavaConfig {
     @Bean(name = { "dataSource" })
     public DataSource createDataSource() {
         BasicDataSource ds = new BasicDataSource();
-        ds.setDriverClassName(org.h2.Driver.class.getName());
+        ds.setDriverClassName("org.h2.Driver");
         ds.setUrl(maihamaDbUrl);
         ds.setUsername("sa");
         ds.setPassword("");

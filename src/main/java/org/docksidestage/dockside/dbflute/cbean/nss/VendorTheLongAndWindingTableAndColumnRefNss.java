@@ -26,7 +26,7 @@ public class VendorTheLongAndWindingTableAndColumnRefNss {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected VendorTheLongAndWindingTableAndColumnRefCQ _query;
+    protected final VendorTheLongAndWindingTableAndColumnRefCQ _query;
     public VendorTheLongAndWindingTableAndColumnRefNss(VendorTheLongAndWindingTableAndColumnRefCQ query) { _query = query; }
     public boolean hasConditionQuery() { return _query != null; }
 

@@ -389,7 +389,8 @@ public class BsSummaryProductCB extends AbstractConditionBean {
          */
         public HpSDRFunction<PurchaseCB, SummaryProductCQ> derivedPurchase() {
             assertDerived("purchaseList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsderivePurchaseList(fn, sq, al, op), _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<PurchaseCB> sq, SummaryProductCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderivePurchaseList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -397,7 +398,8 @@ public class BsSummaryProductCB extends AbstractConditionBean {
          */
         public HpSDRFunction<SummaryProductCB, SummaryProductCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<SummaryProductCB> sq, SummaryProductCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
 

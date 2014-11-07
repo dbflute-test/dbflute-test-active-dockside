@@ -76,10 +76,10 @@ public class UnpaidSummaryMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnUnpaidManId = cci("UNPAID_MAN_ID", "UNPAID_MAN_ID", null, "会員ID", Integer.class, "unpaidManId", null, true, false, false, "INTEGER", 10, 0, null, false, null, "連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。", null, null, null);
-    protected final ColumnInfo _columnUnpaidManName = cci("UNPAID_MAN_NAME", "UNPAID_MAN_NAME", null, "会員名称", String.class, "unpaidManName", null, false, false, false, "VARCHAR", 200, 0, null, false, null, "会員のフルネームの名称。\n苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。", null, null, null);
+    protected final ColumnInfo _columnUnpaidManId = cci("UNPAID_MAN_ID", "UNPAID_MAN_ID", null, "会員ID", Integer.class, "unpaidManId", null, true, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnUnpaidManName = cci("UNPAID_MAN_NAME", "UNPAID_MAN_NAME", null, "会員名称", String.class, "unpaidManName", null, false, false, false, "VARCHAR", 200, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnUnpaidPriceSummary = cci("UNPAID_PRICE_SUMMARY", "UNPAID_PRICE_SUMMARY", null, null, Long.class, "unpaidPriceSummary", null, false, false, false, "BIGINT", 10, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnStatusName = cci("STATUS_NAME", "STATUS_NAME", null, "会員ステータス名称", String.class, "statusName", null, false, false, false, "VARCHAR", 50, 0, null, false, null, "表示用の名称。\n国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。", null, null, null);
+    protected final ColumnInfo _columnStatusName = cci("STATUS_NAME", "STATUS_NAME", null, "会員ステータス名称", String.class, "statusName", null, false, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
 
     /**
      * (会員ID)UNPAID_MAN_ID: {PK, INTEGER(10), refers to MEMBER.MEMBER_ID}

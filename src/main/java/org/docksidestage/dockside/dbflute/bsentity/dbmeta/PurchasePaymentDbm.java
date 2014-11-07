@@ -100,17 +100,15 @@ public class PurchasePaymentDbm extends AbstractDBMeta {
     public TableSqlName getTableSqlName() { return _tableSqlName; }
     protected final String _tableAlias = "購入支払";
     public String getTableAlias() { return _tableAlias; }
-    protected final String _tableComment = "購入に対する支払。\n分割払いもできるのでmanyとなり、会員からの孫テーブルのテストができてうれしい。";
-    public String getTableComment() { return _tableComment; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnPurchasePaymentId = cci("PURCHASE_PAYMENT_ID", "PURCHASE_PAYMENT_ID", null, "購入支払ID", Long.class, "purchasePaymentId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_152DBFA5_191C_43C0_A5CF_AC89A7448D1B", false, null, "連番", null, null, null);
-    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, "購入ID", Long.class, "purchaseId", null, false, false, true, "BIGINT", 19, 0, null, false, null, "支払い対象の購入へのID", "purchase", null, null);
-    protected final ColumnInfo _columnPaymentAmount = cci("PAYMENT_AMOUNT", "PAYMENT_AMOUNT", null, "支払金額", java.math.BigDecimal.class, "paymentAmount", null, false, false, true, "DECIMAL", 10, 2, null, false, null, "支払った金額。さて、小数点なのはなぜでしょう？", null, null, null);
-    protected final ColumnInfo _columnPaymentDatetime = cci("PAYMENT_DATETIME", "PAYMENT_DATETIME", null, "支払日時", java.time.LocalDateTime.class, "paymentDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, "支払ったときの日時", null, null, null);
-    protected final ColumnInfo _columnPaymentMethodCode = cci("PAYMENT_METHOD_CODE", "PAYMENT_METHOD_CODE", null, "支払方法コード", String.class, "paymentMethodCode", null, false, false, true, "CHAR", 3, 0, null, false, null, "手渡しや銀行振込など", null, null, CDef.DefMeta.PaymentMethod);
+    protected final ColumnInfo _columnPurchasePaymentId = cci("PURCHASE_PAYMENT_ID", "PURCHASE_PAYMENT_ID", null, "購入支払ID", Long.class, "purchasePaymentId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_7F63FC31_971C_41E5_8834_3F8BDBAB1054", false, null, null, null, null, null);
+    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, "購入ID", Long.class, "purchaseId", null, false, false, true, "BIGINT", 19, 0, null, false, null, null, "purchase", null, null);
+    protected final ColumnInfo _columnPaymentAmount = cci("PAYMENT_AMOUNT", "PAYMENT_AMOUNT", null, "支払金額", java.math.BigDecimal.class, "paymentAmount", null, false, false, true, "DECIMAL", 10, 2, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnPaymentDatetime = cci("PAYMENT_DATETIME", "PAYMENT_DATETIME", null, "支払日時", java.time.LocalDateTime.class, "paymentDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnPaymentMethodCode = cci("PAYMENT_METHOD_CODE", "PAYMENT_METHOD_CODE", null, "支払方法コード", String.class, "paymentMethodCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, null, null, CDef.DefMeta.PaymentMethod);
     protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnRegisterUser = cci("REGISTER_USER", "REGISTER_USER", null, null, String.class, "registerUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);

@@ -86,15 +86,13 @@ public class ProductCategoryDbm extends AbstractDBMeta {
     public TableSqlName getTableSqlName() { return _tableSqlName; }
     protected final String _tableAlias = "商品カテゴリ";
     public String getTableAlias() { return _tableAlias; }
-    protected final String _tableComment = "商品のカテゴリを表現するマスタ。自己参照FKの階層になっている。";
-    public String getTableComment() { return _tableComment; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnProductCategoryCode = cci("PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", null, "商品カテゴリコード", String.class, "productCategoryCode", null, true, false, true, "CHAR", 3, 0, null, false, null, "自分のテーブルの別のレコードからも参照される。", null, "productList,productCategorySelfList", null);
+    protected final ColumnInfo _columnProductCategoryCode = cci("PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", null, "商品カテゴリコード", String.class, "productCategoryCode", null, true, false, true, "CHAR", 3, 0, null, false, null, null, null, "productList,productCategorySelfList", null);
     protected final ColumnInfo _columnProductCategoryName = cci("PRODUCT_CATEGORY_NAME", "PRODUCT_CATEGORY_NAME", null, "商品カテゴリ名称", String.class, "productCategoryName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnParentCategoryCode = cci("PARENT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", null, "親カテゴリコード", String.class, "parentCategoryCode", null, false, false, false, "CHAR", 3, 0, null, false, null, "最上位の場合はデータなし。まさひく自己参照FKカラム！", "productCategorySelf", null, null);
+    protected final ColumnInfo _columnParentCategoryCode = cci("PARENT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", null, "親カテゴリコード", String.class, "parentCategoryCode", null, false, false, false, "CHAR", 3, 0, null, false, null, null, "productCategorySelf", null, null);
 
     /**
      * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}

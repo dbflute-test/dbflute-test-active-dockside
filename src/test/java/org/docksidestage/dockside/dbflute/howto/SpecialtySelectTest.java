@@ -61,7 +61,7 @@ public class SpecialtySelectTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                       ConditionBean
     //                                                                       =============
-    // TODO jflute specialty select
+    // TODO jflute example: specialty select
     // -----------------------------------------------------
     //                                         SpecifyColumn
     //                                         -------------

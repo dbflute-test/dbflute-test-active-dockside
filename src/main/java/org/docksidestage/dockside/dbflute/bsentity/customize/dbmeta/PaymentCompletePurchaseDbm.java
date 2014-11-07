@@ -79,11 +79,11 @@ public class PaymentCompletePurchaseDbm extends AbstractDBMeta {
     //                                                                         Column Info
     //                                                                         ===========
     protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, null, Long.class, "purchaseId", null, false, false, false, "BIGINT", 19, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, false, "INTEGER", 10, 0, null, false, null, "会員を参照するID。\n購入を識別する自然キー(複合ユニーク制約)の筆頭要素。", null, null, null);
-    protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, "会員名称", String.class, "memberName", null, false, false, false, "VARCHAR", 200, 0, null, false, null, "会員のフルネームの名称。\n苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。", null, null, null);
-    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, "商品ID", Integer.class, "productId", null, false, false, false, "INTEGER", 10, 0, null, false, null, "あなたは何を買ったのか？", null, null, null);
-    protected final ColumnInfo _columnProductName = cci("PRODUCT_NAME", "PRODUCT_NAME", null, "商品名称", String.class, "productName", null, false, false, false, "VARCHAR", 50, 0, null, false, null, "ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。\n実業務ではしっかりとコメントを入れることが強く強く推奨される。「よりによってこのテーブルでやらないでよ！」あわわ、何も聞こえません〜", null, null, null);
-    protected final ColumnInfo _columnPurchaseDatetime = cci("PURCHASE_DATETIME", "PURCHASE_DATETIME", null, "購入日時", java.time.LocalDateTime.class, "purchaseDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, "購入した瞬間の日時。", null, null, null);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, "会員名称", String.class, "memberName", null, false, false, false, "VARCHAR", 200, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, "商品ID", Integer.class, "productId", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnProductName = cci("PRODUCT_NAME", "PRODUCT_NAME", null, "商品名称", String.class, "productName", null, false, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnPurchaseDatetime = cci("PURCHASE_DATETIME", "PURCHASE_DATETIME", null, "購入日時", java.time.LocalDateTime.class, "purchaseDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null);
 
     /**
      * PURCHASE_ID: {BIGINT(19), refers to PURCHASE.PURCHASE_ID}

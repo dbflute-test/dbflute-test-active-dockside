@@ -101,16 +101,14 @@ public class MemberServiceDbm extends AbstractDBMeta {
     public TableSqlName getTableSqlName() { return _tableSqlName; }
     protected final String _tableAlias = "会員サービス";
     public String getTableAlias() { return _tableAlias; }
-    protected final String _tableComment = "会員のサービス情報（ポイントサービスなど）。\nテストケースのために、あえて統一性を崩してユニーク制約経由の one-to-one を表現している。";
-    public String getTableComment() { return _tableComment; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberServiceId = cci("MEMBER_SERVICE_ID", "MEMBER_SERVICE_ID", null, "会員サービスID", Integer.class, "memberServiceId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_71A6C414_D45F_4F4E_8409_DECD9CBBD3E1", false, null, "独立した主キーとなるが、実質的に会員IDとは one-to-one である。", null, null, null);
-    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, "会員を参照するID。ユニークなので、会員とは one-to-one の関係に。", "member", null, null);
-    protected final ColumnInfo _columnServicePointCount = cci("SERVICE_POINT_COUNT", "SERVICE_POINT_COUNT", null, "サービスポイント数", Integer.class, "servicePointCount", null, false, false, true, "INTEGER", 10, 0, null, false, null, "購入したら増えて使ったら減る。", null, null, null);
-    protected final ColumnInfo _columnServiceRankCode = cci("SERVICE_RANK_CODE", "SERVICE_RANK_CODE", null, "サービスランクコード", String.class, "serviceRankCode", null, false, false, true, "CHAR", 3, 0, null, false, null, "どんなランクがあるのかドキドキですね。", "serviceRank", null, CDef.DefMeta.ServiceRank);
+    protected final ColumnInfo _columnMemberServiceId = cci("MEMBER_SERVICE_ID", "MEMBER_SERVICE_ID", null, "会員サービスID", Integer.class, "memberServiceId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_97D0FD28_64E8_47D8_83A9_52E6EC0DD765", false, null, null, null, null, null);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
+    protected final ColumnInfo _columnServicePointCount = cci("SERVICE_POINT_COUNT", "SERVICE_POINT_COUNT", null, "サービスポイント数", Integer.class, "servicePointCount", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnServiceRankCode = cci("SERVICE_RANK_CODE", "SERVICE_RANK_CODE", null, "サービスランクコード", String.class, "serviceRankCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "serviceRank", null, CDef.DefMeta.ServiceRank);
     protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnRegisterUser = cci("REGISTER_USER", "REGISTER_USER", null, null, String.class, "registerUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);

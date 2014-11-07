@@ -22,6 +22,7 @@
 # o shortCharHandlingMode: (NotRequired - Default NONE)
 # o quoteTableNameList: (NotRequired - Default list:{})
 # o quoteColumnNameList: (NotRequired - Default list:{})
+# o columnNullObjectMap: (NotRequired - Default map:{})
 # o relationalNullObjectMap: (NotRequired - Default map:{})
 # o cursorSelectFetchSize: (NotRequired - Default null)
 #
@@ -301,6 +302,21 @@ map:{
     #  Specified columns is quoted on auto-generated SQL.
     #
     #; quoteColumnNameList = list:{}
+    # - - - - - - - - - -/
+
+    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # o columnNullObjectMap: (NotRequired - Default map:{})
+    #  You can get a null object when the column is null.
+    #
+    #; columnNullObjectMap = map:{
+    #    ; providerPackage = $$packageBase$$.nogen.cache
+    #    ; isGearedToSpecifyColumn = true
+    #    ; tableColumnMap = map:{
+    #        ; MEMBER_STATUS = map:{
+    #            ; DESCRIPTION = CachedMemberStatus.get(this, "$$columnName$$", $$primaryKey$$)
+    #        }
+    #    }
+    #}
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

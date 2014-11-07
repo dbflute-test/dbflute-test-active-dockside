@@ -1,5 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.specifycolumn;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import org.dbflute.cbean.result.ListResultBean;
@@ -133,6 +134,35 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertNull(member.xznocheckGetUpdateUser());
             assertNull(member.xznocheckGetVersionNo());
             assertEquals(3, member.myspecifiedProperties().size()); // PK and account and setupSelect
+        }
+    }
+
+    public void test_NonSpecifiedAccess_basePointOnly_manualSet() {
+        // ## Arrange ##
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberStatus();
+            cb.specify().columnMemberAccount();
+        });
+
+        // ## Assert ##
+        assertFalse(memberList.isEmpty());
+        for (Member member : memberList) {
+            assertNotNull(member.getMemberId());
+            assertNotNull(member.getMemberAccount());
+            assertNotNull(member.getMemberStatusCode());
+            assertEquals(3, member.myspecifiedProperties().size());
+            member.setMemberName("manual");
+            assertEquals("manual", member.getMemberName());
+            assertNonSpecifiedAccess(() -> member.getBirthdate());
+            assertEquals(4, member.myspecifiedProperties().size());
+            LocalDate currentDate = currentLocalDate();
+            member.setBirthdate(currentDate);
+            assertEquals(currentDate, member.getBirthdate());
+            assertEquals(5, member.myspecifiedProperties().size());
+
+            log(member.toString()); // expected no exception
+            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
         }
     }
 

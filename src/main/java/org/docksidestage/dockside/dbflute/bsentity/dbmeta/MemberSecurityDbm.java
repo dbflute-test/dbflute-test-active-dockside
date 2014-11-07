@@ -93,17 +93,15 @@ public class MemberSecurityDbm extends AbstractDBMeta {
     public TableSqlName getTableSqlName() { return _tableSqlName; }
     protected final String _tableAlias = "会員セキュリティ情報";
     public String getTableAlias() { return _tableAlias; }
-    protected final String _tableComment = "会員とは one-to-one で、会員一人につき必ず一つのセキュリティ情報がある";
-    public String getTableComment() { return _tableComment; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, true, false, true, "INTEGER", 10, 0, null, false, null, "そのまま one-to-one を構成するためのFKとなる。", "member", null, null);
-    protected final ColumnInfo _columnLoginPassword = cci("LOGIN_PASSWORD", "LOGIN_PASSWORD", null, "ログインパスワード", String.class, "loginPassword", null, false, false, true, "VARCHAR", 50, 0, null, false, null, "ログイン時に利用するパスワード。\n本当は良くないが、Exampleなのでひとまず暗号化していない。", null, null, null);
-    protected final ColumnInfo _columnReminderQuestion = cci("REMINDER_QUESTION", "REMINDER_QUESTION", null, "リマインダ質問", String.class, "reminderQuestion", null, false, false, true, "VARCHAR", 50, 0, null, false, null, "パスワードを忘れた際のリマインダ機能における質問の内容。", null, null, null);
-    protected final ColumnInfo _columnReminderAnswer = cci("REMINDER_ANSWER", "REMINDER_ANSWER", null, "リマインダ回答", String.class, "reminderAnswer", null, false, false, true, "VARCHAR", 50, 0, null, false, null, "パスワードを忘れた際のリマインダ機能における質問の答え。", null, null, null);
-    protected final ColumnInfo _columnReminderUseCount = cci("REMINDER_USE_COUNT", "REMINDER_USE_COUNT", null, "リマインダ利用回数", Integer.class, "reminderUseCount", null, false, false, true, "INTEGER", 10, 0, null, false, null, "リマインダを利用した回数。\nこれが多いと忘れっぽい会員と言えるが、そんなことを知ってもしょうがない。", null, null, null);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, true, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null);
+    protected final ColumnInfo _columnLoginPassword = cci("LOGIN_PASSWORD", "LOGIN_PASSWORD", null, "ログインパスワード", String.class, "loginPassword", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnReminderQuestion = cci("REMINDER_QUESTION", "REMINDER_QUESTION", null, "リマインダ質問", String.class, "reminderQuestion", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnReminderAnswer = cci("REMINDER_ANSWER", "REMINDER_ANSWER", null, "リマインダ回答", String.class, "reminderAnswer", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnReminderUseCount = cci("REMINDER_USE_COUNT", "REMINDER_USE_COUNT", null, "リマインダ利用回数", Integer.class, "reminderUseCount", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null);
     protected final ColumnInfo _columnRegisterDatetime = cci("REGISTER_DATETIME", "REGISTER_DATETIME", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnRegisterUser = cci("REGISTER_USER", "REGISTER_USER", null, null, String.class, "registerUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null);
     protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null);

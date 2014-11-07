@@ -82,16 +82,14 @@ public class MemberStatusDbm extends AbstractDBMeta {
     public TableSqlName getTableSqlName() { return _tableSqlName; }
     protected final String _tableAlias = "会員ステータス";
     public String getTableAlias() { return _tableAlias; }
-    protected final String _tableComment = "会員のステータスを示す固定的なマスタテーブル。いわゆるテーブル区分値！\n業務運用上で増えることはなく、増減するときはプログラム修正ともなうレベルの業務変更と考えられる。\n\nこういった固定的なマスタテーブルには、更新日時などの共通カラムは定義していないが、業務上そういった情報を管理する必要性が低いという理由に加え、ExampleDBとして共通カラムでER図が埋め尽くされてしまい見づらくなるというところで割り切っている。実業務では統一的に定義することもある。";
-    public String getTableComment() { return _tableComment; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, "会員ステータスコード", String.class, "memberStatusCode", null, true, false, true, "CHAR", 3, 0, null, false, null, "会員ステータスを識別するコード。\n固定的なデータなので連番とか番号にはせず、データを直接見たときも人が直感的にわかるように、例えば \"FML\" とかの３桁のコード形式にしている。(3って何会員だっけ？とかの問答をやりたくないので)", null, "memberList,memberLoginList", CDef.DefMeta.MemberStatus);
-    protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, "会員ステータス名称", String.class, "memberStatusName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, "表示用の名称。\n国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。", null, null, null);
-    protected final ColumnInfo _columnDescription = cci("DESCRIPTION", "DESCRIPTION", null, "説明", String.class, "description", null, false, false, true, "VARCHAR", 200, 0, null, false, null, "会員ステータスそれぞれの説明。\n区分値の一つ一つの要素に気の利いた説明があるとディベロッパーがとても助かるので絶対に欲しい。", null, null, null);
-    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, "表示順", Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, false, null, "UI上のステータスの表示順を示すNO。\n並べるときは、このカラムに対して昇順のソート条件にする。", null, null, null);
+    protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, "会員ステータスコード", String.class, "memberStatusCode", null, true, false, true, "CHAR", 3, 0, null, false, null, null, null, "memberList,memberLoginList", CDef.DefMeta.MemberStatus);
+    protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, "会員ステータス名称", String.class, "memberStatusName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnDescription = cci("DESCRIPTION", "DESCRIPTION", null, "説明", String.class, "description", null, false, false, true, "VARCHAR", 200, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, "表示順", Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null);
 
     /**
      * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}

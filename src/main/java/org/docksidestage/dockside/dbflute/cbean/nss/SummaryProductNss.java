@@ -26,7 +26,7 @@ public class SummaryProductNss {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected SummaryProductCQ _query;
+    protected final SummaryProductCQ _query;
     public SummaryProductNss(SummaryProductCQ query) { _query = query; }
     public boolean hasConditionQuery() { return _query != null; }
 

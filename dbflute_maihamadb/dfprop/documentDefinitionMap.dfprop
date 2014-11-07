@@ -84,17 +84,17 @@ map:{
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isEntityJavaDocDbCommentValid (NotRequired - Default 'false')
+    # o isEntityJavaDocDbCommentValid (NotRequired - Default true)
     #  Does it allow DB comment to be on java-doc?
     #
-    ; isEntityJavaDocDbCommentValid = true
+    #; isEntityJavaDocDbCommentValid = true
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isEntityDBMetaDbCommentValid (NotRequired - Default 'false')
+    # o isEntityDBMetaDbCommentValid (NotRequired - Default false)
     #  Does it allow DB comment to be on DB meta of entity?
     #
-    ; isEntityDBMetaDbCommentValid = true
+    #; isEntityDBMetaDbCommentValid = false
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -143,7 +143,7 @@ map:{
     # o isCheckProcedureDiff (NotRequired - Default false)
     #  Does it check differences of procedures?
     #
-    ; isCheckProcedureDiff = true
+    #; isCheckProcedureDiff = false
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
