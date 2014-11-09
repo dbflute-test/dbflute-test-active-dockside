@@ -129,7 +129,7 @@ public class VendorDataTypeTest extends UnitContainerTestCase {
 
             // ## Assert ##
             LocalDate actualValue = actual.getBirthdate();
-            String formatted = DfTypeUtil.toStringLocalDate(actualValue, "yyyy/MM/dd");
+            String formatted = DfTypeUtil.toStringDate(actualValue, "yyyy/MM/dd");
             log("actualValue = " + formatted);
             assertEquals("2008/06/15", formatted);
         }
@@ -141,7 +141,7 @@ public class VendorDataTypeTest extends UnitContainerTestCase {
 
             // ## Assert ##
             LocalDate actualValue = actual.getBirthdate();
-            String formatted = DfTypeUtil.toStringLocalDate(actualValue, "yyyy/MM/dd");
+            String formatted = DfTypeUtil.toStringDate(actualValue, "yyyy/MM/dd");
             log("actualValue = " + formatted);
             assertEquals("2008/06/15", formatted);
         }
@@ -153,7 +153,7 @@ public class VendorDataTypeTest extends UnitContainerTestCase {
 
             // ## Assert ##
             LocalDate actualValue = actual.getBirthdate();
-            String formatted = DfTypeUtil.toStringLocalDate(actualValue, "yyyy/MM/dd");
+            String formatted = DfTypeUtil.toStringDate(actualValue, "yyyy/MM/dd");
             log("actualValue = " + formatted);
             assertEquals("2008/06/15", formatted);
         }

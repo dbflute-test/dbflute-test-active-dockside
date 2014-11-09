@@ -16,7 +16,7 @@
 		<dbflute.version>1.1.0-pilotC-SNAPSHOT</dbflute.version>
 		<h2.jdbc.version>1.4.182</h2.jdbc.version>
 		<spring.version>4.1.1.RELEASE</spring.version>
-		<utflute.version>0.5.0-pilotB-SNAPSHOT</utflute.version>
+		<utflute.version>0.5.0-pilotC-SNAPSHOT</utflute.version>
 	</properties>
 
 	<licenses>
@@ -123,8 +123,7 @@
 				<artifactId>dbflute-maven-plugin</artifactId>
 				<version>1.0.0</version>
 				<configuration>
-					<dbfluteVersion>${dbflute.version}</dbfluteVersion>
-					<clientProject>exampledb</clientProject>
+					<clientProject>maihamadb</clientProject>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -140,19 +139,6 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-		</repository>
-		<repository>
-			<id>maven.seasar.org</id>
-			<name>The Seasar Foundation Maven2 Repository</name>
-			<url>http://maven.seasar.org/maven2</url>
-		</repository>
-		<repository>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<id>snapshot.maven.seasar.org</id>
-			<name>The Seasar Foundation Maven2 Snapshot Repository</name>
-			<url>http://maven.seasar.org/maven2-snapshot</url>
 		</repository>
 	</repositories>
 

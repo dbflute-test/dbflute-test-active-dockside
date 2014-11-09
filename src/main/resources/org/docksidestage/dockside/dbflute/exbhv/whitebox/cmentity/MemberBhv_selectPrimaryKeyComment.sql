@@ -1,3 +1,10 @@
+/*
+ [df:title]
+ primary key comment for customize-entity
+ 
+ [df:description]
+ see you tomorrow
+*/
 -- #df:entity#
 -- *MEMBER_ID*
 

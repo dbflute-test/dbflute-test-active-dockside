@@ -89,10 +89,15 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     public static final String PATH_selectUnpaidSummaryMember = "selectUnpaidSummaryMember";
     /** Force Withdrawal Update */
     public static final String PATH_updateMemberChangedToWithdrawalForcedly = "updateMemberChangedToWithdrawalForcedly";
+    /** The test of sub-directory outside-SQL */
     public static final String PATH_subdirectory_selectSubDirectoryCheck = "subdirectory:selectSubDirectoryCheck";
+    /** generating common-column of customize-entity */
     public static final String PATH_whitebox_cmentity_selectCommonColumnMember = "whitebox:cmentity:selectCommonColumnMember";
+    /** forced type of customize-entity */
     public static final String PATH_whitebox_cmentity_selectForcedType = "whitebox:cmentity:selectForcedType";
+    /** primary key comment for customize-entity */
     public static final String PATH_whitebox_cmentity_selectPrimaryKeyComment = "whitebox:cmentity:selectPrimaryKeyComment";
+    /** surprising comment that is similar to PK comment */
     public static final String PATH_whitebox_cmentity_selectSurpriseSimilarPKComment = "whitebox:cmentity:selectSurpriseSimilarPKComment";
     /** using Classification Hint */
     public static final String PATH_whitebox_cmentity_selectUndetectableClassificationHint = "whitebox:cmentity:selectUndetectableClassificationHint";

@@ -1,3 +1,10 @@
+/*
+ [df:title]
+ forced type of customize-entity
+ 
+ [df:description]
+ see you tomorrow
+*/
 -- #df:entity#
 -- ##java.math.BigInteger MAX_MEMBER_ID##
 

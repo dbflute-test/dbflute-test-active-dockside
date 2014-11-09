@@ -38,7 +38,7 @@ public class JdbcBeansJavaConfig {
     @Resource(name = "maihamaDbUrl")
     protected String maihamaDbUrl;
 
-    @Bean(name = { "dataSource" })
+    @Bean(name = "dataSource")
     public DataSource createDataSource() {
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName("org.h2.Driver");
@@ -49,7 +49,7 @@ public class JdbcBeansJavaConfig {
         return ds;
     }
 
-    @Bean(name = { "transactionManager" })
+    @Bean(name = "transactionManager")
     public PlatformTransactionManager createTransactionManager() {
         DataSourceTransactionManager manager = new DataSourceTransactionManager();
         manager.setDataSource(dataSource);

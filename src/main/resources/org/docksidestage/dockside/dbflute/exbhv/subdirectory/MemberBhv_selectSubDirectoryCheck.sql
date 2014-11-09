@@ -1,4 +1,10 @@
-
+/*
+ [df:title]
+ The test of sub-directory outside-SQL
+ 
+ [df:description]
+ see you tomorrow
+*/
 -- #df:entity#
 
 -- !df:pmb!

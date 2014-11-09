@@ -1,3 +1,10 @@
+/*
+ [df:title]
+ generating common-column of customize-entity
+ 
+ [df:description]
+ see you tomorrow
+*/
 -- #CommonColumnMember#
 
 select member.MEMBER_ID
