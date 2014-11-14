@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.exception.OutsideSqlNotFoundException;
+import org.dbflute.exception.ParameterCommentNotAllowedInitialCharacterException;
 import org.dbflute.outsidesql.irregular.IrgMapListCursorHandler;
 import org.dbflute.twowaysql.exception.BindVariableCommentNotFoundPropertyException;
 import org.dbflute.twowaysql.exception.EndCommentNotFoundException;
@@ -86,9 +87,20 @@ public class WxOutsideSqlIrregularTest extends UnitContainerTestCase {
             fail();
         } catch (IfCommentNotFoundPropertyException e) {
             log(e.getMessage());
-            if (!e.getMessage().contains("wrongMemberId")) {
-                fail();
-            }
+            assertTrue(e.getMessage().contains("wrongMemberId"));
+        }
+    }
+
+    public void test_outsideSql_ParameterFrequentlyMistakePattern() {
+        try {
+            String path = MemberBhv.PATH_whitebox_wrongexample_selectParameterFrequentlyMistakePattern;
+            SimpleMemberPmb pmb = new SimpleMemberPmb();
+            pmb.setMemberName_PrefixSearch("S");
+            memberBhv.outsideSql().traditionalStyle().selectList(path, pmb, Member.class);
+            fail();
+        } catch (ParameterCommentNotAllowedInitialCharacterException e) {
+            log(e.getMessage());
+            assertTrue(e.getMessage().contains("/* pmb."));
         }
     }
 
