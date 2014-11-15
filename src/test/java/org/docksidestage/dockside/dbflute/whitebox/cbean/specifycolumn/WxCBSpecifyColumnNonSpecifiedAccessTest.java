@@ -63,6 +63,41 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             log(member.toString()); // expected no exception
             log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
         }
+
+        // ## Arrange ##
+        memberBhv.selectCursor(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.specify().columnMemberAccount();
+            pushCB(cb);
+        }, member -> {
+            /* ## Assert ## */
+            assertNotNull(member.getMemberId());
+            assertNotNull(member.getMemberAccount());
+            assertNotNull(member.getMemberStatusCode());
+            member.isMemberStatusCodeFormalized(); /* expects no exception */
+            member.isMemberStatusCode_ServiceAvailable(); /* expects no exception */
+            assertNonSpecifiedAccess(() -> member.getMemberName());
+            assertNonSpecifiedAccess(() -> member.getBirthdate());
+            assertNonSpecifiedAccess(() -> member.getFormalizedDatetime());
+            assertNonSpecifiedAccess(() -> member.getRegisterDatetime());
+            assertNonSpecifiedAccess(() -> member.getRegisterUser());
+            assertNonSpecifiedAccess(() -> member.getUpdateDatetime());
+            assertNonSpecifiedAccess(() -> member.getUpdateUser());
+            assertNonSpecifiedAccess(() -> member.getVersionNo());
+            assertNull(member.xznocheckGetMemberName());
+            assertNull(member.xznocheckGetBirthdate());
+            assertNull(member.xznocheckGetFormalizedDatetime());
+            assertNull(member.xznocheckGetRegisterDatetime());
+            assertNull(member.xznocheckGetRegisterUser());
+            assertNull(member.xznocheckGetUpdateDatetime());
+            assertNull(member.xznocheckGetUpdateUser());
+            assertNull(member.xznocheckGetVersionNo());
+            assertEquals(3, member.myspecifiedProperties().size()); /* PK and account and setupSelect */
+
+            log(member.toString()); /* expected no exception */
+            log(member.getDBMeta().extractAllColumnMap(member)); /* expected no exception */
+        });
     }
 
     public void test_NonSpecifiedAccess_basePointOnly_severalSpecified() {
@@ -463,6 +498,47 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
                 log(status.getDBMeta().extractAllColumnMap(status)); /* expected no exception */
             });
         }
+        assertMarked("birthdate");
+        assertMarked("formalized");
+
+        // ## Arrange ##
+        memberBhv.selectCursor(cb -> {
+            /* ## Act ## */
+            cb.setupSelect_MemberStatus();
+            cb.specify().specifyMemberStatus().columnDisplayOrder();
+        }, member -> {
+            /* ## Assert ## */
+            assertNotNull(member.getMemberId());
+            assertNotNull(member.getMemberName());
+            assertNotNull(member.getMemberAccount());
+            assertNotNull(member.getMemberStatusCode());
+            if (member.getBirthdate() != null) {
+                markHere("birthdate");
+            }
+            if (member.getFormalizedDatetime() != null) {
+                markHere("formalized");
+            }
+            assertNotNull(member.getRegisterDatetime());
+            assertNotNull(member.getRegisterUser());
+            assertNotNull(member.getUpdateDatetime());
+            assertNotNull(member.getUpdateUser());
+            assertNotNull(member.getVersionNo());
+
+            log(member.toString()); /* expected no exception */
+            log(member.getDBMeta().extractAllColumnMap(member)); /* expected no exception */
+
+            member.getMemberStatus().alwaysPresent(status -> {
+                assertNotNull(status.getMemberStatusCode());
+                assertNonSpecifiedAccess(() -> status.getMemberStatusName());
+                assertNotNull(status.getDisplayOrder());
+                assertNonSpecifiedAccess(() -> status.getDescription());
+
+                assertEquals(2, status.myspecifiedProperties().size()); /* PK and account and setupSelect */
+
+                log(status.toString()); /* expected no exception */
+                log(status.getDBMeta().extractAllColumnMap(status)); /* expected no exception */
+            });
+        });
         assertMarked("birthdate");
         assertMarked("formalized");
     }

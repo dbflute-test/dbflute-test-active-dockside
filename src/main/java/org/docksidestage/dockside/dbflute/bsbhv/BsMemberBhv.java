@@ -119,6 +119,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     public static final String PATH_whitebox_wrongexample_selectEndCommentNotFound = "whitebox:wrongexample:selectEndCommentNotFound";
     public static final String PATH_whitebox_wrongexample_selectIfCommentNotBooleanResult = "whitebox:wrongexample:selectIfCommentNotBooleanResult";
     public static final String PATH_whitebox_wrongexample_selectIfCommentWrongExpression = "whitebox:wrongexample:selectIfCommentWrongExpression";
+    /** Frequently Mistake Pattern of ParameterBean */
+    public static final String PATH_whitebox_wrongexample_selectParameterFrequentlyMistakePattern = "whitebox:wrongexample:selectParameterFrequentlyMistakePattern";
     /*df:endQueryPath*/
 
     // ===================================================================================

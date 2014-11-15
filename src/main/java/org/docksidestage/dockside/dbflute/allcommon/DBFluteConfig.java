@@ -88,11 +88,14 @@ public class DBFluteConfig {
 
     // environment
     protected StatementConfig _defaultStatementConfig;
-    protected Integer _cursorSelectFetchSize;
+    protected Integer _cursorSelectFetchSize = null;
+    protected Integer _entitySelectFetchSize = null;
+    protected boolean _usePagingByCursorSkipSynchronizedFetchSize = false;
+    protected Integer _fixedPagingByCursorSkipSynchronizedFetchSize = null;
     protected DataSourceHandler _dataSourceHandler;
     protected PhysicalConnectionDigger _physicalConnectionDigger;
     protected SQLExceptionDigger _sqlExceptionDigger;
-    protected String _outsideSqlPackage;
+    protected String _outsideSqlPackage = null;
     protected boolean _useSqlLogRegistry = false;
     protected MappingDateTimeZoneProvider _mappingDateTimeZoneProvider;
 
@@ -420,6 +423,48 @@ public class DBFluteConfig {
             _log.info("...Setting cursorSelectFetchSize: " + cursorSelectFetchSize);
         }
         _cursorSelectFetchSize = cursorSelectFetchSize;
+    }
+
+    // ===================================================================================
+    //                                                              EntitySelect FetchSize
+    //                                                              ======================
+    public Integer getEntitySelectFetchSize() {
+        return _entitySelectFetchSize;
+    }
+
+    public void setEntitySelectFetchSize(Integer entitySelectFetchSize) {
+        assertUnlocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Setting entitySelectFetchSize: " + entitySelectFetchSize);
+        }
+        _entitySelectFetchSize = entitySelectFetchSize;
+    }
+
+    // ===================================================================================
+    //                                                              PagingSelect FetchSize
+    //                                                              ======================
+    public boolean isUsePagingByCursorSkipSynchronizedFetchSize() {
+        return _usePagingByCursorSkipSynchronizedFetchSize;
+    }
+
+    public void setUsePagingByCursorSkipSynchronizedFetchSize(boolean usePagingByCursorSkipSynchronizedFetchSize) {
+        assertUnlocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Setting usePagingByCursorSkipSynchronizedFetchSize: " + usePagingByCursorSkipSynchronizedFetchSize);
+        }
+        _usePagingByCursorSkipSynchronizedFetchSize = usePagingByCursorSkipSynchronizedFetchSize;
+    }
+
+    public Integer getFixedPagingByCursorSkipSynchronizedFetchSize() {
+        return _fixedPagingByCursorSkipSynchronizedFetchSize;
+    }
+
+    public void setFixedPagingByCursorSkipSynchronizedFetchSize(Integer fixedPagingByCursorSkipSynchronizedFetchSize) {
+        assertUnlocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Setting fixedPagingByCursorSkipSynchronizedFetchSize: " + fixedPagingByCursorSkipSynchronizedFetchSize);
+        }
+        _fixedPagingByCursorSkipSynchronizedFetchSize = fixedPagingByCursorSkipSynchronizedFetchSize;
     }
 
     // [DBFlute-0.9.0]

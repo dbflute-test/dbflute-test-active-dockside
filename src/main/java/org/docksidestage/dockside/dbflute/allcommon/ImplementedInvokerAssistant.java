@@ -177,8 +177,12 @@ public class ImplementedInvokerAssistant implements InvokerAssistant {
     protected StatementFactory createStatementFactory() {
         final TnStatementFactoryImpl factory = newStatementFactoryImpl();
         factory.setDefaultStatementConfig(assistDefaultStatementConfig());
-        factory.setInternalDebug(DBFluteConfig.getInstance().isInternalDebug());
-        factory.setCursorSelectFetchSize(DBFluteConfig.getInstance().getCursorSelectFetchSize());
+        DBFluteConfig config = DBFluteConfig.getInstance();
+        factory.setInternalDebug(config.isInternalDebug());
+        factory.setCursorSelectFetchSize(config.getCursorSelectFetchSize());
+        factory.setEntitySelectFetchSize(config.getEntitySelectFetchSize());
+        factory.setUsePagingByCursorSkipSynchronizedFetchSize(config.isUsePagingByCursorSkipSynchronizedFetchSize());
+        factory.setFixedPagingByCursorSkipSynchronizedFetchSize(config.getFixedPagingByCursorSkipSynchronizedFetchSize());
         return factory;
     }
 
