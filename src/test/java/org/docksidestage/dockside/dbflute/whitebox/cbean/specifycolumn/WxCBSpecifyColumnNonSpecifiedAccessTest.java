@@ -366,7 +366,6 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
         }
     }
 
-    // TODO jflute 
     public void test_NonSpecifiedAccess_basePointOnly_nullFKColumn_setupSelect_basic() {
         // ## Arrange ##
         ListResultBean<MemberWithdrawal> withdrawalList = memberWithdrawalBhv.selectList(cb -> {

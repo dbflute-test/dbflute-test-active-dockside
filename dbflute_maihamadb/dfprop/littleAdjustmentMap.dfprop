@@ -310,10 +310,14 @@ map:{
     #
     #; columnNullObjectMap = map:{
     #    ; providerPackage = $$packageBase$$.nogen.cache
-    #    ; isGearedToSpecifyColumn = true
-    #    ; tableColumnMap = map:{
+    #    ; isGearedToSpecify = true
+    #    ; columnMap = map:{
     #        ; MEMBER_STATUS = map:{
     #            ; DESCRIPTION = CachedMemberStatus.get(this, "$$columnName$$", $$primaryKey$$)
+    #        }
+    #        ; MEMBER_SECURITY = map:{
+    #            ; REMINDER_ANSWER = CachedMemberSecurity.get(this, "$$columnName$$", $$primaryKey$$)
+    #            ; REMINDER_QUESTION = CachedMemberSecurity.get(this, "$$columnName$$", $$primaryKey$$)
     #        }
     #    }
     #}
@@ -326,8 +330,8 @@ map:{
     #; relationalNullObjectMap = map:{
     #    ; providerPackage = $$packageBase$$.nogen.cache
     #    ; foreignMap = map:{
-    #        ; MEMBER_STATUS = CachedMemberStatus.get($$PrimaryKey$$)
-    #        ; MEMBER_SECURITY = CachedMemberSecurity.get($$PrimaryKey$$)
+    #        ; MEMBER_STATUS = CachedMemberStatus.get(this, "$$foreignPropertyName$$", $$primaryKey$$)
+    #        ; MEMBER_SECURITY = CachedMemberSecurity.get(this, "$$foreignPropertyName$$", $$primaryKey$$)
     #    }
     #}
     # - - - - - - - - - -/
