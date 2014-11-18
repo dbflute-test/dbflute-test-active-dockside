@@ -61,8 +61,8 @@ public class WxDBMetaColumnInfoTest extends PlainTestCase {
         // ## Arrange & Act & Assert ##
         log("memberId=" + MemberDbm.getInstance().columnMemberId().getColumnComment());
         log("memberName=" + MemberDbm.getInstance().columnMemberName().getColumnComment());
-        assertNotNull(MemberDbm.getInstance().columnMemberId().getColumnComment());
-        assertNotNull(MemberDbm.getInstance().columnMemberName().getColumnComment());
+        assertNull(MemberDbm.getInstance().columnMemberId().getColumnComment()); // as default (test at hanger stage)
+        assertNull(MemberDbm.getInstance().columnMemberName().getColumnComment()); // as default
         assertNull(VendorCheckDbm.getInstance().columnTypeOfVarchar().getColumnComment());
     }
 

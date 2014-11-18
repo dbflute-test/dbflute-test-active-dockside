@@ -2,7 +2,9 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.derivedrefer
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
+import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.cbean.scoping.UnionQuery;
@@ -16,6 +18,7 @@ import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
+import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -26,6 +29,41 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
 
     private MemberBhv memberBhv;
     private MemberStatusBhv memberStatusBhv;
+
+    public void test_query_derivedReferrer_max_greaterEqual() {
+        // ## Arrange ##
+        Integer expected = 1800;
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.query().derivedPurchase().max(purchaseCB -> {
+                purchaseCB.specify().columnPurchasePrice();
+                purchaseCB.query().setPaymentCompleteFlg_Equal_True();
+            }).greaterEqual(expected);
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        memberBhv.loadPurchase(memberList, new ConditionBeanSetupper<PurchaseCB>() {
+            public void setup(PurchaseCB cb) {
+                cb.query().setPaymentCompleteFlg_Equal_True();
+            }
+        });
+        assertFalse(memberList.isEmpty());
+        for (Member member : memberList) {
+            log(member);
+            List<Purchase> purchaseList = member.getPurchaseList();
+            boolean exists = false;
+            for (Purchase purchase : purchaseList) {
+                Integer purchasePrice = purchase.getPurchasePrice();
+                if (purchasePrice >= expected) {
+                    exists = true;
+                }
+            }
+            assertTrue(exists);
+        }
+    }
 
     public void test_query_derivedReferrer_OneToManyToOne() {
         // ## Arrange ##

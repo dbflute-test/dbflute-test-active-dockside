@@ -32,6 +32,7 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     //                                                                           =========
     private MemberBhv memberBhv;
 
+    // TODO jflute test: refactor
     // ===================================================================================
     //                                                                              Simple
     //                                                                              ======
@@ -110,7 +111,7 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     //                                                                     ===============
     public void test_ScalarCondition_max_union() {
         // ## Arrange ##
-        LocalDate expected = memberBhv.scalarSelect(LocalDate.class).max(cb -> {
+        LocalDate expected = memberBhv.selectScalar(LocalDate.class).max(cb -> {
             cb.specify().columnBirthdate();
         }).get();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
@@ -383,6 +384,6 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     //                                                                              DBMeta
     //                                                                              ======
     public void test_getDBMeta() {
-        assertEquals(MemberDbm.getInstance(), new MemberCB().getDBMeta());
+        assertEquals(MemberDbm.getInstance(), new MemberCB().asDBMeta());
     }
 }

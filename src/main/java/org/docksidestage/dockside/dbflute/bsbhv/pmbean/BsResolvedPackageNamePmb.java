@@ -199,7 +199,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
         sb.append(dm).append(_bigDecimal1);
         sb.append(dm).append(_bigDecimal2);
         sb.append(dm).append(_date1);
-        sb.append(dm).append(PmbCustodial.formatUtilDate(_date2, "yyyy-MM-dd", _timeZone));
+        sb.append(dm).append(PmbCustodial.formatUtilDate(_date2, _timeZone, "yyyy-MM-dd"));
         sb.append(dm).append(_date3);
         sb.append(dm).append(_time1);
         sb.append(dm).append(_time2);

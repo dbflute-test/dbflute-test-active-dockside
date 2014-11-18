@@ -75,10 +75,12 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     /*df:endQueryPath*/
 
     // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public VendorPrimaryKeyOnlyDbm getDBMeta() { return VendorPrimaryKeyOnlyDbm.getInstance(); }
+    public VendorPrimaryKeyOnlyDbm asDBMeta() { return VendorPrimaryKeyOnlyDbm.getInstance(); }
+    /** {@inheritDoc} */
+    public String asTableDbName() { return "VENDOR_PRIMARY_KEY_ONLY"; }
 
     // ===================================================================================
     //                                                                        New Instance
@@ -149,7 +151,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
-    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)).orElseNull(); }
+    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)).orElse(null); }
 
     /**
      * Select the entity by the condition-bean with deleted check. <br>
@@ -277,7 +279,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * Select the scalar value derived by a function from uniquely-selected records. <br>
      * You should call a function method after this method called like as follows:
      * <pre>
-     * <span style="color: #0000C0">vendorPrimaryKeyOnlyBhv</span>.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">vendorPrimaryKeyOnlyBhv</span>.<span style="color: #CC4747">selectScalar</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...</span>; <span style="color: #3F7E5E">// required for the function</span>
      *     <span style="color: #553000">cb</span>.query().set...
      * });
@@ -286,7 +288,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> HpSLSFunction<VendorPrimaryKeyOnlyCB, RESULT> scalarSelect(Class<RESULT> resultType) {
+    public <RESULT> HpSLSFunction<VendorPrimaryKeyOnlyCB, RESULT> selectScalar(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
 
@@ -295,7 +297,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     //                                                                            ========
     @Override
     protected Number doReadNextVal() {
-        String msg = "This table is NOT related to sequence: " + getTableDbName();
+        String msg = "This table is NOT related to sequence: " + asTableDbName();
         throw new UnsupportedOperationException(msg);
     }
 

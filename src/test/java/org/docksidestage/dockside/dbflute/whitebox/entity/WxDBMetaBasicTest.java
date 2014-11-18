@@ -55,7 +55,7 @@ public class WxDBMetaBasicTest extends PlainTestCase {
 
         // ## Act & Assert ##
         log("comment=" + dbm.getTableComment());
-        assertNotNull(dbm.getTableComment());
+        assertNull(dbm.getTableComment()); // as default (test at hanger stage)
         assertNull(VendorCheckDbm.getInstance().getTableComment());
     }
 

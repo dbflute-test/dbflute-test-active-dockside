@@ -81,24 +81,16 @@ public abstract class BsPmCommentHint extends AbstractEntity implements Customiz
     protected String _memberName;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
-        return "PmCommentHint";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "pmCommentHint";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
+    public DBMeta asDBMeta() {
         return org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta.PmCommentHintDbm.getInstance();
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
+        return "PmCommentHint";
     }
 
     // ===================================================================================
@@ -137,7 +129,7 @@ public abstract class BsPmCommentHint extends AbstractEntity implements Customiz
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _memberId);
         hs = xCH(hs, _memberName);
         return hs;

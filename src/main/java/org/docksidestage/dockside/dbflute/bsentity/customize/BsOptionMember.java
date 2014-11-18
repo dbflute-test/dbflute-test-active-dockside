@@ -117,24 +117,16 @@ public abstract class BsOptionMember extends AbstractEntity implements Customize
     protected Integer _dummyNoflg;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
-        return "OptionMember";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "optionMember";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
+    public DBMeta asDBMeta() {
         return org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta.OptionMemberDbm.getInstance();
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
+        return "OptionMember";
     }
 
     // ===================================================================================
@@ -367,7 +359,7 @@ public abstract class BsOptionMember extends AbstractEntity implements Customize
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _memberId);
         hs = xCH(hs, _memberName);
         hs = xCH(hs, _birthdate);

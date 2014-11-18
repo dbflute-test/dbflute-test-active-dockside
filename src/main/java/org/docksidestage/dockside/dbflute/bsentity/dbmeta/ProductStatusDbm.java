@@ -52,7 +52,8 @@ public class ProductStatusDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((ProductStatus)et).getProductStatusCode(), (et, vl) -> {
             ColumnInfo col = columnProductStatusCode();
             CDef.ProductStatus cls = (CDef.ProductStatus)gcls(col, vl);
@@ -80,15 +81,13 @@ public class ProductStatusDbm extends AbstractDBMeta {
     public TableSqlName getTableSqlName() { return _tableSqlName; }
     protected final String _tableAlias = "商品ステータス";
     public String getTableAlias() { return _tableAlias; }
-    protected final String _tableComment = "商品のステータスを表現する固定的なマスタ。";
-    public String getTableComment() { return _tableComment; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnProductStatusCode = cci("PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", null, "商品ステータスコード", String.class, "productStatusCode", null, true, false, true, "CHAR", 3, 0, null, false, null, "商品ステータスを識別するコード。", null, "productList,summaryProductList", CDef.DefMeta.ProductStatus);
-    protected final ColumnInfo _columnProductStatusName = cci("PRODUCT_STATUS_NAME", "PRODUCT_STATUS_NAME", null, "商品ステータス名称", String.class, "productStatusName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, "表示用の名称、英語名カラムがないのでそのままメソッド名の一部としても利用される。", null, null, null);
-    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, "表示順", Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, false, null, "もう、ご想像の通りです。", null, null, null);
+    protected final ColumnInfo _columnProductStatusCode = cci("PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", null, "商品ステータスコード", String.class, "productStatusCode", null, true, false, true, "CHAR", 3, 0, null, false, null, null, null, "productList,summaryProductList", CDef.DefMeta.ProductStatus, false);
+    protected final ColumnInfo _columnProductStatusName = cci("PRODUCT_STATUS_NAME", "PRODUCT_STATUS_NAME", null, "商品ステータス名称", String.class, "productStatusName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, "表示順", Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null, false);
 
     /**
      * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}

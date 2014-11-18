@@ -116,9 +116,7 @@ public class WxDBFluteConfigTest extends UnitContainerTestCase {
         // ## Arrange ##
         final ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            final StatementConfig statementConfig = new StatementConfig();
-            statementConfig.typeScrollSensitive().fetchSize(123).maxRows(1);
-            cb.configure(statementConfig);
+            cb.configure(conf -> conf.typeScrollSensitive().fetchSize(123).maxRows(1));
             pushCB(cb);
         });
 

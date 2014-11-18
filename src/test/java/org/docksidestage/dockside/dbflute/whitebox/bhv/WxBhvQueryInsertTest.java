@@ -10,7 +10,6 @@ import java.util.Set;
 import org.dbflute.bhv.writable.QueryInsertSetupper;
 import org.dbflute.cbean.ConditionBean;
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.cbean.scoping.ScalarQuery;
 import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.hook.AccessContext;
 import org.dbflute.hook.CallbackContext;
@@ -280,7 +279,7 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
     //                                                                            ========
     public void test_queryInsert_IdentityEnabled() {
         // ## Arrange ##
-        Integer beforeMaxId = memberBhv.scalarSelect(Integer.class).max(cb -> {
+        Integer beforeMaxId = memberBhv.selectScalar(Integer.class).max(cb -> {
             cb.specify().columnMemberId();
         }).get();
 
@@ -294,10 +293,8 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
         });
 
         // ## Assert ##
-        Integer afterMaxId = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
-            public void query(MemberCB cb) {
-                cb.specify().columnMemberId();
-            }
+        Integer afterMaxId = memberBhv.selectScalar(Integer.class).max(cb -> {
+            cb.specify().columnMemberId();
         }).get();
         assertTrue(beforeMaxId < afterMaxId);
     }

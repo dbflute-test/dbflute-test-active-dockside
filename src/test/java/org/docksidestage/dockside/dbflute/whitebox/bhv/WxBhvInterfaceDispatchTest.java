@@ -39,7 +39,7 @@ public class WxBhvInterfaceDispatchTest extends UnitContainerTestCase {
     //                                                                       =============
     public void test_readScalar_basic() {
         // ## Arrange ##
-        Integer expected = memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
+        Integer expected = memberBhv.selectScalar(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().columnMemberId();
             }

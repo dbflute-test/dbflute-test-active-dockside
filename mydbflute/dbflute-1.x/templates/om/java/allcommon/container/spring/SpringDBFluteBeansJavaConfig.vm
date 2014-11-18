@@ -22,14 +22,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
-import org.dbflute.bhv.BehaviorSelector;
 import org.dbflute.bhv.core.BehaviorCommandInvoker;
 import org.dbflute.bhv.core.InvokerAssistant;
-import org.dbflute.hook.CommonColumnAutoSetupper;
 import ${database.DBFluteInitializerClass};
 import ${glPackageExtendedBhv}.*;
 
 /**
+ * The Java configuration of DBFlute beans for Spring Framework. <br>
+ * You can inject them by importing this class in your auto configuration class.
  * @author ${database.classAuthor}
  */
 @Configuration
@@ -38,37 +38,24 @@ public class ${glDBFluteBeansJavaConfig} {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // *according to dependency order
     @Autowired
     protected ApplicationContext _container;
 
     @Resource(name="${database.DBFluteBeansDataSourceName}")
-    protected DataSource dataSource;
-
-    @Autowired
-    protected InvokerAssistant invokerAssistant;
-
-    @Autowired
-    protected BehaviorCommandInvoker behaviorCommandInvoker;
-
-    @Autowired
-    protected BehaviorSelector behaviorSelector;
-
-    @Autowired
-    protected CommonColumnAutoSetupper commonColumnAutoSetupper;
+    protected DataSource _dataSource; // name basis here for multiple DB
 
     // ===================================================================================
     //                                                                   Runtime Component
     //                                                                   =================
     @Bean(name="${database.DBFluteInitializerComponentName}")
     public ${glDBFluteInitializer} createDBFluteInitializer() {
-        return new ${database.DBFluteInitializerClass}(dataSource);
+        return new ${database.DBFluteInitializerClass}(_dataSource);
     }
 
     @Bean(name="${database.invokerAssistantComponentName}")
     public InvokerAssistant createImplementedInvokerAssistant() {
         ${glImplementedInvokerAssistant} assistant = newImplementedInvokerAssistant();
-        assistant.setDataSource(dataSource);
+        assistant.setDataSource(_dataSource);
         return assistant;
     }
 
@@ -79,7 +66,7 @@ public class ${glDBFluteBeansJavaConfig} {
     @Bean(name="${database.behaviorCommandInvokerComponentName}")
     public BehaviorCommandInvoker createBehaviorCommandInvoker() {
         BehaviorCommandInvoker invoker = newBehaviorCommandInvoker();
-        invoker.setInvokerAssistant(invokerAssistant);
+        invoker.setInvokerAssistant(createImplementedInvokerAssistant());
         return invoker;
     }
 
@@ -116,12 +103,12 @@ public class ${glDBFluteBeansJavaConfig} {
 #else
 
 #end
-    @Bean(name={"${table.behaviorComponentName}"})
+    @Bean(name="${table.behaviorComponentName}")
     public ${table.extendedBehaviorClassName} create${table.extendedBehaviorClassName}() {
         ${table.extendedBehaviorClassName} bhv = new${table.extendedBehaviorClassName}();
-        bhv.setBehaviorCommandInvoker(behaviorCommandInvoker); bhv.setBehaviorSelector(behaviorSelector);
+        bhv.setBehaviorCommandInvoker(createBehaviorCommandInvoker()); bhv.setBehaviorSelector(createImplementedBehaviorSelector());
 #if ($table.isWritable())
-        bhv.setCommonColumnAutoSetupper(commonColumnAutoSetupper);
+        bhv.setCommonColumnAutoSetupper(createImplementedCommonColumnAutoSetupper());
 #end
         return bhv;
     }

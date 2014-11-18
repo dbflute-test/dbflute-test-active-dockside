@@ -76,17 +76,14 @@ public class BsVendor$DollarCB extends AbstractConditionBean {
     }
 
     // ===================================================================================
-    //                                                                     DBMeta Provider
-    //                                                                     ===============
+    //                                                                             DB Meta
+    //                                                                             =======
     @Override
     protected DBMetaProvider getDBMetaProvider() {
         return DBMetaInstanceHandler.getProvider(); // as default
     }
 
-    // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
-    public String getTableDbName() {
+    public String asTableDbName() {
         return "VENDOR_$_DOLLAR";
     }
 
@@ -321,8 +318,27 @@ public class BsVendor$DollarCB extends AbstractConditionBean {
          */
         public HpSDRFunction<Vendor$DollarCB, Vendor$DollarCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<Vendor$DollarCB> sq, Vendor$DollarCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
+    }
+
+    // ===================================================================================
+    //                                                                        Dream Cruise
+    //                                                                        ============
+    /**
+     * Welcome to the Dream Cruise for condition-bean deep world. <br>
+     * This is very specialty so you can get the frontier spirit. Bon voyage!
+     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
+     */
+    public Vendor$DollarCB dreamCruiseCB() {
+        Vendor$DollarCB cb = new Vendor$DollarCB();
+        cb.xsetupForDreamCruise((Vendor$DollarCB) this);
+        return cb;
+    }
+
+    protected ConditionBean xdoCreateDreamCruiseCB() {
+        return dreamCruiseCB();
     }
 
     // [DBFlute-0.9.5.3]
@@ -356,24 +372,6 @@ public class BsVendor$DollarCB extends AbstractConditionBean {
         Vendor$DollarCB cb = new Vendor$DollarCB();
         cb.xsetupForColumnQuery((Vendor$DollarCB)this);
         return cb;
-    }
-
-    // ===================================================================================
-    //                                                                        Dream Cruise
-    //                                                                        ============
-    /**
-     * Welcome to the Dream Cruise for condition-bean deep world. <br>
-     * This is very specialty so you can get the frontier spirit. Bon voyage!
-     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
-     */
-    public Vendor$DollarCB dreamCruiseCB() {
-        Vendor$DollarCB cb = new Vendor$DollarCB();
-        cb.xsetupForDreamCruise((Vendor$DollarCB) this);
-        return cb;
-    }
-
-    protected ConditionBean xdoCreateDreamCruiseCB() {
-        return dreamCruiseCB();
     }
 
     // [DBFlute-0.9.6.3]

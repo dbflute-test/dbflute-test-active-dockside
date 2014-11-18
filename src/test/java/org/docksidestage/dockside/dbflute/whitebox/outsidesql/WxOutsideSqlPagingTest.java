@@ -66,10 +66,10 @@ public class WxOutsideSqlPagingTest extends UnitContainerTestCase {
         assertEquals(page2.getAllRecordCount(), page3.getAllRecordCount());
         assertEquals(page1.getAllPageCount(), page2.getAllPageCount());
         assertEquals(page2.getAllPageCount(), page3.getAllPageCount());
-        assertFalse(page1.isExistPrePage());
-        assertTrue(page1.isExistNextPage());
-        assertTrue(lastPage.isExistPrePage());
-        assertFalse(lastPage.isExistNextPage());
+        assertFalse(page1.existsPreviousPage());
+        assertTrue(page1.existsNextPage());
+        assertTrue(lastPage.existsPreviousPage());
+        assertFalse(lastPage.existsNextPage());
     }
 
     public void test_outsideSql_manualPaging_selectPage_flexible() {
@@ -136,10 +136,10 @@ public class WxOutsideSqlPagingTest extends UnitContainerTestCase {
         assertEquals(page2.getAllRecordCount(), page3.getAllRecordCount());
         assertEquals(page1.getAllPageCount(), page2.getAllPageCount());
         assertEquals(page2.getAllPageCount(), page3.getAllPageCount());
-        assertFalse(page1.isExistPrePage());
-        assertTrue(page1.isExistNextPage());
-        assertTrue(lastPage.isExistPrePage());
-        assertFalse(lastPage.isExistNextPage());
+        assertFalse(page1.existsPreviousPage());
+        assertTrue(page1.existsNextPage());
+        assertTrue(lastPage.existsPreviousPage());
+        assertFalse(lastPage.existsNextPage());
     }
 
     public void test_outsideSql_autoPaging_selectPage_flexible() {
@@ -192,6 +192,24 @@ public class WxOutsideSqlPagingTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assert_outsideSql_autoPaging_selectPage(page1, page2, page3, lastPage);
+    }
+
+    // ===================================================================================
+    //                                                                           Re-Select
+    //                                                                           =========
+    public void test_outsideSql_paging_disablePagingReSelect() {
+        // ## Arrange ##
+        UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
+        pmb.setMemberStatusCode_Formalized();
+        pmb.disablePagingReSelect();
+        int pageSize = 3;
+        pmb.paging(pageSize, 99999);
+
+        // ## Act ##
+        PagingResultBean<UnpaidSummaryMember> page99999 = memberBhv.outsideSql().selectPage(pmb);
+
+        // ## Assert ##
+        assertTrue(page99999.isEmpty());
     }
 
     // ===================================================================================

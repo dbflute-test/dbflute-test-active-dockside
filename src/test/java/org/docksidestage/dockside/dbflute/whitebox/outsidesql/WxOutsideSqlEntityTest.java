@@ -1,6 +1,9 @@
 package org.docksidestage.dockside.dbflute.whitebox.outsidesql;
 
+import java.sql.Timestamp;
+
 import org.dbflute.exception.DangerousResultSizeException;
+import org.dbflute.exception.EntityAlreadyDeletedException;
 import org.dbflute.exception.EntityDuplicatedException;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.MemberNamePmb;
@@ -54,6 +57,35 @@ public class WxOutsideSqlEntityTest extends UnitContainerTestCase {
         });
     }
 
+    public void test_outsideSql_selectEntity_selectUnpaidSummaryMember() {
+        // ## Arrange ##
+        UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
+        pmb.setMemberId(3);
+
+        // ## Act ##
+        memberBhv.outsideSql().selectEntity(pmb).alwaysPresent(member -> {
+            /* ## Assert ## */
+            log("unpaidSummaryMember=" + member);
+            assertNotNull(member);
+            assertEquals(3, member.getUnpaidManId().intValue());
+        });
+    }
+
+    public void test_outsideSql_selectEntityWithDeletedCheck_selectUnpaidSummaryMember() {
+        // ## Arrange ##
+        UnpaidSummaryMemberPmb pmb = new UnpaidSummaryMemberPmb();
+        pmb.setMemberId(99999);
+
+        // ## Act & Assert ##
+        try {
+            memberBhv.outsideSql().selectEntity(pmb).get();
+            fail();
+        } catch (EntityAlreadyDeletedException e) {
+            // OK
+            log(e.getMessage());
+        }
+    }
+
     // ===================================================================================
     //                                                                              Scalar
     //                                                                              ======
@@ -69,6 +101,20 @@ public class WxOutsideSqlEntityTest extends UnitContainerTestCase {
         // ## Assert ##
         assertNotNull(name);
         assertEquals(member.getMemberName(), name);
+    }
+
+    public void test_outsideSql_selectEntityWithDeletedCheck_selectLatestFormalizedDatetimee() {
+        // ## Arrange ##
+        String path = MemberBhv.PATH_selectLatestFormalizedDatetime;
+        Object pmb = null;
+        Class<Timestamp> entityType = Timestamp.class;
+
+        // ## Act ##
+        Timestamp maxValue = memberBhv.outsideSql().traditionalStyle().selectEntity(path, pmb, entityType).get();
+
+        // ## Assert ##
+        log("maxValue=" + maxValue);
+        assertNotNull(maxValue);
     }
 
     // ===================================================================================

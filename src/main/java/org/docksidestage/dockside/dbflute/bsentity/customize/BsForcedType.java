@@ -76,24 +76,16 @@ public abstract class BsForcedType extends AbstractEntity implements CustomizeEn
     protected java.math.BigInteger _maxMemberId;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
-        return "ForcedType";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "forcedType";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
+    public DBMeta asDBMeta() {
         return org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta.ForcedTypeDbm.getInstance();
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
+        return "ForcedType";
     }
 
     // ===================================================================================
@@ -131,7 +123,7 @@ public abstract class BsForcedType extends AbstractEntity implements CustomizeEn
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _maxMemberId);
         return hs;
     }

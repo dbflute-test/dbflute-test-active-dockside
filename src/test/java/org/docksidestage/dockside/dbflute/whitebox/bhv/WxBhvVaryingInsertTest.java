@@ -122,7 +122,7 @@ public class WxBhvVaryingInsertTest extends UnitContainerTestCase {
         member.setMemberStatusCode_Formalized();
 
         // ## Act ##
-        if (member.getDBMeta().hasIdentity()) { // mainly
+        if (member.asDBMeta().hasIdentity()) { // mainly
             memberBhv.varyingInsert(member, op -> op.disablePrimaryKeyIdentity());
         } else {
             try {
@@ -213,7 +213,7 @@ public class WxBhvVaryingInsertTest extends UnitContainerTestCase {
                 markSet.add("handle");
             }
         });
-        memberBhv.varyingInsert(member, op -> op.configure(new StatementConfig().queryTimeout(7)));
+        memberBhv.varyingInsert(member, op -> op.configure(conf -> conf.queryTimeout(7)));
 
         // ## Assert ##
         assertFalse(markSet.isEmpty());

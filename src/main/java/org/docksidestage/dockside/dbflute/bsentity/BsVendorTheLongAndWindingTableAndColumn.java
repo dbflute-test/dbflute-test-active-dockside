@@ -92,24 +92,16 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn extends AbstractEn
     protected Integer _shortSize;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
+    public DBMeta asDBMeta() {
+        return DBMetaInstanceHandler.findDBMeta(asTableDbName());
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
         return "VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "vendorTheLongAndWindingTableAndColumn";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
-        return DBMetaInstanceHandler.findDBMeta(getTableDbName());
     }
 
     // ===================================================================================
@@ -179,7 +171,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumn extends AbstractEn
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _theLongAndWindingTableAndColumnId);
         return hs;
     }

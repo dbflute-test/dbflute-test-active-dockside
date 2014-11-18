@@ -52,7 +52,8 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((WithdrawalReason)et).getWithdrawalReasonCode(), (et, vl) -> {
             ColumnInfo col = columnWithdrawalReasonCode();
             CDef.WithdrawalReason cls = (CDef.WithdrawalReason)gcls(col, vl);
@@ -80,15 +81,13 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     public TableSqlName getTableSqlName() { return _tableSqlName; }
     protected final String _tableAlias = "退会理由";
     public String getTableAlias() { return _tableAlias; }
-    protected final String _tableComment = "会員に選ばせる定型的な退会理由のマスタ。そういえば、これ表示順カラムがないですねぇ...";
-    public String getTableComment() { return _tableComment; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnWithdrawalReasonCode = cci("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", null, "退会理由コード", String.class, "withdrawalReasonCode", null, true, false, true, "CHAR", 3, 0, null, false, null, null, null, "memberWithdrawalList", CDef.DefMeta.WithdrawalReason);
-    protected final ColumnInfo _columnWithdrawalReasonText = cci("WITHDRAWAL_REASON_TEXT", "WITHDRAWAL_REASON_TEXT", null, "退会理由テキスト", String.class, "withdrawalReasonText", null, false, false, true, "CLOB", 2147483647, 0, null, false, null, "退会理由の内容。\nテキスト形式なので目いっぱい書けるが、そうするとUI側できれいに見せるのが大変でしょうね。", null, null, null);
-    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, null, Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnWithdrawalReasonCode = cci("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", null, "退会理由コード", String.class, "withdrawalReasonCode", null, true, false, true, "CHAR", 3, 0, null, false, null, null, null, "memberWithdrawalList", CDef.DefMeta.WithdrawalReason, false);
+    protected final ColumnInfo _columnWithdrawalReasonText = cci("WITHDRAWAL_REASON_TEXT", "WITHDRAWAL_REASON_TEXT", null, "退会理由テキスト", String.class, "withdrawalReasonText", null, false, false, true, "CLOB", 2147483647, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, null, Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null, false);
 
     /**
      * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}

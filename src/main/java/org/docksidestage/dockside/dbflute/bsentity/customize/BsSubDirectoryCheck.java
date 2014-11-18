@@ -86,24 +86,16 @@ public abstract class BsSubDirectoryCheck extends AbstractEntity implements Cust
     protected String _memberStatusName;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
-        return "SubDirectoryCheck";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "subDirectoryCheck";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
+    public DBMeta asDBMeta() {
         return org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta.SubDirectoryCheckDbm.getInstance();
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
+        return "SubDirectoryCheck";
     }
 
     // ===================================================================================
@@ -143,7 +135,7 @@ public abstract class BsSubDirectoryCheck extends AbstractEntity implements Cust
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _memberId);
         hs = xCH(hs, _memberName);
         hs = xCH(hs, _memberStatusName);

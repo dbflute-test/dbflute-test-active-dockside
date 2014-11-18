@@ -87,11 +87,17 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     public static final String PATH_selectSimpleMember = "selectSimpleMember";
     /** Example for AutoPaging */
     public static final String PATH_selectUnpaidSummaryMember = "selectUnpaidSummaryMember";
+    /** Force Withdrawal Update */
     public static final String PATH_updateMemberChangedToWithdrawalForcedly = "updateMemberChangedToWithdrawalForcedly";
+    /** The test of sub-directory outside-SQL */
     public static final String PATH_subdirectory_selectSubDirectoryCheck = "subdirectory:selectSubDirectoryCheck";
+    /** generating common-column of customize-entity */
     public static final String PATH_whitebox_cmentity_selectCommonColumnMember = "whitebox:cmentity:selectCommonColumnMember";
+    /** forced type of customize-entity */
     public static final String PATH_whitebox_cmentity_selectForcedType = "whitebox:cmentity:selectForcedType";
+    /** primary key comment for customize-entity */
     public static final String PATH_whitebox_cmentity_selectPrimaryKeyComment = "whitebox:cmentity:selectPrimaryKeyComment";
+    /** surprising comment that is similar to PK comment */
     public static final String PATH_whitebox_cmentity_selectSurpriseSimilarPKComment = "whitebox:cmentity:selectSurpriseSimilarPKComment";
     /** using Classification Hint */
     public static final String PATH_whitebox_cmentity_selectUndetectableClassificationHint = "whitebox:cmentity:selectUndetectableClassificationHint";
@@ -113,13 +119,17 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     public static final String PATH_whitebox_wrongexample_selectEndCommentNotFound = "whitebox:wrongexample:selectEndCommentNotFound";
     public static final String PATH_whitebox_wrongexample_selectIfCommentNotBooleanResult = "whitebox:wrongexample:selectIfCommentNotBooleanResult";
     public static final String PATH_whitebox_wrongexample_selectIfCommentWrongExpression = "whitebox:wrongexample:selectIfCommentWrongExpression";
+    /** Frequently Mistake Pattern of ParameterBean */
+    public static final String PATH_whitebox_wrongexample_selectParameterFrequentlyMistakePattern = "whitebox:wrongexample:selectParameterFrequentlyMistakePattern";
     /*df:endQueryPath*/
 
     // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public MemberDbm getDBMeta() { return MemberDbm.getInstance(); }
+    public MemberDbm asDBMeta() { return MemberDbm.getInstance(); }
+    /** {@inheritDoc} */
+    public String asTableDbName() { return "MEMBER"; }
 
     // ===================================================================================
     //                                                                        New Instance
@@ -190,7 +200,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
-    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)).orElseNull(); }
+    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)).orElse(null); }
 
     /**
      * Select the entity by the condition-bean with deleted check. <br>
@@ -343,7 +353,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * Select the scalar value derived by a function from uniquely-selected records. <br>
      * You should call a function method after this method called like as follows:
      * <pre>
-     * <span style="color: #0000C0">memberBhv</span>.<span style="color: #CC4747">scalarSelect</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">memberBhv</span>.<span style="color: #CC4747">selectScalar</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...</span>; <span style="color: #3F7E5E">// required for the function</span>
      *     <span style="color: #553000">cb</span>.query().set...
      * });
@@ -352,7 +362,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> HpSLSFunction<MemberCB, RESULT> scalarSelect(Class<RESULT> resultType) {
+    public <RESULT> HpSLSFunction<MemberCB, RESULT> selectScalar(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
 
@@ -361,7 +371,7 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     //                                                                            ========
     @Override
     protected Number doReadNextVal() {
-        String msg = "This table is NOT related to sequence: " + getTableDbName();
+        String msg = "This table is NOT related to sequence: " + asTableDbName();
         throw new UnsupportedOperationException(msg);
     }
 

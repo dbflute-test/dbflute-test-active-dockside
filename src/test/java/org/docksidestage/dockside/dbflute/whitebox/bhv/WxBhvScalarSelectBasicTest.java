@@ -57,7 +57,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         }).getBirthdate();
 
         // ## Act ##
-        memberBhv.scalarSelect(LocalDate.class).max(cb -> {
+        memberBhv.selectScalar(LocalDate.class).max(cb -> {
             cb.specify().columnBirthdate();
             cb.query().setMemberStatusCode_Equal_Formalized();
         }).alwaysPresent(birthdate -> {
@@ -74,7 +74,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         int countAll = memberBhv.selectCount(countCB -> {});
 
         // ## Act ##
-        Integer scalarCount = memberBhv.scalarSelect(Integer.class).count(new ScalarQuery<MemberCB>() {
+        Integer scalarCount = memberBhv.selectScalar(Integer.class).count(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().columnMemberId();
             }
@@ -97,7 +97,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        Integer kindCount = memberBhv.scalarSelect(Integer.class).countDistinct(new ScalarQuery<MemberCB>() {
+        Integer kindCount = memberBhv.selectScalar(Integer.class).countDistinct(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().columnMemberStatusCode();
             }
@@ -111,7 +111,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
 
         // ## Act ##
-        Integer kindCount = memberBhv.scalarSelect(Integer.class).countDistinct(new ScalarQuery<MemberCB>() {
+        Integer kindCount = memberBhv.selectScalar(Integer.class).countDistinct(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().columnMemberStatusCode();
                 cb.query().setMemberName_Equal("no exist");
@@ -140,7 +140,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         Integer expected = memberList.stream().mapToInt(member -> member.getProductKindCount()).sum();
 
         // ## Act ##
-        memberBhv.scalarSelect(Integer.class).sum(cb -> {
+        memberBhv.selectScalar(Integer.class).sum(cb -> {
             cb.specify().derivedPurchase().max(purchaseCB -> {
                 purchaseCB.specify().columnPurchasePrice();
                 purchaseCB.query().setPaymentCompleteFlg_Equal_True();
@@ -174,7 +174,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         Integer expected = memberList.stream().mapToInt(member -> member.getProductKindCount()).sum();
 
         // ## Act ##
-        memberBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberCB>() {
+        memberBhv.selectScalar(Integer.class).sum(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
@@ -221,7 +221,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            memberServiceBhv.scalarSelect(Integer.class).sum(cb -> {
+            memberServiceBhv.selectScalar(Integer.class).sum(cb -> {
                 cb.specify().columnServicePointCount();
                 cb.union(unionCB -> {});
             }).alwaysPresent(sum -> {
@@ -249,7 +249,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            memberServiceBhv.scalarSelect(Integer.class).sum(new ScalarQuery<MemberServiceCB>() {
+            memberServiceBhv.selectScalar(Integer.class).sum(new ScalarQuery<MemberServiceCB>() {
                 public void query(MemberServiceCB cb) {
                     cb.specify().columnMemberServiceId();
                     cb.union(new UnionQuery<MemberServiceCB>() {
@@ -291,7 +291,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
 
         // ## Act ##
         try {
-            summaryWithdrawalBhv.scalarSelect(Integer.class).sum(cb -> {
+            summaryWithdrawalBhv.selectScalar(Integer.class).sum(cb -> {
                 cb.specify().columnMaxPurchasePrice();
                 cb.union(unionCB -> {});
             }).alwaysPresent(sum -> {
@@ -312,7 +312,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         // ## Act ##
         try {
-            memberBhv.scalarSelect(Date.class).max(cb -> {
+            memberBhv.selectScalar(Date.class).max(cb -> {
                 cb.specify().columnMemberAccount();
                 cb.specify().columnBirthdate();
             });
@@ -329,7 +329,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         // ## Act ##
         try {
-            memberBhv.scalarSelect(Date.class).max(cb -> {
+            memberBhv.selectScalar(Date.class).max(cb -> {
                 cb.specify().columnMemberAccount();
                 cb.specify().derivedPurchase().max(purchaseCB -> {
                     purchaseCB.specify().columnPurchaseCount();
@@ -348,7 +348,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         // ## Act ##
         try {
-            memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
+            memberBhv.selectScalar(Date.class).max(new ScalarQuery<MemberCB>() {
                 public void query(MemberCB cb) {
                     cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
                         public void query(PurchaseCB subCB) {
@@ -375,7 +375,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         // ## Arrange ##
         // ## Act ##
         try {
-            memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
+            memberBhv.selectScalar(Date.class).max(new ScalarQuery<MemberCB>() {
                 public void query(MemberCB cb) {
                     cb.specify().specifyMemberStatus();
                 }
@@ -397,7 +397,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         int coalesce = 7849238;
 
         // ## Act ##
-        memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
+        memberBhv.selectScalar(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().columnMemberId();
                 cb.query().setMemberStatusCode_Equal_Formalized();
@@ -414,7 +414,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         String coalesce = "2011-12-12";
 
         // ## Act ##
-        memberBhv.scalarSelect(Date.class).max(new ScalarQuery<MemberCB>() {
+        memberBhv.selectScalar(Date.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().columnBirthdate();
                 cb.query().setMemberStatusCode_Equal_Formalized();
@@ -431,7 +431,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         int coalesce = 7849238;
 
         // ## Act ##
-        memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
+        memberBhv.selectScalar(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().derivedPurchase().avg(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {
@@ -452,7 +452,7 @@ public class WxBhvScalarSelectBasicTest extends UnitContainerTestCase {
         int coalesce = 7849238;
 
         // ## Act ##
-        memberBhv.scalarSelect(Integer.class).max(new ScalarQuery<MemberCB>() {
+        memberBhv.selectScalar(Integer.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().derivedPurchase().avg(new SubQuery<PurchaseCB>() {
                     public void query(PurchaseCB subCB) {

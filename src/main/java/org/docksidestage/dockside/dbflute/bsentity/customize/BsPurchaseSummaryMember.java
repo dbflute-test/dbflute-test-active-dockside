@@ -96,24 +96,16 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity implements 
     protected Long _purchaseSummary;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
-        return "PurchaseSummaryMember";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "purchaseSummaryMember";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
+    public DBMeta asDBMeta() {
         return org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta.PurchaseSummaryMemberDbm.getInstance();
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
+        return "PurchaseSummaryMember";
     }
 
     // ===================================================================================
@@ -155,7 +147,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity implements 
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _memberId);
         hs = xCH(hs, _memberName);
         hs = xCH(hs, _birthdate);

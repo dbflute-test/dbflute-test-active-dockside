@@ -1,6 +1,8 @@
 package org.docksidestage.dockside.dbflute.whitebox.outsidesql;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -18,16 +20,19 @@ import org.dbflute.util.DfCollectionUtil;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
+import org.docksidestage.dockside.dbflute.exbhv.cursor.PurchaseSummaryMemberCursor;
+import org.docksidestage.dockside.dbflute.exbhv.cursor.PurchaseSummaryMemberCursorHandler;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentCollectionPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentEmbeddedPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentHintPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentOrderByIfPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentPossiblePmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PurchaseMaxPriceMemberPmb;
+import org.docksidestage.dockside.dbflute.exbhv.pmbean.PurchaseSummaryMemberPmb;
 import org.docksidestage.dockside.dbflute.exentity.customize.PmCommentCollection;
 import org.docksidestage.dockside.dbflute.exentity.customize.PmCommentOrderByIf;
 import org.docksidestage.dockside.dbflute.exentity.customize.PurchaseMaxPriceMember;
-import org.docksidestage.dockside.dbflute.whitebox.outsidesql.WxOutsideSqlBasicTest.MySimpleMember;
+import org.docksidestage.dockside.dbflute.exentity.customize.SimpleMember;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -84,9 +89,62 @@ public class WxSql2EntityParameterCommentTest extends UnitContainerTestCase {
         assertMarked("called");
     }
 
+    public static class MySimpleMember extends SimpleMember {
+        private static final long serialVersionUID = 1L;
+    }
+
     // ===================================================================================
     //                                                                         FOR Comment
     //                                                                         ===========
+    public void test_outsideSql_forComment_nextAnd() {
+        // ## Arrange ##
+        PurchaseSummaryMemberPmb pmb = new PurchaseSummaryMemberPmb();
+        pmb.setMemberNameList_ContainSearch(DfCollectionUtil.newArrayList("S", "v"));
+
+        // ## Act & Assert ##
+        final Set<String> existsSet = DfCollectionUtil.newHashSet();
+        memberBhv.outsideSql().selectCursor(pmb, new PurchaseSummaryMemberCursorHandler() {
+            public Object fetchCursor(PurchaseSummaryMemberCursor cursor) throws SQLException {
+                while (cursor.next()) {
+                    existsSet.add("exists");
+                    final Integer memberId = cursor.getMemberId();
+                    final String memberName = cursor.getMemberName();
+                    final LocalDate birthdate = cursor.getBirthdate();
+
+                    final String c = ", ";
+                    log(memberId + c + memberName + c + birthdate);
+                    if (!memberName.contains("S") || !memberName.contains("v")) {
+                        fail("memberName should have S and v: " + memberName);
+                    }
+                }
+                return null;
+            }
+        });
+        assertTrue(existsSet.contains("exists"));
+    }
+
+    public void test_outsideSql_forComment_nextOr() {
+        // ## Arrange ##
+        PurchaseMaxPriceMemberPmb pmb = new PurchaseMaxPriceMemberPmb();
+        pmb.setMemberNameList_PrefixSearch(DfCollectionUtil.newArrayList("S", "M"));
+
+        // ## Act ##
+        int pageSize = 3;
+        pmb.paging(pageSize, 1); // 1st page
+        PagingResultBean<PurchaseMaxPriceMember> page1 = memberBhv.outsideSql().selectPage(pmb);
+
+        // ## Assert ##
+        assertNotSame(0, page1.size());
+        for (PurchaseMaxPriceMember member : page1) {
+            log(member);
+            String memberName = member.getMemberName();
+
+            if (!memberName.contains("S") && !memberName.contains("M")) {
+                fail("memberName should have S or M: " + memberName);
+            }
+        }
+    }
+
     public void test_outsideSql_forComment_secondCondition_toFirst() {
         // ## Arrange ##
         String path = MemberBhv.PATH_selectPurchaseMaxPriceMember;

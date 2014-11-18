@@ -77,24 +77,16 @@ public abstract class BsVendorPrimaryKeyOnly extends AbstractEntity implements D
     protected Long _primaryKeyOnlyId;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
+    public DBMeta asDBMeta() {
+        return DBMetaInstanceHandler.findDBMeta(asTableDbName());
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
         return "VENDOR_PRIMARY_KEY_ONLY";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "vendorPrimaryKeyOnly";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
-        return DBMetaInstanceHandler.findDBMeta(getTableDbName());
     }
 
     // ===================================================================================
@@ -133,7 +125,7 @@ public abstract class BsVendorPrimaryKeyOnly extends AbstractEntity implements D
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _primaryKeyOnlyId);
         return hs;
     }

@@ -44,17 +44,14 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     }
 
     // ===================================================================================
-    //                                                                     DBMeta Provider
-    //                                                                     ===============
+    //                                                                             DB Meta
+    //                                                                             =======
     @Override
     protected DBMetaProvider xgetDBMetaProvider() {
         return DBMetaInstanceHandler.getProvider();
     }
 
-    // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
-    public String getTableDbName() {
+    public String asTableDbName() {
         return "VENDOR_PRIMARY_KEY_ONLY";
     }
 

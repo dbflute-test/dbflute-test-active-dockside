@@ -85,7 +85,7 @@ public class WxBhvBatchInsertTest extends UnitContainerTestCase {
         assertEquals("testName2", actualList.get(1).getMemberName());
         assertEquals("testName3", actualList.get(2).getMemberName());
         for (Member member : memberList) { // after process
-            if (member.getDBMeta().hasIdentity()) {
+            if (member.asDBMeta().hasIdentity()) {
                 assertFalse(member.hasPrimaryKeyValue());
             } else {
                 assertTrue(member.hasPrimaryKeyValue());

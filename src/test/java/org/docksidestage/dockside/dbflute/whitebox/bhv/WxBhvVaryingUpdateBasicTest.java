@@ -54,6 +54,31 @@ public class WxBhvVaryingUpdateBasicTest extends UnitContainerTestCase {
         assertNotSame(before.getUpdateDatetime(), actual.getUpdateDatetime());
     }
 
+    public void test_varyingUpdate_self_callTwice() throws Exception {
+        // ## Arrange ##
+        Purchase before = purchaseBhv.selectByPK(3L).get();
+        Integer purchaseCount = before.getPurchaseCount();
+        Integer purchasePrice = before.getPurchasePrice();
+        Purchase purchase = new Purchase();
+        purchase.setPurchaseId(3L);
+        purchase.setPaymentCompleteFlg_True();
+        purchase.setVersionNo(before.getVersionNo());
+
+        // ## Act ##
+        purchaseBhv.varyingUpdate(purchase, op -> {
+            op.self(colCB -> colCB.specify().columnPurchaseCount()).plus(1);
+            op.self(colCB -> colCB.specify().columnPurchasePrice()).plus(3);
+        });
+
+        // ## Assert ##
+        Purchase actual = purchaseBhv.selectByPK(3L).get();
+        assertEquals(Integer.valueOf(purchaseCount + 1), actual.getPurchaseCount());
+        assertEquals(Integer.valueOf(purchasePrice + 3), actual.getPurchasePrice());
+        assertEquals(purchase.getVersionNo(), actual.getVersionNo());
+        assertEquals(before.getRegisterDatetime(), actual.getRegisterDatetime());
+        assertNotSame(before.getUpdateDatetime(), actual.getUpdateDatetime());
+    }
+
     public void test_varyingUpdate_self_entityValueIgnored() throws Exception {
         // ## Arrange ##
         Purchase before = purchaseBhv.selectByPK(3L).get();
@@ -224,8 +249,10 @@ public class WxBhvVaryingUpdateBasicTest extends UnitContainerTestCase {
         purchase.setPaymentCompleteFlg_True();
 
         // ## Act ##
-        purchaseBhv.varyingUpdateNonstrict(purchase, op -> op.self(colCB -> {
-            colCB.specify().columnPurchaseCount();
+        purchaseBhv.varyingUpdateNonstrict(purchase, op -> op.self(new SpecifyQuery<PurchaseCB>() {
+            public void specify(PurchaseCB cb) {
+                cb.specify().columnPurchaseCount();
+            }
         }).plus(1));
 
         // ## Assert ##
@@ -264,8 +291,10 @@ public class WxBhvVaryingUpdateBasicTest extends UnitContainerTestCase {
         purchase.setPaymentCompleteFlg_True();
 
         // ## Act ##
-        purchaseBhv.varyingUpdateNonstrict(purchase, op -> op.self(colCB -> {
-            colCB.specify().columnPurchaseCount();
+        purchaseBhv.varyingUpdateNonstrict(purchase, op -> op.self(new SpecifyQuery<PurchaseCB>() {
+            public void specify(PurchaseCB cb) {
+                cb.specify().columnPurchaseCount();
+            }
         }).multiply(2).plus(1));
 
         // ## Assert ##

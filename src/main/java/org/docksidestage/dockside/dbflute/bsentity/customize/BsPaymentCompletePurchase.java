@@ -101,24 +101,16 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity implement
     protected java.time.LocalDateTime _purchaseDatetime;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
-        return "PaymentCompletePurchase";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "paymentCompletePurchase";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
+    public DBMeta asDBMeta() {
         return org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta.PaymentCompletePurchaseDbm.getInstance();
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
+        return "PaymentCompletePurchase";
     }
 
     // ===================================================================================
@@ -161,7 +153,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity implement
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _purchaseId);
         hs = xCH(hs, _memberId);
         hs = xCH(hs, _memberName);

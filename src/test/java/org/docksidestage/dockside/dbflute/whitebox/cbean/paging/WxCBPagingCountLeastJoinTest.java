@@ -75,8 +75,8 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
         assertEquals(3, page3.getCurrentPageNumber());
         assertEquals(9, page3.getCurrentStartRecordNumber());
         assertEquals(12, page3.getCurrentEndRecordNumber());
-        assertTrue(page3.isExistPrePage());
-        assertTrue(page3.isExistNextPage());
+        assertTrue(page3.existsPreviousPage());
+        assertTrue(page3.existsNextPage());
     }
 
     public void test_CountLeastJoin_remained() {
@@ -322,8 +322,8 @@ public class WxCBPagingCountLeastJoinTest extends UnitContainerTestCase {
         assertEquals(3, page3.getCurrentPageNumber());
         assertEquals(9, page3.getCurrentStartRecordNumber());
         assertEquals(12, page3.getCurrentEndRecordNumber());
-        assertTrue(page3.isExistPrePage());
-        assertTrue(page3.isExistNextPage());
+        assertTrue(page3.existsPreviousPage());
+        assertTrue(page3.existsNextPage());
         String sql = displaySqlList.get(1);
         assertTrue(sql.contains("select count(*)"));
         assertTrue(sql.contains("inner join " + MemberStatusDbm.getInstance().getTableDbName()));

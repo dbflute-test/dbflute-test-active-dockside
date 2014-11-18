@@ -52,7 +52,8 @@ public class RegionDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((Region)et).getRegionId(), (et, vl) -> {
             ColumnInfo col = columnRegionId();
             CDef.Region cls = (CDef.Region)gcls(col, vl);
@@ -79,14 +80,12 @@ public class RegionDbm extends AbstractDBMeta {
     public TableSqlName getTableSqlName() { return _tableSqlName; }
     protected final String _tableAlias = "地域";
     public String getTableAlias() { return _tableAlias; }
-    protected final String _tableComment = "主に会員の住所に対応する漠然とした地域。\nかなりざっくりした感じではある。唯一の業務的one-to-oneの親テーブルのケース。";
-    public String getTableComment() { return _tableComment; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnRegionId = cci("REGION_ID", "REGION_ID", null, "地域ID", Integer.class, "regionId", null, true, false, true, "INTEGER", 10, 0, null, false, null, "地域をしっかりと識別するID。\n珍しく(固定的な)マスタテーブルとしては数値だが、Exampleなのでやはり色々なパターンがないとね、ってところで。", null, "memberAddressList", CDef.DefMeta.Region);
-    protected final ColumnInfo _columnRegionName = cci("REGION_NAME", "REGION_NAME", null, "地域名称", String.class, "regionName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, "地域を漠然と表す名称。", null, null, null);
+    protected final ColumnInfo _columnRegionId = cci("REGION_ID", "REGION_ID", null, "地域ID", Integer.class, "regionId", null, true, false, true, "INTEGER", 10, 0, null, false, null, null, null, "memberAddressList", CDef.DefMeta.Region, false);
+    protected final ColumnInfo _columnRegionName = cci("REGION_NAME", "REGION_NAME", null, "地域名称", String.class, "regionName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null, false);
 
     /**
      * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}

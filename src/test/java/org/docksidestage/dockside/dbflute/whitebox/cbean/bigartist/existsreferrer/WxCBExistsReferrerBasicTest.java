@@ -1,7 +1,11 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.existsreferrer;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.cbean.result.ListResultBean;
@@ -17,6 +21,7 @@ import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberLoginBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
+import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberLogin;
 import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
@@ -34,10 +39,122 @@ public class WxCBExistsReferrerBasicTest extends UnitContainerTestCase {
     private MemberBhv memberBhv;
     private MemberStatusBhv memberStatusBhv;
     private MemberLoginBhv memberLoginBhv;
+    private PurchaseBhv purchaseBhv;
 
     // ===================================================================================
     //                                                                               Basic
     //                                                                               =====
+    public void test_ExistsReferrer_basic() {
+        // ## Arrange ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().existsPurchase(purchaseCB -> {
+                purchaseCB.query().setPurchaseCount_GreaterThan(2);
+            });
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        memberBhv.loadPurchase(memberList, purchaseCB -> purchaseCB.setupSelect_Product());
+        assertHasAnyElement(memberList);
+        for (Member member : memberList) {
+            log("[MEMBER] " + member.getMemberId() + ", " + member.getMemberName());
+            List<Purchase> purchaseList = member.getPurchaseList();
+            for (Purchase purchase : purchaseList) {
+                purchase.getProduct().alwaysPresent(product -> {
+                    Integer purchaseCount = purchase.getPurchaseCount();
+                    String productName = product.getProductName();
+                    log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
+                    if (purchaseCount > 2) {
+                        markHere("existsPurchase");
+                    }
+                });
+            }
+            assertMarked("existsPurchase");
+        }
+    }
+
+    public void test_ExistsReferrer_ForeignReferrerCondition() {
+        // ## Arrange ##
+        ListResultBean<Purchase> purchaseList = purchaseBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().queryMember().existsMemberLogin(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.query().setMobileLoginFlg_Equal_True();
+                }
+            });
+            cb.query().addOrderBy_MemberId_Asc().addOrderBy_ProductId_Asc();
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        List<Long> purchaseIdList = new ArrayList<Long>();
+        Set<Integer> memberIdSet = new HashSet<Integer>();
+        for (Purchase purchase : purchaseList) {
+            // Show only
+            Long purchaseId = purchase.getPurchaseId();
+            Integer memberId = purchase.getMemberId();
+            Integer productId = purchase.getProductId();
+            LocalDateTime purchaseDatetime = purchase.getPurchaseDatetime();
+            log("[PURCHASE] " + purchaseId + ", " + memberId + ", " + productId + ", " + purchaseDatetime);
+            purchaseIdList.add(purchaseId);
+            memberIdSet.add(memberId);
+        }
+        int expected = memberBhv.selectCount(memberCB -> {
+            memberCB.query().existsMemberLogin(new SubQuery<MemberLoginCB>() {
+                public void query(MemberLoginCB subCB) {
+                    subCB.query().setMobileLoginFlg_Equal_True();
+                }
+            });
+            memberCB.query().existsPurchase(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                }
+            });
+        });
+        assertEquals(expected, memberIdSet.size());
+
+        // [SQL]
+        // select ...
+        //   from PURCHASE dfloc
+        //     left outer join MEMBER dfrel_0 on dfloc.MEMBER_ID = dfrel_0.MEMBER_ID 
+        //  where exists (select sublocal_0.MEMBER_ID
+        //                  from MEMBER_LOGIN sublocal_0 
+        //                 where sublocal_0.MEMBER_ID = dfrel_0.MEMBER_ID
+        //                   and sublocal_0.LOGIN_MOBILE_FLG = 1
+        //        )
+        //  order by dfloc.MEMBER_ID asc, dfloc.PRODUCT_ID asc
+    }
+
+    public void test_ExistsReferrer_ManyToManyCondition() {
+        // ## Arrange ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().existsPurchase(purchaseCB -> {
+                purchaseCB.query().queryProduct().setProductName_LikeSearch("Storm", op -> op.likePrefix());
+            });
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        memberBhv.loadPurchase(memberList, purchaseCB -> purchaseCB.setupSelect_Product());
+        assertHasAnyElement(memberList);
+        for (Member member : memberList) {
+            log("[MEMBER] " + member.getMemberId() + ", " + member.getMemberName());
+            List<Purchase> purchaseList = member.getPurchaseList();
+            for (Purchase purchase : purchaseList) {
+                purchase.getProduct().alwaysPresent(product -> {
+                    Integer purchaseCount = purchase.getPurchaseCount();
+                    String productName = product.getProductName();
+                    log("    [PURCHASE] " + purchase.getPurchaseId() + ", " + purchaseCount + ", " + productName);
+                    if (productName.startsWith("Storm")) {
+                        markHere("existsProduct");
+                    }
+                });
+            }
+            assertMarked("existsProduct");
+        }
+    }
+
     public void test_ExistsReferrer_nested() {
         // ## Arrange ##
         final Member member = memberBhv.selectByPK(3).get();

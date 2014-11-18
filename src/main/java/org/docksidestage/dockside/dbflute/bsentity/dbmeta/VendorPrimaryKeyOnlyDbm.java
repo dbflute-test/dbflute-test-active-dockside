@@ -52,7 +52,8 @@ public class VendorPrimaryKeyOnlyDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((VendorPrimaryKeyOnly)et).getPrimaryKeyOnlyId(), (et, vl) -> ((VendorPrimaryKeyOnly)et).setPrimaryKeyOnlyId(ctl(vl)), "primaryKeyOnlyId");
     }
     public PropertyGateway findPropertyGateway(String prop)
@@ -72,7 +73,7 @@ public class VendorPrimaryKeyOnlyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnPrimaryKeyOnlyId = cci("PRIMARY_KEY_ONLY_ID", "PRIMARY_KEY_ONLY_ID", null, null, Long.class, "primaryKeyOnlyId", null, true, false, true, "BIGINT", 19, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnPrimaryKeyOnlyId = cci("PRIMARY_KEY_ONLY_ID", "PRIMARY_KEY_ONLY_ID", null, null, Long.class, "primaryKeyOnlyId", null, true, false, true, "BIGINT", 19, 0, null, false, null, null, null, null, null, false);
 
     /**
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}

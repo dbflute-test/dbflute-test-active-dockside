@@ -13,7 +13,7 @@ select member.MEMBER_ID
       on member.MEMBER_STATUS_CODE = memberStatus.MEMBER_STATUS_CODE
  /*BEGIN*/where
    member.MEMBER_ID = /*pmb.wrongMemberId*/3
-   /*IF pmb.memberName != null*/and member.MEMBER_NAME like /*pmb.memberName*/'ス' || '%'/*END*/
+   /*IF pmb.memberName != null*/and member.MEMBER_NAME like /*pmb.memberName*/'S' || '%'/*END*/
    /*IF pmb.memberStatusCode != null*/and member.MEMBER_STATUS_CODE = /*pmb.memberStatusCode*/'FML'/*END*/
    /*IF pmb.unpaidMemberOnly*/
    and exists (select 'yes'

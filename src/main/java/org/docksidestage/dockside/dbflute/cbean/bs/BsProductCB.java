@@ -77,17 +77,14 @@ public class BsProductCB extends AbstractConditionBean {
     }
 
     // ===================================================================================
-    //                                                                     DBMeta Provider
-    //                                                                     ===============
+    //                                                                             DB Meta
+    //                                                                             =======
     @Override
     protected DBMetaProvider getDBMetaProvider() {
         return DBMetaInstanceHandler.getProvider(); // as default
     }
 
-    // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
-    public String getTableDbName() {
+    public String asTableDbName() {
         return "PRODUCT";
     }
 
@@ -486,7 +483,8 @@ public class BsProductCB extends AbstractConditionBean {
          */
         public HpSDRFunction<PurchaseCB, ProductCQ> derivedPurchase() {
             assertDerived("purchaseList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsderivePurchaseList(fn, sq, al, op), _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<PurchaseCB> sq, ProductCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderivePurchaseList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -494,8 +492,27 @@ public class BsProductCB extends AbstractConditionBean {
          */
         public HpSDRFunction<ProductCB, ProductCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<ProductCB> sq, ProductCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
+    }
+
+    // ===================================================================================
+    //                                                                        Dream Cruise
+    //                                                                        ============
+    /**
+     * Welcome to the Dream Cruise for condition-bean deep world. <br>
+     * This is very specialty so you can get the frontier spirit. Bon voyage!
+     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
+     */
+    public ProductCB dreamCruiseCB() {
+        ProductCB cb = new ProductCB();
+        cb.xsetupForDreamCruise((ProductCB) this);
+        return cb;
+    }
+
+    protected ConditionBean xdoCreateDreamCruiseCB() {
+        return dreamCruiseCB();
     }
 
     // [DBFlute-0.9.5.3]
@@ -529,24 +546,6 @@ public class BsProductCB extends AbstractConditionBean {
         ProductCB cb = new ProductCB();
         cb.xsetupForColumnQuery((ProductCB)this);
         return cb;
-    }
-
-    // ===================================================================================
-    //                                                                        Dream Cruise
-    //                                                                        ============
-    /**
-     * Welcome to the Dream Cruise for condition-bean deep world. <br>
-     * This is very specialty so you can get the frontier spirit. Bon voyage!
-     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
-     */
-    public ProductCB dreamCruiseCB() {
-        ProductCB cb = new ProductCB();
-        cb.xsetupForDreamCruise((ProductCB) this);
-        return cb;
-    }
-
-    protected ConditionBean xdoCreateDreamCruiseCB() {
-        return dreamCruiseCB();
     }
 
     // [DBFlute-0.9.6.3]

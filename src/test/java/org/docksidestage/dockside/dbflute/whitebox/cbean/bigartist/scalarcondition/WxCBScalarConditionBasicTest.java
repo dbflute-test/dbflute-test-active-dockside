@@ -44,10 +44,13 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_ScalarCondition_basic() {
         // ## Arrange ##
-        LocalDate expected = selectExpectedMaxBirthdateOnFormalized();
+        LocalDate expected = memberBhv.selectScalar(LocalDate.class).max(cb -> {
+            cb.specify().columnBirthdate();
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        }).get();
 
+        // ## Act ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
-            /* ## Act ## */
             cb.query().setMemberStatusCode_Equal_Formalized();
             cb.query().scalar_Equal().max(new SubQuery<MemberCB>() {
                 public void query(MemberCB subCB) {
@@ -55,33 +58,14 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
                     subCB.query().setMemberStatusCode_Equal_Formalized();
                 }
             });
-            pushCB(cb);
         });
 
         // ## Assert ##
-        assertFalse(memberList.isEmpty());
+        assertHasAnyElement(memberList);
         for (Member member : memberList) {
             LocalDate birthdate = member.getBirthdate();
             assertEquals(expected, birthdate);
         }
-    }
-
-    protected LocalDate selectExpectedMaxBirthdateOnFormalized() {
-        LocalDate expected = null;
-        {
-            ListResultBean<Member> listAll = memberBhv.selectList(cb -> {
-                cb.query().setMemberStatusCode_Equal_Formalized();
-                pushCB(cb);
-            });
-
-            for (Member member : listAll) {
-                LocalDate birthdate = member.getBirthdate();
-                if (birthdate != null && (expected == null || expected.isBefore(birthdate))) {
-                    expected = birthdate;
-                }
-            }
-        }
-        return expected;
     }
 
     public void test_ScalarCondition_operand() throws Exception {
@@ -187,7 +171,7 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
     //                                                                            ========
     public void test_scalarCondition_OneToOne() {
         // ## Arrange ##
-        Integer avg = memberBhv.scalarSelect(Integer.class).avg(new ScalarQuery<MemberCB>() {
+        Integer avg = memberBhv.selectScalar(Integer.class).avg(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().columnMemberId();
             }

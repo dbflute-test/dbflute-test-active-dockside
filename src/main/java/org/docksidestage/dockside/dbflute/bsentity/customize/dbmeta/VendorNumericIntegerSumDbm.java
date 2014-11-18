@@ -52,7 +52,8 @@ public class VendorNumericIntegerSumDbm extends AbstractDBMeta {
     //                                       Column Property
     //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
-    {
+    { xsetupEpg(); }
+    protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((VendorNumericIntegerSum)et).getIntegerNonDigitSum(), (et, vl) -> ((VendorNumericIntegerSum)et).setIntegerNonDigitSum(cti(vl)), "integerNonDigitSum");
     }
     public PropertyGateway findPropertyGateway(String prop)
@@ -72,7 +73,7 @@ public class VendorNumericIntegerSumDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnIntegerNonDigitSum = cci("INTEGER_NON_DIGIT_SUM", "INTEGER_NON_DIGIT_SUM", null, null, Integer.class, "integerNonDigitSum", null, false, false, false, "DECIMAL", 5, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnIntegerNonDigitSum = cci("INTEGER_NON_DIGIT_SUM", "INTEGER_NON_DIGIT_SUM", null, null, Integer.class, "integerNonDigitSum", null, false, false, false, "DECIMAL", 5, 0, null, false, null, null, null, null, null, false);
 
     /**
      * INTEGER_NON_DIGIT_SUM: {DECIMAL(5)}

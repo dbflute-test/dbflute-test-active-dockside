@@ -1,3 +1,10 @@
+/*
+ [df:title]
+ surprising comment that is similar to PK comment
+ 
+ [df:description]
+ see you tomorrow
+*/
 -- #df:entity#
 
 /*--------------------------------------------------------------*/

@@ -29,6 +29,7 @@ import org.docksidestage.dockside.dbflute.exbhv.pmbean.PurchaseSummaryMemberPmb;
 /**
  * The behavior of MEMBER.
  * @author DBFlute(AutoGenerator)
+ * @author jflute
  */
 public class MemberBhv extends BsMemberBhv {
 
@@ -37,7 +38,7 @@ public class MemberBhv extends BsMemberBhv {
     //                                                                          ==========
     /** Log instance for sub class. */
     private static final Log _log = LogFactory.getLog(MemberBhv.class);
-
+    
     // ===================================================================================
     //                                                                          CSV Output
     //                                                                          ==========

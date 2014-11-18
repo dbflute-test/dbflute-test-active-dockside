@@ -77,17 +77,14 @@ public class BsServiceRankCB extends AbstractConditionBean {
     }
 
     // ===================================================================================
-    //                                                                     DBMeta Provider
-    //                                                                     ===============
+    //                                                                             DB Meta
+    //                                                                             =======
     @Override
     protected DBMetaProvider getDBMetaProvider() {
         return DBMetaInstanceHandler.getProvider(); // as default
     }
 
-    // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
-    public String getTableDbName() {
+    public String asTableDbName() {
         return "SERVICE_RANK";
     }
 
@@ -362,7 +359,8 @@ public class BsServiceRankCB extends AbstractConditionBean {
          */
         public HpSDRFunction<MemberServiceCB, ServiceRankCQ> derivedMemberService() {
             assertDerived("memberServiceList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsderiveMemberServiceList(fn, sq, al, op), _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<MemberServiceCB> sq, ServiceRankCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveMemberServiceList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -370,8 +368,27 @@ public class BsServiceRankCB extends AbstractConditionBean {
          */
         public HpSDRFunction<ServiceRankCB, ServiceRankCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (fn, sq, cq, al, op) -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<ServiceRankCB> sq, ServiceRankCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
+    }
+
+    // ===================================================================================
+    //                                                                        Dream Cruise
+    //                                                                        ============
+    /**
+     * Welcome to the Dream Cruise for condition-bean deep world. <br>
+     * This is very specialty so you can get the frontier spirit. Bon voyage!
+     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
+     */
+    public ServiceRankCB dreamCruiseCB() {
+        ServiceRankCB cb = new ServiceRankCB();
+        cb.xsetupForDreamCruise((ServiceRankCB) this);
+        return cb;
+    }
+
+    protected ConditionBean xdoCreateDreamCruiseCB() {
+        return dreamCruiseCB();
     }
 
     // [DBFlute-0.9.5.3]
@@ -405,24 +422,6 @@ public class BsServiceRankCB extends AbstractConditionBean {
         ServiceRankCB cb = new ServiceRankCB();
         cb.xsetupForColumnQuery((ServiceRankCB)this);
         return cb;
-    }
-
-    // ===================================================================================
-    //                                                                        Dream Cruise
-    //                                                                        ============
-    /**
-     * Welcome to the Dream Cruise for condition-bean deep world. <br>
-     * This is very specialty so you can get the frontier spirit. Bon voyage!
-     * @return The condition-bean for dream cruise, which is linked to main condition-bean.
-     */
-    public ServiceRankCB dreamCruiseCB() {
-        ServiceRankCB cb = new ServiceRankCB();
-        cb.xsetupForDreamCruise((ServiceRankCB) this);
-        return cb;
-    }
-
-    protected ConditionBean xdoCreateDreamCruiseCB() {
-        return dreamCruiseCB();
     }
 
     // [DBFlute-0.9.6.3]

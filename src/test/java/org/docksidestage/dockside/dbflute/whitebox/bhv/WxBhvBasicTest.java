@@ -2,17 +2,12 @@ package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.dbflute.bhv.core.BehaviorCommandInvoker;
 import org.dbflute.cbean.scoping.ScalarQuery;
 import org.dbflute.cbean.scoping.UnionQuery;
-import org.dbflute.exception.EntityDuplicatedException;
-import org.dbflute.exception.FetchingOverSafetySizeException;
-import org.dbflute.exception.SelectEntityConditionNotFoundException;
-import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.cursor.PurchaseSummaryMemberCursor;
@@ -31,93 +26,6 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
     //                                                                           =========
     private MemberBhv memberBhv;
     private BehaviorCommandInvoker behaviorCommandInvoker;
-
-    // ===================================================================================
-    //                                                                       Entity Select
-    //                                                                       =============
-    public void test_selectEntity_duplicateResult() {
-        // ## Arrange ##
-        try {
-            memberBhv.selectEntity(cb -> {
-                /* ## Act ## */
-                cb.query().setMemberId_InScope(Arrays.asList(new Integer[] { 3, 5 }));
-            });
-
-            // ## Assert ##
-            fail();
-        } catch (EntityDuplicatedException e) {
-            // OK
-            log(e.getMessage());
-            Throwable cause = e.getCause();
-            log(cause.getMessage());
-            assertEquals(cause.getClass(), FetchingOverSafetySizeException.class);
-        }
-    }
-
-    public void test_selectEntity_conditionNotFound() {
-        // ## Arrange ##
-        try {
-            memberBhv.selectEntity(cb -> {});
-
-            // ## Assert ##
-            fail();
-        } catch (SelectEntityConditionNotFoundException e) {
-            // OK
-            log(e.getMessage());
-            assertFalse(Srl.contains(e.getMessage(), "MEMBER_ID equal"));
-        }
-
-        // ## Act ##
-        try {
-            memberBhv.selectEntityWithDeletedCheck(cb -> {});
-
-            // ## Assert ##
-            fail();
-        } catch (SelectEntityConditionNotFoundException e) {
-            // OK
-            log(e.getMessage());
-            assertFalse(Srl.contains(e.getMessage(), "MEMBER_ID equal"));
-        }
-
-        // ## Act ##
-        try {
-            memberBhv.selectEntity(cb -> {
-                cb.ignoreNullOrEmptyQuery();
-                cb.query().setMemberId_Equal(null);
-            });
-
-            // ## Assert ##
-            fail();
-        } catch (SelectEntityConditionNotFoundException e) {
-            // OK
-            log(e.getMessage());
-            assertTrue(Srl.containsAll(e.getMessage(), "MEMBER_ID equal", "query()"));
-        }
-
-        // ## Act ##
-        try {
-            memberBhv.selectEntity(cb -> {
-                cb.fetchFirst(1983);
-            });
-
-            // ## Assert ##
-            fail();
-        } catch (SelectEntityConditionNotFoundException e) {
-            // OK
-            log(e.getMessage());
-            assertTrue(Srl.contains(e.getMessage(), "1983"));
-        }
-
-        // ## Act ##
-        memberBhv.selectEntity(cb -> {
-            cb.fetchFirst(1);
-        }).alwaysPresent(member -> {
-            /* ## Assert ## */
-            assertNotNull(member);
-            log(member);
-        });
-
-    }
 
     // ===================================================================================
     //                                                                       Cursor Select
@@ -191,7 +99,7 @@ public class WxBhvBasicTest extends UnitContainerTestCase {
         LocalDateTime expected = expected1.compareTo(expected2) > 0 ? expected1 : expected2;
 
         // ## Act ##
-        memberBhv.scalarSelect(LocalDateTime.class).max(new ScalarQuery<MemberCB>() {
+        memberBhv.selectScalar(LocalDateTime.class).max(new ScalarQuery<MemberCB>() {
             public void query(MemberCB cb) {
                 cb.specify().columnRegisterDatetime(); // *Point!
                 cb.query().setMemberStatusCode_Equal_Formalized();
