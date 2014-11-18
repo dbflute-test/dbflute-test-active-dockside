@@ -81,24 +81,16 @@ public abstract class BsPmCommentEmbedded extends AbstractEntity implements Cust
     protected String _memberName;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
-        return "PmCommentEmbedded";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "pmCommentEmbedded";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
+    public DBMeta asDBMeta() {
         return org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta.PmCommentEmbeddedDbm.getInstance();
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
+        return "PmCommentEmbedded";
     }
 
     // ===================================================================================
@@ -137,7 +129,7 @@ public abstract class BsPmCommentEmbedded extends AbstractEntity implements Cust
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _memberId);
         hs = xCH(hs, _memberName);
         return hs;

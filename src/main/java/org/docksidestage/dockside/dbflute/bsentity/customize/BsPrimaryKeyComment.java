@@ -103,24 +103,16 @@ public abstract class BsPrimaryKeyComment extends AbstractEntity implements Cust
     protected String _updateUser;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
-        return "PrimaryKeyComment";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "primaryKeyComment";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
+    public DBMeta asDBMeta() {
         return org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta.PrimaryKeyCommentDbm.getInstance();
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
+        return "PrimaryKeyComment";
     }
 
     // ===================================================================================
@@ -229,7 +221,7 @@ public abstract class BsPrimaryKeyComment extends AbstractEntity implements Cust
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _memberId);
         return hs;
     }

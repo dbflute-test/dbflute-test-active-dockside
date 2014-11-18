@@ -91,24 +91,16 @@ public abstract class BsSimpleMember extends AbstractEntity implements Customize
     protected String _memberStatusName;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
-        return "SimpleMember";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "simpleMember";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
+    public DBMeta asDBMeta() {
         return org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta.SimpleMemberDbm.getInstance();
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
+        return "SimpleMember";
     }
 
     // ===================================================================================
@@ -149,7 +141,7 @@ public abstract class BsSimpleMember extends AbstractEntity implements Customize
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _memberId);
         hs = xCH(hs, _memberName);
         hs = xCH(hs, _birthdate);

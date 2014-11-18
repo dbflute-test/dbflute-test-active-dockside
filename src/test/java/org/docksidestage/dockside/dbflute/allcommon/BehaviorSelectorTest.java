@@ -33,7 +33,7 @@ public class BehaviorSelectorTest extends UnitContainerTestCase {
 
         // ## Act ##
         final BehaviorReadable bhv = behaviorSelector.byName(tableDbName);
-        final DBMeta dbmeta = bhv.getDBMeta();
+        final DBMeta dbmeta = bhv.asDBMeta();
         final String tablePropertyName = dbmeta.getTablePropertyName();
 
         // ## Assert ##

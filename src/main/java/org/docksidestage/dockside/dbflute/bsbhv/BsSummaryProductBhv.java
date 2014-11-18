@@ -75,10 +75,12 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
     /*df:endQueryPath*/
 
     // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public SummaryProductDbm getDBMeta() { return SummaryProductDbm.getInstance(); }
+    public SummaryProductDbm asDBMeta() { return SummaryProductDbm.getInstance(); }
+    /** {@inheritDoc} */
+    public String asTableDbName() { return "SUMMARY_PRODUCT"; }
 
     // ===================================================================================
     //                                                                        New Instance
@@ -295,7 +297,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
     //                                                                            ========
     @Override
     protected Number doReadNextVal() {
-        String msg = "This table is NOT related to sequence: " + getTableDbName();
+        String msg = "This table is NOT related to sequence: " + asTableDbName();
         throw new UnsupportedOperationException(msg);
     }
 

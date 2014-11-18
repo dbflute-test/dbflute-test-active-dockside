@@ -76,17 +76,14 @@ public class BsVendorTheLongAndWindingTableAndColumnCB extends AbstractCondition
     }
 
     // ===================================================================================
-    //                                                                     DBMeta Provider
-    //                                                                     ===============
+    //                                                                             DB Meta
+    //                                                                             =======
     @Override
     protected DBMetaProvider getDBMetaProvider() {
         return DBMetaInstanceHandler.getProvider(); // as default
     }
 
-    // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
-    public String getTableDbName() {
+    public String asTableDbName() {
         return "VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN";
     }
 

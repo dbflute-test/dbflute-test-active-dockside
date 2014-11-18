@@ -75,10 +75,12 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
     /*df:endQueryPath*/
 
     // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public VendorIdentityOnlyDbm getDBMeta() { return VendorIdentityOnlyDbm.getInstance(); }
+    public VendorIdentityOnlyDbm asDBMeta() { return VendorIdentityOnlyDbm.getInstance(); }
+    /** {@inheritDoc} */
+    public String asTableDbName() { return "VENDOR_IDENTITY_ONLY"; }
 
     // ===================================================================================
     //                                                                        New Instance
@@ -295,7 +297,7 @@ public abstract class BsVendorIdentityOnlyBhv extends AbstractBehaviorWritable<V
     //                                                                            ========
     @Override
     protected Number doReadNextVal() {
-        String msg = "This table is NOT related to sequence: " + getTableDbName();
+        String msg = "This table is NOT related to sequence: " + asTableDbName();
         throw new UnsupportedOperationException(msg);
     }
 

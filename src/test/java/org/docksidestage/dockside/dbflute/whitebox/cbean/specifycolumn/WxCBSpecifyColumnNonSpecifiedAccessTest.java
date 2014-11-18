@@ -61,7 +61,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertEquals(3, member.myspecifiedProperties().size()); // PK and account and setupSelect
 
             log(member.toString()); // expected no exception
-            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+            log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
         }
 
         // ## Arrange ##
@@ -96,7 +96,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertEquals(3, member.myspecifiedProperties().size()); /* PK and account and setupSelect */
 
             log(member.toString()); /* expected no exception */
-            log(member.getDBMeta().extractAllColumnMap(member)); /* expected no exception */
+            log(member.asDBMeta().extractAllColumnMap(member)); /* expected no exception */
         });
     }
 
@@ -136,7 +136,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertEquals(4, member.myspecifiedProperties().size()); // PK and account and setupSelect
 
             log(member.toString()); // expected no exception
-            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+            log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
         }
     }
 
@@ -176,7 +176,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertEquals(3, member.myspecifiedProperties().size()); // PK and account and setupSelect
 
             log(member.toString()); // expected no exception
-            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+            log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
         }
     }
 
@@ -213,7 +213,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertEquals(2, member.myspecifiedProperties().size()); // PK and account and setupSelect
 
             log(member.toString()); // expected no exception
-            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+            log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
         }
     }
 
@@ -255,7 +255,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertEquals(2, member.myspecifiedProperties().size()); // PK and account and setupSelect
 
             log(member.toString()); // expected no exception
-            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+            log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
             // TODO jflute test: since Optional migration
         }
         assertMarked("existsBirthdate");
@@ -312,7 +312,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
         assertHasAnyElement(memberList);
         for (Member member : memberList) {
             // expected no exception (before various checking)
-            Map<String, Object> columnMap = member.getDBMeta().extractAllColumnMap(member);
+            Map<String, Object> columnMap = member.asDBMeta().extractAllColumnMap(member);
             log(columnMap);
             assertNotNull(member.getMemberId());
             assertNotNull(member.getMemberAccount());
@@ -362,7 +362,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertEquals(5, member.myspecifiedProperties().size());
 
             log(member.toString()); // expected no exception
-            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+            log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
         }
     }
 
@@ -483,7 +483,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertNotNull(member.getVersionNo());
 
             log(member.toString()); // expected no exception
-            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+            log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
 
             member.getMemberStatus().alwaysPresent(status -> {
                 assertNotNull(status.getMemberStatusCode());
@@ -494,7 +494,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
                 assertEquals(2, status.myspecifiedProperties().size()); /* PK and account and setupSelect */
 
                 log(status.toString()); /* expected no exception */
-                log(status.getDBMeta().extractAllColumnMap(status)); /* expected no exception */
+                log(status.asDBMeta().extractAllColumnMap(status)); /* expected no exception */
             });
         }
         assertMarked("birthdate");
@@ -524,7 +524,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertNotNull(member.getVersionNo());
 
             log(member.toString()); /* expected no exception */
-            log(member.getDBMeta().extractAllColumnMap(member)); /* expected no exception */
+            log(member.asDBMeta().extractAllColumnMap(member)); /* expected no exception */
 
             member.getMemberStatus().alwaysPresent(status -> {
                 assertNotNull(status.getMemberStatusCode());
@@ -535,7 +535,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
                 assertEquals(2, status.myspecifiedProperties().size()); /* PK and account and setupSelect */
 
                 log(status.toString()); /* expected no exception */
-                log(status.getDBMeta().extractAllColumnMap(status)); /* expected no exception */
+                log(status.asDBMeta().extractAllColumnMap(status)); /* expected no exception */
             });
         });
         assertMarked("birthdate");
@@ -558,7 +558,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             // expected no exception (before various checking)
-            Map<String, Object> columnMap = member.getDBMeta().extractAllColumnMap(member);
+            Map<String, Object> columnMap = member.asDBMeta().extractAllColumnMap(member);
             log(columnMap);
             assertNotNull(member.getMemberId());
             assertNotNull(member.getMemberAccount());
@@ -566,7 +566,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertNotNull(member.getMemberName());
 
             log(member.toString()); // expected no exception
-            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+            log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
 
             member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
                 assertNonSpecifiedAccess(() -> withdrawal.getWithdrawalDatetime());
@@ -589,7 +589,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
                     markHere("existsReason");
                 });
                 log(withdrawal.toString()); /* expected no exception */
-                log(withdrawal.getDBMeta().extractAllColumnMap(withdrawal)); /* expected no exception */
+                log(withdrawal.asDBMeta().extractAllColumnMap(withdrawal)); /* expected no exception */
 
                 markHere("existsWithdrawal");
             });
@@ -624,7 +624,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             // expected no exception (before various checking)
-            Map<String, Object> columnMap = member.getDBMeta().extractAllColumnMap(member);
+            Map<String, Object> columnMap = member.asDBMeta().extractAllColumnMap(member);
             log(columnMap);
             assertNotNull(member.getMemberId());
             assertNotNull(member.getMemberAccount());
@@ -632,7 +632,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertNotNull(member.getMemberName());
 
             log(member.toString()); // expected no exception
-            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+            log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
 
             member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
                 assertNonSpecifiedAccess(() -> withdrawal.getWithdrawalDatetime());
@@ -657,7 +657,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
                 });
 
                 log(withdrawal.toString()); /* expected no exception */
-                log(withdrawal.getDBMeta().extractAllColumnMap(withdrawal)); /* expected no exception */
+                log(withdrawal.asDBMeta().extractAllColumnMap(withdrawal)); /* expected no exception */
 
                 markHere("existsWithdrawal");
             });
@@ -685,7 +685,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             // expected no exception (before various checking)
-            Map<String, Object> columnMap = member.getDBMeta().extractAllColumnMap(member);
+            Map<String, Object> columnMap = member.asDBMeta().extractAllColumnMap(member);
             log(columnMap);
             assertNotNull(member.getMemberId());
             assertNotNull(member.getMemberAccount());
@@ -693,7 +693,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertNotNull(member.getMemberName());
 
             log(member.toString()); // expected no exception
-            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+            log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
 
             member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
                 assertNonSpecifiedAccess(() -> withdrawal.getWithdrawalDatetime());
@@ -718,7 +718,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
                 });
 
                 log(withdrawal.toString()); /* expected no exception */
-                log(withdrawal.getDBMeta().extractAllColumnMap(withdrawal)); /* expected no exception */
+                log(withdrawal.asDBMeta().extractAllColumnMap(withdrawal)); /* expected no exception */
 
                 markHere("existsWithdrawal");
             });
@@ -745,7 +745,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
         assertFalse(memberList.isEmpty());
         for (Member member : memberList) {
             // expected no exception (before various checking)
-            Map<String, Object> columnMap = member.getDBMeta().extractAllColumnMap(member);
+            Map<String, Object> columnMap = member.asDBMeta().extractAllColumnMap(member);
             log(columnMap);
             assertNotNull(member.getMemberId());
             assertNotNull(member.getMemberAccount());
@@ -753,7 +753,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertNotNull(member.getMemberName());
 
             log(member.toString()); // expected no exception
-            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+            log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
 
             member.getMemberWithdrawalAsOne().ifPresent(withdrawal -> {
                 assertNonSpecifiedAccess(() -> withdrawal.getWithdrawalDatetime());
@@ -767,7 +767,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
                 assertFalse(withdrawal.getWithdrawalReason().isPresent());
 
                 log(withdrawal.toString()); /* expected no exception */
-                log(withdrawal.getDBMeta().extractAllColumnMap(withdrawal)); /* expected no exception */
+                log(withdrawal.asDBMeta().extractAllColumnMap(withdrawal)); /* expected no exception */
 
                 markHere("existsWithdrawal");
             });
@@ -808,7 +808,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             assertNonSpecifiedAccess(() -> member.getVersionNo());
 
             log(member.toString()); // expected no exception
-            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+            log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
 
             member.getMemberStatus().alwaysPresent(status -> {
                 assertNotNull(status.getMemberStatusCode());
@@ -819,7 +819,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
                 assertEquals(2, status.myspecifiedProperties().size()); /* PK and account and setupSelect */
 
                 log(status.toString()); /* expected no exception */
-                log(status.getDBMeta().extractAllColumnMap(status)); /* expected no exception */
+                log(status.asDBMeta().extractAllColumnMap(status)); /* expected no exception */
             });
         }
     }
@@ -875,7 +875,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             });
 
             log(member.toString()); // expected no exception
-            log(member.getDBMeta().extractAllColumnMap(member)); // expected no exception
+            log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
 
             member.getMemberStatus().alwaysPresent(status -> {
                 assertNotNull(status.getMemberStatusCode());
@@ -886,7 +886,7 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
                 assertEquals(2, status.myspecifiedProperties().size()); /* PK and account and setupSelect */
 
                 log(status.toString()); /* expected no exception */
-                log(status.getDBMeta().extractAllColumnMap(status)); /* expected no exception */
+                log(status.asDBMeta().extractAllColumnMap(status)); /* expected no exception */
 
                 status.getMemberLoginList().forEach(login -> {
                     assertNotNull(login.getMemberLoginId());

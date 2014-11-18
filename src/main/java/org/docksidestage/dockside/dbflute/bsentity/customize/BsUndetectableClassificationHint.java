@@ -82,24 +82,16 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     protected String _memberStatusCode;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
-        return "UndetectableClassificationHint";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "undetectableClassificationHint";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
+    public DBMeta asDBMeta() {
         return org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta.UndetectableClassificationHintDbm.getInstance();
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
+        return "UndetectableClassificationHint";
     }
 
     // ===================================================================================
@@ -235,7 +227,7 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _memberId);
         hs = xCH(hs, _memberStatusCode);
         return hs;

@@ -299,7 +299,7 @@ public class DBMetaInstanceHandler implements DBMetaProvider {
             }
             if (Entity.class.isAssignableFrom(entityType)) { // required
                 Entity entity = newEntity(entityType);
-                dbmeta = getCachedDBMeta(entity.getTableDbName());
+                dbmeta = getCachedDBMeta(entity.asTableDbName());
             }
             if (dbmeta == null) {
                 return null;

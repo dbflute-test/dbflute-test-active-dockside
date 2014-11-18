@@ -384,6 +384,6 @@ public class WxCBBasicTest extends UnitContainerTestCase {
     //                                                                              DBMeta
     //                                                                              ======
     public void test_getDBMeta() {
-        assertEquals(MemberDbm.getInstance(), new MemberCB().getDBMeta());
+        assertEquals(MemberDbm.getInstance(), new MemberCB().asDBMeta());
     }
 }

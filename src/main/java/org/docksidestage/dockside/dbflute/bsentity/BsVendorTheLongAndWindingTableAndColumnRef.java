@@ -94,24 +94,16 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
     protected java.time.LocalDate _shortDate;
 
     // ===================================================================================
-    //                                                                          Table Name
-    //                                                                          ==========
+    //                                                                             DB Meta
+    //                                                                             =======
     /** {@inheritDoc} */
-    public String getTableDbName() {
+    public DBMeta asDBMeta() {
+        return DBMetaInstanceHandler.findDBMeta(asTableDbName());
+    }
+
+    /** {@inheritDoc} */
+    public String asTableDbName() {
         return "VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF";
-    }
-
-    /** {@inheritDoc} */
-    public String getTablePropertyName() {
-        return "vendorTheLongAndWindingTableAndColumnRef";
-    }
-
-    // ===================================================================================
-    //                                                                              DBMeta
-    //                                                                              ======
-    /** {@inheritDoc} */
-    public DBMeta getDBMeta() {
-        return DBMetaInstanceHandler.findDBMeta(getTableDbName());
     }
 
     // ===================================================================================
@@ -171,7 +163,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
     @Override
     protected int doHashCode(int initial) {
         int hs = initial;
-        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _theLongAndWindingTableAndColumnRefId);
         return hs;
     }
