@@ -431,11 +431,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * <span style="color: #3F7E5E">//vendorTheLongAndWindingTableAndColumnRef.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * vendorTheLongAndWindingTableAndColumnRef.<span style="color: #CC4747">setVersionNo</span>(value);
-     * try {
-     *     <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">update</span>(vendorTheLongAndWindingTableAndColumnRef);
-     * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
-     *     ...
-     * }
+     * <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">update</span>(vendorTheLongAndWindingTableAndColumnRef);
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumnRef The entity of update. (NotNull, PrimaryKeyNotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -596,9 +592,9 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//vendorTheLongAndWindingTableAndColumnRef.setVersionNo(value);</span>
-     * VendorTheLongAndWindingTableAndColumnRefCB cb = <span style="color: #70226C">new</span> VendorTheLongAndWindingTableAndColumnRefCB();
-     * cb.query().setFoo...(value);
-     * <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">queryUpdate</span>(vendorTheLongAndWindingTableAndColumnRef, cb);
+     * <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">queryUpdate</span>(vendorTheLongAndWindingTableAndColumnRef, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().setFoo...
+     * });
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumnRef The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
@@ -612,9 +608,9 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
-     * VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB();
-     * cb.query().setFoo...(value);
-     * <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">queryDelete</span>(vendorTheLongAndWindingTableAndColumnRef, cb);
+     * <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">queryDelete</span>(vendorTheLongAndWindingTableAndColumnRef, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().setFoo...
+     * });
      * </pre>
      * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @return The deleted count.
@@ -639,10 +635,10 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
      * vendorTheLongAndWindingTableAndColumnRef.setFoo...(value);
      * vendorTheLongAndWindingTableAndColumnRef.setBar...(value);
-     * InsertOption&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt; option = new InsertOption&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;();
-     * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
-     * option.disableCommonColumnAutoSetup();
-     * <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">varyingInsert</span>(vendorTheLongAndWindingTableAndColumnRef, option);
+     * <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">varyingInsert</span>(vendorTheLongAndWindingTableAndColumnRef, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
+     *     <span style="color: #553000">op</span>.disableCommonColumnAutoSetup();
+     * });
      * ... = vendorTheLongAndWindingTableAndColumnRef.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumnRef The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
@@ -663,18 +659,12 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * vendorTheLongAndWindingTableAndColumnRef.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * vendorTheLongAndWindingTableAndColumnRef.<span style="color: #CC4747">setVersionNo</span>(value);
-     * <span style="color: #70226C">try</span> {
-     *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
-     *     UpdateOption&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt; option = new UpdateOption&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;();
-     *     option.self(new SpecifyQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
-     *         public void specify(VendorTheLongAndWindingTableAndColumnRefCB cb) {
-     *             cb.specify().<span style="color: #CC4747">columnXxxCount()</span>;
-     *         }
+     * <span style="color: #3F7E5E">// you can update by self calculation values</span>
+     * <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(vendorTheLongAndWindingTableAndColumnRef, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">op</span>.self(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">columnXxxCount()</span>;
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(vendorTheLongAndWindingTableAndColumnRef, option);
-     * } <span style="color: #70226C">catch</span> (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
-     *     ...
-     * }
+     * });
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumnRef The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
@@ -783,15 +773,13 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//vendorTheLongAndWindingTableAndColumnRef.setVersionNo(value);</span>
-     * VendorTheLongAndWindingTableAndColumnRefCB cb = new VendorTheLongAndWindingTableAndColumnRefCB();
-     * cb.query().setFoo...(value);
-     * UpdateOption&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt; option = <span style="color: #70226C">new</span> UpdateOption&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;();
-     * option.self(new SpecifyQuery&lt;VendorTheLongAndWindingTableAndColumnRefCB&gt;() {
-     *     public void specify(VendorTheLongAndWindingTableAndColumnRefCB cb) {
-     *         cb.specify().<span style="color: #CC4747">columnFooCount()</span>;
-     *     }
-     * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(vendorTheLongAndWindingTableAndColumnRef, cb, option);
+     * <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(vendorTheLongAndWindingTableAndColumnRef, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().setFoo...
+     * }, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">op</span>.self(<span style="color: #553000">colCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">colCB</span>.specify().<span style="color: #CC4747">columnFooCount()</span>;
+     *     }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
+     * });
      * </pre>
      * @param vendorTheLongAndWindingTableAndColumnRef The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
@@ -806,7 +794,14 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
     /**
      * Delete the several entities by query with varying requests non-strictly. <br>
      * For example, allowNonQueryDelete(). <br>
-     * Other specifications are same as batchUpdateNonstrict(entityList).
+     * Other specifications are same as queryDelete(cb).
+     * <pre>
+     * <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">queryDelete</span>(vendorTheLongAndWindingTableAndColumnRef, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.query().setFoo...
+     * }, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">op</span>...
+     * });
+     * </pre>
      * @param cbLambda The callback for condition-bean of VendorTheLongAndWindingTableAndColumnRef. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
