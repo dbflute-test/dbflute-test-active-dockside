@@ -20,7 +20,8 @@ import org.docksidestage.dockside.dbflute.bsbhv.pmbean.BsPaymentCompletePurchase
 /**
  * <!-- df:beginClassDescription -->
  * The typed parameter-bean of PaymentCompletePurchase. <span style="color: #AD4747">(typed to manual-paging, cursor)</span><br>
- * This is related to "<span style="color: #AD4747">selectPaymentCompletePurchase</span>" on PurchaseBhv. <br>
+ * This is related to "<span style="color: #AD4747">selectPaymentCompletePurchase</span>" on PurchaseBhv, <br>
+ * described as "Example for Cursor and Paging select". <br>
  * <!-- df:endClassDescription -->
  * <p>
  * You can implement your original methods here.

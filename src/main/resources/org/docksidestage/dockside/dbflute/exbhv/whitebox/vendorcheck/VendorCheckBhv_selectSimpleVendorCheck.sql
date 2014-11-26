@@ -1,3 +1,10 @@
+/*
+ [df:title]
+ vendor check
+ 
+ [df:description]
+ see you tomorrowE
+*/
 -- #df:entity#
 
 select vendor.VENDOR_CHECK_ID

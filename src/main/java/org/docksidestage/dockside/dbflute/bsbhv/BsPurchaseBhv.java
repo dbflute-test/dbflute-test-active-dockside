@@ -72,7 +72,9 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
+    /** Example for Cursor and Paging select */
     public static final String PATH_selectPaymentCompletePurchase = "selectPaymentCompletePurchase";
+    /** specialty update */
     public static final String PATH_whitebox_runtime_updatePurchaseChangedToPaymentComplete = "whitebox:runtime:updatePurchaseChangedToPaymentComplete";
     /*df:endQueryPath*/
 

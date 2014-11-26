@@ -1,4 +1,10 @@
-
+/*
+ [df:title]
+ resolved package name of parameter-bean
+ 
+ [df:description]
+ see you tomorrow7
+*/
 -- !df:pmb!
 -- !!String string1!!
 -- !!Integer integer1!!

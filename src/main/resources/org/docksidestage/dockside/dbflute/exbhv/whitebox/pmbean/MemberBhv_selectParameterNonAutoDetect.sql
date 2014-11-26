@@ -1,10 +1,11 @@
 /*
  [df:title]
- The test for no auto-detect
+ no auto-detect
  
  [df:description]
  This SQL cannot be executed by application.
  (only for DBFlute task testing)
+ noTestValue is located strangely 
 */
 -- !df:pmb!
 -- !!Integer normalInteger!!

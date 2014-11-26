@@ -1,3 +1,10 @@
+/*
+ [df:title]
+ vendor double byte on SQL
+ 
+ [df:description]
+ see you tomorrowF
+*/
 -- #df:entity#
 
 select member.MEMBER_ID

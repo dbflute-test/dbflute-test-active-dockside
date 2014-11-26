@@ -3,7 +3,7 @@
  forced type of customize-entity
  
  [df:description]
- see you tomorrow
+ see you tomorrow2
 */
 -- #df:entity#
 -- ##java.math.BigInteger MAX_MEMBER_ID##

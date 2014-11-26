@@ -1,4 +1,10 @@
--- selectIfCommentNotBooleanResult.sql
+/*
+ [df:title]
+ wrong: not boolean result in IF comment
+ 
+ [df:description]
+ see you tomorrowL
+*/
 
 select member.MEMBER_ID
      , member.MEMBER_NAME

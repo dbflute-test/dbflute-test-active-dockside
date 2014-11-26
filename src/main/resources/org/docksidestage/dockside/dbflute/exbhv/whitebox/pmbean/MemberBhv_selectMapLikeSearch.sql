@@ -1,5 +1,10 @@
--- selectMapLikeSearch.sql
-
+/*
+ [df:title]
+ map like search of parameter-bean
+ 
+ [df:description]
+ see you tomorrow6
+*/
 -- !MapLikeSearchPmb!
 -- !!Map<String, Object> conditionMap:like!!
 

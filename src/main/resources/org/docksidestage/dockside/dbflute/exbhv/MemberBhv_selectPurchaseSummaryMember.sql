@@ -1,3 +1,12 @@
+/*
+ [df:title]
+ Example for CursorSelect
+ 
+ [df:description]
+ This SQL is an example for cursor-select of outside-SQL
+ and also for the following functions:
+  o FOR comment with NEXT
+*/
 -- #df:entity#
 -- +cursor+
 

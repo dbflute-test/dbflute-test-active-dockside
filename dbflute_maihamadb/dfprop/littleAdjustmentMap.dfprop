@@ -61,7 +61,7 @@ map:{
     ; isCompatibleConditionBeanOldNamingOption = false
     ; isCompatibleBizOneToOneImplicitReverseFkAllowed = false
     ; isCompatibleOutsideSqlFacadeChainOldStyle = false
-    ; isCompatibleOutsideSqlSqlCommentCheckDefault = true
+    ; isCompatibleOutsideSqlSqlCommentCheckDefault = false
 
     # compile compatible (false if compatible)
     ; isMakeCallbackConditionBeanSetup = true
