@@ -1,4 +1,10 @@
--- selectBindVariableNotFoundProperty.sql
+/*
+ [df:title]
+ wrong: not found property in bind variable
+ 
+ [df:description]
+ see you tomorrowJ
+*/
 
 select member.MEMBER_ID
      , member.MEMBER_NAME

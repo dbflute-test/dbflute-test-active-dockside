@@ -1,6 +1,6 @@
 /*
  [df:title]
- The test for parameter auto-detect
+ parameter auto-detect
  
  [df:description]
  This SQL cannot be executed by application.

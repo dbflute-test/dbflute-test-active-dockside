@@ -1,10 +1,9 @@
 /*
  [df:title]
- The test for definition order of parameter bean
+ definition order of parameter bean
  
  [df:description]
- This SQL cannot be executed by application.
- (only for DBFlute task testing)
+ property before pmb
 */
 -- !!Integer overProp!!
 -- !df:pmb!

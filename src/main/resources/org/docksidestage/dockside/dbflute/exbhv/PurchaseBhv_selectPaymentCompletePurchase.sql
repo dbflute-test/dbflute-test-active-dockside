@@ -1,3 +1,10 @@
+/*
+ [df:title]
+ Example for Cursor and Paging select
+ 
+ [df:description]
+ This SQL is an example for both cursor-select and manual-paging of outside-SQL
+*/
 -- #df:entity#
 -- +cursor+
 

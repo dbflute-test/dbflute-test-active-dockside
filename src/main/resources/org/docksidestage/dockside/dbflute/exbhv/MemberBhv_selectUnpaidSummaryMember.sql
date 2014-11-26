@@ -42,14 +42,14 @@ select mb.MEMBER_ID as UNPAID_MAN_ID
    /*END*/
    /*IF pmb.unpaidMemberOnly*/
    and exists (select 'yes'
-                 from PURCHASE purchase
-                where purchase.MEMBER_ID = mb.MEMBER_ID
-                  and purchase.PAYMENT_COMPLETE_FLG = 0
+                 from PURCHASE pur
+                where pur.MEMBER_ID = mb.MEMBER_ID
+                  and pur.PAYMENT_COMPLETE_FLG = 0
                   /*IF pmb.unpaidSmallPaymentAmount != null*/
                   and not exists (select 'yes-yes'
-                                    from PURCHASE_PAYMENT payment
-                                   where payment.PURCHASE_ID = purchase.PURCHASE_ID
-                                     and payment.PAYMENT_AMOUNT <= /*pmb.unpaidSmallPaymentAmount*/2.3
+                                    from PURCHASE_PAYMENT pay
+                                   where pay.PURCHASE_ID = pur.PURCHASE_ID
+                                     and pay.PAYMENT_AMOUNT <= /*pmb.unpaidSmallPaymentAmount*/2.3
                       )
                   /*END*/
        )

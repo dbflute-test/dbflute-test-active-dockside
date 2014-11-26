@@ -1,4 +1,10 @@
-
+/*
+ [df:title]
+ compare date of parameter-bean
+ 
+ [df:description]
+ see you tomorrow5
+*/
 -- !df:pmb!
 -- !!Integer memberId:ref(MEMBER)!!
 -- !!Date birthdateFrom:ref(MEMBER.BIRTHDATE)!!

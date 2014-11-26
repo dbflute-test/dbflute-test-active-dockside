@@ -1,4 +1,10 @@
--- selectIfCommentWrongExpression.sql
+/*
+ [df:title]
+ wrong: wrong expression in IF comment
+ 
+ [df:description]
+ see you tomorrowM
+*/
 
 select member.MEMBER_ID
      , member.MEMBER_NAME

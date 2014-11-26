@@ -1,3 +1,10 @@
+/*
+ [df:title]
+ DBMS hit with parameter comment
+ 
+ [df:description]
+ see you tomorrowA
+*/
 -- #df:entity#
 
 -- !df:pmb!
