@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2014 the Seasar Foundation and the Others.
+ * Copyright 2014-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,10 @@ import org.docksidestage.dockside.dbflute.cbean.cq.bs.BsMemberCQ;
 
 /**
  * The condition-query of MEMBER.
+ * <p>
+ * You can implement your original methods here.
+ * This class remains when re-generating.
+ * </p>
  * @author DBFlute(AutoGenerator)
  * @author jflute
  */
@@ -44,17 +48,14 @@ public class MemberCQ extends BsMemberCQ {
     // ===================================================================================
     //                                                                       Arrange Query
     //                                                                       =============
-    // You can make your arranged query methods here.
-    //public void arrangeXxx() {
-    //    ...
-    //}
+    // You can make your arranged query methods here. e.g. public void arrangeXxx()
     /**
      * Arrange the query for selecting service members.
      * o starts 'S'
      * o status 'Formalized'
      * o exists the special product
      */
-    public void arrangeServiceMember() {
+    public void arrangeSpecialServiceMember() {
         final Integer specialProductId = 3;
         setMemberName_LikeSearch("S", op -> op.likePrefix());
         setMemberStatusCode_Equal_Formalized();

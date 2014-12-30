@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2014 the Seasar Foundation and the Others.
+ * Copyright 2014-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,6 +43,9 @@ public class PaymentCompletePurchaseDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Current DBDef
     //                                                                       =============
+    public String getProjectName() { return DBCurrent.getInstance().projectName(); }
+    public String getProjectPrefix() { return DBCurrent.getInstance().projectPrefix(); }
+    public String getGenerationGapBasePrefix() { return DBCurrent.getInstance().generationGapBasePrefix(); }
     public DBDef getCurrentDBDef() { return DBCurrent.getInstance().currentDBDef(); }
 
     // ===================================================================================
@@ -59,7 +62,7 @@ public class PaymentCompletePurchaseDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((PaymentCompletePurchase)et).getMemberName(), (et, vl) -> ((PaymentCompletePurchase)et).setMemberName((String)vl), "memberName");
         setupEpg(_epgMap, et -> ((PaymentCompletePurchase)et).getProductId(), (et, vl) -> ((PaymentCompletePurchase)et).setProductId(cti(vl)), "productId");
         setupEpg(_epgMap, et -> ((PaymentCompletePurchase)et).getProductName(), (et, vl) -> ((PaymentCompletePurchase)et).setProductName((String)vl), "productName");
-        setupEpg(_epgMap, et -> ((PaymentCompletePurchase)et).getPurchaseDatetime(), (et, vl) -> ((PaymentCompletePurchase)et).setPurchaseDatetime((java.time.LocalDateTime)vl), "purchaseDatetime");
+        setupEpg(_epgMap, et -> ((PaymentCompletePurchase)et).getPurchaseDatetime(), (et, vl) -> ((PaymentCompletePurchase)et).setPurchaseDatetime(ctldt(vl)), "purchaseDatetime");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

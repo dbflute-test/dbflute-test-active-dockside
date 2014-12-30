@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2014 the Seasar Foundation and the Others.
+ * Copyright 2014-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -144,6 +144,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
     //                                                                            ========
     /**
      * [get] memberId <br>
+     * // not required / used as equal
      * @return The value of memberId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getMemberId() {
@@ -152,6 +153,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
 
     /**
      * [set] memberId <br>
+     * // not required / used as equal
      * @param memberId The value of memberId. (NullAllowed)
      */
     public void setMemberId(Integer memberId) {
@@ -160,6 +162,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
 
     /**
      * [get] memberNameList:likePrefix <br>
+     * // list of prefix keyword
      * @return The value of memberNameList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<String> getMemberNameList() {
@@ -168,6 +171,7 @@ public class BsPurchaseMaxPriceMemberPmb extends SimplePagingBean implements Ent
 
     /**
      * [set as prefixSearch] memberNameList:likePrefix <br>
+     * // list of prefix keyword
      * @param memberNameList The value of memberNameList. (NullAllowed)
      */
     public void setMemberNameList_PrefixSearch(List<String> memberNameList) {

@@ -1,8 +1,5 @@
 package org.docksidestage.dockside.dbflute.howto;
 
-import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
-import org.docksidestage.dockside.dbflute.exbhv.MemberServiceBhv;
-import org.docksidestage.dockside.dbflute.exbhv.MemberWithdrawalBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -22,12 +19,6 @@ public class SpecialtyUpdateTest extends UnitContainerTestCase {
     //                                                                           Attribute
     //                                                                           =========
     // The behavior provides DB access methods. (defined as DI component)
-    @Autowired
-    private MemberBhv memberBhv;
-    @Autowired
-    private MemberServiceBhv memberServiceBhv;
-    @Autowired
-    private MemberWithdrawalBhv memberWithdrawalBhv;
     @Autowired
     private PurchaseBhv purchaseBhv;
 

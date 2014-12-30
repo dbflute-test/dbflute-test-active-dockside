@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2014 the Seasar Foundation and the Others.
+ * Copyright 2014-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,6 +43,9 @@ public class SurpriseSimilarPKCommentDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Current DBDef
     //                                                                       =============
+    public String getProjectName() { return DBCurrent.getInstance().projectName(); }
+    public String getProjectPrefix() { return DBCurrent.getInstance().projectPrefix(); }
+    public String getGenerationGapBasePrefix() { return DBCurrent.getInstance().generationGapBasePrefix(); }
     public DBDef getCurrentDBDef() { return DBCurrent.getInstance().currentDBDef(); }
 
     // ===================================================================================
@@ -56,9 +59,9 @@ public class SurpriseSimilarPKCommentDbm extends AbstractDBMeta {
     protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getMemberId(), (et, vl) -> ((SurpriseSimilarPKComment)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getMemberName(), (et, vl) -> ((SurpriseSimilarPKComment)et).setMemberName((String)vl), "memberName");
-        setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getRegisterDatetime(), (et, vl) -> ((SurpriseSimilarPKComment)et).setRegisterDatetime((java.time.LocalDateTime)vl), "registerDatetime");
+        setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getRegisterDatetime(), (et, vl) -> ((SurpriseSimilarPKComment)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
         setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getRegisterUser(), (et, vl) -> ((SurpriseSimilarPKComment)et).setRegisterUser((String)vl), "registerUser");
-        setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getUpdateDatetime(), (et, vl) -> ((SurpriseSimilarPKComment)et).setUpdateDatetime((java.time.LocalDateTime)vl), "updateDatetime");
+        setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getUpdateDatetime(), (et, vl) -> ((SurpriseSimilarPKComment)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
         setupEpg(_epgMap, et -> ((SurpriseSimilarPKComment)et).getUpdateUser(), (et, vl) -> ((SurpriseSimilarPKComment)et).setUpdateUser((String)vl), "updateUser");
     }
     public PropertyGateway findPropertyGateway(String prop)

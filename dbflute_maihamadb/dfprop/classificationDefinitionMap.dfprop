@@ -8,10 +8,15 @@
 #     [classification-name] = list:{
 #         ; map:{
 #             ; topComment=[comment]; codeType=[String(default) or Number or Boolean]}
-#             ; isCheckImplicitSet=[true or false(default)]
+#             ; undefinedHandlingType=[EXCEPTION or LOGGING(default) or ALLOWED]
 #             ; isUseDocumentOnly=[true or false(default)]
 #             ; isSuppressAutoDeploy=[true or false(default)]
-#             ; groupingMap = map:{[group-name] = list:{[the list of classification name]}}
+#             ; groupingMap = map:{
+#                 ; [group-name] = map:{
+#                     ; groupComment=[comment]
+#                     ; elementList=list:{[the list of classification element's name]}
+#                 }
+#             }
 #         }
 #         # classification elements for implicit classification
 #         ; map:{
@@ -37,8 +42,7 @@ map:{
     #                                                                               ======
     ; Flg = list:{
         ; map:{
-            ; topComment=general boolean classification for every flg-column
-            ; codeType=Number; isCheckImplicitSet=true
+            ; topComment=general boolean classification for every flg-column; codeType=Number
         }
         ; map:{code=1; name=True ; alias=Checked  ; comment=means yes; sisterCode=true }
         ; map:{code=0; name=False; alias=Unchecked; comment=means no ; sisterCode=false}
@@ -112,7 +116,7 @@ map:{
     ; PaymentMethod = list:{
         ; map:{
             ; topComment=method of payment for purchase; codeType=String
-            ; isCheckImplicitSet=true
+            ; undefinedHandlingType=EXCEPTION
             ; groupingMap = map:{
                 ; recommended = map:{
                     ; groupComment = the most recommended method

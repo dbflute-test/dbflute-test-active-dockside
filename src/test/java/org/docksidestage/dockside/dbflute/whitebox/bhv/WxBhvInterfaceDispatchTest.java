@@ -35,6 +35,23 @@ public class WxBhvInterfaceDispatchTest extends UnitContainerTestCase {
     }
 
     // ===================================================================================
+    //                                                                       Cursor Select
+    //                                                                       =============
+    public void test_readCursor_basic() throws Exception {
+        // ## Arrange ##
+        ConditionBean cb = new MemberCB();
+
+        // ## Act ##
+        memberBhv.readCursor(cb, entity -> {
+            log(entity);
+            markHere("exists");
+        });
+
+        // ## Assert ##
+        assertMarked("exists");
+    }
+
+    // ===================================================================================
     //                                                                       Scalar Select
     //                                                                       =============
     public void test_readScalar_basic() {
