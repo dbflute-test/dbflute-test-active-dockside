@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2014 the Seasar Foundation and the Others.
+ * Copyright 2014-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,6 +44,9 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
     // ===================================================================================
     //                                                                       Current DBDef
     //                                                                       =============
+    public String getProjectName() { return DBCurrent.getInstance().projectName(); }
+    public String getProjectPrefix() { return DBCurrent.getInstance().projectPrefix(); }
+    public String getGenerationGapBasePrefix() { return DBCurrent.getInstance().generationGapBasePrefix(); }
     public DBDef getCurrentDBDef() { return DBCurrent.getInstance().currentDBDef(); }
 
     // ===================================================================================
@@ -57,8 +60,8 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
     protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getTheLongAndWindingTableAndColumnRefId(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setTheLongAndWindingTableAndColumnRefId(ctl(vl)), "theLongAndWindingTableAndColumnRefId");
         setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getTheLongAndWindingTableAndColumnId(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setTheLongAndWindingTableAndColumnId(ctl(vl)), "theLongAndWindingTableAndColumnId");
-        setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getTheLongAndWindingTableAndColumnRefDate(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setTheLongAndWindingTableAndColumnRefDate((java.time.LocalDate)vl), "theLongAndWindingTableAndColumnRefDate");
-        setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getShortDate(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setShortDate((java.time.LocalDate)vl), "shortDate");
+        setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getTheLongAndWindingTableAndColumnRefDate(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setTheLongAndWindingTableAndColumnRefDate(ctld(vl)), "theLongAndWindingTableAndColumnRefDate");
+        setupEpg(_epgMap, et -> ((VendorTheLongAndWindingTableAndColumnRef)et).getShortDate(), (et, vl) -> ((VendorTheLongAndWindingTableAndColumnRef)et).setShortDate(ctld(vl)), "shortDate");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }

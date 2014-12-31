@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2014 the Seasar Foundation and the Others.
+ * Copyright 2014-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -225,6 +225,7 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
 
     /**
      * [get] unpaidMemberOnly <br>
+     * // for purchase exists
      * @return The value of unpaidMemberOnly. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public boolean getUnpaidMemberOnly() {
@@ -233,6 +234,7 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
 
     /**
      * [set] unpaidMemberOnly <br>
+     * // for purchase exists
      * @param unpaidMemberOnly The value of unpaidMemberOnly. (NullAllowed)
      */
     public void setUnpaidMemberOnly(boolean unpaidMemberOnly) {

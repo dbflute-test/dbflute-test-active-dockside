@@ -40,7 +40,7 @@ select mb.MEMBER_ID as UNPAID_MAN_ID
    /*IF pmb.memberStatusCode != null*/
    and mb.MEMBER_STATUS_CODE = /*pmb.memberStatusCode:ref(MEMBER)*/'FML'
    /*END*/
-   /*IF pmb.unpaidMemberOnly*/
+   /*IF pmb.unpaidMemberOnly*/ -- // for purchase exists
    and exists (select 'yes'
                  from PURCHASE pur
                 where pur.MEMBER_ID = mb.MEMBER_ID

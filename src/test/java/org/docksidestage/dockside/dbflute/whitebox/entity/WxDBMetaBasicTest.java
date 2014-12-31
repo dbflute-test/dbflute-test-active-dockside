@@ -5,6 +5,7 @@ import java.util.Map;
 import org.dbflute.dbmeta.info.UniqueInfo;
 import org.dbflute.utflute.core.PlainTestCase;
 import org.dbflute.util.DfCollectionUtil;
+import org.docksidestage.dockside.dbflute.allcommon.DBCurrent;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.VendorCheckDbm;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -18,6 +19,16 @@ public class WxDBMetaBasicTest extends PlainTestCase {
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
+    public void test_tableInfo_projectName() {
+        // ## Arrange ##
+        MemberDbm dbm = MemberDbm.getInstance();
+
+        // ## Act & Assert ##
+        log("name=" + dbm.getProjectName());
+        assertNotNull(dbm.getProjectName());
+        assertEquals(DBCurrent.getInstance().projectName(), dbm.getProjectName());
+    }
+
     public void test_tableInfo_tableDbName() {
         // ## Arrange ##
         MemberDbm dbm = MemberDbm.getInstance();

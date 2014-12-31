@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2014 the Seasar Foundation and the Others.
+ * Copyright 2014-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -413,7 +413,8 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     }
 
     /**
-     * Update the entity modified-only. (ZeroUpdateException, NonExclusiveControl)
+     * Update the entity modified-only. (ZeroUpdateException, NonExclusiveControl) <br>
+     * By PK as default, and also you can update by unique keys using entity's uniqueOf().
      * <pre>
      * VendorPrimaryKeyOnly vendorPrimaryKeyOnly = <span style="color: #70226C">new</span> VendorPrimaryKeyOnly();
      * vendorPrimaryKeyOnly.setPK...(value); <span style="color: #3F7E5E">// required</span>
@@ -437,7 +438,7 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br>
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br>
-     * <p><span style="color: #CC4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #994747; font-size: 120%">Also you can update by unique keys using entity's uniqueOf().</span></p>
      * @param vendorPrimaryKeyOnly The entity of insert or update. (NotNull, ...depends on insert or update)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -448,7 +449,8 @@ public abstract class BsVendorPrimaryKeyOnlyBhv extends AbstractBehaviorWritable
     }
 
     /**
-     * Delete the entity. (ZeroUpdateException, NonExclusiveControl)
+     * Delete the entity. (ZeroUpdateException, NonExclusiveControl) <br>
+     * By PK as default, and also you can delete by unique keys using entity's uniqueOf().
      * <pre>
      * VendorPrimaryKeyOnly vendorPrimaryKeyOnly = <span style="color: #70226C">new</span> VendorPrimaryKeyOnly();
      * vendorPrimaryKeyOnly.setPK...(value); <span style="color: #3F7E5E">// required</span>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2014 the Seasar Foundation and the Others.
+ * Copyright 2014-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -773,7 +773,7 @@ public interface CDef extends Classification {
         }
 
         public ClassificationUndefinedHandlingType undefinedHandlingType() {
-            if ("Flg".equals(name())) { return ClassificationUndefinedHandlingType.EXCEPTION; }
+            if ("Flg".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
             if ("MemberStatus".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
             if ("ServiceRank".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }
             if ("Region".equals(name())) { return ClassificationUndefinedHandlingType.LOGGING; }

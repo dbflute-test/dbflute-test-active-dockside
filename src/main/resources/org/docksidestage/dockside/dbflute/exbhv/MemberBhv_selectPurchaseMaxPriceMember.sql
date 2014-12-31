@@ -31,10 +31,10 @@ select mb.MEMBER_ID
     /*END*/
  /*BEGIN*/
  where
-   /*IF pmb.memberId != null*/
-   mb.MEMBER_ID = /*pmb.memberId*/3
+   /*IF pmb.memberId != null*/ -- // not required
+   mb.MEMBER_ID = /*pmb.memberId*/3 -- // used as equal
    /*END*/
-   /*FOR pmb.memberNameList*//*FIRST*/and (/*END*/
+   /*FOR pmb.memberNameList*//*FIRST*/and (/*END*/ -- // list of prefix keyword
      /*NEXT 'or '*/mb.MEMBER_NAME like /*#current*/'S%'
    /*LAST*/)/*END*//*END*/
    /*IF pmb.memberStatusCodeList != null && !pmb.memberStatusCodeList.isEmpty()*/

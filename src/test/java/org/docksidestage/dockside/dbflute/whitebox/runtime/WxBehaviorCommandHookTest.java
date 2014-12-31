@@ -8,6 +8,7 @@ import org.dbflute.bhv.core.BehaviorCommandMeta;
 import org.dbflute.cbean.ConditionBean;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.hook.CallbackContext;
+import org.docksidestage.dockside.dbflute.allcommon.DBCurrent;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -55,6 +56,8 @@ public class WxBehaviorCommandHookTest extends UnitContainerTestCase {
             CallbackContext.setBehaviorCommandHookOnThread(new BehaviorCommandHook() {
                 public void hookBefore(BehaviorCommandMeta meta) {
                     assertEquals(MemberDbm.getInstance().getTableDbName(), meta.getTableDbName());
+                    assertEquals(DBCurrent.getInstance().projectName(), meta.getProjectName());
+                    assertEquals(MemberDbm.getInstance(), meta.getDBMeta());
                     assertTrue(meta.isConditionBean());
                     assertFalse(meta.isOutsideSql());
                     assertFalse(meta.isProcedure());

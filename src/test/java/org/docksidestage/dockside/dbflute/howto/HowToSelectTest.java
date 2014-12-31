@@ -513,7 +513,7 @@ public class HowToSelectTest extends UnitContainerTestCase {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().arrangeServiceMember();
+            cb.query().arrangeSpecialServiceMember();
             cb.query().addOrderBy_MemberName_Asc();
         });
 
