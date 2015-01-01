@@ -1,6 +1,9 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.derivedreferrer;
 
+import org.dbflute.cbean.result.ListResultBean;
+import org.dbflute.exception.SpecifyDerivedReferrerUnmatchedPropertyTypeException;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
+import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -41,5 +44,59 @@ public class WxCBDerivedReferrerDerivedMapTest extends UnitContainerTestCase {
                 assertEquals(expected, price);
             });
         });
+    }
+
+    public void test_DerivedMap_noData() throws Exception {
+        // ## Arrange ##
+        String aliasName = "$maxPrice";
+
+        // ## Act ##
+        memberBhv.selectEntity(cb -> {
+            cb.specify().derivedPurchase().max(purchaseCB -> {
+                purchaseCB.specify().columnPurchasePrice();
+                purchaseCB.query().setPurchasePrice_GreaterEqual(999999999);
+                purchaseCB.query().setPurchasePrice_LessThan(0);
+            }, aliasName);
+            cb.query().existsPurchase(purchaseCB -> {});
+            cb.fetchFirst(1);
+        }).alwaysPresent(member -> {
+            /* ## Assert ## */
+            member.derived(aliasName, Integer.class).ifPresent(price -> {
+                fail();
+            }).orElse(() -> {
+                markHere("ok");
+            });
+            assertMarked("ok");
+        });
+    }
+
+    public void test_DerivedMap_unmatchedType() throws Exception {
+        // ## Arrange ##
+        String avgPointPerRankKey = "$avgPointPerRank";
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberServiceAsOne().withServiceRank();
+            cb.specify().specifyMemberServiceAsOne().specifyServiceRank().derivedMemberService().avg(serviceCB -> {
+                serviceCB.specify().columnServicePointCount();
+            }, avgPointPerRankKey);
+            cb.query().queryMemberServiceAsOne().scalar_GreaterEqual().avg(scalarCB -> {
+                scalarCB.specify().columnServicePointCount();
+            }).partitionBy(colCB -> {
+                colCB.specify().columnServiceRankCode();
+            });
+            cb.query().queryMemberServiceAsOne().queryServiceRank().addOrderBy_DisplayOrder_Asc();
+        });
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        try {
+            for (Member member : memberList) {
+                member.derived(avgPointPerRankKey, Integer.class); // expected BigDecimal for avg();
+            }
+            fail();
+        } catch (SpecifyDerivedReferrerUnmatchedPropertyTypeException e) {
+            log(e.getMessage());
+        }
     }
 }
