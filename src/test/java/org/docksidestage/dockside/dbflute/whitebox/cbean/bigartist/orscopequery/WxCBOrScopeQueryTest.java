@@ -354,7 +354,6 @@ public class WxCBOrScopeQueryTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                              FromTo
     //                                                                              ======
-    // TODO jflute test: after LogDatePattern customization
     public void test_orScopeQuery_with_fromTo_basic() {
         // ## Arrange ##
         PurchaseCB cb = new PurchaseCB();

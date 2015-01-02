@@ -166,6 +166,30 @@ public class WxCBScalarConditionBasicTest extends UnitContainerTestCase {
         assertTrue(Srl.containsAll(sql, "max", "min", "BIRTHDATE", "FORMALIZED_DATETIME"));
     }
 
+    public void test_ScalarCondition_max_union() {
+        // ## Arrange ##
+        LocalDate expected = memberBhv.selectScalar(LocalDate.class).max(cb -> {
+            cb.specify().columnBirthdate();
+        }).get();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().scalar_Equal().max(scalarCB -> {
+                scalarCB.specify().columnBirthdate();
+                scalarCB.query().setMemberStatusCode_Equal_Formalized();
+                scalarCB.union(unionCB -> unionCB.query().setMemberStatusCode_Equal_Provisional());
+                scalarCB.union(unionCB -> unionCB.query().setMemberStatusCode_Equal_Withdrawal());
+            });
+        });
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        for (Member member : memberList) {
+            LocalDate birthdate = member.getBirthdate();
+            log(member.getMemberName() + ", " + birthdate);
+            assertEquals(expected, birthdate);
+        }
+    }
+
     // ===================================================================================
     //                                                                            Relation
     //                                                                            ========

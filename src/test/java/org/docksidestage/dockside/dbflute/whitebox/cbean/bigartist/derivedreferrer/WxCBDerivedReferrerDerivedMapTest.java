@@ -1,5 +1,7 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.derivedreferrer;
 
+import java.time.LocalDateTime;
+
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.exception.SpecifyDerivedReferrerUnmatchedPropertyTypeException;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -17,9 +19,10 @@ public class WxCBDerivedReferrerDerivedMapTest extends UnitContainerTestCase {
     //                                                                           =========
     private MemberBhv memberBhv;
 
-    // TODO jflute test: derived map
-
-    public void test_DerivedMap_basic() throws Exception {
+    // ===================================================================================
+    //                                                                               Basic
+    //                                                                               =====
+    public void test_DerivedMap_integer() throws Exception {
         // ## Arrange ##
         String aliasName = "$maxPrice";
 
@@ -46,6 +49,36 @@ public class WxCBDerivedReferrerDerivedMapTest extends UnitContainerTestCase {
         });
     }
 
+    public void test_DerivedMap_locaDateTime() throws Exception {
+        // ## Arrange ##
+        String aliasName = "$maxPrice";
+
+        // ## Act ##
+        memberBhv.selectEntity(cb -> {
+            cb.specify().derivedPurchase().max(purchaseCB -> {
+                purchaseCB.specify().columnPurchaseDatetime();
+            }, aliasName);
+            cb.query().existsPurchase(purchaseCB -> {});
+            cb.fetchFirst(1);
+        }).alwaysPresent(member -> {
+            /* ## Assert ## */
+            memberBhv.loadPurchase(member, purchaseCB -> {
+                purchaseCB.specify().columnPurchaseDatetime();
+                purchaseCB.query().addOrderBy_PurchaseDatetime_Asc();
+            });
+            member.derived(aliasName, LocalDateTime.class).alwaysPresent(purchaseDatetime -> {
+                log(purchaseDatetime);
+                LocalDateTime expected = member.getPurchaseList().stream().map(purchase -> {
+                    return purchase.getPurchaseDatetime();
+                }).max((o1, o2) -> o1.compareTo(o2)).get();
+                assertEquals(expected, purchaseDatetime);
+            });
+        });
+    }
+
+    // ===================================================================================
+    //                                                                        Illegal Case
+    //                                                                        ============
     public void test_DerivedMap_noData() throws Exception {
         // ## Arrange ##
         String aliasName = "$maxPrice";

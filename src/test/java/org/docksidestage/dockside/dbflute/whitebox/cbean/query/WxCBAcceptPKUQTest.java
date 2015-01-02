@@ -1,4 +1,4 @@
-package org.docksidestage.dockside.dbflute.whitebox.cbean;
+package org.docksidestage.dockside.dbflute.whitebox.cbean.query;
 
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -8,7 +8,7 @@ import org.docksidestage.dockside.unit.UnitContainerTestCase;
 /**
  * @author jflute
  */
-public class WxCBPrimaryKeyTest extends UnitContainerTestCase {
+public class WxCBAcceptPKUQTest extends UnitContainerTestCase {
 
     private MemberBhv memberBhv;
 
