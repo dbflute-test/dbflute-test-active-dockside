@@ -278,7 +278,7 @@ public class SpecialtySelectTest extends UnitContainerTestCase {
                     loginCB.specify().columnLoginDatetime();
                     loginCB.query().setMobileLoginFlg_Equal_False();
                 }, null);
-            });
+            }).convert(op -> op.addYear(30));
         });
 
         // ## Assert ##
@@ -299,16 +299,16 @@ public class SpecialtySelectTest extends UnitContainerTestCase {
         //                                                                          where sub2loc.PURCHASE_ID = sub1loc.PURCHASE_ID
         //                                               ) + 7
         //        )
-        //    and (select max(sub1loc.PURCHASE_DATETIME)
+        //    and (select min(sub1loc.PURCHASE_DATETIME)
         //           from PURCHASE sub1loc
         //          where sub1loc.MEMBER_ID = dfloc.MEMBER_ID
         //            and sub1loc.PAYMENT_COMPLETE_FLG = 1
         //        ) < 
-        //        (select max(sub1loc.LOGIN_DATETIME)
+        //        dateadd(year, 30, (select max(sub1loc.LOGIN_DATETIME)
         //           from MEMBER_LOGIN sub1loc
         //          where sub1loc.MEMBER_ID = dfloc.MEMBER_ID
         //            and sub1loc.MOBILE_LOGIN_FLG = 0
-        //        )
+        //        ))
     }
 
     // -----------------------------------------------------
@@ -516,7 +516,8 @@ public class SpecialtySelectTest extends UnitContainerTestCase {
 
                     final String c = ", ";
                     log(memberId + c + memberName + c + birthdate);
-                    if (!memberName.contains("S") || !memberName.contains("v")) {
+                    String lowerName = memberName.toLowerCase(); // might be case-insensitive
+                    if (!lowerName.contains("s") || !lowerName.contains("v")) {
                         fail("memberName should have S and v: " + memberName);
                     }
                 }
