@@ -114,7 +114,7 @@ public class MemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_DAE3B8BC_DEDD_4A2B_9FAD_E88255C36FED", false, null, null, "memberAddressAsValid,memberLoginAsLatest,memberSecurityAsOne,memberServiceAsOne,memberWithdrawalAsOne", "memberAddressList,memberFollowingByMyMemberIdList,memberFollowingByYourMemberIdList,memberLoginList,purchaseList", null, false);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_1A46A02B_08D7_4E0B_BF7B_76F4153FD10B", false, null, null, "memberAddressAsValid,memberLoginAsLatest,memberSecurityAsOne,memberServiceAsOne,memberWithdrawalAsOne", "memberAddressList,memberFollowingByMyMemberIdList,memberFollowingByYourMemberIdList,memberLoginList,purchaseList", null, false);
     protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, "会員名称", String.class, "memberName", null, false, false, true, "VARCHAR", 200, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMemberAccount = cci("MEMBER_ACCOUNT", "MEMBER_ACCOUNT", null, "会員アカウント", String.class, "memberAccount", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, "会員ステータスコード", String.class, "memberStatusCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "memberStatus", null, CDef.DefMeta.MemberStatus, false);
@@ -209,6 +209,40 @@ public class MemberDbm extends AbstractDBMeta {
     protected UniqueInfo cpui() { return hpcpui(columnMemberId()); }
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
+
+    // -----------------------------------------------------
+    //                                        Unique Element
+    //                                        --------------
+    private volatile List<UniqueInfo> _uniqueInfoList;
+    public List<UniqueInfo> getUniqueInfoList() {
+        if (_uniqueInfoList != null) {
+            return _uniqueInfoList;
+        }
+        synchronized (this) {
+            if (_uniqueInfoList != null) {
+                return _uniqueInfoList;
+            }
+            final java.lang.reflect.Method[] methods = this.getClass().getMethods();
+            _uniqueInfoList = newArrayListSized(4);
+            final String prefix = "uniqueOf";
+            final Class<UniqueInfo> returnType = UniqueInfo.class;
+            for (java.lang.reflect.Method method : methods) {
+                if (method.getName().startsWith(prefix) && returnType.equals(method.getReturnType())) {
+                    _uniqueInfoList.add((UniqueInfo) org.dbflute.util.DfReflectionUtil.invoke(method, this, null));
+                }
+            }
+            return _uniqueInfoList;
+        }
+    }
+    public UniqueInfo uniqueOf() { return hpcui(columnMemberAccount()); }
+
+    protected UniqueInfo hpcui(ColumnInfo uniqueColumnInfo) { // helpCreateUniqueInfo()
+        return hpcui(java.util.Arrays.asList(uniqueColumnInfo));
+    }
+
+    protected UniqueInfo hpcui(java.util.List<ColumnInfo> uniqueColumnInfoList) { // helpCreateUniqueInfo()
+        return new UniqueInfo(this, uniqueColumnInfoList, false);
+    }
 
     // ===================================================================================
     //                                                                       Relation Info

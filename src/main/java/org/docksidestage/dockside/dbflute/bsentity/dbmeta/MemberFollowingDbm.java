@@ -95,7 +95,7 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, "会員フォローイングID", Long.class, "memberFollowingId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_F96D2871_0F48_417F_8407_63CDC7060363", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, "会員フォローイングID", Long.class, "memberFollowingId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_14317982_DC85_48E3_A29F_D3000FD39251", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMyMemberId = cci("MY_MEMBER_ID", "MY_MEMBER_ID", null, "わたし", Integer.class, "myMemberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "memberByMyMemberId", null, null, false);
     protected final ColumnInfo _columnYourMemberId = cci("YOUR_MEMBER_ID", "YOUR_MEMBER_ID", null, "あなた", Integer.class, "yourMemberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "memberByYourMemberId", null, null, false);
     protected final ColumnInfo _columnFollowDatetime = cci("FOLLOW_DATETIME", "FOLLOW_DATETIME", null, "その瞬間", java.time.LocalDateTime.class, "followDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null, false);
@@ -141,6 +141,45 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     protected UniqueInfo cpui() { return hpcpui(columnMemberFollowingId()); }
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
+
+    // -----------------------------------------------------
+    //                                        Unique Element
+    //                                        --------------
+    private volatile List<UniqueInfo> _uniqueInfoList;
+    public List<UniqueInfo> getUniqueInfoList() {
+        if (_uniqueInfoList != null) {
+            return _uniqueInfoList;
+        }
+        synchronized (this) {
+            if (_uniqueInfoList != null) {
+                return _uniqueInfoList;
+            }
+            final java.lang.reflect.Method[] methods = this.getClass().getMethods();
+            _uniqueInfoList = newArrayListSized(4);
+            final String prefix = "uniqueOf";
+            final Class<UniqueInfo> returnType = UniqueInfo.class;
+            for (java.lang.reflect.Method method : methods) {
+                if (method.getName().startsWith(prefix) && returnType.equals(method.getReturnType())) {
+                    _uniqueInfoList.add((UniqueInfo) org.dbflute.util.DfReflectionUtil.invoke(method, this, null));
+                }
+            }
+            return _uniqueInfoList;
+        }
+    }
+    public UniqueInfo uniqueOf() {
+        List<ColumnInfo> ls = newArrayListSized(4);
+        ls.add(columnMyMemberId());
+        ls.add(columnYourMemberId());
+        return hpcui(ls);
+    }
+
+    protected UniqueInfo hpcui(ColumnInfo uniqueColumnInfo) { // helpCreateUniqueInfo()
+        return hpcui(java.util.Arrays.asList(uniqueColumnInfo));
+    }
+
+    protected UniqueInfo hpcui(java.util.List<ColumnInfo> uniqueColumnInfoList) { // helpCreateUniqueInfo()
+        return new UniqueInfo(this, uniqueColumnInfoList, false);
+    }
 
     // ===================================================================================
     //                                                                       Relation Info

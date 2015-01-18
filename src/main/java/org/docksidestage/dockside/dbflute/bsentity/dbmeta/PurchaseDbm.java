@@ -112,7 +112,7 @@ public class PurchaseDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, null, Long.class, "purchaseId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6CD5F701_7081_40A7_BE1C_F20424D20A05", false, null, null, null, "purchasePaymentList", null, false);
+    protected final ColumnInfo _columnPurchaseId = cci("PURCHASE_ID", "PURCHASE_ID", null, null, Long.class, "purchaseId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_3626CBAD_633A_4876_A7D0_3295618AFFDA", false, null, null, null, "purchasePaymentList", null, false);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null, false);
     protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, "商品ID", Integer.class, "productId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "product,summaryProduct", null, null, false);
     protected final ColumnInfo _columnPurchaseDatetime = cci("PURCHASE_DATETIME", "PURCHASE_DATETIME", null, "購入日時", java.time.LocalDateTime.class, "purchaseDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null, false);
@@ -214,6 +214,46 @@ public class PurchaseDbm extends AbstractDBMeta {
     protected UniqueInfo cpui() { return hpcpui(columnPurchaseId()); }
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
+
+    // -----------------------------------------------------
+    //                                        Unique Element
+    //                                        --------------
+    private volatile List<UniqueInfo> _uniqueInfoList;
+    public List<UniqueInfo> getUniqueInfoList() {
+        if (_uniqueInfoList != null) {
+            return _uniqueInfoList;
+        }
+        synchronized (this) {
+            if (_uniqueInfoList != null) {
+                return _uniqueInfoList;
+            }
+            final java.lang.reflect.Method[] methods = this.getClass().getMethods();
+            _uniqueInfoList = newArrayListSized(4);
+            final String prefix = "uniqueOf";
+            final Class<UniqueInfo> returnType = UniqueInfo.class;
+            for (java.lang.reflect.Method method : methods) {
+                if (method.getName().startsWith(prefix) && returnType.equals(method.getReturnType())) {
+                    _uniqueInfoList.add((UniqueInfo) org.dbflute.util.DfReflectionUtil.invoke(method, this, null));
+                }
+            }
+            return _uniqueInfoList;
+        }
+    }
+    public UniqueInfo uniqueOf() {
+        List<ColumnInfo> ls = newArrayListSized(4);
+        ls.add(columnMemberId());
+        ls.add(columnProductId());
+        ls.add(columnPurchaseDatetime());
+        return hpcui(ls);
+    }
+
+    protected UniqueInfo hpcui(ColumnInfo uniqueColumnInfo) { // helpCreateUniqueInfo()
+        return hpcui(java.util.Arrays.asList(uniqueColumnInfo));
+    }
+
+    protected UniqueInfo hpcui(java.util.List<ColumnInfo> uniqueColumnInfoList) { // helpCreateUniqueInfo()
+        return new UniqueInfo(this, uniqueColumnInfoList, false);
+    }
 
     // ===================================================================================
     //                                                                       Relation Info
