@@ -110,7 +110,7 @@ public class MemberAddressDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberAddressId = cci("MEMBER_ADDRESS_ID", "MEMBER_ADDRESS_ID", null, "会員住所ID", Integer.class, "memberAddressId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_B868439A_B6CD_49A6_9B96_AEF087303670", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMemberAddressId = cci("MEMBER_ADDRESS_ID", "MEMBER_ADDRESS_ID", null, "会員住所ID", Integer.class, "memberAddressId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_BB77FAFB_50C7_4720_8CC0_03EABE9F40C3", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null, false);
     protected final ColumnInfo _columnValidBeginDate = cci("VALID_BEGIN_DATE", "VALID_BEGIN_DATE", null, "有効開始日", java.time.LocalDate.class, "validBeginDate", null, false, false, true, "DATE", 8, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnValidEndDate = cci("VALID_END_DATE", "VALID_END_DATE", null, "有効終了日", java.time.LocalDate.class, "validEndDate", null, false, false, true, "DATE", 8, 0, null, false, null, null, null, null, null, false);
@@ -209,40 +209,11 @@ public class MemberAddressDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                        Unique Element
     //                                        --------------
-    private volatile List<UniqueInfo> _uniqueInfoList;
-    public List<UniqueInfo> getUniqueInfoList() {
-        if (_uniqueInfoList != null) {
-            return _uniqueInfoList;
-        }
-        synchronized (this) {
-            if (_uniqueInfoList != null) {
-                return _uniqueInfoList;
-            }
-            final java.lang.reflect.Method[] methods = this.getClass().getMethods();
-            _uniqueInfoList = newArrayListSized(4);
-            final String prefix = "uniqueOf";
-            final Class<UniqueInfo> returnType = UniqueInfo.class;
-            for (java.lang.reflect.Method method : methods) {
-                if (method.getName().startsWith(prefix) && returnType.equals(method.getReturnType())) {
-                    _uniqueInfoList.add((UniqueInfo) org.dbflute.util.DfReflectionUtil.invoke(method, this, null));
-                }
-            }
-            return _uniqueInfoList;
-        }
-    }
     public UniqueInfo uniqueOf() {
         List<ColumnInfo> ls = newArrayListSized(4);
         ls.add(columnMemberId());
         ls.add(columnValidBeginDate());
         return hpcui(ls);
-    }
-
-    protected UniqueInfo hpcui(ColumnInfo uniqueColumnInfo) { // helpCreateUniqueInfo()
-        return hpcui(java.util.Arrays.asList(uniqueColumnInfo));
-    }
-
-    protected UniqueInfo hpcui(java.util.List<ColumnInfo> uniqueColumnInfoList) { // helpCreateUniqueInfo()
-        return new UniqueInfo(this, uniqueColumnInfoList, false);
     }
 
     // ===================================================================================

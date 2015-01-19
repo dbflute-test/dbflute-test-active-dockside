@@ -139,36 +139,7 @@ public class MemberStatusDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                        Unique Element
     //                                        --------------
-    private volatile List<UniqueInfo> _uniqueInfoList;
-    public List<UniqueInfo> getUniqueInfoList() {
-        if (_uniqueInfoList != null) {
-            return _uniqueInfoList;
-        }
-        synchronized (this) {
-            if (_uniqueInfoList != null) {
-                return _uniqueInfoList;
-            }
-            final java.lang.reflect.Method[] methods = this.getClass().getMethods();
-            _uniqueInfoList = newArrayListSized(4);
-            final String prefix = "uniqueOf";
-            final Class<UniqueInfo> returnType = UniqueInfo.class;
-            for (java.lang.reflect.Method method : methods) {
-                if (method.getName().startsWith(prefix) && returnType.equals(method.getReturnType())) {
-                    _uniqueInfoList.add((UniqueInfo) org.dbflute.util.DfReflectionUtil.invoke(method, this, null));
-                }
-            }
-            return _uniqueInfoList;
-        }
-    }
     public UniqueInfo uniqueOf() { return hpcui(columnDisplayOrder()); }
-
-    protected UniqueInfo hpcui(ColumnInfo uniqueColumnInfo) { // helpCreateUniqueInfo()
-        return hpcui(java.util.Arrays.asList(uniqueColumnInfo));
-    }
-
-    protected UniqueInfo hpcui(java.util.List<ColumnInfo> uniqueColumnInfoList) { // helpCreateUniqueInfo()
-        return new UniqueInfo(this, uniqueColumnInfoList, false);
-    }
 
     // ===================================================================================
     //                                                                       Relation Info

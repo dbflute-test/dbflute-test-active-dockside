@@ -99,8 +99,8 @@ public abstract class BsSubDirectoryCheck extends AbstractEntity implements Cust
     }
 
     // ===================================================================================
-    //                                                                         Primary Key
-    //                                                                         ===========
+    //                                                                          Unique Key
+    //                                                                          ==========
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         return false;

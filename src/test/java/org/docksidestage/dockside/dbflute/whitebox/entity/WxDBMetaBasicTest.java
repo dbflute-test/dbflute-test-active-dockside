@@ -2,6 +2,7 @@ package org.docksidestage.dockside.dbflute.whitebox.entity;
 
 import java.util.Map;
 
+import org.dbflute.dbmeta.info.PrimaryInfo;
 import org.dbflute.dbmeta.info.UniqueInfo;
 import org.dbflute.utflute.core.PlainTestCase;
 import org.dbflute.util.DfCollectionUtil;
@@ -73,6 +74,19 @@ public class WxDBMetaBasicTest extends PlainTestCase {
     // ===================================================================================
     //                                                                         Unique Info
     //                                                                         ===========
+    public void test_primaryInfo_cached() throws Exception {
+        // ## Arrange ##
+        MemberDbm dbm = MemberDbm.getInstance();
+
+        // ## Act ##
+        PrimaryInfo first = dbm.getPrimaryInfo();
+        PrimaryInfo second = dbm.getPrimaryInfo();
+
+        // ## Assert ##
+        assertTrue(first == second);
+        assertEquals(first, second);
+    }
+
     public void test_uniqueInfo_cached() throws Exception {
         // ## Arrange ##
         MemberDbm dbm = MemberDbm.getInstance();

@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 
 import org.dbflute.bhv.writable.UpdateOption;
 import org.dbflute.cbean.scoping.SpecifyQuery;
+import org.dbflute.exception.EntityUniqueKeyNotFoundException;
 import org.dbflute.exception.QueryIllegalPurposeException;
 import org.dbflute.exception.SpecifyRelationIllegalPurposeException;
 import org.dbflute.exception.VaryingUpdateNotFoundCalculationException;
 import org.dbflute.helper.HandyDate;
+import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
@@ -210,6 +212,46 @@ public class WxBhvVaryingUpdateBasicTest extends UnitContainerTestCase {
             fail();
         } catch (IllegalStateException e) {
             // OK
+            log(e.getMessage());
+        }
+    }
+
+    // ===================================================================================
+    //                                                                           Unique By
+    //                                                                           =========
+    public void test_varyingUpdate_uniqueBy_basic() throws Exception {
+        // ## Arrange ##
+        String memberAccount = "Pixy";
+        Member member = new Member();
+        member.setMemberAccount(memberAccount);
+        member.setBirthdate(toLocalDate("2015/01/19"));
+
+        // ## Act ##
+        memberBhv.varyingUpdateNonstrict(member, op -> {
+            op.uniqueBy(MemberDbm.getInstance().uniqueOf());
+        });
+
+        // ## Assert ##
+        assertNull(member.getMemberId());
+        Member actual = memberBhv.selectByUniqueOf(memberAccount).get();
+        assertEquals(member.getBirthdate(), actual.getBirthdate());
+    }
+
+    public void test_varyingUpdate_uniqueBy_noSet() throws Exception {
+        // ## Arrange ##
+        Member member = new Member();
+        // no set
+        //member.setMemberAccount(memberAccount);
+        member.setBirthdate(toLocalDate("2015/01/19"));
+
+        // ## Act ##
+        try {
+            memberBhv.varyingUpdateNonstrict(member, op -> {
+                op.uniqueBy(MemberDbm.getInstance().uniqueOf());
+            });
+            // ## Assert ##
+            fail();
+        } catch (EntityUniqueKeyNotFoundException e) {
             log(e.getMessage());
         }
     }

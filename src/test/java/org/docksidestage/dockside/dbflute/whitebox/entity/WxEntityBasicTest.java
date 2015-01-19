@@ -72,6 +72,56 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         member.clearModifiedInfo();
         assertFalse(member.mymodifiedProperties().contains("memberAccount"));
         assertFalse(member.hasModification());
+        try {
+            member.mymodifiedProperties().add("noway"); // read-only
+            fail();
+        } catch (UnsupportedOperationException e) {
+            log(e.getMessage());
+        }
+    }
+
+    // ===================================================================================
+    //                                                                          Unique Key
+    //                                                                          ==========
+    public void test_hasPrimaryKeyValue_basic() throws Exception {
+        // ## Arrange ##
+        Member member = new Member();
+
+        // ## Act ##
+        // ## Assert ##
+        assertFalse(member.hasPrimaryKeyValue());
+        member.setMemberAccount("sea");
+        assertFalse(member.hasPrimaryKeyValue());
+        member.setMemberId(3);
+        assertTrue(member.hasPrimaryKeyValue());
+        member.setMemberId(null);
+        assertFalse(member.hasPrimaryKeyValue());
+    }
+
+    public void test_uniqueDriven_basic() throws Exception {
+        // ## Arrange ##
+        Member member = new Member();
+
+        // ## Act ##
+        member.uniqueBy("sea");
+
+        // ## Assert ##
+        assertEquals("sea", member.getMemberAccount());
+        assertEquals(1, member.myuniqueDrivenProperties().size());
+        assertTrue(member.myuniqueDrivenProperties().contains("memberAccount"));
+        member.clearUniqueDrivenInfo();
+        assertTrue(member.myuniqueDrivenProperties().isEmpty());
+        assertEquals("sea", member.getMemberAccount());
+        member.myuniqueByProperty("memberAccount");
+        assertTrue(member.myuniqueDrivenProperties().contains("memberAccount"));
+        member.myuniqueByPropertyCancel("memberAccount");
+        assertFalse(member.myuniqueDrivenProperties().contains("memberAccount"));
+        try {
+            member.myuniqueDrivenProperties().add("noway"); // read-only
+            fail();
+        } catch (UnsupportedOperationException e) {
+            log(e.getMessage());
+        }
     }
 
     // unsupported since 1.1, use varyingInsert()

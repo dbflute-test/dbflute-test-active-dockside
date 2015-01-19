@@ -108,7 +108,7 @@ public class MemberServiceDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberServiceId = cci("MEMBER_SERVICE_ID", "MEMBER_SERVICE_ID", null, "会員サービスID", Integer.class, "memberServiceId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6020FE26_00B4_451B_9537_BE17C42217C5", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMemberServiceId = cci("MEMBER_SERVICE_ID", "MEMBER_SERVICE_ID", null, "会員サービスID", Integer.class, "memberServiceId", null, true, true, true, "INTEGER", 10, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_AF8100CC_6433_4341_8A50_D17A35113520", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null, false);
     protected final ColumnInfo _columnServicePointCount = cci("SERVICE_POINT_COUNT", "SERVICE_POINT_COUNT", null, "サービスポイント数", Integer.class, "servicePointCount", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnServiceRankCode = cci("SERVICE_RANK_CODE", "SERVICE_RANK_CODE", null, "サービスランクコード", String.class, "serviceRankCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "serviceRank", null, CDef.DefMeta.ServiceRank, false);
@@ -193,36 +193,7 @@ public class MemberServiceDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                        Unique Element
     //                                        --------------
-    private volatile List<UniqueInfo> _uniqueInfoList;
-    public List<UniqueInfo> getUniqueInfoList() {
-        if (_uniqueInfoList != null) {
-            return _uniqueInfoList;
-        }
-        synchronized (this) {
-            if (_uniqueInfoList != null) {
-                return _uniqueInfoList;
-            }
-            final java.lang.reflect.Method[] methods = this.getClass().getMethods();
-            _uniqueInfoList = newArrayListSized(4);
-            final String prefix = "uniqueOf";
-            final Class<UniqueInfo> returnType = UniqueInfo.class;
-            for (java.lang.reflect.Method method : methods) {
-                if (method.getName().startsWith(prefix) && returnType.equals(method.getReturnType())) {
-                    _uniqueInfoList.add((UniqueInfo) org.dbflute.util.DfReflectionUtil.invoke(method, this, null));
-                }
-            }
-            return _uniqueInfoList;
-        }
-    }
     public UniqueInfo uniqueOf() { return hpcui(columnMemberId()); }
-
-    protected UniqueInfo hpcui(ColumnInfo uniqueColumnInfo) { // helpCreateUniqueInfo()
-        return hpcui(java.util.Arrays.asList(uniqueColumnInfo));
-    }
-
-    protected UniqueInfo hpcui(java.util.List<ColumnInfo> uniqueColumnInfoList) { // helpCreateUniqueInfo()
-        return new UniqueInfo(this, uniqueColumnInfoList, false);
-    }
 
     // ===================================================================================
     //                                                                       Relation Info

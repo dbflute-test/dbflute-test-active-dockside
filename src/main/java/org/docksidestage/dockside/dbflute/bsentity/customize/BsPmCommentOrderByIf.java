@@ -99,8 +99,8 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity implements Cus
     }
 
     // ===================================================================================
-    //                                                                         Primary Key
-    //                                                                         ===========
+    //                                                                          Unique Key
+    //                                                                          ==========
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         return false;
