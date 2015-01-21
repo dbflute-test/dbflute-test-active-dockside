@@ -130,8 +130,8 @@ public abstract class BsOptionMember extends AbstractEntity implements Customize
     }
 
     // ===================================================================================
-    //                                                                          Unique Key
-    //                                                                          ==========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         return false;

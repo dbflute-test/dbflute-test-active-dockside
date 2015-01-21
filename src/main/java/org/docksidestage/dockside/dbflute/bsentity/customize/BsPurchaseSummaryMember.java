@@ -109,8 +109,8 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity implements 
     }
 
     // ===================================================================================
-    //                                                                          Unique Key
-    //                                                                          ==========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         return false;

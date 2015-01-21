@@ -113,8 +113,8 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     // ===================================================================================
-    //                                                                          Unique Key
-    //                                                                          ==========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         if (_productId == null) { return false; }

@@ -94,8 +94,8 @@ public abstract class BsPmCommentCollection extends AbstractEntity implements Cu
     }
 
     // ===================================================================================
-    //                                                                          Unique Key
-    //                                                                          ==========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         return false;

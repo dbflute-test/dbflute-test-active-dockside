@@ -107,8 +107,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends Abstrac
     }
 
     // ===================================================================================
-    //                                                                          Unique Key
-    //                                                                          ==========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         if (_theLongAndWindingTableAndColumnRefId == null) { return false; }

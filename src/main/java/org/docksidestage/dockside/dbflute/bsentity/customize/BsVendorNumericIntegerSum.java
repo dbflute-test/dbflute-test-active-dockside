@@ -89,8 +89,8 @@ public abstract class BsVendorNumericIntegerSum extends AbstractEntity implement
     }
 
     // ===================================================================================
-    //                                                                          Unique Key
-    //                                                                          ==========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         return false;

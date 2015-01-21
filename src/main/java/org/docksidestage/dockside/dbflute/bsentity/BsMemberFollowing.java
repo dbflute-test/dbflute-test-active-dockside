@@ -108,8 +108,8 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
     }
 
     // ===================================================================================
-    //                                                                          Unique Key
-    //                                                                          ==========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         if (_memberFollowingId == null) { return false; }

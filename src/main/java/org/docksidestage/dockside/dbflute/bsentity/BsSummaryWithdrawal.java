@@ -130,8 +130,8 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity implements Doma
     }
 
     // ===================================================================================
-    //                                                                          Unique Key
-    //                                                                          ==========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         return false;

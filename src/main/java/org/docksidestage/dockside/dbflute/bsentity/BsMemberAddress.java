@@ -147,8 +147,8 @@ public abstract class BsMemberAddress extends AbstractEntity implements DomainEn
     }
 
     // ===================================================================================
-    //                                                                          Unique Key
-    //                                                                          ==========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         if (_memberAddressId == null) { return false; }

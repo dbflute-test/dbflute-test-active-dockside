@@ -94,8 +94,8 @@ public abstract class BsPmCommentHint extends AbstractEntity implements Customiz
     }
 
     // ===================================================================================
-    //                                                                          Unique Key
-    //                                                                          ==========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         return false;

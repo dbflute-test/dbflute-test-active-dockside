@@ -102,8 +102,8 @@ public abstract class BsProductStatus extends AbstractEntity implements DomainEn
     }
 
     // ===================================================================================
-    //                                                                          Unique Key
-    //                                                                          ==========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         if (_productStatusCode == null) { return false; }
