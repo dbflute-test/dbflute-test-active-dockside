@@ -31,7 +31,31 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
         // ## Assert ##
         assertNotNull(foreignInfo);
         assertNotNull(foreignInfo.getForeignPropertyName());
+        assertFalse(foreignInfo.isOneToOne());
+        assertFalse(foreignInfo.isBizOneToOne());
         assertEquals(MemberStatusDbm.getInstance().referrerMemberList(), foreignInfo.getReverseRelation());
+    }
+
+    public void test_foreignInfo_oneToOne() {
+        // ## Arrange & Act ##
+        ForeignInfo foreignInfo = MemberDbm.getInstance().foreignMemberSecurityAsOne();
+
+        // ## Assert ##
+        assertNotNull(foreignInfo);
+        assertNotNull(foreignInfo.getForeignPropertyName());
+        assertTrue(foreignInfo.isOneToOne());
+        assertFalse(foreignInfo.isBizOneToOne());
+    }
+
+    public void test_foreignInfo_bizOneToOne() {
+        // ## Arrange & Act ##
+        ForeignInfo foreignInfo = MemberDbm.getInstance().foreignMemberAddressAsValid();
+
+        // ## Assert ##
+        assertNotNull(foreignInfo);
+        assertNotNull(foreignInfo.getForeignPropertyName());
+        assertTrue(foreignInfo.isOneToOne());
+        assertTrue(foreignInfo.isBizOneToOne());
     }
 
     public void test_foreignInfo_read() {
