@@ -71,10 +71,12 @@ public class SurpriseSimilarPKCommentDbm extends AbstractDBMeta {
     //                                                                          Table Info
     //                                                                          ==========
     protected final String _tableDbName = "SurpriseSimilarPKComment";
+    protected final String _tableDispName = "SurpriseSimilarPKComment";
     protected final String _tablePropertyName = "surpriseSimilarPKComment";
     protected final TableSqlName _tableSqlName = new TableSqlName("SurpriseSimilarPKComment", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
+    public String getTableDispName() { return _tableDispName; }
     public String getTablePropertyName() { return _tablePropertyName; }
     public TableSqlName getTableSqlName() { return _tableSqlName; }
 

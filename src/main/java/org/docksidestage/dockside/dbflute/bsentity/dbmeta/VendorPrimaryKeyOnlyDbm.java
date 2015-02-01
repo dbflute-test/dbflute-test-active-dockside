@@ -66,10 +66,12 @@ public class VendorPrimaryKeyOnlyDbm extends AbstractDBMeta {
     //                                                                          Table Info
     //                                                                          ==========
     protected final String _tableDbName = "VENDOR_PRIMARY_KEY_ONLY";
+    protected final String _tableDispName = "VENDOR_PRIMARY_KEY_ONLY";
     protected final String _tablePropertyName = "vendorPrimaryKeyOnly";
     protected final TableSqlName _tableSqlName = new TableSqlName("VENDOR_PRIMARY_KEY_ONLY", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
+    public String getTableDispName() { return _tableDispName; }
     public String getTablePropertyName() { return _tablePropertyName; }
     public TableSqlName getTableSqlName() { return _tableSqlName; }
 
