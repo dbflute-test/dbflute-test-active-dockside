@@ -1,9 +1,13 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.option;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.dbflute.bhv.core.context.ConditionBeanContext;
+import org.dbflute.bhv.readable.EntityRowHandler;
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.bhv.referrer.ReferrerLoaderHandler;
 import org.dbflute.cbean.result.ListResultBean;
@@ -25,6 +29,53 @@ public class WxCBRelationMappingCacheTest extends UnitContainerTestCase {
     //                                                                           Attribute
     //                                                                           =========
     private MemberBhv memberBhv;
+
+    // ===================================================================================
+    //                                                                               Basic
+    //                                                                               =====
+    public void test_relationCache_basic() {
+        // ## Arrange ##
+        ListResultBean<Member> list = memberBhv.selectList(cb -> {
+            cb.setupSelect_MemberStatus();
+            cb.query().setMemberStatusCode_Equal_Formalized();
+        });
+        // ## Act & Assert ##
+        {
+            MemberStatus memberStatus1 = list.get(0).getMemberStatus().get();
+            MemberStatus memberStatus2 = list.get(1).getMemberStatus().get();
+            assertEquals(memberStatus1, memberStatus2);
+            assertEquals(memberStatus1.hashCode(), memberStatus2.hashCode());
+            assertTrue(memberStatus1 == memberStatus2);
+        }
+        {
+            final Set<String> markSet = new HashSet<String>();
+            memberBhv.selectCursor(cb -> {
+                cb.setupSelect_MemberStatus();
+                cb.query().setMemberStatusCode_Equal_Formalized();
+            }, new EntityRowHandler<Member>() {
+                MemberStatus memberStatus1;
+                int index = 0;
+
+                public void handle(Member entity) {
+                    if (index == 0) {
+                        memberStatus1 = entity.getMemberStatus().get();
+                    } else if (index == 1) {
+                        MemberStatus memberStatus2 = entity.getMemberStatus().get();
+                        assertEquals(memberStatus1, memberStatus2);
+                        assertEquals(memberStatus1.hashCode(), memberStatus2.hashCode());
+                        assertTrue(memberStatus1 != memberStatus2);
+                        markSet.add("done");
+                    }
+                    ++index;
+                }
+            });
+            assertTrue(markSet.contains("done"));
+
+            // for good measure
+            assertFalse(ConditionBeanContext.isExistConditionBeanOnThread());
+            assertFalse(ConditionBeanContext.isExistEntityRowHandlerOnThread());
+        }
+    }
 
     // ===================================================================================
     //                                                                      First Relation

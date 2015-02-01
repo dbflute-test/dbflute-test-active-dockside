@@ -75,10 +75,12 @@ public class UndetectableClassificationHintDbm extends AbstractDBMeta {
     //                                                                          Table Info
     //                                                                          ==========
     protected final String _tableDbName = "UndetectableClassificationHint";
+    protected final String _tableDispName = "UndetectableClassificationHint";
     protected final String _tablePropertyName = "undetectableClassificationHint";
     protected final TableSqlName _tableSqlName = new TableSqlName("UndetectableClassificationHint", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
+    public String getTableDispName() { return _tableDispName; }
     public String getTablePropertyName() { return _tablePropertyName; }
     public TableSqlName getTableSqlName() { return _tableSqlName; }
 

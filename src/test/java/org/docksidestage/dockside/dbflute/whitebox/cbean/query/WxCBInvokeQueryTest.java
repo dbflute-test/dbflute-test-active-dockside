@@ -30,6 +30,7 @@ import org.dbflute.cbean.cvalue.ConditionValue;
 import org.dbflute.cbean.dream.SpecifiedColumn;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.exception.ConditionInvokingFailureException;
+import org.dbflute.exception.IllegalConditionBeanOperationException;
 import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberStatusDbm;
@@ -345,15 +346,16 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         String name = MemberDbm.getInstance().columnBirthdate().getColumnDbName();
 
         // ## Act ##
+        // no null checked
         cb.localCQ().invokeQuery(name, ConditionKey.CK_IS_NULL.getConditionKey(), null);
         cb.localCQ().invokeQuery(name, ConditionKey.CK_IS_NOT_NULL.getConditionKey(), null);
 
         // ## Assert ##
-        assertFalse(cb.hasWhereClauseOnBaseQuery());
+        assertTrue(cb.hasWhereClauseOnBaseQuery());
         String sql = cb.toDisplaySql();
         log(ln() + sql);
-        assertFalse(sql.contains(" is null"));
-        assertFalse(sql.contains(" is not null"));
+        assertTrue(sql.contains(" is null"));
+        assertTrue(sql.contains(" is not null"));
     }
 
     // -----------------------------------------------------
@@ -362,11 +364,16 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
     public void test_invokeQuery_emptyString() {
         // ## Arrange ##
         ConditionBean cb = memberBhv.newConditionBean();
-        cb.ignoreNullOrEmptyQuery();
         String columnDbName = MemberDbm.getInstance().columnMemberName().getColumnDbName();
         String keyName = ConditionKey.CK_EQUAL.getConditionKey();
 
         // ## Act ##
+        try {
+            cb.localCQ().invokeQuery(columnDbName, keyName, null);
+        } catch (IllegalConditionBeanOperationException e) {
+            log(e.getMessage());
+        }
+        cb.ignoreNullOrEmptyQuery();
         cb.localCQ().invokeQuery(columnDbName, keyName, "");
 
         // ## Assert ##
@@ -386,6 +393,12 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         String keyName = ConditionKey.CK_EQUAL.getConditionKey();
 
         // ## Act ##
+        try {
+            cb.localCQ().invokeQuery(columnDbName, keyName, null);
+        } catch (IllegalConditionBeanOperationException e) {
+            log(e.getMessage());
+        }
+        cb.ignoreNullOrEmptyQuery();
         cb.localCQ().invokeQuery(columnDbName, keyName, null);
 
         // ## Assert ##
@@ -562,7 +575,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_invokeQuery_equal() {
+    public void test_invokeQueryEqual_basic() {
         // ## Arrange ##
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
@@ -571,6 +584,52 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertEquals(3, member.getMemberId());
+    }
+
+    public void test_invokeQueryEqual_null() {
+        // ## Arrange ##
+        memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            try {
+                cb.query().invokeQueryEqual("memberId", null);
+                /* ## Assert ## */
+                fail();
+            } catch (IllegalConditionBeanOperationException e) {
+                log(e.getMessage());
+            }
+            cb.ignoreNullOrEmptyQuery();
+            cb.query().invokeQueryEqual("memberId", null);
+        });
+    }
+
+    public void test_invokeQueryNotEqual_basic() {
+        // ## Arrange ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().invokeQueryNotEqual("memberId", 3);
+        });
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        for (Member member : memberList) {
+            assertNotSame(3, member.getMemberId());
+        }
+    }
+
+    public void test_invokeQueryNotEqual_null() {
+        // ## Arrange ##
+        memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            try {
+                cb.query().invokeQueryNotEqual("memberId", null);
+                /* ## Assert ## */
+                fail();
+            } catch (IllegalConditionBeanOperationException e) {
+                log(e.getMessage());
+            }
+            cb.ignoreNullOrEmptyQuery();
+            cb.query().invokeQueryNotEqual("memberId", null);
+        });
     }
 
     // ===================================================================================

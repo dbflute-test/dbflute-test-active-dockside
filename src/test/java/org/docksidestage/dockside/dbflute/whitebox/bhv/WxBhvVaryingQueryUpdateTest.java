@@ -10,8 +10,11 @@ import org.dbflute.helper.HandyDate;
 import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlLogHandler;
 import org.dbflute.hook.SqlLogInfo;
+import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
+import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchasePaymentBhv;
+import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
@@ -24,6 +27,7 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    private MemberBhv memberBhv;
     private PurchaseBhv purchaseBhv;
     private PurchasePaymentBhv purchasePaymentBhv;
 
@@ -273,5 +277,91 @@ public class WxBhvVaryingQueryUpdateTest extends UnitContainerTestCase {
             // OK
             log(e.getMessage());
         }
+    }
+
+    // ===================================================================================
+    //                                                                       SpecifyColumn
+    //                                                                       =============
+    public void test_varyingQueryUpdate_SpecifyColumn_basic() throws Exception {
+        // ## Arrange ##
+        Purchase purchase = new Purchase();
+        purchase.setPurchaseCount(8888888);
+        purchase.setPurchasePrice(9999999);
+
+        Purchase beforePurchase = purchaseBhv.selectEntity(cb -> {
+            cb.query().setPurchaseId_Equal(1L);
+        }).get();
+
+        // ## Act ##
+        purchaseBhv.varyingQueryUpdate(purchase, cb -> {
+            cb.query().setPurchaseId_Equal(beforePurchase.getPurchaseId());
+            cb.query().addOrderBy_PurchaseId_Asc();
+        }, upOp -> upOp.specify(colCB -> {
+            colCB.specify().columnPurchasePrice();
+        }));
+
+        // ## Assert ##
+        Purchase afterPurchase = purchaseBhv.selectEntity(cb -> {
+            cb.query().setPurchaseId_Equal(1L);
+        }).get();
+        assertEquals(beforePurchase.getPurchaseCount(), afterPurchase.getPurchaseCount());
+        assertNotSame(beforePurchase.getPurchasePrice(), afterPurchase.getPurchasePrice());
+        assertNotSame(9999999, afterPurchase.getPurchasePrice());
+
+    }
+
+    public void test_varyingQueryUpdate_SpecifyColumn_withSelf() throws Exception {
+        // ## Arrange ##
+        Purchase purchase = new Purchase();
+        purchase.setPurchasePrice(9999999);
+
+        Purchase beforePurchase = purchaseBhv.selectEntity(cb -> {
+            cb.query().setPurchaseId_Equal(1L);
+        }).get();
+
+        // ## Act ##
+        purchaseBhv.varyingQueryUpdate(purchase, cb -> {
+            cb.query().setPurchaseId_Equal(beforePurchase.getPurchaseId());
+            cb.query().addOrderBy_PurchaseId_Asc();
+        }, upOp -> {
+            upOp.specify(colCB -> {
+                colCB.specify().columnPurchasePrice();
+            });
+            upOp.self(colCB -> { /* no specified but used by self() then it's valid */
+                colCB.specify().columnPurchaseCount();
+            }).plus(3);
+        });
+
+        // ## Assert ##
+        Purchase afterPurchase = purchaseBhv.selectEntity(cb -> {
+            cb.query().setPurchaseId_Equal(1L);
+        }).get();
+        assertEquals(beforePurchase.getPurchaseCount() + 3, afterPurchase.getPurchaseCount());
+        assertNotSame(beforePurchase.getPurchasePrice(), afterPurchase.getPurchasePrice());
+        assertNotSame(9999999, afterPurchase.getPurchasePrice());
+    }
+
+    // ===================================================================================
+    //                                                                           Unique By
+    //                                                                           =========
+    public void test_varyingQueryUpdate_uniqueBy_ignored() throws Exception {
+        // ## Arrange ##
+        String memberAccount = "sea";
+        Member member = new Member();
+        member.setMemberAccount(memberAccount);
+        member.setBirthdate(toLocalDate("2015/01/19"));
+
+        // ## Act ##
+        memberBhv.varyingQueryUpdate(member, cb -> {
+            cb.query().setMemberId_Equal(3);
+        }, op -> {
+            op.uniqueBy(MemberDbm.getInstance().uniqueOf());
+        });
+
+        // ## Assert ##
+        assertNull(member.getMemberId());
+        Member actual = memberBhv.selectByUniqueOf(memberAccount).get();
+        assertEquals(3, actual.getMemberId());
+        assertEquals(member.getBirthdate(), actual.getBirthdate());
     }
 }

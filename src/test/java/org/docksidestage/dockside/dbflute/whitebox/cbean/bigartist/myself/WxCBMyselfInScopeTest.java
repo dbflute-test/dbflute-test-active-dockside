@@ -2,6 +2,7 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.myself;
 
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SubQuery;
+import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.exception.SpecifyColumnTwoOrMoreColumnException;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberServiceCB;
@@ -66,6 +67,81 @@ public class WxCBMyselfInScopeTest extends UnitContainerTestCase {
             assertTrue(member.isMemberStatusCodeFormalized());
             assertTrue(service.isServiceRankCodeGold());
         }
+    }
+
+    // ===================================================================================
+    //                                                                               Union
+    //                                                                               =====
+    public void test_myselfInScope_union_basic() {
+        // ## Arrange ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().myselfExists(myselfCB -> {
+                myselfCB.useInScopeSubQuery();
+                myselfCB.query().setMemberName_LikeSearch("S", op -> op.likePrefix());
+                myselfCB.union(new UnionQuery<MemberCB>() {
+                    public void query(MemberCB unionCB) {
+                        unionCB.query().setMemberStatusCode_Equal_Formalized();
+                    }
+                });
+            });
+            cb.query().addOrderBy_Birthdate_Desc();
+        });
+
+        // ## Assert ##
+        assertFalse(memberList.isEmpty());
+        boolean existsStartsWithS = false;
+        boolean existsFormalized = false;
+        for (Member member : memberList) {
+            String memberName = member.getMemberName();
+            if (memberName.startsWith("S")) {
+                existsStartsWithS = true;
+                continue;
+            }
+            if (member.isMemberStatusCodeFormalized()) {
+                existsFormalized = true;
+                continue;
+            }
+            fail("The member was not expected: " + member);
+        }
+        assertTrue(existsStartsWithS);
+        assertTrue(existsFormalized);
+    }
+
+    public void test_myselfInScopeSubQuery_union_foreign() {
+        // ## Arrange ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.query().queryMemberStatus().myselfExists(myselfCB -> {
+                myselfCB.useInScopeSubQuery();
+                myselfCB.query().setMemberStatusCode_Equal_Formalized();
+                myselfCB.union(unionCB -> {
+                    unionCB.query().setMemberStatusCode_Equal_Provisional();
+                });
+                myselfCB.query().existsMember(mbCB -> {
+                    mbCB.query().setMemberStatusCode_NotEqual_Withdrawal();
+                });
+            });
+            cb.query().addOrderBy_Birthdate_Desc();
+        });
+
+        // ## Assert ##
+        assertFalse(memberList.isEmpty());
+        boolean existsFormalized = false;
+        boolean existsProvisional = false;
+        for (Member member : memberList) {
+            if (member.isMemberStatusCodeFormalized()) {
+                existsFormalized = true;
+                continue;
+            }
+            if (member.isMemberStatusCodeProvisional()) {
+                existsProvisional = true;
+                continue;
+            }
+            fail("The member was not expected: " + member);
+        }
+        assertTrue(existsFormalized);
+        assertTrue(existsProvisional);
     }
 
     // ===================================================================================

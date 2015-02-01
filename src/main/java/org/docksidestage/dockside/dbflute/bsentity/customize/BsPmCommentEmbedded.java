@@ -94,8 +94,8 @@ public abstract class BsPmCommentEmbedded extends AbstractEntity implements Cust
     }
 
     // ===================================================================================
-    //                                                                         Primary Key
-    //                                                                         ===========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         return false;

@@ -256,13 +256,11 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
 
             log(member.toString()); // expected no exception
             log(member.asDBMeta().extractAllColumnMap(member)); // expected no exception
-            // TODO jflute test: since Optional migration
         }
         assertMarked("existsBirthdate");
         assertMarked("notExistsBirthdate");
     }
 
-    // TODO jflute test: non-specified access
     public void test_NonSpecifiedAccess_basePointOnly_toString() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {

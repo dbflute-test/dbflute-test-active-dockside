@@ -225,8 +225,8 @@ public abstract class BsVendorCheck extends AbstractEntity implements DomainEnti
     }
 
     // ===================================================================================
-    //                                                                         Primary Key
-    //                                                                         ===========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         if (_vendorCheckId == null) { return false; }

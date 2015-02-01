@@ -89,8 +89,8 @@ public abstract class BsVendorNumericDecimalSum extends AbstractEntity implement
     }
 
     // ===================================================================================
-    //                                                                         Primary Key
-    //                                                                         ===========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         return false;

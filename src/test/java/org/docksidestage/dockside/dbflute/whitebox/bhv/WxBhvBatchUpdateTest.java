@@ -470,6 +470,7 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             log(msg);
             // last record's SQL
             assertTrue(Srl.containsAll(msg, "Display SQL", "update MEMBER", " where MEMBER_ID = 7"));
+            assertTrue(Srl.containsAll(msg, "Part of ", "(and other statements)"));
             String dispRear = Srl.substringLastRear(msg, "Display SQL");
             assertTrue(Srl.containsAll(dispRear, "update MEMBER", " where MEMBER_ID = 7"));
         }

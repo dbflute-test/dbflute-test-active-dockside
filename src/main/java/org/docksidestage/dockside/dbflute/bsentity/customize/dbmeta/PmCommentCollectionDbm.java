@@ -67,10 +67,12 @@ public class PmCommentCollectionDbm extends AbstractDBMeta {
     //                                                                          Table Info
     //                                                                          ==========
     protected final String _tableDbName = "PmCommentCollection";
+    protected final String _tableDispName = "PmCommentCollection";
     protected final String _tablePropertyName = "pmCommentCollection";
     protected final TableSqlName _tableSqlName = new TableSqlName("PmCommentCollection", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
+    public String getTableDispName() { return _tableDispName; }
     public String getTablePropertyName() { return _tablePropertyName; }
     public TableSqlName getTableSqlName() { return _tableSqlName; }
 

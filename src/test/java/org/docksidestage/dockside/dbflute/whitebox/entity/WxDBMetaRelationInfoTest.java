@@ -1,7 +1,10 @@
 package org.docksidestage.dockside.dbflute.whitebox.entity;
 
+import java.util.Arrays;
 import java.util.List;
 
+import org.dbflute.dbmeta.DBMeta;
+import org.dbflute.dbmeta.info.ColumnInfo;
 import org.dbflute.dbmeta.info.ForeignInfo;
 import org.dbflute.dbmeta.info.ReferrerInfo;
 import org.dbflute.optional.OptionalEntity;
@@ -28,7 +31,31 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
         // ## Assert ##
         assertNotNull(foreignInfo);
         assertNotNull(foreignInfo.getForeignPropertyName());
+        assertFalse(foreignInfo.isOneToOne());
+        assertFalse(foreignInfo.isBizOneToOne());
         assertEquals(MemberStatusDbm.getInstance().referrerMemberList(), foreignInfo.getReverseRelation());
+    }
+
+    public void test_foreignInfo_oneToOne() {
+        // ## Arrange & Act ##
+        ForeignInfo foreignInfo = MemberDbm.getInstance().foreignMemberSecurityAsOne();
+
+        // ## Assert ##
+        assertNotNull(foreignInfo);
+        assertNotNull(foreignInfo.getForeignPropertyName());
+        assertTrue(foreignInfo.isOneToOne());
+        assertFalse(foreignInfo.isBizOneToOne());
+    }
+
+    public void test_foreignInfo_bizOneToOne() {
+        // ## Arrange & Act ##
+        ForeignInfo foreignInfo = MemberDbm.getInstance().foreignMemberAddressAsValid();
+
+        // ## Assert ##
+        assertNotNull(foreignInfo);
+        assertNotNull(foreignInfo.getForeignPropertyName());
+        assertTrue(foreignInfo.isOneToOne());
+        assertTrue(foreignInfo.isBizOneToOne());
     }
 
     public void test_foreignInfo_read() {
@@ -68,6 +95,39 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
             assertEquals(status, actualStatus);
             assertEquals("foo", actualStatus.getMemberStatusCode());
             assertEquals("bar", actualStatus.getMemberStatusName());
+        });
+    }
+
+    public void test_searchForeignInfoList_basic() throws Exception {
+        // ## Arrange ##
+        // ## Act ##
+        MemberDbm dbm = MemberDbm.getInstance();
+        DBMeta dbmeta = dbm; // for interface
+        dbmeta.searchForeignInfoList(Arrays.asList(dbm.columnMemberStatusCode())).forEach(fkInfo -> {
+            /* ## Assert ## */
+            assertEquals(dbm.columnMemberStatusCode(), fkInfo.getLocalForeignColumnInfoMap().keySet().iterator().next());
+            markHere("here");
+        });
+        assertMarked("here");
+        // ## Act ##
+        dbmeta.searchForeignInfoList(Arrays.asList(dbm.columnMemberId(), dbm.columnMemberStatusCode())).forEach(fkInfo -> {
+            /* ## Assert ## */
+            log(fkInfo.getForeignPropertyName());
+            ColumnInfo fkCol = fkInfo.getLocalForeignColumnInfoMap().keySet().iterator().next();
+            if (fkInfo.isOneToOne()) {
+                markHere("onetoone");
+                assertEquals(dbm.columnMemberId(), fkCol);
+            } else {
+                markHere("here");
+                assertEquals(dbm.columnMemberStatusCode(), fkCol);
+            }
+        });
+        assertMarked("onetoone");
+        assertMarked("here");
+        // ## Act ##
+        dbmeta.searchForeignInfoList(Arrays.asList(dbm.columnMemberName(), dbm.columnBirthdate())).forEach(fkInfo -> {
+            /* ## Assert ## */
+            fail();
         });
     }
 
@@ -116,5 +176,32 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
         List<Purchase> actualList = member.getPurchaseList();
         assertNotNull(actualList);
         assertEquals(purchaseList, actualList);
+    }
+
+    public void test_searchReferrerInfoList_basic() throws Exception {
+        // ## Arrange ##
+        // ## Act ##
+        MemberDbm dbm = MemberDbm.getInstance();
+        DBMeta dbmeta = dbm; // for interface
+        dbmeta.searchReferrerInfoList(Arrays.asList(dbm.columnMemberId())).forEach(referrerInfo -> {
+            /* ## Assert ## */
+            ColumnInfo fkCol = referrerInfo.getLocalReferrerColumnInfoMap().keySet().iterator().next();
+            assertEquals(dbm.columnMemberId(), fkCol);
+            markHere("here");
+        });
+        assertMarked("here");
+        // ## Act ##
+        dbmeta.searchReferrerInfoList(Arrays.asList(dbm.columnMemberId(), dbm.columnMemberStatusCode())).forEach(referrerInfo -> {
+            /* ## Assert ## */
+            ColumnInfo fkCol = referrerInfo.getLocalReferrerColumnInfoMap().keySet().iterator().next();
+            assertEquals(dbm.columnMemberId(), fkCol);
+            markHere("here");
+        });
+        assertMarked("here");
+        // ## Act ##
+        dbmeta.searchReferrerInfoList(Arrays.asList(dbm.columnMemberName(), dbm.columnBirthdate())).forEach(referrerInfo -> {
+            /* ## Assert ## */
+            fail();
+        });
     }
 }
