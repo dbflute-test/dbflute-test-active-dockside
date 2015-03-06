@@ -32,6 +32,15 @@ public class WxCDefTest extends PlainTestCase {
     }
 
     // ===================================================================================
+    //                                                                         sisterSet()
+    //                                                                         ===========
+    public void test_sisterSet_basic() throws Exception {
+        assertEquals(newHashSet("true"), CDef.Flg.True.sisterSet());
+        assertEquals(newHashSet("false"), CDef.Flg.False.sisterSet());
+        assertHasZeroElement(CDef.MemberStatus.Formalized.sisterSet());
+    }
+
+    // ===================================================================================
     //                                                                           inGroup()
     //                                                                           =========
     public void test_inGroup_direct() {
