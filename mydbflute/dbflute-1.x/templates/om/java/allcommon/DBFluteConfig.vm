@@ -58,6 +58,10 @@ import org.seasar.framework.exception.SQLRuntimeException;
 #if ($database.isTargetContainerSpring())
 import org.springframework.jdbc.datasource.DataSourceUtils;
 #end
+#if ($database.isTargetContainerLasta())
+import org.dbflute.lasta.jta.dbcp.ConnectionWrapper;
+import org.dbflute.lasta.di.exception.SQLRuntimeException;
+#end
 
 /**
  * @author ${database.classAuthor}

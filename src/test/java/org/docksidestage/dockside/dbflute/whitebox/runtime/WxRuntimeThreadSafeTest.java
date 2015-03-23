@@ -30,15 +30,19 @@ public class WxRuntimeThreadSafeTest extends UnitContainerTestCase {
                     context.setCurrentDBDef(DBDef.Oracle);
                 }
                 ResourceContext.setResourceContextOnThread(context);
-                for (int i = 0; i < 10000; i++) {
-                    ValueType valueType = TnValueTypes.getValueType(java.util.Date.class);
-                    if (foo) {
-                        assertEquals(TnValueTypes.UTILDATE_AS_SQLDATE, valueType);
-                    } else {
-                        assertEquals(TnValueTypes.UTILDATE_AS_TIMESTAMP, valueType);
+                try {
+                    for (int i = 0; i < 10000; i++) {
+                        ValueType valueType = TnValueTypes.getValueType(java.util.Date.class);
+                        if (foo) {
+                            assertEquals(TnValueTypes.UTILDATE_AS_SQLDATE, valueType);
+                        } else {
+                            assertEquals(TnValueTypes.UTILDATE_AS_TIMESTAMP, valueType);
+                        }
+                        assertNotNull(TnValueTypes.getValueType(java.sql.Timestamp.class));
+                        assertNotNull(TnValueTypes.getValueType(java.util.UUID.class));
                     }
-                    assertNotNull(TnValueTypes.getValueType(java.sql.Timestamp.class));
-                    assertNotNull(TnValueTypes.getValueType(java.util.UUID.class));
+                } finally {
+                    ResourceContext.clearResourceContextOnThread();
                 }
             }
         }, new CannonballOption());
