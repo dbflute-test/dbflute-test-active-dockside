@@ -25,5 +25,6 @@ import org.docksidestage.dockside.dbflute.bsbhv.BsWithdrawalReasonBhv;
  * </p>
  * @author DBFlute(AutoGenerator)
  */
+@org.springframework.stereotype.Component("withdrawalReasonBhv")
 public class WithdrawalReasonBhv extends BsWithdrawalReasonBhv {
 }

@@ -31,6 +31,7 @@ import org.docksidestage.dockside.dbflute.exbhv.pmbean.PurchaseSummaryMemberPmb;
  * @author DBFlute(AutoGenerator)
  * @author jflute
  */
+@org.springframework.stereotype.Component("memberBhv")
 public class MemberBhv extends BsMemberBhv {
 
     // ===================================================================================

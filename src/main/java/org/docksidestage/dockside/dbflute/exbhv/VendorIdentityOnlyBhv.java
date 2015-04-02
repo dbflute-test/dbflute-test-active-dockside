@@ -25,5 +25,6 @@ import org.docksidestage.dockside.dbflute.bsbhv.BsVendorIdentityOnlyBhv;
  * </p>
  * @author DBFlute(AutoGenerator)
  */
+@org.springframework.stereotype.Component("vendorIdentityOnlyBhv")
 public class VendorIdentityOnlyBhv extends BsVendorIdentityOnlyBhv {
 }

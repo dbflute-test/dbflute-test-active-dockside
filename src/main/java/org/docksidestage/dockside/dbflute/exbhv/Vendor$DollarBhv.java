@@ -25,5 +25,6 @@ import org.docksidestage.dockside.dbflute.bsbhv.BsVendor$DollarBhv;
  * </p>
  * @author DBFlute(AutoGenerator)
  */
+@org.springframework.stereotype.Component("vendor$DollarBhv")
 public class Vendor$DollarBhv extends BsVendor$DollarBhv {
 }

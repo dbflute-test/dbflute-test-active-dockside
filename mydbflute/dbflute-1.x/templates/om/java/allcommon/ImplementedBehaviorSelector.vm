@@ -45,7 +45,7 @@ import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 #end
-#if ($database.isTargetContainerLasta())
+#if ($database.isTargetContainerLastaDi())
 import org.dbflute.lasta.di.core.LaContainer;
 import org.dbflute.lasta.di.core.exception.ComponentNotFoundException;
 #end
@@ -84,7 +84,7 @@ public class ${glImplementedBehaviorSelector} implements BehaviorSelector {
     /** The container of CDI. */
     protected BeanManager _container;
 #end
-#if ($database.isTargetContainerLasta())
+#if ($database.isTargetContainerLastaDi())
     /** The container of Lasta Di. */
     protected LaContainer _container;
 #end
@@ -187,7 +187,10 @@ public class ${glImplementedBehaviorSelector} implements BehaviorSelector {
     // ===================================================================================
     //                                                                           Component
     //                                                                           =========
-#if ($database.isTargetContainerSeasar() || $database.isTargetContainerSpring() || $database.isTargetContainerCDI() || $database.isTargetContainerLasta())
+#if ($database.isTargetContainerSeasar() || $database.isTargetContainerCDI())
+    @SuppressWarnings("unchecked")
+#end
+#if ($database.isTargetContainerSpring() && !$database.isDBFluteBeansGeneratedAsJavaConfig())
     @SuppressWarnings("unchecked")
 #end
     protected <COMPONENT> COMPONENT getComponent(Class<COMPONENT> componentType) { // only for behavior
@@ -208,7 +211,12 @@ public class ${glImplementedBehaviorSelector} implements BehaviorSelector {
 		}
 #end
 #if ($database.isTargetContainerSpring())
+#if ($database.isDBFluteBeansGeneratedAsJavaConfig())
+		return _container.getBean(componentType);
+#else
+        // component name in XML cannot contain dollar
 		return (COMPONENT)_container.getBean(replace(initUncap(toClassTitle(componentType)), "${database.dollar}", ""));
+#end
 #end
 #if ($database.isTargetContainerGuice())
 		return _container.getInstance(componentType);
@@ -224,7 +232,7 @@ public class ${glImplementedBehaviorSelector} implements BehaviorSelector {
         }
         return result;
 #end
-#if ($database.isTargetContainerLasta())
+#if ($database.isTargetContainerLastaDi())
         try {
 		    return (COMPONENT)_container.getComponent(componentType);
 		} catch (ComponentNotFoundException e) { // normally it doesn't come.
@@ -324,7 +332,7 @@ public class ${glImplementedBehaviorSelector} implements BehaviorSelector {
         this._container = container;
     }
 #end
-#if ($database.isTargetContainerLasta())
+#if ($database.isTargetContainerLastaDi())
     public void setContainer(LaContainer container) {
         this._container = container;
     }
