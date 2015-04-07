@@ -25,5 +25,6 @@ import org.docksidestage.dockside.dbflute.bsbhv.BsSummaryWithdrawalBhv;
  * </p>
  * @author DBFlute(AutoGenerator)
  */
+@org.springframework.stereotype.Component("summaryWithdrawalBhv")
 public class SummaryWithdrawalBhv extends BsSummaryWithdrawalBhv {
 }

@@ -16,6 +16,7 @@
 package org.docksidestage.dockside.dbflute.exbhv;
 
 import org.docksidestage.dockside.dbflute.bsbhv.BsMemberFollowingBhv;
+import org.springframework.stereotype.Component;
 
 /**
  * The behavior of MEMBER_FOLLOWING.
@@ -25,5 +26,6 @@ import org.docksidestage.dockside.dbflute.bsbhv.BsMemberFollowingBhv;
  * </p>
  * @author DBFlute(AutoGenerator)
  */
+@Component("memberFollowingBhv")
 public class MemberFollowingBhv extends BsMemberFollowingBhv {
 }

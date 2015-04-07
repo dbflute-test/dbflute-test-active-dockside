@@ -63,7 +63,7 @@ public class SummaryProductDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((SummaryProduct)et).getProductHandleCode(), (et, vl) -> ((SummaryProduct)et).setProductHandleCode((String)vl), "productHandleCode");
         setupEpg(_epgMap, et -> ((SummaryProduct)et).getProductStatusCode(), (et, vl) -> {
             ColumnInfo col = columnProductStatusCode();
-            CDef.ProductStatus cls = (CDef.ProductStatus)gcls(col, vl);
+            CDef.ProductStatus cls = (CDef.ProductStatus)gcls(et, col, vl);
             if (cls != null) {
                 ((SummaryProduct)et).setProductStatusCodeAsProductStatus(cls);
             } else {

@@ -79,22 +79,22 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseCount();
                 }
-            }, Member.ALIAS_productKindCount); // uses the other variable
-                cb.columnQuery(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
-                            public void query(PurchaseCB subCB) {
-                                subCB.specify().columnPurchaseCount();
-                            }
-                        }, null);
-                    }
-                }).greaterEqual(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().columnMemberId();
-                    }
-                });
-                pushCB(cb);
+            }, Member.ALIAS_productKindCount); /* uses the other variable */
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchaseCount();
+                        }
+                    }, null);
+                }
+            }).greaterEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberId();
+                }
             });
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -116,22 +116,22 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseCount();
                 }
-            }, Member.ALIAS_productKindCount); // uses the other variable
-                cb.columnQuery(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().columnMemberId();
-                    }
-                }).lessEqual(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
-                            public void query(PurchaseCB subCB) {
-                                subCB.specify().columnPurchaseCount();
-                            }
-                        }, null);
-                    }
-                });
-                pushCB(cb);
+            }, Member.ALIAS_productKindCount); /* uses the other variable */
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberId();
+                }
+            }).lessEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchaseCount();
+                        }
+                    }, null);
+                }
             });
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -153,22 +153,22 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseCount();
                 }
-            }, Member.ALIAS_productKindCount); // uses the other variable
-                cb.columnQuery(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().columnMemberId();
-                    }
-                }).lessEqual(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
-                            public void query(PurchaseCB subCB) {
-                                subCB.specify().columnPurchaseCount();
-                            }
-                        }, null);
-                    }
-                }).plus(1);
-                pushCB(cb);
-            });
+            }, Member.ALIAS_productKindCount); /* uses the other variable */
+            cb.columnQuery(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().columnMemberId();
+                }
+            }).lessEqual(new SpecifyQuery<MemberCB>() {
+                public void specify(MemberCB cb) {
+                    cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
+                        public void query(PurchaseCB subCB) {
+                            subCB.specify().columnPurchaseCount();
+                        }
+                    }, null);
+                }
+            }).plus(1);
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertFalse(memberList.isEmpty());
@@ -190,28 +190,20 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                 public void query(PurchaseCB subCB) {
                     subCB.specify().columnPurchaseCount();
                 }
-            }, Member.ALIAS_productKindCount); // uses the other variable
-                cb.columnQuery(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().derivedPurchase().avg(new SubQuery<PurchaseCB>() {
-                            public void query(PurchaseCB subCB) {
-                                subCB.specify().columnPurchaseCount();
-                                subCB.query().setPaymentCompleteFlg_Equal_True();
-                            }
-                        }, null);
-                    }
-                }).lessEqual(new SpecifyQuery<MemberCB>() {
-                    public void specify(MemberCB cb) {
-                        cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
-                            public void query(PurchaseCB subCB) {
-                                subCB.specify().columnPurchaseCount();
-                                subCB.query().queryMember().setMemberName_LikeSearch("v", op -> op.likeContain());
-                            }
-                        }, null);
-                    }
-                });
-                pushCB(cb);
-            }); // expects no exception
+            }, Member.ALIAS_productKindCount); /* uses the other variable */
+            cb.columnQuery(colCB -> {
+                colCB.specify().derivedPurchase().avg(purchaseCB -> {
+                    purchaseCB.specify().columnPurchaseCount();
+                    purchaseCB.query().setPaymentCompleteFlg_Equal_True();
+                }, null);
+            }).lessEqual(colCB -> {
+                colCB.specify().derivedPurchase().max(purchaseCB -> {
+                    purchaseCB.specify().columnPurchaseCount();
+                    purchaseCB.query().queryMember().setMemberName_LikeSearch("v", op -> op.likeContain());
+                }, null);
+            });
+            pushCB(cb);
+        }); // expects no exception
 
         // ## Assert ##
         String displaySql = popCB().toDisplaySql();
@@ -362,50 +354,50 @@ public class WxCBColumnQueryCollaborationTest extends UnitContainerTestCase {
                         loginCB.specify().columnMemberLoginId();
                         loginCB.query().setMobileLoginFlg_Equal_False();
 
-                        // nested (column = column)
-                            loginCB.columnQuery(loginColCB -> {
-                                loginColCB.specify().columnMemberId();
-                            }).lessEqual(loginColCB -> {
-                                loginColCB.specify().columnMemberId();
-                            });
+                        /* nested (column = column) */
+                        loginCB.columnQuery(loginColCB -> {
+                            loginColCB.specify().columnMemberId();
+                        }).lessEqual(loginColCB -> {
+                            loginColCB.specify().columnMemberId();
+                        });
 
-                            // nested (sub-query = column)
-                            loginCB.columnQuery(loginColCB -> {
-                                loginColCB.specify().specifyMemberStatus().derivedMember().avg(memberCB -> {
-                                    memberCB.specify().derivedPurchase().max(memberPurchaseCB -> {
-                                        memberPurchaseCB.specify().columnPurchasePrice();
-                                    }, null);
+                        /* nested (sub-query = column) */
+                        loginCB.columnQuery(loginColCB -> {
+                            loginColCB.specify().specifyMemberStatus().derivedMember().avg(memberCB -> {
+                                memberCB.specify().derivedPurchase().max(memberPurchaseCB -> {
+                                    memberPurchaseCB.specify().columnPurchasePrice();
                                 }, null);
-                            }).greaterThan(loginColCB -> {
-                                loginColCB.specify().columnMemberId();
-                            });
+                            }, null);
+                        }).greaterThan(loginColCB -> {
+                            loginColCB.specify().columnMemberId();
+                        });
 
-                            // nested (column = sub-query)
-                            loginCB.columnQuery(loginColCB -> {
-                                loginColCB.specify().columnMemberId();
-                            }).lessEqual(loginColCB -> {
-                                loginColCB.specify().specifyMemberStatus().derivedMember().avg(memberCB -> {
-                                    memberCB.specify().derivedPurchase().max(memberPurchaseCB -> {
-                                        memberPurchaseCB.specify().columnPurchasePrice();
-                                    }, null);
+                        /* nested (column = sub-query) */
+                        loginCB.columnQuery(loginColCB -> {
+                            loginColCB.specify().columnMemberId();
+                        }).lessEqual(loginColCB -> {
+                            loginColCB.specify().specifyMemberStatus().derivedMember().avg(memberCB -> {
+                                memberCB.specify().derivedPurchase().max(memberPurchaseCB -> {
+                                    memberPurchaseCB.specify().columnPurchasePrice();
                                 }, null);
-                            });
+                            }, null);
+                        });
 
-                            // nested (sub-query = sub-query)
-                            loginCB.columnQuery(loginColCB -> {
-                                loginColCB.specify().specifyMemberStatus().derivedMember().avg(memberCB -> {
-                                    memberCB.specify().derivedPurchase().max(memberPurchaseCB -> {
-                                        memberPurchaseCB.specify().columnPurchasePrice();
-                                    }, null);
+                        /* nested (sub-query = sub-query) */
+                        loginCB.columnQuery(loginColCB -> {
+                            loginColCB.specify().specifyMemberStatus().derivedMember().avg(memberCB -> {
+                                memberCB.specify().derivedPurchase().max(memberPurchaseCB -> {
+                                    memberPurchaseCB.specify().columnPurchasePrice();
                                 }, null);
-                            }).equal(loginColCB -> {
-                                loginColCB.specify().specifyMemberStatus().derivedMember().avg(memberCB -> {
-                                    memberCB.specify().derivedPurchase().max(memberPurchaseCB -> {
-                                        memberPurchaseCB.specify().columnPurchasePrice();
-                                    }, null);
+                            }, null);
+                        }).equal(loginColCB -> {
+                            loginColCB.specify().specifyMemberStatus().derivedMember().avg(memberCB -> {
+                                memberCB.specify().derivedPurchase().max(memberPurchaseCB -> {
+                                    memberPurchaseCB.specify().columnPurchasePrice();
                                 }, null);
-                            });
-                        }, null);
+                            }, null);
+                        });
+                    }, null);
                     purchaseCB.query().setPaymentCompleteFlg_Equal_True();
                 }, null);
             }).greaterEqual(memberCB -> {
