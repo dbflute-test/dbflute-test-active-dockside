@@ -26,11 +26,7 @@ public class WxCBDerivedReferrerOptionTest extends UnitContainerTestCase {
     //                                                                          ==========
     public void test_sepcify_derivedReferrer_option_coalesce() throws Exception {
         // ## Arrange ##
-        int countAll;
-        {
-            countAll = memberBhv.selectCount(countCB -> {});
-
-        }
+        int countAll = memberBhv.selectCount(countCB -> {});
         {
             memberBhv.selectEntityWithDeletedCheck(cb -> {
                 cb.query().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {

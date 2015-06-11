@@ -9,6 +9,9 @@ import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.exception.IllegalConditionBeanOperationException;
+import org.dbflute.hook.CallbackContext;
+import org.dbflute.hook.SqlLogHandler;
+import org.dbflute.hook.SqlLogInfo;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
@@ -380,24 +383,27 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
         // ## Arrange ##
         LocalDateTime fromDate = toLocalDateTime("2007/11/01");
         LocalDateTime toDate = toLocalDateTime("2007/11/02");
-        memberBhv.selectList(cb -> {
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
-            try {
-                cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnPurchaseDatetime();
-                    }
-                }, Member.ALIAS_latestLoginDatetime); // rental
-                cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
-                    public void query(PurchaseCB subCB) {
-                        subCB.specify().columnPurchaseDatetime();
-                    }
-                }).fromTo(fromDate, toDate, op -> op.compareAsDate());
-                // ## Assert ##
-                fail();
-            } catch (IllegalConditionBeanOperationException e) {
-                log(e.getMessage());
-            }
+            cb.specify().derivedPurchase().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchaseDatetime();
+                }
+            }, Member.ALIAS_latestLoginDatetime); /* rental */
+            cb.query().derivedPurchase().max(new SubQuery<PurchaseCB>() {
+                public void query(PurchaseCB subCB) {
+                    subCB.specify().columnPurchaseDatetime();
+                }
+            }).fromTo(fromDate, toDate, op -> op.compareAsDate());
+        });
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        memberList.forEach(member -> {
+            LocalDateTime latestLoginDatetime = member.getLatestLoginDatetime();
+            log(member.getMemberName(), latestLoginDatetime);
+            assertTrue(latestLoginDatetime.isAfter(fromDate) || fromDate.isEqual(latestLoginDatetime));
+            assertTrue(latestLoginDatetime.isBefore(toDate.plusDays(1L)));
         });
     }
 
@@ -523,6 +529,66 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
                 log(e.getMessage());
             }
         }); // expects no exception
+    }
+
+    public void test_query_derivedReferrer_fromTo_option_pattern_adjustLocalDate() {
+        // ## Arrange ##
+        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+            public void handle(SqlLogInfo info) {
+                markHere("called");
+                assertContains(info.getDisplaySql(), "between '2006-09-01 00:00:00.000' and '2010-09-30 23:59:59.999'");
+            }
+        });
+        try {
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.specify().derivedPurchase().max(subCB -> {
+                    subCB.specify().columnPurchaseDatetime();
+                }, Member.ALIAS_latestLoginDatetime); /* rental */
+                cb.query().derivedPurchase().max(subCB -> {
+                    subCB.specify().columnPurchaseDatetime();
+                }).fromTo(toLocalDate("2006-09-26"), toLocalDate("2010-09-26"), op -> op.compareAsMonth());
+            });
+
+            // ## Assert ##
+            assertHasAnyElement(memberList);
+            for (Member member : memberList) {
+                log(member.getMemberName(), member.getLatestLoginDatetime());
+            }
+            assertMarked("called");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+    }
+
+    public void test_query_derivedReferrer_fromTo_option_pattern_nonAdjustLocalDate() {
+        // ## Arrange ##
+        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+            public void handle(SqlLogInfo info) {
+                markHere("called");
+                assertContains(info.getDisplaySql(), "between '2006-09-26' and '2010-09-27'");
+            }
+        });
+        try {
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.specify().derivedPurchase().max(subCB -> {
+                    subCB.specify().columnPurchaseDatetime();
+                }, Member.ALIAS_latestLoginDatetime); /* rental */
+                cb.query().derivedPurchase().max(subCB -> {
+                    subCB.specify().columnPurchaseDatetime();
+                }).fromTo(toLocalDate("2006-09-26"), toLocalDate("2010-09-27"), op -> {});
+            });
+
+            // ## Assert ##
+            assertHasAnyElement(memberList);
+            for (Member member : memberList) {
+                log(member.getMemberName(), member.getLatestLoginDatetime());
+            }
+            assertMarked("called");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
     }
 
     // ===================================================================================
