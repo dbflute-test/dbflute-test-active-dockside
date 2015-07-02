@@ -1,9 +1,5 @@
 /*
- [df:title]
- Example for Simple Select
- 
- [df:description]
- This SQL is the most basic example for outsideSql.
+ [Example for Simple Select]
  It uses CustomizeEntity and ParameterBean.
 */
 -- #df:entity#

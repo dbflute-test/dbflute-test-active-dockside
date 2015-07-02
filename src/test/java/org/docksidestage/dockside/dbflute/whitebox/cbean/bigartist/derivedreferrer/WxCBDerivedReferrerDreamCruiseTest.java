@@ -1,5 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.derivedreferrer;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,10 @@ import org.dbflute.exception.SQLFailureException;
 import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlLogHandler;
 import org.dbflute.hook.SqlLogInfo;
+import org.dbflute.utflute.core.smallhelper.ExceptionExaminer;
+import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
+import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchasePaymentCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -545,6 +549,137 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
         assertContains(sql, "where sub2loc.PURCHASE_ID = sub1loc.PURCHASE_ID");
     }
 
+    public void test_sepcify_derivedReferrer_SpecifyCalculation_coalesce() throws Exception {
+        // ## Arrange ##
+        int countAll = memberBhv.selectCount(countCB -> {});
+        {
+            memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime();
+                    }
+                }).isNull();
+            }); // expects no exception
+
+        }
+        CallbackContext.setSqlLogHandlerOnThread(info -> {
+            String sql = info.getDisplaySql();
+            assertContains(sql, ", (select max(coalesce(sub1loc.LOGIN_DATETIME, '1192-01-01 00:00:00.000'))");
+        });
+        try {
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime().convert(op -> op.coalesce("1192-01-01"));
+                    }
+                }, Member.ALIAS_latestLoginDatetime);
+            });
+
+            // ## Assert ##
+            assertFalse(memberList.isEmpty());
+            assertEquals(countAll, memberList.size());
+            for (Member member : memberList) {
+                LocalDateTime latestLoginDatetime = member.getLatestLoginDatetime();
+                String loginDateView = DfTypeUtil.toString(latestLoginDatetime, "yyyy-MM-dd");
+                log(member.getMemberName() + ":" + loginDateView);
+                assertFalse("1192-01-01".equals(loginDateView));
+                if (loginDateView == null) {
+                    markHere("exists");
+                }
+            }
+            assertMarked("exists");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+    }
+
+    public void test_sepcify_derivedReferrer_SpecifyCalculation_coalesce_union() throws Exception {
+        // ## Arrange ##
+        int countAll = memberBhv.selectCount(countCB -> {});
+        {
+            memberBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime();
+                    }
+                }).isNull();
+            }); // expects no exception
+
+        }
+        CallbackContext.setSqlLogHandlerOnThread(info -> {
+            String sql = info.getDisplaySql();
+            assertContains(sql,
+                    "LOGIN_ID, sub1loc.MEMBER_ID, coalesce(sub1loc.LOGIN_DATETIME, '1192-01-01 00:00:00.000') as LOGIN_DATETIME");
+        });
+        try {
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.specify().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime().convert(op -> op.coalesce("1192-01-01"));
+                        subCB.union(unionCB -> {
+                            unionCB.query().setLoginMemberStatusCode_Equal_Provisional();
+                        });
+                    }
+                }, Member.ALIAS_latestLoginDatetime);
+            });
+
+            // ## Assert ##
+            assertFalse(memberList.isEmpty());
+            assertEquals(countAll, memberList.size());
+            for (Member member : memberList) {
+                LocalDateTime latestLoginDatetime = member.getLatestLoginDatetime();
+                String loginDateView = DfTypeUtil.toString(latestLoginDatetime, "yyyy-MM-dd");
+                log(member.getMemberName() + ":" + loginDateView);
+                assertFalse("1192-01-01".equals(loginDateView));
+                if (loginDateView == null) {
+                    markHere("exists");
+                }
+            }
+            assertMarked("exists");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+    }
+
+    public void test_sepcify_derivedReferrer_SpecifyCalculation_union_plus() {
+        // ## Arrange ##
+        memberBhv.selectList(cb -> {
+            /* ## Act ## */
+            cb.specify().derivedPurchase().max(purchaseCB -> {
+                PurchaseCB dreamCruiseCB = purchaseCB.dreamCruiseCB();
+                purchaseCB.specify().columnProductId().plus(dreamCruiseCB.specify().columnVersionNo());
+                purchaseCB.union(unionCB -> {});
+            }, Member.ALIAS_highestPurchasePrice);
+            pushCB(cb);
+        }); // expects no exception
+
+        // ## Assert ##
+        String sql = popCB().toDisplaySql();
+        assertTrue(sql.contains(", (select max(sub1main.PRODUCT_ID)"));
+        assertTrue(sql.contains("select sub1loc.PURCHASE_ID, sub1loc.MEMBER_ID, sub1loc.PRODUCT_ID + sub1loc.VERSION_NO as PRODUCT_ID"));
+        assertTrue(sql.contains("where sub1main.MEMBER_ID = dfloc.MEMBER_ID"));
+    }
+
+    public void test_sepcify_derivedReferrer_SpecifyCalculation_union_correlation_same_as_calculation() {
+        // ## Arrange ##
+        assertException(SQLFailureException.class, new ExceptionExaminer() {
+            public void examine() {
+                // ## Assert ##
+                memberBhv.selectList(cb -> {
+                    /* ## Act ## */
+                    cb.specify().derivedPurchase().max(purchaseCB -> {
+                        PurchaseCB dreamCruiseCB = purchaseCB.dreamCruiseCB();
+                        purchaseCB.specify().columnMemberId().plus(dreamCruiseCB.specify().columnVersionNo());
+                        purchaseCB.union(unionCB -> {});
+                    }, Member.ALIAS_highestPurchasePrice);
+                    pushCB(cb);
+                });
+            }
+        });
+    }
+
     // ===================================================================================
     //                                                              (Query)DerivedReferrer
     //                                                              ======================
@@ -686,6 +821,59 @@ public class WxCBDerivedReferrerDreamCruiseTest extends UnitContainerTestCase {
             assertContains(countSql, "      ) >= dfloc.VERSION_NO");
             assertContains(countSql, "  and (select max(sub1loc.PURCHASE_PRICE + sub1rel_0.MEMBER_ID)");
             assertContains(countSql, "      ) >= dfloc.VERSION_NO + dfrel_4.SERVICE_POINT_COUNT");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+    }
+
+    public void test_query_derivedReferrer_SpecifyColumn_coalesce() throws Exception {
+        // ## Arrange ##
+        CallbackContext.setSqlLogHandlerOnThread(info -> {
+            String sql = info.getDisplaySql();
+            assertContains(sql, "where (select max(coalesce(sub1loc.LOGIN_DATETIME, '1192-01-01 00:00:00.000'))");
+        });
+        try {
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.query().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime().convert(op -> op.coalesce("1192-01-01"));
+                    }
+                }).lessEqual(toLocalDate("2015/06/11"));
+            });
+
+            // ## Assert ##
+            assertFalse(memberList.isEmpty());
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+    }
+
+    public void test_query_derivedReferrer_SpecifyColumn_coalesce_union() throws Exception {
+        // ## Arrange ##
+        CallbackContext
+                .setSqlLogHandlerOnThread(info -> {
+                    String sql = info.getDisplaySql();
+                    assertContains(sql, "where (select max(sub1main.LOGIN_DATETIME)");
+                    assertContains(sql,
+                            "from (select sub1loc.MEMBER_LOGIN_ID, sub1loc.MEMBER_ID, coalesce(sub1loc.LOGIN_DATETIME, '1192-01-01 00:00:00.000') as");
+                    assertContains(sql, "where sub1main.MEMBER_ID = dfloc.MEMBER_ID");
+                });
+        try {
+            ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+                /* ## Act ## */
+                cb.query().derivedMemberLogin().max(new SubQuery<MemberLoginCB>() {
+                    public void query(MemberLoginCB subCB) {
+                        subCB.specify().columnLoginDatetime().convert(op -> op.coalesce("1192-01-01"));
+                        subCB.union(unionCB -> {
+                            unionCB.query().setLoginMemberStatusCode_Equal_Provisional();
+                        });
+                    }
+                }).lessEqual(toLocalDate("2015/06/11"));
+            });
+
+            // ## Assert ##
+            assertFalse(memberList.isEmpty());
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
         }

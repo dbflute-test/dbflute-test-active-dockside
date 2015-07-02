@@ -29,6 +29,7 @@ public class WxListResultBeanTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                       Grouping List
     //                                                                       =============
+    @SuppressWarnings("deprecation")
     public void test_groupingList_count() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
@@ -99,6 +100,7 @@ public class WxListResultBeanTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                        Grouping Map
     //                                                                        ============
+    @SuppressWarnings("deprecation")
     public void test_groupingMap_initChar() {
         // ## Arrange ##
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {

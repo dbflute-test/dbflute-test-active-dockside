@@ -46,6 +46,7 @@ public class WxCBPagingBasicTest extends UnitContainerTestCase {
         assertTrue(page3.existsNextPage());
     }
 
+    @SuppressWarnings("deprecation")
     public void test_paging_zeroResult() {
         // ## Arrange ##
         PagingResultBean<Member> page1 = memberBhv.selectPage(cb -> {

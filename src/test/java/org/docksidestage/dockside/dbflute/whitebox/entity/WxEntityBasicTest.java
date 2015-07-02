@@ -1,6 +1,5 @@
 package org.docksidestage.dockside.dbflute.whitebox.entity;
 
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,7 +10,6 @@ import java.util.Set;
 import org.dbflute.Entity;
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.cbean.scoping.SubQuery;
-import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta.SimpleVendorCheckDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.cbean.MemberAddressCB;
@@ -985,42 +983,5 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         // ## Assert ##
         log("actual=" + actual);
         assertFalse(actual);
-    }
-
-    // ===================================================================================
-    //                                                                        Serializable
-    //                                                                        ============
-    public void test_serializable_basic() {
-        // ## Arrange ##
-        Member member = new Member();
-        member.setMemberName("Stojkovic");
-        member.setBirthdate(currentLocalDate());
-        member.setMemberStatusCode_Formalized();
-
-        // ## Act ##
-        byte[] binary = DfTypeUtil.toBinary(member);
-        Serializable serializable = DfTypeUtil.toSerializable(binary);
-
-        // ## Assert ##
-        log(serializable);
-        assertNotNull(serializable);
-        assertEquals(member.toString(), serializable.toString());
-    }
-
-    public void test_serializable_selected() {
-        // ## Arrange ##
-        Member member = memberBhv.selectByPK(3).get();
-        member.setMemberName("Stojkovic");
-        member.setBirthdate(currentLocalDate());
-        member.setMemberStatusCode_Formalized();
-
-        // ## Act ##
-        byte[] binary = DfTypeUtil.toBinary(member);
-        Serializable serializable = DfTypeUtil.toSerializable(binary);
-
-        // ## Assert ##
-        log(serializable);
-        assertNotNull(serializable);
-        assertEquals(member.toString(), serializable.toString());
     }
 }
