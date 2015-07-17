@@ -11,6 +11,7 @@ import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.exception.OrderByIllegalPurposeException;
 import org.dbflute.exception.SetupSelectIllegalPurposeException;
+import org.dbflute.exception.SpecifyDerivedReferrerConflictAliasNameException;
 import org.dbflute.exception.SpecifyDerivedReferrerEntityPropertyNotFoundException;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
@@ -374,5 +375,33 @@ public class WxCBDerivedReferrerBasicTest extends UnitContainerTestCase {
             // OK
             log(e.getMessage());
         }
+    }
+
+    public void test_specify_derivedReferrer_conflictAlias() throws Exception {
+        // ## Arrange ##
+        // ## Act ##
+        memberBhv.selectList(cb -> {
+            try {
+                cb.specify().specifyMemberServiceAsOne().specifyServiceRank().derivedMemberService().avg(serviceCB -> {
+                    serviceCB.specify().columnServicePointCount();
+                }, "memberName");
+                // ## Assert ##
+                fail();
+            } catch (SpecifyDerivedReferrerConflictAliasNameException e) {
+                log(e.getMessage());
+            }
+        });
+        // ## Act ##
+        memberBhv.selectList(cb -> {
+            try {
+                cb.specify().specifyMemberServiceAsOne().specifyServiceRank().derivedMemberService().avg(serviceCB -> {
+                    serviceCB.specify().columnServicePointCount();
+                }, "MEMBER_NAME");
+                // ## Assert ##
+                fail();
+            } catch (SpecifyDerivedReferrerConflictAliasNameException e) {
+                log(e.getMessage());
+            }
+        });
     }
 }

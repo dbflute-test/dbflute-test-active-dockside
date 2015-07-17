@@ -3,6 +3,7 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.derivedrefer
 import java.time.LocalDateTime;
 
 import org.dbflute.cbean.result.ListResultBean;
+import org.dbflute.exception.SpecifyDerivedReferrerConflictAliasNameException;
 import org.dbflute.exception.SpecifyDerivedReferrerUnmatchedPropertyTypeException;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -131,5 +132,33 @@ public class WxCBDerivedReferrerDerivedMapTest extends UnitContainerTestCase {
         } catch (SpecifyDerivedReferrerUnmatchedPropertyTypeException e) {
             log(e.getMessage());
         }
+    }
+
+    public void test_DerivedMap_conflictAlias() throws Exception {
+        // ## Arrange ##
+        // ## Act ##
+        memberBhv.selectList(cb -> {
+            try {
+                cb.specify().specifyMemberServiceAsOne().specifyServiceRank().derivedMemberService().avg(serviceCB -> {
+                    serviceCB.specify().columnServicePointCount();
+                }, "$memberName");
+                // ## Assert ##
+                fail();
+            } catch (SpecifyDerivedReferrerConflictAliasNameException e) {
+                log(e.getMessage());
+            }
+        });
+        // ## Act ##
+        memberBhv.selectList(cb -> {
+            try {
+                cb.specify().specifyMemberServiceAsOne().specifyServiceRank().derivedMemberService().avg(serviceCB -> {
+                    serviceCB.specify().columnServicePointCount();
+                }, "$MEMBER_NAME");
+                // ## Assert ##
+                fail();
+            } catch (SpecifyDerivedReferrerConflictAliasNameException e) {
+                log(e.getMessage());
+            }
+        });
     }
 }
