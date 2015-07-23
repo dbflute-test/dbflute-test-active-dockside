@@ -39,7 +39,7 @@ public class MemberBhv extends BsMemberBhv {
     //                                                                          ==========
     /** Log instance for sub class. */
     private static final Log _log = LogFactory.getLog(MemberBhv.class);
-    
+
     // ===================================================================================
     //                                                                          CSV Output
     //                                                                          ==========
