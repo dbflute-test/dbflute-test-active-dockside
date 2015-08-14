@@ -61,7 +61,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
-     * @param primaryKeyOnlyId The value of primaryKeyOnlyId as equal. (NullAllowed: if null, no condition)
+     * @param primaryKeyOnlyId The value of primaryKeyOnlyId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setPrimaryKeyOnlyId_Equal(Long primaryKeyOnlyId) {
         doSetPrimaryKeyOnlyId_Equal(primaryKeyOnlyId);
@@ -74,7 +74,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
-     * @param primaryKeyOnlyId The value of primaryKeyOnlyId as notEqual. (NullAllowed: if null, no condition)
+     * @param primaryKeyOnlyId The value of primaryKeyOnlyId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPrimaryKeyOnlyId_NotEqual(Long primaryKeyOnlyId) {
         doSetPrimaryKeyOnlyId_NotEqual(primaryKeyOnlyId);
@@ -87,7 +87,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
-     * @param primaryKeyOnlyId The value of primaryKeyOnlyId as greaterThan. (NullAllowed: if null, no condition)
+     * @param primaryKeyOnlyId The value of primaryKeyOnlyId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setPrimaryKeyOnlyId_GreaterThan(Long primaryKeyOnlyId) {
         regPrimaryKeyOnlyId(CK_GT, primaryKeyOnlyId);
@@ -96,7 +96,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
-     * @param primaryKeyOnlyId The value of primaryKeyOnlyId as lessThan. (NullAllowed: if null, no condition)
+     * @param primaryKeyOnlyId The value of primaryKeyOnlyId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setPrimaryKeyOnlyId_LessThan(Long primaryKeyOnlyId) {
         regPrimaryKeyOnlyId(CK_LT, primaryKeyOnlyId);
@@ -105,7 +105,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
-     * @param primaryKeyOnlyId The value of primaryKeyOnlyId as greaterEqual. (NullAllowed: if null, no condition)
+     * @param primaryKeyOnlyId The value of primaryKeyOnlyId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPrimaryKeyOnlyId_GreaterEqual(Long primaryKeyOnlyId) {
         regPrimaryKeyOnlyId(CK_GE, primaryKeyOnlyId);
@@ -114,7 +114,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
-     * @param primaryKeyOnlyId The value of primaryKeyOnlyId as lessEqual. (NullAllowed: if null, no condition)
+     * @param primaryKeyOnlyId The value of primaryKeyOnlyId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setPrimaryKeyOnlyId_LessEqual(Long primaryKeyOnlyId) {
         regPrimaryKeyOnlyId(CK_LE, primaryKeyOnlyId);

@@ -61,7 +61,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)}
-     * @param vendorCheckId The value of vendorCheckId as equal. (NullAllowed: if null, no condition)
+     * @param vendorCheckId The value of vendorCheckId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setVendorCheckId_Equal(Long vendorCheckId) {
         doSetVendorCheckId_Equal(vendorCheckId);
@@ -74,7 +74,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)}
-     * @param vendorCheckId The value of vendorCheckId as notEqual. (NullAllowed: if null, no condition)
+     * @param vendorCheckId The value of vendorCheckId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setVendorCheckId_NotEqual(Long vendorCheckId) {
         doSetVendorCheckId_NotEqual(vendorCheckId);
@@ -87,7 +87,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)}
-     * @param vendorCheckId The value of vendorCheckId as greaterThan. (NullAllowed: if null, no condition)
+     * @param vendorCheckId The value of vendorCheckId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setVendorCheckId_GreaterThan(Long vendorCheckId) {
         regVendorCheckId(CK_GT, vendorCheckId);
@@ -96,7 +96,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)}
-     * @param vendorCheckId The value of vendorCheckId as lessThan. (NullAllowed: if null, no condition)
+     * @param vendorCheckId The value of vendorCheckId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setVendorCheckId_LessThan(Long vendorCheckId) {
         regVendorCheckId(CK_LT, vendorCheckId);
@@ -105,7 +105,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)}
-     * @param vendorCheckId The value of vendorCheckId as greaterEqual. (NullAllowed: if null, no condition)
+     * @param vendorCheckId The value of vendorCheckId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setVendorCheckId_GreaterEqual(Long vendorCheckId) {
         regVendorCheckId(CK_GE, vendorCheckId);
@@ -114,7 +114,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * VENDOR_CHECK_ID: {PK, NotNull, DECIMAL(16)}
-     * @param vendorCheckId The value of vendorCheckId as lessEqual. (NullAllowed: if null, no condition)
+     * @param vendorCheckId The value of vendorCheckId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setVendorCheckId_LessEqual(Long vendorCheckId) {
         regVendorCheckId(CK_LE, vendorCheckId);
@@ -802,7 +802,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)}
-     * @param typeOfNumericInteger The value of typeOfNumericInteger as equal. (NullAllowed: if null, no condition)
+     * @param typeOfNumericInteger The value of typeOfNumericInteger as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericInteger_Equal(Integer typeOfNumericInteger) {
         doSetTypeOfNumericInteger_Equal(typeOfNumericInteger);
@@ -815,7 +815,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)}
-     * @param typeOfNumericInteger The value of typeOfNumericInteger as notEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericInteger The value of typeOfNumericInteger as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericInteger_NotEqual(Integer typeOfNumericInteger) {
         doSetTypeOfNumericInteger_NotEqual(typeOfNumericInteger);
@@ -828,7 +828,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)}
-     * @param typeOfNumericInteger The value of typeOfNumericInteger as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericInteger The value of typeOfNumericInteger as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericInteger_GreaterThan(Integer typeOfNumericInteger) {
         regTypeOfNumericInteger(CK_GT, typeOfNumericInteger);
@@ -837,7 +837,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)}
-     * @param typeOfNumericInteger The value of typeOfNumericInteger as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericInteger The value of typeOfNumericInteger as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericInteger_LessThan(Integer typeOfNumericInteger) {
         regTypeOfNumericInteger(CK_LT, typeOfNumericInteger);
@@ -846,7 +846,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)}
-     * @param typeOfNumericInteger The value of typeOfNumericInteger as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericInteger The value of typeOfNumericInteger as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericInteger_GreaterEqual(Integer typeOfNumericInteger) {
         regTypeOfNumericInteger(CK_GE, typeOfNumericInteger);
@@ -855,7 +855,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER: {DECIMAL(5)}
-     * @param typeOfNumericInteger The value of typeOfNumericInteger as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericInteger The value of typeOfNumericInteger as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericInteger_LessEqual(Integer typeOfNumericInteger) {
         regTypeOfNumericInteger(CK_LE, typeOfNumericInteger);
@@ -931,7 +931,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)}
-     * @param typeOfNumericBigint The value of typeOfNumericBigint as equal. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigint The value of typeOfNumericBigint as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigint_Equal(Long typeOfNumericBigint) {
         doSetTypeOfNumericBigint_Equal(typeOfNumericBigint);
@@ -944,7 +944,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)}
-     * @param typeOfNumericBigint The value of typeOfNumericBigint as notEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigint The value of typeOfNumericBigint as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigint_NotEqual(Long typeOfNumericBigint) {
         doSetTypeOfNumericBigint_NotEqual(typeOfNumericBigint);
@@ -957,7 +957,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)}
-     * @param typeOfNumericBigint The value of typeOfNumericBigint as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigint The value of typeOfNumericBigint as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigint_GreaterThan(Long typeOfNumericBigint) {
         regTypeOfNumericBigint(CK_GT, typeOfNumericBigint);
@@ -966,7 +966,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)}
-     * @param typeOfNumericBigint The value of typeOfNumericBigint as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigint The value of typeOfNumericBigint as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigint_LessThan(Long typeOfNumericBigint) {
         regTypeOfNumericBigint(CK_LT, typeOfNumericBigint);
@@ -975,7 +975,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)}
-     * @param typeOfNumericBigint The value of typeOfNumericBigint as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigint The value of typeOfNumericBigint as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigint_GreaterEqual(Long typeOfNumericBigint) {
         regTypeOfNumericBigint(CK_GE, typeOfNumericBigint);
@@ -984,7 +984,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT: {DECIMAL(12)}
-     * @param typeOfNumericBigint The value of typeOfNumericBigint as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigint The value of typeOfNumericBigint as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigint_LessEqual(Long typeOfNumericBigint) {
         regTypeOfNumericBigint(CK_LE, typeOfNumericBigint);
@@ -1060,7 +1060,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)}
-     * @param typeOfNumericDecimal The value of typeOfNumericDecimal as equal. (NullAllowed: if null, no condition)
+     * @param typeOfNumericDecimal The value of typeOfNumericDecimal as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericDecimal_Equal(java.math.BigDecimal typeOfNumericDecimal) {
         doSetTypeOfNumericDecimal_Equal(typeOfNumericDecimal);
@@ -1073,7 +1073,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)}
-     * @param typeOfNumericDecimal The value of typeOfNumericDecimal as notEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericDecimal The value of typeOfNumericDecimal as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericDecimal_NotEqual(java.math.BigDecimal typeOfNumericDecimal) {
         doSetTypeOfNumericDecimal_NotEqual(typeOfNumericDecimal);
@@ -1086,7 +1086,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)}
-     * @param typeOfNumericDecimal The value of typeOfNumericDecimal as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericDecimal The value of typeOfNumericDecimal as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericDecimal_GreaterThan(java.math.BigDecimal typeOfNumericDecimal) {
         regTypeOfNumericDecimal(CK_GT, typeOfNumericDecimal);
@@ -1095,7 +1095,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)}
-     * @param typeOfNumericDecimal The value of typeOfNumericDecimal as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericDecimal The value of typeOfNumericDecimal as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericDecimal_LessThan(java.math.BigDecimal typeOfNumericDecimal) {
         regTypeOfNumericDecimal(CK_LT, typeOfNumericDecimal);
@@ -1104,7 +1104,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)}
-     * @param typeOfNumericDecimal The value of typeOfNumericDecimal as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericDecimal The value of typeOfNumericDecimal as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericDecimal_GreaterEqual(java.math.BigDecimal typeOfNumericDecimal) {
         regTypeOfNumericDecimal(CK_GE, typeOfNumericDecimal);
@@ -1113,7 +1113,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_DECIMAL: {DECIMAL(5, 3)}
-     * @param typeOfNumericDecimal The value of typeOfNumericDecimal as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericDecimal The value of typeOfNumericDecimal as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericDecimal_LessEqual(java.math.BigDecimal typeOfNumericDecimal) {
         regTypeOfNumericDecimal(CK_LE, typeOfNumericDecimal);
@@ -1189,7 +1189,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)}
-     * @param typeOfNumericIntegerMin The value of typeOfNumericIntegerMin as equal. (NullAllowed: if null, no condition)
+     * @param typeOfNumericIntegerMin The value of typeOfNumericIntegerMin as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericIntegerMin_Equal(Integer typeOfNumericIntegerMin) {
         doSetTypeOfNumericIntegerMin_Equal(typeOfNumericIntegerMin);
@@ -1202,7 +1202,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)}
-     * @param typeOfNumericIntegerMin The value of typeOfNumericIntegerMin as notEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericIntegerMin The value of typeOfNumericIntegerMin as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericIntegerMin_NotEqual(Integer typeOfNumericIntegerMin) {
         doSetTypeOfNumericIntegerMin_NotEqual(typeOfNumericIntegerMin);
@@ -1215,7 +1215,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)}
-     * @param typeOfNumericIntegerMin The value of typeOfNumericIntegerMin as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericIntegerMin The value of typeOfNumericIntegerMin as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericIntegerMin_GreaterThan(Integer typeOfNumericIntegerMin) {
         regTypeOfNumericIntegerMin(CK_GT, typeOfNumericIntegerMin);
@@ -1224,7 +1224,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)}
-     * @param typeOfNumericIntegerMin The value of typeOfNumericIntegerMin as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericIntegerMin The value of typeOfNumericIntegerMin as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericIntegerMin_LessThan(Integer typeOfNumericIntegerMin) {
         regTypeOfNumericIntegerMin(CK_LT, typeOfNumericIntegerMin);
@@ -1233,7 +1233,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)}
-     * @param typeOfNumericIntegerMin The value of typeOfNumericIntegerMin as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericIntegerMin The value of typeOfNumericIntegerMin as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericIntegerMin_GreaterEqual(Integer typeOfNumericIntegerMin) {
         regTypeOfNumericIntegerMin(CK_GE, typeOfNumericIntegerMin);
@@ -1242,7 +1242,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER_MIN: {DECIMAL(1)}
-     * @param typeOfNumericIntegerMin The value of typeOfNumericIntegerMin as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericIntegerMin The value of typeOfNumericIntegerMin as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericIntegerMin_LessEqual(Integer typeOfNumericIntegerMin) {
         regTypeOfNumericIntegerMin(CK_LE, typeOfNumericIntegerMin);
@@ -1318,7 +1318,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)}
-     * @param typeOfNumericIntegerMax The value of typeOfNumericIntegerMax as equal. (NullAllowed: if null, no condition)
+     * @param typeOfNumericIntegerMax The value of typeOfNumericIntegerMax as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericIntegerMax_Equal(Integer typeOfNumericIntegerMax) {
         doSetTypeOfNumericIntegerMax_Equal(typeOfNumericIntegerMax);
@@ -1331,7 +1331,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)}
-     * @param typeOfNumericIntegerMax The value of typeOfNumericIntegerMax as notEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericIntegerMax The value of typeOfNumericIntegerMax as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericIntegerMax_NotEqual(Integer typeOfNumericIntegerMax) {
         doSetTypeOfNumericIntegerMax_NotEqual(typeOfNumericIntegerMax);
@@ -1344,7 +1344,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)}
-     * @param typeOfNumericIntegerMax The value of typeOfNumericIntegerMax as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericIntegerMax The value of typeOfNumericIntegerMax as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericIntegerMax_GreaterThan(Integer typeOfNumericIntegerMax) {
         regTypeOfNumericIntegerMax(CK_GT, typeOfNumericIntegerMax);
@@ -1353,7 +1353,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)}
-     * @param typeOfNumericIntegerMax The value of typeOfNumericIntegerMax as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericIntegerMax The value of typeOfNumericIntegerMax as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericIntegerMax_LessThan(Integer typeOfNumericIntegerMax) {
         regTypeOfNumericIntegerMax(CK_LT, typeOfNumericIntegerMax);
@@ -1362,7 +1362,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)}
-     * @param typeOfNumericIntegerMax The value of typeOfNumericIntegerMax as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericIntegerMax The value of typeOfNumericIntegerMax as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericIntegerMax_GreaterEqual(Integer typeOfNumericIntegerMax) {
         regTypeOfNumericIntegerMax(CK_GE, typeOfNumericIntegerMax);
@@ -1371,7 +1371,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_INTEGER_MAX: {DECIMAL(9)}
-     * @param typeOfNumericIntegerMax The value of typeOfNumericIntegerMax as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericIntegerMax The value of typeOfNumericIntegerMax as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericIntegerMax_LessEqual(Integer typeOfNumericIntegerMax) {
         regTypeOfNumericIntegerMax(CK_LE, typeOfNumericIntegerMax);
@@ -1447,7 +1447,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)}
-     * @param typeOfNumericBigintMin The value of typeOfNumericBigintMin as equal. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigintMin The value of typeOfNumericBigintMin as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigintMin_Equal(Long typeOfNumericBigintMin) {
         doSetTypeOfNumericBigintMin_Equal(typeOfNumericBigintMin);
@@ -1460,7 +1460,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)}
-     * @param typeOfNumericBigintMin The value of typeOfNumericBigintMin as notEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigintMin The value of typeOfNumericBigintMin as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigintMin_NotEqual(Long typeOfNumericBigintMin) {
         doSetTypeOfNumericBigintMin_NotEqual(typeOfNumericBigintMin);
@@ -1473,7 +1473,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)}
-     * @param typeOfNumericBigintMin The value of typeOfNumericBigintMin as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigintMin The value of typeOfNumericBigintMin as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigintMin_GreaterThan(Long typeOfNumericBigintMin) {
         regTypeOfNumericBigintMin(CK_GT, typeOfNumericBigintMin);
@@ -1482,7 +1482,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)}
-     * @param typeOfNumericBigintMin The value of typeOfNumericBigintMin as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigintMin The value of typeOfNumericBigintMin as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigintMin_LessThan(Long typeOfNumericBigintMin) {
         regTypeOfNumericBigintMin(CK_LT, typeOfNumericBigintMin);
@@ -1491,7 +1491,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)}
-     * @param typeOfNumericBigintMin The value of typeOfNumericBigintMin as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigintMin The value of typeOfNumericBigintMin as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigintMin_GreaterEqual(Long typeOfNumericBigintMin) {
         regTypeOfNumericBigintMin(CK_GE, typeOfNumericBigintMin);
@@ -1500,7 +1500,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT_MIN: {DECIMAL(10)}
-     * @param typeOfNumericBigintMin The value of typeOfNumericBigintMin as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigintMin The value of typeOfNumericBigintMin as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigintMin_LessEqual(Long typeOfNumericBigintMin) {
         regTypeOfNumericBigintMin(CK_LE, typeOfNumericBigintMin);
@@ -1576,7 +1576,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)}
-     * @param typeOfNumericBigintMax The value of typeOfNumericBigintMax as equal. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigintMax The value of typeOfNumericBigintMax as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigintMax_Equal(Long typeOfNumericBigintMax) {
         doSetTypeOfNumericBigintMax_Equal(typeOfNumericBigintMax);
@@ -1589,7 +1589,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)}
-     * @param typeOfNumericBigintMax The value of typeOfNumericBigintMax as notEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigintMax The value of typeOfNumericBigintMax as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigintMax_NotEqual(Long typeOfNumericBigintMax) {
         doSetTypeOfNumericBigintMax_NotEqual(typeOfNumericBigintMax);
@@ -1602,7 +1602,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)}
-     * @param typeOfNumericBigintMax The value of typeOfNumericBigintMax as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigintMax The value of typeOfNumericBigintMax as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigintMax_GreaterThan(Long typeOfNumericBigintMax) {
         regTypeOfNumericBigintMax(CK_GT, typeOfNumericBigintMax);
@@ -1611,7 +1611,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)}
-     * @param typeOfNumericBigintMax The value of typeOfNumericBigintMax as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigintMax The value of typeOfNumericBigintMax as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigintMax_LessThan(Long typeOfNumericBigintMax) {
         regTypeOfNumericBigintMax(CK_LT, typeOfNumericBigintMax);
@@ -1620,7 +1620,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)}
-     * @param typeOfNumericBigintMax The value of typeOfNumericBigintMax as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigintMax The value of typeOfNumericBigintMax as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigintMax_GreaterEqual(Long typeOfNumericBigintMax) {
         regTypeOfNumericBigintMax(CK_GE, typeOfNumericBigintMax);
@@ -1629,7 +1629,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_BIGINT_MAX: {DECIMAL(18)}
-     * @param typeOfNumericBigintMax The value of typeOfNumericBigintMax as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericBigintMax The value of typeOfNumericBigintMax as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericBigintMax_LessEqual(Long typeOfNumericBigintMax) {
         regTypeOfNumericBigintMax(CK_LE, typeOfNumericBigintMax);
@@ -1705,7 +1705,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)}
-     * @param typeOfNumericSuperintMin The value of typeOfNumericSuperintMin as equal. (NullAllowed: if null, no condition)
+     * @param typeOfNumericSuperintMin The value of typeOfNumericSuperintMin as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericSuperintMin_Equal(java.math.BigDecimal typeOfNumericSuperintMin) {
         doSetTypeOfNumericSuperintMin_Equal(typeOfNumericSuperintMin);
@@ -1718,7 +1718,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)}
-     * @param typeOfNumericSuperintMin The value of typeOfNumericSuperintMin as notEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericSuperintMin The value of typeOfNumericSuperintMin as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericSuperintMin_NotEqual(java.math.BigDecimal typeOfNumericSuperintMin) {
         doSetTypeOfNumericSuperintMin_NotEqual(typeOfNumericSuperintMin);
@@ -1731,7 +1731,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)}
-     * @param typeOfNumericSuperintMin The value of typeOfNumericSuperintMin as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericSuperintMin The value of typeOfNumericSuperintMin as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericSuperintMin_GreaterThan(java.math.BigDecimal typeOfNumericSuperintMin) {
         regTypeOfNumericSuperintMin(CK_GT, typeOfNumericSuperintMin);
@@ -1740,7 +1740,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)}
-     * @param typeOfNumericSuperintMin The value of typeOfNumericSuperintMin as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericSuperintMin The value of typeOfNumericSuperintMin as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericSuperintMin_LessThan(java.math.BigDecimal typeOfNumericSuperintMin) {
         regTypeOfNumericSuperintMin(CK_LT, typeOfNumericSuperintMin);
@@ -1749,7 +1749,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)}
-     * @param typeOfNumericSuperintMin The value of typeOfNumericSuperintMin as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericSuperintMin The value of typeOfNumericSuperintMin as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericSuperintMin_GreaterEqual(java.math.BigDecimal typeOfNumericSuperintMin) {
         regTypeOfNumericSuperintMin(CK_GE, typeOfNumericSuperintMin);
@@ -1758,7 +1758,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MIN: {DECIMAL(19)}
-     * @param typeOfNumericSuperintMin The value of typeOfNumericSuperintMin as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericSuperintMin The value of typeOfNumericSuperintMin as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericSuperintMin_LessEqual(java.math.BigDecimal typeOfNumericSuperintMin) {
         regTypeOfNumericSuperintMin(CK_LE, typeOfNumericSuperintMin);
@@ -1834,7 +1834,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)}
-     * @param typeOfNumericSuperintMax The value of typeOfNumericSuperintMax as equal. (NullAllowed: if null, no condition)
+     * @param typeOfNumericSuperintMax The value of typeOfNumericSuperintMax as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericSuperintMax_Equal(java.math.BigDecimal typeOfNumericSuperintMax) {
         doSetTypeOfNumericSuperintMax_Equal(typeOfNumericSuperintMax);
@@ -1847,7 +1847,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)}
-     * @param typeOfNumericSuperintMax The value of typeOfNumericSuperintMax as notEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericSuperintMax The value of typeOfNumericSuperintMax as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericSuperintMax_NotEqual(java.math.BigDecimal typeOfNumericSuperintMax) {
         doSetTypeOfNumericSuperintMax_NotEqual(typeOfNumericSuperintMax);
@@ -1860,7 +1860,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)}
-     * @param typeOfNumericSuperintMax The value of typeOfNumericSuperintMax as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericSuperintMax The value of typeOfNumericSuperintMax as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericSuperintMax_GreaterThan(java.math.BigDecimal typeOfNumericSuperintMax) {
         regTypeOfNumericSuperintMax(CK_GT, typeOfNumericSuperintMax);
@@ -1869,7 +1869,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)}
-     * @param typeOfNumericSuperintMax The value of typeOfNumericSuperintMax as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericSuperintMax The value of typeOfNumericSuperintMax as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericSuperintMax_LessThan(java.math.BigDecimal typeOfNumericSuperintMax) {
         regTypeOfNumericSuperintMax(CK_LT, typeOfNumericSuperintMax);
@@ -1878,7 +1878,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)}
-     * @param typeOfNumericSuperintMax The value of typeOfNumericSuperintMax as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericSuperintMax The value of typeOfNumericSuperintMax as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericSuperintMax_GreaterEqual(java.math.BigDecimal typeOfNumericSuperintMax) {
         regTypeOfNumericSuperintMax(CK_GE, typeOfNumericSuperintMax);
@@ -1887,7 +1887,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_SUPERINT_MAX: {DECIMAL(38)}
-     * @param typeOfNumericSuperintMax The value of typeOfNumericSuperintMax as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericSuperintMax The value of typeOfNumericSuperintMax as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericSuperintMax_LessEqual(java.math.BigDecimal typeOfNumericSuperintMax) {
         regTypeOfNumericSuperintMax(CK_LE, typeOfNumericSuperintMax);
@@ -1963,7 +1963,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)}
-     * @param typeOfNumericMaxdecimal The value of typeOfNumericMaxdecimal as equal. (NullAllowed: if null, no condition)
+     * @param typeOfNumericMaxdecimal The value of typeOfNumericMaxdecimal as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericMaxdecimal_Equal(java.math.BigDecimal typeOfNumericMaxdecimal) {
         doSetTypeOfNumericMaxdecimal_Equal(typeOfNumericMaxdecimal);
@@ -1976,7 +1976,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)}
-     * @param typeOfNumericMaxdecimal The value of typeOfNumericMaxdecimal as notEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericMaxdecimal The value of typeOfNumericMaxdecimal as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericMaxdecimal_NotEqual(java.math.BigDecimal typeOfNumericMaxdecimal) {
         doSetTypeOfNumericMaxdecimal_NotEqual(typeOfNumericMaxdecimal);
@@ -1989,7 +1989,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)}
-     * @param typeOfNumericMaxdecimal The value of typeOfNumericMaxdecimal as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericMaxdecimal The value of typeOfNumericMaxdecimal as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericMaxdecimal_GreaterThan(java.math.BigDecimal typeOfNumericMaxdecimal) {
         regTypeOfNumericMaxdecimal(CK_GT, typeOfNumericMaxdecimal);
@@ -1998,7 +1998,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)}
-     * @param typeOfNumericMaxdecimal The value of typeOfNumericMaxdecimal as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfNumericMaxdecimal The value of typeOfNumericMaxdecimal as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericMaxdecimal_LessThan(java.math.BigDecimal typeOfNumericMaxdecimal) {
         regTypeOfNumericMaxdecimal(CK_LT, typeOfNumericMaxdecimal);
@@ -2007,7 +2007,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)}
-     * @param typeOfNumericMaxdecimal The value of typeOfNumericMaxdecimal as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericMaxdecimal The value of typeOfNumericMaxdecimal as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericMaxdecimal_GreaterEqual(java.math.BigDecimal typeOfNumericMaxdecimal) {
         regTypeOfNumericMaxdecimal(CK_GE, typeOfNumericMaxdecimal);
@@ -2016,7 +2016,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_NUMERIC_MAXDECIMAL: {DECIMAL(38, 38)}
-     * @param typeOfNumericMaxdecimal The value of typeOfNumericMaxdecimal as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfNumericMaxdecimal The value of typeOfNumericMaxdecimal as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfNumericMaxdecimal_LessEqual(java.math.BigDecimal typeOfNumericMaxdecimal) {
         regTypeOfNumericMaxdecimal(CK_LE, typeOfNumericMaxdecimal);
@@ -2092,7 +2092,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_INTEGER: {INTEGER(10)}
-     * @param typeOfInteger The value of typeOfInteger as equal. (NullAllowed: if null, no condition)
+     * @param typeOfInteger The value of typeOfInteger as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfInteger_Equal(Integer typeOfInteger) {
         doSetTypeOfInteger_Equal(typeOfInteger);
@@ -2105,7 +2105,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_INTEGER: {INTEGER(10)}
-     * @param typeOfInteger The value of typeOfInteger as notEqual. (NullAllowed: if null, no condition)
+     * @param typeOfInteger The value of typeOfInteger as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfInteger_NotEqual(Integer typeOfInteger) {
         doSetTypeOfInteger_NotEqual(typeOfInteger);
@@ -2118,7 +2118,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_INTEGER: {INTEGER(10)}
-     * @param typeOfInteger The value of typeOfInteger as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfInteger The value of typeOfInteger as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfInteger_GreaterThan(Integer typeOfInteger) {
         regTypeOfInteger(CK_GT, typeOfInteger);
@@ -2127,7 +2127,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_INTEGER: {INTEGER(10)}
-     * @param typeOfInteger The value of typeOfInteger as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfInteger The value of typeOfInteger as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfInteger_LessThan(Integer typeOfInteger) {
         regTypeOfInteger(CK_LT, typeOfInteger);
@@ -2136,7 +2136,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_INTEGER: {INTEGER(10)}
-     * @param typeOfInteger The value of typeOfInteger as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfInteger The value of typeOfInteger as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfInteger_GreaterEqual(Integer typeOfInteger) {
         regTypeOfInteger(CK_GE, typeOfInteger);
@@ -2145,7 +2145,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_INTEGER: {INTEGER(10)}
-     * @param typeOfInteger The value of typeOfInteger as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfInteger The value of typeOfInteger as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfInteger_LessEqual(Integer typeOfInteger) {
         regTypeOfInteger(CK_LE, typeOfInteger);
@@ -2221,7 +2221,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_BIGINT: {BIGINT(19)}
-     * @param typeOfBigint The value of typeOfBigint as equal. (NullAllowed: if null, no condition)
+     * @param typeOfBigint The value of typeOfBigint as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfBigint_Equal(Long typeOfBigint) {
         doSetTypeOfBigint_Equal(typeOfBigint);
@@ -2234,7 +2234,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_BIGINT: {BIGINT(19)}
-     * @param typeOfBigint The value of typeOfBigint as notEqual. (NullAllowed: if null, no condition)
+     * @param typeOfBigint The value of typeOfBigint as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfBigint_NotEqual(Long typeOfBigint) {
         doSetTypeOfBigint_NotEqual(typeOfBigint);
@@ -2247,7 +2247,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_BIGINT: {BIGINT(19)}
-     * @param typeOfBigint The value of typeOfBigint as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfBigint The value of typeOfBigint as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfBigint_GreaterThan(Long typeOfBigint) {
         regTypeOfBigint(CK_GT, typeOfBigint);
@@ -2256,7 +2256,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_BIGINT: {BIGINT(19)}
-     * @param typeOfBigint The value of typeOfBigint as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfBigint The value of typeOfBigint as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfBigint_LessThan(Long typeOfBigint) {
         regTypeOfBigint(CK_LT, typeOfBigint);
@@ -2265,7 +2265,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_BIGINT: {BIGINT(19)}
-     * @param typeOfBigint The value of typeOfBigint as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfBigint The value of typeOfBigint as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfBigint_GreaterEqual(Long typeOfBigint) {
         regTypeOfBigint(CK_GE, typeOfBigint);
@@ -2274,7 +2274,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_BIGINT: {BIGINT(19)}
-     * @param typeOfBigint The value of typeOfBigint as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfBigint The value of typeOfBigint as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfBigint_LessEqual(Long typeOfBigint) {
         regTypeOfBigint(CK_LE, typeOfBigint);
@@ -2350,7 +2350,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_DATE: {DATE(8)}
-     * @param typeOfDate The value of typeOfDate as equal. (NullAllowed: if null, no condition)
+     * @param typeOfDate The value of typeOfDate as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfDate_Equal(java.time.LocalDate typeOfDate) {
         regTypeOfDate(CK_EQ,  typeOfDate);
@@ -2359,7 +2359,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_DATE: {DATE(8)}
-     * @param typeOfDate The value of typeOfDate as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfDate The value of typeOfDate as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfDate_GreaterThan(java.time.LocalDate typeOfDate) {
         regTypeOfDate(CK_GT,  typeOfDate);
@@ -2368,7 +2368,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_DATE: {DATE(8)}
-     * @param typeOfDate The value of typeOfDate as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfDate The value of typeOfDate as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfDate_LessThan(java.time.LocalDate typeOfDate) {
         regTypeOfDate(CK_LT,  typeOfDate);
@@ -2377,7 +2377,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_DATE: {DATE(8)}
-     * @param typeOfDate The value of typeOfDate as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfDate The value of typeOfDate as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfDate_GreaterEqual(java.time.LocalDate typeOfDate) {
         regTypeOfDate(CK_GE,  typeOfDate);
@@ -2386,7 +2386,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_DATE: {DATE(8)}
-     * @param typeOfDate The value of typeOfDate as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfDate The value of typeOfDate as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfDate_LessEqual(java.time.LocalDate typeOfDate) {
         regTypeOfDate(CK_LE, typeOfDate);
@@ -2437,7 +2437,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
-     * @param typeOfTimestamp The value of typeOfTimestamp as equal. (NullAllowed: if null, no condition)
+     * @param typeOfTimestamp The value of typeOfTimestamp as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfTimestamp_Equal(java.time.LocalDateTime typeOfTimestamp) {
         regTypeOfTimestamp(CK_EQ,  typeOfTimestamp);
@@ -2446,7 +2446,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
-     * @param typeOfTimestamp The value of typeOfTimestamp as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfTimestamp The value of typeOfTimestamp as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfTimestamp_GreaterThan(java.time.LocalDateTime typeOfTimestamp) {
         regTypeOfTimestamp(CK_GT,  typeOfTimestamp);
@@ -2455,7 +2455,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
-     * @param typeOfTimestamp The value of typeOfTimestamp as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfTimestamp The value of typeOfTimestamp as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfTimestamp_LessThan(java.time.LocalDateTime typeOfTimestamp) {
         regTypeOfTimestamp(CK_LT,  typeOfTimestamp);
@@ -2464,7 +2464,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
-     * @param typeOfTimestamp The value of typeOfTimestamp as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfTimestamp The value of typeOfTimestamp as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfTimestamp_GreaterEqual(java.time.LocalDateTime typeOfTimestamp) {
         regTypeOfTimestamp(CK_GE,  typeOfTimestamp);
@@ -2473,7 +2473,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
-     * @param typeOfTimestamp The value of typeOfTimestamp as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfTimestamp The value of typeOfTimestamp as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfTimestamp_LessEqual(java.time.LocalDateTime typeOfTimestamp) {
         regTypeOfTimestamp(CK_LE, typeOfTimestamp);
@@ -2524,7 +2524,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_TIME: {TIME(6)}
-     * @param typeOfTime The value of typeOfTime as equal. (NullAllowed: if null, no condition)
+     * @param typeOfTime The value of typeOfTime as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfTime_Equal(java.time.LocalTime typeOfTime) {
         regTypeOfTime(CK_EQ,  typeOfTime);
@@ -2533,7 +2533,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_TIME: {TIME(6)}
-     * @param typeOfTime The value of typeOfTime as greaterThan. (NullAllowed: if null, no condition)
+     * @param typeOfTime The value of typeOfTime as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfTime_GreaterThan(java.time.LocalTime typeOfTime) {
         regTypeOfTime(CK_GT,  typeOfTime);
@@ -2542,7 +2542,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_TIME: {TIME(6)}
-     * @param typeOfTime The value of typeOfTime as lessThan. (NullAllowed: if null, no condition)
+     * @param typeOfTime The value of typeOfTime as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfTime_LessThan(java.time.LocalTime typeOfTime) {
         regTypeOfTime(CK_LT,  typeOfTime);
@@ -2551,7 +2551,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_TIME: {TIME(6)}
-     * @param typeOfTime The value of typeOfTime as greaterEqual. (NullAllowed: if null, no condition)
+     * @param typeOfTime The value of typeOfTime as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfTime_GreaterEqual(java.time.LocalTime typeOfTime) {
         regTypeOfTime(CK_GE,  typeOfTime);
@@ -2560,7 +2560,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_TIME: {TIME(6)}
-     * @param typeOfTime The value of typeOfTime as lessEqual. (NullAllowed: if null, no condition)
+     * @param typeOfTime The value of typeOfTime as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfTime_LessEqual(java.time.LocalTime typeOfTime) {
         regTypeOfTime(CK_LE, typeOfTime);
@@ -2584,7 +2584,7 @@ public abstract class AbstractBsVendorCheckCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * TYPE_OF_BOOLEAN: {BOOLEAN(1)}
-     * @param typeOfBoolean The value of typeOfBoolean as equal. (NullAllowed: if null, no condition)
+     * @param typeOfBoolean The value of typeOfBoolean as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTypeOfBoolean_Equal(Boolean typeOfBoolean) {
         regTypeOfBoolean(CK_EQ, typeOfBoolean);

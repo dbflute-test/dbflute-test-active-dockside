@@ -61,7 +61,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as equal. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_Equal(Long theLongAndWindingTableAndColumnId) {
         doSetTheLongAndWindingTableAndColumnId_Equal(theLongAndWindingTableAndColumnId);
@@ -74,7 +74,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as notEqual. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_NotEqual(Long theLongAndWindingTableAndColumnId) {
         doSetTheLongAndWindingTableAndColumnId_NotEqual(theLongAndWindingTableAndColumnId);
@@ -87,7 +87,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as greaterThan. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_GreaterThan(Long theLongAndWindingTableAndColumnId) {
         regTheLongAndWindingTableAndColumnId(CK_GT, theLongAndWindingTableAndColumnId);
@@ -96,7 +96,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as lessThan. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_LessThan(Long theLongAndWindingTableAndColumnId) {
         regTheLongAndWindingTableAndColumnId(CK_LT, theLongAndWindingTableAndColumnId);
@@ -105,7 +105,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as greaterEqual. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_GreaterEqual(Long theLongAndWindingTableAndColumnId) {
         regTheLongAndWindingTableAndColumnId(CK_GE, theLongAndWindingTableAndColumnId);
@@ -114,7 +114,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as lessEqual. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_LessEqual(Long theLongAndWindingTableAndColumnId) {
         regTheLongAndWindingTableAndColumnId(CK_LE, theLongAndWindingTableAndColumnId);
@@ -533,7 +533,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
-     * @param shortSize The value of shortSize as equal. (NullAllowed: if null, no condition)
+     * @param shortSize The value of shortSize as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setShortSize_Equal(Integer shortSize) {
         doSetShortSize_Equal(shortSize);
@@ -546,7 +546,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
-     * @param shortSize The value of shortSize as notEqual. (NullAllowed: if null, no condition)
+     * @param shortSize The value of shortSize as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShortSize_NotEqual(Integer shortSize) {
         doSetShortSize_NotEqual(shortSize);
@@ -559,7 +559,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
-     * @param shortSize The value of shortSize as greaterThan. (NullAllowed: if null, no condition)
+     * @param shortSize The value of shortSize as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShortSize_GreaterThan(Integer shortSize) {
         regShortSize(CK_GT, shortSize);
@@ -568,7 +568,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
-     * @param shortSize The value of shortSize as lessThan. (NullAllowed: if null, no condition)
+     * @param shortSize The value of shortSize as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShortSize_LessThan(Integer shortSize) {
         regShortSize(CK_LT, shortSize);
@@ -577,7 +577,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
-     * @param shortSize The value of shortSize as greaterEqual. (NullAllowed: if null, no condition)
+     * @param shortSize The value of shortSize as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShortSize_GreaterEqual(Integer shortSize) {
         regShortSize(CK_GE, shortSize);
@@ -586,7 +586,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
-     * @param shortSize The value of shortSize as lessEqual. (NullAllowed: if null, no condition)
+     * @param shortSize The value of shortSize as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShortSize_LessEqual(Integer shortSize) {
         regShortSize(CK_LE, shortSize);
