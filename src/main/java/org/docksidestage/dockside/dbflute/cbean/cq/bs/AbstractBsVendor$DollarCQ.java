@@ -61,7 +61,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)}
-     * @param vendor$DollarId The value of vendor$DollarId as equal. (NullAllowed: if null, no condition)
+     * @param vendor$DollarId The value of vendor$DollarId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setVendor$DollarId_Equal(Integer vendor$DollarId) {
         doSetVendor$DollarId_Equal(vendor$DollarId);
@@ -74,7 +74,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)}
-     * @param vendor$DollarId The value of vendor$DollarId as notEqual. (NullAllowed: if null, no condition)
+     * @param vendor$DollarId The value of vendor$DollarId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setVendor$DollarId_NotEqual(Integer vendor$DollarId) {
         doSetVendor$DollarId_NotEqual(vendor$DollarId);
@@ -87,7 +87,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)}
-     * @param vendor$DollarId The value of vendor$DollarId as greaterThan. (NullAllowed: if null, no condition)
+     * @param vendor$DollarId The value of vendor$DollarId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setVendor$DollarId_GreaterThan(Integer vendor$DollarId) {
         regVendor$DollarId(CK_GT, vendor$DollarId);
@@ -96,7 +96,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)}
-     * @param vendor$DollarId The value of vendor$DollarId as lessThan. (NullAllowed: if null, no condition)
+     * @param vendor$DollarId The value of vendor$DollarId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setVendor$DollarId_LessThan(Integer vendor$DollarId) {
         regVendor$DollarId(CK_LT, vendor$DollarId);
@@ -105,7 +105,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)}
-     * @param vendor$DollarId The value of vendor$DollarId as greaterEqual. (NullAllowed: if null, no condition)
+     * @param vendor$DollarId The value of vendor$DollarId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setVendor$DollarId_GreaterEqual(Integer vendor$DollarId) {
         regVendor$DollarId(CK_GE, vendor$DollarId);
@@ -114,7 +114,7 @@ public abstract class AbstractBsVendor$DollarCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * VENDOR_$_DOLLAR_ID: {PK, NotNull, INTEGER(10)}
-     * @param vendor$DollarId The value of vendor$DollarId as lessEqual. (NullAllowed: if null, no condition)
+     * @param vendor$DollarId The value of vendor$DollarId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setVendor$DollarId_LessEqual(Integer vendor$DollarId) {
         regVendor$DollarId(CK_LE, vendor$DollarId);

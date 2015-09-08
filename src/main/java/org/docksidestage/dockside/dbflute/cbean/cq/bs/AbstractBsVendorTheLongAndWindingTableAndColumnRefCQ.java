@@ -61,7 +61,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnRefId The value of theLongAndWindingTableAndColumnRefId as equal. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnRefId The value of theLongAndWindingTableAndColumnRefId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnRefId_Equal(Long theLongAndWindingTableAndColumnRefId) {
         doSetTheLongAndWindingTableAndColumnRefId_Equal(theLongAndWindingTableAndColumnRefId);
@@ -74,7 +74,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnRefId The value of theLongAndWindingTableAndColumnRefId as notEqual. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnRefId The value of theLongAndWindingTableAndColumnRefId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnRefId_NotEqual(Long theLongAndWindingTableAndColumnRefId) {
         doSetTheLongAndWindingTableAndColumnRefId_NotEqual(theLongAndWindingTableAndColumnRefId);
@@ -87,7 +87,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnRefId The value of theLongAndWindingTableAndColumnRefId as greaterThan. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnRefId The value of theLongAndWindingTableAndColumnRefId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnRefId_GreaterThan(Long theLongAndWindingTableAndColumnRefId) {
         regTheLongAndWindingTableAndColumnRefId(CK_GT, theLongAndWindingTableAndColumnRefId);
@@ -96,7 +96,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnRefId The value of theLongAndWindingTableAndColumnRefId as lessThan. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnRefId The value of theLongAndWindingTableAndColumnRefId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnRefId_LessThan(Long theLongAndWindingTableAndColumnRefId) {
         regTheLongAndWindingTableAndColumnRefId(CK_LT, theLongAndWindingTableAndColumnRefId);
@@ -105,7 +105,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnRefId The value of theLongAndWindingTableAndColumnRefId as greaterEqual. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnRefId The value of theLongAndWindingTableAndColumnRefId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnRefId_GreaterEqual(Long theLongAndWindingTableAndColumnRefId) {
         regTheLongAndWindingTableAndColumnRefId(CK_GE, theLongAndWindingTableAndColumnRefId);
@@ -114,7 +114,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnRefId The value of theLongAndWindingTableAndColumnRefId as lessEqual. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnRefId The value of theLongAndWindingTableAndColumnRefId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnRefId_LessEqual(Long theLongAndWindingTableAndColumnRefId) {
         regTheLongAndWindingTableAndColumnRefId(CK_LE, theLongAndWindingTableAndColumnRefId);
@@ -190,7 +190,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {IX, NotNull, BIGINT(19), FK to VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN}
-     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as equal. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_Equal(Long theLongAndWindingTableAndColumnId) {
         doSetTheLongAndWindingTableAndColumnId_Equal(theLongAndWindingTableAndColumnId);
@@ -203,7 +203,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {IX, NotNull, BIGINT(19), FK to VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN}
-     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as notEqual. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_NotEqual(Long theLongAndWindingTableAndColumnId) {
         doSetTheLongAndWindingTableAndColumnId_NotEqual(theLongAndWindingTableAndColumnId);
@@ -216,7 +216,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {IX, NotNull, BIGINT(19), FK to VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN}
-     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as greaterThan. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_GreaterThan(Long theLongAndWindingTableAndColumnId) {
         regTheLongAndWindingTableAndColumnId(CK_GT, theLongAndWindingTableAndColumnId);
@@ -225,7 +225,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {IX, NotNull, BIGINT(19), FK to VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN}
-     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as lessThan. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_LessThan(Long theLongAndWindingTableAndColumnId) {
         regTheLongAndWindingTableAndColumnId(CK_LT, theLongAndWindingTableAndColumnId);
@@ -234,7 +234,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {IX, NotNull, BIGINT(19), FK to VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN}
-     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as greaterEqual. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_GreaterEqual(Long theLongAndWindingTableAndColumnId) {
         regTheLongAndWindingTableAndColumnId(CK_GE, theLongAndWindingTableAndColumnId);
@@ -243,7 +243,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {IX, NotNull, BIGINT(19), FK to VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN}
-     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as lessEqual. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnId The value of theLongAndWindingTableAndColumnId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_LessEqual(Long theLongAndWindingTableAndColumnId) {
         regTheLongAndWindingTableAndColumnId(CK_LE, theLongAndWindingTableAndColumnId);
@@ -307,7 +307,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)}
-     * @param theLongAndWindingTableAndColumnRefDate The value of theLongAndWindingTableAndColumnRefDate as equal. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnRefDate The value of theLongAndWindingTableAndColumnRefDate as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnRefDate_Equal(java.time.LocalDate theLongAndWindingTableAndColumnRefDate) {
         regTheLongAndWindingTableAndColumnRefDate(CK_EQ,  theLongAndWindingTableAndColumnRefDate);
@@ -316,7 +316,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)}
-     * @param theLongAndWindingTableAndColumnRefDate The value of theLongAndWindingTableAndColumnRefDate as greaterThan. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnRefDate The value of theLongAndWindingTableAndColumnRefDate as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnRefDate_GreaterThan(java.time.LocalDate theLongAndWindingTableAndColumnRefDate) {
         regTheLongAndWindingTableAndColumnRefDate(CK_GT,  theLongAndWindingTableAndColumnRefDate);
@@ -325,7 +325,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)}
-     * @param theLongAndWindingTableAndColumnRefDate The value of theLongAndWindingTableAndColumnRefDate as lessThan. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnRefDate The value of theLongAndWindingTableAndColumnRefDate as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnRefDate_LessThan(java.time.LocalDate theLongAndWindingTableAndColumnRefDate) {
         regTheLongAndWindingTableAndColumnRefDate(CK_LT,  theLongAndWindingTableAndColumnRefDate);
@@ -334,7 +334,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)}
-     * @param theLongAndWindingTableAndColumnRefDate The value of theLongAndWindingTableAndColumnRefDate as greaterEqual. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnRefDate The value of theLongAndWindingTableAndColumnRefDate as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnRefDate_GreaterEqual(java.time.LocalDate theLongAndWindingTableAndColumnRefDate) {
         regTheLongAndWindingTableAndColumnRefDate(CK_GE,  theLongAndWindingTableAndColumnRefDate);
@@ -343,7 +343,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)}
-     * @param theLongAndWindingTableAndColumnRefDate The value of theLongAndWindingTableAndColumnRefDate as lessEqual. (NullAllowed: if null, no condition)
+     * @param theLongAndWindingTableAndColumnRefDate The value of theLongAndWindingTableAndColumnRefDate as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnRefDate_LessEqual(java.time.LocalDate theLongAndWindingTableAndColumnRefDate) {
         regTheLongAndWindingTableAndColumnRefDate(CK_LE, theLongAndWindingTableAndColumnRefDate);
@@ -382,7 +382,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_DATE: {NotNull, DATE(8)}
-     * @param shortDate The value of shortDate as equal. (NullAllowed: if null, no condition)
+     * @param shortDate The value of shortDate as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setShortDate_Equal(java.time.LocalDate shortDate) {
         regShortDate(CK_EQ,  shortDate);
@@ -391,7 +391,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_DATE: {NotNull, DATE(8)}
-     * @param shortDate The value of shortDate as greaterThan. (NullAllowed: if null, no condition)
+     * @param shortDate The value of shortDate as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShortDate_GreaterThan(java.time.LocalDate shortDate) {
         regShortDate(CK_GT,  shortDate);
@@ -400,7 +400,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_DATE: {NotNull, DATE(8)}
-     * @param shortDate The value of shortDate as lessThan. (NullAllowed: if null, no condition)
+     * @param shortDate The value of shortDate as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShortDate_LessThan(java.time.LocalDate shortDate) {
         regShortDate(CK_LT,  shortDate);
@@ -409,7 +409,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_DATE: {NotNull, DATE(8)}
-     * @param shortDate The value of shortDate as greaterEqual. (NullAllowed: if null, no condition)
+     * @param shortDate The value of shortDate as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShortDate_GreaterEqual(java.time.LocalDate shortDate) {
         regShortDate(CK_GE,  shortDate);
@@ -418,7 +418,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_DATE: {NotNull, DATE(8)}
-     * @param shortDate The value of shortDate as lessEqual. (NullAllowed: if null, no condition)
+     * @param shortDate The value of shortDate as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShortDate_LessEqual(java.time.LocalDate shortDate) {
         regShortDate(CK_LE, shortDate);
