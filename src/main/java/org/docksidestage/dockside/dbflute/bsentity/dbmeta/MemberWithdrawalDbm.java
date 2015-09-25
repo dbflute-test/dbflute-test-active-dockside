@@ -74,7 +74,6 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getRegisterUser(), (et, vl) -> ((MemberWithdrawal)et).setRegisterUser((String)vl), "registerUser");
         setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getUpdateDatetime(), (et, vl) -> ((MemberWithdrawal)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
         setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getUpdateUser(), (et, vl) -> ((MemberWithdrawal)et).setUpdateUser((String)vl), "updateUser");
-        setupEpg(_epgMap, et -> ((MemberWithdrawal)et).getVersionNo(), (et, vl) -> ((MemberWithdrawal)et).setVersionNo(ctl(vl)), "versionNo");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -118,7 +117,6 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnRegisterUser = cci("REGISTER_USER", "REGISTER_USER", null, null, String.class, "registerUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("UPDATE_DATETIME", "UPDATE_DATETIME", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateUser = cci("UPDATE_USER", "UPDATE_USER", null, null, String.class, "updateUser", null, false, false, true, "VARCHAR", 200, 0, null, true, null, null, null, null, null, false);
-    protected final ColumnInfo _columnVersionNo = cci("VERSION_NO", "VERSION_NO", null, null, Long.class, "versionNo", null, false, false, true, "BIGINT", 19, 0, null, false, OptimisticLockType.VERSION_NO, null, null, null, null, false);
 
     /**
      * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
@@ -160,11 +158,6 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUpdateUser() { return _columnUpdateUser; }
-    /**
-     * VERSION_NO: {NotNull, BIGINT(19)}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnVersionNo() { return _columnVersionNo; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
@@ -176,7 +169,6 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
         ls.add(columnRegisterUser());
         ls.add(columnUpdateDatetime());
         ls.add(columnUpdateUser());
-        ls.add(columnVersionNo());
         return ls;
     }
 
@@ -224,8 +216,6 @@ public class MemberWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                        Various Info
     //                                                                        ============
-    public boolean hasVersionNo() { return true; }
-    public ColumnInfo getVersionNoColumnInfo() { return _columnVersionNo; }
     public boolean hasCommonColumn() { return true; }
     public List<ColumnInfo> getCommonColumnInfoList()
     { return newArrayList(columnRegisterDatetime(), columnRegisterUser(), columnUpdateDatetime(), columnUpdateUser()); }

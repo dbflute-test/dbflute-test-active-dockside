@@ -383,11 +383,6 @@ public class BsMemberWithdrawalCB extends AbstractConditionBean {
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUpdateUser() { return doColumn("UPDATE_USER"); }
-        /**
-         * VERSION_NO: {NotNull, BIGINT(19)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnVersionNo() { return doColumn("VERSION_NO"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override

@@ -28,7 +28,7 @@ public class WxCBQueryIsNullOrEmptyTest extends UnitContainerTestCase {
             });
 
             before.setWithdrawalReasonInputText("");
-            memberWithdrawalBhv.updateNonstrict(before);
+            memberWithdrawalBhv.update(before);
         }
         {
             MemberWithdrawal before = memberWithdrawalBhv.selectEntityWithDeletedCheck(cb -> {
@@ -37,7 +37,7 @@ public class WxCBQueryIsNullOrEmptyTest extends UnitContainerTestCase {
             });
 
             before.setWithdrawalReasonInputText(null);
-            memberWithdrawalBhv.updateNonstrict(before);
+            memberWithdrawalBhv.update(before);
         }
         ListResultBean<MemberWithdrawal> withdrawalList = memberWithdrawalBhv.selectList(cb -> {
             /* ## Act ## */

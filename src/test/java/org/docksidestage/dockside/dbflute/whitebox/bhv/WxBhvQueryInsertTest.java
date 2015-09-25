@@ -111,9 +111,6 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
             assertEquals(accessContext.getAccessUser(), actual.getRegisterUser());
             assertEquals(registerTimestamp, DfTypeUtil.toString(actual.getUpdateDatetime(), fmt));
             assertEquals(accessContext.getAccessUser(), actual.getUpdateUser());
-
-            // exclusive control column
-            assertEquals(Long.valueOf(0), actual.getVersionNo());
         }
     }
 
@@ -228,7 +225,6 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
                     MemberCB cb = new MemberCB();
                     entity.setWithdrawalReasonCodeAsWithdrawalReason(null);
                     entity.setRegisterUser("foo-bar-baz-qux-quux"); // overridden
-                    entity.setVersionNo(9999999999L); // overridden in an internal process
                     intoCB.specify().columnMemberId().mappedFrom(cb.specify().columnMemberId());
                     intoCB.specify().columnWithdrawalDatetime().mappedFrom(cb.specify().columnFormalizedDatetime());
                     intoCB.specify().columnWithdrawalReasonInputText().mappedFrom(cb.specify().columnMemberName());
@@ -267,9 +263,6 @@ public class WxBhvQueryInsertTest extends UnitContainerTestCase {
             assertEquals(accessContext.getAccessUser(), actual.getRegisterUser());
             assertEquals(registerTimestamp, DfTypeUtil.toString(actual.getUpdateDatetime(), fmt));
             assertEquals(member.getMemberAccount(), actual.getUpdateUser());
-
-            // exclusive control column
-            assertEquals(Long.valueOf(0), actual.getVersionNo());
         }
         assertEquals(1, calledMark.size());
     }

@@ -173,9 +173,6 @@ public class VendorGrammerTest extends UnitContainerTestCase {
             assertEquals(accessContext.getAccessUser(), actual.getRegisterUser());
             assertEquals(registerTimestamp, DfTypeUtil.toString(actual.getUpdateDatetime(), fmt));
             assertEquals(accessContext.getAccessUser(), actual.getUpdateUser());
-
-            // exclusive control column
-            assertEquals(Long.valueOf(0), actual.getVersionNo());
         }
     }
 

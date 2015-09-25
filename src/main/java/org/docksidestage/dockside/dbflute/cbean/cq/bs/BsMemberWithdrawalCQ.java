@@ -248,26 +248,6 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
      */
     public BsMemberWithdrawalCQ addOrderBy_UpdateUser_Desc() { regOBD("UPDATE_USER"); return this; }
 
-    protected ConditionValue _versionNo;
-    public ConditionValue xdfgetVersionNo()
-    { if (_versionNo == null) { _versionNo = nCV(); }
-      return _versionNo; }
-    protected ConditionValue xgetCValueVersionNo() { return xdfgetVersionNo(); }
-
-    /** 
-     * Add order-by as ascend. <br>
-     * VERSION_NO: {NotNull, BIGINT(19)}
-     * @return this. (NotNull)
-     */
-    public BsMemberWithdrawalCQ addOrderBy_VersionNo_Asc() { regOBA("VERSION_NO"); return this; }
-
-    /**
-     * Add order-by as descend. <br>
-     * VERSION_NO: {NotNull, BIGINT(19)}
-     * @return this. (NotNull)
-     */
-    public BsMemberWithdrawalCQ addOrderBy_VersionNo_Desc() { regOBD("VERSION_NO"); return this; }
-
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy
     //                                                             =======================

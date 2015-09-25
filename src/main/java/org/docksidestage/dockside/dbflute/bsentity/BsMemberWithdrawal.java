@@ -39,7 +39,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  *     MEMBER_ID
  * 
  * [column]
- *     MEMBER_ID, WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_INPUT_TEXT, WITHDRAWAL_DATETIME, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_NO
+ *     MEMBER_ID, WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_INPUT_TEXT, WITHDRAWAL_DATETIME, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER
  * 
  * [sequence]
  *     
@@ -48,7 +48,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  *     
  * 
  * [version-no]
- *     VERSION_NO
+ *     
  * 
  * [foreign table]
  *     MEMBER, WITHDRAWAL_REASON
@@ -72,7 +72,6 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * String registerUser = entity.getRegisterUser();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateUser = entity.getUpdateUser();
- * Long versionNo = entity.getVersionNo();
  * entity.setMemberId(memberId);
  * entity.setWithdrawalReasonCode(withdrawalReasonCode);
  * entity.setWithdrawalReasonInputText(withdrawalReasonInputText);
@@ -81,7 +80,6 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * entity.setRegisterUser(registerUser);
  * entity.setUpdateDatetime(updateDatetime);
  * entity.setUpdateUser(updateUser);
- * entity.setVersionNo(versionNo);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
@@ -120,9 +118,6 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
 
     /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     protected String _updateUser;
-
-    /** VERSION_NO: {NotNull, BIGINT(19)} */
-    protected Long _versionNo;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -350,7 +345,6 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
         sb.append(dm).append(xfND(_registerUser));
         sb.append(dm).append(xfND(_updateDatetime));
         sb.append(dm).append(xfND(_updateUser));
-        sb.append(dm).append(xfND(_versionNo));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -534,24 +528,6 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     public void setUpdateUser(String updateUser) {
         registerModifiedProperty("updateUser");
         _updateUser = updateUser;
-    }
-
-    /**
-     * [get] VERSION_NO: {NotNull, BIGINT(19)} <br>
-     * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
-     */
-    public Long getVersionNo() {
-        checkSpecifiedProperty("versionNo");
-        return _versionNo;
-    }
-
-    /**
-     * [set] VERSION_NO: {NotNull, BIGINT(19)} <br>
-     * @param versionNo The value of the column 'VERSION_NO'. (basically NotNull if update: for the constraint)
-     */
-    public void setVersionNo(Long versionNo) {
-        registerModifiedProperty("versionNo");
-        _versionNo = versionNo;
     }
 
     /**
