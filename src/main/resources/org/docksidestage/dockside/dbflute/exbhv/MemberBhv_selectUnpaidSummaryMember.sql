@@ -38,7 +38,7 @@ select mb.MEMBER_ID as UNPAID_MAN_ID
    and mb.MEMBER_NAME like /*pmb.memberName*/'S%'
    /*END*/
    /*IF pmb.memberStatusCode != null*/
-   and mb.MEMBER_STATUS_CODE = /*pmb.memberStatusCode:ref(MEMBER)*/'FML'
+   and mb.MEMBER_STATUS_CODE = /*pmb.memberStatusCode:ref(MEMBER)*/'FML' -- // formalized or ...
    /*END*/
    /*IF pmb.unpaidMemberOnly*/ -- // for purchase exists
    and exists (select 'yes'
