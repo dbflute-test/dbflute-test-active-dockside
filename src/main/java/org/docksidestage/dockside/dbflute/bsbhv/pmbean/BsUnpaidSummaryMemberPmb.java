@@ -193,6 +193,7 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
 
     /**
      * [get] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * // formalized or ...
      * @return The value of memberStatusCode. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getMemberStatusCode() {
@@ -201,6 +202,7 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
 
     /**
      * [set as Formalized] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * // formalized or ... <br>
      * as formal member, allowed to use all service
      */
     public void setMemberStatusCode_Formalized() {
@@ -209,6 +211,7 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
 
     /**
      * [set as Withdrawal] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * // formalized or ... <br>
      * withdrawal is fixed, not allowed to use service
      */
     public void setMemberStatusCode_Withdrawal() {
@@ -217,6 +220,7 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
 
     /**
      * [set as Provisional] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * // formalized or ... <br>
      * first status after entry, allowed to use only part of service
      */
     public void setMemberStatusCode_Provisional() {

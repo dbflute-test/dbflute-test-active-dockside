@@ -282,6 +282,16 @@ public abstract class BsOptionMember extends AbstractEntity implements Customize
     }
 
     /**
+     * Members are not formalized yet <br>
+     * The group elements:[Provisional]
+     * @return The determination, true or false.
+     */
+    public boolean isMemberStatusCode_ShortOfFormalized() {
+        CDef.MemberStatus cdef = getMemberStatusCodeAsMemberStatus();
+        return cdef != null && cdef.isShortOfFormalized();
+    }
+
+    /**
      * Is the value of dummyFlg True? <br>
      * Checked: means yes
      * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>

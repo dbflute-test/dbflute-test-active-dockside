@@ -302,6 +302,16 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
         return cdef != null && cdef.isServiceAvailable();
     }
 
+    /**
+     * Members are not formalized yet <br>
+     * The group elements:[Provisional]
+     * @return The determination, true or false.
+     */
+    public boolean isLoginMemberStatusCode_ShortOfFormalized() {
+        CDef.MemberStatus cdef = getLoginMemberStatusCodeAsMemberStatus();
+        return cdef != null && cdef.isShortOfFormalized();
+    }
+
     // ===================================================================================
     //                                                           Classification Name/Alias
     //                                                           =========================

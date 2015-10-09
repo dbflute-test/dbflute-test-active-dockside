@@ -59,6 +59,10 @@ map:{
                     ; groupComment = means member that can use services
                     ; elementList = list:{Formalized;Provisional}
                 }
+                ; shortOfFormalized = map:{
+                    ; groupComment = Members are not formalized yet
+                    ; elementList = list:{Provisional}
+                }
             }
         }
         ; map:{

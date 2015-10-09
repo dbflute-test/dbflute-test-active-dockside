@@ -143,8 +143,19 @@ public interface CDef extends Classification {
             return Formalized.equals(this) || Provisional.equals(this);
         }
 
+        /**
+         * Is the classification in the group? <br>
+         * Members are not formalized yet <br>
+         * The group elements:[Provisional]
+         * @return The determination, true or false.
+         */
+        public boolean isShortOfFormalized() {
+            return Provisional.equals(this);
+        }
+
         public boolean inGroup(String groupName) {
             if ("serviceAvailable".equals(groupName)) { return isServiceAvailable(); }
+            if ("shortOfFormalized".equals(groupName)) { return isShortOfFormalized(); }
             return false;
         }
 
@@ -188,12 +199,23 @@ public interface CDef extends Classification {
         }
 
         /**
+         * Get the list of group classification elements. (returns new copied list) <br>
+         * Members are not formalized yet <br>
+         * The group elements:[Provisional]
+         * @return The list of classification elements in the group. (NotNull)
+         */
+        public static List<MemberStatus> listOfShortOfFormalized() {
+            return new ArrayList<MemberStatus>(Arrays.asList(Provisional));
+        }
+
+        /**
          * Get the list of classification elements in the specified group. (returns new copied list) <br>
          * @param groupName The string of group name, which is case-sensitive. (NullAllowed: if null, returns empty list)
          * @return The list of classification elements in the group. (NotNull)
          */
         public static List<MemberStatus> groupOf(String groupName) {
             if ("serviceAvailable".equals(groupName)) { return listOfServiceAvailable(); }
+            if ("shortOfFormalized".equals(groupName)) { return listOfShortOfFormalized(); }
             return new ArrayList<MemberStatus>(4);
         }
 

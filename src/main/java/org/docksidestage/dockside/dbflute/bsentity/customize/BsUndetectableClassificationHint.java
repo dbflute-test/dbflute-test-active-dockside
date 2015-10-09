@@ -199,6 +199,16 @@ public abstract class BsUndetectableClassificationHint extends AbstractEntity im
         return cdef != null && cdef.isServiceAvailable();
     }
 
+    /**
+     * Members are not formalized yet <br>
+     * The group elements:[Provisional]
+     * @return The determination, true or false.
+     */
+    public boolean isMemberStatusCode_ShortOfFormalized() {
+        CDef.MemberStatus cdef = getMemberStatusCodeAsMemberStatus();
+        return cdef != null && cdef.isShortOfFormalized();
+    }
+
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================

@@ -945,6 +945,16 @@ public abstract class AbstractBsMemberCQ extends AbstractConditionQuery {
         setMemberStatusCode_InScope_AsMemberStatus(CDef.MemberStatus.listOfServiceAvailable());
     }
 
+    /**
+     * InScope {in ('a', 'b')}. As MemberStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * status of member from entry to withdrawal <br>
+     * Members are not formalized yet <br>
+     * The group elements:[Provisional]
+     */
+    public void setMemberStatusCode_InScope_ShortOfFormalized() {
+        setMemberStatusCode_InScope_AsMemberStatus(CDef.MemberStatus.listOfShortOfFormalized());
+    }
+
     protected void doSetMemberStatusCode_InScope(Collection<String> memberStatusCodeList) {
         regINS(CK_INS, cTL(memberStatusCodeList), xgetCValueMemberStatusCode(), "MEMBER_STATUS_CODE");
     }
