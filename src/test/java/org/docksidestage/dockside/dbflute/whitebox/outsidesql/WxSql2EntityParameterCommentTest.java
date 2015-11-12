@@ -25,11 +25,13 @@ import org.docksidestage.dockside.dbflute.exbhv.cursor.PurchaseSummaryMemberCurs
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentCollectionPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentEmbeddedPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentHintPmb;
+import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentLinesElsePmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentOrderByIfPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PmCommentPossiblePmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PurchaseMaxPriceMemberPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PurchaseSummaryMemberPmb;
 import org.docksidestage.dockside.dbflute.exentity.customize.PmCommentCollection;
+import org.docksidestage.dockside.dbflute.exentity.customize.PmCommentLinesElse;
 import org.docksidestage.dockside.dbflute.exentity.customize.PmCommentOrderByIf;
 import org.docksidestage.dockside.dbflute.exentity.customize.PurchaseMaxPriceMember;
 import org.docksidestage.dockside.dbflute.exentity.customize.SimpleMember;
@@ -466,6 +468,39 @@ public class WxSql2EntityParameterCommentTest extends UnitContainerTestCase {
             assertTrue(executedSql.contains("--+ OracleLine"));
         } finally {
             CallbackContext.clearSqlLogHandlerOnThread();
+        }
+    }
+
+    // ===================================================================================
+    //                                                                          Lines Else
+    //                                                                          ==========
+    public void test_linesElse_if() throws Exception {
+        // ## Arrange ##
+        PmCommentLinesElsePmb pmb = new PmCommentLinesElsePmb();
+        pmb.setWithMemberStatus(true);
+
+        // ## Act ##
+        ListResultBean<PmCommentLinesElse> selectedList = memberBhv.outsideSql().selectList(pmb);
+
+        // ## Assert ##
+        assertHasAnyElement(selectedList);
+        for (PmCommentLinesElse selected : selectedList) {
+            assertNotNull(selected.getMemberStatusName());
+        }
+    }
+
+    public void test_linesElse_else() throws Exception {
+        // ## Arrange ##
+        PmCommentLinesElsePmb pmb = new PmCommentLinesElsePmb();
+        pmb.setWithMemberStatus(false);
+
+        // ## Act ##
+        ListResultBean<PmCommentLinesElse> selectedList = memberBhv.outsideSql().selectList(pmb);
+
+        // ## Assert ##
+        assertHasAnyElement(selectedList);
+        for (PmCommentLinesElse selected : selectedList) {
+            assertNull(selected.getMemberStatusName());
         }
     }
 }
