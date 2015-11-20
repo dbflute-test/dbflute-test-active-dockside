@@ -136,4 +136,26 @@ public class WxCBColumnQueryDreamCruiseCalcOptionTest extends UnitContainerTestC
         assertContains(sql,
                 "and dfloc.BIRTHDATE >= coalesce(dateadd(minute, -1, dateadd(day, -dfloc.MEMBER_ID + 99, '2006-09-26')), dfloc.BIRTHDATE)");
     }
+
+    // ===================================================================================
+    //                                                                    Nested Parameter
+    //                                                                    ================
+    public void test_ColumnQuery_option_nested_parameter() throws Exception {
+        // ## Arrange ##
+
+        // ## Act ##
+        memberBhv.selectList(cb -> {
+            MemberCB dreamCruiseCB = cb.dreamCruiseCB();
+            cb.columnQuery(colCB -> {
+                colCB.specify().columnBirthdate().convert(op -> {
+                    op.addDay(dreamCruiseCB.specify().columnMemberId().convert(oop -> oop.coalesce(777)));
+                });
+            }).greaterEqual(colCB -> {
+                colCB.specify().columnFormalizedDatetime();
+            });
+            pushCB(cb);
+        });
+        String sql = popCB().toDisplaySql();
+        assertContains(sql, "777");
+    }
 }

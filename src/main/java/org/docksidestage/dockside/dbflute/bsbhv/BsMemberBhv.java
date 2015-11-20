@@ -122,6 +122,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     public static final String PATH_whitebox_pmcomment_selectPmCommentEmbedded = "whitebox:pmcomment:selectPmCommentEmbedded";
     /** DBMS hit with parameter comment */
     public static final String PATH_whitebox_pmcomment_selectPmCommentHint = "whitebox:pmcomment:selectPmCommentHint";
+    /** Example for Multiple Lines Else */
+    public static final String PATH_whitebox_pmcomment_selectPmCommentLinesElse = "whitebox:pmcomment:selectPmCommentLinesElse";
     /** IF comment for order-by */
     public static final String PATH_whitebox_pmcomment_selectPmCommentOrderByIf = "whitebox:pmcomment:selectPmCommentOrderByIf";
     /** parameter comment onparade */

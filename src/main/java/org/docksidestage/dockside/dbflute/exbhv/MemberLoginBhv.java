@@ -178,10 +178,10 @@ public class MemberLoginBhv extends BsMemberLoginBhv {
     //                                                                              Insert
     //                                                                              ======
     @Override
-    protected boolean adjustEntityBeforeInsert(Entity entity, OptionalThing<InsertOption<? extends ConditionBean>> option) {
+    protected void adjustEntityBeforeInsert(Entity entity, OptionalThing<InsertOption<? extends ConditionBean>> option) {
         forTest_adjustEntityBeforeInsert_called = true;
         ++forTest_adjustEntityBeforeInsert_count;
-        return super.adjustEntityBeforeInsert(entity, option);
+        super.adjustEntityBeforeInsert(entity, option);
     }
 
     @Override
@@ -256,10 +256,10 @@ public class MemberLoginBhv extends BsMemberLoginBhv {
     //                                                                              Update
     //                                                                              ======
     @Override
-    protected boolean adjustEntityBeforeUpdate(Entity entity, OptionalThing<UpdateOption<? extends ConditionBean>> option) {
+    protected void adjustEntityBeforeUpdate(Entity entity, OptionalThing<UpdateOption<? extends ConditionBean>> option) {
         forTest_adjustEntityBeforeUpdate_called = true;
         ++forTest_adjustEntityBeforeUpdate_count;
-        return super.adjustEntityBeforeUpdate(entity, option);
+        super.adjustEntityBeforeUpdate(entity, option);
     }
 
     @Override
@@ -339,10 +339,10 @@ public class MemberLoginBhv extends BsMemberLoginBhv {
     //                                                                              Delete
     //                                                                              ======
     @Override
-    protected boolean adjustEntityBeforeDelete(Entity entity, OptionalThing<DeleteOption<? extends ConditionBean>> option) {
+    protected void adjustEntityBeforeDelete(Entity entity, OptionalThing<DeleteOption<? extends ConditionBean>> option) {
         forTest_adjustEntityBeforeDelete_called = true;
         ++forTest_adjustEntityBeforeDelete_count;
-        return super.adjustEntityBeforeDelete(entity, option);
+        super.adjustEntityBeforeDelete(entity, option);
     }
 
     @Override
