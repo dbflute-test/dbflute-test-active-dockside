@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.CustomizeEntity;
+import org.docksidestage.dockside.dbflute.allcommon.EntityDefinedCommonColumn;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
@@ -71,7 +72,7 @@ import org.docksidestage.dockside.dbflute.exentity.customize.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implements CustomizeEntity {
+public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implements CustomizeEntity, EntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
