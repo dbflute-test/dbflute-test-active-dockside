@@ -280,6 +280,27 @@ public class WxBhvVaryingUpdateBasicTest extends UnitContainerTestCase {
     }
 
     // ===================================================================================
+    //                                                                   Reload PrimaryKey
+    //                                                                   =================
+    public void test_varyingUpdate_reloadPrimaryKeyIfUniqueBy_default() throws Exception {
+        // ## Arrange ##
+        Member member = new Member();
+        member.uniqueBy("Pixy");
+        member.setVersionNo(memberBhv.selectByUniqueOf("Pixy").get().getVersionNo());
+        member.setBirthdate(currentLocalDate());
+
+        // ## Act ##
+        memberBhv.varyingUpdate(member, op -> {});
+
+        // ## Assert ##
+        Integer memberId = member.getMemberId();
+        log(memberId);
+        assertNull(memberId);
+    }
+
+    // tests for varyingUpdateNonstrict(), varyingInsertOrUpdate() are written at their test classes 
+
+    // ===================================================================================
     //                                                                           Nonstrict
     //                                                                           =========
     public void test_varyingUpdateNonstrict_plus() throws Exception {
@@ -364,5 +385,20 @@ public class WxBhvVaryingUpdateBasicTest extends UnitContainerTestCase {
         Purchase actual = purchaseBhv.selectByPK(3L).get();
         log("actual=" + actual.getPurchaseCount());
         assertEquals(Integer.valueOf((purchaseCount / 2)), actual.getPurchaseCount());
+    }
+
+    public void test_varyingUpdateNonstrict_reloadPrimaryKeyIfUniqueBy_use() throws Exception {
+        // ## Arrange ##
+        Member member = new Member();
+        member.uniqueBy("Pixy");
+        member.setBirthdate(currentLocalDate());
+
+        // ## Act ##
+        memberBhv.varyingUpdateNonstrict(member, op -> op.reloadPrimaryKeyIfUniqueBy());
+
+        // ## Assert ##
+        Integer memberId = member.getMemberId();
+        log(memberId);
+        assertNotNull(memberId);
     }
 }

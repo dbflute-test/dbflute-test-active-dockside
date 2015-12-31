@@ -534,4 +534,20 @@ public class WxBhvVaryingInsertTest extends UnitContainerTestCase {
             assertEquals(member.getMemberAccount(), actual.getMemberAccount());
         }
     }
+
+    public void test_varyingInsertOrUpdate_reloadPrimaryKeyIfUniqueBy_use() throws Exception {
+        // ## Arrange ##
+        Member member = new Member();
+        member.uniqueBy("Pixy");
+        member.setVersionNo(memberBhv.selectByUniqueOf("Pixy").get().getVersionNo());
+        member.setBirthdate(currentLocalDate());
+
+        // ## Act ##
+        memberBhv.varyingInsertOrUpdate(member, op -> {}, op -> op.reloadPrimaryKeyIfUniqueBy());
+
+        // ## Assert ##
+        Integer memberId = member.getMemberId();
+        log(memberId);
+        assertNotNull(memberId);
+    }
 }
