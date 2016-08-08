@@ -32,31 +32,31 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * <pre>
  * [primary-key]
  *     PRODUCT_CATEGORY_CODE
- * 
+ *
  * [column]
  *     PRODUCT_CATEGORY_CODE, PRODUCT_CATEGORY_NAME, PARENT_CATEGORY_CODE
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     PRODUCT_CATEGORY
- * 
+ *
  * [referrer table]
  *     PRODUCT, PRODUCT_CATEGORY
- * 
+ *
  * [foreign property]
  *     productCategorySelf
- * 
+ *
  * [referrer property]
  *     productList, productCategorySelfList
- * 
+ *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * String productCategoryCode = entity.getProductCategoryCode();

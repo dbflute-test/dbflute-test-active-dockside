@@ -34,31 +34,31 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * <pre>
  * [primary-key]
  *     MEMBER_STATUS_CODE
- * 
+ *
  * [column]
  *     MEMBER_STATUS_CODE, MEMBER_STATUS_NAME, DESCRIPTION, DISPLAY_ORDER
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     
- * 
+ *
  * [referrer table]
  *     MEMBER, MEMBER_LOGIN
- * 
+ *
  * [foreign property]
  *     
- * 
+ *
  * [referrer property]
  *     memberList, memberLoginList
- * 
+ *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * String memberStatusCode = entity.getMemberStatusCode();

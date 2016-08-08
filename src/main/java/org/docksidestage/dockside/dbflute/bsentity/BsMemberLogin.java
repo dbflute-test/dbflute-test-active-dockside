@@ -34,31 +34,31 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * <pre>
  * [primary-key]
  *     MEMBER_LOGIN_ID
- * 
+ *
  * [column]
  *     MEMBER_LOGIN_ID, MEMBER_ID, LOGIN_DATETIME, MOBILE_LOGIN_FLG, LOGIN_MEMBER_STATUS_CODE
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     MEMBER_LOGIN_ID
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     MEMBER_STATUS, MEMBER
- * 
+ *
  * [referrer table]
  *     
- * 
+ *
  * [foreign property]
  *     memberStatus, member
- * 
+ *
  * [referrer property]
  *     
- * 
+ *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Long memberLoginId = entity.getMemberLoginId();

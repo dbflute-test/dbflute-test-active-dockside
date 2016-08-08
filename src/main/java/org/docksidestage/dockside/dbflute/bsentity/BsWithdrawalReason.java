@@ -31,31 +31,31 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * <pre>
  * [primary-key]
  *     WITHDRAWAL_REASON_CODE
- * 
+ *
  * [column]
  *     WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_TEXT, DISPLAY_ORDER
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     
- * 
+ *
  * [referrer table]
  *     MEMBER_WITHDRAWAL
- * 
+ *
  * [foreign property]
  *     
- * 
+ *
  * [referrer property]
  *     memberWithdrawalList
- * 
+ *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * String withdrawalReasonCode = entity.getWithdrawalReasonCode();

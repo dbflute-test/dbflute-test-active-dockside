@@ -31,31 +31,31 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * <pre>
  * [primary-key]
  *     PRODUCT_STATUS_CODE
- * 
+ *
  * [column]
  *     PRODUCT_STATUS_CODE, PRODUCT_STATUS_NAME, DISPLAY_ORDER
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     
- * 
+ *
  * [referrer table]
  *     PRODUCT, SUMMARY_PRODUCT
- * 
+ *
  * [foreign property]
  *     
- * 
+ *
  * [referrer property]
  *     productList, summaryProductList
- * 
+ *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * String productStatusCode = entity.getProductStatusCode();
