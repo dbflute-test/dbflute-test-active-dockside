@@ -63,6 +63,11 @@ public abstract class UnitContainerTestCase extends ContainerTestCase {
     protected ApplicationContext provideDefaultApplicationContext() {
         return new AnnotationConfigApplicationContext(JdbcBeansJavaConfig.class, DBFluteBeansJavaConfig.class);
     }
+    
+    @Override
+    protected boolean isUseTestCaseLooseBinding() {
+        return true;
+    }
 
     // ===================================================================================
     //                                                                 ConditionBean Stack

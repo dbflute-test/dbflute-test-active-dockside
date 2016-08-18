@@ -254,7 +254,7 @@ public abstract class BsProductStatus extends AbstractEntity implements DomainEn
         _summaryProductList = summaryProductList;
     }
 
-    protected <ELEMENT> List<ELEMENT> newReferrerList() {
+    protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
 

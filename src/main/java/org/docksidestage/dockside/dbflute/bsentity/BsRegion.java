@@ -238,7 +238,7 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
         _memberAddressList = memberAddressList;
     }
 
-    protected <ELEMENT> List<ELEMENT> newReferrerList() {
+    protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
 

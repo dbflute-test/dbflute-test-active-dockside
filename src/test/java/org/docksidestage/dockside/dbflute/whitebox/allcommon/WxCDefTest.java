@@ -1,6 +1,8 @@
 package org.docksidestage.dockside.dbflute.whitebox.allcommon;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.dbflute.jdbc.Classification;
@@ -19,9 +21,39 @@ import org.docksidestage.dockside.dbflute.allcommon.CDef.Flg;
 public class WxCDefTest extends PlainTestCase {
 
     // ===================================================================================
+    //                                                                               of()
+    //                                                                              ======
+    public void test_of() {
+        assertEquals(CDef.MemberStatus.Formalized, CDef.MemberStatus.of("FML").get());
+        assertEquals(CDef.MemberStatus.Formalized, CDef.MemberStatus.of("fml").get());
+        assertEquals(CDef.MemberStatus.Provisional, CDef.MemberStatus.of("PRV").get());
+        assertEquals(CDef.MemberStatus.Provisional, CDef.MemberStatus.of("prv").get());
+        assertEquals(CDef.Flg.False, CDef.Flg.of("0").get()); // non sister code
+        assertEquals(CDef.Flg.False, CDef.Flg.of("false").get()); // sister code
+        assertEquals(CDef.Flg.True, CDef.Flg.of("1").get()); // non sister code
+        assertEquals(CDef.Flg.True, CDef.Flg.of("true").get()); // sister code
+        assertFalse(CDef.MemberStatus.of("none").isPresent());
+        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.MemberStatus.of("none").get());
+        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.MemberStatus.of("Formalized").get());
+    }
+
+    // ===================================================================================
+    //                                                                            byName()
+    //                                                                            ========
+    public void test_byName() {
+        assertEquals(CDef.MemberStatus.Formalized, CDef.MemberStatus.byName("Formalized").get());
+        assertEquals(CDef.MemberStatus.Formalized, CDef.MemberStatus.byName("formaliZed").get());
+        assertEquals(CDef.MemberStatus.Provisional, CDef.MemberStatus.byName("Provisional").get());
+        assertEquals(CDef.MemberStatus.Provisional, CDef.MemberStatus.byName("proviSional").get());
+        assertFalse(CDef.Flg.byName("none").isPresent());
+        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.MemberStatus.byName("none").get());
+        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.MemberStatus.byName("FML").get());
+    }
+
+    // ===================================================================================
     //                                                                            nameOf()
     //                                                                            ========
-    public void test_nameOf_direct() {
+    public void test_nameOf() {
         assertEquals(CDef.Flg.True, CDef.Flg.nameOf("True"));
         assertNull(CDef.Flg.nameOf("true"));
         assertNull(CDef.Flg.nameOf("noexist"));
@@ -34,7 +66,7 @@ public class WxCDefTest extends PlainTestCase {
     // ===================================================================================
     //                                                                         sisterSet()
     //                                                                         ===========
-    public void test_sisterSet_basic() throws Exception {
+    public void test_sisterSet() throws Exception {
         assertEquals(newHashSet("true"), CDef.Flg.True.sisterSet());
         assertEquals(newHashSet("false"), CDef.Flg.False.sisterSet());
         assertHasZeroElement(CDef.MemberStatus.Formalized.sisterSet());
@@ -81,9 +113,50 @@ public class WxCDefTest extends PlainTestCase {
     }
 
     // ===================================================================================
+    //                                                                       listByGroup()
+    //                                                                       =============
+    public void test_listByGroup() {
+        // ## Arrange ##
+        List<String> groupNameList = Arrays.asList("serviceAvailable", "SERviceAvailable");
+        for (String groupName : groupNameList) {
+            // ## Act ##
+            List<CDef.MemberStatus> list = CDef.MemberStatus.listByGroup(groupName);
+
+            // ## Assert ##
+            assertHasAnyElement(list);
+            for (CDef.MemberStatus status : list) {
+                log(status);
+            }
+            assertEquals(2, list.size());
+            assertEquals("FML", list.get(0).code());
+            assertEquals("PRV", list.get(1).code());
+        }
+    }
+
+    // ===================================================================================
+    //                                                                    listOfCodeList()
+    //                                                                    ================
+    public void test_listOfCodeList() {
+        // ## Arrange ##
+        // ## Act ##
+        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.MemberStatus.listOf(Arrays.asList("none")));
+        assertEquals(Collections.emptyList(), CDef.MemberStatus.listOf(Collections.emptyList()));
+        List<CDef.MemberStatus> list = CDef.MemberStatus.listOf(Arrays.asList("FML", "WDL"));
+
+        // ## Assert ##
+        assertHasAnyElement(list);
+        for (CDef.MemberStatus status : list) {
+            log(status);
+        }
+        assertEquals(2, list.size());
+        assertEquals("FML", list.get(0).code());
+        assertEquals("WDL", list.get(1).code());
+    }
+
+    // ===================================================================================
     //                                                                       listOfGroup()
     //                                                                       =============
-    public void test_listOfGroup_direct() {
+    public void test_listOfGroup() {
         // ## Arrange ##
         // ## Act ##
         List<CDef.MemberStatus> list = CDef.MemberStatus.listOfServiceAvailable();
@@ -98,7 +171,7 @@ public class WxCDefTest extends PlainTestCase {
         assertEquals("PRV", list.get(1).code());
     }
 
-    public void test_listOfGroup_meta() {
+    public void test_groupOf() {
         // ## Arrange ##
         // ## Act ##
         List<Classification> list = CDef.DefMeta.MemberStatus.groupOf("serviceAvailable");
@@ -125,6 +198,41 @@ public class WxCDefTest extends PlainTestCase {
         assertEquals(numberType, CDef.Flg.True.meta().codeType()); // as specified
         assertEquals(stringType, CDef.MemberStatus.Formalized.meta().codeType()); // as default
         assertEquals(TnValueTypes.CLASSIFICATION, TnValueTypes.getValueType(CDef.Flg.True));
+    }
+
+    // ===================================================================================
+    //                                                                           meta of()
+    //                                                                           =========
+    public void test_meta_of() {
+        assertEquals(CDef.MemberStatus.Formalized, CDef.DefMeta.MemberStatus.of("FML").get());
+        assertEquals(CDef.MemberStatus.Formalized, CDef.DefMeta.MemberStatus.of("fml").get());
+        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.of("none").get());
+        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.of("Formalized").get());
+    }
+
+    public void test_meta_byName() {
+        assertEquals(CDef.MemberStatus.Formalized, CDef.DefMeta.MemberStatus.byName("Formalized").get());
+        assertEquals(CDef.MemberStatus.Formalized, CDef.DefMeta.MemberStatus.byName("formaLized").get());
+        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.byName("none").get());
+        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.byName("FML").get());
+    }
+
+    // ===================================================================================
+    //                                                                         meta find()
+    //                                                                         ===========
+    public void test_meta_listOfGroup() {
+        assertEquals(Arrays.asList(CDef.MemberStatus.Formalized, CDef.MemberStatus.Provisional),
+                CDef.DefMeta.MemberStatus.listByGroup("serviceAvailable"));
+        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.listByGroup("none"));
+    }
+
+    // ===================================================================================
+    //                                                                         meta find()
+    //                                                                         ===========
+    public void test_meta_find() {
+        assertEquals(CDef.DefMeta.MemberStatus, CDef.DefMeta.find("MemberStatus").get());
+        assertEquals(CDef.DefMeta.MemberStatus, CDef.DefMeta.find("memBerStatus").get());
+        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.DefMeta.find("none").get());
     }
 
     // ===================================================================================

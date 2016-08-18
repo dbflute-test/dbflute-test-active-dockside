@@ -377,7 +377,7 @@ public abstract class BsServiceRank extends AbstractEntity implements DomainEnti
         _memberServiceList = memberServiceList;
     }
 
-    protected <ELEMENT> List<ELEMENT> newReferrerList() {
+    protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
 

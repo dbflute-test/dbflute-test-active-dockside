@@ -16,7 +16,7 @@
 		<dbflute.version>1.1.1</dbflute.version>
 		<h2.jdbc.version>1.4.190</h2.jdbc.version>
 		<spring.version>4.1.3.RELEASE</spring.version>
-		<utflute.version>0.6.0C</utflute.version>
+		<utflute.version>0.6.1A-RC5</utflute.version>
 	</properties>
 
 	<licenses>

@@ -200,7 +200,7 @@ public abstract class BsPrimaryKeyComment extends AbstractEntity implements Cust
         return innerDomain().getPurchaseList();
     }
 
-    protected <ELEMENT> List<ELEMENT> newReferrerList() {
+    protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
 

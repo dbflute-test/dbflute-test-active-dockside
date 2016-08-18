@@ -253,7 +253,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
         _memberWithdrawalList = memberWithdrawalList;
     }
 
-    protected <ELEMENT> List<ELEMENT> newReferrerList() {
+    protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
 

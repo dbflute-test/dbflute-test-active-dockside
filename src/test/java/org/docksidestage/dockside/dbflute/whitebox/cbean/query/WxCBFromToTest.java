@@ -161,24 +161,24 @@ public class WxCBFromToTest extends UnitContainerTestCase {
     }
 
     public void test_FromTo_compareAsWeek_beginWeek_moveToScope() throws Exception {
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/10/31"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/01"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/02"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/03"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/04"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/05"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/06"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/07"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/08"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/09"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/10"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/11"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/12"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/13"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/14"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/15"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/16"));
-        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toDate("2011/11/17"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/10/31"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/01"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/02"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/03"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/04"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/05"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/06"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/07"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/08"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/09"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/10"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/11"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/12"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/13"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/14"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/15"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/16"));
+        doTest_FromTo_compareAsWeek_beginWeek_moveToScope(toUtilDate("2011/11/17"));
     }
 
     protected void doTest_FromTo_compareAsWeek_beginWeek_moveToScope(Date targetDate) {

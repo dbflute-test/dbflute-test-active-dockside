@@ -365,7 +365,7 @@ public class WxCBDerivedReferrerQueryTest extends UnitContainerTestCase {
                     public void query(PurchaseCB subCB) {
                         subCB.specify().columnPurchaseDatetime();
                     }
-                }).fromTo(toDate(fromDate), toDate(toDate), op -> {});
+                }).fromTo(toUtilDate(fromDate), toUtilDate(toDate), op -> {});
                 pushCB(cb);
             }); // expects no exception
 

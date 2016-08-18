@@ -7,6 +7,7 @@ import org.dbflute.bhv.core.context.ConditionBeanContext;
 import org.dbflute.bhv.core.context.ContextStack;
 import org.dbflute.bhv.core.context.ResourceContext;
 import org.dbflute.bhv.readable.EntityRowHandler;
+import org.dbflute.cbean.ckey.ConditionKey;
 import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlResultHandler;
 import org.dbflute.hook.SqlResultInfo;
@@ -113,7 +114,7 @@ public class WxCBSelectCursorTest extends UnitContainerTestCase {
         assertFalse(ConditionBeanContext.isExistConditionBeanOnThread());
         assertFalse(OutsideSqlContext.isExistOutsideSqlContextOnThread());
         assertNotSame(0, memberStatusBhv.selectCount(statusCB -> {
-            statusCB.query().setMemberStatusCode_InScope(codeList);
+            statusCB.localCQ().invokeQuery("memberStatusCode", ConditionKey.CK_IN_SCOPE.getConditionKey(), codeList);
         }));
     }
 

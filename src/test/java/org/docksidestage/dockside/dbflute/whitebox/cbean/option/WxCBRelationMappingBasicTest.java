@@ -342,17 +342,17 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
     //                                                                         ===========
     public void test_performance_firstRelation() {
         // ## Arrange ##
-        long warmBefore = currentDate().getTime();
+        long warmBefore = currentUtilDate().getTime();
         purchaseBhv.selectList(cb -> {
             cb.setupSelect_Member();
             cb.setupSelect_Product();
             cb.setupSelect_SummaryProduct();
         }); // warming up
 
-        long warmAfter = currentDate().getTime();
+        long warmAfter = currentUtilDate().getTime();
 
         // ## Act ##
-        long actBefore = currentDate().getTime();
+        long actBefore = currentUtilDate().getTime();
         for (int i = 0; i < 100; i++) {
             purchaseBhv.selectList(cb -> {
                 cb.setupSelect_Member();
@@ -360,7 +360,7 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
                 cb.setupSelect_SummaryProduct();
             });
         }
-        long actAfter = currentDate().getTime();
+        long actAfter = currentUtilDate().getTime();
 
         // ## Assert ##
         String actCost = DfTraceViewUtil.convertToPerformanceView(actAfter - actBefore);
@@ -373,7 +373,7 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
 
     public void test_performance_onParadeRelation_basic() {
         // ## Arrange ##
-        long warmBefore = currentDate().getTime();
+        long warmBefore = currentUtilDate().getTime();
         purchaseBhv.selectList(cb -> {
             cb.setupSelect_Member().withMemberStatus();
             cb.setupSelect_Member().withMemberAddressAsValid(currentLocalDate());
@@ -386,10 +386,10 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
             cb.setupSelect_Product().withProductStatus();
         }); // warming up
 
-        long warmAfter = currentDate().getTime();
+        long warmAfter = currentUtilDate().getTime();
 
         // ## Act ##
-        long actBefore = currentDate().getTime();
+        long actBefore = currentUtilDate().getTime();
         for (int i = 0; i < 100; i++) {
             purchaseBhv.selectList(cb -> {
                 cb.setupSelect_Member().withMemberStatus();
@@ -403,7 +403,7 @@ public class WxCBRelationMappingBasicTest extends UnitContainerTestCase {
                 cb.setupSelect_Product().withProductStatus();
             });
         }
-        long actAfter = currentDate().getTime();
+        long actAfter = currentUtilDate().getTime();
 
         // ## Assert ##
         String actCost = DfTraceViewUtil.convertToPerformanceView(actAfter - actBefore);

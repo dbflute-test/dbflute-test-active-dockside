@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.dbflute.cbean.ckey.ConditionKey;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.result.PagingResultBean;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -108,7 +109,7 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertNotSame(0, memberStatusBhv.selectCount(cb -> {
-            cb.query().setMemberStatusCode_InScope(codeList);
+            cb.localCQ().invokeQuery("memberStatusCode", ConditionKey.CK_IN_SCOPE.getConditionKey(), codeList);
         }));
 
     }

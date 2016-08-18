@@ -362,7 +362,7 @@ public abstract class BsPurchase extends AbstractEntity implements DomainEntity,
         _purchasePaymentList = purchasePaymentList;
     }
 
-    protected <ELEMENT> List<ELEMENT> newReferrerList() {
+    protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
 

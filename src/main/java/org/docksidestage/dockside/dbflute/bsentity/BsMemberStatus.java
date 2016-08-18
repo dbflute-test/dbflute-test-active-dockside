@@ -282,7 +282,7 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
         _memberLoginList = memberLoginList;
     }
 
-    protected <ELEMENT> List<ELEMENT> newReferrerList() {
+    protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
 
