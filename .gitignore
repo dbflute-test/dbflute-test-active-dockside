@@ -1,5 +1,7 @@
 /target
 /bin
-/dbflute-intro.jar
-/.idea
 /*.iml
+/.idea
+.DS_Store
+/tomcat.*
+/dbflute-intro.jar
