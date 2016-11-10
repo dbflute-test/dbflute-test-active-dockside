@@ -42,13 +42,13 @@ public interface CDef extends Classification {
         /** Unchecked: means no */
         False("0", "Unchecked", new String[] {"false"})
         ;
-        private static final Map<String, Flg> _codeValueMap = new HashMap<String, Flg>();
-        private static final Map<String, Flg> _nameValueMap = new HashMap<String, Flg>();
+        private static final Map<String, Flg> _codeClsMap = new HashMap<String, Flg>();
+        private static final Map<String, Flg> _nameClsMap = new HashMap<String, Flg>();
         static {
             for (Flg value : values()) {
-                _codeValueMap.put(value.code().toLowerCase(), value);
-                for (String sister : value.sisterSet()) { _codeValueMap.put(sister.toLowerCase(), value); }
-                _nameValueMap.put(value.name().toLowerCase(), value);
+                _codeClsMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisterSet()) { _codeClsMap.put(sister.toLowerCase(), value); }
+                _nameClsMap.put(value.name().toLowerCase(), value);
             }
         }
         private String _code; private String _alias; private Set<String> _sisterSet;
@@ -72,7 +72,7 @@ public interface CDef extends Classification {
             if (code == null) { return OptionalThing.ofNullable(null, () -> { throw new ClassificationNotFoundException("null code specified"); }); }
             if (code instanceof Flg) { return OptionalThing.of((Flg)code); }
             if (code instanceof OptionalThing<?>) { return of(((OptionalThing<?>)code).orElse(null)); }
-            return OptionalThing.ofNullable(_codeValueMap.get(code.toString().toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_codeClsMap.get(code.toString().toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification code: " + code);
             });
         }
@@ -84,7 +84,7 @@ public interface CDef extends Classification {
          */
         public static OptionalThing<Flg> byName(String name) {
             if (name == null) { throw new IllegalArgumentException("The argument 'name' should not be null."); }
-            return OptionalThing.ofNullable(_nameValueMap.get(name.toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_nameClsMap.get(name.toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification name: " + name);
             });
         }
@@ -98,7 +98,7 @@ public interface CDef extends Classification {
         public static Flg codeOf(Object code) {
             if (code == null) { return null; }
             if (code instanceof Flg) { return (Flg)code; }
-            return _codeValueMap.get(code.toString().toLowerCase());
+            return _codeClsMap.get(code.toString().toLowerCase());
         }
 
         /**
@@ -167,13 +167,13 @@ public interface CDef extends Classification {
         /** Provisional: first status after entry, allowed to use only part of service */
         Provisional("PRV", "Provisional", EMPTY_SISTERS)
         ;
-        private static final Map<String, MemberStatus> _codeValueMap = new HashMap<String, MemberStatus>();
-        private static final Map<String, MemberStatus> _nameValueMap = new HashMap<String, MemberStatus>();
+        private static final Map<String, MemberStatus> _codeClsMap = new HashMap<String, MemberStatus>();
+        private static final Map<String, MemberStatus> _nameClsMap = new HashMap<String, MemberStatus>();
         static {
             for (MemberStatus value : values()) {
-                _codeValueMap.put(value.code().toLowerCase(), value);
-                for (String sister : value.sisterSet()) { _codeValueMap.put(sister.toLowerCase(), value); }
-                _nameValueMap.put(value.name().toLowerCase(), value);
+                _codeClsMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisterSet()) { _codeClsMap.put(sister.toLowerCase(), value); }
+                _nameClsMap.put(value.name().toLowerCase(), value);
             }
         }
         private String _code; private String _alias; private Set<String> _sisterSet;
@@ -219,7 +219,7 @@ public interface CDef extends Classification {
             if (code == null) { return OptionalThing.ofNullable(null, () -> { throw new ClassificationNotFoundException("null code specified"); }); }
             if (code instanceof MemberStatus) { return OptionalThing.of((MemberStatus)code); }
             if (code instanceof OptionalThing<?>) { return of(((OptionalThing<?>)code).orElse(null)); }
-            return OptionalThing.ofNullable(_codeValueMap.get(code.toString().toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_codeClsMap.get(code.toString().toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification code: " + code);
             });
         }
@@ -231,7 +231,7 @@ public interface CDef extends Classification {
          */
         public static OptionalThing<MemberStatus> byName(String name) {
             if (name == null) { throw new IllegalArgumentException("The argument 'name' should not be null."); }
-            return OptionalThing.ofNullable(_nameValueMap.get(name.toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_nameClsMap.get(name.toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification name: " + name);
             });
         }
@@ -245,7 +245,7 @@ public interface CDef extends Classification {
         public static MemberStatus codeOf(Object code) {
             if (code == null) { return null; }
             if (code instanceof MemberStatus) { return (MemberStatus)code; }
-            return _codeValueMap.get(code.toString().toLowerCase());
+            return _codeClsMap.get(code.toString().toLowerCase());
         }
 
         /**
@@ -344,13 +344,13 @@ public interface CDef extends Classification {
         /** PLASTIC: plastic rank */
         Plastic("PLS", "PLASTIC", EMPTY_SISTERS)
         ;
-        private static final Map<String, ServiceRank> _codeValueMap = new HashMap<String, ServiceRank>();
-        private static final Map<String, ServiceRank> _nameValueMap = new HashMap<String, ServiceRank>();
+        private static final Map<String, ServiceRank> _codeClsMap = new HashMap<String, ServiceRank>();
+        private static final Map<String, ServiceRank> _nameClsMap = new HashMap<String, ServiceRank>();
         static {
             for (ServiceRank value : values()) {
-                _codeValueMap.put(value.code().toLowerCase(), value);
-                for (String sister : value.sisterSet()) { _codeValueMap.put(sister.toLowerCase(), value); }
-                _nameValueMap.put(value.name().toLowerCase(), value);
+                _codeClsMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisterSet()) { _codeClsMap.put(sister.toLowerCase(), value); }
+                _nameClsMap.put(value.name().toLowerCase(), value);
             }
         }
         private String _code; private String _alias; private Set<String> _sisterSet;
@@ -374,7 +374,7 @@ public interface CDef extends Classification {
             if (code == null) { return OptionalThing.ofNullable(null, () -> { throw new ClassificationNotFoundException("null code specified"); }); }
             if (code instanceof ServiceRank) { return OptionalThing.of((ServiceRank)code); }
             if (code instanceof OptionalThing<?>) { return of(((OptionalThing<?>)code).orElse(null)); }
-            return OptionalThing.ofNullable(_codeValueMap.get(code.toString().toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_codeClsMap.get(code.toString().toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification code: " + code);
             });
         }
@@ -386,7 +386,7 @@ public interface CDef extends Classification {
          */
         public static OptionalThing<ServiceRank> byName(String name) {
             if (name == null) { throw new IllegalArgumentException("The argument 'name' should not be null."); }
-            return OptionalThing.ofNullable(_nameValueMap.get(name.toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_nameClsMap.get(name.toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification name: " + name);
             });
         }
@@ -400,7 +400,7 @@ public interface CDef extends Classification {
         public static ServiceRank codeOf(Object code) {
             if (code == null) { return null; }
             if (code instanceof ServiceRank) { return (ServiceRank)code; }
-            return _codeValueMap.get(code.toString().toLowerCase());
+            return _codeClsMap.get(code.toString().toLowerCase());
         }
 
         /**
@@ -472,13 +472,13 @@ public interface CDef extends Classification {
         /** CHIBA */
         Chiba("4", "CHIBA", EMPTY_SISTERS)
         ;
-        private static final Map<String, Region> _codeValueMap = new HashMap<String, Region>();
-        private static final Map<String, Region> _nameValueMap = new HashMap<String, Region>();
+        private static final Map<String, Region> _codeClsMap = new HashMap<String, Region>();
+        private static final Map<String, Region> _nameClsMap = new HashMap<String, Region>();
         static {
             for (Region value : values()) {
-                _codeValueMap.put(value.code().toLowerCase(), value);
-                for (String sister : value.sisterSet()) { _codeValueMap.put(sister.toLowerCase(), value); }
-                _nameValueMap.put(value.name().toLowerCase(), value);
+                _codeClsMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisterSet()) { _codeClsMap.put(sister.toLowerCase(), value); }
+                _nameClsMap.put(value.name().toLowerCase(), value);
             }
         }
         private String _code; private String _alias; private Set<String> _sisterSet;
@@ -502,7 +502,7 @@ public interface CDef extends Classification {
             if (code == null) { return OptionalThing.ofNullable(null, () -> { throw new ClassificationNotFoundException("null code specified"); }); }
             if (code instanceof Region) { return OptionalThing.of((Region)code); }
             if (code instanceof OptionalThing<?>) { return of(((OptionalThing<?>)code).orElse(null)); }
-            return OptionalThing.ofNullable(_codeValueMap.get(code.toString().toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_codeClsMap.get(code.toString().toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification code: " + code);
             });
         }
@@ -514,7 +514,7 @@ public interface CDef extends Classification {
          */
         public static OptionalThing<Region> byName(String name) {
             if (name == null) { throw new IllegalArgumentException("The argument 'name' should not be null."); }
-            return OptionalThing.ofNullable(_nameValueMap.get(name.toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_nameClsMap.get(name.toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification name: " + name);
             });
         }
@@ -528,7 +528,7 @@ public interface CDef extends Classification {
         public static Region codeOf(Object code) {
             if (code == null) { return null; }
             if (code instanceof Region) { return (Region)code; }
-            return _codeValueMap.get(code.toString().toLowerCase());
+            return _codeClsMap.get(code.toString().toLowerCase());
         }
 
         /**
@@ -600,13 +600,13 @@ public interface CDef extends Classification {
         /** OTH: その他理由 */
         Oth("OTH", "OTH", EMPTY_SISTERS)
         ;
-        private static final Map<String, WithdrawalReason> _codeValueMap = new HashMap<String, WithdrawalReason>();
-        private static final Map<String, WithdrawalReason> _nameValueMap = new HashMap<String, WithdrawalReason>();
+        private static final Map<String, WithdrawalReason> _codeClsMap = new HashMap<String, WithdrawalReason>();
+        private static final Map<String, WithdrawalReason> _nameClsMap = new HashMap<String, WithdrawalReason>();
         static {
             for (WithdrawalReason value : values()) {
-                _codeValueMap.put(value.code().toLowerCase(), value);
-                for (String sister : value.sisterSet()) { _codeValueMap.put(sister.toLowerCase(), value); }
-                _nameValueMap.put(value.name().toLowerCase(), value);
+                _codeClsMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisterSet()) { _codeClsMap.put(sister.toLowerCase(), value); }
+                _nameClsMap.put(value.name().toLowerCase(), value);
             }
         }
         private String _code; private String _alias; private Set<String> _sisterSet;
@@ -630,7 +630,7 @@ public interface CDef extends Classification {
             if (code == null) { return OptionalThing.ofNullable(null, () -> { throw new ClassificationNotFoundException("null code specified"); }); }
             if (code instanceof WithdrawalReason) { return OptionalThing.of((WithdrawalReason)code); }
             if (code instanceof OptionalThing<?>) { return of(((OptionalThing<?>)code).orElse(null)); }
-            return OptionalThing.ofNullable(_codeValueMap.get(code.toString().toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_codeClsMap.get(code.toString().toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification code: " + code);
             });
         }
@@ -642,7 +642,7 @@ public interface CDef extends Classification {
          */
         public static OptionalThing<WithdrawalReason> byName(String name) {
             if (name == null) { throw new IllegalArgumentException("The argument 'name' should not be null."); }
-            return OptionalThing.ofNullable(_nameValueMap.get(name.toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_nameClsMap.get(name.toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification name: " + name);
             });
         }
@@ -656,7 +656,7 @@ public interface CDef extends Classification {
         public static WithdrawalReason codeOf(Object code) {
             if (code == null) { return null; }
             if (code instanceof WithdrawalReason) { return (WithdrawalReason)code; }
-            return _codeValueMap.get(code.toString().toLowerCase());
+            return _codeClsMap.get(code.toString().toLowerCase());
         }
 
         /**
@@ -731,13 +731,13 @@ public interface CDef extends Classification {
         /** 楽器: of 音楽 */
         楽器("INS", "楽器", EMPTY_SISTERS)
         ;
-        private static final Map<String, ProductCategory> _codeValueMap = new HashMap<String, ProductCategory>();
-        private static final Map<String, ProductCategory> _nameValueMap = new HashMap<String, ProductCategory>();
+        private static final Map<String, ProductCategory> _codeClsMap = new HashMap<String, ProductCategory>();
+        private static final Map<String, ProductCategory> _nameClsMap = new HashMap<String, ProductCategory>();
         static {
             for (ProductCategory value : values()) {
-                _codeValueMap.put(value.code().toLowerCase(), value);
-                for (String sister : value.sisterSet()) { _codeValueMap.put(sister.toLowerCase(), value); }
-                _nameValueMap.put(value.name().toLowerCase(), value);
+                _codeClsMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisterSet()) { _codeClsMap.put(sister.toLowerCase(), value); }
+                _nameClsMap.put(value.name().toLowerCase(), value);
             }
         }
         private String _code; private String _alias; private Set<String> _sisterSet;
@@ -761,7 +761,7 @@ public interface CDef extends Classification {
             if (code == null) { return OptionalThing.ofNullable(null, () -> { throw new ClassificationNotFoundException("null code specified"); }); }
             if (code instanceof ProductCategory) { return OptionalThing.of((ProductCategory)code); }
             if (code instanceof OptionalThing<?>) { return of(((OptionalThing<?>)code).orElse(null)); }
-            return OptionalThing.ofNullable(_codeValueMap.get(code.toString().toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_codeClsMap.get(code.toString().toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification code: " + code);
             });
         }
@@ -773,7 +773,7 @@ public interface CDef extends Classification {
          */
         public static OptionalThing<ProductCategory> byName(String name) {
             if (name == null) { throw new IllegalArgumentException("The argument 'name' should not be null."); }
-            return OptionalThing.ofNullable(_nameValueMap.get(name.toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_nameClsMap.get(name.toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification name: " + name);
             });
         }
@@ -787,7 +787,7 @@ public interface CDef extends Classification {
         public static ProductCategory codeOf(Object code) {
             if (code == null) { return null; }
             if (code instanceof ProductCategory) { return (ProductCategory)code; }
-            return _codeValueMap.get(code.toString().toLowerCase());
+            return _codeClsMap.get(code.toString().toLowerCase());
         }
 
         /**
@@ -856,13 +856,13 @@ public interface CDef extends Classification {
         /** 販売中止 */
         販売中止("SST", "販売中止", EMPTY_SISTERS)
         ;
-        private static final Map<String, ProductStatus> _codeValueMap = new HashMap<String, ProductStatus>();
-        private static final Map<String, ProductStatus> _nameValueMap = new HashMap<String, ProductStatus>();
+        private static final Map<String, ProductStatus> _codeClsMap = new HashMap<String, ProductStatus>();
+        private static final Map<String, ProductStatus> _nameClsMap = new HashMap<String, ProductStatus>();
         static {
             for (ProductStatus value : values()) {
-                _codeValueMap.put(value.code().toLowerCase(), value);
-                for (String sister : value.sisterSet()) { _codeValueMap.put(sister.toLowerCase(), value); }
-                _nameValueMap.put(value.name().toLowerCase(), value);
+                _codeClsMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisterSet()) { _codeClsMap.put(sister.toLowerCase(), value); }
+                _nameClsMap.put(value.name().toLowerCase(), value);
             }
         }
         private String _code; private String _alias; private Set<String> _sisterSet;
@@ -886,7 +886,7 @@ public interface CDef extends Classification {
             if (code == null) { return OptionalThing.ofNullable(null, () -> { throw new ClassificationNotFoundException("null code specified"); }); }
             if (code instanceof ProductStatus) { return OptionalThing.of((ProductStatus)code); }
             if (code instanceof OptionalThing<?>) { return of(((OptionalThing<?>)code).orElse(null)); }
-            return OptionalThing.ofNullable(_codeValueMap.get(code.toString().toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_codeClsMap.get(code.toString().toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification code: " + code);
             });
         }
@@ -898,7 +898,7 @@ public interface CDef extends Classification {
          */
         public static OptionalThing<ProductStatus> byName(String name) {
             if (name == null) { throw new IllegalArgumentException("The argument 'name' should not be null."); }
-            return OptionalThing.ofNullable(_nameValueMap.get(name.toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_nameClsMap.get(name.toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification name: " + name);
             });
         }
@@ -912,7 +912,7 @@ public interface CDef extends Classification {
         public static ProductStatus codeOf(Object code) {
             if (code == null) { return null; }
             if (code instanceof ProductStatus) { return (ProductStatus)code; }
-            return _codeValueMap.get(code.toString().toLowerCase());
+            return _codeClsMap.get(code.toString().toLowerCase());
         }
 
         /**
@@ -981,13 +981,13 @@ public interface CDef extends Classification {
         /** credit card: credit card payment */
         CreditCard("CRC", "credit card", EMPTY_SISTERS)
         ;
-        private static final Map<String, PaymentMethod> _codeValueMap = new HashMap<String, PaymentMethod>();
-        private static final Map<String, PaymentMethod> _nameValueMap = new HashMap<String, PaymentMethod>();
+        private static final Map<String, PaymentMethod> _codeClsMap = new HashMap<String, PaymentMethod>();
+        private static final Map<String, PaymentMethod> _nameClsMap = new HashMap<String, PaymentMethod>();
         static {
             for (PaymentMethod value : values()) {
-                _codeValueMap.put(value.code().toLowerCase(), value);
-                for (String sister : value.sisterSet()) { _codeValueMap.put(sister.toLowerCase(), value); }
-                _nameValueMap.put(value.name().toLowerCase(), value);
+                _codeClsMap.put(value.code().toLowerCase(), value);
+                for (String sister : value.sisterSet()) { _codeClsMap.put(sister.toLowerCase(), value); }
+                _nameClsMap.put(value.name().toLowerCase(), value);
             }
         }
         private String _code; private String _alias; private Set<String> _sisterSet;
@@ -1022,7 +1022,7 @@ public interface CDef extends Classification {
             if (code == null) { return OptionalThing.ofNullable(null, () -> { throw new ClassificationNotFoundException("null code specified"); }); }
             if (code instanceof PaymentMethod) { return OptionalThing.of((PaymentMethod)code); }
             if (code instanceof OptionalThing<?>) { return of(((OptionalThing<?>)code).orElse(null)); }
-            return OptionalThing.ofNullable(_codeValueMap.get(code.toString().toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_codeClsMap.get(code.toString().toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification code: " + code);
             });
         }
@@ -1034,7 +1034,7 @@ public interface CDef extends Classification {
          */
         public static OptionalThing<PaymentMethod> byName(String name) {
             if (name == null) { throw new IllegalArgumentException("The argument 'name' should not be null."); }
-            return OptionalThing.ofNullable(_nameValueMap.get(name.toLowerCase()), () ->{
+            return OptionalThing.ofNullable(_nameClsMap.get(name.toLowerCase()), () ->{
                 throw new ClassificationNotFoundException("Unknown classification name: " + name);
             });
         }
@@ -1048,7 +1048,7 @@ public interface CDef extends Classification {
         public static PaymentMethod codeOf(Object code) {
             if (code == null) { return null; }
             if (code instanceof PaymentMethod) { return (PaymentMethod)code; }
-            return _codeValueMap.get(code.toString().toLowerCase());
+            return _codeClsMap.get(code.toString().toLowerCase());
         }
 
         /**
