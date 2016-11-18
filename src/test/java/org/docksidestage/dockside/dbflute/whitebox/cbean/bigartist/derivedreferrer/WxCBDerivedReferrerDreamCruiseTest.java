@@ -11,7 +11,7 @@ import org.dbflute.exception.SQLFailureException;
 import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlLogHandler;
 import org.dbflute.hook.SqlLogInfo;
-import org.dbflute.utflute.core.smallhelper.ExceptionExaminer;
+import org.dbflute.utflute.core.exception.ExceptionExaminer;
 import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
