@@ -3,7 +3,7 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.scalarcondit
 import org.dbflute.cbean.scoping.SubQuery;
 import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.exception.SQLFailureException;
-import org.dbflute.utflute.core.smallhelper.ExceptionExaminer;
+import org.dbflute.utflute.core.exception.ExceptionExaminer;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
