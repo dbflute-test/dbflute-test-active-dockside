@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.dbflute.Entity;
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
-import org.dbflute.cbean.scoping.SubQuery;
 import org.docksidestage.dockside.dbflute.bsentity.customize.dbmeta.SimpleVendorCheckDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.cbean.MemberAddressCB;
@@ -18,7 +17,6 @@ import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberLogin;
-import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
 import org.docksidestage.dockside.dbflute.exentity.Product;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.dbflute.exentity.VendorCheck;
@@ -770,55 +768,6 @@ public class WxEntityBasicTest extends UnitContainerTestCase {
         assertFalse(nameRelation.contains(member.getMemberName()));
         assertTrue(nameRelation.contains(memberStatusName));
         assertFalse(nameRelation.contains(memberAddressName));
-    }
-
-    // ===================================================================================
-    //                                                                             clone()
-    //                                                                             =======
-    public void test_clone_basic() throws Exception {
-        // ## Arrange ##
-        Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
-            cb.setupSelect_MemberStatus();
-            cb.query().existsPurchase(new SubQuery<PurchaseCB>() {
-                public void query(PurchaseCB subCB) {
-                }
-            });
-            cb.fetchFirst(1);
-        });
-
-        memberBhv.loadPurchase(member, new ConditionBeanSetupper<PurchaseCB>() {
-            public void setup(PurchaseCB cb) {
-                cb.setupSelect_Product();
-            }
-        });
-
-        // ## Act ##
-        Member clone = member.clone();
-
-        // ## Assert ##
-        MemberStatus cloneStatus = clone.getMemberStatus().get();
-        MemberStatus memberStatus = member.getMemberStatus().get();
-        assertNotNull(member);
-        assertFalse(clone.getMemberSecurityAsOne().isPresent());
-        cloneStatus.setDescription("clone-test");
-        assertEquals("clone-test", cloneStatus.getDescription());
-        assertEquals("clone-test", memberStatus.getDescription()); // shallow
-
-        clone.getPurchaseList().get(0).setPurchasePrice(99999999);
-        assertEquals(99999999, clone.getPurchaseList().get(0).getPurchasePrice());
-        assertEquals(99999999, member.getPurchaseList().get(0).getPurchasePrice()); // shallow
-
-        assertEquals(member.mymodifiedProperties().size(), clone.mymodifiedProperties().size());
-        assertFalse(clone.mymodifiedProperties().contains("memberName"));
-        clone.setMemberName("test");
-        assertTrue(clone.mymodifiedProperties().contains("memberName"));
-        assertEquals(member.mymodifiedProperties().size(), clone.mymodifiedProperties().size()); // shallow
-
-        assertEquals(memberStatus.mymodifiedProperties().size(), cloneStatus.mymodifiedProperties().size());
-        assertFalse(cloneStatus.mymodifiedProperties().contains("memberName"));
-        cloneStatus.setMemberStatusName("test");
-        assertTrue(cloneStatus.mymodifiedProperties().contains("memberStatusName"));
-        assertEquals(memberStatus.mymodifiedProperties().size(), cloneStatus.mymodifiedProperties().size()); // shallow
     }
 
     // ===================================================================================

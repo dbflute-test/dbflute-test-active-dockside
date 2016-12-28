@@ -15,6 +15,9 @@
 ##
 ${database.allClassCopyright}package ${glPackageBaseCommon};
 
+#if ($database.hasDBFluteSystemFinalTimeZone())
+import java.util.TimeZone;
+#end
 #if ($database.isTargetContainerSeasar())
 import org.dbflute.bhv.core.context.ConditionBeanContext;
 #end

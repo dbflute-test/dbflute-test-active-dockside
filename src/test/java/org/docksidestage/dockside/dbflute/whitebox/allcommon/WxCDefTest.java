@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.dbflute.exception.ClassificationNotFoundException;
 import org.dbflute.jdbc.Classification;
 import org.dbflute.jdbc.ClassificationCodeType;
 import org.dbflute.s2dao.valuetype.TnValueTypes;
@@ -33,8 +34,8 @@ public class WxCDefTest extends PlainTestCase {
         assertEquals(CDef.Flg.True, CDef.Flg.of("1").get()); // non sister code
         assertEquals(CDef.Flg.True, CDef.Flg.of("true").get()); // sister code
         assertFalse(CDef.MemberStatus.of("none").isPresent());
-        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.MemberStatus.of("none").get());
-        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.MemberStatus.of("Formalized").get());
+        assertException(ClassificationNotFoundException.class, () -> CDef.MemberStatus.of("none").get());
+        assertException(ClassificationNotFoundException.class, () -> CDef.MemberStatus.of("Formalized").get());
     }
 
     // ===================================================================================
@@ -46,8 +47,8 @@ public class WxCDefTest extends PlainTestCase {
         assertEquals(CDef.MemberStatus.Provisional, CDef.MemberStatus.byName("Provisional").get());
         assertEquals(CDef.MemberStatus.Provisional, CDef.MemberStatus.byName("proviSional").get());
         assertFalse(CDef.Flg.byName("none").isPresent());
-        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.MemberStatus.byName("none").get());
-        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.MemberStatus.byName("FML").get());
+        assertException(ClassificationNotFoundException.class, () -> CDef.MemberStatus.byName("none").get());
+        assertException(ClassificationNotFoundException.class, () -> CDef.MemberStatus.byName("FML").get());
     }
 
     // ===================================================================================
@@ -139,7 +140,7 @@ public class WxCDefTest extends PlainTestCase {
     public void test_listOfCodeList() {
         // ## Arrange ##
         // ## Act ##
-        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.MemberStatus.listOf(Arrays.asList("none")));
+        assertException(ClassificationNotFoundException.class, () -> CDef.MemberStatus.listOf(Arrays.asList("none")));
         assertEquals(Collections.emptyList(), CDef.MemberStatus.listOf(Collections.emptyList()));
         List<CDef.MemberStatus> list = CDef.MemberStatus.listOf(Arrays.asList("FML", "WDL"));
 
@@ -206,15 +207,15 @@ public class WxCDefTest extends PlainTestCase {
     public void test_meta_of() {
         assertEquals(CDef.MemberStatus.Formalized, CDef.DefMeta.MemberStatus.of("FML").get());
         assertEquals(CDef.MemberStatus.Formalized, CDef.DefMeta.MemberStatus.of("fml").get());
-        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.of("none").get());
-        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.of("Formalized").get());
+        assertException(ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.of("none").get());
+        assertException(ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.of("Formalized").get());
     }
 
     public void test_meta_byName() {
         assertEquals(CDef.MemberStatus.Formalized, CDef.DefMeta.MemberStatus.byName("Formalized").get());
         assertEquals(CDef.MemberStatus.Formalized, CDef.DefMeta.MemberStatus.byName("formaLized").get());
-        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.byName("none").get());
-        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.byName("FML").get());
+        assertException(ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.byName("none").get());
+        assertException(ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.byName("FML").get());
     }
 
     // ===================================================================================
@@ -223,7 +224,7 @@ public class WxCDefTest extends PlainTestCase {
     public void test_meta_listOfGroup() {
         assertEquals(Arrays.asList(CDef.MemberStatus.Formalized, CDef.MemberStatus.Provisional),
                 CDef.DefMeta.MemberStatus.listByGroup("serviceAvailable"));
-        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.listByGroup("none"));
+        assertException(ClassificationNotFoundException.class, () -> CDef.DefMeta.MemberStatus.listByGroup("none"));
     }
 
     // ===================================================================================
@@ -232,7 +233,7 @@ public class WxCDefTest extends PlainTestCase {
     public void test_meta_find() {
         assertEquals(CDef.DefMeta.MemberStatus, CDef.DefMeta.find("MemberStatus").get());
         assertEquals(CDef.DefMeta.MemberStatus, CDef.DefMeta.find("memBerStatus").get());
-        assertException(CDef.ClassificationNotFoundException.class, () -> CDef.DefMeta.find("none").get());
+        assertException(ClassificationNotFoundException.class, () -> CDef.DefMeta.find("none").get());
     }
 
     // ===================================================================================

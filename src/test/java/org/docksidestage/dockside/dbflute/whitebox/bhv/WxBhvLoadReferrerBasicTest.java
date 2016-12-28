@@ -6,6 +6,9 @@ import java.util.List;
 import org.dbflute.bhv.referrer.ConditionBeanSetupper;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.UnionQuery;
+import org.dbflute.hook.CallbackContext;
+import org.dbflute.hook.SqlLogHandler;
+import org.dbflute.hook.SqlLogInfo;
 import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
 import org.docksidestage.dockside.dbflute.cbean.PurchaseCB;
@@ -94,12 +97,24 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
             pushCB(cb);
         }).alwaysPresent(member -> {
             /* ## Act ## */
-            memberBhv.loadPurchase(member, new ConditionBeanSetupper<PurchaseCB>() {
-                public void setup(PurchaseCB cb) {
-                    cb.query().setPurchaseCount_GreaterEqual(2);
-                    cb.query().addOrderBy_PurchaseCount_Desc();
+            CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+                public void handle(SqlLogInfo info) {
+                    String displaySql = info.getDisplaySql();
+                    assertContains(displaySql, "= 3");
+                    assertNotContains(displaySql, "in (3)");
+                    markHere("called");
                 }
             });
+            try {
+                memberBhv.loadPurchase(member, new ConditionBeanSetupper<PurchaseCB>() {
+                    public void setup(PurchaseCB cb) {
+                        cb.query().setPurchaseCount_GreaterEqual(2);
+                        cb.query().addOrderBy_PurchaseCount_Desc();
+                    }
+                });
+            } finally {
+                CallbackContext.clearSqlLogHandlerOnThread();
+            }
 
             /* ## Assert ## */
             log("[MEMBER]: " + member.getMemberName());
@@ -108,6 +123,7 @@ public class WxBhvLoadReferrerBasicTest extends UnitContainerTestCase {
             for (Purchase purchase : purchaseList) {
                 log("    [PURCHASE]: " + purchase.toString());
             }
+            assertMarked("called");
         });
     }
 
