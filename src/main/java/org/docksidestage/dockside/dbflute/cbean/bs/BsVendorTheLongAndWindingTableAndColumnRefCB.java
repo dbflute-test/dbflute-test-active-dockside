@@ -58,6 +58,9 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
         if (DBFluteConfig.getInstance().isNonSpecifiedColumnAccessAllowed()) {
             enableNonSpecifiedColumnAccess();
         }
+        if (DBFluteConfig.getInstance().isSpecifyColumnRequired()) {
+            enableSpecifyColumnRequired();
+        }
         if (DBFluteConfig.getInstance().isQueryUpdateCountPreCheck()) {
             enableQueryUpdateCountPreCheck();
         }
