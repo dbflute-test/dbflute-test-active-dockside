@@ -62,8 +62,7 @@ public class MemberLoginDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((MemberLogin)et).getMemberId(), (et, vl) -> ((MemberLogin)et).setMemberId(cti(vl)), "memberId");
         setupEpg(_epgMap, et -> ((MemberLogin)et).getLoginDatetime(), (et, vl) -> ((MemberLogin)et).setLoginDatetime(ctldt(vl)), "loginDatetime");
         setupEpg(_epgMap, et -> ((MemberLogin)et).getMobileLoginFlg(), (et, vl) -> {
-            ColumnInfo col = columnMobileLoginFlg();
-            CDef.Flg cls = (CDef.Flg)gcls(et, col, vl);
+            CDef.Flg cls = (CDef.Flg)gcls(et, columnMobileLoginFlg(), vl);
             if (cls != null) {
                 ((MemberLogin)et).setMobileLoginFlgAsFlg(cls);
             } else {
@@ -71,8 +70,7 @@ public class MemberLoginDbm extends AbstractDBMeta {
             }
         }, "mobileLoginFlg");
         setupEpg(_epgMap, et -> ((MemberLogin)et).getLoginMemberStatusCode(), (et, vl) -> {
-            ColumnInfo col = columnLoginMemberStatusCode();
-            CDef.MemberStatus cls = (CDef.MemberStatus)gcls(et, col, vl);
+            CDef.MemberStatus cls = (CDef.MemberStatus)gcls(et, columnLoginMemberStatusCode(), vl);
             if (cls != null) {
                 ((MemberLogin)et).setLoginMemberStatusCodeAsMemberStatus(cls);
             } else {
@@ -114,7 +112,7 @@ public class MemberLoginDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6E39632C_8C74_40AA_8290_8D18C6ED3B3D", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMemberLoginId = cci("MEMBER_LOGIN_ID", "MEMBER_LOGIN_ID", null, "会員ログインID", Long.class, "memberLoginId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_BD038A73_B8F4_46EA_A2D8_42617714DE5A", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "member", null, null, false);
     protected final ColumnInfo _columnLoginDatetime = cci("LOGIN_DATETIME", "LOGIN_DATETIME", null, "ログイン日時", java.time.LocalDateTime.class, "loginDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMobileLoginFlg = cci("MOBILE_LOGIN_FLG", "MOBILE_LOGIN_FLG", null, "モバイルログインフラグ", Integer.class, "mobileLoginFlg", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, CDef.DefMeta.Flg, false);

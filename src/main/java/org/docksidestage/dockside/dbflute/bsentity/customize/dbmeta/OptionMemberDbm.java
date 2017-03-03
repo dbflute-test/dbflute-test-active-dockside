@@ -62,8 +62,7 @@ public class OptionMemberDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((OptionMember)et).getBirthdate(), (et, vl) -> ((OptionMember)et).setBirthdate(ctld(vl)), "birthdate");
         setupEpg(_epgMap, et -> ((OptionMember)et).getFormalizedDatetime(), (et, vl) -> ((OptionMember)et).setFormalizedDatetime(ctldt(vl)), "formalizedDatetime");
         setupEpg(_epgMap, et -> ((OptionMember)et).getMemberStatusCode(), (et, vl) -> {
-            ColumnInfo col = columnMemberStatusCode();
-            CDef.MemberStatus cls = (CDef.MemberStatus)gcls(et, col, vl);
+            CDef.MemberStatus cls = (CDef.MemberStatus)gcls(et, columnMemberStatusCode(), vl);
             if (cls != null) {
                 ((OptionMember)et).setMemberStatusCodeAsMemberStatus(cls);
             } else {
@@ -73,8 +72,7 @@ public class OptionMemberDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((OptionMember)et).getMemberStatusName(), (et, vl) -> ((OptionMember)et).setMemberStatusName((String)vl), "memberStatusName");
         setupEpg(_epgMap, et -> ((OptionMember)et).getStatusDisplayOrder(), (et, vl) -> ((OptionMember)et).setStatusDisplayOrder(cti(vl)), "statusDisplayOrder");
         setupEpg(_epgMap, et -> ((OptionMember)et).getDummyFlg(), (et, vl) -> {
-            ColumnInfo col = columnDummyFlg();
-            CDef.Flg cls = (CDef.Flg)gcls(et, col, vl);
+            CDef.Flg cls = (CDef.Flg)gcls(et, columnDummyFlg(), vl);
             if (cls != null) {
                 ((OptionMember)et).setDummyFlgAsFlg(cls);
             } else {

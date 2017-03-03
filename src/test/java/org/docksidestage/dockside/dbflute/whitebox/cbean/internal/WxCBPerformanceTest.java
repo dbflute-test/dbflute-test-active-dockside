@@ -33,10 +33,10 @@ public class WxCBPerformanceTest extends UnitContainerTestCase {
 
     protected void clearSqlResultHandler() {
         CallbackContext.clearSqlResultHandlerOnThread();
-        assertFalse(CallbackContext.isExistCallbackContextOnThread());
         assertFalse(CallbackContext.isExistBehaviorCommandHookOnThread());
         assertFalse(CallbackContext.isExistSqlLogHandlerOnThread());
         assertFalse(CallbackContext.isExistSqlResultHandlerOnThread());
+        assertFalse(CallbackContext.isExistCallbackContextOnThread());
     }
 
     // ===================================================================================

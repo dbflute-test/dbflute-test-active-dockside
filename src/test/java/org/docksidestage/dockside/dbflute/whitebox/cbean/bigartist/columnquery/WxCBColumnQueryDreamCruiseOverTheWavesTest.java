@@ -257,28 +257,12 @@ public class WxCBColumnQueryDreamCruiseOverTheWavesTest extends UnitContainerTes
         ListResultBean<MemberAddress> addressList = memberAddressBhv.selectList(cb -> {
             /* ## Act ## */
             final MemberAddressCB dreamCruiseCB = cb.dreamCruiseCB();
-            cb.query().myselfExists(new SubQuery<MemberAddressCB>() {
-                public void query(MemberAddressCB subCB) {
-                    subCB.specify().columnMemberId();
-                    subCB.columnQuery(new SpecifyQuery<MemberAddressCB>() {
-                        public void specify(MemberAddressCB cb) {
-                            cb.specify().columnValidBeginDate();
-                        }
-                    }).greaterThan(new SpecifyQuery<MemberAddressCB>() {
-                        public void specify(MemberAddressCB cb) {
-                            cb.overTheWaves(dreamCruiseCB.specify().columnValidBeginDate());
-                        }
-                    });
-                    subCB.columnQuery(new SpecifyQuery<MemberAddressCB>() {
-                        public void specify(MemberAddressCB cb) {
-                            cb.specify().columnValidBeginDate();
-                        }
-                    }).lessThan(new SpecifyQuery<MemberAddressCB>() {
-                        public void specify(MemberAddressCB cb) {
-                            cb.overTheWaves(dreamCruiseCB.specify().columnValidEndDate());
-                        }
-                    });
-                }
+            cb.query().myselfExists(addressCB -> {
+                addressCB.specify().columnMemberId();
+                addressCB.columnQuery(colCB -> colCB.specify().columnValidBeginDate())
+                        .greaterThan(colCB -> colCB.overTheWaves(dreamCruiseCB.specify().columnValidBeginDate()));
+                addressCB.columnQuery(colCB -> colCB.specify().columnValidBeginDate())
+                        .lessThan(colCB -> colCB.overTheWaves(dreamCruiseCB.specify().columnValidEndDate()));
             });
             pushCB(cb);
         });
