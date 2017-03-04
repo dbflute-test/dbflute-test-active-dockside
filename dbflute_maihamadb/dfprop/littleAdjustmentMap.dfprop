@@ -12,6 +12,7 @@
 # o isTableDispNameUpperCase: (NotRequired - Default false)
 # o isTableSqlNameUpperCase: (NotRequired - Default false)
 # o isColumnSqlNameUpperCase: (NotRequired - Default false)
+# o isSpecifyColumnRequired: (NotRequired - Default false)
 # o extendedDBFluteInitializerClass: (NotRequired - Default null)
 # o shortCharHandlingMode: (NotRequired - Default NONE)
 # o quoteTableNameList: (NotRequired - Default list:{})
@@ -155,27 +156,11 @@ map:{
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isMakeDeprecated: (NotRequired - Default false)
+    # o isSpecifyColumnRequired: (NotRequired - Default false)
     #   [true]
-    #     Make deprecated method and class and so on...
-    #     *You should specify this property 'false'!
+    #     SpecifyColumn of ConditionBean is required. (exception if no specified columns)
     #
-    #   [false]
-    #     Non.
-    #
-    #; isMakeDeprecated = false
-    # - - - - - - - - - -/
-
-    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isMakeRecentlyDeprecated: (NotRequired - Default true)
-    #   [true]
-    #     Make RECENTLY deprecated method and class and so on...
-    #     *You should specify this property 'false'!
-    #
-    #   [false]
-    #     Non.
-    #
-    #; isMakeRecentlyDeprecated = true
+    #; isSpecifyColumnRequired = false
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -187,39 +172,6 @@ map:{
     #
     # @JavaOnly
     #; extendedDBFluteInitializerClass = com.example.ExtendedDBFluteInitializer
-    # - - - - - - - - - -/
-
-    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o extendedImplementedInvokerAssistantClass: (NotRequired - Default '')
-    #  If you want to extend the embedded invoker assistant,
-    #  specify the class name of your original invoker assistant
-    #  that extends the embedded one.
-    #  *Basically you SHOULD NOT specify this property!
-    #
-    # @JavaOnly
-    #; extendedImplementedInvokerAssistantClass = com.example.ExtendedImplementedInvokerAssistant
-    # - - - - - - - - - -/
-
-    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o extendedImplementedCommonColumnAutoSetupperClass: (NotRequired - Default '')
-    #  If you want to extend the embedded common column auto setupper,
-    #  specify the class name of your original common column auto setupper
-    #  that extends the embedded one.
-    #  *Basically you SHOULD NOT specify this property!
-    #
-    # @JavaOnly
-    #; extendedImplementedCommonColumnAutoSetupperClass = com.example.ExtendedImplementedCommonColumnAutoSetupper
-    # - - - - - - - - - -/
-
-    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o extendedS2DaoSettingClass: (NotRequired - Default '')
-    #  If you want to extend the embedded S2Dao setting,
-    #  specify the class name of your original S2Dao setting
-    #  that extends the embedded one.
-    #  *Basically you SHOULD NOT specify this property!
-    #
-    # @CSharpOnly
-    #; extendedS2DaoSettingClass = Com.Example.ExtendedS2DaoSetting
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
