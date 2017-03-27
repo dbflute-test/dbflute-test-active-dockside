@@ -3,11 +3,7 @@
  Example for FreeSql's ManualPaging
  
  [df:description]
- This SQL is an example for manual-paging of outside-SQL
- and also for the following functions:
-  o auto-detection for parameter-bean's properties
-  o dynamic-size bind parameters by FOR comment
-  o classification property as CDef list
+ same as MemberBhv_selectPurchaseMaxPriceMember.sql
 */
 -- #df:entity#
 
