@@ -54,6 +54,7 @@ map:{
     ; MemberStatus = list:{
         ; map:{
             ; topComment=status of member from entry to withdrawal; codeType=String
+            ; isSuppressNameCamelizing=true
             ; groupingMap = map:{
                 ; serviceAvailable = map:{
                     ; groupComment = means member that can use services

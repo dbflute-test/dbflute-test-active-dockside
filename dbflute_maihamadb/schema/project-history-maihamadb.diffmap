@@ -1,4 +1,108 @@
 map:{
+    ; 2017/03/27 15:07:00 = map:{
+        ; diffDate = 2017/03/27 15:07:00
+        ; craftDiff = map:{
+            ; Status = map:{
+                ; craftTitle = Status
+                ; craftRowDiff = map:{
+                    ; PRV = map:{
+                        ; craftKeyName = PRV
+                        ; diffType = CHANGE
+                        ; craftValueDiff = map:{
+                            ; next = "Provisional|first status after entry, allowed to use only part of service|3"
+                            ; previous = "SEA海|first status after entry, allowed to use only part of service|3"
+                        }
+                    }
+                    ; FML = map:{
+                        ; craftKeyName = FML
+                        ; diffType = CHANGE
+                        ; craftValueDiff = map:{
+                            ; next = "Formalized|as formal member, allowed to use all service|1"
+                            ; previous = "LAND陸one|as formal member, allowed to use all service|1"
+                        }
+                    }
+                    ; WDL = map:{
+                        ; craftKeyName = WDL
+                        ; diffType = CHANGE
+                        ; craftValueDiff = map:{
+                            ; next = "Withdrawal|withdrawal is fixed, not allowed to use service|2"
+                            ; previous = "PIARI BON-VO|withdrawal is fixed, not allowed to use service|2"
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ; 2017/03/27 15:01:24 = map:{
+        ; diffDate = 2017/03/27 15:01:24
+        ; craftDiff = map:{
+            ; Status = map:{
+                ; craftTitle = Status
+                ; craftRowDiff = map:{
+                    ; WDL = map:{
+                        ; craftKeyName = WDL
+                        ; diffType = CHANGE
+                        ; craftValueDiff = map:{
+                            ; next = "PIARI BON-VO|withdrawal is fixed, not allowed to use service|2"
+                            ; previous = "PIARI BONVO|withdrawal is fixed, not allowed to use service|2"
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ; 2017/03/27 14:59:34 = map:{
+        ; diffDate = 2017/03/27 14:59:34
+        ; craftDiff = map:{
+            ; Status = map:{
+                ; craftTitle = Status
+                ; craftRowDiff = map:{
+                    ; FML = map:{
+                        ; craftKeyName = FML
+                        ; diffType = CHANGE
+                        ; craftValueDiff = map:{
+                            ; next = "LAND陸one|as formal member, allowed to use all service|1"
+                            ; previous = "LAND陸ONE|as formal member, allowed to use all service|1"
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ; 2017/03/27 14:56:54 = map:{
+        ; diffDate = 2017/03/27 14:56:54
+        ; craftDiff = map:{
+            ; Status = map:{
+                ; craftTitle = Status
+                ; craftRowDiff = map:{
+                    ; PRV = map:{
+                        ; craftKeyName = PRV
+                        ; diffType = CHANGE
+                        ; craftValueDiff = map:{
+                            ; next = "SEA海|first status after entry, allowed to use only part of service|3"
+                            ; previous = "Provisional|first status after entry, allowed to use only part of service|3"
+                        }
+                    }
+                    ; FML = map:{
+                        ; craftKeyName = FML
+                        ; diffType = CHANGE
+                        ; craftValueDiff = map:{
+                            ; next = "LAND陸ONE|as formal member, allowed to use all service|1"
+                            ; previous = "Formalized|as formal member, allowed to use all service|1"
+                        }
+                    }
+                    ; WDL = map:{
+                        ; craftKeyName = WDL
+                        ; diffType = CHANGE
+                        ; craftValueDiff = map:{
+                            ; next = "PIARI BONVO|withdrawal is fixed, not allowed to use service|2"
+                            ; previous = "Withdrawal|withdrawal is fixed, not allowed to use service|2"
+                        }
+                    }
+                }
+            }
+        }
+    }
     ; 2015/09/25 16:35:57 = map:{
         ; diffDate = 2015/09/25 16:35:57
         ; tableDiff = map:{
