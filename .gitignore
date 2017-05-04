@@ -4,4 +4,5 @@
 /.idea
 .DS_Store
 /tomcat.*
-/dbflute-intro.jar
+/dbflute-intro.*
+/mydbflute/intro_resources
