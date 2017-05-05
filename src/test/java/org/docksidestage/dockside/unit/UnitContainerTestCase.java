@@ -22,6 +22,7 @@ import org.dbflute.bhv.BehaviorWritable;
 import org.dbflute.bhv.writable.DeleteOption;
 import org.dbflute.cbean.ConditionBean;
 import org.dbflute.exception.NonSpecifiedColumnAccessException;
+import org.dbflute.hook.CallbackContext;
 import org.dbflute.utflute.core.exception.ExceptionExaminer;
 import org.dbflute.utflute.spring.ContainerTestCase;
 import org.docksidestage.dockside.JdbcBeansJavaConfig;
@@ -57,13 +58,14 @@ public abstract class UnitContainerTestCase extends ContainerTestCase {
     public void tearDown() throws Exception {
         super.tearDown();
         _cbStack.clear();
+        CallbackContext.clearCallbackContextOnThread();
     }
 
     @Override
     protected ApplicationContext provideDefaultApplicationContext() {
         return new AnnotationConfigApplicationContext(JdbcBeansJavaConfig.class, DBFluteBeansJavaConfig.class);
     }
-    
+
     @Override
     protected boolean isUseTestCaseLooseBinding() {
         return true;
