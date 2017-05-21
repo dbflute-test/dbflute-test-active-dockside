@@ -201,6 +201,15 @@ public class BsUnpaidSummaryMemberPmb extends SimplePagingBean implements Entity
     }
 
     /**
+     * [set as MemberStatus] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * status of member from entry to withdrawal
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the property)
+     */
+    public void setMemberStatusCodeAsMemberStatus(CDef.MemberStatus cdef) {
+        _memberStatusCode = cdef != null ? cdef.code() : null;
+    }
+
+    /**
      * [set as Formalized] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * // formalized or ... <br>
      * as formal member, allowed to use all service

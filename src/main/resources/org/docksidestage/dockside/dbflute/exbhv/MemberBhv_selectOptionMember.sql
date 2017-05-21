@@ -31,6 +31,7 @@
 -- !!List<String> statusFixedList:cls(MemberStatus.Formalized, Withdrawal)!! // fixed classification list
 -- !!Integer paymentCompleteFlg:cls(Flg)!! // direct one as Integer
 -- !!Integer paymentCompleteTrue:cls(Flg.True)!! // fixed one as Integer
+-- !!Boolean paymentBool:cls(Flg)!! // direct one as Boolean
 
 select mb.MEMBER_ID
      , mb.MEMBER_NAME

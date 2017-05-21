@@ -156,6 +156,15 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     }
 
     /**
+     * [set as Flg] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
+     * general boolean classification for every flg-column
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the property)
+     */
+    public void setPaymentCompleteFlgAsFlg(CDef.Flg cdef) {
+        _paymentCompleteFlg = cdef != null ? toNumber(cdef.code(), Integer.class) : null;
+    }
+
+    /**
      * [set as True] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * means yes
      */

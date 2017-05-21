@@ -91,6 +91,9 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /** The parameter of paymentCompleteTrue:cls(Flg.True). */
     protected Integer _paymentCompleteTrue = toNumber(CDef.Flg.True.code(), Integer.class);
 
+    /** The parameter of paymentBool:cls(Flg). */
+    protected Boolean _paymentBool;
+
     /** The max size of safety result. */
     protected int _safetyMaxResultSize;
 
@@ -209,6 +212,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
         sb.append(dm).append(_statusFixedList);
         sb.append(dm).append(_paymentCompleteFlg);
         sb.append(dm).append(_paymentCompleteTrue);
+        sb.append(dm).append(_paymentBool);
         if (sb.length() > 0) { sb.delete(0, dm.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
@@ -363,6 +367,15 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     }
 
     /**
+     * [set as MemberStatus] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * status of member from entry to withdrawal
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the property)
+     */
+    public void setMemberStatusCodeAsMemberStatus(CDef.MemberStatus cdef) {
+        _memberStatusCode = cdef != null ? cdef.code() : null;
+    }
+
+    /**
      * [set as Formalized] memberStatusCode:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * // reference option (including classification) <br>
      * as formal member, allowed to use all service
@@ -430,6 +443,15 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
      */
     public String getStatus() {
         return filterStringParameter(_status);
+    }
+
+    /**
+     * [set as MemberStatus] status:cls(MemberStatus) <br>
+     * status of member from entry to withdrawal
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the property)
+     */
+    public void setStatusAsMemberStatus(CDef.MemberStatus cdef) {
+        _status = cdef != null ? cdef.code() : null;
     }
 
     /**
@@ -505,6 +527,15 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     }
 
     /**
+     * [set as Flg] paymentCompleteFlg:cls(Flg) <br>
+     * general boolean classification for every flg-column
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the property)
+     */
+    public void setPaymentCompleteFlgAsFlg(CDef.Flg cdef) {
+        _paymentCompleteFlg = cdef != null ? toNumber(cdef.code(), Integer.class) : null;
+    }
+
+    /**
      * [set as True] paymentCompleteFlg:cls(Flg) <br>
      * // direct one as Integer <br>
      * means yes
@@ -529,5 +560,41 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
      */
     public Integer getPaymentCompleteTrue() {
         return _paymentCompleteTrue;
+    }
+
+    /**
+     * [get] paymentBool:cls(Flg) <br>
+     * // direct one as Boolean
+     * @return The value of paymentBool. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
+     */
+    public Boolean getPaymentBool() {
+        return _paymentBool;
+    }
+
+    /**
+     * [set as Flg] paymentBool:cls(Flg) <br>
+     * general boolean classification for every flg-column
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the property)
+     */
+    public void setPaymentBoolAsFlg(CDef.Flg cdef) {
+        _paymentBool = cdef != null ? toBoolean(cdef.code()) : null;
+    }
+
+    /**
+     * [set as True] paymentBool:cls(Flg) <br>
+     * // direct one as Boolean <br>
+     * means yes
+     */
+    public void setPaymentBool_True() {
+        _paymentBool = toBoolean(CDef.Flg.True.code());
+    }
+
+    /**
+     * [set as False] paymentBool:cls(Flg) <br>
+     * // direct one as Boolean <br>
+     * means no
+     */
+    public void setPaymentBool_False() {
+        _paymentBool = toBoolean(CDef.Flg.False.code());
     }
 }
