@@ -81,10 +81,10 @@ public class VendorTheLongAndWindingTableAndColumnDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnId = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", null, null, Long.class, "theLongAndWindingTableAndColumnId", null, true, false, true, "BIGINT", 19, 0, null, false, null, null, null, "vendorTheLongAndWindingTableAndColumnRefList", null, false);
-    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnName = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME", null, null, String.class, "theLongAndWindingTableAndColumnName", null, false, false, true, "VARCHAR", 200, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnShortName = cci("SHORT_NAME", "SHORT_NAME", null, null, String.class, "shortName", null, false, false, true, "VARCHAR", 200, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnShortSize = cci("SHORT_SIZE", "SHORT_SIZE", null, null, Integer.class, "shortSize", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnId = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", null, null, Long.class, "theLongAndWindingTableAndColumnId", null, true, false, true, "BIGINT", 19, 0, null, null, false, null, null, null, "vendorTheLongAndWindingTableAndColumnRefList", null, false);
+    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnName = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME", null, null, String.class, "theLongAndWindingTableAndColumnName", null, false, false, true, "VARCHAR", 200, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnShortName = cci("SHORT_NAME", "SHORT_NAME", null, null, String.class, "shortName", null, false, false, true, "VARCHAR", 200, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnShortSize = cci("SHORT_SIZE", "SHORT_SIZE", null, null, Integer.class, "shortSize", null, false, false, true, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
 
     /**
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}

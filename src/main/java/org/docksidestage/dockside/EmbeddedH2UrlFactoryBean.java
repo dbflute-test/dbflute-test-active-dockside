@@ -15,16 +15,17 @@
  */
 package org.docksidestage.dockside;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.dbflute.util.DfReflectionUtil;
 import org.dbflute.util.DfResourceUtil;
 import org.springframework.beans.factory.FactoryBean;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * The bean for resolving a path to a database of H2 Database. <br>
  * This is NOT an important class as example. So you don't need to read this.
+ *
  * @author jflute
  */
 public class EmbeddedH2UrlFactoryBean implements FactoryBean<Object> {

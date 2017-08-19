@@ -125,8 +125,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
-     * @param minNumber The min number of theLongAndWindingTableAndColumnId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of theLongAndWindingTableAndColumnId. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of theLongAndWindingTableAndColumnId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of theLongAndWindingTableAndColumnId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setTheLongAndWindingTableAndColumnId_RangeOf(Long minNumber, Long maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
@@ -138,8 +138,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
-     * @param minNumber The min number of theLongAndWindingTableAndColumnId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of theLongAndWindingTableAndColumnId. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of theLongAndWindingTableAndColumnId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of theLongAndWindingTableAndColumnId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     protected void setTheLongAndWindingTableAndColumnId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
@@ -149,7 +149,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnIdList The collection of theLongAndWindingTableAndColumnId as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnIdList The collection of theLongAndWindingTableAndColumnId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_InScope(Collection<Long> theLongAndWindingTableAndColumnIdList) {
         doSetTheLongAndWindingTableAndColumnId_InScope(theLongAndWindingTableAndColumnIdList);
@@ -162,7 +162,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
-     * @param theLongAndWindingTableAndColumnIdList The collection of theLongAndWindingTableAndColumnId as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnIdList The collection of theLongAndWindingTableAndColumnId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnId_NotInScope(Collection<Long> theLongAndWindingTableAndColumnIdList) {
         doSetTheLongAndWindingTableAndColumnId_NotInScope(theLongAndWindingTableAndColumnIdList);
@@ -263,7 +263,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
-     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as equal. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnName_Equal(String theLongAndWindingTableAndColumnName) {
         doSetTheLongAndWindingTableAndColumnName_Equal(fRES(theLongAndWindingTableAndColumnName));
@@ -276,7 +276,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
-     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnName_NotEqual(String theLongAndWindingTableAndColumnName) {
         doSetTheLongAndWindingTableAndColumnName_NotEqual(fRES(theLongAndWindingTableAndColumnName));
@@ -289,7 +289,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
-     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnName_GreaterThan(String theLongAndWindingTableAndColumnName) {
         regTheLongAndWindingTableAndColumnName(CK_GT, fRES(theLongAndWindingTableAndColumnName));
@@ -298,7 +298,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
-     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as lessThan. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnName_LessThan(String theLongAndWindingTableAndColumnName) {
         regTheLongAndWindingTableAndColumnName(CK_LT, fRES(theLongAndWindingTableAndColumnName));
@@ -307,7 +307,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
-     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnName_GreaterEqual(String theLongAndWindingTableAndColumnName) {
         regTheLongAndWindingTableAndColumnName(CK_GE, fRES(theLongAndWindingTableAndColumnName));
@@ -316,7 +316,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
-     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnName_LessEqual(String theLongAndWindingTableAndColumnName) {
         regTheLongAndWindingTableAndColumnName(CK_LE, fRES(theLongAndWindingTableAndColumnName));
@@ -325,7 +325,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
-     * @param theLongAndWindingTableAndColumnNameList The collection of theLongAndWindingTableAndColumnName as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnNameList The collection of theLongAndWindingTableAndColumnName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnName_InScope(Collection<String> theLongAndWindingTableAndColumnNameList) {
         doSetTheLongAndWindingTableAndColumnName_InScope(theLongAndWindingTableAndColumnNameList);
@@ -338,7 +338,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
-     * @param theLongAndWindingTableAndColumnNameList The collection of theLongAndWindingTableAndColumnName as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnNameList The collection of theLongAndWindingTableAndColumnName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setTheLongAndWindingTableAndColumnName_NotInScope(Collection<String> theLongAndWindingTableAndColumnNameList) {
         doSetTheLongAndWindingTableAndColumnName_NotInScope(theLongAndWindingTableAndColumnNameList);
@@ -352,7 +352,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setTheLongAndWindingTableAndColumnName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTheLongAndWindingTableAndColumnName_LikeSearch(String theLongAndWindingTableAndColumnName, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -363,7 +363,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setTheLongAndWindingTableAndColumnName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setTheLongAndWindingTableAndColumnName_LikeSearch(String theLongAndWindingTableAndColumnName, LikeSearchOption likeSearchOption) {
@@ -374,7 +374,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
-     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setTheLongAndWindingTableAndColumnName_NotLikeSearch(String theLongAndWindingTableAndColumnName, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -385,7 +385,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
-     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param theLongAndWindingTableAndColumnName The value of theLongAndWindingTableAndColumnName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setTheLongAndWindingTableAndColumnName_NotLikeSearch(String theLongAndWindingTableAndColumnName, LikeSearchOption likeSearchOption) {
@@ -398,7 +398,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
-     * @param shortName The value of shortName as equal. (NullAllowed: if null (or empty), no condition)
+     * @param shortName The value of shortName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShortName_Equal(String shortName) {
         doSetShortName_Equal(fRES(shortName));
@@ -411,7 +411,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
-     * @param shortName The value of shortName as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param shortName The value of shortName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShortName_NotEqual(String shortName) {
         doSetShortName_NotEqual(fRES(shortName));
@@ -424,7 +424,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
-     * @param shortName The value of shortName as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * @param shortName The value of shortName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShortName_GreaterThan(String shortName) {
         regShortName(CK_GT, fRES(shortName));
@@ -433,7 +433,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
-     * @param shortName The value of shortName as lessThan. (NullAllowed: if null (or empty), no condition)
+     * @param shortName The value of shortName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShortName_LessThan(String shortName) {
         regShortName(CK_LT, fRES(shortName));
@@ -442,7 +442,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
-     * @param shortName The value of shortName as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * @param shortName The value of shortName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShortName_GreaterEqual(String shortName) {
         regShortName(CK_GE, fRES(shortName));
@@ -451,7 +451,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
-     * @param shortName The value of shortName as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * @param shortName The value of shortName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShortName_LessEqual(String shortName) {
         regShortName(CK_LE, fRES(shortName));
@@ -460,7 +460,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
-     * @param shortNameList The collection of shortName as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param shortNameList The collection of shortName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShortName_InScope(Collection<String> shortNameList) {
         doSetShortName_InScope(shortNameList);
@@ -473,7 +473,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
-     * @param shortNameList The collection of shortName as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param shortNameList The collection of shortName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShortName_NotInScope(Collection<String> shortNameList) {
         doSetShortName_NotInScope(shortNameList);
@@ -487,7 +487,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setShortName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param shortName The value of shortName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param shortName The value of shortName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setShortName_LikeSearch(String shortName, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -498,7 +498,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setShortName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param shortName The value of shortName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param shortName The value of shortName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setShortName_LikeSearch(String shortName, LikeSearchOption likeSearchOption) {
@@ -509,7 +509,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
-     * @param shortName The value of shortName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param shortName The value of shortName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setShortName_NotLikeSearch(String shortName, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -520,7 +520,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
-     * @param shortName The value of shortName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param shortName The value of shortName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setShortName_NotLikeSearch(String shortName, LikeSearchOption likeSearchOption) {
@@ -597,8 +597,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
-     * @param minNumber The min number of shortSize. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of shortSize. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of shortSize. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of shortSize. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setShortSize_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
@@ -610,8 +610,8 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
-     * @param minNumber The min number of shortSize. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of shortSize. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of shortSize. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of shortSize. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     protected void setShortSize_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
@@ -621,7 +621,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
-     * @param shortSizeList The collection of shortSize as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param shortSizeList The collection of shortSize as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShortSize_InScope(Collection<Integer> shortSizeList) {
         doSetShortSize_InScope(shortSizeList);
@@ -634,7 +634,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnCQ extends 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
-     * @param shortSizeList The collection of shortSize as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param shortSizeList The collection of shortSize as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShortSize_NotInScope(Collection<Integer> shortSizeList) {
         doSetShortSize_NotInScope(shortSizeList);

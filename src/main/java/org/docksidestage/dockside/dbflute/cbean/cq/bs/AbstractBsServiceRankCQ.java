@@ -61,7 +61,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank}
-     * @param serviceRankCode The value of serviceRankCode as equal. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankCode The value of serviceRankCode as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setServiceRankCode_Equal(String serviceRankCode) {
         doSetServiceRankCode_Equal(fRES(serviceRankCode));
@@ -124,7 +124,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank}
-     * @param serviceRankCode The value of serviceRankCode as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankCode The value of serviceRankCode as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setServiceRankCode_NotEqual(String serviceRankCode) {
         doSetServiceRankCode_NotEqual(fRES(serviceRankCode));
@@ -187,7 +187,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank}
-     * @param serviceRankCodeList The collection of serviceRankCode as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankCodeList The collection of serviceRankCode as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setServiceRankCode_InScope(Collection<String> serviceRankCodeList) {
         doSetServiceRankCode_InScope(serviceRankCodeList);
@@ -197,7 +197,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * InScope {in ('a', 'b')}. As ServiceRank. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
      * rank of service member gets
-     * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
+     * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServiceRankCode_InScope_AsServiceRank(Collection<CDef.ServiceRank> cdefList) {
         doSetServiceRankCode_InScope(cTStrL(cdefList));
@@ -210,7 +210,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank}
-     * @param serviceRankCodeList The collection of serviceRankCode as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankCodeList The collection of serviceRankCode as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setServiceRankCode_NotInScope(Collection<String> serviceRankCodeList) {
         doSetServiceRankCode_NotInScope(serviceRankCodeList);
@@ -220,7 +220,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * NotInScope {not in ('a', 'b')}. As ServiceRank. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank} <br>
      * rank of service member gets
-     * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
+     * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServiceRankCode_NotInScope_AsServiceRank(Collection<CDef.ServiceRank> cdefList) {
         doSetServiceRankCode_NotInScope(cTStrL(cdefList));
@@ -321,7 +321,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as equal. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankName The value of serviceRankName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServiceRankName_Equal(String serviceRankName) {
         doSetServiceRankName_Equal(fRES(serviceRankName));
@@ -334,7 +334,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankName The value of serviceRankName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServiceRankName_NotEqual(String serviceRankName) {
         doSetServiceRankName_NotEqual(fRES(serviceRankName));
@@ -347,7 +347,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankName The value of serviceRankName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServiceRankName_GreaterThan(String serviceRankName) {
         regServiceRankName(CK_GT, fRES(serviceRankName));
@@ -356,7 +356,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as lessThan. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankName The value of serviceRankName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServiceRankName_LessThan(String serviceRankName) {
         regServiceRankName(CK_LT, fRES(serviceRankName));
@@ -365,7 +365,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankName The value of serviceRankName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServiceRankName_GreaterEqual(String serviceRankName) {
         regServiceRankName(CK_GE, fRES(serviceRankName));
@@ -374,7 +374,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankName The value of serviceRankName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServiceRankName_LessEqual(String serviceRankName) {
         regServiceRankName(CK_LE, fRES(serviceRankName));
@@ -383,7 +383,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankNameList The collection of serviceRankName as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankNameList The collection of serviceRankName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServiceRankName_InScope(Collection<String> serviceRankNameList) {
         doSetServiceRankName_InScope(serviceRankNameList);
@@ -396,7 +396,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankNameList The collection of serviceRankName as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankNameList The collection of serviceRankName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServiceRankName_NotInScope(Collection<String> serviceRankNameList) {
         doSetServiceRankName_NotInScope(serviceRankNameList);
@@ -410,7 +410,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setServiceRankName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param serviceRankName The value of serviceRankName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankName The value of serviceRankName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setServiceRankName_LikeSearch(String serviceRankName, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -421,7 +421,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setServiceRankName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param serviceRankName The value of serviceRankName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankName The value of serviceRankName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setServiceRankName_LikeSearch(String serviceRankName, LikeSearchOption likeSearchOption) {
@@ -432,7 +432,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankName The value of serviceRankName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setServiceRankName_NotLikeSearch(String serviceRankName, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -443,7 +443,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param serviceRankName The value of serviceRankName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setServiceRankName_NotLikeSearch(String serviceRankName, LikeSearchOption likeSearchOption) {
@@ -520,8 +520,8 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)}
-     * @param minNumber The min number of servicePointIncidence. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of servicePointIncidence. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of servicePointIncidence. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of servicePointIncidence. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setServicePointIncidence_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
@@ -533,8 +533,8 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)}
-     * @param minNumber The min number of servicePointIncidence. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of servicePointIncidence. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of servicePointIncidence. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of servicePointIncidence. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     protected void setServicePointIncidence_RangeOf(java.math.BigDecimal minNumber, java.math.BigDecimal maxNumber, RangeOfOption rangeOfOption) {
@@ -544,7 +544,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)}
-     * @param servicePointIncidenceList The collection of servicePointIncidence as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param servicePointIncidenceList The collection of servicePointIncidence as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServicePointIncidence_InScope(Collection<java.math.BigDecimal> servicePointIncidenceList) {
         doSetServicePointIncidence_InScope(servicePointIncidenceList);
@@ -557,7 +557,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)}
-     * @param servicePointIncidenceList The collection of servicePointIncidence as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param servicePointIncidenceList The collection of servicePointIncidence as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setServicePointIncidence_NotInScope(Collection<java.math.BigDecimal> servicePointIncidenceList) {
         doSetServicePointIncidence_NotInScope(servicePointIncidenceList);
@@ -661,7 +661,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg}
-     * @param newAcceptableFlgList The collection of newAcceptableFlg as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param newAcceptableFlgList The collection of newAcceptableFlg as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setNewAcceptableFlg_InScope(Collection<Integer> newAcceptableFlgList) {
         doSetNewAcceptableFlg_InScope(newAcceptableFlgList);
@@ -671,7 +671,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * InScope {in (1, 2)}. As Flg. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * general boolean classification for every flg-column
-     * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
+     * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setNewAcceptableFlg_InScope_AsFlg(Collection<CDef.Flg> cdefList) {
         doSetNewAcceptableFlg_InScope(cTNumL(cdefList, Integer.class));
@@ -684,7 +684,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg}
-     * @param newAcceptableFlgList The collection of newAcceptableFlg as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param newAcceptableFlgList The collection of newAcceptableFlg as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setNewAcceptableFlg_NotInScope(Collection<Integer> newAcceptableFlgList) {
         doSetNewAcceptableFlg_NotInScope(newAcceptableFlgList);
@@ -694,7 +694,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * NotInScope {not in (1, 2)}. As Flg. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * general boolean classification for every flg-column
-     * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
+     * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setNewAcceptableFlg_NotInScope_AsFlg(Collection<CDef.Flg> cdefList) {
         doSetNewAcceptableFlg_NotInScope(cTNumL(cdefList, Integer.class));
@@ -710,7 +710,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as equal. (NullAllowed: if null (or empty), no condition)
+     * @param description The value of description as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_Equal(String description) {
         doSetDescription_Equal(fRES(description));
@@ -723,7 +723,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param description The value of description as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_NotEqual(String description) {
         doSetDescription_NotEqual(fRES(description));
@@ -736,7 +736,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * @param description The value of description as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_GreaterThan(String description) {
         regDescription(CK_GT, fRES(description));
@@ -745,7 +745,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as lessThan. (NullAllowed: if null (or empty), no condition)
+     * @param description The value of description as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_LessThan(String description) {
         regDescription(CK_LT, fRES(description));
@@ -754,7 +754,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * @param description The value of description as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_GreaterEqual(String description) {
         regDescription(CK_GE, fRES(description));
@@ -763,7 +763,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * @param description The value of description as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_LessEqual(String description) {
         regDescription(CK_LE, fRES(description));
@@ -772,7 +772,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param descriptionList The collection of description as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param descriptionList The collection of description as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_InScope(Collection<String> descriptionList) {
         doSetDescription_InScope(descriptionList);
@@ -785,7 +785,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param descriptionList The collection of description as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param descriptionList The collection of description as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_NotInScope(Collection<String> descriptionList) {
         doSetDescription_NotInScope(descriptionList);
@@ -799,7 +799,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setDescription_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param description The value of description as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param description The value of description as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setDescription_LikeSearch(String description, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -810,7 +810,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setDescription_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param description The value of description as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param description The value of description as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setDescription_LikeSearch(String description, LikeSearchOption likeSearchOption) {
@@ -821,7 +821,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param description The value of description as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setDescription_NotLikeSearch(String description, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -832,7 +832,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param description The value of description as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setDescription_NotLikeSearch(String description, LikeSearchOption likeSearchOption) {
@@ -909,8 +909,8 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param minNumber The min number of displayOrder. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of displayOrder. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
@@ -922,8 +922,8 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param minNumber The min number of displayOrder. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of displayOrder. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     protected void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
@@ -933,7 +933,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrderList The collection of displayOrder as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param displayOrderList The collection of displayOrder as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDisplayOrder_InScope(Collection<Integer> displayOrderList) {
         doSetDisplayOrder_InScope(displayOrderList);
@@ -946,7 +946,7 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrderList The collection of displayOrder as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param displayOrderList The collection of displayOrder as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDisplayOrder_NotInScope(Collection<Integer> displayOrderList) {
         doSetDisplayOrder_NotInScope(displayOrderList);

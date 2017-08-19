@@ -125,8 +125,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * MEMBER_ID: {INTEGER(10)}
-     * @param minNumber The min number of memberId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of memberId. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of memberId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of memberId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setMemberId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
@@ -138,8 +138,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * MEMBER_ID: {INTEGER(10)}
-     * @param minNumber The min number of memberId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of memberId. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of memberId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of memberId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     protected void setMemberId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
@@ -149,7 +149,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * MEMBER_ID: {INTEGER(10)}
-     * @param memberIdList The collection of memberId as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param memberIdList The collection of memberId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberId_InScope(Collection<Integer> memberIdList) {
         doSetMemberId_InScope(memberIdList);
@@ -162,7 +162,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * MEMBER_ID: {INTEGER(10)}
-     * @param memberIdList The collection of memberId as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param memberIdList The collection of memberId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberId_NotInScope(Collection<Integer> memberIdList) {
         doSetMemberId_NotInScope(memberIdList);
@@ -190,7 +190,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as equal. (NullAllowed: if null (or empty), no condition)
+     * @param memberName The value of memberName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberName_Equal(String memberName) {
         doSetMemberName_Equal(fRES(memberName));
@@ -203,7 +203,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param memberName The value of memberName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberName_NotEqual(String memberName) {
         doSetMemberName_NotEqual(fRES(memberName));
@@ -216,7 +216,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * @param memberName The value of memberName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberName_GreaterThan(String memberName) {
         regMemberName(CK_GT, fRES(memberName));
@@ -225,7 +225,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as lessThan. (NullAllowed: if null (or empty), no condition)
+     * @param memberName The value of memberName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberName_LessThan(String memberName) {
         regMemberName(CK_LT, fRES(memberName));
@@ -234,7 +234,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * @param memberName The value of memberName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberName_GreaterEqual(String memberName) {
         regMemberName(CK_GE, fRES(memberName));
@@ -243,7 +243,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * @param memberName The value of memberName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberName_LessEqual(String memberName) {
         regMemberName(CK_LE, fRES(memberName));
@@ -252,7 +252,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberNameList The collection of memberName as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param memberNameList The collection of memberName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberName_InScope(Collection<String> memberNameList) {
         doSetMemberName_InScope(memberNameList);
@@ -265,7 +265,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberNameList The collection of memberName as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param memberNameList The collection of memberName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberName_NotInScope(Collection<String> memberNameList) {
         doSetMemberName_NotInScope(memberNameList);
@@ -279,7 +279,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * MEMBER_NAME: {VARCHAR(200)} <br>
      * <pre>e.g. setMemberName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param memberName The value of memberName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param memberName The value of memberName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setMemberName_LikeSearch(String memberName, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -290,7 +290,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * MEMBER_NAME: {VARCHAR(200)} <br>
      * <pre>e.g. setMemberName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param memberName The value of memberName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param memberName The value of memberName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setMemberName_LikeSearch(String memberName, LikeSearchOption likeSearchOption) {
@@ -301,7 +301,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param memberName The value of memberName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setMemberName_NotLikeSearch(String memberName, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -312,7 +312,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param memberName The value of memberName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setMemberName_NotLikeSearch(String memberName, LikeSearchOption likeSearchOption) {
@@ -343,7 +343,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as equal. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonCode The value of withdrawalReasonCode as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_Equal(String withdrawalReasonCode) {
         doSetWithdrawalReasonCode_Equal(fRES(withdrawalReasonCode));
@@ -356,7 +356,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonCode The value of withdrawalReasonCode as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_NotEqual(String withdrawalReasonCode) {
         doSetWithdrawalReasonCode_NotEqual(fRES(withdrawalReasonCode));
@@ -369,7 +369,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonCode The value of withdrawalReasonCode as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_GreaterThan(String withdrawalReasonCode) {
         regWithdrawalReasonCode(CK_GT, fRES(withdrawalReasonCode));
@@ -378,7 +378,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as lessThan. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonCode The value of withdrawalReasonCode as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_LessThan(String withdrawalReasonCode) {
         regWithdrawalReasonCode(CK_LT, fRES(withdrawalReasonCode));
@@ -387,7 +387,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonCode The value of withdrawalReasonCode as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_GreaterEqual(String withdrawalReasonCode) {
         regWithdrawalReasonCode(CK_GE, fRES(withdrawalReasonCode));
@@ -396,7 +396,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonCode The value of withdrawalReasonCode as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_LessEqual(String withdrawalReasonCode) {
         regWithdrawalReasonCode(CK_LE, fRES(withdrawalReasonCode));
@@ -405,7 +405,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCodeList The collection of withdrawalReasonCode as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonCodeList The collection of withdrawalReasonCode as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_InScope(Collection<String> withdrawalReasonCodeList) {
         doSetWithdrawalReasonCode_InScope(withdrawalReasonCodeList);
@@ -418,7 +418,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCodeList The collection of withdrawalReasonCode as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonCodeList The collection of withdrawalReasonCode as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonCode_NotInScope(Collection<String> withdrawalReasonCodeList) {
         doSetWithdrawalReasonCode_NotInScope(withdrawalReasonCodeList);
@@ -432,7 +432,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)} <br>
      * <pre>e.g. setWithdrawalReasonCode_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonCode The value of withdrawalReasonCode as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonCode_LikeSearch(String withdrawalReasonCode, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -443,7 +443,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)} <br>
      * <pre>e.g. setWithdrawalReasonCode_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonCode The value of withdrawalReasonCode as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setWithdrawalReasonCode_LikeSearch(String withdrawalReasonCode, LikeSearchOption likeSearchOption) {
@@ -454,7 +454,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonCode The value of withdrawalReasonCode as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonCode_NotLikeSearch(String withdrawalReasonCode, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -465,7 +465,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonCode The value of withdrawalReasonCode as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setWithdrawalReasonCode_NotLikeSearch(String withdrawalReasonCode, LikeSearchOption likeSearchOption) {
@@ -496,7 +496,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as equal. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonText The value of withdrawalReasonText as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_Equal(String withdrawalReasonText) {
         doSetWithdrawalReasonText_Equal(fRES(withdrawalReasonText));
@@ -509,7 +509,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonText The value of withdrawalReasonText as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_NotEqual(String withdrawalReasonText) {
         doSetWithdrawalReasonText_NotEqual(fRES(withdrawalReasonText));
@@ -522,7 +522,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonText The value of withdrawalReasonText as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_GreaterThan(String withdrawalReasonText) {
         regWithdrawalReasonText(CK_GT, fRES(withdrawalReasonText));
@@ -531,7 +531,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as lessThan. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonText The value of withdrawalReasonText as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_LessThan(String withdrawalReasonText) {
         regWithdrawalReasonText(CK_LT, fRES(withdrawalReasonText));
@@ -540,7 +540,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonText The value of withdrawalReasonText as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_GreaterEqual(String withdrawalReasonText) {
         regWithdrawalReasonText(CK_GE, fRES(withdrawalReasonText));
@@ -549,7 +549,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonText The value of withdrawalReasonText as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_LessEqual(String withdrawalReasonText) {
         regWithdrawalReasonText(CK_LE, fRES(withdrawalReasonText));
@@ -558,7 +558,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonTextList The collection of withdrawalReasonText as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonTextList The collection of withdrawalReasonText as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_InScope(Collection<String> withdrawalReasonTextList) {
         doSetWithdrawalReasonText_InScope(withdrawalReasonTextList);
@@ -571,7 +571,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonTextList The collection of withdrawalReasonText as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonTextList The collection of withdrawalReasonText as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_NotInScope(Collection<String> withdrawalReasonTextList) {
         doSetWithdrawalReasonText_NotInScope(withdrawalReasonTextList);
@@ -585,7 +585,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)} <br>
      * <pre>e.g. setWithdrawalReasonText_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param withdrawalReasonText The value of withdrawalReasonText as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonText The value of withdrawalReasonText as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonText_LikeSearch(String withdrawalReasonText, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -596,7 +596,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)} <br>
      * <pre>e.g. setWithdrawalReasonText_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param withdrawalReasonText The value of withdrawalReasonText as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonText The value of withdrawalReasonText as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setWithdrawalReasonText_LikeSearch(String withdrawalReasonText, LikeSearchOption likeSearchOption) {
@@ -607,7 +607,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonText The value of withdrawalReasonText as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonText_NotLikeSearch(String withdrawalReasonText, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -618,7 +618,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonText The value of withdrawalReasonText as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setWithdrawalReasonText_NotLikeSearch(String withdrawalReasonText, LikeSearchOption likeSearchOption) {
@@ -649,7 +649,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as equal. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonInputText_Equal(String withdrawalReasonInputText) {
         doSetWithdrawalReasonInputText_Equal(fRES(withdrawalReasonInputText));
@@ -662,7 +662,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonInputText_NotEqual(String withdrawalReasonInputText) {
         doSetWithdrawalReasonInputText_NotEqual(fRES(withdrawalReasonInputText));
@@ -675,7 +675,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonInputText_GreaterThan(String withdrawalReasonInputText) {
         regWithdrawalReasonInputText(CK_GT, fRES(withdrawalReasonInputText));
@@ -684,7 +684,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as lessThan. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonInputText_LessThan(String withdrawalReasonInputText) {
         regWithdrawalReasonInputText(CK_LT, fRES(withdrawalReasonInputText));
@@ -693,7 +693,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonInputText_GreaterEqual(String withdrawalReasonInputText) {
         regWithdrawalReasonInputText(CK_GE, fRES(withdrawalReasonInputText));
@@ -702,7 +702,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonInputText_LessEqual(String withdrawalReasonInputText) {
         regWithdrawalReasonInputText(CK_LE, fRES(withdrawalReasonInputText));
@@ -711,7 +711,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputTextList The collection of withdrawalReasonInputText as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonInputTextList The collection of withdrawalReasonInputText as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonInputText_InScope(Collection<String> withdrawalReasonInputTextList) {
         doSetWithdrawalReasonInputText_InScope(withdrawalReasonInputTextList);
@@ -724,7 +724,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputTextList The collection of withdrawalReasonInputText as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonInputTextList The collection of withdrawalReasonInputText as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonInputText_NotInScope(Collection<String> withdrawalReasonInputTextList) {
         doSetWithdrawalReasonInputText_NotInScope(withdrawalReasonInputTextList);
@@ -738,7 +738,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} <br>
      * <pre>e.g. setWithdrawalReasonInputText_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonInputText_LikeSearch(String withdrawalReasonInputText, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -749,7 +749,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} <br>
      * <pre>e.g. setWithdrawalReasonInputText_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setWithdrawalReasonInputText_LikeSearch(String withdrawalReasonInputText, LikeSearchOption likeSearchOption) {
@@ -760,7 +760,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonInputText_NotLikeSearch(String withdrawalReasonInputText, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -771,7 +771,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setWithdrawalReasonInputText_NotLikeSearch(String withdrawalReasonInputText, LikeSearchOption likeSearchOption) {
@@ -889,7 +889,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCode The value of memberStatusCode as equal. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusCode The value of memberStatusCode as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusCode_Equal(String memberStatusCode) {
         doSetMemberStatusCode_Equal(fRES(memberStatusCode));
@@ -902,7 +902,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCode The value of memberStatusCode as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusCode The value of memberStatusCode as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusCode_NotEqual(String memberStatusCode) {
         doSetMemberStatusCode_NotEqual(fRES(memberStatusCode));
@@ -915,7 +915,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCode The value of memberStatusCode as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusCode The value of memberStatusCode as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusCode_GreaterThan(String memberStatusCode) {
         regMemberStatusCode(CK_GT, fRES(memberStatusCode));
@@ -924,7 +924,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCode The value of memberStatusCode as lessThan. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusCode The value of memberStatusCode as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusCode_LessThan(String memberStatusCode) {
         regMemberStatusCode(CK_LT, fRES(memberStatusCode));
@@ -933,7 +933,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCode The value of memberStatusCode as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusCode The value of memberStatusCode as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusCode_GreaterEqual(String memberStatusCode) {
         regMemberStatusCode(CK_GE, fRES(memberStatusCode));
@@ -942,7 +942,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCode The value of memberStatusCode as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusCode The value of memberStatusCode as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusCode_LessEqual(String memberStatusCode) {
         regMemberStatusCode(CK_LE, fRES(memberStatusCode));
@@ -951,7 +951,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCodeList The collection of memberStatusCode as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusCodeList The collection of memberStatusCode as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusCode_InScope(Collection<String> memberStatusCodeList) {
         doSetMemberStatusCode_InScope(memberStatusCodeList);
@@ -964,7 +964,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCodeList The collection of memberStatusCode as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusCodeList The collection of memberStatusCode as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusCode_NotInScope(Collection<String> memberStatusCodeList) {
         doSetMemberStatusCode_NotInScope(memberStatusCodeList);
@@ -978,7 +978,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)} <br>
      * <pre>e.g. setMemberStatusCode_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param memberStatusCode The value of memberStatusCode as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusCode The value of memberStatusCode as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setMemberStatusCode_LikeSearch(String memberStatusCode, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -989,7 +989,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)} <br>
      * <pre>e.g. setMemberStatusCode_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param memberStatusCode The value of memberStatusCode as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusCode The value of memberStatusCode as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setMemberStatusCode_LikeSearch(String memberStatusCode, LikeSearchOption likeSearchOption) {
@@ -1000,7 +1000,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCode The value of memberStatusCode as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusCode The value of memberStatusCode as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setMemberStatusCode_NotLikeSearch(String memberStatusCode, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -1011,7 +1011,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCode The value of memberStatusCode as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusCode The value of memberStatusCode as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setMemberStatusCode_NotLikeSearch(String memberStatusCode, LikeSearchOption likeSearchOption) {
@@ -1042,7 +1042,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as equal. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusName The value of memberStatusName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_Equal(String memberStatusName) {
         doSetMemberStatusName_Equal(fRES(memberStatusName));
@@ -1055,7 +1055,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusName The value of memberStatusName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_NotEqual(String memberStatusName) {
         doSetMemberStatusName_NotEqual(fRES(memberStatusName));
@@ -1068,7 +1068,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusName The value of memberStatusName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_GreaterThan(String memberStatusName) {
         regMemberStatusName(CK_GT, fRES(memberStatusName));
@@ -1077,7 +1077,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as lessThan. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusName The value of memberStatusName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_LessThan(String memberStatusName) {
         regMemberStatusName(CK_LT, fRES(memberStatusName));
@@ -1086,7 +1086,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusName The value of memberStatusName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_GreaterEqual(String memberStatusName) {
         regMemberStatusName(CK_GE, fRES(memberStatusName));
@@ -1095,7 +1095,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusName The value of memberStatusName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_LessEqual(String memberStatusName) {
         regMemberStatusName(CK_LE, fRES(memberStatusName));
@@ -1104,7 +1104,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusNameList The collection of memberStatusName as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusNameList The collection of memberStatusName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_InScope(Collection<String> memberStatusNameList) {
         doSetMemberStatusName_InScope(memberStatusNameList);
@@ -1117,7 +1117,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusNameList The collection of memberStatusName as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusNameList The collection of memberStatusName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_NotInScope(Collection<String> memberStatusNameList) {
         doSetMemberStatusName_NotInScope(memberStatusNameList);
@@ -1131,7 +1131,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)} <br>
      * <pre>e.g. setMemberStatusName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param memberStatusName The value of memberStatusName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusName The value of memberStatusName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setMemberStatusName_LikeSearch(String memberStatusName, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -1142,7 +1142,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)} <br>
      * <pre>e.g. setMemberStatusName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param memberStatusName The value of memberStatusName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusName The value of memberStatusName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setMemberStatusName_LikeSearch(String memberStatusName, LikeSearchOption likeSearchOption) {
@@ -1153,7 +1153,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusName The value of memberStatusName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setMemberStatusName_NotLikeSearch(String memberStatusName, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -1164,7 +1164,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param memberStatusName The value of memberStatusName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setMemberStatusName_NotLikeSearch(String memberStatusName, LikeSearchOption likeSearchOption) {
@@ -1259,8 +1259,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * MAX_PURCHASE_PRICE: {INTEGER(10)}
-     * @param minNumber The min number of maxPurchasePrice. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of maxPurchasePrice. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of maxPurchasePrice. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of maxPurchasePrice. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setMaxPurchasePrice_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
@@ -1272,8 +1272,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * MAX_PURCHASE_PRICE: {INTEGER(10)}
-     * @param minNumber The min number of maxPurchasePrice. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of maxPurchasePrice. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of maxPurchasePrice. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of maxPurchasePrice. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     protected void setMaxPurchasePrice_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
@@ -1283,7 +1283,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * MAX_PURCHASE_PRICE: {INTEGER(10)}
-     * @param maxPurchasePriceList The collection of maxPurchasePrice as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param maxPurchasePriceList The collection of maxPurchasePrice as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMaxPurchasePrice_InScope(Collection<Integer> maxPurchasePriceList) {
         doSetMaxPurchasePrice_InScope(maxPurchasePriceList);
@@ -1296,7 +1296,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * MAX_PURCHASE_PRICE: {INTEGER(10)}
-     * @param maxPurchasePriceList The collection of maxPurchasePrice as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param maxPurchasePriceList The collection of maxPurchasePrice as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMaxPurchasePrice_NotInScope(Collection<Integer> maxPurchasePriceList) {
         doSetMaxPurchasePrice_NotInScope(maxPurchasePriceList);

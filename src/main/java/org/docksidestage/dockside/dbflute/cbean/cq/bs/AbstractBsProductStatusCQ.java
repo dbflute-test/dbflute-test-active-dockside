@@ -61,7 +61,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
-     * @param productStatusCode The value of productStatusCode as equal. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusCode The value of productStatusCode as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setProductStatusCode_Equal(String productStatusCode) {
         doSetProductStatusCode_Equal(fRES(productStatusCode));
@@ -108,7 +108,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
-     * @param productStatusCode The value of productStatusCode as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusCode The value of productStatusCode as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setProductStatusCode_NotEqual(String productStatusCode) {
         doSetProductStatusCode_NotEqual(fRES(productStatusCode));
@@ -155,7 +155,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
-     * @param productStatusCodeList The collection of productStatusCode as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusCodeList The collection of productStatusCode as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setProductStatusCode_InScope(Collection<String> productStatusCodeList) {
         doSetProductStatusCode_InScope(productStatusCodeList);
@@ -165,7 +165,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * InScope {in ('a', 'b')}. As ProductStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
      * status for product
-     * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
+     * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductStatusCode_InScope_AsProductStatus(Collection<CDef.ProductStatus> cdefList) {
         doSetProductStatusCode_InScope(cTStrL(cdefList));
@@ -178,7 +178,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
-     * @param productStatusCodeList The collection of productStatusCode as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusCodeList The collection of productStatusCode as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setProductStatusCode_NotInScope(Collection<String> productStatusCodeList) {
         doSetProductStatusCode_NotInScope(productStatusCodeList);
@@ -188,7 +188,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * NotInScope {not in ('a', 'b')}. As ProductStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus} <br>
      * status for product
-     * @param cdefList The list of classification definition (as ENUM type). (NullAllowed: if null (or empty), no condition)
+     * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductStatusCode_NotInScope_AsProductStatus(Collection<CDef.ProductStatus> cdefList) {
         doSetProductStatusCode_NotInScope(cTStrL(cdefList));
@@ -362,7 +362,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
-     * @param productStatusName The value of productStatusName as equal. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusName The value of productStatusName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductStatusName_Equal(String productStatusName) {
         doSetProductStatusName_Equal(fRES(productStatusName));
@@ -375,7 +375,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
-     * @param productStatusName The value of productStatusName as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusName The value of productStatusName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductStatusName_NotEqual(String productStatusName) {
         doSetProductStatusName_NotEqual(fRES(productStatusName));
@@ -388,7 +388,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
-     * @param productStatusName The value of productStatusName as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusName The value of productStatusName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductStatusName_GreaterThan(String productStatusName) {
         regProductStatusName(CK_GT, fRES(productStatusName));
@@ -397,7 +397,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
-     * @param productStatusName The value of productStatusName as lessThan. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusName The value of productStatusName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductStatusName_LessThan(String productStatusName) {
         regProductStatusName(CK_LT, fRES(productStatusName));
@@ -406,7 +406,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
-     * @param productStatusName The value of productStatusName as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusName The value of productStatusName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductStatusName_GreaterEqual(String productStatusName) {
         regProductStatusName(CK_GE, fRES(productStatusName));
@@ -415,7 +415,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
-     * @param productStatusName The value of productStatusName as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusName The value of productStatusName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductStatusName_LessEqual(String productStatusName) {
         regProductStatusName(CK_LE, fRES(productStatusName));
@@ -424,7 +424,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
-     * @param productStatusNameList The collection of productStatusName as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusNameList The collection of productStatusName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductStatusName_InScope(Collection<String> productStatusNameList) {
         doSetProductStatusName_InScope(productStatusNameList);
@@ -437,7 +437,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
-     * @param productStatusNameList The collection of productStatusName as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusNameList The collection of productStatusName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductStatusName_NotInScope(Collection<String> productStatusNameList) {
         doSetProductStatusName_NotInScope(productStatusNameList);
@@ -451,7 +451,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setProductStatusName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param productStatusName The value of productStatusName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusName The value of productStatusName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setProductStatusName_LikeSearch(String productStatusName, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -462,7 +462,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setProductStatusName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param productStatusName The value of productStatusName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusName The value of productStatusName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setProductStatusName_LikeSearch(String productStatusName, LikeSearchOption likeSearchOption) {
@@ -473,7 +473,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
-     * @param productStatusName The value of productStatusName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusName The value of productStatusName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setProductStatusName_NotLikeSearch(String productStatusName, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -484,7 +484,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
-     * @param productStatusName The value of productStatusName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param productStatusName The value of productStatusName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setProductStatusName_NotLikeSearch(String productStatusName, LikeSearchOption likeSearchOption) {
@@ -561,8 +561,8 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param minNumber The min number of displayOrder. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of displayOrder. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
@@ -574,8 +574,8 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param minNumber The min number of displayOrder. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of displayOrder. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     protected void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
@@ -585,7 +585,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrderList The collection of displayOrder as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param displayOrderList The collection of displayOrder as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDisplayOrder_InScope(Collection<Integer> displayOrderList) {
         doSetDisplayOrder_InScope(displayOrderList);
@@ -598,7 +598,7 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrderList The collection of displayOrder as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param displayOrderList The collection of displayOrder as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDisplayOrder_NotInScope(Collection<Integer> displayOrderList) {
         doSetDisplayOrder_NotInScope(displayOrderList);

@@ -125,8 +125,8 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
-     * @param minNumber The min number of primaryKeyOnlyId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of primaryKeyOnlyId. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of primaryKeyOnlyId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of primaryKeyOnlyId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setPrimaryKeyOnlyId_RangeOf(Long minNumber, Long maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
@@ -138,8 +138,8 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
-     * @param minNumber The min number of primaryKeyOnlyId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of primaryKeyOnlyId. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of primaryKeyOnlyId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of primaryKeyOnlyId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     protected void setPrimaryKeyOnlyId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
@@ -149,7 +149,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
-     * @param primaryKeyOnlyIdList The collection of primaryKeyOnlyId as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param primaryKeyOnlyIdList The collection of primaryKeyOnlyId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setPrimaryKeyOnlyId_InScope(Collection<Long> primaryKeyOnlyIdList) {
         doSetPrimaryKeyOnlyId_InScope(primaryKeyOnlyIdList);
@@ -162,7 +162,7 @@ public abstract class AbstractBsVendorPrimaryKeyOnlyCQ extends AbstractCondition
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
-     * @param primaryKeyOnlyIdList The collection of primaryKeyOnlyId as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param primaryKeyOnlyIdList The collection of primaryKeyOnlyId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setPrimaryKeyOnlyId_NotInScope(Collection<Long> primaryKeyOnlyIdList) {
         doSetPrimaryKeyOnlyId_NotInScope(primaryKeyOnlyIdList);

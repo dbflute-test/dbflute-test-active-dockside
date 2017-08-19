@@ -125,8 +125,8 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
-     * @param minNumber The min number of identityOnlyId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of identityOnlyId. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of identityOnlyId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of identityOnlyId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setIdentityOnlyId_RangeOf(Long minNumber, Long maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
@@ -138,8 +138,8 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
-     * @param minNumber The min number of identityOnlyId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of identityOnlyId. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of identityOnlyId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of identityOnlyId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     protected void setIdentityOnlyId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
@@ -149,7 +149,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
-     * @param identityOnlyIdList The collection of identityOnlyId as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param identityOnlyIdList The collection of identityOnlyId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setIdentityOnlyId_InScope(Collection<Long> identityOnlyIdList) {
         doSetIdentityOnlyId_InScope(identityOnlyIdList);
@@ -162,7 +162,7 @@ public abstract class AbstractBsVendorIdentityOnlyCQ extends AbstractConditionQu
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
-     * @param identityOnlyIdList The collection of identityOnlyId as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param identityOnlyIdList The collection of identityOnlyId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setIdentityOnlyId_NotInScope(Collection<Long> identityOnlyIdList) {
         doSetIdentityOnlyId_NotInScope(identityOnlyIdList);
