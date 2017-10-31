@@ -23,10 +23,11 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
     //                                                                               =====
     public void test_DreamCruise_LikeSearch_basic() throws Exception {
         // ## Arrange ##
+        String keyword = "P";
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
             /* ## Act ## */
             MemberCB dreamCruiseCB = cb.dreamCruiseCB();
-            cb.query().setMemberName_LikeSearch("P", op -> {
+            cb.query().setMemberName_LikeSearch(keyword, op -> {
                 op.likeContain().addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
             });
             pushCB(cb);
@@ -34,21 +35,21 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
 
         // ## Assert ##
         assertHasAnyElement(memberList);
-        boolean existsAccountOnly = false;
-        boolean existsBoth = false;
         for (Member member : memberList) {
             log(member);
             String memberName = member.getMemberName();
             String memberAccount = member.getMemberAccount();
-            if (!memberName.contains("P") && memberAccount.contains("P")) {
-                existsAccountOnly = true;
+            if (!memberName.contains(keyword) && memberAccount.contains(keyword)) {
+                markHere("existsAccountOnly");
             }
-            if (memberName.contains("P") && memberAccount.contains("P")) {
-                existsBoth = true;
+            if (memberName.contains(keyword) && memberAccount.contains(keyword)) {
+                markHere("existsBoth");
             }
         }
-        assertTrue(existsAccountOnly);
-        assertTrue(existsBoth);
+        assertMarked("existsAccountOnly");
+        assertMarked("existsBoth");
+        String sql = popCB().toDisplaySql();
+        assertTrue(Srl.containsIgnoreCase(sql, "dfloc.MEMBER_NAME || dfloc.MEMBER_ACCOUNT like"));
     }
 
     // ===================================================================================
@@ -86,7 +87,7 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
                 op.likeContain();
                 op.addCompoundColumn(dreamCruiseCB.specify().columnMemberAccount());
                 op.optimizeCompoundColumnByFixedSize(9, 20); // no optimization
-                });
+            });
             pushCB(cb);
         });
 
