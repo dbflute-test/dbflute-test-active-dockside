@@ -1,10 +1,15 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.query;
 
+import java.util.List;
+
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberCB;
+import org.docksidestage.dockside.dbflute.cbean.VendorCheckCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
+import org.docksidestage.dockside.dbflute.exbhv.VendorCheckBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
+import org.docksidestage.dockside.dbflute.exentity.VendorCheck;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -17,6 +22,7 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
     //                                                                           Attribute
     //                                                                           =========
     private MemberBhv memberBhv;
+    private VendorCheckBhv vendorCheckBhv;
 
     // ===================================================================================
     //                                                                               Basic
@@ -52,6 +58,84 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         assertTrue(Srl.containsIgnoreCase(sql, "dfloc.MEMBER_NAME || dfloc.MEMBER_ACCOUNT like"));
     }
 
+    // ===================================================================================
+    //                                                                            Coalesce
+    //                                                                            ========
+    public void test_DreamCruise_LikeSearch_compound_basic() throws Exception {
+        // ## Arrange ##
+        long vendorCheckId = vendorCheckBhv.selectScalar(long.class).max(cb -> {
+            cb.specify().columnVendorCheckId();
+        }).get();
+        VendorCheck vendorCheck = new VendorCheck();
+        vendorCheck.setVendorCheckId(vendorCheckId + 1); // not auto incremental
+        vendorCheck.setTypeOfChar("abc");
+        vendorCheck.setTypeOfVarchar("def");
+        vendorCheckBhv.insert(vendorCheck);
+        
+        List<VendorCheck> vendorCheckList = vendorCheckBhv.selectList(cb -> {
+            /* ## Act ## */
+            VendorCheckCB dreamCruiseCB = cb.dreamCruiseCB();
+            cb.query().setTypeOfChar_LikeSearch("bcde", op -> {
+                op.likeContain();
+                op.addCompoundColumn(dreamCruiseCB.specify().columnTypeOfVarchar());
+            });
+        });
+
+        // ## Assert ##
+        assertHasAnyElement(vendorCheckList);
+        for (VendorCheck targetVendorCheck : vendorCheckList) {
+            // If any selected value is null, the compounded value is also null as default (even others are not null).
+            // So such pattern cannot be asserted.
+            if (targetVendorCheck.getTypeOfChar() != null &&  targetVendorCheck.getTypeOfVarchar() != null) {
+                markHere("asserted");
+                assertContains(targetVendorCheck.getTypeOfChar() + targetVendorCheck.getTypeOfVarchar(), "bcde");                
+            }
+        }
+        assertMarked("asserted");
+    }
+    
+    public void test_DreamCruise_LikeSearch_compound_null_as_empty() throws Exception {
+        // ## Arrange ##
+        long vendorCheckId = vendorCheckBhv.selectScalar(long.class).max(cb -> {
+            cb.specify().columnVendorCheckId();
+        }).get();
+        
+        VendorCheck notNullEntity= new VendorCheck();
+        notNullEntity.setVendorCheckId(vendorCheckId + 1); // not auto incremental
+        notNullEntity.setTypeOfChar("abc");
+        notNullEntity.setTypeOfVarchar("def");
+        vendorCheckBhv.insert(notNullEntity);
+        
+        VendorCheck compoundColumnNullEntity = new VendorCheck();
+        compoundColumnNullEntity.setVendorCheckId(vendorCheckId + 2);
+        compoundColumnNullEntity.setTypeOfChar("bcd"); // TypeOfVarchar is null
+        vendorCheckBhv.insert(compoundColumnNullEntity);
+        
+        VendorCheck mainColumnNullEntity = new VendorCheck();
+        mainColumnNullEntity.setVendorCheckId(vendorCheckId + 3);
+        mainColumnNullEntity.setTypeOfVarchar("abcdef"); // TypeOfChar is null
+        vendorCheckBhv.insert(mainColumnNullEntity);
+        
+        List<VendorCheck> vendorCheckList = vendorCheckBhv.selectList(cb -> {
+            /* ## Act ## */
+            VendorCheckCB dreamCruiseCB = cb.dreamCruiseCB();
+            cb.query().setTypeOfChar_LikeSearch("bcd", op -> {
+                op.likeContain();
+                op.addCompoundColumn(dreamCruiseCB.specify().columnTypeOfVarchar());
+                op.setCompoundColumnNullAsEmpty();
+            });
+            pushCB(cb);
+        });
+
+        // ## Assert ##
+        assertTrue(Srl.containsIgnoreCase(popCB().toDisplaySql(), "coalesce"));
+        assertHasAnyElement(vendorCheckList);
+        assertTrue(vendorCheckList.size() >= 3); // inserted 3 entities
+        for (VendorCheck vendorCheck : vendorCheckList) {
+            assertContains(vendorCheck.getTypeOfChar() + vendorCheck.getTypeOfVarchar(), "bcd");
+        }
+    }
+    
     // ===================================================================================
     //                                                                            Optimize
     //                                                                            ========
