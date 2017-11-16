@@ -26,9 +26,9 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
     private VendorCheckBhv vendorCheckBhv;
 
     // ===================================================================================
-    //                                                                            Compound
-    //                                                                            ========
-    public void test_LikeSearch_DreamCruise_compound_whitebox() throws Exception {
+    //                                                                               Basic
+    //                                                                               =====
+    public void test_LikeSearch_DreamCruise_compound_basic() throws Exception {
         // ## Arrange ##
         String keyword = "P";
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
@@ -59,9 +59,9 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         assertTrue(Srl.containsIgnoreCase(sql, "dfloc.MEMBER_NAME || dfloc.MEMBER_ACCOUNT like"));
     }
 
-    // -----------------------------------------------------
-    //                                              coalesce
-    //                                              --------
+    // ===================================================================================
+    //                                                                            Coalesce
+    //                                                                            ========
     public void test_LikeSearch_DreamCruise_compound_coalesce_basic() throws Exception {
         // ## Arrange ##
         long vendorCheckId = vendorCheckBhv.selectScalar(long.class).max(cb -> {
@@ -142,7 +142,7 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
     //                                                                            ========
     // optimized column should be char type column
     // but the test uses varchar type column for test
-    public void test_LikeSearch_DreamCruise_optimize_basic() throws Exception {
+    public void test_LikeSearch_DreamCruise_compound_optimize_basic() throws Exception {
         // ## Arrange ##
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
@@ -163,7 +163,7 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         assertTrue(Srl.containsIgnoreCase(sql, "MEMBER_ACCOUNT like 'Pix%'"));
     }
 
-    public void test_LikeSearch_DreamCruise_optimize_contain() throws Exception {
+    public void test_LikeSearch_DreamCruise_compound_optimize_contain() throws Exception {
         // ## Arrange ##
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
@@ -183,7 +183,7 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         assertTrue(Srl.containsIgnoreCase(sql, "dfloc.MEMBER_NAME || dfloc.MEMBER_ACCOUNT like '%vicPix%'"));
     }
 
-    public void test_LikeSearch_DreamCruise_optimize_just_basic() throws Exception {
+    public void test_LikeSearch_DreamCruise_compound_optimize_just_basic() throws Exception {
         // ## Arrange ##
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
@@ -204,7 +204,7 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         assertTrue(Srl.containsIgnoreCase(sql, "MEMBER_ACCOUNT = 'Pixy'"));
     }
 
-    public void test_LikeSearch_DreamCruise_optimize_just_short_first() throws Exception {
+    public void test_LikeSearch_DreamCruise_compound_optimize_just_short_first() throws Exception {
         // ## Arrange ##
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
@@ -226,7 +226,7 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         assertFalse(Srl.containsIgnoreCase(sql, "MEMBER_ACCOUNT like"));
     }
 
-    public void test_LikeSearch_DreamCruise_optimize_just_short_second() throws Exception {
+    public void test_LikeSearch_DreamCruise_compound_optimize_just_short_second() throws Exception {
         // ## Arrange ##
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
@@ -249,7 +249,7 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         assertFalse(Srl.containsIgnoreCase(sql, "REGISTER_USER like"));
     }
 
-    public void test_LikeSearch_DreamCruise_optimize_firstOnly() throws Exception {
+    public void test_LikeSearch_DreamCruise_compound_optimize_firstOnly() throws Exception {
         // ## Arrange ##
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
@@ -271,7 +271,7 @@ public class WxCBLikeSearchDreamCruiseTest extends UnitContainerTestCase {
         assertTrue(Srl.containsIgnoreCase(sql, "dfloc.MEMBER_ACCOUNT || dfloc.REGISTER_USER like 'Pix%'"));
     }
 
-    public void test_LikeSearch_DreamCruise_optimize_shortCondition() throws Exception {
+    public void test_LikeSearch_DreamCruise_compound_optimize_shortCondition() throws Exception {
         // ## Arrange ##
         Member member = memberBhv.selectEntityWithDeletedCheck(cb -> {
             /* ## Act ## */
