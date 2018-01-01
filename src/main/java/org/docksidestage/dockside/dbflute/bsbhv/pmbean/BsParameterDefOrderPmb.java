@@ -90,7 +90,7 @@ public class BsParameterDefOrderPmb implements ExecuteHandlingPmb<MemberBhv>, Fe
     protected String filterStringParameter(String value) { return isEmptyStringParameterAllowed() ? value : convertEmptyToNull(value); }
     protected boolean isEmptyStringParameterAllowed() { return DBFluteConfig.getInstance().isEmptyStringParameterAllowed(); }
     protected String convertEmptyToNull(String value) { return PmbCustodial.convertEmptyToNull(value); }
-    
+
     // -----------------------------------------------------
     //                                                  Date
     //                                                  ----

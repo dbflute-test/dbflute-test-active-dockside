@@ -94,7 +94,7 @@ public class BsVendorIdentityOnlyCQ extends AbstractBsVendorIdentityOnlyCQ {
       return _identityOnlyId; }
     protected ConditionValue xgetCValueIdentityOnlyId() { return xdfgetIdentityOnlyId(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * IDENTITY_ONLY_ID: {PK, ID, NotNull, BIGINT(19)}
      * @return this. (NotNull)

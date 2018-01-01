@@ -94,7 +94,7 @@ public class BsVendorPrimaryKeyOnlyCQ extends AbstractBsVendorPrimaryKeyOnlyCQ {
       return _primaryKeyOnlyId; }
     protected ConditionValue xgetCValuePrimaryKeyOnlyId() { return xdfgetPrimaryKeyOnlyId(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * PRIMARY_KEY_ONLY_ID: {PK, NotNull, BIGINT(19)}
      * @return this. (NotNull)

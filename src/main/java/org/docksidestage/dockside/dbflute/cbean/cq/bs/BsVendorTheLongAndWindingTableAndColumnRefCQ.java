@@ -94,7 +94,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
       return _theLongAndWindingTableAndColumnRefId; }
     protected ConditionValue xgetCValueTheLongAndWindingTableAndColumnRefId() { return xdfgetTheLongAndWindingTableAndColumnRefId(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)}
      * @return this. (NotNull)
@@ -114,7 +114,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
       return _theLongAndWindingTableAndColumnId; }
     protected ConditionValue xgetCValueTheLongAndWindingTableAndColumnId() { return xdfgetTheLongAndWindingTableAndColumnId(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {IX, NotNull, BIGINT(19), FK to VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN}
      * @return this. (NotNull)
@@ -134,7 +134,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
       return _theLongAndWindingTableAndColumnRefDate; }
     protected ConditionValue xgetCValueTheLongAndWindingTableAndColumnRefDate() { return xdfgetTheLongAndWindingTableAndColumnRefDate(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)}
      * @return this. (NotNull)
@@ -154,7 +154,7 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
       return _shortDate; }
     protected ConditionValue xgetCValueShortDate() { return xdfgetShortDate(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * SHORT_DATE: {NotNull, DATE(8)}
      * @return this. (NotNull)

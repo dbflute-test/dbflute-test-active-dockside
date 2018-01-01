@@ -122,7 +122,7 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
     public Map<String, Object> xdfgetProductStatusCode_QueryDerivedReferrer_SummaryProductListParameter() { return xgetSQuePmMap("productStatusCode_QueryDerivedReferrer_SummaryProductList"); }
     public String keepProductStatusCode_QueryDerivedReferrer_SummaryProductListParameter(Object pm) { return xkeepSQuePm("productStatusCode_QueryDerivedReferrer_SummaryProductList", pm); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
      * @return this. (NotNull)
@@ -142,7 +142,7 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
       return _productStatusName; }
     protected ConditionValue xgetCValueProductStatusName() { return xdfgetProductStatusName(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
@@ -162,7 +162,7 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
       return _displayOrder; }
     protected ConditionValue xgetCValueDisplayOrder() { return xdfgetDisplayOrder(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @return this. (NotNull)

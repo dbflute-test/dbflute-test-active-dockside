@@ -124,7 +124,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      *     <span style="color: #3F7E5E">// called if present, or exception</span>
      *     ... = <span style="color: #553000">vendorTheLongAndWindingTableAndColumnRef</span>.get...
      * });
-     * 
+     *
      * <span style="color: #3F7E5E">// if it might be no data, ...</span>
      * <span style="color: #0000C0">vendorTheLongAndWindingTableAndColumnRefBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
@@ -821,8 +821,8 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
     /**
      * Prepare the all facade executor of outside-SQL to execute it.
      * <pre>
-     * <span style="color: #3F7E5E">// main style</span> 
-     * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span> 
+     * <span style="color: #3F7E5E">// main style</span>
+     * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span>
      * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
      * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
      * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
@@ -830,7 +830,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
      * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
      *
-     * <span style="color: #3F7E5E">// traditional style</span> 
+     * <span style="color: #3F7E5E">// traditional style</span>
      * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
      * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
      * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
@@ -838,7 +838,7 @@ public abstract class BsVendorTheLongAndWindingTableAndColumnRefBhv extends Abst
      * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
      * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().traditionalStyle().execute(path, pmb);
      *
-     * <span style="color: #3F7E5E">// options</span> 
+     * <span style="color: #3F7E5E">// options</span>
      * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().removeBlockComment().selectList()
      * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().removeLineComment().selectList()
      * vendorTheLongAndWindingTableAndColumnRefBhv.outideSql().formatSql().selectList()

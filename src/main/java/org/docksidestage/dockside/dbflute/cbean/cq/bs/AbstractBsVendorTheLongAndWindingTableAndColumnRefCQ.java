@@ -465,7 +465,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
      *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
-     * </pre> 
+     * </pre>
      * @return The object to set up a function. (NotNull)
      */
     public HpSLCFunction<VendorTheLongAndWindingTableAndColumnRefCB> scalar_Equal() {
@@ -480,7 +480,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
      *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
-     * </pre> 
+     * </pre>
      * @return The object to set up a function. (NotNull)
      */
     public HpSLCFunction<VendorTheLongAndWindingTableAndColumnRefCB> scalar_NotEqual() {
@@ -495,7 +495,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
      *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
-     * </pre> 
+     * </pre>
      * @return The object to set up a function. (NotNull)
      */
     public HpSLCFunction<VendorTheLongAndWindingTableAndColumnRefCB> scalar_GreaterThan() {
@@ -510,7 +510,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
      *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
-     * </pre> 
+     * </pre>
      * @return The object to set up a function. (NotNull)
      */
     public HpSLCFunction<VendorTheLongAndWindingTableAndColumnRefCB> scalar_LessThan() {
@@ -525,7 +525,7 @@ public abstract class AbstractBsVendorTheLongAndWindingTableAndColumnRefCQ exten
      *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
      *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
-     * </pre> 
+     * </pre>
      * @return The object to set up a function. (NotNull)
      */
     public HpSLCFunction<VendorTheLongAndWindingTableAndColumnRefCB> scalar_GreaterEqual() {

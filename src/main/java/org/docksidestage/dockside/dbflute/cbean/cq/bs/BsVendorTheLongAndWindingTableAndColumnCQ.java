@@ -108,7 +108,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCQ extends AbstractBsVendorT
     public Map<String, Object> xdfgetTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefListParameter() { return xgetSQuePmMap("theLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList"); }
     public String keepTheLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefListParameter(Object pm) { return xkeepSQuePm("theLongAndWindingTableAndColumnId_QueryDerivedReferrer_VendorTheLongAndWindingTableAndColumnRefList", pm); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID: {PK, NotNull, BIGINT(19)}
      * @return this. (NotNull)
@@ -128,7 +128,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCQ extends AbstractBsVendorT
       return _theLongAndWindingTableAndColumnName; }
     protected ConditionValue xgetCValueTheLongAndWindingTableAndColumnName() { return xdfgetTheLongAndWindingTableAndColumnName(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME: {UQ, NotNull, VARCHAR(200)}
      * @return this. (NotNull)
@@ -148,7 +148,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCQ extends AbstractBsVendorT
       return _shortName; }
     protected ConditionValue xgetCValueShortName() { return xdfgetShortName(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * SHORT_NAME: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
@@ -168,7 +168,7 @@ public class BsVendorTheLongAndWindingTableAndColumnCQ extends AbstractBsVendorT
       return _shortSize; }
     protected ConditionValue xgetCValueShortSize() { return xdfgetShortSize(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * SHORT_SIZE: {NotNull, INTEGER(10)}
      * @return this. (NotNull)

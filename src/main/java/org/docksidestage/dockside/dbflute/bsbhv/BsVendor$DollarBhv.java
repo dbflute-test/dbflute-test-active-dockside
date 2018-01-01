@@ -124,7 +124,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      *     <span style="color: #3F7E5E">// called if present, or exception</span>
      *     ... = <span style="color: #553000">vendor$Dollar</span>.get...
      * });
-     * 
+     *
      * <span style="color: #3F7E5E">// if it might be no data, ...</span>
      * <span style="color: #0000C0">vendor$DollarBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
@@ -813,8 +813,8 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
     /**
      * Prepare the all facade executor of outside-SQL to execute it.
      * <pre>
-     * <span style="color: #3F7E5E">// main style</span> 
-     * vendor$DollarBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span> 
+     * <span style="color: #3F7E5E">// main style</span>
+     * vendor$DollarBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span>
      * vendor$DollarBhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
      * vendor$DollarBhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
      * vendor$DollarBhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
@@ -822,7 +822,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * vendor$DollarBhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
      * vendor$DollarBhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
      *
-     * <span style="color: #3F7E5E">// traditional style</span> 
+     * <span style="color: #3F7E5E">// traditional style</span>
      * vendor$DollarBhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
      * vendor$DollarBhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
      * vendor$DollarBhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
@@ -830,7 +830,7 @@ public abstract class BsVendor$DollarBhv extends AbstractBehaviorWritable<Vendor
      * vendor$DollarBhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
      * vendor$DollarBhv.outideSql().traditionalStyle().execute(path, pmb);
      *
-     * <span style="color: #3F7E5E">// options</span> 
+     * <span style="color: #3F7E5E">// options</span>
      * vendor$DollarBhv.outideSql().removeBlockComment().selectList()
      * vendor$DollarBhv.outideSql().removeLineComment().selectList()
      * vendor$DollarBhv.outideSql().formatSql().selectList()
