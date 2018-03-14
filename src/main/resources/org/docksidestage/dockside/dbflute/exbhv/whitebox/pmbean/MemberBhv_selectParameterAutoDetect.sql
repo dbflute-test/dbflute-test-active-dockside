@@ -23,12 +23,12 @@ select member.MEMBER_ID
    and member.MEMBER_NAME like /*pmb.normalLikeSearchOption*/'%S%v%'
    and member.MEMBER_STATUS_CODE = /*pmb.normalCls:cls(MemberStatus)|comment(second option test)*/'PRV'
    and member.MEMBER_STATUS_CODE = /*pmb.normalCls:cls(MemberStatus.Withdrawal)|comment(fixed classification)*/'PRV'
-   and member.BIRTHDATE > /*pmb.normalDate*/'2010/08/23'
-   and member.BIRTHDATE > /*pmb.fromDateOption:fromDate*/'2010/08/23'
-   and member.BIRTHDATE > /*pmb.toDateOption:toDate*/'2010/08/23'
-   and member.BIRTHDATE > /*pmb.duplicateFromDate:fromDate*/'2010/08/23'
-   and member.BIRTHDATE > /*pmb.duplicateFromDate*/'2010/08/23'
-   and member.BIRTHDATE > /*pmb.overriddenFromDate:fromDate*/'2010/08/23'
+   and member.BIRTHDATE > /*pmb.normalDate*/'2010-08-23'
+   and member.BIRTHDATE > /*pmb.fromDateOption:fromDate*/'2010-08-23'
+   and member.BIRTHDATE > /*pmb.toDateOption:toDate*/'2010-08-23'
+   and member.BIRTHDATE > /*pmb.duplicateFromDate:fromDate*/'2010-08-23'
+   and member.BIRTHDATE > /*pmb.duplicateFromDate*/'2010-08-23'
+   and member.BIRTHDATE > /*pmb.overriddenFromDate:fromDate*/'2010-08-23'
    and member.MEMBER_ID in /*pmb.integerList*/(0, 2)
    and member.MEMBER_STATUS_CODE in /*pmb.cdefList:cls(MemberStatus)|ref(MEMBER.MEMBER_STATUS_CODE)*/('FML', 'PRV')
    and member.MEMBER_STATUS_CODE in /*pmb.memberStatusCodeList:cls(MemberStatus)|ref(MEMBER)*/('FML', 'PRV')
