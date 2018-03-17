@@ -1,5 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.cbean.specifycolumn;
 
+import org.dbflute.cbean.garnish.SpecifyColumnRequiredExceptDeterminer;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.exception.RequiredSpecifyColumnNotFoundException;
 import org.docksidestage.dockside.dbflute.allcommon.DBFluteConfig;
@@ -35,6 +36,8 @@ public class WxCBSpecifyColumnRequiredTest extends UnitContainerTestCase {
         DBFluteConfig.getInstance().unlock();
         DBFluteConfig.getInstance().setSpecifyColumnRequired(false);
         DBFluteConfig.getInstance().setSpecifyColumnRequiredExceptDeterminer(null);
+        SpecifyColumnRequiredExceptDeterminer.Bowgun.unlock();
+        SpecifyColumnRequiredExceptDeterminer.Bowgun.setDefaultDeterminer(null);
     }
 
     // ===================================================================================
@@ -134,16 +137,16 @@ public class WxCBSpecifyColumnRequiredTest extends UnitContainerTestCase {
     //                                            ----------
     public void test_SpecifyColumnRequiredExceptDeterminer_allowTest_basic() {
         WxCBSpecifyColumnRequiredMockLogic logic = new WxCBSpecifyColumnRequiredMockLogic();
-        doTest_SpecifyColumnRequiredExceptDeterminer_allowTest_innerClass(logic);
+        doTest_SpecifyColumnRequiredExceptDeterminer_allowTest(logic);
     }
 
     public void test_SpecifyColumnRequiredExceptDeterminer_allowTest_innerClass() {
         WxCBSpecifyColumnRequiredMockLogic logic = new WxCBSpecifyColumnRequiredMockLogic() {
         }; // sub class
-        doTest_SpecifyColumnRequiredExceptDeterminer_allowTest_innerClass(logic);
+        doTest_SpecifyColumnRequiredExceptDeterminer_allowTest(logic);
     }
 
-    protected void doTest_SpecifyColumnRequiredExceptDeterminer_allowTest_innerClass(WxCBSpecifyColumnRequiredMockLogic logic) {
+    protected void doTest_SpecifyColumnRequiredExceptDeterminer_allowTest(WxCBSpecifyColumnRequiredMockLogic logic) {
         // ## Arrange ##
         DBFluteConfig.getInstance().unlock();
         DBFluteConfig.getInstance().setSpecifyColumnRequiredExceptDeterminer(cb -> {
@@ -170,6 +173,50 @@ public class WxCBSpecifyColumnRequiredTest extends UnitContainerTestCase {
         });
     }
 
+    // -----------------------------------------------------
+    //                                                Bowgun
+    //                                                ------
+    public void test_SpecifyColumnRequiredExceptDeterminer_bowgun_allowTest_basic() {
+        WxCBSpecifyColumnRequiredMockLogic logic = new WxCBSpecifyColumnRequiredMockLogic();
+        doTest_SpecifyColumnRequiredExceptDeterminer_bowgun_allowTest(logic);
+    }
+
+    public void test_SpecifyColumnRequiredExceptDeterminer_bowgun_allowTest_innerClass() {
+        WxCBSpecifyColumnRequiredMockLogic logic = new WxCBSpecifyColumnRequiredMockLogic() {
+        }; // sub class
+        doTest_SpecifyColumnRequiredExceptDeterminer_bowgun_allowTest(logic);
+    }
+
+    protected void doTest_SpecifyColumnRequiredExceptDeterminer_bowgun_allowTest(WxCBSpecifyColumnRequiredMockLogic logic) {
+        // ## Arrange ##
+        SpecifyColumnRequiredExceptDeterminer.Bowgun.unlock();
+        SpecifyColumnRequiredExceptDeterminer.Bowgun.setDefaultDeterminer(cb -> {
+            return isBehaviorCalledFromTest();
+        });
+        inject(logic);
+
+        // ## Act ##
+        assertException(RequiredSpecifyColumnNotFoundException.class, () -> {
+            logic.selectPlainly();
+        }).handle(cause -> {
+            // ## Assert ##
+            log(cause.getMessage());
+        });
+        assertHasAnyElement(logic.selectSpecifyingColumn());
+        assertHasAnyElement(memberBhv.selectList(cb -> {})); // directly from test
+        ((Runnable) () -> memberBhv.selectList(cb -> {})).run(); // lambda is under maker
+        assertException(RequiredSpecifyColumnNotFoundException.class, () -> {
+            new Runnable() {
+                public void run() {
+                    memberBhv.selectList(cb -> {});
+                }
+            }.run(); // ...Test$2
+        });
+    }
+
+    // ===================================================================================
+    //                                                                        Assist Logic
+    //                                                                        ============
     protected boolean isBehaviorCalledFromTest() {
         final StackTraceElement[] stackTraces = new Exception().getStackTrace();
         int index = 0;

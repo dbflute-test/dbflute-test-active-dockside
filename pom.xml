@@ -13,7 +13,7 @@
 	<inceptionYear>2014</inceptionYear>
 
 	<properties>
-		<dbflute.version>1.1.7-RC1</dbflute.version>
+		<dbflute.version>1.1.7-RC3</dbflute.version>
 		<h2.jdbc.version>1.4.193</h2.jdbc.version>
 		<spring.version>4.3.4.RELEASE</spring.version>
 		<utflute.version>0.8.5</utflute.version>
