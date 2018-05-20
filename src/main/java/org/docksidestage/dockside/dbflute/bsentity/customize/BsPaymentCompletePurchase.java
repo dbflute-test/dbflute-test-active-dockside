@@ -97,7 +97,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity implement
     /** (商品名称)PRODUCT_NAME: {VARCHAR(50), refers to PRODUCT.PRODUCT_NAME} */
     protected String _productName;
 
-    /** (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} */
+    /** (購入日時)PURCHASE_DATETIME: {TIMESTAMP(26, 6), refers to PURCHASE.PURCHASE_DATETIME} */
     protected java.time.LocalDateTime _purchaseDatetime;
 
     // ===================================================================================
@@ -302,7 +302,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity implement
     }
 
     /**
-     * [get] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} <br>
+     * [get] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(26, 6), refers to PURCHASE.PURCHASE_DATETIME} <br>
      * 購入した瞬間の日時。
      * @return The value of the column 'PURCHASE_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
@@ -312,7 +312,7 @@ public abstract class BsPaymentCompletePurchase extends AbstractEntity implement
     }
 
     /**
-     * [set] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} <br>
+     * [set] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(26, 6), refers to PURCHASE.PURCHASE_DATETIME} <br>
      * 購入した瞬間の日時。
      * @param purchaseDatetime The value of the column 'PURCHASE_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */

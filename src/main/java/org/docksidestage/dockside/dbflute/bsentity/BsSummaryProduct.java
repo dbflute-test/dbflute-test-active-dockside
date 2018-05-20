@@ -96,7 +96,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     /** PRODUCT_STATUS_CODE: {CHAR(3), FK to PRODUCT_STATUS, classification=ProductStatus} */
     protected String _productStatusCode;
 
-    /** LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} */
+    /** LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _latestPurchaseDatetime;
 
     // ===================================================================================
@@ -404,7 +404,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * [get] LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} <br>
+     * [get] LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)} <br>
      * @return The value of the column 'LATEST_PURCHASE_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public java.time.LocalDateTime getLatestPurchaseDatetime() {
@@ -413,7 +413,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * [set] LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)} <br>
+     * [set] LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)} <br>
      * @param latestPurchaseDatetime The value of the column 'LATEST_PURCHASE_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setLatestPurchaseDatetime(java.time.LocalDateTime latestPurchaseDatetime) {

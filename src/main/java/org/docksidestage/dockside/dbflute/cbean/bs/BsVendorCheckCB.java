@@ -384,17 +384,17 @@ public class BsVendorCheckCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnTypeOfBigint() { return doColumn("TYPE_OF_BIGINT"); }
         /**
-         * TYPE_OF_DATE: {DATE(8)}
+         * TYPE_OF_DATE: {DATE(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnTypeOfDate() { return doColumn("TYPE_OF_DATE"); }
         /**
-         * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
+         * TYPE_OF_TIMESTAMP: {TIMESTAMP(26, 6)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnTypeOfTimestamp() { return doColumn("TYPE_OF_TIMESTAMP"); }
         /**
-         * TYPE_OF_TIME: {TIME(6)}
+         * TYPE_OF_TIME: {TIME(8)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnTypeOfTime() { return doColumn("TYPE_OF_TIME"); }

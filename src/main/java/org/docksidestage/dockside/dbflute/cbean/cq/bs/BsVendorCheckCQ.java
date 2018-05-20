@@ -436,14 +436,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * TYPE_OF_DATE: {DATE(8)}
+     * TYPE_OF_DATE: {DATE(10)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfDate_Asc() { regOBA("TYPE_OF_DATE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * TYPE_OF_DATE: {DATE(8)}
+     * TYPE_OF_DATE: {DATE(10)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfDate_Desc() { regOBD("TYPE_OF_DATE"); return this; }
@@ -456,14 +456,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
+     * TYPE_OF_TIMESTAMP: {TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfTimestamp_Asc() { regOBA("TYPE_OF_TIMESTAMP"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
+     * TYPE_OF_TIMESTAMP: {TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfTimestamp_Desc() { regOBD("TYPE_OF_TIMESTAMP"); return this; }
@@ -476,14 +476,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * TYPE_OF_TIME: {TIME(6)}
+     * TYPE_OF_TIME: {TIME(8)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfTime_Asc() { regOBA("TYPE_OF_TIME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * TYPE_OF_TIME: {TIME(6)}
+     * TYPE_OF_TIME: {TIME(8)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfTime_Desc() { regOBD("TYPE_OF_TIME"); return this; }

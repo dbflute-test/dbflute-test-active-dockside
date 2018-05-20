@@ -104,7 +104,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity implements Doma
     /** WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} */
     protected String _withdrawalReasonInputText;
 
-    /** WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} */
+    /** WITHDRAWAL_DATETIME: {TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _withdrawalDatetime;
 
     /** MEMBER_STATUS_CODE: {CHAR(3)} */
@@ -313,7 +313,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity implements Doma
     }
 
     /**
-     * [get] WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} <br>
+     * [get] WITHDRAWAL_DATETIME: {TIMESTAMP(26, 6)} <br>
      * @return The value of the column 'WITHDRAWAL_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
     public java.time.LocalDateTime getWithdrawalDatetime() {
@@ -322,7 +322,7 @@ public abstract class BsSummaryWithdrawal extends AbstractEntity implements Doma
     }
 
     /**
-     * [set] WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)} <br>
+     * [set] WITHDRAWAL_DATETIME: {TIMESTAMP(26, 6)} <br>
      * @param withdrawalDatetime The value of the column 'WITHDRAWAL_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setWithdrawalDatetime(java.time.LocalDateTime withdrawalDatetime) {

@@ -312,7 +312,7 @@ public class BsSummaryWithdrawalCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnWithdrawalReasonInputText() { return doColumn("WITHDRAWAL_REASON_INPUT_TEXT"); }
         /**
-         * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
+         * WITHDRAWAL_DATETIME: {TIMESTAMP(26, 6)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnWithdrawalDatetime() { return doColumn("WITHDRAWAL_DATETIME"); }

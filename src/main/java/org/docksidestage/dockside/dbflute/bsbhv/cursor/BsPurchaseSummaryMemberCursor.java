@@ -134,7 +134,7 @@ public class BsPurchaseSummaryMemberCursor {
     }
 
     /**
-     * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br>
+     * [get] (生年月日)BIRTHDATE: {DATE(10), refers to MEMBER.BIRTHDATE} <br>
      * 必須項目ではないので、このデータがない会員もいる。
      * @return The value of birthdate. (NullAllowed)
      * @throws SQLException When it fails to get the value from result set.
@@ -144,7 +144,7 @@ public class BsPurchaseSummaryMemberCursor {
     }
 
     /**
-     * [get] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME} <br>
+     * [get] (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.FORMALIZED_DATETIME} <br>
      * 会員が正式に確定した(正式会員になった)日時。<br>
      * 一度確定したらもう二度と更新されないはずだ！
      * @return The value of formalizedDatetime. (NullAllowed)

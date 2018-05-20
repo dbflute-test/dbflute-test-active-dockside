@@ -196,14 +196,14 @@ public class BsSummaryWithdrawalCQ extends AbstractBsSummaryWithdrawalCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
+     * WITHDRAWAL_DATETIME: {TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalDatetime_Asc() { regOBA("WITHDRAWAL_DATETIME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
+     * WITHDRAWAL_DATETIME: {TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsSummaryWithdrawalCQ addOrderBy_WithdrawalDatetime_Desc() { regOBD("WITHDRAWAL_DATETIME"); return this; }

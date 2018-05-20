@@ -122,9 +122,9 @@ public class VendorCheckDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnTypeOfNumericMaxdecimal = cci("TYPE_OF_NUMERIC_MAXDECIMAL", "TYPE_OF_NUMERIC_MAXDECIMAL", null, null, java.math.BigDecimal.class, "typeOfNumericMaxdecimal", null, false, false, false, "DECIMAL", 38, 38, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnTypeOfInteger = cci("TYPE_OF_INTEGER", "TYPE_OF_INTEGER", null, null, Integer.class, "typeOfInteger", null, false, false, false, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnTypeOfBigint = cci("TYPE_OF_BIGINT", "TYPE_OF_BIGINT", null, null, Long.class, "typeOfBigint", null, false, false, false, "BIGINT", 19, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnTypeOfDate = cci("TYPE_OF_DATE", "TYPE_OF_DATE", null, null, java.time.LocalDate.class, "typeOfDate", null, false, false, false, "DATE", 8, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnTypeOfTimestamp = cci("TYPE_OF_TIMESTAMP", "TYPE_OF_TIMESTAMP", null, null, java.time.LocalDateTime.class, "typeOfTimestamp", null, false, false, false, "TIMESTAMP", 23, 10, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnTypeOfTime = cci("TYPE_OF_TIME", "TYPE_OF_TIME", null, null, java.time.LocalTime.class, "typeOfTime", null, false, false, false, "TIME", 6, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnTypeOfDate = cci("TYPE_OF_DATE", "TYPE_OF_DATE", null, null, java.time.LocalDate.class, "typeOfDate", null, false, false, false, "DATE", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnTypeOfTimestamp = cci("TYPE_OF_TIMESTAMP", "TYPE_OF_TIMESTAMP", null, null, java.time.LocalDateTime.class, "typeOfTimestamp", null, false, false, false, "TIMESTAMP", 26, 6, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnTypeOfTime = cci("TYPE_OF_TIME", "TYPE_OF_TIME", null, null, java.time.LocalTime.class, "typeOfTime", null, false, false, false, "TIME", 8, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnTypeOfBoolean = cci("TYPE_OF_BOOLEAN", "TYPE_OF_BOOLEAN", null, null, Boolean.class, "typeOfBoolean", null, false, false, false, "BOOLEAN", 1, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnTypeOfBinary = cci("TYPE_OF_BINARY", "TYPE_OF_BINARY", null, null, byte[].class, "typeOfBinary", null, false, false, false, "VARBINARY", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnTypeOfBlob = cci("TYPE_OF_BLOB", "TYPE_OF_BLOB", null, null, byte[].class, "typeOfBlob", null, false, false, false, "BLOB", 2147483647, 0, null, null, false, null, null, null, null, null, false);
@@ -220,17 +220,17 @@ public class VendorCheckDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnTypeOfBigint() { return _columnTypeOfBigint; }
     /**
-     * TYPE_OF_DATE: {DATE(8)}
+     * TYPE_OF_DATE: {DATE(10)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnTypeOfDate() { return _columnTypeOfDate; }
     /**
-     * TYPE_OF_TIMESTAMP: {TIMESTAMP(23, 10)}
+     * TYPE_OF_TIMESTAMP: {TIMESTAMP(26, 6)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnTypeOfTimestamp() { return _columnTypeOfTimestamp; }
     /**
-     * TYPE_OF_TIME: {TIME(6)}
+     * TYPE_OF_TIME: {TIME(8)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnTypeOfTime() { return _columnTypeOfTime; }

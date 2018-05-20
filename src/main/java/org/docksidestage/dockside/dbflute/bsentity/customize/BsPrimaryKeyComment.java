@@ -90,13 +90,13 @@ public abstract class BsPrimaryKeyComment extends AbstractEntity implements Cust
     /** (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} */
     protected String _memberName;
 
-    /** (登録日時)REGISTER_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.REGISTER_DATETIME} */
+    /** (登録日時)REGISTER_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.REGISTER_DATETIME} */
     protected java.time.LocalDateTime _registerDatetime;
 
     /** (登録ユーザ)REGISTER_USER: {VARCHAR(200), refers to MEMBER.REGISTER_USER} */
     protected String _registerUser;
 
-    /** (更新日時)UPDATE_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.UPDATE_DATETIME} */
+    /** (更新日時)UPDATE_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.UPDATE_DATETIME} */
     protected java.time.LocalDateTime _updateDatetime;
 
     /** (更新ユーザ)UPDATE_USER: {VARCHAR(200), refers to MEMBER.UPDATE_USER} */
@@ -303,7 +303,7 @@ public abstract class BsPrimaryKeyComment extends AbstractEntity implements Cust
     }
 
     /**
-     * [get] (登録日時)REGISTER_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.REGISTER_DATETIME} <br>
+     * [get] (登録日時)REGISTER_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.REGISTER_DATETIME} <br>
      * レコードが登録された日時。<br>
      * 会員が登録された日時とほぼ等しいが、そういった業務的な役割を兼務させるのはあまり推奨されない。といいつつ、このテーブルには会員登録日時がない...<br>
      * 仕様はどのテーブルでも同じなので、共通カラムの説明はこのテーブルでしか書かない。
@@ -315,7 +315,7 @@ public abstract class BsPrimaryKeyComment extends AbstractEntity implements Cust
     }
 
     /**
-     * [set] (登録日時)REGISTER_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.REGISTER_DATETIME} <br>
+     * [set] (登録日時)REGISTER_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.REGISTER_DATETIME} <br>
      * レコードが登録された日時。<br>
      * 会員が登録された日時とほぼ等しいが、そういった業務的な役割を兼務させるのはあまり推奨されない。といいつつ、このテーブルには会員登録日時がない...<br>
      * 仕様はどのテーブルでも同じなので、共通カラムの説明はこのテーブルでしか書かない。
@@ -349,7 +349,7 @@ public abstract class BsPrimaryKeyComment extends AbstractEntity implements Cust
     }
 
     /**
-     * [get] (更新日時)UPDATE_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.UPDATE_DATETIME} <br>
+     * [get] (更新日時)UPDATE_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.UPDATE_DATETIME} <br>
      * レコードが（最後に）更新された日時。<br>
      * 業務的な利用はあまり推奨されないと別項目で説明したが、このカラムはソートの要素としてよく利用される。
      * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed even if selected: for no constraint)
@@ -360,7 +360,7 @@ public abstract class BsPrimaryKeyComment extends AbstractEntity implements Cust
     }
 
     /**
-     * [set] (更新日時)UPDATE_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.UPDATE_DATETIME} <br>
+     * [set] (更新日時)UPDATE_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.UPDATE_DATETIME} <br>
      * レコードが（最後に）更新された日時。<br>
      * 業務的な利用はあまり推奨されないと別項目で説明したが、このカラムはソートの要素としてよく利用される。
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (NullAllowed: null update allowed for no constraint)

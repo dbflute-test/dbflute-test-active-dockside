@@ -169,7 +169,7 @@ public class BsPaymentCompletePurchaseCursor {
     }
 
     /**
-     * [get] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME} <br>
+     * [get] (購入日時)PURCHASE_DATETIME: {TIMESTAMP(26, 6), refers to PURCHASE.PURCHASE_DATETIME} <br>
      * 購入した瞬間の日時。
      * @return The value of purchaseDatetime. (NullAllowed)
      * @throws SQLException When it fails to get the value from result set.

@@ -330,12 +330,12 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCB extends AbstractCondit
          */
         public SpecifiedColumn columnTheLongAndWindingTableAndColumnId() { return doColumn("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID"); }
         /**
-         * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)}
+         * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnTheLongAndWindingTableAndColumnRefDate() { return doColumn("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE"); }
         /**
-         * SHORT_DATE: {NotNull, DATE(8)}
+         * SHORT_DATE: {NotNull, DATE(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnShortDate() { return doColumn("SHORT_DATE"); }

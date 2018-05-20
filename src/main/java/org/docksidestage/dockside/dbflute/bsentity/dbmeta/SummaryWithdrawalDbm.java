@@ -91,7 +91,7 @@ public class SummaryWithdrawalDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnWithdrawalReasonCode = cci("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", null, null, String.class, "withdrawalReasonCode", null, false, false, false, "CHAR", 3, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnWithdrawalReasonText = cci("WITHDRAWAL_REASON_TEXT", "WITHDRAWAL_REASON_TEXT", null, null, String.class, "withdrawalReasonText", null, false, false, false, "CLOB", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnWithdrawalReasonInputText = cci("WITHDRAWAL_REASON_INPUT_TEXT", "WITHDRAWAL_REASON_INPUT_TEXT", null, null, String.class, "withdrawalReasonInputText", null, false, false, false, "CLOB", 2147483647, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnWithdrawalDatetime = cci("WITHDRAWAL_DATETIME", "WITHDRAWAL_DATETIME", null, null, java.time.LocalDateTime.class, "withdrawalDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnWithdrawalDatetime = cci("WITHDRAWAL_DATETIME", "WITHDRAWAL_DATETIME", null, null, java.time.LocalDateTime.class, "withdrawalDatetime", null, false, false, false, "TIMESTAMP", 26, 6, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, null, String.class, "memberStatusCode", null, false, false, false, "CHAR", 3, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, null, String.class, "memberStatusName", null, false, false, false, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMaxPurchasePrice = cci("MAX_PURCHASE_PRICE", "MAX_PURCHASE_PRICE", null, null, Integer.class, "maxPurchasePrice", null, false, false, false, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
@@ -122,7 +122,7 @@ public class SummaryWithdrawalDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnWithdrawalReasonInputText() { return _columnWithdrawalReasonInputText; }
     /**
-     * WITHDRAWAL_DATETIME: {TIMESTAMP(23, 10)}
+     * WITHDRAWAL_DATETIME: {TIMESTAMP(26, 6)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnWithdrawalDatetime() { return _columnWithdrawalDatetime; }

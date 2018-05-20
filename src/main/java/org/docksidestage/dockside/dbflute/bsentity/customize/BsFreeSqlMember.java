@@ -84,7 +84,7 @@ public abstract class BsFreeSqlMember extends AbstractEntity implements Customiz
     /** (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} */
     protected String _memberName;
 
-    /** (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} */
+    /** (生年月日)BIRTHDATE: {DATE(10), refers to MEMBER.BIRTHDATE} */
     protected java.time.LocalDate _birthdate;
 
     /** (会員ステータス名称)MEMBER_STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
@@ -224,7 +224,7 @@ public abstract class BsFreeSqlMember extends AbstractEntity implements Customiz
     }
 
     /**
-     * [get] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br>
+     * [get] (生年月日)BIRTHDATE: {DATE(10), refers to MEMBER.BIRTHDATE} <br>
      * 必須項目ではないので、このデータがない会員もいる。
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
@@ -234,7 +234,7 @@ public abstract class BsFreeSqlMember extends AbstractEntity implements Customiz
     }
 
     /**
-     * [set] (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE} <br>
+     * [set] (生年月日)BIRTHDATE: {DATE(10), refers to MEMBER.BIRTHDATE} <br>
      * 必須項目ではないので、このデータがない会員もいる。
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed: null update allowed for no constraint)
      */

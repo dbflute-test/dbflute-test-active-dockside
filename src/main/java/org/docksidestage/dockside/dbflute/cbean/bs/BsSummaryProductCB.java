@@ -340,7 +340,7 @@ public class BsSummaryProductCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnProductStatusCode() { return doColumn("PRODUCT_STATUS_CODE"); }
         /**
-         * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
+         * LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnLatestPurchaseDatetime() { return doColumn("LATEST_PURCHASE_DATETIME"); }

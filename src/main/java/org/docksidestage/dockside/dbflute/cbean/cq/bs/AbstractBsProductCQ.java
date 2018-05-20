@@ -927,7 +927,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @param registerDatetime The value of registerDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegisterDatetime_Equal(java.time.LocalDateTime registerDatetime) {
@@ -936,7 +936,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @param registerDatetime The value of registerDatetime as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegisterDatetime_GreaterThan(java.time.LocalDateTime registerDatetime) {
@@ -945,7 +945,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @param registerDatetime The value of registerDatetime as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegisterDatetime_LessThan(java.time.LocalDateTime registerDatetime) {
@@ -954,7 +954,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @param registerDatetime The value of registerDatetime as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegisterDatetime_GreaterEqual(java.time.LocalDateTime registerDatetime) {
@@ -963,7 +963,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @param registerDatetime The value of registerDatetime as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegisterDatetime_LessEqual(java.time.LocalDateTime registerDatetime) {
@@ -973,7 +973,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * <pre>e.g. setRegisterDatetime_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
@@ -986,7 +986,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * <pre>e.g. setRegisterDatetime_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
@@ -1137,7 +1137,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @param updateDatetime The value of updateDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setUpdateDatetime_Equal(java.time.LocalDateTime updateDatetime) {
@@ -1146,7 +1146,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @param updateDatetime The value of updateDatetime as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUpdateDatetime_GreaterThan(java.time.LocalDateTime updateDatetime) {
@@ -1155,7 +1155,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @param updateDatetime The value of updateDatetime as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUpdateDatetime_LessThan(java.time.LocalDateTime updateDatetime) {
@@ -1164,7 +1164,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @param updateDatetime The value of updateDatetime as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUpdateDatetime_GreaterEqual(java.time.LocalDateTime updateDatetime) {
@@ -1173,7 +1173,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @param updateDatetime The value of updateDatetime as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUpdateDatetime_LessEqual(java.time.LocalDateTime updateDatetime) {
@@ -1183,7 +1183,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * <pre>e.g. setUpdateDatetime_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
@@ -1196,7 +1196,7 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * <pre>e.g. setUpdateDatetime_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (basically NotNull: if op.allowOneSide(), null allowed)

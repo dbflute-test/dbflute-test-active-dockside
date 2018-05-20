@@ -60,7 +60,7 @@ public class BsLatestFormalizedDatetimePmb implements ListHandlingPmb<MemberBhv,
 
     /**
      * Get the type of an entity for result. (implementation)
-     * @return The type instance of an entity, TIMESTAMP(23, 10). (NotNull)
+     * @return The type instance of an entity, TIMESTAMP(26, 6). (NotNull)
      */
     public Class<java.time.LocalDateTime> getEntityType() { return java.time.LocalDateTime.class; }
 

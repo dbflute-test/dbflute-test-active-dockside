@@ -136,14 +136,14 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
 
     /**
      * Add order-by as ascend. <br>
-     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)}
+     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(10)}
      * @return this. (NotNull)
      */
     public BsVendorTheLongAndWindingTableAndColumnRefCQ addOrderBy_TheLongAndWindingTableAndColumnRefDate_Asc() { regOBA("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)}
+     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(10)}
      * @return this. (NotNull)
      */
     public BsVendorTheLongAndWindingTableAndColumnRefCQ addOrderBy_TheLongAndWindingTableAndColumnRefDate_Desc() { regOBD("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE"); return this; }
@@ -156,14 +156,14 @@ public class BsVendorTheLongAndWindingTableAndColumnRefCQ extends AbstractBsVend
 
     /**
      * Add order-by as ascend. <br>
-     * SHORT_DATE: {NotNull, DATE(8)}
+     * SHORT_DATE: {NotNull, DATE(10)}
      * @return this. (NotNull)
      */
     public BsVendorTheLongAndWindingTableAndColumnRefCQ addOrderBy_ShortDate_Asc() { regOBA("SHORT_DATE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * SHORT_DATE: {NotNull, DATE(8)}
+     * SHORT_DATE: {NotNull, DATE(10)}
      * @return this. (NotNull)
      */
     public BsVendorTheLongAndWindingTableAndColumnRefCQ addOrderBy_ShortDate_Desc() { regOBD("SHORT_DATE"); return this; }

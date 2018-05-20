@@ -729,7 +729,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
+     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)}
      * @param latestPurchaseDatetime The value of latestPurchaseDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setLatestPurchaseDatetime_Equal(java.time.LocalDateTime latestPurchaseDatetime) {
@@ -738,7 +738,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
+     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)}
      * @param latestPurchaseDatetime The value of latestPurchaseDatetime as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setLatestPurchaseDatetime_GreaterThan(java.time.LocalDateTime latestPurchaseDatetime) {
@@ -747,7 +747,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
+     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)}
      * @param latestPurchaseDatetime The value of latestPurchaseDatetime as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setLatestPurchaseDatetime_LessThan(java.time.LocalDateTime latestPurchaseDatetime) {
@@ -756,7 +756,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
+     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)}
      * @param latestPurchaseDatetime The value of latestPurchaseDatetime as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setLatestPurchaseDatetime_GreaterEqual(java.time.LocalDateTime latestPurchaseDatetime) {
@@ -765,7 +765,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
+     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)}
      * @param latestPurchaseDatetime The value of latestPurchaseDatetime as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setLatestPurchaseDatetime_LessEqual(java.time.LocalDateTime latestPurchaseDatetime) {
@@ -775,7 +775,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
+     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)}
      * <pre>e.g. setLatestPurchaseDatetime_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of latestPurchaseDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of latestPurchaseDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
@@ -788,7 +788,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
+     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)}
      * <pre>e.g. setLatestPurchaseDatetime_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of latestPurchaseDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of latestPurchaseDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
@@ -801,13 +801,13 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
+     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)}
      */
     public void setLatestPurchaseDatetime_IsNull() { regLatestPurchaseDatetime(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
+     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)}
      */
     public void setLatestPurchaseDatetime_IsNotNull() { regLatestPurchaseDatetime(CK_ISNN, DOBJ); }
 

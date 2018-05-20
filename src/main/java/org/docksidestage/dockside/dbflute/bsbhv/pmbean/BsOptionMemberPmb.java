@@ -70,7 +70,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     /** The parameter of displayOrder:ref(MEMBER_STATUS) :: refers to (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}. */
     protected Integer _displayOrder;
 
-    /** The parameter of birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)}. */
+    /** The parameter of birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(10)}. */
     protected java.time.LocalDate _birthdate;
 
     /** The parameter of status:cls(MemberStatus). */
@@ -419,7 +419,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     }
 
     /**
-     * [get] birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br>
+     * [get] birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(10)} <br>
      * // several options
      * @return The value of birthdate. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
@@ -428,7 +428,7 @@ public class BsOptionMemberPmb implements ListHandlingPmb<MemberBhv, OptionMembe
     }
 
     /**
-     * [set as fromDate] birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(8)} <br>
+     * [set as fromDate] birthdate:fromDate|ref(MEMBER.BIRTHDATE) :: refers to (生年月日)BIRTHDATE: {DATE(10)} <br>
      * // several options
      * @param birthdate The value of birthdate. (NullAllowed)
      */

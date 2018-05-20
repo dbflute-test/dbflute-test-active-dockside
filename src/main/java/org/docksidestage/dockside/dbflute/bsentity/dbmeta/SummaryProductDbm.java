@@ -106,7 +106,7 @@ public class SummaryProductDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnProductName = cci("PRODUCT_NAME", "PRODUCT_NAME", null, null, String.class, "productName", null, false, false, false, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnProductHandleCode = cci("PRODUCT_HANDLE_CODE", "PRODUCT_HANDLE_CODE", null, null, String.class, "productHandleCode", null, false, false, false, "VARCHAR", 100, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnProductStatusCode = cci("PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", null, null, String.class, "productStatusCode", null, false, false, false, "CHAR", 3, 0, null, null, false, null, null, "productStatus", null, CDef.DefMeta.ProductStatus, false);
-    protected final ColumnInfo _columnLatestPurchaseDatetime = cci("LATEST_PURCHASE_DATETIME", "LATEST_PURCHASE_DATETIME", null, null, java.time.LocalDateTime.class, "latestPurchaseDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnLatestPurchaseDatetime = cci("LATEST_PURCHASE_DATETIME", "LATEST_PURCHASE_DATETIME", null, null, java.time.LocalDateTime.class, "latestPurchaseDatetime", null, false, false, false, "TIMESTAMP", 26, 6, null, null, false, null, null, null, null, null, false);
 
     /**
      * PRODUCT_ID: {PK, INTEGER(10)}
@@ -129,7 +129,7 @@ public class SummaryProductDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnProductStatusCode() { return _columnProductStatusCode; }
     /**
-     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
+     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnLatestPurchaseDatetime() { return _columnLatestPurchaseDatetime; }

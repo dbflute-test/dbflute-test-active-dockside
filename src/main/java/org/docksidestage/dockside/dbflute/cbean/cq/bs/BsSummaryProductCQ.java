@@ -190,14 +190,14 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
+     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsSummaryProductCQ addOrderBy_LatestPurchaseDatetime_Asc() { regOBA("LATEST_PURCHASE_DATETIME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(23, 10)}
+     * LATEST_PURCHASE_DATETIME: {TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsSummaryProductCQ addOrderBy_LatestPurchaseDatetime_Desc() { regOBD("LATEST_PURCHASE_DATETIME"); return this; }

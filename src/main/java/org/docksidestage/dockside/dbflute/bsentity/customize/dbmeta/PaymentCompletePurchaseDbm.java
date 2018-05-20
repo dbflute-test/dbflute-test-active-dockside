@@ -88,7 +88,7 @@ public class PaymentCompletePurchaseDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, "会員名称", String.class, "memberName", null, false, false, false, "VARCHAR", 200, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, "商品ID", Integer.class, "productId", null, false, false, false, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnProductName = cci("PRODUCT_NAME", "PRODUCT_NAME", null, "商品名称", String.class, "productName", null, false, false, false, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnPurchaseDatetime = cci("PURCHASE_DATETIME", "PURCHASE_DATETIME", null, "購入日時", java.time.LocalDateTime.class, "purchaseDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnPurchaseDatetime = cci("PURCHASE_DATETIME", "PURCHASE_DATETIME", null, "購入日時", java.time.LocalDateTime.class, "purchaseDatetime", null, false, false, false, "TIMESTAMP", 26, 6, null, null, false, null, null, null, null, null, false);
 
     /**
      * PURCHASE_ID: {BIGINT(19), refers to PURCHASE.PURCHASE_ID}
@@ -116,7 +116,7 @@ public class PaymentCompletePurchaseDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnProductName() { return _columnProductName; }
     /**
-     * (購入日時)PURCHASE_DATETIME: {TIMESTAMP(23, 10), refers to PURCHASE.PURCHASE_DATETIME}
+     * (購入日時)PURCHASE_DATETIME: {TIMESTAMP(26, 6), refers to PURCHASE.PURCHASE_DATETIME}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnPurchaseDatetime() { return _columnPurchaseDatetime; }

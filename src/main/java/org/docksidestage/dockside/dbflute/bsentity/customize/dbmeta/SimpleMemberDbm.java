@@ -83,7 +83,7 @@ public class SimpleMemberDbm extends AbstractDBMeta {
     //                                                                         ===========
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, false, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, "会員名称", String.class, "memberName", null, false, false, false, "VARCHAR", 200, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnBirthdate = cci("BIRTHDATE", "BIRTHDATE", null, "生年月日", java.time.LocalDate.class, "birthdate", null, false, false, false, "DATE", 8, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnBirthdate = cci("BIRTHDATE", "BIRTHDATE", null, "生年月日", java.time.LocalDate.class, "birthdate", null, false, false, false, "DATE", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, "会員ステータス名称", String.class, "memberStatusName", null, false, false, false, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
 
     /**
@@ -97,7 +97,7 @@ public class SimpleMemberDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnMemberName() { return _columnMemberName; }
     /**
-     * (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE}
+     * (生年月日)BIRTHDATE: {DATE(10), refers to MEMBER.BIRTHDATE}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnBirthdate() { return _columnBirthdate; }

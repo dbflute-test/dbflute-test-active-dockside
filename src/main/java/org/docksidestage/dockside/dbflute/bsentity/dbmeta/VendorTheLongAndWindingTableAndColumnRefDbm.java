@@ -96,8 +96,8 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
     //                                                                         ===========
     protected final ColumnInfo _columnTheLongAndWindingTableAndColumnRefId = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID", null, null, Long.class, "theLongAndWindingTableAndColumnRefId", null, true, false, true, "BIGINT", 19, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnTheLongAndWindingTableAndColumnId = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID", null, null, Long.class, "theLongAndWindingTableAndColumnId", null, false, false, true, "BIGINT", 19, 0, null, null, false, null, null, "vendorTheLongAndWindingTableAndColumn", null, null, false);
-    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnRefDate = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE", null, null, java.time.LocalDate.class, "theLongAndWindingTableAndColumnRefDate", null, false, false, true, "DATE", 8, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnShortDate = cci("SHORT_DATE", "SHORT_DATE", null, null, java.time.LocalDate.class, "shortDate", null, false, false, true, "DATE", 8, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnTheLongAndWindingTableAndColumnRefDate = cci("THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE", "THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE", null, null, java.time.LocalDate.class, "theLongAndWindingTableAndColumnRefDate", null, false, false, true, "DATE", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnShortDate = cci("SHORT_DATE", "SHORT_DATE", null, null, java.time.LocalDate.class, "shortDate", null, false, false, true, "DATE", 10, 0, null, null, false, null, null, null, null, null, false);
 
     /**
      * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID: {PK, NotNull, BIGINT(19)}
@@ -110,12 +110,12 @@ public class VendorTheLongAndWindingTableAndColumnRefDbm extends AbstractDBMeta 
      */
     public ColumnInfo columnTheLongAndWindingTableAndColumnId() { return _columnTheLongAndWindingTableAndColumnId; }
     /**
-     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(8)}
+     * THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE: {NotNull, DATE(10)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnTheLongAndWindingTableAndColumnRefDate() { return _columnTheLongAndWindingTableAndColumnRefDate; }
     /**
-     * SHORT_DATE: {NotNull, DATE(8)}
+     * SHORT_DATE: {NotNull, DATE(10)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnShortDate() { return _columnShortDate; }

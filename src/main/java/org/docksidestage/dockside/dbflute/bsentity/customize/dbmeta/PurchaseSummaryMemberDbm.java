@@ -84,8 +84,8 @@ public class PurchaseSummaryMemberDbm extends AbstractDBMeta {
     //                                                                         ===========
     protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, false, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, "会員名称", String.class, "memberName", null, false, false, false, "VARCHAR", 200, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnBirthdate = cci("BIRTHDATE", "BIRTHDATE", null, "生年月日", java.time.LocalDate.class, "birthdate", null, false, false, false, "DATE", 8, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnFormalizedDatetime = cci("FORMALIZED_DATETIME", "FORMALIZED_DATETIME", null, "正式会員日時", java.time.LocalDateTime.class, "formalizedDatetime", null, false, false, false, "TIMESTAMP", 23, 10, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnBirthdate = cci("BIRTHDATE", "BIRTHDATE", null, "生年月日", java.time.LocalDate.class, "birthdate", null, false, false, false, "DATE", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnFormalizedDatetime = cci("FORMALIZED_DATETIME", "FORMALIZED_DATETIME", null, "正式会員日時", java.time.LocalDateTime.class, "formalizedDatetime", null, false, false, false, "TIMESTAMP", 26, 6, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPurchaseSummary = cci("PURCHASE_SUMMARY", "PURCHASE_SUMMARY", null, null, Long.class, "purchaseSummary", null, false, false, false, "BIGINT", 10, 0, null, null, false, null, null, null, null, null, false);
 
     /**
@@ -99,12 +99,12 @@ public class PurchaseSummaryMemberDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnMemberName() { return _columnMemberName; }
     /**
-     * (生年月日)BIRTHDATE: {DATE(8), refers to MEMBER.BIRTHDATE}
+     * (生年月日)BIRTHDATE: {DATE(10), refers to MEMBER.BIRTHDATE}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnBirthdate() { return _columnBirthdate; }
     /**
-     * (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(23, 10), refers to MEMBER.FORMALIZED_DATETIME}
+     * (正式会員日時)FORMALIZED_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.FORMALIZED_DATETIME}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnFormalizedDatetime() { return _columnFormalizedDatetime; }
