@@ -15,10 +15,10 @@
  */
 package org.docksidestage.dockside.dbflute.allcommon;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +42,8 @@ public class DBFluteBeansJavaConfig {
     @Autowired
     protected ApplicationContext _container;
 
-    @Resource(name="dataSource")
+    @Autowired
+    @Qualifier("dataSource")
     protected DataSource _dataSource; // name basis here for multiple DB
 
     // ===================================================================================
