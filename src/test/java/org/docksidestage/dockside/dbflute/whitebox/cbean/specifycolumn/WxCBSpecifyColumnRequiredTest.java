@@ -215,6 +215,28 @@ public class WxCBSpecifyColumnRequiredTest extends UnitContainerTestCase {
     }
 
     // ===================================================================================
+    //                                                                        Warning Only
+    //                                                                        ============
+    public void test_SpecifyColumnRequiredWarningOnly_basic() {
+        // ## Arrange ##
+        assertException(RequiredSpecifyColumnNotFoundException.class, () -> {
+            memberBhv.selectList(cb -> {});
+        });
+        DBFluteConfig.getInstance().unlock();
+        DBFluteConfig.getInstance().setSpecifyColumnRequiredWarningOnly(true);
+
+        try {
+            // ## Act ##
+            // ## Assert ##
+            memberBhv.selectList(cb -> {}); // see log
+        } finally {
+            DBFluteConfig.getInstance().unlock();
+            DBFluteConfig.getInstance().setSpecifyColumnRequiredWarningOnly(false);
+            DBFluteConfig.getInstance().lock();
+        }
+    }
+
+    // ===================================================================================
     //                                                                        Assist Logic
     //                                                                        ============
     protected boolean isBehaviorCalledFromTest() {
