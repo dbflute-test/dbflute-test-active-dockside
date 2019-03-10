@@ -3,6 +3,7 @@ package org.docksidestage.dockside.dbflute.whitebox.runtime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dbflute.Entity;
 import org.dbflute.bhv.core.BehaviorCommandHook;
 import org.dbflute.bhv.core.BehaviorCommandMeta;
 import org.dbflute.cbean.ConditionBean;
@@ -47,7 +48,7 @@ public class WxBehaviorCommandHookTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                       ConditionBean
     //                                                                       =============
-    public void test_ConditionBean_selectList() {
+    public void test_BehaviorCommandHook_selectList() {
         // ## Arrange ##
         final List<String> markList = new ArrayList<String>();
         ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
@@ -84,7 +85,7 @@ public class WxBehaviorCommandHookTest extends UnitContainerTestCase {
         assertEquals("hookFinally", markList.get(1));
     }
 
-    public void test_ConditionBean_selectCount() {
+    public void test_BehaviorCommandHook_selectCount() {
         // ## Arrange ##
         final List<String> markList = new ArrayList<String>();
         int count = memberBhv.selectCount(cb -> {
@@ -98,6 +99,7 @@ public class WxBehaviorCommandHookTest extends UnitContainerTestCase {
                     assertFalse(meta.isProcedure());
                     assertTrue(meta.isSelect());
                     assertTrue(meta.isSelectCount());
+                    assertFalse(meta.isUpdate());
                     ConditionBean metaCB = meta.getConditionBean();
                     assertNotNull(metaCB);
                     assertTrue(metaCB.hasWhereClauseOnBaseQuery());
@@ -119,7 +121,55 @@ public class WxBehaviorCommandHookTest extends UnitContainerTestCase {
         assertEquals("hookFinally", markList.get(1));
     }
 
-    public void test_ConditionBean_queryUpdate() {
+    public void test_BehaviorCommandHook_batchUpdate() {
+        // ## Arrange ##
+        final List<String> markList = new ArrayList<String>();
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.query().setMemberStatusCode_Equal_Provisional();
+        });
+        for (Member member : memberList) {
+            member.setBirthdate(currentLocalDate());
+        }
+        CallbackContext.setBehaviorCommandHookOnThread(new BehaviorCommandHook() {
+            public void hookBefore(BehaviorCommandMeta meta) {
+                assertEquals(MemberDbm.getInstance().getTableDbName(), meta.getTableDbName());
+                assertFalse(meta.isConditionBean());
+                assertFalse(meta.isOutsideSql());
+                assertFalse(meta.isProcedure());
+                assertFalse(meta.isSelect());
+                assertFalse(meta.isSelectCount());
+                assertFalse(meta.isInsert());
+                assertTrue(meta.isUpdate());
+                assertFalse(meta.isEntityUpdateFamily());
+                assertTrue(meta.isBatchUpdateFamily());
+                assertFalse(meta.isQueryUpdateFamily());
+                assertNull(meta.getEntity());
+                List<Entity> entityList = meta.getEntityList();
+                assertNotNull(entityList);
+                assertEquals(memberList, entityList);
+                markList.add("hookBefore");
+                log("before: " + meta.getCommandName());
+                log("  entityList:{}", entityList.size());
+                for (Entity entity : entityList) {
+                    log("    {}", entity);
+                }
+            }
+
+            public void hookFinally(BehaviorCommandMeta meta, RuntimeException cause) {
+                markList.add("hookFinally");
+                log("finally: " + meta.getCommandName() + " cause=" + cause);
+            }
+        });
+        int[] updatedAry = memberBhv.batchUpdate(memberList);
+
+        // ## Assert ##
+        assertTrue(updatedAry.length >= 1);
+        assertEquals(2, markList.size());
+        assertEquals("hookBefore", markList.get(0));
+        assertEquals("hookFinally", markList.get(1));
+    }
+
+    public void test_BehaviorCommandHook_queryUpdate() {
         // ## Arrange ##
         final List<String> markList = new ArrayList<String>();
         Member member = new Member();
@@ -135,8 +185,15 @@ public class WxBehaviorCommandHookTest extends UnitContainerTestCase {
                     assertFalse(meta.isProcedure());
                     assertFalse(meta.isSelect());
                     assertFalse(meta.isSelectCount());
+                    assertFalse(meta.isInsert());
+                    assertTrue(meta.isUpdate());
+                    assertFalse(meta.isEntityUpdateFamily());
+                    assertFalse(meta.isBatchUpdateFamily());
+                    assertTrue(meta.isQueryUpdateFamily());
+                    assertNotNull(meta.getEntity());
                     markList.add("hookBefore");
                     log("before: " + meta.getCommandName());
+                    log("  entity: " + meta.getEntity());
                 }
 
                 public void hookFinally(BehaviorCommandMeta meta, RuntimeException cause) {
