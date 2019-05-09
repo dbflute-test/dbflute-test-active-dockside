@@ -16,7 +16,6 @@ import org.docksidestage.dockside.unit.UnitContainerTestCase;
  */
 public class WxBhvOverrideHookTest extends UnitContainerTestCase {
 
-    // TODO jflute test: behavior override hook (2015/07/13)
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
