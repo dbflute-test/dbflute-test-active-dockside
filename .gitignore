@@ -1,8 +1,36 @@
+# common
 /target
+/build
 /bin
-/*.iml
-/.idea
 .DS_Store
+
+# IntelliJ IDEA
+**/.idea/*
+!**/.idea/codeStyles
+!**/.idea/inspectionProfiles
+!**/.idea/codeStyleSettings.xml
+!**/.idea/encodings.xml
+!**/.idea/misc.xml
+!**/.idea/saveactions_settings.xml
+**/*.iml
+/out
+
+# Gradle
+/.gradle
+
+# Tomcat
 /tomcat.*
+
+# DBFlute
 /dbflute-intro.*
 /mydbflute/intro_resources
+
+# LastaFlute
+trial_config.ignored
+
+# application
+tablecls_injected.txt
+/*.epoch
+/tm.out
+/tm.out.*
+/tm*.log
