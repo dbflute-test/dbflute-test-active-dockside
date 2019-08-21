@@ -55,7 +55,7 @@ import org.docksidestage.dockside.dbflute.exentity.customize.*;
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer integerNonDigitSum = entity.getIntegerNonDigitSum();
+ * java.math.BigDecimal integerNonDigitSum = entity.getIntegerNonDigitSum();
  * entity.setIntegerNonDigitSum(integerNonDigitSum);
  * = = = = = = = = = =/
  * </pre>
@@ -72,8 +72,8 @@ public abstract class BsVendorNumericIntegerSum extends AbstractEntity implement
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** INTEGER_NON_DIGIT_SUM: {DECIMAL(5)} */
-    protected Integer _integerNonDigitSum;
+    /** INTEGER_NON_DIGIT_SUM: {DECIMAL(2147483647, 2147483647)} */
+    protected java.math.BigDecimal _integerNonDigitSum;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -158,19 +158,19 @@ public abstract class BsVendorNumericIntegerSum extends AbstractEntity implement
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] INTEGER_NON_DIGIT_SUM: {DECIMAL(5)} <br>
+     * [get] INTEGER_NON_DIGIT_SUM: {DECIMAL(2147483647, 2147483647)} <br>
      * @return The value of the column 'INTEGER_NON_DIGIT_SUM'. (NullAllowed even if selected: for no constraint)
      */
-    public Integer getIntegerNonDigitSum() {
+    public java.math.BigDecimal getIntegerNonDigitSum() {
         checkSpecifiedProperty("integerNonDigitSum");
         return _integerNonDigitSum;
     }
 
     /**
-     * [set] INTEGER_NON_DIGIT_SUM: {DECIMAL(5)} <br>
+     * [set] INTEGER_NON_DIGIT_SUM: {DECIMAL(2147483647, 2147483647)} <br>
      * @param integerNonDigitSum The value of the column 'INTEGER_NON_DIGIT_SUM'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setIntegerNonDigitSum(Integer integerNonDigitSum) {
+    public void setIntegerNonDigitSum(java.math.BigDecimal integerNonDigitSum) {
         registerModifiedProperty("integerNonDigitSum");
         _integerNonDigitSum = integerNonDigitSum;
     }

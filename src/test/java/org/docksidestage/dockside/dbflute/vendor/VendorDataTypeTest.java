@@ -470,7 +470,7 @@ public class VendorDataTypeTest extends UnitContainerTestCase {
         }
         {
             VendorNumericIntegerSum vendorCheck = new VendorNumericIntegerSum();
-            Integer integerNonDigit = vendorCheck.getIntegerNonDigitSum();
+            BigDecimal integerNonDigit = vendorCheck.getIntegerNonDigitSum();
         }
     }
 

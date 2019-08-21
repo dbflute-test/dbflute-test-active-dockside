@@ -196,10 +196,10 @@ public abstract class BsVendorCheck extends AbstractEntity implements DomainEnti
     /** TYPE_OF_BLOB: {BLOB(2147483647)} */
     protected byte[] _typeOfBlob;
 
-    /** TYPE_OF_UUID: {UUID(2147483647)} */
+    /** TYPE_OF_UUID: {UUID(16)} */
     protected byte[] _typeOfUuid;
 
-    /** TYPE_OF_ARRAY: {ARRAY} */
+    /** TYPE_OF_ARRAY: {ARRAY(2147483647)} */
     protected String _typeOfArray;
 
     /** TYPE_OF_OTHER: {OTHER(2147483647)} */
@@ -736,7 +736,7 @@ public abstract class BsVendorCheck extends AbstractEntity implements DomainEnti
     }
 
     /**
-     * [get] TYPE_OF_UUID: {UUID(2147483647)} <br>
+     * [get] TYPE_OF_UUID: {UUID(16)} <br>
      * @return The value of the column 'TYPE_OF_UUID'. (NullAllowed even if selected: for no constraint)
      */
     public byte[] getTypeOfUuid() {
@@ -745,7 +745,7 @@ public abstract class BsVendorCheck extends AbstractEntity implements DomainEnti
     }
 
     /**
-     * [set] TYPE_OF_UUID: {UUID(2147483647)} <br>
+     * [set] TYPE_OF_UUID: {UUID(16)} <br>
      * @param typeOfUuid The value of the column 'TYPE_OF_UUID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfUuid(byte[] typeOfUuid) {
@@ -754,7 +754,7 @@ public abstract class BsVendorCheck extends AbstractEntity implements DomainEnti
     }
 
     /**
-     * [get] TYPE_OF_ARRAY: {ARRAY} <br>
+     * [get] TYPE_OF_ARRAY: {ARRAY(2147483647)} <br>
      * @return The value of the column 'TYPE_OF_ARRAY'. (NullAllowed even if selected: for no constraint)
      */
     public String getTypeOfArray() {
@@ -763,7 +763,7 @@ public abstract class BsVendorCheck extends AbstractEntity implements DomainEnti
     }
 
     /**
-     * [set] TYPE_OF_ARRAY: {ARRAY} <br>
+     * [set] TYPE_OF_ARRAY: {ARRAY(2147483647)} <br>
      * @param typeOfArray The value of the column 'TYPE_OF_ARRAY'. (NullAllowed: null update allowed for no constraint)
      */
     public void setTypeOfArray(String typeOfArray) {

@@ -417,12 +417,12 @@ public class BsVendorCheckCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnTypeOfBlob() { return doColumn("TYPE_OF_BLOB"); }
         /**
-         * TYPE_OF_UUID: {UUID(2147483647)}
+         * TYPE_OF_UUID: {UUID(16)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnTypeOfUuid() { return doColumn("TYPE_OF_UUID"); }
         /**
-         * TYPE_OF_ARRAY: {ARRAY}
+         * TYPE_OF_ARRAY: {ARRAY(2147483647)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnTypeOfArray() { return doColumn("TYPE_OF_ARRAY"); }

@@ -85,7 +85,7 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     /** (会員名称)UNPAID_MAN_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} */
     protected String _unpaidManName;
 
-    /** UNPAID_PRICE_SUMMARY: {BIGINT(10)} */
+    /** UNPAID_PRICE_SUMMARY: {BIGINT(19)} */
     protected Long _unpaidPriceSummary;
 
     /** (会員ステータス名称)STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
@@ -290,7 +290,7 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     }
 
     /**
-     * [get] UNPAID_PRICE_SUMMARY: {BIGINT(10)} <br>
+     * [get] UNPAID_PRICE_SUMMARY: {BIGINT(19)} <br>
      * @return The value of the column 'UNPAID_PRICE_SUMMARY'. (NullAllowed even if selected: for no constraint)
      */
     public Long getUnpaidPriceSummary() {
@@ -299,7 +299,7 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     }
 
     /**
-     * [set] UNPAID_PRICE_SUMMARY: {BIGINT(10)} <br>
+     * [set] UNPAID_PRICE_SUMMARY: {BIGINT(19)} <br>
      * @param unpaidPriceSummary The value of the column 'UNPAID_PRICE_SUMMARY'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUnpaidPriceSummary(Long unpaidPriceSummary) {

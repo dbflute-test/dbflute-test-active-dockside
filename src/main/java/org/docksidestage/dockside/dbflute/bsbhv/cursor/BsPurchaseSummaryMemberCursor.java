@@ -155,7 +155,7 @@ public class BsPurchaseSummaryMemberCursor {
     }
 
     /**
-     * [get] PURCHASE_SUMMARY: {BIGINT(10)} <br>
+     * [get] PURCHASE_SUMMARY: {BIGINT(19)} <br>
      * @return The value of purchaseSummary. (NullAllowed)
      * @throws SQLException When it fails to get the value from result set.
      */

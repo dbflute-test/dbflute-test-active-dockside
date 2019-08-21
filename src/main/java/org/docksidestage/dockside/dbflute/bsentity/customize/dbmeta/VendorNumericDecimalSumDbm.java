@@ -78,10 +78,10 @@ public class VendorNumericDecimalSumDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnDecimalDigitSum = cci("DECIMAL_DIGIT_SUM", "DECIMAL_DIGIT_SUM", null, null, java.math.BigDecimal.class, "decimalDigitSum", null, false, false, false, "DECIMAL", 5, 3, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnDecimalDigitSum = cci("DECIMAL_DIGIT_SUM", "DECIMAL_DIGIT_SUM", null, null, java.math.BigDecimal.class, "decimalDigitSum", null, false, false, false, "DECIMAL", 2147483647, 2147483647, null, null, false, null, null, null, null, null, false);
 
     /**
-     * DECIMAL_DIGIT_SUM: {DECIMAL(5, 3)}
+     * DECIMAL_DIGIT_SUM: {DECIMAL(2147483647, 2147483647)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnDecimalDigitSum() { return _columnDecimalDigitSum; }

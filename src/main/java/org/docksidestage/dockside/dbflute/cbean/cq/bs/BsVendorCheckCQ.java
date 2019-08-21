@@ -556,14 +556,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * TYPE_OF_UUID: {UUID(2147483647)}
+     * TYPE_OF_UUID: {UUID(16)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfUuid_Asc() { regOBA("TYPE_OF_UUID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * TYPE_OF_UUID: {UUID(2147483647)}
+     * TYPE_OF_UUID: {UUID(16)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfUuid_Desc() { regOBD("TYPE_OF_UUID"); return this; }
@@ -576,14 +576,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * TYPE_OF_ARRAY: {ARRAY}
+     * TYPE_OF_ARRAY: {ARRAY(2147483647)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfArray_Asc() { regOBA("TYPE_OF_ARRAY"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * TYPE_OF_ARRAY: {ARRAY}
+     * TYPE_OF_ARRAY: {ARRAY(2147483647)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfArray_Desc() { regOBD("TYPE_OF_ARRAY"); return this; }
