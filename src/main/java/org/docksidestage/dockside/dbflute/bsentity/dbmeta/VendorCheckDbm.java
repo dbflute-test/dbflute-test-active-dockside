@@ -128,8 +128,8 @@ public class VendorCheckDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnTypeOfBoolean = cci("TYPE_OF_BOOLEAN", "TYPE_OF_BOOLEAN", null, null, Boolean.class, "typeOfBoolean", null, false, false, false, "BOOLEAN", 1, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnTypeOfBinary = cci("TYPE_OF_BINARY", "TYPE_OF_BINARY", null, null, byte[].class, "typeOfBinary", null, false, false, false, "VARBINARY", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnTypeOfBlob = cci("TYPE_OF_BLOB", "TYPE_OF_BLOB", null, null, byte[].class, "typeOfBlob", null, false, false, false, "BLOB", 2147483647, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnTypeOfUuid = cci("TYPE_OF_UUID", "TYPE_OF_UUID", null, null, byte[].class, "typeOfUuid", null, false, false, false, "UUID", 2147483647, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnTypeOfArray = cci("TYPE_OF_ARRAY", "TYPE_OF_ARRAY", null, null, String.class, "typeOfArray", null, false, false, false, "ARRAY", null, null, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnTypeOfUuid = cci("TYPE_OF_UUID", "TYPE_OF_UUID", null, null, byte[].class, "typeOfUuid", null, false, false, false, "UUID", 16, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnTypeOfArray = cci("TYPE_OF_ARRAY", "TYPE_OF_ARRAY", null, null, String.class, "typeOfArray", null, false, false, false, "ARRAY", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnTypeOfOther = cci("TYPE_OF_OTHER", "TYPE_OF_OTHER", null, null, String.class, "typeOfOther", null, false, false, false, "OTHER", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnJAVABeansProperty = cci("J_A_V_A_BEANS_PROPERTY", "J_A_V_A_BEANS_PROPERTY", null, null, String.class, "JAVABeansProperty", null, false, false, false, "VARCHAR", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnJPopBeansProperty = cci("J_POP_BEANS_PROPERTY", "J_POP_BEANS_PROPERTY", null, null, String.class, "JPopBeansProperty", null, false, false, false, "VARCHAR", 10, 0, null, null, false, null, null, null, null, null, false);
@@ -250,12 +250,12 @@ public class VendorCheckDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnTypeOfBlob() { return _columnTypeOfBlob; }
     /**
-     * TYPE_OF_UUID: {UUID(2147483647)}
+     * TYPE_OF_UUID: {UUID(16)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnTypeOfUuid() { return _columnTypeOfUuid; }
     /**
-     * TYPE_OF_ARRAY: {ARRAY}
+     * TYPE_OF_ARRAY: {ARRAY(2147483647)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnTypeOfArray() { return _columnTypeOfArray; }
