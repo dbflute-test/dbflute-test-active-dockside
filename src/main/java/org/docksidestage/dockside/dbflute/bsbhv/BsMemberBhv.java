@@ -110,6 +110,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     public static final String PATH_whitebox_pmbean_selectCompareDate = "whitebox:pmbean:selectCompareDate";
     /** resolved package name of parameter-bean */
     public static final String PATH_whitebox_pmbean_selectResolvedPackageName = "whitebox:pmbean:selectResolvedPackageName";
+    /** Example for selecting list by paging SQL */
+    public static final String PATH_whitebox_pmbean_selectPagingWithListMember = "whitebox:pmbean:selectPagingWithListMember";
     /** definition order of parameter bean */
     public static final String PATH_whitebox_pmbean_selectParameterDefOrder = "whitebox:pmbean:selectParameterDefOrder";
     /** no auto-detect */

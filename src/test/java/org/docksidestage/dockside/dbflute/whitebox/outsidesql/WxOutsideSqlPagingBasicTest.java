@@ -15,7 +15,7 @@ import org.docksidestage.dockside.unit.UnitContainerTestCase;
 /**
  * @author jflute
  */
-public class WxOutsideSqlPagingTest extends UnitContainerTestCase {
+public class WxOutsideSqlPagingBasicTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute
