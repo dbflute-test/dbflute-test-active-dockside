@@ -28,11 +28,11 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The base class for typed parameter-bean of PagingWithListMember. <br>
- * This is related to "<span style="color: #AD4747">whitebox:pmbean:selectPagingWithListMember</span>" on MemberBhv.
+ * The base class for typed parameter-bean of PagingWithCursorMember. <br>
+ * This is related to "<span style="color: #AD4747">whitebox:pmbean:selectPagingWithCursorMember</span>" on MemberBhv.
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsPagingWithListMemberPmb extends SimplePagingBean implements EntityHandlingPmb<MemberBhv, PagingWithListMember>, ManualPagingHandlingPmb<MemberBhv, PagingWithListMember>, FetchBean {
+public abstract class BsPagingWithCursorMemberPmb extends SimplePagingBean implements ManualPagingHandlingPmb<MemberBhv, PagingWithCursorMember>, CursorHandlingPmb<MemberBhv, PagingWithCursorMember>, FetchBean {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -56,10 +56,10 @@ public abstract class BsPagingWithListMemberPmb extends SimplePagingBean impleme
     //                                                                         Constructor
     //                                                                         ===========
     /**
-     * Constructor for the typed parameter-bean of PagingWithListMember. <br>
-     * This is related to "<span style="color: #AD4747">whitebox:pmbean:selectPagingWithListMember</span>" on MemberBhv.
+     * Constructor for the typed parameter-bean of PagingWithCursorMember. <br>
+     * This is related to "<span style="color: #AD4747">whitebox:pmbean:selectPagingWithCursorMember</span>" on MemberBhv.
      */
-    public BsPagingWithListMemberPmb() {
+    public BsPagingWithCursorMemberPmb() {
         if (DBFluteConfig.getInstance().isPagingCountLater()) {
             enablePagingCountLater();
         }
@@ -71,13 +71,13 @@ public abstract class BsPagingWithListMemberPmb extends SimplePagingBean impleme
     /**
      * {@inheritDoc}
      */
-    public String getOutsideSqlPath() { return "whitebox:pmbean:selectPagingWithListMember"; }
+    public String getOutsideSqlPath() { return "whitebox:pmbean:selectPagingWithCursorMember"; }
 
     /**
      * Get the type of an entity for result. (implementation)
-     * @return The type instance of an entity, customize entity. (NotNull)
+     * @return The type instance of an entity, cursor handling. (NotNull)
      */
-    public Class<PagingWithListMember> getEntityType() { return PagingWithListMember.class; }
+    public Class<PagingWithCursorMember> getEntityType() { return PagingWithCursorMember.class; }
 
     // ===================================================================================
     //                                                                   Alternate Boolean
@@ -86,7 +86,7 @@ public abstract class BsPagingWithListMemberPmb extends SimplePagingBean impleme
      * This is an alternate boolean method waiting for your overriding.
      * @return The determination, true or false for your complex conditions.
      */
-    public abstract boolean isListHandling();
+    public abstract boolean isCursorHandling();
 
     // ===================================================================================
     //                                                                       Assist Helper

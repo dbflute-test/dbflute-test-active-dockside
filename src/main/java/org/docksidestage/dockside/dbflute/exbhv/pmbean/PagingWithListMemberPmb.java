@@ -44,10 +44,13 @@ public class PagingWithListMemberPmb extends BsPagingWithListMemberPmb // can se
     }
 
     @Override
-    public boolean isPurePaging() { // means paging select of real paging
-        return super.isPaging() && !listHandling; // except list handling
+    public boolean isListHandling() { // to suppress paging condition
+        return listHandling;
     }
 
+    /**
+     * Use parameter-bean for list handling.
+     */
     public void forListHandling() {
         listHandling = true;
     }

@@ -106,6 +106,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     public static final String PATH_whitebox_wrongexample_selectParameterFrequentlyMistakePattern = "whitebox:wrongexample:selectParameterFrequentlyMistakePattern";
     /** map like search of parameter-bean */
     public static final String PATH_whitebox_pmbean_selectMapLikeSearch = "whitebox:pmbean:selectMapLikeSearch";
+    /** Example for selecting cursor by paging SQL */
+    public static final String PATH_whitebox_pmbean_selectPagingWithCursorMember = "whitebox:pmbean:selectPagingWithCursorMember";
     /** compare date of parameter-bean */
     public static final String PATH_whitebox_pmbean_selectCompareDate = "whitebox:pmbean:selectCompareDate";
     /** resolved package name of parameter-bean */

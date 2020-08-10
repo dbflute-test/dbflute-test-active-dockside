@@ -1,11 +1,12 @@
 /*
  [df:title]
- Example for selecting list by paging SQL
+ Example for selecting cursor by paging SQL
  
  [df:description]
- For both selectList() and selectPage()
+ For both selectCursor() and selectPage()
 */
 -- #df:entity#
+-- +cursor+
 
 -- !df:pmb extends Paging!
 -- !!AutoDetect!!
@@ -39,7 +40,7 @@ select mb.MEMBER_ID
  /*END*/
  /*IF pmb.isPaging()*/
  order by PURCHASE_MAX_PRICE desc nulls last, mb.MEMBER_ID asc
- /*IF !pmb.isListHandling()*/
+ /*IF !pmb.isCursorHandling()*/
  limit /*pmb.fetchSize*/20 offset /*pmb.pageStartIndex*/80
  /*END*/
  /*END*/
