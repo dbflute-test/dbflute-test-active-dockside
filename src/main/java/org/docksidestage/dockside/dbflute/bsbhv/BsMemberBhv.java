@@ -74,74 +74,74 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
-    /** Example for AutoPaging */
-    public static final String PATH_selectUnpaidSummaryMember = "selectUnpaidSummaryMember";
-    /** Example for ManualPaging */
-    public static final String PATH_selectPurchaseMaxPriceMember = "selectPurchaseMaxPriceMember";
-    /** Example for CursorSelect */
-    public static final String PATH_selectPurchaseSummaryMember = "selectPurchaseSummaryMember";
-    /** The example for select using options */
-    public static final String PATH_selectOptionMember = "selectOptionMember";
     /** The example for select using domain entity */
     public static final String PATH_selectDomainMember = "selectDomainMember";
     /** The example for selecting scalar value */
     public static final String PATH_selectLatestFormalizedDatetime = "selectLatestFormalizedDatetime";
-    /** Force Withdrawal Update */
-    public static final String PATH_updateMemberChangedToWithdrawalForcedly = "updateMemberChangedToWithdrawalForcedly";
-    /** Example for Simple Select */
-    public static final String PATH_selectSimpleMember = "selectSimpleMember";
     /** The example for scalar select */
     public static final String PATH_selectMemberName = "selectMemberName";
+    /** The example for select using options */
+    public static final String PATH_selectOptionMember = "selectOptionMember";
+    /** Example for ManualPaging */
+    public static final String PATH_selectPurchaseMaxPriceMember = "selectPurchaseMaxPriceMember";
+    /** Example for CursorSelect */
+    public static final String PATH_selectPurchaseSummaryMember = "selectPurchaseSummaryMember";
+    /** Example for Simple Select */
+    public static final String PATH_selectSimpleMember = "selectSimpleMember";
+    /** Example for AutoPaging */
+    public static final String PATH_selectUnpaidSummaryMember = "selectUnpaidSummaryMember";
+    /** Force Withdrawal Update */
+    public static final String PATH_updateMemberChangedToWithdrawalForcedly = "updateMemberChangedToWithdrawalForcedly";
     /** The test of sub-directory outside-SQL */
     public static final String PATH_subdirectory_selectSubDirectoryCheck = "subdirectory:selectSubDirectoryCheck";
-    /** wrong: not found property in bind variable */
-    public static final String PATH_whitebox_wrongexample_selectBindVariableNotFoundProperty = "whitebox:wrongexample:selectBindVariableNotFoundProperty";
-    /** wrong: not boolean result in IF comment */
-    public static final String PATH_whitebox_wrongexample_selectIfCommentNotBooleanResult = "whitebox:wrongexample:selectIfCommentNotBooleanResult";
-    /** wrong: wrong expression in IF comment */
-    public static final String PATH_whitebox_wrongexample_selectIfCommentWrongExpression = "whitebox:wrongexample:selectIfCommentWrongExpression";
-    /** wrong: not found end comment */
-    public static final String PATH_whitebox_wrongexample_selectEndCommentNotFound = "whitebox:wrongexample:selectEndCommentNotFound";
-    /** Frequently Mistake Pattern of ParameterBean */
-    public static final String PATH_whitebox_wrongexample_selectParameterFrequentlyMistakePattern = "whitebox:wrongexample:selectParameterFrequentlyMistakePattern";
-    /** map like search of parameter-bean */
-    public static final String PATH_whitebox_pmbean_selectMapLikeSearch = "whitebox:pmbean:selectMapLikeSearch";
-    /** Example for selecting cursor by paging SQL */
-    public static final String PATH_whitebox_pmbean_selectPagingWithCursorMember = "whitebox:pmbean:selectPagingWithCursorMember";
-    /** compare date of parameter-bean */
-    public static final String PATH_whitebox_pmbean_selectCompareDate = "whitebox:pmbean:selectCompareDate";
-    /** resolved package name of parameter-bean */
-    public static final String PATH_whitebox_pmbean_selectResolvedPackageName = "whitebox:pmbean:selectResolvedPackageName";
-    /** Example for selecting list by paging SQL */
-    public static final String PATH_whitebox_pmbean_selectPagingWithListMember = "whitebox:pmbean:selectPagingWithListMember";
-    /** definition order of parameter bean */
-    public static final String PATH_whitebox_pmbean_selectParameterDefOrder = "whitebox:pmbean:selectParameterDefOrder";
-    /** no auto-detect */
-    public static final String PATH_whitebox_pmbean_selectParameterNonAutoDetect = "whitebox:pmbean:selectParameterNonAutoDetect";
-    /** parameter auto-detect */
-    public static final String PATH_whitebox_pmbean_selectParameterAutoDetect = "whitebox:pmbean:selectParameterAutoDetect";
-    /** IF comment for order-by */
-    public static final String PATH_whitebox_pmcomment_selectPmCommentOrderByIf = "whitebox:pmcomment:selectPmCommentOrderByIf";
-    /** parameter comment onparade */
-    public static final String PATH_whitebox_pmcomment_selectPmCommentPossible = "whitebox:pmcomment:selectPmCommentPossible";
-    /** DBMS hit with parameter comment */
-    public static final String PATH_whitebox_pmcomment_selectPmCommentHint = "whitebox:pmcomment:selectPmCommentHint";
-    /** collection of parameter comment */
-    public static final String PATH_whitebox_pmcomment_selectPmCommentCollection = "whitebox:pmcomment:selectPmCommentCollection";
-    /** embedded variable of parameter comment */
-    public static final String PATH_whitebox_pmcomment_selectPmCommentEmbedded = "whitebox:pmcomment:selectPmCommentEmbedded";
-    /** Example for Multiple Lines Else */
-    public static final String PATH_whitebox_pmcomment_selectPmCommentLinesElse = "whitebox:pmcomment:selectPmCommentLinesElse";
-    /** surprising comment that is similar to PK comment */
-    public static final String PATH_whitebox_cmentity_selectSurpriseSimilarPKComment = "whitebox:cmentity:selectSurpriseSimilarPKComment";
-    /** using Classification Hint */
-    public static final String PATH_whitebox_cmentity_selectUndetectableClassificationHint = "whitebox:cmentity:selectUndetectableClassificationHint";
     /** generating common-column of customize-entity */
     public static final String PATH_whitebox_cmentity_selectCommonColumnMember = "whitebox:cmentity:selectCommonColumnMember";
     /** forced type of customize-entity */
     public static final String PATH_whitebox_cmentity_selectForcedType = "whitebox:cmentity:selectForcedType";
     /** primary key comment for customize-entity */
     public static final String PATH_whitebox_cmentity_selectPrimaryKeyComment = "whitebox:cmentity:selectPrimaryKeyComment";
+    /** surprising comment that is similar to PK comment */
+    public static final String PATH_whitebox_cmentity_selectSurpriseSimilarPKComment = "whitebox:cmentity:selectSurpriseSimilarPKComment";
+    /** using Classification Hint */
+    public static final String PATH_whitebox_cmentity_selectUndetectableClassificationHint = "whitebox:cmentity:selectUndetectableClassificationHint";
+    /** compare date of parameter-bean */
+    public static final String PATH_whitebox_pmbean_selectCompareDate = "whitebox:pmbean:selectCompareDate";
+    /** map like search of parameter-bean */
+    public static final String PATH_whitebox_pmbean_selectMapLikeSearch = "whitebox:pmbean:selectMapLikeSearch";
+    /** Example for selecting cursor by paging SQL */
+    public static final String PATH_whitebox_pmbean_selectPagingWithCursorMember = "whitebox:pmbean:selectPagingWithCursorMember";
+    /** Example for selecting list by paging SQL */
+    public static final String PATH_whitebox_pmbean_selectPagingWithListMember = "whitebox:pmbean:selectPagingWithListMember";
+    /** parameter auto-detect */
+    public static final String PATH_whitebox_pmbean_selectParameterAutoDetect = "whitebox:pmbean:selectParameterAutoDetect";
+    /** definition order of parameter bean */
+    public static final String PATH_whitebox_pmbean_selectParameterDefOrder = "whitebox:pmbean:selectParameterDefOrder";
+    /** no auto-detect */
+    public static final String PATH_whitebox_pmbean_selectParameterNonAutoDetect = "whitebox:pmbean:selectParameterNonAutoDetect";
+    /** resolved package name of parameter-bean */
+    public static final String PATH_whitebox_pmbean_selectResolvedPackageName = "whitebox:pmbean:selectResolvedPackageName";
+    /** collection of parameter comment */
+    public static final String PATH_whitebox_pmcomment_selectPmCommentCollection = "whitebox:pmcomment:selectPmCommentCollection";
+    /** embedded variable of parameter comment */
+    public static final String PATH_whitebox_pmcomment_selectPmCommentEmbedded = "whitebox:pmcomment:selectPmCommentEmbedded";
+    /** DBMS hit with parameter comment */
+    public static final String PATH_whitebox_pmcomment_selectPmCommentHint = "whitebox:pmcomment:selectPmCommentHint";
+    /** Example for Multiple Lines Else */
+    public static final String PATH_whitebox_pmcomment_selectPmCommentLinesElse = "whitebox:pmcomment:selectPmCommentLinesElse";
+    /** IF comment for order-by */
+    public static final String PATH_whitebox_pmcomment_selectPmCommentOrderByIf = "whitebox:pmcomment:selectPmCommentOrderByIf";
+    /** parameter comment onparade */
+    public static final String PATH_whitebox_pmcomment_selectPmCommentPossible = "whitebox:pmcomment:selectPmCommentPossible";
+    /** wrong: not found property in bind variable */
+    public static final String PATH_whitebox_wrongexample_selectBindVariableNotFoundProperty = "whitebox:wrongexample:selectBindVariableNotFoundProperty";
+    /** wrong: not found end comment */
+    public static final String PATH_whitebox_wrongexample_selectEndCommentNotFound = "whitebox:wrongexample:selectEndCommentNotFound";
+    /** wrong: not boolean result in IF comment */
+    public static final String PATH_whitebox_wrongexample_selectIfCommentNotBooleanResult = "whitebox:wrongexample:selectIfCommentNotBooleanResult";
+    /** wrong: wrong expression in IF comment */
+    public static final String PATH_whitebox_wrongexample_selectIfCommentWrongExpression = "whitebox:wrongexample:selectIfCommentWrongExpression";
+    /** Frequently Mistake Pattern of ParameterBean */
+    public static final String PATH_whitebox_wrongexample_selectParameterFrequentlyMistakePattern = "whitebox:wrongexample:selectParameterFrequentlyMistakePattern";
     /*df:endQueryPath*/
 
     // ===================================================================================

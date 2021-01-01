@@ -8,6 +8,7 @@ import java.time.LocalTime;
 
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.UnionQuery;
+import org.dbflute.exception.SQLFailureException;
 import org.dbflute.util.DfTypeUtil;
 import org.docksidestage.dockside.dbflute.cbean.MemberWithdrawalCB;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
@@ -426,15 +427,19 @@ public class VendorDataTypeTest extends UnitContainerTestCase {
 
         // ## Act ##
         vendorCheckBhv.insert(vendorCheck);
-        VendorCheck selected = vendorCheckBhv.selectEntityWithDeletedCheck(cb -> {
-            cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
-            cb.query().setTypeOfArray_Equal(expected);
-        });
 
         // ## Assert ##
-        String actual = selected.getTypeOfArray();
-        log("actual=" + actual);
-        assertEquals("(" + expected + ")", actual);
+        assertException(SQLFailureException.class, () -> {
+            vendorCheckBhv.selectEntityWithDeletedCheck(cb -> {
+                cb.query().setVendorCheckId_Equal(vendorCheck.getVendorCheckId());
+                cb.query().setTypeOfArray_Equal(expected);
+            });
+        });
+
+        // Data conversion error converting "VARCHAR to ARRAY" (from new H2 version)
+        //String actual = selected.getTypeOfArray();
+        //log("actual=" + actual);
+        //assertEquals("(" + expected + ")", actual);
     }
 
     // -----------------------------------------------------

@@ -16,7 +16,7 @@ public class WxCBLockTest extends UnitContainerTestCase {
 
     private MemberBhv memberBhv;
 
-    public void test_lockForUpdate() {
+    public void test_lockForUpdate_actuallyLock() {
         cannonball(new CannonballRun() {
             public void drive(CannonballCar car) {
                 car.projectA(new CannonballProjectA() {
@@ -38,6 +38,6 @@ public class WxCBLockTest extends UnitContainerTestCase {
                     }
                 }, 2);
             }
-        }, new CannonballOption().threadCount(2).expectExceptionAny("Timeout"));
+        }, new CannonballOption().threadCount(2)); // DB timeout is changeable so no assertion here
     }
 }
