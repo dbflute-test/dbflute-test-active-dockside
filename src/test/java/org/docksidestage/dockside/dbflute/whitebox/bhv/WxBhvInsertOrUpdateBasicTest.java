@@ -14,7 +14,7 @@ import org.docksidestage.dockside.unit.UnitContainerTestCase;
  * @author jflute
  * @since 0.6.0 (2008/01/16 Wednesday)
  */
-public class WxBhvInsertOrUpdateTest extends UnitContainerTestCase {
+public class WxBhvInsertOrUpdateBasicTest extends UnitContainerTestCase {
 
     private MemberBhv memberBhv;
     private PurchaseBhv purchaseBhv;
