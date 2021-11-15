@@ -166,7 +166,6 @@ map:{
     #; allcommonPrefix = Ma
     # - - - - - - - - - -/
 
-
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o classAuthor: (NotRequired - Default 'DBFlute(AutoGenerator)')
     #  The value of the author tag in java-doc of generated classes.
