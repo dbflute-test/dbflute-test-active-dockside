@@ -29,7 +29,7 @@ import org.docksidestage.dockside.unit.UnitContainerTestCase;
  * @author jflute
  * @since DBFlute-1.2.5 (2021/11/09 Tuesday at roppongi japanese)
  */
-public class WxBhvInsertOrUpdateInternalDefaultTest extends UnitContainerTestCase {
+public class WxBhvInsertOrUpdateInternalBasicTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -45,7 +45,7 @@ public class WxBhvInsertOrUpdateInternalDefaultTest extends UnitContainerTestCas
     // -----------------------------------------------------
     //                                                Insert
     //                                                ------
-    public void test_insertOrUpdate_default_insertAsNonPK() {
+    public void test_insertOrUpdate_defaultStrict_insertAsNonPK() {
         // ## Arrange ##
         Member member = new Member();
         member.setMemberName("sea");
@@ -82,7 +82,7 @@ public class WxBhvInsertOrUpdateInternalDefaultTest extends UnitContainerTestCas
         assertEquals("sea", actual.getMemberName());
     }
 
-    public void test_insertOrUpdate_default_insertAsUniqueBy() {
+    public void test_insertOrUpdate_defaultStrict_insertAsUniqueBy() {
         // ## Arrange ##
         Member member = new Member();
         member.setMemberName("sea");
@@ -125,7 +125,7 @@ public class WxBhvInsertOrUpdateInternalDefaultTest extends UnitContainerTestCas
     // -----------------------------------------------------
     //                                                Update
     //                                                ------
-    public void test_insertOrUpdate_default_updateByPK() {
+    public void test_insertOrUpdate_defaultStrict_updateByPK() {
         // ## Arrange ##
         Member member = new Member();
         member.setMemberName("sea");
@@ -163,7 +163,7 @@ public class WxBhvInsertOrUpdateInternalDefaultTest extends UnitContainerTestCas
         assertEquals("land", actual.getMemberName());
     }
 
-    public void test_insertOrUpdate_default_updateByUniqueBy_basic() {
+    public void test_insertOrUpdate_defaultStrict_updateByUniqueBy_basic() {
         // ## Arrange ##
         Member member = new Member();
         member.setMemberName("sea");
@@ -202,7 +202,7 @@ public class WxBhvInsertOrUpdateInternalDefaultTest extends UnitContainerTestCas
         assertEquals("land", actual.getMemberName());
     }
 
-    public void test_insertOrUpdate_default_updateByUniqueBy_entityAlreadyUpdated() {
+    public void test_insertOrUpdate_defaultStrict_updateByUniqueBy_entityAlreadyUpdated() {
         // ## Arrange ##
         Member member = new Member();
         member.setMemberName("sea");

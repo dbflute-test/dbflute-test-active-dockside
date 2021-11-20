@@ -17,8 +17,12 @@ package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
 import javax.annotation.Resource;
 
+import org.dbflute.bhv.core.BehaviorCommandMeta;
+import org.dbflute.exception.EntityAlreadyUpdatedException;
+import org.dbflute.hook.CallbackContext;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberLoginBhv;
+import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
 /**
@@ -35,392 +39,391 @@ public class WxBhvInsertOrUpdateInternalPreCheckTest extends UnitContainerTestCa
     @Resource
     private MemberLoginBhv loginBhv;
 
-    // TODO jflute after implementing InsertOrUpdateCountPreCheck (2021/11/09)
-    //// ===================================================================================
-    ////                                                                      Default Strict
-    ////                                                                      ==============
-    //// -----------------------------------------------------
-    ////                                                Insert
-    ////                                                ------
-    //public void test_insertOrUpdate_default_insertAsNonPK() { // no change
-    //    // ## Arrange ##
-    //    Member member = new Member();
-    //    member.setMemberName("sea");
-    //    member.setMemberAccount("mystic");
-    //    member.setMemberStatusCode_Formalized();
-    //
-    //    try {
-    //        CallbackContext.setSqlLogHandlerOnThread(info -> {
-    //            BehaviorCommandMeta meta = info.getMeta();
-    //            if (meta.isInsert()) {
-    //                markHere("called_insert");
-    //            } else if (meta.isUpdate()) {
-    //                fail("unknown update: " + meta);
-    //            } else {
-    //                fail("unknown meta: " + meta);
-    //            }
-    //        });
-    //
-    //        // ## Act ##
-    //        memberBhv.insertOrUpdate(member);
-    //
-    //        // ## Assert ##
-    //        assertMarked("called_insert");
-    //    } finally {
-    //        CallbackContext.clearSqlLogHandlerOnThread();
-    //    }
-    //
-    //    // ## Assert ##
-    //    Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
-    //        cb.query().setMemberId_Equal(member.getMemberId());
-    //    });
-    //
-    //    log(actual);
-    //    assertEquals("sea", actual.getMemberName());
-    //}
-    //
-    //public void test_insertOrUpdate_default_insertAsUniqueBy() { // no change
-    //    // ## Arrange ##
-    //    Member member = new Member();
-    //    member.setMemberName("sea");
-    //    member.uniqueBy("mystic");
-    //    member.setMemberStatusCode_Formalized();
-    //
-    //    try {
-    //        CallbackContext.setSqlLogHandlerOnThread(info -> {
-    //            BehaviorCommandMeta meta = info.getMeta();
-    //            if (meta.isInsert()) {
-    //                markHere("called_insert"); // second
-    //            } else if (meta.isUpdate()) {
-    //                fail("unknown update: " + meta);
-    //            } else if (meta.isSelectCount()) {
-    //                markHere("called_count"); // first
-    //            } else {
-    //                fail("unknown meta: " + meta);
-    //            }
-    //        });
-    //
-    //        // ## Act ##
-    //        memberBhv.insertOrUpdate(member);
-    //
-    //        // ## Assert ##
-    //        assertMarked("called_count");
-    //        assertMarked("called_insert");
-    //    } finally {
-    //        CallbackContext.clearSqlLogHandlerOnThread();
-    //    }
-    //
-    //    // ## Assert ##
-    //    Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
-    //        cb.query().setMemberId_Equal(member.getMemberId());
-    //    });
-    //
-    //    log(actual);
-    //    assertEquals("sea", actual.getMemberName());
-    //}
-    //
-    //// -----------------------------------------------------
-    ////                                                Update
-    ////                                                ------
-    //public void test_insertOrUpdate_default_updateByPK() {
-    //    // ## Arrange ##
-    //    Member member = new Member();
-    //    member.setMemberName("sea");
-    //    member.setMemberAccount("mystic");
-    //    member.setMemberStatusCode_Formalized();
-    //    memberBhv.insertOrUpdate(member);
-    //
-    //    try {
-    //        CallbackContext.setSqlLogHandlerOnThread(info -> {
-    //            BehaviorCommandMeta meta = info.getMeta();
-    //            if (meta.isInsert()) {
-    //                fail("unknown insert: " + meta);
-    //            } else if (meta.isUpdate()) {
-    //                markHere("called_update"); // second
-    //            } else if (meta.isSelectCount()) {
-    //                markHere("called_count"); // first
-    //            } else {
-    //                fail("unknown meta: " + meta);
-    //            }
-    //        });
-    //
-    //        // ## Act ##
-    //        member.setMemberName("land");
-    //        memberBhv.insertOrUpdate(member);
-    //
-    //        // ## Assert ##
-    //        assertMarked("called_count");
-    //        assertMarked("called_update");
-    //    } finally {
-    //        CallbackContext.clearSqlLogHandlerOnThread();
-    //    }
-    //
-    //    Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
-    //        cb.query().setMemberId_Equal(member.getMemberId());
-    //    });
-    //
-    //    log(actual);
-    //    assertEquals("land", actual.getMemberName());
-    //}
-    //
-    //public void test_insertOrUpdate_default_updateByUniqueBy_basic() {
-    //    // ## Arrange ##
-    //    Member member = new Member();
-    //    member.setMemberName("sea");
-    //    member.setMemberAccount("mystic");
-    //    member.setMemberStatusCode_Formalized();
-    //    memberBhv.insertOrUpdate(member);
-    //
-    //    try {
-    //        CallbackContext.setSqlLogHandlerOnThread(info -> {
-    //            BehaviorCommandMeta meta = info.getMeta();
-    //            if (meta.isUpdate()) {
-    //                markHere("called_update"); // second
-    //            } else if (meta.isInsert()) {
-    //                fail("unknown insert: " + meta);
-    //            } else if (meta.isSelectCount()) {
-    //                markHere("called_count"); // first
-    //            } else {
-    //                fail("unknown meta: " + meta);
-    //            }
-    //        });
-    //
-    //        // ## Act ##
-    //        member.setMemberName("land");
-    //        member.uniqueBy("mystic"); // same value
-    //        memberBhv.insertOrUpdate(member);
-    //
-    //        // ## Assert ##
-    //        assertMarked("called_count");
-    //        assertMarked("called_update");
-    //    } finally {
-    //        CallbackContext.clearSqlLogHandlerOnThread();
-    //    }
-    //
-    //    Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
-    //        cb.query().setMemberId_Equal(member.getMemberId());
-    //    });
-    //
-    //    log(actual);
-    //    assertEquals("land", actual.getMemberName());
-    //}
-    //
-    //public void test_insertOrUpdate_default_updateByUniqueBy_entityAlreadyUpdated() {
-    //    // ## Arrange ##
-    //    Member member = new Member();
-    //    member.setMemberName("sea");
-    //    member.setMemberAccount("mystic");
-    //    member.setMemberStatusCode_Formalized();
-    //    memberBhv.insertOrUpdate(member);
-    //
-    //    try {
-    //        CallbackContext.setSqlLogHandlerOnThread(info -> {
-    //            BehaviorCommandMeta meta = info.getMeta();
-    //            if (meta.isUpdate()) {
-    //                markHere("called_update"); // second
-    //            } else if (meta.isInsert()) {
-    //                fail("unknown insert: " + meta);
-    //            } else if (meta.isSelectCount()) {
-    //                if (isMarked("called_count")) {
-    //                    markHere("called_count2"); // third
-    //                } else {
-    //                    markHere("called_count"); // first
-    //                }
-    //            } else {
-    //                fail("unknown meta: " + meta);
-    //            }
-    //        });
-    //
-    //        // ## Act ##
-    //        member.setMemberName("land");
-    //        member.uniqueBy("mystic"); // same value
-    //        member.setVersionNo(99999L); // already updated
-    //        assertException(EntityAlreadyUpdatedException.class, () -> {
-    //            memberBhv.insertOrUpdate(member);
-    //        });
-    //
-    //        // ## Assert ##
-    //        assertMarked("called_count");
-    //        assertMarked("called_update");
-    //        assertMarked("called_count2");
-    //    } finally {
-    //        CallbackContext.clearSqlLogHandlerOnThread();
-    //    }
-    //
-    //    Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
-    //        cb.query().setMemberId_Equal(member.getMemberId());
-    //    });
-    //
-    //    log(actual);
-    //    assertEquals("sea", actual.getMemberName());
-    //}
-    //
-    //// ===================================================================================
-    ////                                                                           Nonstrict
-    ////                                                                           =========
-    //// -----------------------------------------------------
-    ////                                                Insert
-    ////                                                ------
-    //public void test_insertOrUpdate_nonstrict_insertAsNonPK() { // no change
-    //    // ## Arrange ##
-    //    Member member = new Member();
-    //    member.setMemberName("sea");
-    //    member.setMemberAccount("mystic");
-    //    member.setMemberStatusCode_Formalized();
-    //
-    //    try {
-    //        CallbackContext.setSqlLogHandlerOnThread(info -> {
-    //            BehaviorCommandMeta meta = info.getMeta();
-    //            if (meta.isInsert()) {
-    //                markHere("called_insert");
-    //            } else if (meta.isUpdate()) {
-    //                fail("unknown update: " + meta);
-    //            } else {
-    //                fail("unknown meta: " + meta);
-    //            }
-    //        });
-    //
-    //        // ## Act ##
-    //        memberBhv.insertOrUpdateNonstrict(member);
-    //
-    //        // ## Assert ##
-    //        assertMarked("called_insert");
-    //    } finally {
-    //        CallbackContext.clearSqlLogHandlerOnThread();
-    //    }
-    //
-    //    Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
-    //        cb.query().setMemberId_Equal(member.getMemberId());
-    //    });
-    //
-    //    log(actual);
-    //    assertEquals("sea", actual.getMemberName());
-    //}
-    //
-    //public void test_insertOrUpdate_nonstrict_insertAsUniqueBy() {
-    //    // ## Arrange ##
-    //    Member member = new Member();
-    //    member.setMemberName("sea");
-    //    member.uniqueBy("mystic");
-    //    member.setMemberStatusCode_Formalized();
-    //
-    //    try {
-    //        CallbackContext.setSqlLogHandlerOnThread(info -> {
-    //            BehaviorCommandMeta meta = info.getMeta();
-    //            if (meta.isInsert()) {
-    //                markHere("called_insert"); // second
-    //            } else if (meta.isUpdate()) {
-    //                fail("unknown update: " + meta);
-    //            } else if (meta.isSelectCount()) {
-    //                markHere("called_count"); // first
-    //            } else {
-    //                fail("unknown meta: " + meta);
-    //            }
-    //        });
-    //
-    //        // ## Act ##
-    //        memberBhv.insertOrUpdateNonstrict(member);
-    //
-    //        // ## Assert ##
-    //        assertMarked("called_count");
-    //        assertMarked("called_insert");
-    //    } finally {
-    //        CallbackContext.clearSqlLogHandlerOnThread();
-    //    }
-    //
-    //    Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
-    //        cb.query().setMemberId_Equal(member.getMemberId());
-    //    });
-    //
-    //    log(actual);
-    //    assertEquals("sea", actual.getMemberName());
-    //}
-    //
-    //// -----------------------------------------------------
-    ////                                                Update
-    ////                                                ------
-    //public void test_insertOrUpdate_nonstrict_updateByPK() {
-    //    // ## Arrange ##
-    //    Member member = new Member();
-    //    member.setMemberName("sea");
-    //    member.setMemberAccount("mystic");
-    //    member.setMemberStatusCode_Formalized();
-    //    memberBhv.insertOrUpdateNonstrict(member);
-    //
-    //    try {
-    //        CallbackContext.setSqlLogHandlerOnThread(info -> {
-    //            BehaviorCommandMeta meta = info.getMeta();
-    //            if (meta.isInsert()) {
-    //                fail("unknown insert: " + meta);
-    //            } else if (meta.isUpdate()) {
-    //                markHere("called_update"); // second
-    //            } else if (meta.isSelectCount()) {
-    //                markHere("called_count"); // first
-    //            } else {
-    //                fail("unknown meta: " + meta);
-    //            }
-    //        });
-    //
-    //        // ## Act ##
-    //        member.setMemberName("land");
-    //        member.setVersionNo(null);
-    //        memberBhv.insertOrUpdateNonstrict(member);
-    //
-    //        // ## Assert ##
-    //        assertMarked("called_count");
-    //        assertMarked("called_update");
-    //    } finally {
-    //        CallbackContext.clearSqlLogHandlerOnThread();
-    //    }
-    //
-    //    Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
-    //        cb.query().setMemberId_Equal(member.getMemberId());
-    //    });
-    //
-    //    log(actual);
-    //    assertEquals("land", actual.getMemberName());
-    //}
-    //
-    //public void test_insertOrUpdate_nonstrict_updateByUniqueBy() {
-    //    // ## Arrange ##
-    //    Member member = new Member();
-    //    member.setMemberName("sea");
-    //    member.setMemberAccount("mystic");
-    //    member.setMemberStatusCode_Formalized();
-    //    memberBhv.insertOrUpdateNonstrict(member);
-    //
-    //    try {
-    //        CallbackContext.setSqlLogHandlerOnThread(info -> {
-    //            BehaviorCommandMeta meta = info.getMeta();
-    //            if (meta.isInsert()) {
-    //                fail("unknown insert: " + meta);
-    //            } else if (meta.isUpdate()) {
-    //                markHere("called_update"); // second
-    //            } else if (meta.isSelectCount()) {
-    //                markHere("called_count"); // first
-    //            } else {
-    //                fail("unknown meta: " + meta);
-    //            }
-    //        });
-    //
-    //        // ## Act ##
-    //        member.setMemberName("land");
-    //        member.uniqueBy("mystic"); // same value
-    //        member.setVersionNo(null);
-    //        memberBhv.insertOrUpdateNonstrict(member);
-    //
-    //        // ## Assert ##
-    //        assertMarked("called_count");
-    //        assertMarked("called_update");
-    //    } finally {
-    //        CallbackContext.clearSqlLogHandlerOnThread();
-    //    }
-    //
-    //    Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
-    //        cb.query().setMemberId_Equal(member.getMemberId());
-    //    });
-    //
-    //    log(actual);
-    //    assertEquals("land", actual.getMemberName());
-    //}
+    // ===================================================================================
+    //                                                                      Default Strict
+    //                                                                      ==============
+    // -----------------------------------------------------
+    //                                                Insert
+    //                                                ------
+    public void test_insertOrUpdate_defaultStrict_insertAsNonPK() { // no change
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberName("sea");
+        member.setMemberAccount("mystic");
+        member.setMemberStatusCode_Formalized();
+
+        try {
+            CallbackContext.setSqlLogHandlerOnThread(info -> {
+                BehaviorCommandMeta meta = info.getMeta();
+                if (meta.isInsert()) {
+                    markHere("called_insert");
+                } else if (meta.isUpdate()) {
+                    fail("unknown update: " + meta);
+                } else {
+                    fail("unknown meta: " + meta);
+                }
+            });
+
+            // ## Act ##
+            memberBhv.varyingInsertOrUpdate(member, op -> {}, op -> op.precheckInsertOrUpdateCount());
+
+            // ## Assert ##
+            assertMarked("called_insert");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+
+        // ## Assert ##
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(member.getMemberId());
+        });
+
+        log(actual);
+        assertEquals("sea", actual.getMemberName());
+    }
+
+    public void test_insertOrUpdate_defaultStrict_insertAsUniqueBy() { // no change
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberName("sea");
+        member.uniqueBy("mystic");
+        member.setMemberStatusCode_Formalized();
+
+        try {
+            CallbackContext.setSqlLogHandlerOnThread(info -> {
+                BehaviorCommandMeta meta = info.getMeta();
+                if (meta.isInsert()) {
+                    markHere("called_insert"); // second
+                } else if (meta.isUpdate()) {
+                    fail("unknown update: " + meta);
+                } else if (meta.isSelectCount()) {
+                    markHere("called_count"); // first
+                } else {
+                    fail("unknown meta: " + meta);
+                }
+            });
+
+            // ## Act ##
+            memberBhv.varyingInsertOrUpdate(member, op -> {}, op -> op.precheckInsertOrUpdateCount());
+
+            // ## Assert ##
+            assertMarked("called_count");
+            assertMarked("called_insert");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+
+        // ## Assert ##
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(member.getMemberId());
+        });
+
+        log(actual);
+        assertEquals("sea", actual.getMemberName());
+    }
+
+    // -----------------------------------------------------
+    //                                                Update
+    //                                                ------
+    public void test_insertOrUpdate_defaultStrict_updateByPK() {
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberName("sea");
+        member.setMemberAccount("mystic");
+        member.setMemberStatusCode_Formalized();
+        memberBhv.insertOrUpdate(member);
+
+        try {
+            CallbackContext.setSqlLogHandlerOnThread(info -> {
+                BehaviorCommandMeta meta = info.getMeta();
+                if (meta.isInsert()) {
+                    fail("unknown insert: " + meta);
+                } else if (meta.isUpdate()) {
+                    markHere("called_update"); // second
+                } else if (meta.isSelectCount()) {
+                    markHere("called_count"); // first
+                } else {
+                    fail("unknown meta: " + meta);
+                }
+            });
+
+            // ## Act ##
+            member.setMemberName("land");
+            memberBhv.varyingInsertOrUpdate(member, op -> {}, op -> op.precheckInsertOrUpdateCount());
+
+            // ## Assert ##
+            assertMarked("called_count");
+            assertMarked("called_update");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(member.getMemberId());
+        });
+
+        log(actual);
+        assertEquals("land", actual.getMemberName());
+    }
+
+    public void test_insertOrUpdate_defaultStrict_updateByUniqueBy_basic() {
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberName("sea");
+        member.setMemberAccount("mystic");
+        member.setMemberStatusCode_Formalized();
+        memberBhv.insertOrUpdate(member);
+
+        try {
+            CallbackContext.setSqlLogHandlerOnThread(info -> {
+                BehaviorCommandMeta meta = info.getMeta();
+                if (meta.isUpdate()) {
+                    markHere("called_update"); // second
+                } else if (meta.isInsert()) {
+                    fail("unknown insert: " + meta);
+                } else if (meta.isSelectCount()) {
+                    markHere("called_count"); // first
+                } else {
+                    fail("unknown meta: " + meta);
+                }
+            });
+
+            // ## Act ##
+            member.setMemberName("land");
+            member.uniqueBy("mystic"); // same value
+            memberBhv.varyingInsertOrUpdate(member, op -> {}, op -> op.precheckInsertOrUpdateCount());
+
+            // ## Assert ##
+            assertMarked("called_count");
+            assertMarked("called_update");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(member.getMemberId());
+        });
+
+        log(actual);
+        assertEquals("land", actual.getMemberName());
+    }
+
+    public void test_insertOrUpdate_defaultStrict_updateByUniqueBy_entityAlreadyUpdated() {
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberName("sea");
+        member.setMemberAccount("mystic");
+        member.setMemberStatusCode_Formalized();
+        memberBhv.insertOrUpdate(member);
+
+        try {
+            CallbackContext.setSqlLogHandlerOnThread(info -> {
+                BehaviorCommandMeta meta = info.getMeta();
+                if (meta.isUpdate()) {
+                    markHere("called_update"); // second
+                } else if (meta.isInsert()) {
+                    fail("unknown insert: " + meta);
+                } else if (meta.isSelectCount()) {
+                    if (isMarked("called_count")) {
+                        markHere("called_count2"); // third
+                    } else {
+                        markHere("called_count"); // first
+                    }
+                } else {
+                    fail("unknown meta: " + meta);
+                }
+            });
+
+            // ## Act ##
+            member.setMemberName("land");
+            member.uniqueBy("mystic"); // same value
+            member.setVersionNo(99999L); // already updated
+            assertException(EntityAlreadyUpdatedException.class, () -> {
+                memberBhv.varyingInsertOrUpdate(member, op -> {}, op -> op.precheckInsertOrUpdateCount());
+            });
+
+            // ## Assert ##
+            assertMarked("called_count");
+            assertMarked("called_update");
+            assertMarked("called_count2");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(member.getMemberId());
+        });
+
+        log(actual);
+        assertEquals("sea", actual.getMemberName());
+    }
+
+    // ===================================================================================
+    //                                                                           Nonstrict
+    //                                                                           =========
+    // -----------------------------------------------------
+    //                                                Insert
+    //                                                ------
+    public void test_insertOrUpdate_nonstrict_insertAsNonPK() { // no change
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberName("sea");
+        member.setMemberAccount("mystic");
+        member.setMemberStatusCode_Formalized();
+
+        try {
+            CallbackContext.setSqlLogHandlerOnThread(info -> {
+                BehaviorCommandMeta meta = info.getMeta();
+                if (meta.isInsert()) {
+                    markHere("called_insert");
+                } else if (meta.isUpdate()) {
+                    fail("unknown update: " + meta);
+                } else {
+                    fail("unknown meta: " + meta);
+                }
+            });
+
+            // ## Act ##
+            memberBhv.varyingInsertOrUpdateNonstrict(member, op -> {}, op -> op.precheckInsertOrUpdateCount());
+
+            // ## Assert ##
+            assertMarked("called_insert");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(member.getMemberId());
+        });
+
+        log(actual);
+        assertEquals("sea", actual.getMemberName());
+    }
+
+    public void test_insertOrUpdate_nonstrict_insertAsUniqueBy() {
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberName("sea");
+        member.uniqueBy("mystic");
+        member.setMemberStatusCode_Formalized();
+
+        try {
+            CallbackContext.setSqlLogHandlerOnThread(info -> {
+                BehaviorCommandMeta meta = info.getMeta();
+                if (meta.isInsert()) {
+                    markHere("called_insert"); // second
+                } else if (meta.isUpdate()) {
+                    fail("unknown update: " + meta);
+                } else if (meta.isSelectCount()) {
+                    markHere("called_count"); // first
+                } else {
+                    fail("unknown meta: " + meta);
+                }
+            });
+
+            // ## Act ##
+            memberBhv.varyingInsertOrUpdateNonstrict(member, op -> {}, op -> op.precheckInsertOrUpdateCount());
+
+            // ## Assert ##
+            assertMarked("called_count");
+            assertMarked("called_insert");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(member.getMemberId());
+        });
+
+        log(actual);
+        assertEquals("sea", actual.getMemberName());
+    }
+
+    // -----------------------------------------------------
+    //                                                Update
+    //                                                ------
+    public void test_insertOrUpdate_nonstrict_updateByPK() {
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberName("sea");
+        member.setMemberAccount("mystic");
+        member.setMemberStatusCode_Formalized();
+        memberBhv.insertOrUpdateNonstrict(member);
+
+        try {
+            CallbackContext.setSqlLogHandlerOnThread(info -> {
+                BehaviorCommandMeta meta = info.getMeta();
+                if (meta.isInsert()) {
+                    fail("unknown insert: " + meta);
+                } else if (meta.isUpdate()) {
+                    markHere("called_update"); // second
+                } else if (meta.isSelectCount()) {
+                    markHere("called_count"); // first
+                } else {
+                    fail("unknown meta: " + meta);
+                }
+            });
+
+            // ## Act ##
+            member.setMemberName("land");
+            member.setVersionNo(null);
+            memberBhv.varyingInsertOrUpdateNonstrict(member, op -> {}, op -> op.precheckInsertOrUpdateCount());
+
+            // ## Assert ##
+            assertMarked("called_count");
+            assertMarked("called_update");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(member.getMemberId());
+        });
+
+        log(actual);
+        assertEquals("land", actual.getMemberName());
+    }
+
+    public void test_insertOrUpdate_nonstrict_updateByUniqueBy() {
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberName("sea");
+        member.setMemberAccount("mystic");
+        member.setMemberStatusCode_Formalized();
+        memberBhv.insertOrUpdateNonstrict(member);
+
+        try {
+            CallbackContext.setSqlLogHandlerOnThread(info -> {
+                BehaviorCommandMeta meta = info.getMeta();
+                if (meta.isInsert()) {
+                    fail("unknown insert: " + meta);
+                } else if (meta.isUpdate()) {
+                    markHere("called_update"); // second
+                } else if (meta.isSelectCount()) {
+                    markHere("called_count"); // first
+                } else {
+                    fail("unknown meta: " + meta);
+                }
+            });
+
+            // ## Act ##
+            member.setMemberName("land");
+            member.uniqueBy("mystic"); // same value
+            member.setVersionNo(null);
+            memberBhv.varyingInsertOrUpdateNonstrict(member, op -> {}, op -> op.precheckInsertOrUpdateCount());
+
+            // ## Assert ##
+            assertMarked("called_count");
+            assertMarked("called_update");
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+
+        Member actual = memberBhv.selectEntityWithDeletedCheck(cb -> {
+            cb.query().setMemberId_Equal(member.getMemberId());
+        });
+
+        log(actual);
+        assertEquals("land", actual.getMemberName());
+    }
 }
