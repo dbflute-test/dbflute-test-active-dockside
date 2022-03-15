@@ -32,22 +32,24 @@ import org.docksidestage.dockside.dbflute.bsbhv.pmbean.BsPagingWithCursorMemberP
  */
 public class PagingWithCursorMemberPmb extends BsPagingWithCursorMemberPmb {
 
-    private boolean cursorHandling;
+    private boolean _asCursorHandling;
+
+    /**
+     * Use parameter-bean for cursor handling.
+     * @return this. (NotNull)
+     */
+    public PagingWithCursorMemberPmb asCursorHandling() {
+        _asCursorHandling = true;
+        return this;
+    }
 
     @Override
     public boolean isPaging() { // not to depend on framework default value
-        return super.isPaging() || cursorHandling; // always true if cursor handling
+        return super.isPaging() || _asCursorHandling; // always true if cursor handling
     }
 
     @Override
     public boolean isCursorHandling() { // to suppress paging condition
-        return cursorHandling;
-    }
-
-    /**
-     * Use parameter-bean for cursor handling.
-     */
-    public void forCursorHandling() {
-        cursorHandling = true;
+        return _asCursorHandling;
     }
 }

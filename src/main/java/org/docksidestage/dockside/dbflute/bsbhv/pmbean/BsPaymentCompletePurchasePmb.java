@@ -76,7 +76,7 @@ public abstract class BsPaymentCompletePurchasePmb extends SimplePagingBean impl
      * This is an alternate boolean method waiting for your overriding.
      * @return The determination, true or false for your complex conditions.
      */
-    public abstract boolean isCursor();
+    public abstract boolean isCursorHandling();
 
     // ===================================================================================
     //                                                                       Assist Helper

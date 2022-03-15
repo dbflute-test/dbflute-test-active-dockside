@@ -32,14 +32,19 @@ import org.docksidestage.dockside.dbflute.bsbhv.pmbean.BsPaymentCompletePurchase
  */
 public class PaymentCompletePurchasePmb extends BsPaymentCompletePurchasePmb {
 
-    protected boolean _cursor;
+    private boolean _asCursorHandling;
 
-    public PaymentCompletePurchasePmb(boolean cursor) {
-        _cursor = cursor;
+    /**
+     * Use parameter-bean for cursor handling.
+     * @return this. (NotNull)
+     */
+    public PaymentCompletePurchasePmb asCursorHandling() {
+        _asCursorHandling = true;
+        return this;
     }
 
     @Override
-    public boolean isCursor() {
-        return _cursor;
+    public boolean isCursorHandling() {
+        return _asCursorHandling;
     }
 }

@@ -30,7 +30,7 @@ select pc.PURCHASE_ID
  where pc.PAYMENT_COMPLETE_FLG = /*pmb.paymentCompleteFlg:cls(Flg.True)*/1
  /*IF pmb.isPaging()*/
  order by pc.PURCHASE_PRICE asc
- /*IF !pmb.isCursor()*/
+ /*IF !pmb.isCursorHandling()*/
  limit /*pmb.fetchSize*/20 offset /*pmb.pageStartIndex*/80
  /*END*/
  /*END*/

@@ -29,7 +29,7 @@ public class WxOutsideSqlPagingSharingTest extends UnitContainerTestCase {
     public void test_outsideSql_withCursor_selectCursor() {
         // ## Arrange ##
         PagingWithCursorMemberPmb pmb = new PagingWithCursorMemberPmb();
-        pmb.forCursorHandling();
+        pmb.asCursorHandling();
 
         // ## Act ##
         memberBhv.outsideSql().selectCursor(pmb, new PagingWithCursorMemberCursorHandler() {
@@ -98,7 +98,7 @@ public class WxOutsideSqlPagingSharingTest extends UnitContainerTestCase {
     public void test_outsideSql_withList_selectList() {
         // ## Arrange ##
         PagingWithListMemberPmb pmb = new PagingWithListMemberPmb();
-        pmb.forListHandling();
+        pmb.asListHandling();
 
         // ## Act ##
         ListResultBean<PagingWithListMember> memberList = memberBhv.outsideSql().selectList(pmb);

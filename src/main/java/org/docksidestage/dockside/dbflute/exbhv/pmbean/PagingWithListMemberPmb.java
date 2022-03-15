@@ -36,22 +36,24 @@ import org.docksidestage.dockside.dbflute.exentity.customize.PagingWithListMembe
 public class PagingWithListMemberPmb extends BsPagingWithListMemberPmb // can select list
         implements ListHandlingPmb<MemberBhv, PagingWithListMember> {
 
-    private boolean listHandling;
+    private boolean _asListHandling;
+
+    /**
+     * Use parameter-bean for list handling.
+     * @return this. (NotNull)
+     */
+    public PagingWithListMemberPmb asListHandling() {
+        _asListHandling = true;
+        return this;
+    }
 
     @Override
     public boolean isPaging() { // not to depend on framework default value
-        return super.isPaging() || listHandling; // always true if list handling
+        return super.isPaging() || _asListHandling; // always true if list handling
     }
 
     @Override
     public boolean isListHandling() { // to suppress paging condition
-        return listHandling;
-    }
-
-    /**
-     * Use parameter-bean for list handling.
-     */
-    public void forListHandling() {
-        listHandling = true;
+        return _asListHandling;
     }
 }
