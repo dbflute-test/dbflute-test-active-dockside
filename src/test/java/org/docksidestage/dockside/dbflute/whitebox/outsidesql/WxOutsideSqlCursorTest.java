@@ -12,13 +12,17 @@ import java.util.Set;
 import org.dbflute.cbean.ckey.ConditionKey;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.result.PagingResultBean;
+import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
+import org.docksidestage.dockside.dbflute.exbhv.cursor.CursorWithScalarMemberCursor;
+import org.docksidestage.dockside.dbflute.exbhv.cursor.CursorWithScalarMemberCursorHandler;
 import org.docksidestage.dockside.dbflute.exbhv.cursor.PaymentCompletePurchaseCursor;
 import org.docksidestage.dockside.dbflute.exbhv.cursor.PaymentCompletePurchaseCursorHandler;
 import org.docksidestage.dockside.dbflute.exbhv.cursor.PurchaseSummaryMemberCursor;
 import org.docksidestage.dockside.dbflute.exbhv.cursor.PurchaseSummaryMemberCursorHandler;
+import org.docksidestage.dockside.dbflute.exbhv.pmbean.CursorWithScalarMemberPmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PaymentCompletePurchasePmb;
 import org.docksidestage.dockside.dbflute.exbhv.pmbean.PurchaseSummaryMemberPmb;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -197,11 +201,48 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
     }
 
     // ===================================================================================
+    //                                                                  Entity with Cursor 
+    //                                                                  ==================
+    public void test_selectCursor_with_Scalar_asCursor() throws Exception {
+        // ## Arrange ##
+        CursorWithScalarMemberPmb pmb = new CursorWithScalarMemberPmb();
+
+        // ## Act ##
+        memberBhv.outsideSql().selectCursor(pmb, new CursorWithScalarMemberCursorHandler() {
+            @Override
+            protected Object fetchCursor(CursorWithScalarMemberCursor cursor) throws SQLException {
+                // ## Assert ##
+                while (cursor.next()) {
+                    markHere("called");
+                    log(cursor.getMemberId(), cursor.getMemberName());
+                }
+                return null;
+            }
+        });
+        assertMarked("called");
+    }
+
+    public void test_selectCursor_with_Scalar_asScalar() throws Exception {
+        // ## Arrange ##
+        String path = MemberBhv.PATH_whitebox_pmbean_selectCursorWithScalarMember;
+        CursorWithScalarMemberPmb pmb = new CursorWithScalarMemberPmb().asScalarHandling();
+        Class<Integer> entityType = Integer.class;
+
+        // ## Act ##
+        OptionalEntity<Integer> optCount = memberBhv.outsideSql().traditionalStyle().selectEntity(path, pmb, entityType);
+
+        // ## Assert ##
+        assertTrue(optCount.isPresent());
+        Integer count = optCount.get();
+        log(count);
+    }
+
+    // ===================================================================================
     //                                                                  Paging with Cursor
     //                                                                  ==================
-    public void test_selectPage_with_Cursor() throws Exception {
+    public void test_selectPage_with_Cursor_asPaging() throws Exception {
         // ## Arrange ##
-        PaymentCompletePurchasePmb pmb = new PaymentCompletePurchasePmb(false);
+        PaymentCompletePurchasePmb pmb = new PaymentCompletePurchasePmb();
         pmb.paging(3, 1);
 
         // ## Act ##
@@ -214,9 +255,9 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
         }
     }
 
-    public void test_selectCursor_with_Paging() throws Exception {
+    public void test_selectPage_with_Cursor_asCursor() throws Exception {
         // ## Arrange ##
-        PaymentCompletePurchasePmb pmb = new PaymentCompletePurchasePmb(true);
+        PaymentCompletePurchasePmb pmb = new PaymentCompletePurchasePmb().asCursorHandling();
 
         // ## Act ##
         final Set<String> markSet = new HashSet<String>();

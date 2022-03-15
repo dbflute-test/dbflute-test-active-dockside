@@ -106,6 +106,8 @@ public abstract class BsMemberBhv extends AbstractBehaviorWritable<Member, Membe
     public static final String PATH_whitebox_cmentity_selectUndetectableClassificationHint = "whitebox:cmentity:selectUndetectableClassificationHint";
     /** compare date of parameter-bean */
     public static final String PATH_whitebox_pmbean_selectCompareDate = "whitebox:pmbean:selectCompareDate";
+    /** Example for selecting cursor with scalar SQL */
+    public static final String PATH_whitebox_pmbean_selectCursorWithScalarMember = "whitebox:pmbean:selectCursorWithScalarMember";
     /** map like search of parameter-bean */
     public static final String PATH_whitebox_pmbean_selectMapLikeSearch = "whitebox:pmbean:selectMapLikeSearch";
     /** Example for selecting cursor by paging SQL */
