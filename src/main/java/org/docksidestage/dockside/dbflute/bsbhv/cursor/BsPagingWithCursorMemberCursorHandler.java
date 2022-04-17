@@ -26,12 +26,7 @@ import org.docksidestage.dockside.dbflute.exbhv.cursor.PagingWithCursorMemberCur
  */
 public abstract class BsPagingWithCursorMemberCursorHandler implements CursorHandler {
 
-    /**
-     * Handle the cursor.
-     * @param rs The cursor (result set) for the query, which has first pointer. (NotNull)
-     * @return The result object of handling process. (NullAllowed)
-     * @throws SQLException When it fails to handle the SQL.
-     */
+     /** {@inheritDoc} */
     public Object handle(ResultSet rs) throws SQLException {
         return fetchCursor(createTypeSafeCursor(rs));
     }

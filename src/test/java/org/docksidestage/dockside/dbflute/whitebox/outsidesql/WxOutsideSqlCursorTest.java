@@ -12,6 +12,8 @@ import java.util.Set;
 import org.dbflute.cbean.ckey.ConditionKey;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.result.PagingResultBean;
+import org.dbflute.jdbc.CursorAccessor;
+import org.dbflute.jdbc.CursorHandler;
 import org.dbflute.optional.OptionalEntity;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
@@ -74,7 +76,6 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
         assertNotSame(0, memberBhv.selectCount(cb -> {
             cb.query().setMemberId_InScope(memberIdList);
         }));
-
     }
 
     public void test_selectCursor_insertWithCursor_diffTable() throws Exception {
@@ -275,5 +276,40 @@ public class WxOutsideSqlCursorTest extends UnitContainerTestCase {
             }
         });
         assertFalse(markSet.isEmpty());
+    }
+    
+    // ===================================================================================
+    //                                                                           Interface
+    //                                                                           =========
+    public void test_selectCursor_interface() throws Exception {
+        // ## Arrange ##
+        PurchaseSummaryMemberPmb pmb = new PurchaseSummaryMemberPmb();
+        pmb.setMemberStatusCode_Formalized();
+        final List<Integer> memberIdList = new ArrayList<Integer>();
+        final CursorHandler handler = new PurchaseSummaryMemberCursorHandler() {
+            public Object fetchCursor(PurchaseSummaryMemberCursor cursor) throws SQLException {
+                CursorAccessor accessor = cursor;
+                int count = 0;
+                while (accessor.next()) {
+                    final String memberName = cursor.getMemberName();
+                    Member member = new Member();
+                    member.setMemberName(memberName + count);
+                    member.setMemberAccount(memberName + count);
+                    member.setMemberStatusCode_Formalized();
+                    memberBhv.insert(member);
+                    memberIdList.add(member.getMemberId());
+                    ++count;
+                }
+                return null;
+            }
+        };
+
+        // ## Act ##
+        memberBhv.outsideSql().selectCursor(pmb, handler);
+
+        // ## Assert ##
+        assertNotSame(0, memberBhv.selectCount(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        }));
     }
 }

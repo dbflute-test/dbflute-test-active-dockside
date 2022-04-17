@@ -18,6 +18,7 @@ package org.docksidestage.dockside.dbflute.bsbhv.cursor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.dbflute.jdbc.CursorAccessor;
 import org.dbflute.jdbc.ValueType;
 import org.dbflute.s2dao.valuetype.TnValueTypes;
 
@@ -25,7 +26,7 @@ import org.dbflute.s2dao.valuetype.TnValueTypes;
  * The cursor of PagingWithCursorMember. <br>
  * @author DBFlute(AutoGenerator)
  */
-public class BsPagingWithCursorMemberCursor {
+public class BsPagingWithCursorMemberCursor implements CursorAccessor {
 
     // ===================================================================================
     //                                                                          Definition
@@ -74,10 +75,7 @@ public class BsPagingWithCursorMemberCursor {
     // ===================================================================================
     //                                                                             Prepare
     //                                                                             =======
-    /**
-     * Accept the result set.
-     * @param rs The cursor (result set) for the query, which has first pointer. (NotNull)
-     */
+    /** {@inheritDoc} */
     public void accept(ResultSet rs) {
         this._rs = rs;
     }
@@ -85,10 +83,7 @@ public class BsPagingWithCursorMemberCursor {
     // ===================================================================================
     //                                                                              Direct
     //                                                                              ======
-    /**
-     * Get the wrapped cursor (result set).
-     * @return The instance of result set. (NotNull)
-     */
+    /** {@inheritDoc} */
     public ResultSet cursor() {
         return _rs;
     }
@@ -96,11 +91,7 @@ public class BsPagingWithCursorMemberCursor {
     // ===================================================================================
     //                                                                            Delegate
     //                                                                            ========
-    /**
-     * Move to next result.
-     * @return Is exist next result.
-     * @throws SQLException When it fails to move the cursor to next point.
-     */
+    /** {@inheritDoc} */
     public boolean next() throws SQLException {
         return _rs.next();
     }
@@ -151,5 +142,4 @@ public class BsPagingWithCursorMemberCursor {
     public String getMemberStatusName() throws SQLException {
         return (String)_vtMemberStatusName.getValue(_rs, DB_NAME_MEMBER_STATUS_NAME);
     }
-
 }
