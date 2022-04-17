@@ -823,7 +823,9 @@ public interface CDef extends Classification {
             });
         }
         public static CDef.DefMeta meta(String classificationName) { // old style so use find(name)
-            return find(classificationName).orElse(null);
+            return find(classificationName).orElseTranslatingThrow(cause -> {
+                return new IllegalStateException("Unknown classification: " + classificationName);
+            });
         }
     }
 
