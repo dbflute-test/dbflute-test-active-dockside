@@ -3,6 +3,7 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.setupselect;
 import java.time.LocalDate;
 
 import org.dbflute.cbean.result.ListResultBean;
+import org.dbflute.exception.NonSetupSelectRelationAccessException;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberSecurity;
@@ -88,6 +89,26 @@ public class WxCBSetupSelectTest extends UnitContainerTestCase {
         }
         assertMarked("existsAddress");
         assertFalse(popCB().toDisplaySql().contains("where")); // not use where clause
+    }
+
+    // ===================================================================================
+    //                                                                      Illegal Access
+    //                                                                      ==============
+    public void test_setupSelect_illegalAccess() {
+        // ## Arrange ##
+        Member member = memberBhv.selectEntity(cb -> {
+            cb.setupSelect_MemberStatus();
+            cb.query().setMemberId_Equal(1);
+            cb.query().addOrderBy_MemberId_Asc();
+        }).get();
+
+        // ## Act ##
+        // ## Assert ##
+        assertException(NonSetupSelectRelationAccessException.class, () -> {
+            member.getMemberSecurityAsOne().alwaysPresent(security -> {
+                fail(); // no here
+            });
+        });
     }
 
     // ===================================================================================
