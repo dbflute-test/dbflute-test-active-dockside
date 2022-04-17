@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.helper.mapstring.MapListString;
+import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -39,6 +40,41 @@ public class WxDBMetaMapStringTest extends UnitContainerTestCase {
             assertEquals(member.getMemberName(), restored.getMemberName());
             assertEquals(member.getMemberAccount(), restored.getMemberAccount());
             assertEquals(member.getMemberStatusCode(), restored.getMemberStatusCode());
+            assertEquals(member.getMemberStatusCodeAsMemberStatus(), restored.getMemberStatusCodeAsMemberStatus());
+            assertNotNull(member.getBirthdate());
+            assertNotNull(member.getFormalizedDatetime());
+            assertEquals(member.getBirthdate(), restored.getBirthdate());
+            assertEquals(member.toString(), restored.toString());
+        });
+    }
+
+    public void test_mapping_classification() throws Exception {
+        // ## Arrange ##
+        memberBhv.selectEntity(cb -> {
+            cb.query().setBirthdate_IsNotNull();
+            cb.query().setMemberStatusCode_Equal_Formalized();
+            cb.fetchFirst(1);
+        }).alwaysPresent(member -> {
+            /* ## Act ## */
+            DBMeta dbmeta = member.asDBMeta();
+            Map<String, Object> columnMap = dbmeta.extractAllColumnMap(member);
+            MapListString mls = new MapListString();
+            String mapString = mls.buildMapString(columnMap);
+            Map<String, Object> generateMap = mls.generateMap(mapString);
+
+            /* ## Assert ## */
+            String memberStatusCode = (String) generateMap.get("MEMBER_STATUS_CODE");
+            assertNotNull(memberStatusCode);
+            columnMap.put("MEMBER_STATUS_CODE", CDef.MemberStatus.of(memberStatusCode).orElse(null));
+            Member restored = new Member();
+            dbmeta.acceptAllColumnMap(restored, generateMap);
+            log(member);
+            log(restored);
+            assertEquals(member, restored);
+            assertEquals(member.getMemberName(), restored.getMemberName());
+            assertEquals(member.getMemberAccount(), restored.getMemberAccount());
+            assertEquals(member.getMemberStatusCode(), restored.getMemberStatusCode());
+            assertEquals(member.getMemberStatusCodeAsMemberStatus(), restored.getMemberStatusCodeAsMemberStatus());
             assertNotNull(member.getBirthdate());
             assertNotNull(member.getFormalizedDatetime());
             assertEquals(member.getBirthdate(), restored.getBirthdate());

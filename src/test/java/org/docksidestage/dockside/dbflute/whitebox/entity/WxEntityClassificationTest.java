@@ -19,15 +19,28 @@ public class WxEntityClassificationTest extends PlainTestCase {
         Member member = new Member();
 
         // ## Act & Assert ##
+        assertNull(member.getMemberStatusCode());
+        assertNull(member.getMemberStatusCodeAsMemberStatus());
+
         member.setMemberStatusCode_Formalized();
         assertTrue(member.isMemberStatusCodeFormalized());
+        assertEquals(CDef.MemberStatus.Formalized, member.getMemberStatusCodeAsMemberStatus());
+
         member.setMemberStatusCode_Withdrawal();
         assertTrue(member.isMemberStatusCodeWithdrawal());
+
         member.setMemberStatusCodeAsMemberStatus(CDef.MemberStatus.Provisional);
         assertTrue(member.isMemberStatusCodeProvisional());
+
         member.setMemberStatusCodeAsMemberStatus(null);
         assertFalse(member.isMemberStatusCodeProvisional());
         assertNull(member.getMemberStatusCode());
+
+        member.mynativeMappingMemberStatusCode("NON");
+        assertNull(member.getMemberStatusCodeAsMemberStatus());
+        assertFalse(member.isMemberStatusCodeFormalized());
+        assertFalse(member.isMemberStatusCodeWithdrawal());
+        assertFalse(member.isMemberStatusCodeProvisional());
     }
 
     public void test_setting_sisters() {
