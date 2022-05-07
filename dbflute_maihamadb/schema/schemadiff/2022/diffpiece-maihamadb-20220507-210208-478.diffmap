@@ -1,0 +1,33 @@
+map:{
+    ; 2022/05/07 21:02:08.478 = map:{
+        ; diffDate = 2022/05/07 21:02:08.478
+        ; tableCount = map:{
+            ; next = 24
+            ; previous = 29
+        }
+        ; diffAuthor = jflute
+        ; diffGitBranch = master
+        ; tableDiff = map:{
+            ; TRIAL_SUMMARY_PRODUCT = map:{
+                ; tableName = TRIAL_SUMMARY_PRODUCT
+                ; diffType = DELETE
+            }
+            ; TTRIAL_SUMMARY_PRODUCT = map:{
+                ; tableName = TTRIAL_SUMMARY_PRODUCT
+                ; diffType = DELETE
+            }
+            ; TTTRIAL_SUMMARY_PRODUCT = map:{
+                ; tableName = TTTRIAL_SUMMARY_PRODUCT
+                ; diffType = DELETE
+            }
+            ; TTTTRIAL_SUMMARY_PRODUCT = map:{
+                ; tableName = TTTTRIAL_SUMMARY_PRODUCT
+                ; diffType = DELETE
+            }
+            ; TTTTTRIAL_SUMMARY_PRODUCT = map:{
+                ; tableName = TTTTTRIAL_SUMMARY_PRODUCT
+                ; diffType = DELETE
+            }
+        }
+    }
+}

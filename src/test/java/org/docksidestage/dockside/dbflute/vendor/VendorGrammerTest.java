@@ -12,6 +12,7 @@ import org.dbflute.bhv.writable.QueryInsertSetupper;
 import org.dbflute.cbean.ConditionBean;
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SubQuery;
+import org.dbflute.helper.HandyDate;
 import org.dbflute.hook.AccessContext;
 import org.dbflute.util.DfCollectionUtil;
 import org.dbflute.util.DfTypeUtil;
@@ -158,7 +159,6 @@ public class VendorGrammerTest extends UnitContainerTestCase {
 
         assertNotSame(0, actualList.size());
         assertEquals(memberIdList.size(), actualList.size());
-        String fmt = "yyyy-MM-dd HH:mm:ss.SSS";
         for (MemberWithdrawal actual : actualList) {
             String withdrawalReasonCode = actual.getWithdrawalReasonCode();
             assertNotNull(withdrawalReasonCode);
@@ -166,12 +166,12 @@ public class VendorGrammerTest extends UnitContainerTestCase {
             Member member = formalizedMemberMap.get(actual.getMemberId());
             assertEquals(member.getMemberName(), actual.getWithdrawalReasonInputText());
 
-            // common columns
+            // common columns (clearing milliseconds to avoid execution random result)
             AccessContext accessContext = AccessContext.getAccessContextOnThread();
-            String registerTimestamp = DfTypeUtil.toString(accessContext.getAccessTimestamp(), fmt);
-            assertEquals(registerTimestamp, DfTypeUtil.toString(actual.getRegisterDatetime(), fmt));
+            HandyDate accessTimestamp = new HandyDate(accessContext.getAccessTimestamp()).clearMillisecond();
+            assertEquals(accessTimestamp, new HandyDate(actual.getRegisterDatetime()).clearMillisecond());
             assertEquals(accessContext.getAccessUser(), actual.getRegisterUser());
-            assertEquals(registerTimestamp, DfTypeUtil.toString(actual.getUpdateDatetime(), fmt));
+            assertEquals(accessTimestamp, new HandyDate(actual.getUpdateDatetime()).clearMillisecond());
             assertEquals(accessContext.getAccessUser(), actual.getUpdateUser());
         }
     }
@@ -264,14 +264,14 @@ public class VendorGrammerTest extends UnitContainerTestCase {
             // H2 needs to suppress either 'then' or 'else' binding
             // she said 'Unknown data type' (why?)
             // (cannot judge order column type by all binding?)
-                cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(op -> {
-                    op.suppressElseBinding();
-                    op.when_Equal(CDef.MemberStatus.Formalized).then(3);
-                    op.when_Equal(CDef.MemberStatus.Provisional).then(4);
-                    op.elseEnd(2);
-                });
-                pushCB(cb);
+            cb.query().addOrderBy_MemberStatusCode_Asc().withManualOrder(op -> {
+                op.suppressElseBinding();
+                op.when_Equal(CDef.MemberStatus.Formalized).then(3);
+                op.when_Equal(CDef.MemberStatus.Provisional).then(4);
+                op.elseEnd(2);
             });
+            pushCB(cb);
+        });
 
         // ## Assert ##
         assertHasAnyElement(memberList);
