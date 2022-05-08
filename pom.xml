@@ -14,7 +14,7 @@
 
 	<properties>
 		<dbflute.version>1.2.6</dbflute.version>
-		<h2.jdbc.version>1.4.199</h2.jdbc.version> <!-- old for now, truncate headache? at 200 -->
+		<h2.jdbc.version>2.1.210</h2.jdbc.version> <!-- old for now, truncate headache? at 200 -->
 		<spring.version>5.3.19</spring.version>
 		<utflute.version>0.9.5</utflute.version>
 	</properties>
