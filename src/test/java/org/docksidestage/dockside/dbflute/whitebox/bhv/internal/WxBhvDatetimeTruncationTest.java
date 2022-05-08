@@ -3,8 +3,6 @@ package org.docksidestage.dockside.dbflute.whitebox.bhv.internal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import javax.annotation.Resource;
-
 import org.dbflute.bhv.writable.coins.DateUpdateAdjuster;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
@@ -16,7 +14,6 @@ import org.docksidestage.dockside.unit.UnitContainerTestCase;
  */
 public class WxBhvDatetimeTruncationTest extends UnitContainerTestCase {
 
-    @Resource
     private MemberBhv memberBhv;
 
     // ===================================================================================

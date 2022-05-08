@@ -15,13 +15,10 @@
  */
 package org.docksidestage.dockside.dbflute.whitebox.bhv;
 
-import javax.annotation.Resource;
-
 import org.dbflute.bhv.core.BehaviorCommandMeta;
 import org.dbflute.exception.EntityAlreadyUpdatedException;
 import org.dbflute.hook.CallbackContext;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
-import org.docksidestage.dockside.dbflute.exbhv.MemberLoginBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
 
@@ -34,10 +31,7 @@ public class WxBhvInsertOrUpdateInternalBasicTest extends UnitContainerTestCase 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    @Resource
     private MemberBhv memberBhv;
-    @Resource
-    private MemberLoginBhv loginBhv;
 
     // ===================================================================================
     //                                                                      Default Strict

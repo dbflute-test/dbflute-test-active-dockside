@@ -484,13 +484,13 @@ public class VendorDataTypeTest extends UnitContainerTestCase {
     //                                                                       =============
     protected VendorCheck createVendorCheck() {
         VendorCheck vendorCheck = new VendorCheck();
-        vendorCheck.setVendorCheckId(new Long(99999));
+        vendorCheck.setVendorCheckId(99999L);
         return vendorCheck;
     }
 
     protected VendorCheck createVendorCheck(Integer id) {
         VendorCheck vendorCheck = new VendorCheck();
-        vendorCheck.setVendorCheckId(new Long(id));
+        vendorCheck.setVendorCheckId(id.longValue());
         return vendorCheck;
     }
 

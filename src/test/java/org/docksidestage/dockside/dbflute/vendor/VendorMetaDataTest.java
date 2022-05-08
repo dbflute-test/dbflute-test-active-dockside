@@ -203,7 +203,7 @@ public class VendorMetaDataTest extends UnitContainerTestCase {
             String catalog = rs.getString("PROCEDURE_CAT");
             String schema = rs.getString("PROCEDURE_SCHEM");
             String procedure = rs.getString("PROCEDURE_NAME");
-            Integer procedureType = new Integer(rs.getString("PROCEDURE_TYPE"));
+            Integer procedureType = Integer.valueOf(rs.getString("PROCEDURE_TYPE"));
             log(catalog + "." + schema + "." + procedure + ", type=" + procedureType);
         }
     }
