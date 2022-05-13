@@ -1,5 +1,5 @@
 # /---------------------------------------------------------------------------
-# includeQueryMap: (NotRequired - Default map:{})
+# conditionBeanMap: (NotRequired - Default map:{})
 #
 # Specification:
 # map:{
@@ -73,6 +73,7 @@ map:{
         #; !LessThan = map:{ $$ALL$$ = list:{ $$VersionNo$$ } }
         #; !GreaterEqual = map:{ $$ALL$$ = list:{ $$VersionNo$$ } }
         #; !LessEqual = map:{ $$ALL$$ = list:{ $$VersionNo$$ } }
+        #; !RangeOf = map:{ $$ALL$$ = list:{ $$VersionNo$$ } }
         #; !InScope = map:{ $$ALL$$ = list:{ $$VersionNo$$ } }
         #; !NotInScope = map:{ $$ALL$$ = list:{ $$VersionNo$$ } }
     }

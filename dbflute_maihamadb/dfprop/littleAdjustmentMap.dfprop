@@ -31,9 +31,6 @@ map:{
     #   [true]
     #     Add schema to table SQL name. (The table name on query is SCHEMA.TABLE)
     #
-    #   [false]
-    #     Non.
-    #
     #; isAvailableAddingSchemaToTableSqlName = false
     # - - - - - - - - - -/
 
@@ -43,20 +40,13 @@ map:{
     #     Add catalog to table SQL name. (The table name on query is CATALOG.SCHEMA.TABLE)
     #     This property works only when isAvailableAddingSchemaToTableSqlName is true.
     #
-    #   [false]
-    #     Non.
-    #
     #; isAvailableAddingCatalogToTableSqlName = false
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableDatabaseDependency: (NotRequired - Default false)
     #   [true]
-    #     Generate the method that depends on the database.
-    #     For example: cb.lockWithRR() at DB2.
-    #
-    #   [false]
-    #     Non.
+    #     Generate the method that depends on the database. e.g. cb.lockWithRR() at DB2.
     #
     #; isAvailableDatabaseDependency = false
     # - - - - - - - - - -/
@@ -64,25 +54,10 @@ map:{
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableDatabaseNativeJDBC: (NotRequired - Default false)
     #   [true]
-    #     Use classes of database native JDBC on generated classes
-    #     to get best performances of DB access.
+    #     Use classes of database native JDBC on generated classes to get best performances of DB access.
     #     Your project needs to refer to database native JDBC.
     #
-    #   [false]
-    #     Non.
-    #
     #; isAvailableDatabaseNativeJDBC = false
-    # - - - - - - - - - -/
-
-    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isAvailableNonPrimaryKeyWritable: (NotRequired - Default false)
-    #   [true]
-    #     Generate writable methods at non-primary-key table.
-    #
-    #   [false]
-    #     Non.
-    #
-    #; isAvailableNonPrimaryKeyWritable = false
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -101,32 +76,13 @@ map:{
     #   [true]
     #     Convert empty-string data to null in entity.
     #
-    #   [false]
-    #     Non.
-    #
     #; isEntityConvertEmptyStringToNull = false
-    # - - - - - - - - - -/
-
-    # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o isMakeConditionQueryEqualEmptyString: (NotRequired - Default false)
-    #   [true]
-    #     Make equal-empty-string methods of condition-query.
-    #     For example: cb.query().setMemberName_Equal_EmptyString()
-    #
-    #   [false]
-    #     Non.
-    #
-    #; isMakeConditionQueryEqualEmptyString = false
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isTableDispNameUpperCase: (NotRequired - Default false)
     #   [true]
-    #     Table names for display, e.g. on documents,
-    #     are forcedly treated as upper case.
-    #
-    #   [false]
-    #     Non.
+    #     Table names for display, e.g. on documents, are forcedly treated as upper case.
     #
     #; isTableDispNameUpperCase = false
     # - - - - - - - - - -/
@@ -137,9 +93,6 @@ map:{
     #     Table names on SQL executed by condition-bean or behavior
     #     are forcedly treated as upper case. (except outside-SQL)
     #
-    #   [false]
-    #     Non.
-    #
     #; isTableSqlNameUpperCase = false
     # - - - - - - - - - -/
 
@@ -148,9 +101,6 @@ map:{
     #   [true]
     #     Column names on SQL executed by condition-bean or behavior
     #     are forcedly treated as upper case. (except outside-SQL)
-    #
-    #   [false]
-    #     Non.
     #
     #; isColumnSqlNameUpperCase = false
     # - - - - - - - - - -/
@@ -164,13 +114,12 @@ map:{
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # o extendedDBFluteInitializerClass: (NotRequired - Default '')
+    # o extendedDBFluteInitializerClass: (NotRequired - Default null)
     #  If you want to extend the embedded DBFlute initializer,
     #  specify the class name of your original initializer
     #  that extends the embedded one.
     #  *Basically for fixed DBFluteConfig settings
     #
-    # @JavaOnly
     #; extendedDBFluteInitializerClass = com.example.ExtendedDBFluteInitializer
     # - - - - - - - - - -/
 

@@ -1,5 +1,5 @@
 # /---------------------------------------------------------------------------
-# outsideSqlDefinitionMap: (NotRequired - Default map:{})
+# outsideSqlMap: (NotRequired - Default map:{})
 #
 # The various settings about outsideSql. 
 #
@@ -27,9 +27,6 @@ map:{
     #     The parameter beans for procedure are auto-generated.
     #     If you call the procedure from DBFlute, you should specify 'true'!
     #
-    #   [false]
-    #     Non.
-    #
     ; isGenerateProcedureParameterBean = false
     # - - - - - - - - - -/
 
@@ -42,9 +39,6 @@ map:{
     #     Target procedures are executed actually at Sql2Entity task.
     #     (because of getting from execution meta data (result set meta data))
     #     This property is valid only when isGenerateProcedureParameterBean is true.
-    #
-    #   [false]
-    #     Non.
     #
     ; isGenerateProcedureCustomizeEntity = false
     # - - - - - - - - - -/
@@ -61,7 +55,7 @@ map:{
     # o targetProcedureSchemaList: (NotRequired - Default list:{})
     #  You can specify target schema of generated parameter bean for procedure.
     #  This property is valid only when generateProcedureParameterBean is valid.
-    #  ex) list:{PROCEDUREDB}
+    #   e.g. list:{PROCEDUREDB}
     #
     #; targetProcedureSchemaList = list:{FOO_SCHEMA ; prefix:FOO_ ; suffix:_FOO ; contain:_FOO_}
     # - - - - - - - - - -/
@@ -83,7 +77,7 @@ map:{
     # o executionMetaProcedureNameList: (NotRequired - Default list:{})
     #  You can specify target name of generated customize entity for procedure.
     #  This property is valid only when isGenerateProcedureCustomizeEntity is valid.
-    #  ex) list:{prefix:SP_}
+    #   e.g. list:{prefix:SP_}
     #
     #; executionMetaProcedureNameList = list:{FOO_PROCEDURE ; prefix:FOO_ ; suffix:_FOO ; contain:_FOO_}
     # - - - - - - - - - -/
@@ -104,9 +98,6 @@ map:{
     #     You should always write the title of outsideSql.
     #     If it doesn't exist, the OutsideSqlTest task fails.
     #
-    #   [false]
-    #     Non.
-    #
     #; isRequiredSqlTitle = true
     # - - - - - - - - - -/
 
@@ -115,9 +106,6 @@ map:{
     #   [true]
     #     You should always write the description of outsideSql.
     #     If it doesn't exist, the OutsideSqlTest task fails.
-    #
-    #   [false]
-    #     Non.
     #
     #; isRequiredSqlDescription = true
     # - - - - - - - - - -/
