@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.dbflute.utflute.core.PlainTestCase;
 import org.dbflute.util.DfResourceUtil;
@@ -42,12 +43,17 @@ public class WxAllClassCopyrightTest extends PlainTestCase {
         String buildPath = DfResourceUtil.getCanonicalPath(buildDir);
         File srcDir = new File(buildPath + "/../../" + srcPathMark);
         assertTrue(srcDir.exists());
-        List<File> unlicensedList = newArrayList();
+        List<File> checkedList = newArrayList();
 
         // ## Act ##
-        checkUnlicensed(srcDir, unlicensedList);
+        checkUnlicensed(srcDir, checkedList);
 
         // ## Assert ##
+        List<File> unlicensedList = checkedList.stream().filter(file -> {
+            // dockside project is for default settings so generated classes don't have copyright
+            String replaced = Srl.replace(file.getPath(), "\\", "/");
+            return !Srl.containsAny(replaced, "/dockside/dbflute/");
+        }).collect(Collectors.toList());
         StringBuilder sb = new StringBuilder();
         for (File unlicensedFile : unlicensedList) {
             String path = Srl.replace(unlicensedFile.getPath(), "\\", "/");
