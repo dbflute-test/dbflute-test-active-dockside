@@ -32,7 +32,7 @@ import org.dbflute.util.Srl;
  * @author jflute
  * @since 0.9.9.8 (2012/09/14 Friday)
  */
-public class WxAllClassCopyrightTest extends PlainTestCase {
+public class WxSourceCopyrightTest extends PlainTestCase {
 
     private static final String COPYRIGHT = "Copyright 2014-2022 the original author or authors.";
 
