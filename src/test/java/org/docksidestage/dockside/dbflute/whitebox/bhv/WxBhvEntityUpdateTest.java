@@ -4,11 +4,15 @@ import java.time.LocalDateTime;
 
 import org.dbflute.exception.EntityAlreadyDeletedException;
 import org.dbflute.exception.EntityAlreadyUpdatedException;
+import org.dbflute.exception.EntityPrimaryKeyNotFoundException;
 import org.dbflute.exception.EntityUniqueKeyNotFoundException;
+import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
 import org.docksidestage.dockside.dbflute.exbhv.MemberBhv;
+import org.docksidestage.dockside.dbflute.exbhv.MemberSecurityBhv;
 import org.docksidestage.dockside.dbflute.exbhv.MemberStatusBhv;
 import org.docksidestage.dockside.dbflute.exbhv.PurchaseBhv;
 import org.docksidestage.dockside.dbflute.exentity.Member;
+import org.docksidestage.dockside.dbflute.exentity.MemberSecurity;
 import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
 import org.docksidestage.dockside.unit.UnitContainerTestCase;
@@ -21,6 +25,7 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
 
     private MemberBhv memberBhv;
     private MemberStatusBhv memberStatusBhv;
+    private MemberSecurityBhv memberSecurityBhv;
     private PurchaseBhv purchaseBhv;
 
     // ===================================================================================
@@ -111,6 +116,33 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
 
         // ## Act & Assert ##
         memberStatusBhv.update(memberStatus); // Expect no exception!
+    }
+
+    public void test_update_NoPK_hasUQ() {
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberName("sea");
+        member.setMemberAccount("mystic");
+
+        // ## Act & Assert ##
+        assertException(EntityPrimaryKeyNotFoundException.class, () -> {
+            memberBhv.updateNonstrict(member);
+        }).handle(cause -> {
+            assertContains(cause.getMessage(), "uniqueBy");
+        });
+    }
+
+    public void test_update_NoPK_noUQ() {
+        // ## Arrange ##
+        MemberSecurity security = new MemberSecurity();
+        security.setLoginPassword("sea");
+
+        // ## Act & Assert ##
+        assertException(EntityPrimaryKeyNotFoundException.class, () -> {
+            memberSecurityBhv.updateNonstrict(security);
+        }).handle(cause -> {
+            assertNotContains(cause.getMessage(), "uniqueBy");
+        });
     }
 
     // ===================================================================================
@@ -233,5 +265,32 @@ public class WxBhvEntityUpdateTest extends UnitContainerTestCase {
         assertEquals(purchaseDatetime, after.getPurchaseDatetime());
         assertEquals(123456789, after.getPurchaseCount());
         assertEquals(Long.valueOf(99999L), purchase.getPurchaseId()); // no change 
+    }
+
+    public void test_updateNonstrict_uniqueBy_null_basic() throws Exception {
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberId(12);
+        member.uniqueBy(null);
+
+        // ## Act ##
+        // ## Assert ##
+        assertException(EntityUniqueKeyNotFoundException.class, () -> {
+            memberBhv.updateNonstrict(member);
+        });
+    }
+
+    public void test_varyingUpdateNonstrict_uniqueBy_null_basic() throws Exception {
+        // ## Arrange ##
+        Member member = new Member();
+        member.setMemberId(12);
+
+        // ## Act ##
+        // ## Assert ##
+        assertException(EntityUniqueKeyNotFoundException.class, () -> {
+            memberBhv.varyingUpdateNonstrict(member, op -> {
+                op.uniqueBy(MemberDbm.getInstance().uniqueOf());
+            });
+        });
     }
 }
