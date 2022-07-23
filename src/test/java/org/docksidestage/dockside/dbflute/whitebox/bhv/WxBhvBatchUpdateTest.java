@@ -8,11 +8,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.exception.BatchEntityAlreadyUpdatedException;
 import org.dbflute.exception.BatchUpdateColumnModifiedPropertiesFragmentedException;
+import org.dbflute.exception.EntityAlreadyDeletedException;
 import org.dbflute.exception.SQLFailureException;
 import org.dbflute.exception.SpecifyUpdateColumnInvalidException;
 import org.dbflute.helper.HandyDate;
@@ -1045,7 +1048,19 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                            UniqueBy
     //                                                                            ========
-    public void test_queryUpdate_uniqueBy_none() {
+    public void test_batchUpdate_uniqueBy_but_byPK() {
+        doTest_batchUpdate_uniqueBy_but_byPK(memberList -> {
+            return memberBhv.batchUpdate(memberList);
+        }, true);
+    }
+
+    public void test_batchUpdateNonstrict_uniqueBy_but_byPK() {
+        doTest_batchUpdate_uniqueBy_but_byPK(memberList -> {
+            return memberBhv.batchUpdateNonstrict(memberList);
+        }, false);
+    }
+
+    private void doTest_batchUpdate_uniqueBy_but_byPK(Function<List<Member>, int[]> updater, boolean assertVersion) {
         // ## Arrange ##
         List<Integer> memberIdList = new ArrayList<Integer>();
         memberIdList.add(1);
@@ -1074,7 +1089,7 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         }
 
         // ## Act ##
-        int[] result = memberBhv.batchUpdate(memberList);
+        int[] result = updater.apply(memberList);
 
         // ## Assert ##
         assertEquals(3, result.length);
@@ -1082,11 +1097,13 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         for (Member member : memberList) {
             actualVersionNoList.add(member.getVersionNo());
         }
-        assertNotSame(expectedVersionNoList, actualVersionNoList);
-        int index = 0;
-        for (Long versionNo : expectedVersionNoList) {
-            assertEquals(Long.valueOf(versionNo + 1L), actualVersionNoList.get(index));
-            ++index;
+        if (assertVersion) {
+            assertNotSame(expectedVersionNoList, actualVersionNoList);
+            int index = 0;
+            for (Long versionNo : expectedVersionNoList) {
+                assertEquals(Long.valueOf(versionNo + 1L), actualVersionNoList.get(index));
+                ++index;
+            }
         }
         ListResultBean<Member> actualList = memberBhv.selectList(actualCB -> {
             actualCB.query().setMemberId_InScope(memberIdList);
@@ -1102,5 +1119,58 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
             assertTrue(member.getBirthdate().isAfter(currentLocalDate()));
         }
         assertTrue(exists);
+    }
+
+    public void test_batchUpdate_uniqueBy_noPK() {
+        doTest_batchUpdate_uniqueBy_noPK(BatchEntityAlreadyUpdatedException.class, memberList -> {
+            memberBhv.batchUpdate(memberList);
+        });
+    }
+
+    public void test_batchUpdateNonstrict_uniqueBy_noPK() {
+        doTest_batchUpdate_uniqueBy_noPK(EntityAlreadyDeletedException.class, memberList -> {
+            memberBhv.batchUpdateNonstrict(memberList);
+        });
+    }
+
+    private void doTest_batchUpdate_uniqueBy_noPK(Class<? extends Throwable> expectedExType, Consumer<List<Member>> updater) {
+        // ## Arrange ##
+        List<Integer> memberIdList = new ArrayList<Integer>();
+        memberIdList.add(1);
+        memberIdList.add(3);
+        memberIdList.add(7);
+        ListResultBean<Member> beforeList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
+        List<Member> memberList = new ArrayList<Member>();
+        for (Member before : beforeList) {
+            Member member = new Member();
+            // no PK
+            //member.setMemberId(before.getMemberId());
+            member.uniqueBy(before.getMemberAccount()); // nonsense
+            member.setMemberStatusCode_Provisional();
+            member.setVersionNo(before.getVersionNo());
+            memberList.add(member);
+        }
+
+        // ## Act ##
+        // ## Assert ##
+        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
+            @Override
+            public void handle(SqlLogInfo info) {
+                String displaySql = info.getDisplaySql();
+                assertContains(displaySql, "MEMBER_ID = null");
+                markHere("handled");
+            }
+        });
+        try {
+            assertException(expectedExType, () -> {
+                updater.accept(memberList);
+            });
+        } finally {
+            CallbackContext.clearSqlLogHandlerOnThread();
+        }
+        assertMarked("handled");
     }
 }
