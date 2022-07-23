@@ -6,8 +6,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.exception.BatchEntityAlreadyUpdatedException;
-import org.dbflute.exception.EntityAlreadyDeletedException;
+import org.dbflute.exception.BatchUpdateUniqueByUnsupportedException;
 import org.dbflute.helper.HandyDate;
 import org.dbflute.hook.CallbackContext;
 import org.dbflute.hook.SqlLogHandler;
@@ -276,13 +275,13 @@ public class WxBhvBatchDeleteTest extends UnitContainerTestCase {
     }
 
     public void test_batchDelete_uniqueBy_noPK() {
-        doTest_batchUpdate_uniqueBy_noPK(BatchEntityAlreadyUpdatedException.class, memberList -> {
+        doTest_batchUpdate_uniqueBy_noPK(BatchUpdateUniqueByUnsupportedException.class, memberList -> {
             memberBhv.batchDelete(memberList);
         });
     }
 
     public void test_batchDeleteNonstrict_uniqueBy_noPK() {
-        doTest_batchUpdate_uniqueBy_noPK(EntityAlreadyDeletedException.class, memberList -> {
+        doTest_batchUpdate_uniqueBy_noPK(BatchUpdateUniqueByUnsupportedException.class, memberList -> {
             memberBhv.batchDeleteNonstrict(memberList);
         });
     }
@@ -310,21 +309,8 @@ public class WxBhvBatchDeleteTest extends UnitContainerTestCase {
 
         // ## Act ##
         // ## Assert ##
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            @Override
-            public void handle(SqlLogInfo info) {
-                String displaySql = info.getDisplaySql();
-                assertContains(displaySql, "MEMBER_ID = null");
-                markHere("handled");
-            }
+        assertException(expectedExType, () -> {
+            updater.accept(memberList);
         });
-        try {
-            assertException(expectedExType, () -> {
-                updater.accept(memberList);
-            });
-        } finally {
-            CallbackContext.clearSqlLogHandlerOnThread();
-        }
-        assertMarked("handled");
     }
 }

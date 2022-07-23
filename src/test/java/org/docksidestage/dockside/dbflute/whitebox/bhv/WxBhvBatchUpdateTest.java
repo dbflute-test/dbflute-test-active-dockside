@@ -15,6 +15,7 @@ import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.exception.BatchEntityAlreadyUpdatedException;
 import org.dbflute.exception.BatchUpdateColumnModifiedPropertiesFragmentedException;
+import org.dbflute.exception.BatchUpdateUniqueByUnsupportedException;
 import org.dbflute.exception.EntityAlreadyDeletedException;
 import org.dbflute.exception.SQLFailureException;
 import org.dbflute.exception.SpecifyUpdateColumnInvalidException;
@@ -1048,6 +1049,10 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                            UniqueBy
     //                                                                            ========
+    // -----------------------------------------------------
+    //                                                 By PK
+    //                                                 -----
+    // cannot check for compatible by jflute (2022/07/23)
     public void test_batchUpdate_uniqueBy_but_byPK() {
         doTest_batchUpdate_uniqueBy_but_byPK(memberList -> {
             return memberBhv.batchUpdate(memberList);
@@ -1121,14 +1126,18 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         assertTrue(exists);
     }
 
+    // -----------------------------------------------------
+    //                                                 No PK
+    //                                                 -----
+    // check unsupported call by jflute (2022/07/23)
     public void test_batchUpdate_uniqueBy_noPK() {
-        doTest_batchUpdate_uniqueBy_noPK(BatchEntityAlreadyUpdatedException.class, memberList -> {
+        doTest_batchUpdate_uniqueBy_noPK(BatchUpdateUniqueByUnsupportedException.class, memberList -> {
             memberBhv.batchUpdate(memberList);
         });
     }
 
     public void test_batchUpdateNonstrict_uniqueBy_noPK() {
-        doTest_batchUpdate_uniqueBy_noPK(EntityAlreadyDeletedException.class, memberList -> {
+        doTest_batchUpdate_uniqueBy_noPK(BatchUpdateUniqueByUnsupportedException.class, memberList -> {
             memberBhv.batchUpdateNonstrict(memberList);
         });
     }
@@ -1156,21 +1165,57 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
 
         // ## Act ##
         // ## Assert ##
-        CallbackContext.setSqlLogHandlerOnThread(new SqlLogHandler() {
-            @Override
-            public void handle(SqlLogInfo info) {
-                String displaySql = info.getDisplaySql();
-                assertContains(displaySql, "MEMBER_ID = null");
-                markHere("handled");
-            }
+        assertException(expectedExType, () -> {
+            updater.accept(memberList);
         });
-        try {
-            assertException(expectedExType, () -> {
-                updater.accept(memberList);
-            });
-        } finally {
-            CallbackContext.clearSqlLogHandlerOnThread();
+    }
+
+    // -----------------------------------------------------
+    //                                               Part PK
+    //                                               -------
+    // cannot check for careful release by jflute (2022/07/23)
+    public void test_batchUpdate_uniqueBy_partPK() {
+        doTest_batchUpdate_uniqueBy_partPK(BatchEntityAlreadyUpdatedException.class, memberList -> {
+            memberBhv.batchUpdate(memberList);
+        });
+    }
+
+    public void test_batchUpdateNonstrict_uniqueBy_partPK() {
+        doTest_batchUpdate_uniqueBy_partPK(EntityAlreadyDeletedException.class, memberList -> {
+            memberBhv.batchUpdateNonstrict(memberList);
+        });
+    }
+
+    private void doTest_batchUpdate_uniqueBy_partPK(Class<? extends Throwable> expectedExType, Consumer<List<Member>> updater) {
+        // ## Arrange ##
+        List<Integer> memberIdList = new ArrayList<Integer>();
+        memberIdList.add(1);
+        memberIdList.add(3);
+        memberIdList.add(7);
+        ListResultBean<Member> beforeList = memberBhv.selectList(cb -> {
+            cb.query().setMemberId_InScope(memberIdList);
+        });
+
+        List<Member> memberList = new ArrayList<Member>();
+        boolean firstDone = false;
+        for (Member before : beforeList) {
+            Member member = new Member();
+            if (!firstDone) {
+                member.setMemberId(before.getMemberId());
+                firstDone = true;
+            } else {
+                member.setMemberId(null); // to avoid modification fragment
+            }
+            member.uniqueBy(before.getMemberAccount()); // nonsense
+            member.setMemberStatusCode_Provisional();
+            member.setVersionNo(before.getVersionNo());
+            memberList.add(member);
         }
-        assertMarked("handled");
+
+        // ## Act ##
+        // ## Assert ##
+        assertException(expectedExType, () -> {
+            updater.accept(memberList);
+        });
     }
 }
