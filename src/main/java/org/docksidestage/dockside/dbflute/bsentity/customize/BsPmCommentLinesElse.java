@@ -9,47 +9,7 @@ import org.dbflute.dbmeta.accessory.CustomizeEntity;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The entity of PmCommentLinesElse. <br>
- * <pre>
- * [primary-key]
- *     
- *
- * [column]
- *     MEMBER_ID, MEMBER_NAME, BIRTHDATE, MEMBER_STATUS_NAME
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     
- *
- * [referrer property]
- *     
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer memberId = entity.getMemberId();
- * String memberName = entity.getMemberName();
- * java.time.LocalDate birthdate = entity.getBirthdate();
- * String memberStatusName = entity.getMemberStatusName();
- * entity.setMemberId(memberId);
- * entity.setMemberName(memberName);
- * entity.setBirthdate(birthdate);
- * entity.setMemberStatusName(memberStatusName);
- * = = = = = = = = = =/
- * </pre>
+ * The entity of PmCommentLinesElse.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsPmCommentLinesElse extends AbstractEntity implements CustomizeEntity {

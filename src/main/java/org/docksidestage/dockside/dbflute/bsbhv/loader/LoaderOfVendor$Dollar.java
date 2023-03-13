@@ -7,35 +7,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The referrer loader of VENDOR_$_DOLLAR as TABLE. <br>
- * <pre>
- * [primary key]
- *     VENDOR_$_DOLLAR_ID
- *
- * [column]
- *     VENDOR_$_DOLLAR_ID, VENDOR_$_DOLLAR_NAME
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     
- *
- * [referrer property]
- *     
- * </pre>
+ * The referrer loader of VENDOR_$_DOLLAR as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public class LoaderOfVendor$Dollar {

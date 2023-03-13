@@ -7,35 +7,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The referrer loader of (会員フォローイング)MEMBER_FOLLOWING as TABLE. <br>
- * <pre>
- * [primary key]
- *     MEMBER_FOLLOWING_ID
- *
- * [column]
- *     MEMBER_FOLLOWING_ID, MY_MEMBER_ID, YOUR_MEMBER_ID, FOLLOW_DATETIME
- *
- * [sequence]
- *     
- *
- * [identity]
- *     MEMBER_FOLLOWING_ID
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     MEMBER
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     memberByMyMemberId, memberByYourMemberId
- *
- * [referrer property]
- *     
- * </pre>
+ * The referrer loader of (会員フォローイング)MEMBER_FOLLOWING as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public class LoaderOfMemberFollowing {

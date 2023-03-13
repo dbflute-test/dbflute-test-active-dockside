@@ -9,49 +9,7 @@ import org.dbflute.dbmeta.accessory.CustomizeEntity;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The entity of PurchaseSummaryMember. <br>
- * <pre>
- * [primary-key]
- *     
- *
- * [column]
- *     MEMBER_ID, MEMBER_NAME, BIRTHDATE, FORMALIZED_DATETIME, PURCHASE_SUMMARY
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     
- *
- * [referrer property]
- *     
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer memberId = entity.getMemberId();
- * String memberName = entity.getMemberName();
- * java.time.LocalDate birthdate = entity.getBirthdate();
- * java.time.LocalDateTime formalizedDatetime = entity.getFormalizedDatetime();
- * Long purchaseSummary = entity.getPurchaseSummary();
- * entity.setMemberId(memberId);
- * entity.setMemberName(memberName);
- * entity.setBirthdate(birthdate);
- * entity.setFormalizedDatetime(formalizedDatetime);
- * entity.setPurchaseSummary(purchaseSummary);
- * = = = = = = = = = =/
- * </pre>
+ * The entity of PurchaseSummaryMember.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsPurchaseSummaryMember extends AbstractEntity implements CustomizeEntity {

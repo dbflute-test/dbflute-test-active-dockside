@@ -10,43 +10,7 @@ import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The entity of UndetectableClassificationHint. <br>
- * <pre>
- * [primary-key]
- *     
- *
- * [column]
- *     MEMBER_ID, MEMBER_STATUS_CODE
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     
- *
- * [referrer property]
- *     
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer memberId = entity.getMemberId();
- * String memberStatusCode = entity.getMemberStatusCode();
- * entity.setMemberId(memberId);
- * entity.setMemberStatusCode(memberStatusCode);
- * = = = = = = = = = =/
- * </pre>
+ * The entity of UndetectableClassificationHint.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsUndetectableClassificationHint extends AbstractEntity implements CustomizeEntity {

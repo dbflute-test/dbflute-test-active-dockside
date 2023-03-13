@@ -9,45 +9,7 @@ import org.dbflute.dbmeta.accessory.CustomizeEntity;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The entity of SubDirectoryCheck. <br>
- * <pre>
- * [primary-key]
- *     
- *
- * [column]
- *     MEMBER_ID, MEMBER_NAME, MEMBER_STATUS_NAME
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     
- *
- * [referrer property]
- *     
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer memberId = entity.getMemberId();
- * String memberName = entity.getMemberName();
- * String memberStatusName = entity.getMemberStatusName();
- * entity.setMemberId(memberId);
- * entity.setMemberName(memberName);
- * entity.setMemberStatusName(memberStatusName);
- * = = = = = = = = = =/
- * </pre>
+ * The entity of SubDirectoryCheck.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsSubDirectoryCheck extends AbstractEntity implements CustomizeEntity {

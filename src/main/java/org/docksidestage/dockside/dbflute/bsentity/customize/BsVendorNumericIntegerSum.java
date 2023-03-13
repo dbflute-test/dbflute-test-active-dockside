@@ -9,41 +9,7 @@ import org.dbflute.dbmeta.accessory.CustomizeEntity;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The entity of VendorNumericIntegerSum. <br>
- * <pre>
- * [primary-key]
- *     
- *
- * [column]
- *     INTEGER_NON_DIGIT_SUM
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     
- *
- * [referrer property]
- *     
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * java.math.BigDecimal integerNonDigitSum = entity.getIntegerNonDigitSum();
- * entity.setIntegerNonDigitSum(integerNonDigitSum);
- * = = = = = = = = = =/
- * </pre>
+ * The entity of VendorNumericIntegerSum.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsVendorNumericIntegerSum extends AbstractEntity implements CustomizeEntity {

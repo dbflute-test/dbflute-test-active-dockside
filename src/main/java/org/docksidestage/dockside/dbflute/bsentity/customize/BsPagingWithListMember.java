@@ -9,47 +9,7 @@ import org.dbflute.dbmeta.accessory.CustomizeEntity;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The entity of PagingWithListMember. <br>
- * <pre>
- * [primary-key]
- *     
- *
- * [column]
- *     MEMBER_ID, MEMBER_NAME, PURCHASE_MAX_PRICE, MEMBER_STATUS_NAME
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     
- *
- * [referrer property]
- *     
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer memberId = entity.getMemberId();
- * String memberName = entity.getMemberName();
- * Integer purchaseMaxPrice = entity.getPurchaseMaxPrice();
- * String memberStatusName = entity.getMemberStatusName();
- * entity.setMemberId(memberId);
- * entity.setMemberName(memberName);
- * entity.setPurchaseMaxPrice(purchaseMaxPrice);
- * entity.setMemberStatusName(memberStatusName);
- * = = = = = = = = = =/
- * </pre>
+ * The entity of PagingWithListMember.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsPagingWithListMember extends AbstractEntity implements CustomizeEntity {

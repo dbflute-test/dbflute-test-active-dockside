@@ -9,51 +9,7 @@ import org.dbflute.dbmeta.accessory.CustomizeEntity;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The entity of PaymentCompletePurchase. <br>
- * <pre>
- * [primary-key]
- *     
- *
- * [column]
- *     PURCHASE_ID, MEMBER_ID, MEMBER_NAME, PRODUCT_ID, PRODUCT_NAME, PURCHASE_DATETIME
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     
- *
- * [referrer property]
- *     
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Long purchaseId = entity.getPurchaseId();
- * Integer memberId = entity.getMemberId();
- * String memberName = entity.getMemberName();
- * Integer productId = entity.getProductId();
- * String productName = entity.getProductName();
- * java.time.LocalDateTime purchaseDatetime = entity.getPurchaseDatetime();
- * entity.setPurchaseId(purchaseId);
- * entity.setMemberId(memberId);
- * entity.setMemberName(memberName);
- * entity.setProductId(productId);
- * entity.setProductName(productName);
- * entity.setPurchaseDatetime(purchaseDatetime);
- * = = = = = = = = = =/
- * </pre>
+ * The entity of PaymentCompletePurchase.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsPaymentCompletePurchase extends AbstractEntity implements CustomizeEntity {

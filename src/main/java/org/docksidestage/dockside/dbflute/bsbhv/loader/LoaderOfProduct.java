@@ -9,35 +9,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The referrer loader of (商品)PRODUCT as TABLE. <br>
- * <pre>
- * [primary key]
- *     PRODUCT_ID
- *
- * [column]
- *     PRODUCT_ID, PRODUCT_NAME, PRODUCT_HANDLE_CODE, PRODUCT_CATEGORY_CODE, PRODUCT_STATUS_CODE, REGULAR_PRICE, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_NO
- *
- * [sequence]
- *     
- *
- * [identity]
- *     PRODUCT_ID
- *
- * [version-no]
- *     VERSION_NO
- *
- * [foreign table]
- *     PRODUCT_CATEGORY, PRODUCT_STATUS
- *
- * [referrer table]
- *     PURCHASE
- *
- * [foreign property]
- *     productCategory, productStatus
- *
- * [referrer property]
- *     purchaseList
- * </pre>
+ * The referrer loader of (商品)PRODUCT as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public class LoaderOfProduct {

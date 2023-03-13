@@ -10,57 +10,7 @@ import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of SUMMARY_WITHDRAWAL as VIEW. <br>
- * <pre>
- * [primary-key]
- *     
- *
- * [column]
- *     MEMBER_ID, MEMBER_NAME, WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_TEXT, WITHDRAWAL_REASON_INPUT_TEXT, WITHDRAWAL_DATETIME, MEMBER_STATUS_CODE, MEMBER_STATUS_NAME, MAX_PURCHASE_PRICE
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     
- *
- * [referrer property]
- *     
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer memberId = entity.getMemberId();
- * String memberName = entity.getMemberName();
- * String withdrawalReasonCode = entity.getWithdrawalReasonCode();
- * String withdrawalReasonText = entity.getWithdrawalReasonText();
- * String withdrawalReasonInputText = entity.getWithdrawalReasonInputText();
- * java.time.LocalDateTime withdrawalDatetime = entity.getWithdrawalDatetime();
- * String memberStatusCode = entity.getMemberStatusCode();
- * String memberStatusName = entity.getMemberStatusName();
- * Integer maxPurchasePrice = entity.getMaxPurchasePrice();
- * entity.setMemberId(memberId);
- * entity.setMemberName(memberName);
- * entity.setWithdrawalReasonCode(withdrawalReasonCode);
- * entity.setWithdrawalReasonText(withdrawalReasonText);
- * entity.setWithdrawalReasonInputText(withdrawalReasonInputText);
- * entity.setWithdrawalDatetime(withdrawalDatetime);
- * entity.setMemberStatusCode(memberStatusCode);
- * entity.setMemberStatusName(memberStatusName);
- * entity.setMaxPurchasePrice(maxPurchasePrice);
- * = = = = = = = = = =/
- * </pre>
+ * The entity of SUMMARY_WITHDRAWAL as VIEW.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsSummaryWithdrawal extends AbstractEntity implements DomainEntity {

@@ -9,67 +9,7 @@ import org.dbflute.dbmeta.accessory.CustomizeEntity;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The entity of SimpleVendorCheck. <br>
- * <pre>
- * [primary-key]
- *     
- *
- * [column]
- *     VENDOR_CHECK_ID, TYPE_OF_TEXT, TYPE_OF_BOOLEAN, TYPE_OF_NUMERIC_INTEGER, TYPE_OF_NUMERIC_BIGINT, TYPE_OF_NUMERIC_DECIMAL, TYPE_OF_NUMERIC_INTEGER_MIN, TYPE_OF_NUMERIC_INTEGER_MAX, TYPE_OF_NUMERIC_BIGINT_MIN, TYPE_OF_NUMERIC_BIGINT_MAX, TYPE_OF_NUMERIC_SUPERINT_MIN, TYPE_OF_NUMERIC_SUPERINT_MAX, TYPE_OF_NUMERIC_MAXDECIMAL, TYPE_OF_BLOB
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     
- *
- * [referrer property]
- *     
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Long vendorCheckId = entity.getVendorCheckId();
- * String typeOfText = entity.getTypeOfText();
- * Boolean typeOfBoolean = entity.getTypeOfBoolean();
- * Integer typeOfNumericInteger = entity.getTypeOfNumericInteger();
- * Long typeOfNumericBigint = entity.getTypeOfNumericBigint();
- * java.math.BigDecimal typeOfNumericDecimal = entity.getTypeOfNumericDecimal();
- * Integer typeOfNumericIntegerMin = entity.getTypeOfNumericIntegerMin();
- * Integer typeOfNumericIntegerMax = entity.getTypeOfNumericIntegerMax();
- * Long typeOfNumericBigintMin = entity.getTypeOfNumericBigintMin();
- * Long typeOfNumericBigintMax = entity.getTypeOfNumericBigintMax();
- * java.math.BigDecimal typeOfNumericSuperintMin = entity.getTypeOfNumericSuperintMin();
- * java.math.BigDecimal typeOfNumericSuperintMax = entity.getTypeOfNumericSuperintMax();
- * java.math.BigDecimal typeOfNumericMaxdecimal = entity.getTypeOfNumericMaxdecimal();
- * byte[] typeOfBlob = entity.getTypeOfBlob();
- * entity.setVendorCheckId(vendorCheckId);
- * entity.setTypeOfText(typeOfText);
- * entity.setTypeOfBoolean(typeOfBoolean);
- * entity.setTypeOfNumericInteger(typeOfNumericInteger);
- * entity.setTypeOfNumericBigint(typeOfNumericBigint);
- * entity.setTypeOfNumericDecimal(typeOfNumericDecimal);
- * entity.setTypeOfNumericIntegerMin(typeOfNumericIntegerMin);
- * entity.setTypeOfNumericIntegerMax(typeOfNumericIntegerMax);
- * entity.setTypeOfNumericBigintMin(typeOfNumericBigintMin);
- * entity.setTypeOfNumericBigintMax(typeOfNumericBigintMax);
- * entity.setTypeOfNumericSuperintMin(typeOfNumericSuperintMin);
- * entity.setTypeOfNumericSuperintMax(typeOfNumericSuperintMax);
- * entity.setTypeOfNumericMaxdecimal(typeOfNumericMaxdecimal);
- * entity.setTypeOfBlob(typeOfBlob);
- * = = = = = = = = = =/
- * </pre>
+ * The entity of SimpleVendorCheck.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsSimpleVendorCheck extends AbstractEntity implements CustomizeEntity {

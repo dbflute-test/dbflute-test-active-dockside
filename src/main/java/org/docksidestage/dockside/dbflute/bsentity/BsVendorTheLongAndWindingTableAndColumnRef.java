@@ -12,47 +12,7 @@ import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF as TABLE. <br>
- * <pre>
- * [primary-key]
- *     THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID
- *
- * [column]
- *     THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_ID, THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE, SHORT_DATE
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     vendorTheLongAndWindingTableAndColumn
- *
- * [referrer property]
- *     
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Long theLongAndWindingTableAndColumnRefId = entity.getTheLongAndWindingTableAndColumnRefId();
- * Long theLongAndWindingTableAndColumnId = entity.getTheLongAndWindingTableAndColumnId();
- * java.time.LocalDate theLongAndWindingTableAndColumnRefDate = entity.getTheLongAndWindingTableAndColumnRefDate();
- * java.time.LocalDate shortDate = entity.getShortDate();
- * entity.setTheLongAndWindingTableAndColumnRefId(theLongAndWindingTableAndColumnRefId);
- * entity.setTheLongAndWindingTableAndColumnId(theLongAndWindingTableAndColumnId);
- * entity.setTheLongAndWindingTableAndColumnRefDate(theLongAndWindingTableAndColumnRefDate);
- * entity.setShortDate(shortDate);
- * = = = = = = = = = =/
- * </pre>
+ * The entity of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsVendorTheLongAndWindingTableAndColumnRef extends AbstractEntity implements DomainEntity {

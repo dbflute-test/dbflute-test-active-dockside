@@ -9,35 +9,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The referrer loader of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN as TABLE. <br>
- * <pre>
- * [primary key]
- *     THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID
- *
- * [column]
- *     THE_LONG_AND_WINDING_TABLE_AND_COLUMN_ID, THE_LONG_AND_WINDING_TABLE_AND_COLUMN_NAME, SHORT_NAME, SHORT_SIZE
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     
- *
- * [referrer table]
- *     VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF
- *
- * [foreign property]
- *     
- *
- * [referrer property]
- *     vendorTheLongAndWindingTableAndColumnRefList
- * </pre>
+ * The referrer loader of VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public class LoaderOfVendorTheLongAndWindingTableAndColumn {

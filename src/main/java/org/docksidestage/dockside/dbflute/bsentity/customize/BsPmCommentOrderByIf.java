@@ -9,45 +9,7 @@ import org.dbflute.dbmeta.accessory.CustomizeEntity;
 import org.docksidestage.dockside.dbflute.exentity.customize.*;
 
 /**
- * The entity of PmCommentOrderByIf. <br>
- * <pre>
- * [primary-key]
- *     
- *
- * [column]
- *     MEMBER_ID, MEMBER_NAME, MEMBER_ACCOUNT
- *
- * [sequence]
- *     
- *
- * [identity]
- *     
- *
- * [version-no]
- *     
- *
- * [foreign table]
- *     
- *
- * [referrer table]
- *     
- *
- * [foreign property]
- *     
- *
- * [referrer property]
- *     
- *
- * [get/set template]
- * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer memberId = entity.getMemberId();
- * String memberName = entity.getMemberName();
- * String memberAccount = entity.getMemberAccount();
- * entity.setMemberId(memberId);
- * entity.setMemberName(memberName);
- * entity.setMemberAccount(memberAccount);
- * = = = = = = = = = =/
- * </pre>
+ * The entity of PmCommentOrderByIf.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsPmCommentOrderByIf extends AbstractEntity implements CustomizeEntity {
