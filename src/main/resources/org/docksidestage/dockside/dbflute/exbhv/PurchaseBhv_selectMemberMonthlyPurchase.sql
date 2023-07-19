@@ -12,15 +12,18 @@
 -- !!AutoDetect!!
 
 select mb.MEMBER_ID -- // grouping item
-     , mb.MEMBER_NAME -- // non grouping item is allowed on H2 database
+     , mb.MEMBER_NAME -- // non grouping item (1:1 data) is allowed on H2 database
      , cast(substring(pur.PURCHASE_DATETIME, 1, 7) || '-01' as date) as PURCHASE_MONTH -- // grouping item, depends on DBMS
      , avg(pur.PURCHASE_PRICE) as PURCHASE_PRICE_AVG -- // aggregation item
      , max(pur.PURCHASE_PRICE) as PURCHASE_PRICE_MAX -- // me too
      -- non grouping, executable until selecting one-to-many data on H2 database
      -- , pur.PURCHASE_COUNT
+     , serv.SERVICE_POINT_COUNT -- // non grouping item (relationship 1:1 data) is allowed on H2 database
   from PURCHASE pur
     left outer join MEMBER mb
       on pur.MEMBER_ID = mb.MEMBER_ID
+    left outer join MEMBER_SERVICE serv
+      on mb.MEMBER_ID = serv.MEMBER_ID
  /*BEGIN*/
  where
    /*IF pmb.memberId != null*/

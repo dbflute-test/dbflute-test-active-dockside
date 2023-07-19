@@ -38,6 +38,9 @@ public abstract class BsMemberMonthlyPurchase extends AbstractEntity implements 
     /** PURCHASE_PRICE_MAX: {INTEGER(10)} */
     protected Integer _purchasePriceMax;
 
+    /** (サービスポイント数)SERVICE_POINT_COUNT: {INTEGER(10), refers to MEMBER_SERVICE.SERVICE_POINT_COUNT} */
+    protected Integer _servicePointCount;
+
     // ===================================================================================
     //                                                                             DB Meta
     //                                                                             =======
@@ -81,6 +84,7 @@ public abstract class BsMemberMonthlyPurchase extends AbstractEntity implements 
             if (!xSV(_purchaseMonth, other._purchaseMonth)) { return false; }
             if (!xSV(_purchasePriceAvg, other._purchasePriceAvg)) { return false; }
             if (!xSV(_purchasePriceMax, other._purchasePriceMax)) { return false; }
+            if (!xSV(_servicePointCount, other._servicePointCount)) { return false; }
             return true;
         } else {
             return false;
@@ -96,6 +100,7 @@ public abstract class BsMemberMonthlyPurchase extends AbstractEntity implements 
         hs = xCH(hs, _purchaseMonth);
         hs = xCH(hs, _purchasePriceAvg);
         hs = xCH(hs, _purchasePriceMax);
+        hs = xCH(hs, _servicePointCount);
         return hs;
     }
 
@@ -112,6 +117,7 @@ public abstract class BsMemberMonthlyPurchase extends AbstractEntity implements 
         sb.append(dm).append(xfND(_purchaseMonth));
         sb.append(dm).append(xfND(_purchasePriceAvg));
         sb.append(dm).append(xfND(_purchasePriceMax));
+        sb.append(dm).append(xfND(_servicePointCount));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -158,7 +164,7 @@ public abstract class BsMemberMonthlyPurchase extends AbstractEntity implements 
      * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * 会員のフルネームの名称。<br>
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。<br>
-     * // non grouping item is allowed on H2 database
+     * // non grouping item (1:1 data) is allowed on H2 database
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberName() {
@@ -170,7 +176,7 @@ public abstract class BsMemberMonthlyPurchase extends AbstractEntity implements 
      * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
      * 会員のフルネームの名称。<br>
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。<br>
-     * // non grouping item is allowed on H2 database
+     * // non grouping item (1:1 data) is allowed on H2 database
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberName(String memberName) {
@@ -236,5 +242,27 @@ public abstract class BsMemberMonthlyPurchase extends AbstractEntity implements 
     public void setPurchasePriceMax(Integer purchasePriceMax) {
         registerModifiedProperty("purchasePriceMax");
         _purchasePriceMax = purchasePriceMax;
+    }
+
+    /**
+     * [get] (サービスポイント数)SERVICE_POINT_COUNT: {INTEGER(10), refers to MEMBER_SERVICE.SERVICE_POINT_COUNT} <br>
+     * 購入したら増えて使ったら減る。<br>
+     * // non grouping item (relationship 1:1 data) is allowed on H2 database
+     * @return The value of the column 'SERVICE_POINT_COUNT'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getServicePointCount() {
+        checkSpecifiedProperty("servicePointCount");
+        return _servicePointCount;
+    }
+
+    /**
+     * [set] (サービスポイント数)SERVICE_POINT_COUNT: {INTEGER(10), refers to MEMBER_SERVICE.SERVICE_POINT_COUNT} <br>
+     * 購入したら増えて使ったら減る。<br>
+     * // non grouping item (relationship 1:1 data) is allowed on H2 database
+     * @param servicePointCount The value of the column 'SERVICE_POINT_COUNT'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setServicePointCount(Integer servicePointCount) {
+        registerModifiedProperty("servicePointCount");
+        _servicePointCount = servicePointCount;
     }
 }

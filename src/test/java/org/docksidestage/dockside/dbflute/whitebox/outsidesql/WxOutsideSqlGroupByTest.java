@@ -110,6 +110,6 @@ public class WxOutsideSqlGroupByTest extends UnitContainerTestCase {
     //                                                                        ============
     private void showPurchase(MemberMonthlyPurchase purchase) {
         log(purchase.getMemberId(), purchase.getMemberName(), purchase.getPurchaseMonth(), purchase.getPurchasePriceAvg(),
-                purchase.getPurchasePriceMax());
+                purchase.getPurchasePriceMax(), purchase.getServicePointCount());
     }
 }
