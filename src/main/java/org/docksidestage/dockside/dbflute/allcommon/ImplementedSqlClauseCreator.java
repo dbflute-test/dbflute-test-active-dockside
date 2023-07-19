@@ -164,6 +164,9 @@ public class ImplementedSqlClauseCreator implements SqlClauseCreator {
         if (isThatsBadTimingWarningOnly()) {
             sqlClause.enableThatsBadTimingWarningOnly();
         }
+        if (isOrScopeQueryPurposeCheckWarningOnly()) {
+            sqlClause.enableOrScopeQueryPurposeCheckWarningOnly();
+        }
     }
 
     protected void doSetupSqlClauseNullOrEmptyQuery(SqlClause sqlClause) {
@@ -243,6 +246,10 @@ public class ImplementedSqlClauseCreator implements SqlClauseCreator {
 
     protected boolean isThatsBadTimingWarningOnly() {
         return DBFluteConfig.getInstance().isThatsBadTimingWarningOnly();
+    }
+
+    protected boolean isOrScopeQueryPurposeCheckWarningOnly() {
+        return DBFluteConfig.getInstance().isOrScopeQueryPurposeCheckWarningOnly();
     }
 
     protected boolean isNullOrEmptyQueryAllowed() {
