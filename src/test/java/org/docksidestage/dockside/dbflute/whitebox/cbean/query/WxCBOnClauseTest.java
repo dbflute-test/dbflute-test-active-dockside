@@ -27,10 +27,17 @@ public class WxCBOnClauseTest extends UnitContainerTestCase {
             /* left outer join xxx on xxx = xxx and WithdrawalReasonCode is not null */
             cb.query().queryMemberWithdrawalAsOne().on().setWithdrawalReasonCode_IsNotNull();
 
+            log(cb.query().queryMemberWithdrawalAsOne().on().xisInline(), cb.query().queryMemberWithdrawalAsOne().on().xisOnClause());
+            assertFalse(cb.query().queryMemberWithdrawalAsOne().xisInline());
+            assertFalse(cb.query().queryMemberWithdrawalAsOne().xisOnClause());
+            assertTrue(cb.query().queryMemberWithdrawalAsOne().on().xisInline());
+            assertTrue(cb.query().queryMemberWithdrawalAsOne().on().xisOnClause());
+
             /* left outer join (select * from xxx where WithdrawalReasonCode is not null) xxx on xxx = xxx */
             /* cb.query().queryMemberWithdrawalAsOne().inline().setWithdrawalReasonCode_IsNotNull(); */
 
             cb.query().queryMemberWithdrawalAsOne().addOrderBy_WithdrawalDatetime_Desc();
+
             pushCB(cb);
         });
 
