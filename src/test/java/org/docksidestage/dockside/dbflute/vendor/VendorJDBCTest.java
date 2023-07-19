@@ -83,7 +83,12 @@ public class VendorJDBCTest extends UnitContainerTestCase {
             // OK
             log(e.getMessage());
             assertTrue(e instanceof BatchEntityAlreadyUpdatedException);
-            log("batchUpdateCount=" + ((BatchEntityAlreadyUpdatedException) e).getBatchUpdateCount());
+            BatchEntityAlreadyUpdatedException updatedEx = (BatchEntityAlreadyUpdatedException) e;
+            log("rows=" + updatedEx.getRows());
+            log("batchUpdateCount=" + updatedEx.getBatchUpdateCount());
+            assertEquals(updatedEx.getRows(), updatedEx.getBatchUpdateCount());
+            log("batchSize=" + updatedEx.getBatchSize());
+            assertEquals(memberList.size(), updatedEx.getBatchSize());
         }
         deleteMemberReferrer();
         try {
@@ -93,7 +98,12 @@ public class VendorJDBCTest extends UnitContainerTestCase {
             // OK
             log(e.getMessage());
             assertTrue(e instanceof BatchEntityAlreadyUpdatedException);
-            log("batchUpdateCount=" + ((BatchEntityAlreadyUpdatedException) e).getBatchUpdateCount());
+            BatchEntityAlreadyUpdatedException updatedEx = (BatchEntityAlreadyUpdatedException) e;
+            log("rows=" + updatedEx.getRows());
+            log("batchUpdateCount=" + updatedEx.getBatchUpdateCount());
+            assertEquals(updatedEx.getRows(), updatedEx.getBatchUpdateCount());
+            log("batchSize=" + updatedEx.getBatchSize());
+            assertEquals(memberList.size(), updatedEx.getBatchSize());
         }
     }
 
