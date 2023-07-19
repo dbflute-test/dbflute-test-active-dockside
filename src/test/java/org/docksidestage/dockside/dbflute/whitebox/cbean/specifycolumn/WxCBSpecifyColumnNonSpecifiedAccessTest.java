@@ -897,4 +897,25 @@ public class WxCBSpecifyColumnNonSpecifiedAccessTest extends UnitContainerTestCa
             });
         }
     }
+
+    // ===================================================================================
+    //                                                         ConditionBean Option Method
+    //                                                         ===========================
+    public void test_NonSpecifiedAccess_enableNonSpecifiedColumnAccess_basic() {
+        // ## Arrange ##
+
+        // ## Act ##
+        ListResultBean<Member> memberList = memberBhv.selectList(cb -> {
+            cb.enableNonSpecifiedColumnAccess();
+            cb.specify().columnMemberName();
+        });
+
+        // ## Assert ##
+        assertHasAnyElement(memberList);
+        for (Member member : memberList) {
+            String memberName = member.getMemberName();
+            String memberAccount = member.getMemberAccount(); // expect no exception
+            log(memberName, memberAccount);
+        }
+    }
 }
