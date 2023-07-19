@@ -31,6 +31,8 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
+    /** Example for group-by on H2 database */
+    public static final String PATH_selectMemberMonthlyPurchase = "selectMemberMonthlyPurchase";
     /** Example for Cursor and Paging select */
     public static final String PATH_selectPaymentCompletePurchase = "selectPaymentCompletePurchase";
     /** specialty update */
