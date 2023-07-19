@@ -616,6 +616,11 @@ public class WxBhvBatchUpdateTest extends UnitContainerTestCase {
         } catch (BatchEntityAlreadyUpdatedException e) {
             // OK
             log(e.getMessage());
+            log("rows=" + e.getRows());
+            log("batchUpdateCount=" + e.getBatchUpdateCount());
+            assertEquals(e.getRows(), e.getBatchUpdateCount());
+            log("batchSize=" + e.getBatchSize());
+            assertEquals(memberList.size(), e.getBatchSize());
         }
     }
 
