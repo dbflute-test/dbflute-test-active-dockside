@@ -1,6 +1,6 @@
 package org.docksidestage.dockside.dbflute.whitebox.bhv.logging;
 
-import org.dbflute.bhv.core.context.logmask.ErrorLogMaskProvider;
+import org.dbflute.bhv.core.context.logmask.BehaviorLogMaskProvider;
 import org.dbflute.bhv.core.context.logmask.parts.AlreadyUpdatedBeanPKOnlyMaskMan;
 import org.dbflute.bhv.exception.SQLExceptionHandler.SQLExceptionDisplaySqlMaskMan;
 import org.dbflute.bhv.exception.SQLExceptionResource;
@@ -26,7 +26,7 @@ public class WxBhvLogMaskTest extends UnitContainerTestCase {
     public void tearDown() throws Exception {
         super.tearDown();
         DBFluteConfig.getInstance().unlock();
-        DBFluteConfig.getInstance().setErrorLogMaskProvider(null); // clear
+        DBFluteConfig.getInstance().setBehaviorLogMaskProvider(null); // clear
     }
 
     // ===================================================================================
@@ -60,12 +60,11 @@ public class WxBhvLogMaskTest extends UnitContainerTestCase {
     public void test_logmask_alreadyUpdated_mask_orginal() throws Exception {
         // ## Arrange ##
         DBFluteConfig.getInstance().unlock();
-        DBFluteConfig.getInstance().setErrorLogMaskProvider(new ErrorLogMaskProvider() {
+        DBFluteConfig.getInstance().setBehaviorLogMaskProvider(new BehaviorLogMaskProvider() {
             public AlreadyUpdatedBeanMaskMan provideAlreadyUpdatedBeanMaskMan() {
                 return new AlreadyUpdatedBeanMaskMan() {
                     public String mask(Object bean) {
-                        Member member = (Member) bean;
-                        return "{" + member.getMemberId() + "}";
+                        return "{detarame}";
                     }
                 };
             }
@@ -81,7 +80,7 @@ public class WxBhvLogMaskTest extends UnitContainerTestCase {
         }).handle(cause -> {
             // ## Assert ##
             String message = cause.getMessage();
-            assertContainsAll(message, "bean={" + existingMember.getMemberId() + "}");
+            assertContainsAll(message, "bean={detarame}");
             assertNotContains(message, newName);
         });
     }
@@ -89,7 +88,7 @@ public class WxBhvLogMaskTest extends UnitContainerTestCase {
     public void test_logmask_alreadyUpdated_mask_pkOnly() throws Exception {
         // ## Arrange ##
         DBFluteConfig.getInstance().unlock();
-        DBFluteConfig.getInstance().setErrorLogMaskProvider(new ErrorLogMaskProvider() {
+        DBFluteConfig.getInstance().setBehaviorLogMaskProvider(new BehaviorLogMaskProvider() {
             public AlreadyUpdatedBeanMaskMan provideAlreadyUpdatedBeanMaskMan() {
                 return new AlreadyUpdatedBeanPKOnlyMaskMan();
             }
@@ -159,7 +158,7 @@ public class WxBhvLogMaskTest extends UnitContainerTestCase {
     public void test_logmask_sqlFailure_mask_executedSql() throws Exception {
         // ## Arrange ##
         DBFluteConfig.getInstance().unlock();
-        DBFluteConfig.getInstance().setErrorLogMaskProvider(new ErrorLogMaskProvider() {
+        DBFluteConfig.getInstance().setBehaviorLogMaskProvider(new BehaviorLogMaskProvider() {
             public SQLExceptionDisplaySqlMaskMan provideSQLExceptionDisplaySqlMaskMan() {
                 return new SQLExceptionDisplaySqlMaskMan() {
                     public String mask(SQLExceptionResource resource, String displaySql) {
