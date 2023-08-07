@@ -213,4 +213,52 @@ public class WxBehaviorCommandHookTest extends UnitContainerTestCase {
     // ===================================================================================
     //                                                                          OutsideSql
     //                                                                          ==========
+
+    // ===================================================================================
+    //                                                                         Inheritable
+    //                                                                         ===========
+    public void test_BehaviorCommandHook_inheritable_basic() {
+        // ## Arrange ##
+        List<String> markList = newArrayList();
+        CallbackContext.setBehaviorCommandHookOnThread(new BehaviorCommandHook() {
+            public void hookBefore(BehaviorCommandMeta meta) {
+                markList.add("sea");
+            }
+
+            public void hookFinally(BehaviorCommandMeta meta, RuntimeException cause) {
+                markList.add("mystic");
+            }
+        });
+        CallbackContext.setBehaviorCommandHookOnThread(new BehaviorCommandHook() {
+            public void hookBefore(BehaviorCommandMeta meta) {
+                markList.add("land");
+            }
+
+            public void hookFinally(BehaviorCommandMeta meta, RuntimeException cause) {
+                markList.add("oneman");
+            }
+        });
+        CallbackContext.setBehaviorCommandHookOnThread(new BehaviorCommandHook() {
+            public void hookBefore(BehaviorCommandMeta meta) {
+                markList.add("piari");
+            }
+
+            public void hookFinally(BehaviorCommandMeta meta, RuntimeException cause) {
+                markList.add("celeb");
+            }
+        });
+
+        // ## Act ##
+        memberBhv.selectByPK(1);
+
+        // ## Assert ##
+        log(markList);
+        assertEquals(6, markList.size());
+        assertEquals("sea", markList.get(0));
+        assertEquals("land", markList.get(1));
+        assertEquals("piari", markList.get(2));
+        assertEquals("celeb", markList.get(3));
+        assertEquals("oneman", markList.get(4));
+        assertEquals("mystic", markList.get(5));
+    }
 }
