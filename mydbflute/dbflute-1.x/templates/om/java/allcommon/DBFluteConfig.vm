@@ -1,5 +1,5 @@
 ##
-## Copyright 2014-2022 the original author or authors.
+## Copyright 2014-2023 the original author or authors.
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.dbflute.FunCustodial;
 import org.dbflute.bhv.core.context.mapping.MappingDateTimeZoneProvider;
-import org.dbflute.bhv.core.context.logmask.ErrorLogMaskProvider;
+import org.dbflute.bhv.core.context.logmask.BehaviorLogMaskProvider;
 import org.dbflute.bhv.core.supplement.SequenceCacheKeyGenerator;
 import org.dbflute.cbean.garnish.SpecifyColumnRequiredExceptDeterminer;
 import org.dbflute.cbean.cipher.GearedCipherManager;
@@ -116,7 +116,7 @@ public class ${glDBFluteConfig} {
     protected String _logTimestampPattern;
     protected String _logTimePattern;
     protected BoundDateDisplayTimeZoneProvider _logTimeZoneProvider;
-    protected ErrorLogMaskProvider _errorLogMaskProvider; // since 1.2.7
+    protected BehaviorLogMaskProvider _behaviorLogMaskProvider; // since 1.2.7
 
     // environment
     protected StatementConfig _defaultStatementConfig;
@@ -145,8 +145,12 @@ public class ${glDBFluteConfig} {
     //                                   -------------------
 #if ($database.isAvailableDatabaseDependency())
 #if ($database.isDatabasePostgreSQL())
-    protected org.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch _fullTextSearchOperand
-            = org.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch.FULL_TEXT_SEARCH;
+    protected org.dbflute.dbway.topic.ExtensionOperand _fullTextSearchOperand
+#if ($database.isUseFullTextSearchPGroongaBasic())
+            = org.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch.PGROONGA_BASIC_FULL_TEXT_SEARCH;
+#else
+            = org.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch.FULL_TEXT_SEARCH; // as traditional default
+#end
 #end
 #end
 
@@ -617,18 +621,18 @@ public class ${glDBFluteConfig} {
     }
 
     // ===================================================================================
-    //                                                                      Error Log Mask
-    //                                                                      ==============
-    public ErrorLogMaskProvider getErrorLogMaskProvider() { // since 1.2.7
-        return _errorLogMaskProvider;
+    //                                                                   Behavior Log Mask
+    //                                                                   =================
+    public BehaviorLogMaskProvider getBehaviorLogMaskProvider() { // since 1.2.7
+        return _behaviorLogMaskProvider;
     }
 
-    public void setErrorLogMaskProvider(ErrorLogMaskProvider errorLogMaskProvider) {
+    public void setBehaviorLogMaskProvider(BehaviorLogMaskProvider behaviorLogMaskProvider) {
         assertUnlocked();
         if (_log.isInfoEnabled()) {
-            _log.info("...Setting errorLogMaskProvider: " + errorLogMaskProvider);
+            _log.info("...Setting behaviorLogMaskProvider: " + behaviorLogMaskProvider);
         }
-        _errorLogMaskProvider = errorLogMaskProvider;
+        _behaviorLogMaskProvider = behaviorLogMaskProvider;
     }
 
     // ===================================================================================
@@ -921,10 +925,51 @@ public class ${glDBFluteConfig} {
     // -----------------------------------------------------
     //                              Full-Text Search Operand
     //                              ------------------------
-    public org.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch getFullTextSearchOperand() {
+    public org.dbflute.dbway.topic.ExtensionOperand getFullTextSearchOperand() {
         return _fullTextSearchOperand;
     }
 
+    public void setFullTextSearchOperand(org.dbflute.dbway.topic.ExtensionOperand fullTextSearchOperand) {
+        assertUnlocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Setting fullTextSearchOperand: " + fullTextSearchOperand);
+        }
+        _fullTextSearchOperand = fullTextSearchOperand;
+    }
+
+    public void useFullTextSearchOperandMecabTextsearchJa() {
+        assertUnlocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Using fullTextSearchOperand: MecabTextsearchJa");
+        }
+        _fullTextSearchOperand = org.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch.MECAB_TEXTSEARCH_JA_FULL_TEXT_SEARCH;
+    }
+
+    public void useFullTextSearchOperandPGroongaBasic() {
+        assertUnlocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Using fullTextSearchOperand: PGroongaBasic");
+        }
+        _fullTextSearchOperand = org.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch.PGROONGA_BASIC_FULL_TEXT_SEARCH;
+    }
+
+    public void useFullTextSearchOperanTraditionalNewFullTextSearch() {
+        assertUnlocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Using fullTextSearchOperand: traditional new FullTextSearch");
+        }
+        _fullTextSearchOperand = org.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch.FULL_TEXT_SEARCH;
+    }
+
+    public void useFullTextSearchOperanTraditionalOldFullTextSearch() {
+        assertUnlocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Using fullTextSearchOperand: traditional old FullTextSearch");
+        }
+        _fullTextSearchOperand = org.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch.OLD_FULL_TEXT_SEARCH;
+    }
+
+    @Deprecated // removal in the future, since 1.2.7
     public void useDefaultFullTextSearchOperand() {
         assertUnlocked();
         if (_log.isInfoEnabled()) {
@@ -933,6 +978,7 @@ public class ${glDBFluteConfig} {
         _fullTextSearchOperand = org.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch.FULL_TEXT_SEARCH;
     }
 
+    @Deprecated // removal in the future, since 1.2.7
     public void useOldFullTextSearchOperand() {
         assertUnlocked();
         if (_log.isInfoEnabled()) {

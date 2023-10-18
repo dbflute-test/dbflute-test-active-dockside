@@ -186,7 +186,7 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
     // -----------------------------------------------------
     //                                                String
     //                                                ------
-    public void test_invokeQuery_String() {
+    public void test_invokeQuery_String_basic() {
         // ## Arrange ##
         ConditionBean cb = memberBhv.newConditionBean();
         String name = MemberDbm.getInstance().columnMemberName().getColumnDbName();
@@ -194,7 +194,6 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         // ## Act ##
         cb.localCQ().invokeQuery(name, ConditionKey.CK_EQUAL.getConditionKey(), "foo");
         cb.localCQ().invokeQuery(name, ConditionKey.CK_NOT_EQUAL_STANDARD.getConditionKey(), "foo");
-        cb.localCQ().invokeQuery(name, ConditionKey.CK_LIKE_SEARCH.getConditionKey(), "foo", new LikeSearchOption().likePrefix());
 
         // ## Assert ##
         assertTrue(cb.hasWhereClauseOnBaseQuery());
@@ -202,7 +201,6 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         log(ln() + sql);
         assertTrue(sql.contains(" = 'foo'"));
         assertTrue(sql.contains(" <> 'foo'"));
-        assertTrue(sql.contains(" like 'foo%'"));
     }
 
     public void test_invokeQuery_String_inScope() {
@@ -219,6 +217,65 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         final ConditionValue value = cb.query().xdfgetMemberName();
         log("conditionValue=" + value);
         assertEquals(list, value.getVarying().get("inScope").get("inScope0"));
+    }
+
+    public void test_invokeQuery_String_likeSearch() {
+        // ## Arrange ##
+        ConditionBean cb = memberBhv.newConditionBean();
+
+        // ## Act ##
+        String memberName = MemberDbm.getInstance().columnMemberName().getColumnDbName();
+        LikeSearchOption basicOption = new LikeSearchOption().likePrefix();
+        cb.localCQ().invokeQuery(memberName, ConditionKey.CK_LIKE_SEARCH.getConditionKey(), "foo", basicOption);
+
+        String memberAccount = MemberDbm.getInstance().columnMemberAccount().getColumnDbName();
+        LikeSearchOption extendedOption = new LikeSearchOption() {
+        }.likeSuffix(); // e.g. OracleMatchLikeSearch, PostgreSQLMatchLikeSearch
+        cb.localCQ().invokeQuery(memberAccount, ConditionKey.CK_LIKE_SEARCH.getConditionKey(), "bar", extendedOption);
+
+        // ## Assert ##
+        assertTrue(cb.hasWhereClauseOnBaseQuery());
+        String sql = cb.toDisplaySql();
+        log(ln() + sql);
+        assertTrue(sql.contains(" like 'foo%'"));
+        assertTrue(sql.contains(" like '%bar'"));
+    }
+
+    // -----------------------------------------------------
+    //                                               RangeOf
+    //                                               -------
+    public void test_invokeQuery_RangeOf() {
+        // ## Arrange ##
+        ConditionBean cb = memberBhv.newConditionBean();
+        String name = MemberDbm.getInstance().columnMemberId().getColumnDbName();
+        Integer min = 10;
+        Integer max = 20;
+
+        // ## Act ##
+        cb.localCQ().invokeQuery(name, ConditionKey.CK_EQUAL.getConditionKey(), min);
+        List<Integer> bothList = newArrayList(min, max);
+        List<Integer> fromOnlyList = newArrayList(min, null);
+        List<Integer> toOnlyList = newArrayList(null, max);
+        List<Integer> nullNullList = newArrayList(null, null);
+        cb.localCQ().invokeQuery(name, "RangeOf", bothList, new RangeOfOption());
+        cb.enableOverridingQuery(() -> {
+            cb.localCQ().invokeQuery(name, "RangeOf", fromOnlyList, new RangeOfOption().greaterThan().allowOneSide());
+            cb.localCQ().invokeQuery(name, "RangeOf", toOnlyList, new RangeOfOption().lessThan().allowOneSide());
+            cb.ignoreNullOrEmptyQuery();
+            cb.localCQ().invokeQuery(name, "RangeOf", nullNullList, new RangeOfOption());
+            cb.localCQ().invokeQuery(name, "RangeOf", nullNullList, new RangeOfOption() {
+            });
+        });
+
+        // ## Assert ##
+        assertTrue(cb.hasWhereClauseOnBaseQuery());
+        String sql = cb.toDisplaySql();
+        log(ln() + sql);
+        assertTrue(sql.contains(" = 10"));
+        assertTrue(sql.contains(" >= 10"));
+        assertTrue(sql.contains(" <= 20"));
+        assertTrue(sql.contains(" > 10"));
+        assertTrue(sql.contains(" < 20"));
     }
 
     // -----------------------------------------------------
@@ -241,6 +298,8 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
             cb.localCQ().invokeQuery(name, "FromTo", toOnlyList, new FromToOption().compareAsDate().allowOneSide());
             cb.ignoreNullOrEmptyQuery();
             cb.localCQ().invokeQuery(name, "FromTo", nullNullList, new FromToOption().compareAsDate());
+            cb.localCQ().invokeQuery(name, "FromTo", nullNullList, new FromToOption() {
+            }.compareAsDate());
         });
 
         // ## Assert ##
@@ -284,41 +343,6 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
     //    assertTrue(sql.contains(" >= '2011-08-23'"));
     //    assertTrue(sql.contains(" < '2011-08-24'"));
     //}
-
-    // -----------------------------------------------------
-    //                                               RangeOf
-    //                                               -------
-    public void test_invokeQuery_RangeOf() {
-        // ## Arrange ##
-        ConditionBean cb = memberBhv.newConditionBean();
-        String name = MemberDbm.getInstance().columnMemberId().getColumnDbName();
-        Integer min = 10;
-        Integer max = 20;
-
-        // ## Act ##
-        cb.localCQ().invokeQuery(name, ConditionKey.CK_EQUAL.getConditionKey(), min);
-        List<Integer> bothList = newArrayList(min, max);
-        List<Integer> fromOnlyList = newArrayList(min, null);
-        List<Integer> toOnlyList = newArrayList(null, max);
-        List<Integer> nullNullList = newArrayList(null, null);
-        cb.localCQ().invokeQuery(name, "RangeOf", bothList, new RangeOfOption());
-        cb.enableOverridingQuery(() -> {
-            cb.localCQ().invokeQuery(name, "RangeOf", fromOnlyList, new RangeOfOption().greaterThan().allowOneSide());
-            cb.localCQ().invokeQuery(name, "RangeOf", toOnlyList, new RangeOfOption().lessThan().allowOneSide());
-            cb.ignoreNullOrEmptyQuery();
-            cb.localCQ().invokeQuery(name, "RangeOf", nullNullList, new RangeOfOption());
-        });
-
-        // ## Assert ##
-        assertTrue(cb.hasWhereClauseOnBaseQuery());
-        String sql = cb.toDisplaySql();
-        log(ln() + sql);
-        assertTrue(sql.contains(" = 10"));
-        assertTrue(sql.contains(" >= 10"));
-        assertTrue(sql.contains(" <= 20"));
-        assertTrue(sql.contains(" > 10"));
-        assertTrue(sql.contains(" < 20"));
-    }
 
     // -----------------------------------------------------
     //                                                IsNull

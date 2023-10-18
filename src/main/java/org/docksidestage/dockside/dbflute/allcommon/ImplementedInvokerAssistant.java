@@ -444,7 +444,7 @@ public class ImplementedInvokerAssistant implements InvokerAssistant {
         parameter.setLogTimestampPattern(DBFluteConfig.getInstance().getLogTimestampPattern());
         parameter.setLogTimePattern(DBFluteConfig.getInstance().getLogTimePattern());
         parameter.setLogTimeZoneProvider(DBFluteConfig.getInstance().getLogTimeZoneProvider());
-        parameter.setErrorLogMaskProvider(DBFluteConfig.getInstance().getErrorLogMaskProvider()); // since 1.2.7
+        parameter.setBehaviorLogMaskProvider(DBFluteConfig.getInstance().getBehaviorLogMaskProvider()); // since 1.2.7
         parameter.setInternalDebug(DBFluteConfig.getInstance().isInternalDebug());
         return parameter;
     }
