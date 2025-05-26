@@ -2,7 +2,6 @@ package org.docksidestage.dockside.dbflute.whitebox.cbean.bigartist.columnquery;
 
 import org.dbflute.cbean.scoping.SpecifyQuery;
 import org.dbflute.cbean.scoping.SubQuery;
-import org.dbflute.cbean.scoping.UnionQuery;
 import org.dbflute.util.Srl;
 import org.docksidestage.dockside.dbflute.cbean.MemberLoginCB;
 import org.docksidestage.dockside.dbflute.cbean.MemberServiceCB;
@@ -214,50 +213,30 @@ public class WxCBColumnQueryBindingTest extends UnitContainerTestCase {
         // ## Arrange ##
         serviceRankBhv.selectList(cb -> {
             /* ## Act ## */
-            cb.query().existsMemberService(new SubQuery<MemberServiceCB>() {
-                public void query(MemberServiceCB subCB) {
-                    subCB.columnQuery(new SpecifyQuery<MemberServiceCB>() {
-                        public void specify(MemberServiceCB cb) {
-                            cb.specify().columnServicePointCount();
-                        }
-                    }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
-                        public void specify(MemberServiceCB cb) {
-                            cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
-                                public void query(MemberServiceCB subCB) {
-                                    subCB.specify().columnServicePointCount();
-                                    subCB.query().setUpdateUser_Equal("ColumnQueryUser1");
-                                }
-                            }, null, op -> op.coalesce(123).round(8));
-                        }
-                    }).plus(999);
-                }
+            cb.query().existsMemberService(serviceCB -> {
+                serviceCB.columnQuery(colCB -> {
+                    colCB.specify().columnServicePointCount();
+                }).greaterThan(colCB -> {
+                    colCB.specify().specifyServiceRank().derivedMemberService().avg(returnedServiceCB -> {
+                        returnedServiceCB.specify().columnServicePointCount();
+                        returnedServiceCB.query().setUpdateUser_Equal("ColumnQueryUser1");
+                    }, null, op -> op.coalesce(123).round(8));
+                }).plus(999);
             });
-            cb.union(new UnionQuery<ServiceRankCB>() {
-                public void query(ServiceRankCB unionCB) {
-                    unionCB.query().existsMemberService(new SubQuery<MemberServiceCB>() {
-                        public void query(MemberServiceCB subCB) {
-                            subCB.columnQuery(new SpecifyQuery<MemberServiceCB>() {
-                                public void specify(MemberServiceCB cb) {
-                                    cb.specify().columnServicePointCount();
-                                }
-                            }).greaterThan(new SpecifyQuery<MemberServiceCB>() {
-                                public void specify(MemberServiceCB cb) {
-                                    cb.specify().specifyServiceRank().derivedMemberService().avg(new SubQuery<MemberServiceCB>() {
-                                        public void query(MemberServiceCB subCB) {
-                                            subCB.specify().columnServicePointCount();
-                                            subCB.query().setUpdateUser_Equal("ColumnQueryUser2");
-                                            subCB.query().queryMember().existsMemberLogin(new SubQuery<MemberLoginCB>() {
-                                                public void query(MemberLoginCB subCB) {
-                                                    subCB.query().setLoginDatetime_GreaterEqual(toLocalDateTime("2011-12-21"));
-                                                }
-                                            });
-                                        }
-                                    }, null, op -> op.coalesce(456).round(7));
-                                }
-                            }).plus(888).minus(654);
-                        }
-                    });
-                }
+            cb.union(unionCB -> {
+                unionCB.query().existsMemberService(serviceCB -> {
+                    serviceCB.columnQuery(colCB -> {
+                        colCB.specify().columnServicePointCount();
+                    }).greaterThan(colCB -> {
+                        colCB.specify().specifyServiceRank().derivedMemberService().avg(derivedServiceCB -> {
+                            derivedServiceCB.specify().columnServicePointCount();
+                            derivedServiceCB.query().setUpdateUser_Equal("ColumnQueryUser2");
+                            derivedServiceCB.query().queryMember().existsMemberLogin(loingCB -> {
+                                loingCB.query().setLoginDatetime_GreaterEqual(toLocalDateTime("2011-12-21"));
+                            });
+                        }, null, op -> op.coalesce(456).round(7));
+                    }).plus(888).minus(654);
+                });
             });
             pushCB(cb);
         }); // expects no exception
