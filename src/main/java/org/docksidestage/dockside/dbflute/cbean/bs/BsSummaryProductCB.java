@@ -18,6 +18,7 @@ import org.docksidestage.dockside.dbflute.allcommon.ImplementedInvokerAssistant;
 import org.docksidestage.dockside.dbflute.allcommon.ImplementedSqlClauseCreator;
 import org.docksidestage.dockside.dbflute.cbean.*;
 import org.docksidestage.dockside.dbflute.cbean.cq.*;
+import org.docksidestage.dockside.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of SUMMARY_PRODUCT.
@@ -84,7 +85,7 @@ public class BsSummaryProductCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param productId : PK, INTEGER(10). (NotNull)
+     * @param productId : PK, INTEGER(10), FK to PRODUCT. (NotNull)
      * @return this. (NotNull)
      */
     public SummaryProductCB acceptPK(Integer productId) {
@@ -243,7 +244,8 @@ public class BsSummaryProductCB extends AbstractConditionBean {
     //                                                                         ===========
     /**
      * Set up relation columns to select clause. <br>
-     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
+     * test of virtual FK of many-to-one
      * <pre>
      * <span style="color: #0000C0">summaryProductBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_ProductStatus()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -259,6 +261,33 @@ public class BsSummaryProductCB extends AbstractConditionBean {
             specify().columnProductStatusCode();
         }
         doSetupSelect(() -> query().queryProductStatus());
+    }
+
+    protected ProductNss _nssProduct;
+    public ProductNss xdfgetNssProduct() {
+        if (_nssProduct == null) { _nssProduct = new ProductNss(null); }
+        return _nssProduct;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * (商品)PRODUCT by my PRODUCT_ID, named 'product'. <br>
+     * test of virtual FK of referrer-as-one
+     * <pre>
+     * <span style="color: #0000C0">summaryProductBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Product()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">summaryProduct</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">summaryProduct</span>.<span style="color: #CC4747">getProduct()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public ProductNss setupSelect_Product() {
+        assertSetupSelectPurpose("product");
+        doSetupSelect(() -> query().queryProduct());
+        if (_nssProduct == null || !_nssProduct.hasConditionQuery())
+        { _nssProduct = new ProductNss(query().queryProduct()); }
+        return _nssProduct;
     }
 
     // [DBFlute-0.7.4]
@@ -303,12 +332,13 @@ public class BsSummaryProductCB extends AbstractConditionBean {
 
     public static class HpSpecification extends HpAbstractSpecification<SummaryProductCQ> {
         protected ProductStatusCB.HpSpecification _productStatus;
+        protected ProductCB.HpSpecification _product;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<SummaryProductCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * PRODUCT_ID: {PK, INTEGER(10)}
+         * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnProductId() { return doColumn("PRODUCT_ID"); }
@@ -346,7 +376,8 @@ public class BsSummaryProductCB extends AbstractConditionBean {
         protected String getTableDbName() { return "SUMMARY_PRODUCT"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
+         * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
+         * test of virtual FK of many-to-one
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public ProductStatusCB.HpSpecification specifyProductStatus() {
@@ -363,6 +394,27 @@ public class BsSummaryProductCB extends AbstractConditionBean {
                 }
             }
             return _productStatus;
+        }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * (商品)PRODUCT by my PRODUCT_ID, named 'product'. <br>
+         * test of virtual FK of referrer-as-one
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public ProductCB.HpSpecification specifyProduct() {
+            assertRelation("product");
+            if (_product == null) {
+                _product = new ProductCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryProduct()
+                                    , () -> _qyCall.qy().queryProduct())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _product.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryProduct()
+                      , () -> xsyncQyCall().qy().queryProduct()));
+                }
+            }
+            return _product;
         }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>

@@ -84,6 +84,13 @@ public class LoaderOfProduct {
         return _foreignProductStatusLoader;
     }
 
+    protected LoaderOfSummaryProduct _foreignSummaryProductAsOneLoader;
+    public LoaderOfSummaryProduct pulloutSummaryProductAsOne() {
+        if (_foreignSummaryProductAsOneLoader == null)
+        { _foreignSummaryProductAsOneLoader = new LoaderOfSummaryProduct().ready(myBhv().pulloutSummaryProductAsOne(_selectedList), _selector); }
+        return _foreignSummaryProductAsOneLoader;
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========

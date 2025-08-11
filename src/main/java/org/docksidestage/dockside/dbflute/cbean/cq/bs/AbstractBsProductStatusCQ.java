@@ -205,7 +205,8 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * Set up ExistsReferrer (correlated sub-query). <br>
      * {exists (select PRODUCT_STATUS_CODE from SUMMARY_PRODUCT where ...)} <br>
-     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductAsOne'.
+     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductAsOne'. <br>
+     * test of virtual FK of many-to-one
      * <pre>
      * cb.query().<span style="color: #CC4747">existsSummaryProduct</span>(productCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     productCB.query().set...
@@ -243,7 +244,8 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * Set up NotExistsReferrer (correlated sub-query). <br>
      * {not exists (select PRODUCT_STATUS_CODE from SUMMARY_PRODUCT where ...)} <br>
-     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductAsOne'.
+     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductAsOne'. <br>
+     * test of virtual FK of many-to-one
      * <pre>
      * cb.query().<span style="color: #CC4747">notExistsSummaryProduct</span>(productCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     productCB.query().set...
@@ -305,7 +307,8 @@ public abstract class AbstractBsProductStatusCQ extends AbstractConditionQuery {
     /**
      * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
      * {FOO &lt;= (select max(BAR) from SUMMARY_PRODUCT where ...)} <br>
-     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductAsOne'.
+     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductAsOne'. <br>
+     * test of virtual FK of many-to-one
      * <pre>
      * cb.query().<span style="color: #CC4747">derivedSummaryProduct()</span>.<span style="color: #CC4747">max</span>(productCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     productCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>

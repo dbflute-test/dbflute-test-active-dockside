@@ -441,6 +441,14 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
     public List<ProductStatus> pulloutProductStatus(List<Product> productList)
     { return helpPulloutInternally(productList, "productStatus"); }
 
+    /**
+     * Pull out the list of referrer-as-one table 'SummaryProduct'.
+     * @param productList The list of product. (NotNull, EmptyAllowed)
+     * @return The list of referrer-as-one table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<SummaryProduct> pulloutSummaryProductAsOne(List<Product> productList)
+    { return helpPulloutInternally(productList, "summaryProductAsOne"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

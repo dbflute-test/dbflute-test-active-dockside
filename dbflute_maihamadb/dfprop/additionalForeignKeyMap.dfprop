@@ -65,10 +65,17 @@ select max(login.LOGIN_DATETIME)
     ; FK_SUMMARY_PRODUCT_PRODUCT_STATUS = map:{
         ; localTableName  = SUMMARY_PRODUCT     ; foreignTableName  = PRODUCT_STATUS
         ; localColumnName = PRODUCT_STATUS_CODE ; foreignColumnName = PRODUCT_STATUS_CODE
+        ; comment = test of virtual FK of many-to-one
+    }
+    ; FK_SUMMARY_PRODUCT_PRODUCT = map:{
+        ; localTableName  = SUMMARY_PRODUCT     ; foreignTableName  = PRODUCT
+        ; localColumnName = PRODUCT_ID ; foreignColumnName = PRODUCT_ID
+        ; comment = test of virtual FK of referrer-as-one
     }
     ; FK_PURCHASE_SUMMARY_PRODUCT = map:{
         ; localTableName  = PURCHASE   ; foreignTableName  = SUMMARY_PRODUCT
         ; localColumnName = PRODUCT_ID ; foreignColumnName = PRODUCT_ID
+        # test of no comment
     }
 }
 # ----------------/

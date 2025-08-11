@@ -131,7 +131,7 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
 
     /**
      * Select the entity by the primary-key value.
-     * @param productId : PK, INTEGER(10). (NotNull)
+     * @param productId : PK, INTEGER(10), FK to PRODUCT. (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -407,6 +407,14 @@ public abstract class BsSummaryProductBhv extends AbstractBehaviorWritable<Summa
      */
     public List<ProductStatus> pulloutProductStatus(List<SummaryProduct> summaryProductList)
     { return helpPulloutInternally(summaryProductList, "productStatus"); }
+
+    /**
+     * Pull out the list of foreign table 'Product'.
+     * @param summaryProductList The list of summaryProduct. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<Product> pulloutProduct(List<SummaryProduct> summaryProductList)
+    { return helpPulloutInternally(summaryProductList, "product"); }
 
     // ===================================================================================
     //                                                                      Extract Column

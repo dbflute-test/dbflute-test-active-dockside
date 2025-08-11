@@ -71,7 +71,8 @@ public class LoaderOfProductStatus {
 
     /**
      * Load referrer of summaryProductList by the set-upper of referrer. <br>
-     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'.
+     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'. <br>
+     * test of virtual FK of many-to-one
      * <pre>
      * <span style="color: #0000C0">productStatusBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">productStatusList</span>, <span style="color: #553000">statusLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">statusLoader</span>.<span style="color: #CC4747">loadSummaryProduct</span>(<span style="color: #553000">productCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {

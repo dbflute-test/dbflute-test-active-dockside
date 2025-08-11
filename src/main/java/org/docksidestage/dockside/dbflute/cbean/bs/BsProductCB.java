@@ -303,6 +303,33 @@ public class BsProductCB extends AbstractConditionBean {
         doSetupSelect(() -> query().queryProductStatus());
     }
 
+    protected SummaryProductNss _nssSummaryProductAsOne;
+    public SummaryProductNss xdfgetNssSummaryProductAsOne() {
+        if (_nssSummaryProductAsOne == null) { _nssSummaryProductAsOne = new SummaryProductNss(null); }
+        return _nssSummaryProductAsOne;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * SUMMARY_PRODUCT by PRODUCT_ID, named 'summaryProductAsOne'. <br>
+     * test of virtual FK of referrer-as-one
+     * <pre>
+     * <span style="color: #0000C0">productBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_SummaryProductAsOne()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">product</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">product</span>.<span style="color: #CC4747">getSummaryProductAsOne()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public SummaryProductNss setupSelect_SummaryProductAsOne() {
+        assertSetupSelectPurpose("summaryProductAsOne");
+        doSetupSelect(() -> query().querySummaryProductAsOne());
+        if (_nssSummaryProductAsOne == null || !_nssSummaryProductAsOne.hasConditionQuery())
+        { _nssSummaryProductAsOne = new SummaryProductNss(query().querySummaryProductAsOne()); }
+        return _nssSummaryProductAsOne;
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -346,6 +373,7 @@ public class BsProductCB extends AbstractConditionBean {
     public static class HpSpecification extends HpAbstractSpecification<ProductCQ> {
         protected ProductCategoryCB.HpSpecification _productCategory;
         protected ProductStatusCB.HpSpecification _productStatus;
+        protected SummaryProductCB.HpSpecification _summaryProductAsOne;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<ProductCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -460,6 +488,27 @@ public class BsProductCB extends AbstractConditionBean {
                 }
             }
             return _productStatus;
+        }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * SUMMARY_PRODUCT by PRODUCT_ID, named 'summaryProductAsOne'. <br>
+         * test of virtual FK of referrer-as-one
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public SummaryProductCB.HpSpecification specifySummaryProductAsOne() {
+            assertRelation("summaryProductAsOne");
+            if (_summaryProductAsOne == null) {
+                _summaryProductAsOne = new SummaryProductCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQuerySummaryProductAsOne()
+                                    , () -> _qyCall.qy().querySummaryProductAsOne())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _summaryProductAsOne.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQuerySummaryProductAsOne()
+                      , () -> xsyncQyCall().qy().querySummaryProductAsOne()));
+                }
+            }
+            return _summaryProductAsOne;
         }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>

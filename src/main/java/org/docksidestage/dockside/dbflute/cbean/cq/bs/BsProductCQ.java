@@ -354,6 +354,9 @@ public class BsProductCQ extends AbstractBsProductCQ {
         if (bq.hasConditionQueryProductStatus()) {
             uq.queryProductStatus().reflectRelationOnUnionQuery(bq.queryProductStatus(), uq.queryProductStatus());
         }
+        if (bq.hasConditionQuerySummaryProductAsOne()) {
+            uq.querySummaryProductAsOne().reflectRelationOnUnionQuery(bq.querySummaryProductAsOne(), uq.querySummaryProductAsOne());
+        }
     }
 
     // ===================================================================================
@@ -398,6 +401,25 @@ public class BsProductCQ extends AbstractBsProductCQ {
     }
     protected void xsetupOuterJoinProductStatus() { xregOutJo("productStatus"); }
     public boolean hasConditionQueryProductStatus() { return xhasQueRlMap("productStatus"); }
+
+    /**
+     * Get the condition-query for relation table. <br>
+     * SUMMARY_PRODUCT by PRODUCT_ID, named 'summaryProductAsOne'. <br>
+     * test of virtual FK of referrer-as-one
+     * @return The instance of condition-query. (NotNull)
+     */
+    public SummaryProductCQ querySummaryProductAsOne() { return xdfgetConditionQuerySummaryProductAsOne(); }
+    public SummaryProductCQ xdfgetConditionQuerySummaryProductAsOne() {
+        String prop = "summaryProductAsOne";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQuerySummaryProductAsOne()); xsetupOuterJoinSummaryProductAsOne(); }
+        return xgetQueRlMap(prop);
+    }
+    protected SummaryProductCQ xcreateQuerySummaryProductAsOne() {
+        String nrp = xresolveNRP("PRODUCT", "summaryProductAsOne"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new SummaryProductCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "summaryProductAsOne", nrp);
+    }
+    protected void xsetupOuterJoinSummaryProductAsOne() { xregOutJo("summaryProductAsOne"); }
+    public boolean hasConditionQuerySummaryProductAsOne() { return xhasQueRlMap("summaryProductAsOne"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

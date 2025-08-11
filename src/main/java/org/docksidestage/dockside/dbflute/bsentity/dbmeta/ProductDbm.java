@@ -74,6 +74,7 @@ public class ProductDbm extends AbstractDBMeta {
     protected void xsetupEfpg() {
         setupEfpg(_efpgMap, et -> ((Product)et).getProductCategory(), (et, vl) -> ((Product)et).setProductCategory((OptionalEntity<ProductCategory>)vl), "productCategory");
         setupEfpg(_efpgMap, et -> ((Product)et).getProductStatus(), (et, vl) -> ((Product)et).setProductStatus((OptionalEntity<ProductStatus>)vl), "productStatus");
+        setupEfpg(_efpgMap, et -> ((Product)et).getSummaryProductAsOne(), (et, vl) -> ((Product)et).setSummaryProductAsOne((OptionalEntity<SummaryProduct>)vl), "summaryProductAsOne");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }
@@ -96,7 +97,7 @@ public class ProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, true, true, "INTEGER", 10, 0, null, "NEXT VALUE FOR \"PUBLIC\".\"SYSTEM_SEQUENCE_268263F3_B21C_468D_A920_633B2CE74500\"", false, null, null, null, "purchaseList", null, false);
+    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, true, true, "INTEGER", 10, 0, null, "NEXT VALUE FOR \"PUBLIC\".\"SYSTEM_SEQUENCE_32D85A88_C55C_4173_B2B3_0F6128FA4CF1\"", false, null, null, null, "purchaseList", null, false);
     protected final ColumnInfo _columnProductName = cci("PRODUCT_NAME", "PRODUCT_NAME", null, "商品名称", String.class, "productName", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnProductHandleCode = cci("PRODUCT_HANDLE_CODE", "PRODUCT_HANDLE_CODE", null, "商品ハンドルコード", String.class, "productHandleCode", null, false, false, true, "VARCHAR", 100, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnProductCategoryCode = cci("PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", null, null, String.class, "productCategoryCode", null, false, false, true, "CHAR", 3, 0, null, null, false, null, null, "productCategory", null, null, false);
@@ -220,6 +221,15 @@ public class ProductDbm extends AbstractDBMeta {
     public ForeignInfo foreignProductStatus() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnProductStatusCode(), ProductStatusDbm.getInstance().columnProductStatusCode());
         return cfi("FK_PRODUCT_PRODUCT_STATUS", "productStatus", this, ProductStatusDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "productList", false);
+    }
+    /**
+     * SUMMARY_PRODUCT by PRODUCT_ID, named 'summaryProductAsOne'. <br>
+     * test of virtual FK of referrer-as-one
+     * @return The information object of foreign property(referrer-as-one). (NotNull)
+     */
+    public ForeignInfo foreignSummaryProductAsOne() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnProductId(), SummaryProductDbm.getInstance().columnProductId());
+        return cfi("FK_SUMMARY_PRODUCT_PRODUCT", "summaryProductAsOne", this, SummaryProductDbm.getInstance(), mp, 2, org.dbflute.optional.OptionalEntity.class, true, false, true, true, null, null, false, "product", false);
     }
 
     // -----------------------------------------------------

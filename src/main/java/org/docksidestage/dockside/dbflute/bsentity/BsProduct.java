@@ -226,6 +226,29 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
         _productStatus = productStatus;
     }
 
+    /** SUMMARY_PRODUCT by PRODUCT_ID, named 'summaryProductAsOne'. */
+    protected OptionalEntity<SummaryProduct> _summaryProductAsOne;
+
+    /**
+     * [get] SUMMARY_PRODUCT by PRODUCT_ID, named 'summaryProductAsOne'. <br>
+     * test of virtual FK of referrer-as-one
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return the entity of foreign property(referrer-as-one) 'summaryProductAsOne'. (NotNull, EmptyAllowed: when e.g. no data, no setupSelect)
+     */
+    public OptionalEntity<SummaryProduct> getSummaryProductAsOne() {
+        if (_summaryProductAsOne == null) { _summaryProductAsOne = OptionalEntity.relationEmpty(this, "summaryProductAsOne"); }
+        return _summaryProductAsOne;
+    }
+
+    /**
+     * [set] SUMMARY_PRODUCT by PRODUCT_ID, named 'summaryProductAsOne'. <br>
+     * test of virtual FK of referrer-as-one
+     * @param summaryProductAsOne The entity of foreign property(referrer-as-one) 'summaryProductAsOne'. (NullAllowed)
+     */
+    public void setSummaryProductAsOne(OptionalEntity<SummaryProduct> summaryProductAsOne) {
+        _summaryProductAsOne = summaryProductAsOne;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
@@ -282,6 +305,8 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
         { sb.append(li).append(xbRDS(_productCategory, "productCategory")); }
         if (_productStatus != null && _productStatus.isPresent())
         { sb.append(li).append(xbRDS(_productStatus, "productStatus")); }
+        if (_summaryProductAsOne != null && _summaryProductAsOne.isPresent())
+        { sb.append(li).append(xbRDS(_summaryProductAsOne, "summaryProductAsOne")); }
         if (_purchaseList != null) { for (Purchase et : _purchaseList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "purchaseList")); } } }
         return sb.toString();
@@ -318,6 +343,8 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
         { sb.append(dm).append("productCategory"); }
         if (_productStatus != null && _productStatus.isPresent())
         { sb.append(dm).append("productStatus"); }
+        if (_summaryProductAsOne != null && _summaryProductAsOne.isPresent())
+        { sb.append(dm).append("summaryProductAsOne"); }
         if (_purchaseList != null && !_purchaseList.isEmpty())
         { sb.append(dm).append("purchaseList"); }
         if (sb.length() > dm.length()) {

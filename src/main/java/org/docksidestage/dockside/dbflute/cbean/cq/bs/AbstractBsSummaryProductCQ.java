@@ -45,7 +45,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
     //                                                                               =====
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      * @param productId The value of productId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setProductId_Equal(Integer productId) {
@@ -58,7 +58,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      * @param productId The value of productId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setProductId_NotEqual(Integer productId) {
@@ -71,7 +71,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      * @param productId The value of productId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setProductId_GreaterThan(Integer productId) {
@@ -80,7 +80,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      * @param productId The value of productId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setProductId_LessThan(Integer productId) {
@@ -89,7 +89,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      * @param productId The value of productId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setProductId_GreaterEqual(Integer productId) {
@@ -98,7 +98,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      * @param productId The value of productId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setProductId_LessEqual(Integer productId) {
@@ -109,7 +109,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      * @param minNumber The min number of productId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of productId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -122,7 +122,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      * @param minNumber The min number of productId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of productId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -133,7 +133,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      * @param productIdList The collection of productId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductId_InScope(Collection<Integer> productIdList) {
@@ -146,7 +146,7 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      * @param productIdList The collection of productId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setProductId_NotInScope(Collection<Integer> productIdList) {
@@ -232,13 +232,13 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      */
     public void setProductId_IsNull() { regProductId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      */
     public void setProductId_IsNotNull() { regProductId(CK_ISNN, DOBJ); }
 

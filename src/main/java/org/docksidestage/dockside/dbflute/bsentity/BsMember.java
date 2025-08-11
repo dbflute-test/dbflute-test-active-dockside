@@ -17,7 +17,9 @@ import org.docksidestage.dockside.dbflute.exentity.*;
  * The entity of (会員)MEMBER as TABLE. <br>
  * 会員のプロフィールやアカウントなどの基本情報を保持する。<br>
  * 基本的に物理削除はなく、退会したらステータスが退会会員になる。<br>
- * ライフサイクルやカテゴリの違う会員情報は、one-to-oneなどの関連テーブルにて。
+ * ライフサイクルやカテゴリの違う会員情報は、one-to-oneなどの関連テーブルにて。<br>
+ * <br>
+ * sea/land/piari/bonvo/sea
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsMember extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {

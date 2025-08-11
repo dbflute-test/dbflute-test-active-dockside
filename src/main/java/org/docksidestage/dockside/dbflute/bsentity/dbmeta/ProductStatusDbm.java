@@ -140,7 +140,8 @@ public class ProductStatusDbm extends AbstractDBMeta {
         return cri("FK_PRODUCT_PRODUCT_STATUS", "productList", this, ProductDbm.getInstance(), mp, false, "productStatus");
     }
     /**
-     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'.
+     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'. <br>
+     * test of virtual FK of many-to-one
      * @return The information object of referrer property. (NotNull)
      */
     public ReferrerInfo referrerSummaryProductList() {

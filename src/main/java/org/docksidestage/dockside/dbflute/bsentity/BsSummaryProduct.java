@@ -27,7 +27,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** PRODUCT_ID: {PK, INTEGER(10)} */
+    /** PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT} */
     protected Integer _productId;
 
     /** PRODUCT_NAME: {VARCHAR(50)} */
@@ -159,6 +159,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
 
     /**
      * [get] (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
+     * test of virtual FK of many-to-one <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'productStatus'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -168,11 +169,35 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * [set] (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * [set] (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
+     * test of virtual FK of many-to-one
      * @param productStatus The entity of foreign property 'productStatus'. (NullAllowed)
      */
     public void setProductStatus(OptionalEntity<ProductStatus> productStatus) {
         _productStatus = productStatus;
+    }
+
+    /** (商品)PRODUCT by my PRODUCT_ID, named 'product'. */
+    protected OptionalEntity<Product> _product;
+
+    /**
+     * [get] (商品)PRODUCT by my PRODUCT_ID, named 'product'. <br>
+     * test of virtual FK of referrer-as-one <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'product'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<Product> getProduct() {
+        if (_product == null) { _product = OptionalEntity.relationEmpty(this, "product"); }
+        return _product;
+    }
+
+    /**
+     * [set] (商品)PRODUCT by my PRODUCT_ID, named 'product'. <br>
+     * test of virtual FK of referrer-as-one
+     * @param product The entity of foreign property 'product'. (NullAllowed)
+     */
+    public void setProduct(OptionalEntity<Product> product) {
+        _product = product;
     }
 
     // ===================================================================================
@@ -229,6 +254,8 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
         StringBuilder sb = new StringBuilder();
         if (_productStatus != null && _productStatus.isPresent())
         { sb.append(li).append(xbRDS(_productStatus, "productStatus")); }
+        if (_product != null && _product.isPresent())
+        { sb.append(li).append(xbRDS(_product, "product")); }
         if (_purchaseList != null) { for (Purchase et : _purchaseList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "purchaseList")); } } }
         return sb.toString();
@@ -257,6 +284,8 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
         StringBuilder sb = new StringBuilder();
         if (_productStatus != null && _productStatus.isPresent())
         { sb.append(dm).append("productStatus"); }
+        if (_product != null && _product.isPresent())
+        { sb.append(dm).append("product"); }
         if (_purchaseList != null && !_purchaseList.isEmpty())
         { sb.append(dm).append("purchaseList"); }
         if (sb.length() > dm.length()) {
@@ -274,7 +303,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] PRODUCT_ID: {PK, INTEGER(10)} <br>
+     * [get] PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT} <br>
      * @return The value of the column 'PRODUCT_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getProductId() {
@@ -283,7 +312,7 @@ public abstract class BsSummaryProduct extends AbstractEntity implements DomainE
     }
 
     /**
-     * [set] PRODUCT_ID: {PK, INTEGER(10)} <br>
+     * [set] PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT} <br>
      * @param productId The value of the column 'PRODUCT_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setProductId(Integer productId) {

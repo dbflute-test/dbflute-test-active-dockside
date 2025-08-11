@@ -7,10 +7,17 @@ import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.info.ColumnInfo;
 import org.dbflute.dbmeta.info.ForeignInfo;
 import org.dbflute.dbmeta.info.ReferrerInfo;
+import org.dbflute.dbmeta.info.structural.referrer.StructuralReferrerInfo;
 import org.dbflute.optional.OptionalEntity;
 import org.dbflute.utflute.core.PlainTestCase;
+import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberDbm;
+import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberSecurityDbm;
 import org.docksidestage.dockside.dbflute.bsentity.dbmeta.MemberStatusDbm;
+import org.docksidestage.dockside.dbflute.bsentity.dbmeta.ProductDbm;
+import org.docksidestage.dockside.dbflute.bsentity.dbmeta.ProductStatusDbm;
+import org.docksidestage.dockside.dbflute.bsentity.dbmeta.PurchaseDbm;
+import org.docksidestage.dockside.dbflute.bsentity.dbmeta.SummaryProductDbm;
 import org.docksidestage.dockside.dbflute.exentity.Member;
 import org.docksidestage.dockside.dbflute.exentity.MemberStatus;
 import org.docksidestage.dockside.dbflute.exentity.Purchase;
@@ -24,7 +31,13 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
     // ===================================================================================
     //                                                                        Foreign Info
     //                                                                        ============
-    public void test_foreignInfo_manyToOne() {
+    public void test_foreignInfo_basic() {
+        ForeignInfo foreignInfo = MemberDbm.getInstance().foreignMemberStatus();
+
+        assertEquals(MemberStatusDbm.getInstance().referrerMemberList(), foreignInfo.getReverseRelation());
+    }
+
+    public void test_foreignInfo_manyToOne_basic() {
         // ## Arrange & Act ##
         ForeignInfo foreignInfo = MemberDbm.getInstance().foreignMemberStatus();
 
@@ -33,29 +46,55 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
         assertNotNull(foreignInfo.getForeignPropertyName());
         assertFalse(foreignInfo.isOneToOne());
         assertFalse(foreignInfo.isBizOneToOne());
+        assertFalse(foreignInfo.isAdditionalFK());
         assertEquals(MemberStatusDbm.getInstance().referrerMemberList(), foreignInfo.getReverseRelation());
+    }
+
+    public void test_foreignInfo_manyToOne_virtualFK() {
+        // ## Arrange & Act ##
+        ForeignInfo toProductStatusFK = SummaryProductDbm.getInstance().foreignProductStatus();
+        ReferrerInfo fromProductStatusReferrer = ProductStatusDbm.getInstance().referrerSummaryProductList();
+
+        // ## Assert ##
+        assertNotNull(toProductStatusFK);
+        assertNotNull(toProductStatusFK.getForeignPropertyName());
+        assertFalse(toProductStatusFK.isOneToOne());
+        assertFalse(toProductStatusFK.isBizOneToOne());
+        assertTrue(toProductStatusFK.isAdditionalFK());
+        assertEquals(fromProductStatusReferrer, toProductStatusFK.getReverseRelation());
+        assertFalse(fromProductStatusReferrer.isOneToOne());
     }
 
     public void test_foreignInfo_oneToOne() {
         // ## Arrange & Act ##
-        ForeignInfo foreignInfo = MemberDbm.getInstance().foreignMemberSecurityAsOne();
+        ForeignInfo toSecurityFK = MemberDbm.getInstance().foreignMemberSecurityAsOne();
+        ForeignInfo fromSecurityFK = MemberSecurityDbm.getInstance().foreignMember();
 
         // ## Assert ##
-        assertNotNull(foreignInfo);
-        assertNotNull(foreignInfo.getForeignPropertyName());
-        assertTrue(foreignInfo.isOneToOne());
-        assertFalse(foreignInfo.isBizOneToOne());
+        assertNotNull(toSecurityFK);
+        assertNotNull(toSecurityFK.getForeignPropertyName());
+        assertTrue(toSecurityFK.isOneToOne());
+        assertFalse(toSecurityFK.isBizOneToOne());
+        assertFalse(toSecurityFK.isAdditionalFK());
+        assertEquals(fromSecurityFK, toSecurityFK.getReverseRelation());
+
+        assertTrue(fromSecurityFK.isOneToOne());
+        assertFalse(fromSecurityFK.isBizOneToOne());
+        assertFalse(fromSecurityFK.isAdditionalFK());
+        assertEquals(toSecurityFK, fromSecurityFK.getReverseRelation());
     }
 
     public void test_foreignInfo_bizOneToOne() {
         // ## Arrange & Act ##
-        ForeignInfo foreignInfo = MemberDbm.getInstance().foreignMemberAddressAsValid();
+        ForeignInfo toAddressFK = MemberDbm.getInstance().foreignMemberAddressAsValid();
 
         // ## Assert ##
-        assertNotNull(foreignInfo);
-        assertNotNull(foreignInfo.getForeignPropertyName());
-        assertTrue(foreignInfo.isOneToOne());
-        assertTrue(foreignInfo.isBizOneToOne());
+        assertNotNull(toAddressFK);
+        assertNotNull(toAddressFK.getForeignPropertyName());
+        assertTrue(toAddressFK.isOneToOne());
+        assertTrue(toAddressFK.isBizOneToOne());
+        assertTrue(toAddressFK.isAdditionalFK());
+        assertNull(toAddressFK.getReverseRelation());
     }
 
     public void test_foreignInfo_read() {
@@ -178,6 +217,22 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
         assertEquals(purchaseList, actualList);
     }
 
+    public void test_referrerInfo_reverseRelation() {
+        MemberDbm memberDbm = MemberDbm.getInstance();
+        ReferrerInfo purchaseList = memberDbm.referrerPurchaseList();
+
+        // reverse
+        assertEquals(PurchaseDbm.getInstance().foreignMember(), purchaseList.getReverseRelation());
+
+        // basically referrer always has reverse because referrer-only relation does not exist
+        DBMetaInstanceHandler.getUnmodifiableDBMetaMap().values().forEach(dbmeta -> {
+            List<ReferrerInfo> referrerInfoList = dbmeta.getReferrerInfoList();
+            for (ReferrerInfo referrerInfo : referrerInfoList) {
+                assertNotNull(referrerInfo.getReverseRelation());
+            }
+        });
+    }
+
     public void test_searchReferrerInfoList_basic() throws Exception {
         // ## Arrange ##
         // ## Act ##
@@ -203,5 +258,93 @@ public class WxDBMetaRelationInfoTest extends PlainTestCase {
             /* ## Assert ## */
             fail();
         });
+    }
+
+    // ===================================================================================
+    //                                                            Structural Referrer Info
+    //                                                            ========================
+    public void test_structuralReferrerInfo_basic() {
+        MemberDbm memberDbm = MemberDbm.getInstance();
+
+        List<StructuralReferrerInfo> structuralReferrerInfoList = memberDbm.getStructuralReferrerInfoList();
+        for (StructuralReferrerInfo structuralReferrerInfo : structuralReferrerInfoList) {
+            log(structuralReferrerInfo, "addiFK=" + structuralReferrerInfo.isAdditionalFK());
+            assertNotNull(structuralReferrerInfo.getConstraintName());
+            assertNotNull(structuralReferrerInfo.getRelationPropertyName());
+            assertNotNull(structuralReferrerInfo.getReverseForeign());
+        }
+
+        {
+            PurchaseDbm purchaseDbm = PurchaseDbm.getInstance();
+            ForeignInfo memberFkFromPurchase = purchaseDbm.foreignMember();
+
+            StructuralReferrerInfo toPurchaseInfo = structuralReferrerInfoList.stream().filter(info -> {
+                return info.getReferrerDBMeta().getTableDbName().equals(purchaseDbm.getTableDbName());
+            }).findFirst().get();
+            assertEquals(memberFkFromPurchase.getConstraintName(), toPurchaseInfo.getConstraintName());
+            assertEquals(memberDbm.referrerPurchaseList().getReferrerPropertyName(), toPurchaseInfo.getRelationPropertyName());
+            assertFalse(toPurchaseInfo.isOneToOne());
+            assertFalse(toPurchaseInfo.isCompoundKey());
+            assertFalse(toPurchaseInfo.isAdditionalFK());
+            assertEquals(purchaseDbm.foreignMember(), toPurchaseInfo.getReverseForeign());
+        }
+
+        {
+            MemberSecurityDbm securityDbm = MemberSecurityDbm.getInstance();
+            ForeignInfo memberFkFromSecurity = securityDbm.foreignMember();
+
+            StructuralReferrerInfo toSecurityInfo = structuralReferrerInfoList.stream().filter(info -> {
+                return info.getReferrerDBMeta().getTableDbName().equals(MemberSecurityDbm.getInstance().getTableDbName());
+            }).findFirst().get();
+            assertEquals(memberFkFromSecurity.getConstraintName(), toSecurityInfo.getConstraintName());
+            assertEquals(memberDbm.foreignMemberSecurityAsOne().getForeignPropertyName(), toSecurityInfo.getRelationPropertyName());
+            assertTrue(toSecurityInfo.isOneToOne());
+            assertFalse(toSecurityInfo.isCompoundKey());
+            assertFalse(toSecurityInfo.isAdditionalFK());
+            assertEquals(securityDbm.foreignMember(), toSecurityInfo.getReverseForeign());
+        }
+    }
+
+    public void test_structuralReferrerInfo_crossAll() {
+        // basically referrer always has reverse because referrer-only relation does not exist
+        DBMetaInstanceHandler.getUnmodifiableDBMetaMap().values().forEach(dbmeta -> {
+            for (StructuralReferrerInfo currentInfo : dbmeta.getStructuralReferrerInfoList()) {
+                assertNotNull(currentInfo.getReverseForeign());
+            }
+        });
+    }
+
+    public void test_structuralReferrerInfo_virtualFK_oneToMany() {
+        ProductStatusDbm productStatusDbm = ProductStatusDbm.getInstance();
+        SummaryProductDbm summaryProductDbm = SummaryProductDbm.getInstance();
+        ForeignInfo productStatusFkFromSummaryProduct = summaryProductDbm.foreignProductStatus();
+
+        List<StructuralReferrerInfo> structuralReferrerInfoList = productStatusDbm.getStructuralReferrerInfoList();
+        StructuralReferrerInfo toStatusInfo = structuralReferrerInfoList.stream().filter(info -> {
+            return info.getReferrerDBMeta().getTableDbName().equals(summaryProductDbm.getTableDbName());
+        }).findFirst().get();
+        assertEquals(productStatusFkFromSummaryProduct.getConstraintName(), toStatusInfo.getConstraintName());
+        assertEquals(productStatusDbm.referrerSummaryProductList().getReferrerPropertyName(), toStatusInfo.getRelationPropertyName());
+        assertFalse(toStatusInfo.isOneToOne());
+        assertFalse(toStatusInfo.isCompoundKey());
+        assertTrue(toStatusInfo.isAdditionalFK());
+        assertEquals(summaryProductDbm.foreignProductStatus(), toStatusInfo.getReverseForeign());
+    }
+
+    public void test_structuralReferrerInfo_virtualFK_oneToOne() {
+        ProductDbm productDbm = ProductDbm.getInstance();
+        SummaryProductDbm summaryProductDbm = SummaryProductDbm.getInstance();
+        ForeignInfo productFkFromSummaryProduct = summaryProductDbm.foreignProduct();
+
+        List<StructuralReferrerInfo> structuralReferrerInfoList = productDbm.getStructuralReferrerInfoList();
+        StructuralReferrerInfo toSummaryInfo = structuralReferrerInfoList.stream().filter(info -> {
+            return info.getReferrerDBMeta().getTableDbName().equals(summaryProductDbm.getTableDbName());
+        }).findFirst().get();
+        assertEquals(productFkFromSummaryProduct.getConstraintName(), toSummaryInfo.getConstraintName());
+        assertEquals(productDbm.foreignSummaryProductAsOne().getForeignPropertyName(), toSummaryInfo.getRelationPropertyName());
+        assertTrue(toSummaryInfo.isOneToOne());
+        assertFalse(toSummaryInfo.isCompoundKey());
+        assertTrue(toSummaryInfo.isAdditionalFK());
+        assertEquals(summaryProductDbm.foreignProduct(), toSummaryInfo.getReverseForeign());
     }
 }

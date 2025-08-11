@@ -95,14 +95,14 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      * @return this. (NotNull)
      */
     public BsSummaryProductCQ addOrderBy_ProductId_Asc() { regOBA("PRODUCT_ID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      * @return this. (NotNull)
      */
     public BsSummaryProductCQ addOrderBy_ProductId_Desc() { regOBD("PRODUCT_ID"); return this; }
@@ -231,6 +231,9 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
         if (bq.hasConditionQueryProductStatus()) {
             uq.queryProductStatus().reflectRelationOnUnionQuery(bq.queryProductStatus(), uq.queryProductStatus());
         }
+        if (bq.hasConditionQueryProduct()) {
+            uq.queryProduct().reflectRelationOnUnionQuery(bq.queryProduct(), uq.queryProduct());
+        }
     }
 
     // ===================================================================================
@@ -238,7 +241,8 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
+     * test of virtual FK of many-to-one
      * @return The instance of condition-query. (NotNull)
      */
     public ProductStatusCQ queryProductStatus() {
@@ -255,6 +259,27 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     }
     protected void xsetupOuterJoinProductStatus() { xregOutJo("productStatus"); }
     public boolean hasConditionQueryProductStatus() { return xhasQueRlMap("productStatus"); }
+
+    /**
+     * Get the condition-query for relation table. <br>
+     * (商品)PRODUCT by my PRODUCT_ID, named 'product'. <br>
+     * test of virtual FK of referrer-as-one
+     * @return The instance of condition-query. (NotNull)
+     */
+    public ProductCQ queryProduct() {
+        return xdfgetConditionQueryProduct();
+    }
+    public ProductCQ xdfgetConditionQueryProduct() {
+        String prop = "product";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryProduct()); xsetupOuterJoinProduct(); }
+        return xgetQueRlMap(prop);
+    }
+    protected ProductCQ xcreateQueryProduct() {
+        String nrp = xresolveNRP("SUMMARY_PRODUCT", "product"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new ProductCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "product", nrp);
+    }
+    protected void xsetupOuterJoinProduct() { xregOutJo("product"); }
+    public boolean hasConditionQueryProduct() { return xhasQueRlMap("product"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

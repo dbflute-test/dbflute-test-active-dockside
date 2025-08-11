@@ -34,4 +34,14 @@ public class ProductNss {
     public void withProductStatus() {
         _query.xdoNss(() -> _query.queryProductStatus());
     }
+    /**
+     * With nested relation columns to select clause. <br>
+     * SUMMARY_PRODUCT by PRODUCT_ID, named 'summaryProductAsOne'. <br>
+     * test of virtual FK of referrer-as-one
+     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
+     */
+    public SummaryProductNss withSummaryProductAsOne() {
+        _query.xdoNss(() -> _query.querySummaryProductAsOne());
+        return new SummaryProductNss(_query.querySummaryProductAsOne());
+    }
 }

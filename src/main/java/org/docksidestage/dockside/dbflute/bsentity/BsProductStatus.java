@@ -185,7 +185,8 @@ public abstract class BsProductStatus extends AbstractEntity implements DomainEn
     protected List<SummaryProduct> _summaryProductList;
 
     /**
-     * [get] SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'.
+     * [get] SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'. <br>
+     * test of virtual FK of many-to-one
      * @return The entity list of referrer property 'summaryProductList'. (NotNull: even if no loading, returns empty list)
      */
     public List<SummaryProduct> getSummaryProductList() {
@@ -194,7 +195,8 @@ public abstract class BsProductStatus extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'.
+     * [set] SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'. <br>
+     * test of virtual FK of many-to-one
      * @param summaryProductList The entity list of referrer property 'summaryProductList'. (NullAllowed)
      */
     public void setSummaryProductList(List<SummaryProduct> summaryProductList) {

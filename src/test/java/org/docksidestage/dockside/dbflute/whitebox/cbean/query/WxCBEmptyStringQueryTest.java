@@ -16,16 +16,22 @@ public class WxCBEmptyStringQueryTest extends UnitContainerTestCase {
         // ## Arrange ##
         MemberCB cb = new MemberCB();
         cb.ignoreNullOrEmptyQuery();
-        cb.query().setMemberName_Equal("");
-        cb.checkNullOrEmptyQuery();
+        cb.query().setRegisterUser_Equal(""); // ignored
         cb.enableEmptyStringQuery(() -> {
-            cb.query().setMemberAccount_Equal("");
+            cb.query().setMemberName_Equal(""); // valid: = ''
+        });
+        cb.checkNullOrEmptyQuery();
+        //cb.query().setUpdateUser_Equal(""); // exception
+        cb.enableEmptyStringQuery(() -> {
+            cb.query().setMemberAccount_Equal(""); // valid: = ''
         });
 
         // ## Assert ##
         String sql = cb.toDisplaySql();
         log(ln() + sql);
-        assertFalse(sql.contains(" dfloc.MEMBER_NAME = ''"));
+        assertFalse(sql.contains("REGISTER_USER = ''"));
+        assertFalse(sql.contains("UPDATE_USER = ''"));
+        assertTrue(sql.contains(" dfloc.MEMBER_NAME = ''"));
         assertTrue(sql.contains(" dfloc.MEMBER_ACCOUNT = ''"));
     }
 

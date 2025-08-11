@@ -67,6 +67,7 @@ public class SummaryProductDbm extends AbstractDBMeta {
     @SuppressWarnings("unchecked")
     protected void xsetupEfpg() {
         setupEfpg(_efpgMap, et -> ((SummaryProduct)et).getProductStatus(), (et, vl) -> ((SummaryProduct)et).setProductStatus((OptionalEntity<ProductStatus>)vl), "productStatus");
+        setupEfpg(_efpgMap, et -> ((SummaryProduct)et).getProduct(), (et, vl) -> ((SummaryProduct)et).setProduct((OptionalEntity<Product>)vl), "product");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }
@@ -87,14 +88,14 @@ public class SummaryProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, false, false, "INTEGER", 10, 0, null, null, false, null, null, null, "purchaseList", null, false);
+    protected final ColumnInfo _columnProductId = cci("PRODUCT_ID", "PRODUCT_ID", null, null, Integer.class, "productId", null, true, false, false, "INTEGER", 10, 0, null, null, false, null, null, "product", "purchaseList", null, false);
     protected final ColumnInfo _columnProductName = cci("PRODUCT_NAME", "PRODUCT_NAME", null, null, String.class, "productName", null, false, false, false, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnProductHandleCode = cci("PRODUCT_HANDLE_CODE", "PRODUCT_HANDLE_CODE", null, null, String.class, "productHandleCode", null, false, false, false, "VARCHAR", 100, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnProductStatusCode = cci("PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", null, null, String.class, "productStatusCode", null, false, false, false, "CHAR", 3, 0, null, null, false, null, null, "productStatus", null, CDef.DefMeta.ProductStatus, false);
     protected final ColumnInfo _columnLatestPurchaseDatetime = cci("LATEST_PURCHASE_DATETIME", "LATEST_PURCHASE_DATETIME", null, null, java.time.LocalDateTime.class, "latestPurchaseDatetime", null, false, false, false, "TIMESTAMP", 26, 6, null, null, false, null, null, null, null, null, false);
 
     /**
-     * PRODUCT_ID: {PK, INTEGER(10)}
+     * PRODUCT_ID: {PK, INTEGER(10), FK to PRODUCT}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnProductId() { return _columnProductId; }
@@ -150,12 +151,22 @@ public class SummaryProductDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     /**
-     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
+     * test of virtual FK of many-to-one
      * @return The information object of foreign property. (NotNull)
      */
     public ForeignInfo foreignProductStatus() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnProductStatusCode(), ProductStatusDbm.getInstance().columnProductStatusCode());
         return cfi("FK_SUMMARY_PRODUCT_PRODUCT_STATUS", "productStatus", this, ProductStatusDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, true, null, null, false, "summaryProductList", false);
+    }
+    /**
+     * (商品)PRODUCT by my PRODUCT_ID, named 'product'. <br>
+     * test of virtual FK of referrer-as-one
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignProduct() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnProductId(), ProductDbm.getInstance().columnProductId());
+        return cfi("FK_SUMMARY_PRODUCT_PRODUCT", "product", this, ProductDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, true, false, false, true, null, null, false, "summaryProductAsOne", false);
     }
 
     // -----------------------------------------------------

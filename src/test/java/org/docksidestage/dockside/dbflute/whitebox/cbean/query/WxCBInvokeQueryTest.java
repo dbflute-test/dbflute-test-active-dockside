@@ -383,34 +383,10 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
     }
 
     // -----------------------------------------------------
-    //                                           EmptyString
-    //                                           -----------
-    public void test_invokeQuery_emptyString() {
-        // ## Arrange ##
-        ConditionBean cb = memberBhv.newConditionBean();
-        String columnDbName = MemberDbm.getInstance().columnMemberName().getColumnDbName();
-        String keyName = ConditionKey.CK_EQUAL.getConditionKey();
-
-        // ## Act ##
-        try {
-            cb.localCQ().invokeQuery(columnDbName, keyName, null);
-        } catch (IllegalConditionBeanOperationException e) {
-            log(e.getMessage());
-        }
-        cb.ignoreNullOrEmptyQuery();
-        cb.localCQ().invokeQuery(columnDbName, keyName, "");
-
-        // ## Assert ##
-        log(cb.toDisplaySql());
-        assertNull(cb.localCQ().invokeValue(columnDbName).getFixed());
-        assertFalse(cb.toDisplaySql().contains("where "));
-    }
-
-    // -----------------------------------------------------
     //                                         Null Argument
     //                                         -------------
     // null has special meaning (no invoking) 
-    public void test_invokeQuery_null() {
+    public void test_invokeQuery_nullArgument() {
         // ## Arrange ##
         ConditionBean cb = memberBhv.newConditionBean();
         String columnDbName = MemberDbm.getInstance().columnMemberName().getColumnDbName();
@@ -438,6 +414,52 @@ public class WxCBInvokeQueryTest extends UnitContainerTestCase {
         log(ln() + cb.toDisplaySql());
         assertNotNull(cb.localCQ().invokeValue(columnDbName).getFixed());
         assertTrue(cb.toDisplaySql().contains("where "));
+    }
+
+    // -----------------------------------------------------
+    //                                  EmptyString Argument
+    //                                  --------------------
+    public void test_invokeQuery_emptyStringArgument() {
+        // ## Arrange ##
+        ConditionBean cb = memberBhv.newConditionBean();
+        String columnDbName = MemberDbm.getInstance().columnMemberName().getColumnDbName();
+        String keyName = ConditionKey.CK_EQUAL.getConditionKey();
+
+        // ## Act ##
+        try {
+            cb.localCQ().invokeQuery(columnDbName, keyName, "");
+        } catch (IllegalConditionBeanOperationException e) {
+            log(e.getMessage());
+        }
+        cb.ignoreNullOrEmptyQuery();
+        cb.localCQ().invokeQuery(columnDbName, keyName, "");
+
+        // ## Assert ##
+        log(cb.toDisplaySql());
+        assertNull(cb.localCQ().invokeValue(columnDbName).getFixed());
+        assertFalse(cb.toDisplaySql().contains("where "));
+    }
+
+    // -----------------------------------------------------
+    //                                     EmptyString Query
+    //                                     -----------------
+    public void test_invokeQuery_emptyStringQuery() {
+        // ## Arrange ##
+        ConditionBean cb = memberBhv.newConditionBean();
+        String columnDbName = MemberDbm.getInstance().columnMemberName().getColumnDbName();
+        String keyName = ConditionKey.CK_EQUAL.getConditionKey();
+
+        // ## Act ##
+        cb.enableEmptyStringQuery(() -> {
+            cb.localCQ().invokeQuery(columnDbName, keyName, "");
+        });
+
+        // ## Assert ##
+        String displaySql = cb.toDisplaySql();
+        log(displaySql);
+        assertNotNull(cb.localCQ().invokeValue(columnDbName).getFixed());
+        assertTrue(displaySql.contains("where "));
+        assertTrue(displaySql.contains("dfloc.MEMBER_NAME = ''"));
     }
 
     // -----------------------------------------------------
