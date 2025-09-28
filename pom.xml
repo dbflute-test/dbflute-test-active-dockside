@@ -131,11 +131,21 @@
 	</build>
 
 	<repositories>
-		<repository>
+		<repository> <!-- for old snapshot -->
 			<id>sonatype-oss-public</id>
 			<url>https://oss.sonatype.org/content/groups/public/</url>
 			<releases>
 				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository> <!-- needs to use snapshot -->
+			<id>central-portal-snapshots</id>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
