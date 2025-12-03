@@ -81,14 +81,14 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      * @return this. (NotNull)
      */
     public BsPurchasePaymentCQ addOrderBy_PurchasePaymentId_Asc() { regOBA("PURCHASE_PAYMENT_ID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
+     * PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)}
      * @return this. (NotNull)
      */
     public BsPurchasePaymentCQ addOrderBy_PurchasePaymentId_Desc() { regOBD("PURCHASE_PAYMENT_ID"); return this; }
@@ -101,14 +101,14 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
+     * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
      * @return this. (NotNull)
      */
     public BsPurchasePaymentCQ addOrderBy_PurchaseId_Asc() { regOBA("PURCHASE_ID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
+     * PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE}
      * @return this. (NotNull)
      */
     public BsPurchasePaymentCQ addOrderBy_PurchaseId_Desc() { regOBD("PURCHASE_ID"); return this; }
@@ -121,14 +121,14 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
+     * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
      * @return this. (NotNull)
      */
     public BsPurchasePaymentCQ addOrderBy_PaymentAmount_Asc() { regOBA("PAYMENT_AMOUNT"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
+     * PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)}
      * @return this. (NotNull)
      */
     public BsPurchasePaymentCQ addOrderBy_PaymentAmount_Desc() { regOBD("PAYMENT_AMOUNT"); return this; }
@@ -141,14 +141,14 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(26, 6)}
+     * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsPurchasePaymentCQ addOrderBy_PaymentDatetime_Asc() { regOBA("PAYMENT_DATETIME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(26, 6)}
+     * PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsPurchasePaymentCQ addOrderBy_PaymentDatetime_Desc() { regOBD("PAYMENT_DATETIME"); return this; }
@@ -161,14 +161,14 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod}
+     * PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod}
      * @return this. (NotNull)
      */
     public BsPurchasePaymentCQ addOrderBy_PaymentMethodCode_Asc() { regOBA("PAYMENT_METHOD_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod}
+     * PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod}
      * @return this. (NotNull)
      */
     public BsPurchasePaymentCQ addOrderBy_PaymentMethodCode_Desc() { regOBD("PAYMENT_METHOD_CODE"); return this; }
@@ -304,7 +304,7 @@ public class BsPurchasePaymentCQ extends AbstractBsPurchasePaymentCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * (購入)PURCHASE by my PURCHASE_ID, named 'purchase'.
+     * PURCHASE by my PURCHASE_ID, named 'purchase'.
      * @return The instance of condition-query. (NotNull)
      */
     public PurchaseCQ queryPurchase() {

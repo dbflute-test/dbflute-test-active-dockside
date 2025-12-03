@@ -97,9 +97,9 @@ public class BsPurchaseCB extends AbstractConditionBean {
 
     /**
      * Accept the query condition of unique key as equal.
-     * @param memberId (会員ID): UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
-     * @param productId (商品ID): +UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT. (NotNull)
-     * @param purchaseDatetime (購入日時): +UQ, IX+, NotNull, TIMESTAMP(26, 6). (NotNull)
+     * @param memberId : UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param productId : +UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT. (NotNull)
+     * @param purchaseDatetime : +UQ, IX+, NotNull, TIMESTAMP(26, 6). (NotNull)
      * @return this. (NotNull)
      */
     public PurchaseCB acceptUniqueOf(Integer memberId, Integer productId, java.time.LocalDateTime purchaseDatetime) {
@@ -263,7 +263,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
     }
     /**
      * Set up relation columns to select clause. <br>
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * MEMBER by my MEMBER_ID, named 'member'.
      * <pre>
      * <span style="color: #0000C0">purchaseBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Member()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -292,7 +292,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
     }
     /**
      * Set up relation columns to select clause. <br>
-     * (商品)PRODUCT by my PRODUCT_ID, named 'product'.
+     * PRODUCT by my PRODUCT_ID, named 'product'.
      * <pre>
      * <span style="color: #0000C0">purchaseBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Product()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -397,32 +397,32 @@ public class BsPurchaseCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnPurchaseId() { return doColumn("PURCHASE_ID"); }
         /**
-         * (会員ID)MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
+         * MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMemberId() { return doColumn("MEMBER_ID"); }
         /**
-         * (商品ID)PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT}
+         * PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnProductId() { return doColumn("PRODUCT_ID"); }
         /**
-         * (購入日時)PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(26, 6)}
+         * PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(26, 6)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnPurchaseDatetime() { return doColumn("PURCHASE_DATETIME"); }
         /**
-         * (購入数量)PURCHASE_COUNT: {NotNull, INTEGER(10)}
+         * PURCHASE_COUNT: {NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnPurchaseCount() { return doColumn("PURCHASE_COUNT"); }
         /**
-         * (購入価格)PURCHASE_PRICE: {IX, NotNull, INTEGER(10)}
+         * PURCHASE_PRICE: {IX, NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnPurchasePrice() { return doColumn("PURCHASE_PRICE"); }
         /**
-         * (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg}
+         * PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnPaymentCompleteFlg() { return doColumn("PAYMENT_COMPLETE_FLG"); }
@@ -473,7 +473,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
         protected String getTableDbName() { return "PURCHASE"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (会員)MEMBER by my MEMBER_ID, named 'member'.
+         * MEMBER by my MEMBER_ID, named 'member'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public MemberCB.HpSpecification specifyMember() {
@@ -493,7 +493,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
         }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (商品)PRODUCT by my PRODUCT_ID, named 'product'.
+         * PRODUCT by my PRODUCT_ID, named 'product'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public ProductCB.HpSpecification specifyProduct() {
@@ -534,7 +534,7 @@ public class BsPurchaseCB extends AbstractConditionBean {
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
          * {select max(FOO) from PURCHASE_PAYMENT where ...) as FOO_MAX} <br>
-         * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
+         * PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
          * <pre>
          * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(paymentCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
          *     paymentCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>

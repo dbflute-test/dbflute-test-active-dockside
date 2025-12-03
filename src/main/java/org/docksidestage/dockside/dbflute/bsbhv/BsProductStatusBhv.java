@@ -23,7 +23,7 @@ import org.docksidestage.dockside.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The behavior of (商品ステータス)PRODUCT_STATUS as TABLE.
+ * The behavior of PRODUCT_STATUS as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<ProductStatus, ProductStatusCB> {
@@ -95,7 +95,7 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * </pre>
      * @param cbLambda The callback for condition-bean of ProductStatus. (NotNull)
      * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -132,9 +132,9 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
 
     /**
      * Select the entity by the primary-key value.
-     * @param productStatusCode (商品ステータスコード): PK, NotNull, CHAR(3), classification=ProductStatus. (NotNull)
+     * @param productStatusCode : PK, NotNull, CHAR(3), classification=ProductStatus. (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -161,9 +161,9 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
 
     /**
      * Select the entity by the unique-key value.
-     * @param displayOrder (表示順): UQ, NotNull, INTEGER(10). (NotNull)
+     * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -361,7 +361,7 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
 
     /**
      * Load referrer of productList by the set-upper of referrer. <br>
-     * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
+     * PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
      * <pre>
      * <span style="color: #0000C0">productStatusBhv</span>.<span style="color: #CC4747">loadProduct</span>(<span style="color: #553000">productStatusList</span>, <span style="color: #553000">productCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">productCB</span>.setupSelect...
@@ -392,7 +392,7 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
 
     /**
      * Load referrer of productList by the set-upper of referrer. <br>
-     * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
+     * PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
      * <pre>
      * <span style="color: #0000C0">productStatusBhv</span>.<span style="color: #CC4747">loadProduct</span>(<span style="color: #553000">productStatus</span>, <span style="color: #553000">productCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">productCB</span>.setupSelect...

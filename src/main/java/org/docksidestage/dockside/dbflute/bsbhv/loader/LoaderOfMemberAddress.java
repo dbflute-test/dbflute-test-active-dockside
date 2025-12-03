@@ -7,7 +7,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The referrer loader of (会員住所情報)MEMBER_ADDRESS as TABLE.
+ * The referrer loader of MEMBER_ADDRESS as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public class LoaderOfMemberAddress {

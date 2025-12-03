@@ -23,7 +23,7 @@ import org.docksidestage.dockside.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The behavior of (退会理由)WITHDRAWAL_REASON as TABLE.
+ * The behavior of WITHDRAWAL_REASON as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<WithdrawalReason, WithdrawalReasonCB> {
@@ -95,7 +95,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * </pre>
      * @param cbLambda The callback for condition-bean of WithdrawalReason. (NotNull)
      * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -132,9 +132,9 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
 
     /**
      * Select the entity by the primary-key value.
-     * @param withdrawalReasonCode (退会理由コード): PK, NotNull, CHAR(3), classification=WithdrawalReason. (NotNull)
+     * @param withdrawalReasonCode : PK, NotNull, CHAR(3), classification=WithdrawalReason. (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -163,7 +163,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
      * Select the entity by the unique-key value.
      * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -361,7 +361,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
 
     /**
      * Load referrer of memberWithdrawalList by the set-upper of referrer. <br>
-     * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * <pre>
      * <span style="color: #0000C0">withdrawalReasonBhv</span>.<span style="color: #CC4747">loadMemberWithdrawal</span>(<span style="color: #553000">withdrawalReasonList</span>, <span style="color: #553000">withdrawalCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">withdrawalCB</span>.setupSelect...
@@ -392,7 +392,7 @@ public abstract class BsWithdrawalReasonBhv extends AbstractBehaviorWritable<Wit
 
     /**
      * Load referrer of memberWithdrawalList by the set-upper of referrer. <br>
-     * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * <pre>
      * <span style="color: #0000C0">withdrawalReasonBhv</span>.<span style="color: #CC4747">loadMemberWithdrawal</span>(<span style="color: #553000">withdrawalReason</span>, <span style="color: #553000">withdrawalCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">withdrawalCB</span>.setupSelect...

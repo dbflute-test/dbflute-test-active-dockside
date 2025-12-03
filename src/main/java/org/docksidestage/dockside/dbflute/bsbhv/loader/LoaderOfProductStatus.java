@@ -9,7 +9,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The referrer loader of (商品ステータス)PRODUCT_STATUS as TABLE.
+ * The referrer loader of PRODUCT_STATUS as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public class LoaderOfProductStatus {
@@ -37,7 +37,7 @@ public class LoaderOfProductStatus {
 
     /**
      * Load referrer of productList by the set-upper of referrer. <br>
-     * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
+     * PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
      * <pre>
      * <span style="color: #0000C0">productStatusBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">productStatusList</span>, <span style="color: #553000">statusLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">statusLoader</span>.<span style="color: #CC4747">loadProduct</span>(<span style="color: #553000">productCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {

@@ -68,23 +68,21 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     public String getTableDispName() { return _tableDispName; }
     public String getTablePropertyName() { return _tablePropertyName; }
     public TableSqlName getTableSqlName() { return _tableSqlName; }
-    protected final String _tableAlias = "退会理由";
-    public String getTableAlias() { return _tableAlias; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnWithdrawalReasonCode = cci("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", null, "退会理由コード", String.class, "withdrawalReasonCode", null, true, false, true, "CHAR", 3, 0, null, null, false, null, null, null, "memberWithdrawalList", CDef.DefMeta.WithdrawalReason, false);
-    protected final ColumnInfo _columnWithdrawalReasonText = cci("WITHDRAWAL_REASON_TEXT", "WITHDRAWAL_REASON_TEXT", null, "退会理由テキスト", String.class, "withdrawalReasonText", null, false, false, true, "CLOB", 2147483647, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnWithdrawalReasonCode = cci("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", null, null, String.class, "withdrawalReasonCode", null, true, false, true, "CHAR", 3, 0, null, null, false, null, null, null, "memberWithdrawalList", CDef.DefMeta.WithdrawalReason, false);
+    protected final ColumnInfo _columnWithdrawalReasonText = cci("WITHDRAWAL_REASON_TEXT", "WITHDRAWAL_REASON_TEXT", null, null, String.class, "withdrawalReasonText", null, false, false, true, "CLOB", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, null, Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
 
     /**
-     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
+     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnWithdrawalReasonCode() { return _columnWithdrawalReasonCode; }
     /**
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnWithdrawalReasonText() { return _columnWithdrawalReasonText; }
@@ -132,7 +130,7 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     /**
-     * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * @return The information object of referrer property. (NotNull)
      */
     public ReferrerInfo referrerMemberWithdrawalList() {

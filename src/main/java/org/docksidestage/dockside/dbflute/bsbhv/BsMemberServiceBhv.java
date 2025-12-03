@@ -22,7 +22,7 @@ import org.docksidestage.dockside.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The behavior of (会員サービス)MEMBER_SERVICE as TABLE.
+ * The behavior of MEMBER_SERVICE as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable<MemberService, MemberServiceCB> {
@@ -94,7 +94,7 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable<Member
      * </pre>
      * @param cbLambda The callback for condition-bean of MemberService. (NotNull)
      * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -131,9 +131,9 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable<Member
 
     /**
      * Select the entity by the primary-key value.
-     * @param memberServiceId (会員サービスID): PK, ID, NotNull, INTEGER(10). (NotNull)
+     * @param memberServiceId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -160,9 +160,9 @@ public abstract class BsMemberServiceBhv extends AbstractBehaviorWritable<Member
 
     /**
      * Select the entity by the unique-key value.
-     * @param memberId (会員ID): UQ, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param memberId : UQ, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */

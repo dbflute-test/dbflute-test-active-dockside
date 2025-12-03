@@ -115,14 +115,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
+     * PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductName_Asc() { regOBA("PRODUCT_NAME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
+     * PRODUCT_NAME: {IX, NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductName_Desc() { regOBD("PRODUCT_NAME"); return this; }
@@ -135,14 +135,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
+     * PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductHandleCode_Asc() { regOBA("PRODUCT_HANDLE_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
+     * PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_ProductHandleCode_Desc() { regOBD("PRODUCT_HANDLE_CODE"); return this; }
@@ -195,14 +195,14 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (定価)REGULAR_PRICE: {NotNull, INTEGER(10)}
+     * REGULAR_PRICE: {NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_RegularPrice_Asc() { regOBA("REGULAR_PRICE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (定価)REGULAR_PRICE: {NotNull, INTEGER(10)}
+     * REGULAR_PRICE: {NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsProductCQ addOrderBy_RegularPrice_Desc() { regOBD("REGULAR_PRICE"); return this; }
@@ -364,7 +364,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * (商品カテゴリ)PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
+     * PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
      * @return The instance of condition-query. (NotNull)
      */
     public ProductCategoryCQ queryProductCategory() {
@@ -384,7 +384,7 @@ public class BsProductCQ extends AbstractBsProductCQ {
 
     /**
      * Get the condition-query for relation table. <br>
-     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      * @return The instance of condition-query. (NotNull)
      */
     public ProductStatusCQ queryProductStatus() {

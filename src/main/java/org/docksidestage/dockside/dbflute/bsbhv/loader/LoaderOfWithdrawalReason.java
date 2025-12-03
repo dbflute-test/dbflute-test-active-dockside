@@ -9,7 +9,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The referrer loader of (退会理由)WITHDRAWAL_REASON as TABLE.
+ * The referrer loader of WITHDRAWAL_REASON as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public class LoaderOfWithdrawalReason {
@@ -37,7 +37,7 @@ public class LoaderOfWithdrawalReason {
 
     /**
      * Load referrer of memberWithdrawalList by the set-upper of referrer. <br>
-     * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * <pre>
      * <span style="color: #0000C0">withdrawalReasonBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">withdrawalReasonList</span>, <span style="color: #553000">reasonLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">reasonLoader</span>.<span style="color: #CC4747">loadMemberWithdrawal</span>(<span style="color: #553000">withdrawalCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {

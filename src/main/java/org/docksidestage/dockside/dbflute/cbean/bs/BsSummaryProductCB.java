@@ -244,7 +244,7 @@ public class BsSummaryProductCB extends AbstractConditionBean {
     //                                                                         ===========
     /**
      * Set up relation columns to select clause. <br>
-     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
+     * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
      * test of virtual FK of many-to-one
      * <pre>
      * <span style="color: #0000C0">summaryProductBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -270,7 +270,7 @@ public class BsSummaryProductCB extends AbstractConditionBean {
     }
     /**
      * Set up relation columns to select clause. <br>
-     * (商品)PRODUCT by my PRODUCT_ID, named 'product'. <br>
+     * PRODUCT by my PRODUCT_ID, named 'product'. <br>
      * test of virtual FK of referrer-as-one
      * <pre>
      * <span style="color: #0000C0">summaryProductBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -376,7 +376,7 @@ public class BsSummaryProductCB extends AbstractConditionBean {
         protected String getTableDbName() { return "SUMMARY_PRODUCT"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
+         * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
          * test of virtual FK of many-to-one
          * @return The instance for specification for relation table to specify. (NotNull)
          */
@@ -397,7 +397,7 @@ public class BsSummaryProductCB extends AbstractConditionBean {
         }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (商品)PRODUCT by my PRODUCT_ID, named 'product'. <br>
+         * PRODUCT by my PRODUCT_ID, named 'product'. <br>
          * test of virtual FK of referrer-as-one
          * @return The instance for specification for relation table to specify. (NotNull)
          */
@@ -419,7 +419,7 @@ public class BsSummaryProductCB extends AbstractConditionBean {
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
          * {select max(FOO) from PURCHASE where ...) as FOO_MAX} <br>
-         * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
+         * PURCHASE by PRODUCT_ID, named 'purchaseList'.
          * <pre>
          * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(purchaseCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
          *     purchaseCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>

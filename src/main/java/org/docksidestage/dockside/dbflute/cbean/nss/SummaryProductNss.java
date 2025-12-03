@@ -20,7 +20,7 @@ public class SummaryProductNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
-     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
+     * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
      * test of virtual FK of many-to-one
      */
     public void withProductStatus() {
@@ -28,7 +28,7 @@ public class SummaryProductNss {
     }
     /**
      * With nested relation columns to select clause. <br>
-     * (商品)PRODUCT by my PRODUCT_ID, named 'product'. <br>
+     * PRODUCT by my PRODUCT_ID, named 'product'. <br>
      * test of virtual FK of referrer-as-one
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */

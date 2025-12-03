@@ -95,14 +95,14 @@ public class BsWithdrawalReasonCQ extends AbstractBsWithdrawalReasonCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
+     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
      * @return this. (NotNull)
      */
     public BsWithdrawalReasonCQ addOrderBy_WithdrawalReasonCode_Asc() { regOBA("WITHDRAWAL_REASON_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
+     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
      * @return this. (NotNull)
      */
     public BsWithdrawalReasonCQ addOrderBy_WithdrawalReasonCode_Desc() { regOBD("WITHDRAWAL_REASON_CODE"); return this; }
@@ -115,14 +115,14 @@ public class BsWithdrawalReasonCQ extends AbstractBsWithdrawalReasonCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
      * @return this. (NotNull)
      */
     public BsWithdrawalReasonCQ addOrderBy_WithdrawalReasonText_Asc() { regOBA("WITHDRAWAL_REASON_TEXT"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
      * @return this. (NotNull)
      */
     public BsWithdrawalReasonCQ addOrderBy_WithdrawalReasonText_Desc() { regOBD("WITHDRAWAL_REASON_TEXT"); return this; }

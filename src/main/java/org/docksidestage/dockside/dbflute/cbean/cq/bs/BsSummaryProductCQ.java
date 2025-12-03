@@ -241,7 +241,7 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * (商品ステータス)PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
+     * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'. <br>
      * test of virtual FK of many-to-one
      * @return The instance of condition-query. (NotNull)
      */
@@ -262,7 +262,7 @@ public class BsSummaryProductCQ extends AbstractBsSummaryProductCQ {
 
     /**
      * Get the condition-query for relation table. <br>
-     * (商品)PRODUCT by my PRODUCT_ID, named 'product'. <br>
+     * PRODUCT by my PRODUCT_ID, named 'product'. <br>
      * test of virtual FK of referrer-as-one
      * @return The instance of condition-query. (NotNull)
      */

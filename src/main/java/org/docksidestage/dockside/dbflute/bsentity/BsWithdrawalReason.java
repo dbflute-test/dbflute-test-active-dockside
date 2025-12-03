@@ -11,8 +11,8 @@ import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of (退会理由)WITHDRAWAL_REASON as TABLE. <br>
- * 会員に選ばせる定型的な退会理由のマスタ。そういえば、これ表示順カラムがないですねぇ...
+ * The entity of WITHDRAWAL_REASON as TABLE. <br>
+ * 退会理由: 会員に選ばせる定型的な退会理由のマスタ。そういえば、これ表示順カラムがないですねぇ...
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsWithdrawalReason extends AbstractEntity implements DomainEntity {
@@ -26,10 +26,10 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} */
+    /** WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} */
     protected String _withdrawalReasonCode;
 
-    /** (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} */
+    /** WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} */
     protected String _withdrawalReasonText;
 
     /** DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} */
@@ -73,7 +73,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     //                                                             =======================
     /**
      * Get the value of withdrawalReasonCode as the classification of WithdrawalReason. <br>
-     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
      * reason for member withdrawal
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
@@ -84,7 +84,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
 
     /**
      * Set the value of withdrawalReasonCode as the classification of WithdrawalReason. <br>
-     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
      * reason for member withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
@@ -180,11 +180,11 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    /** (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'. */
+    /** MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'. */
     protected List<MemberWithdrawal> _memberWithdrawalList;
 
     /**
-     * [get] (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * [get] MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * @return The entity list of referrer property 'memberWithdrawalList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberWithdrawal> getMemberWithdrawalList() {
@@ -193,7 +193,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * [set] MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * @param memberWithdrawalList The entity list of referrer property 'memberWithdrawalList'. (NullAllowed)
      */
     public void setMemberWithdrawalList(List<MemberWithdrawal> memberWithdrawalList) {
@@ -267,7 +267,8 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * [get] WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * 退会理由コード:
      * @return The value of the column 'WITHDRAWAL_REASON_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getWithdrawalReasonCode() {
@@ -276,7 +277,8 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * [set] WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * 退会理由コード:
      * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (basically NotNull if update: for the constraint)
      */
     protected void setWithdrawalReasonCode(String withdrawalReasonCode) {
@@ -286,8 +288,8 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     /**
-     * [get] (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
-     * 退会理由の内容。<br>
+     * [get] WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
+     * 退会理由テキスト: 退会理由の内容。<br>
      * テキスト形式なので目いっぱい書けるが、そうするとUI側できれいに見せるのが大変でしょうね。
      * @return The value of the column 'WITHDRAWAL_REASON_TEXT'. (basically NotNull if selected: for the constraint)
      */
@@ -297,8 +299,8 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
-     * 退会理由の内容。<br>
+     * [set] WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
+     * 退会理由テキスト: 退会理由の内容。<br>
      * テキスト形式なので目いっぱい書けるが、そうするとUI側できれいに見せるのが大変でしょうね。
      * @param withdrawalReasonText The value of the column 'WITHDRAWAL_REASON_TEXT'. (basically NotNull if update: for the constraint)
      */

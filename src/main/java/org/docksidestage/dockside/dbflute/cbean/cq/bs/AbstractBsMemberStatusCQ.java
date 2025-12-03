@@ -45,7 +45,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     //                                                                               =====
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
+     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
      * @param memberStatusCode The value of memberStatusCode as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setMemberStatusCode_Equal(String memberStatusCode) {
@@ -54,7 +54,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). As MemberStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
+     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
      * status of member from entry to withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
@@ -92,7 +92,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
+     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
      * @param memberStatusCode The value of memberStatusCode as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setMemberStatusCode_NotEqual(String memberStatusCode) {
@@ -101,7 +101,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). As MemberStatus. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
+     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
      * status of member from entry to withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
@@ -139,7 +139,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
+     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
      * @param memberStatusCodeList The collection of memberStatusCode as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setMemberStatusCode_InScope(Collection<String> memberStatusCodeList) {
@@ -148,7 +148,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in ('a', 'b')}. As MemberStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
+     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
      * status of member from entry to withdrawal
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
@@ -182,7 +182,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
+     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
      * @param memberStatusCodeList The collection of memberStatusCode as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setMemberStatusCode_NotInScope(Collection<String> memberStatusCodeList) {
@@ -191,7 +191,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in ('a', 'b')}. As MemberStatus. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
+     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
      * status of member from entry to withdrawal
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
@@ -206,7 +206,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * Set up ExistsReferrer (correlated sub-query). <br>
      * {exists (select MEMBER_STATUS_CODE from MEMBER where ...)} <br>
-     * (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberAsOne'.
+     * MEMBER by MEMBER_STATUS_CODE, named 'memberAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">existsMember</span>(memberCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     memberCB.query().set...
@@ -225,7 +225,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * Set up ExistsReferrer (correlated sub-query). <br>
      * {exists (select LOGIN_MEMBER_STATUS_CODE from MEMBER_LOGIN where ...)} <br>
-     * (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginAsOne'.
+     * MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">existsMemberLogin</span>(loginCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     loginCB.query().set...
@@ -244,7 +244,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * Set up NotExistsReferrer (correlated sub-query). <br>
      * {not exists (select MEMBER_STATUS_CODE from MEMBER where ...)} <br>
-     * (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberAsOne'.
+     * MEMBER by MEMBER_STATUS_CODE, named 'memberAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">notExistsMember</span>(memberCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     memberCB.query().set...
@@ -263,7 +263,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * Set up NotExistsReferrer (correlated sub-query). <br>
      * {not exists (select LOGIN_MEMBER_STATUS_CODE from MEMBER_LOGIN where ...)} <br>
-     * (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginAsOne'.
+     * MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">notExistsMemberLogin</span>(loginCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     loginCB.query().set...
@@ -298,7 +298,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
      * {FOO &lt;= (select max(BAR) from MEMBER where ...)} <br>
-     * (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberAsOne'.
+     * MEMBER by MEMBER_STATUS_CODE, named 'memberAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">derivedMember()</span>.<span style="color: #CC4747">max</span>(memberCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     memberCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
@@ -325,7 +325,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
      * {FOO &lt;= (select max(BAR) from MEMBER_LOGIN where ...)} <br>
-     * (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginAsOne'.
+     * MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">derivedMemberLogin()</span>.<span style="color: #CC4747">max</span>(loginCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     loginCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
@@ -351,13 +351,13 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
+     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
      */
     public void setMemberStatusCode_IsNull() { regMemberStatusCode(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
+     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
      */
     public void setMemberStatusCode_IsNotNull() { regMemberStatusCode(CK_ISNN, DOBJ); }
 
@@ -366,7 +366,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @param memberStatusName The value of memberStatusName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_Equal(String memberStatusName) {
@@ -379,7 +379,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @param memberStatusName The value of memberStatusName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_NotEqual(String memberStatusName) {
@@ -392,7 +392,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @param memberStatusName The value of memberStatusName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_GreaterThan(String memberStatusName) {
@@ -401,7 +401,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @param memberStatusName The value of memberStatusName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_LessThan(String memberStatusName) {
@@ -410,7 +410,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @param memberStatusName The value of memberStatusName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_GreaterEqual(String memberStatusName) {
@@ -419,7 +419,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @param memberStatusName The value of memberStatusName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_LessEqual(String memberStatusName) {
@@ -428,7 +428,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @param memberStatusNameList The collection of memberStatusName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_InScope(Collection<String> memberStatusNameList) {
@@ -441,7 +441,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @param memberStatusNameList The collection of memberStatusName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberStatusName_NotInScope(Collection<String> memberStatusNameList) {
@@ -454,7 +454,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
+     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setMemberStatusName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param memberStatusName The value of memberStatusName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
@@ -465,7 +465,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
+     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setMemberStatusName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param memberStatusName The value of memberStatusName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
@@ -477,7 +477,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @param memberStatusName The value of memberStatusName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
@@ -488,7 +488,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @param memberStatusName The value of memberStatusName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
@@ -501,7 +501,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+     * DESCRIPTION: {NotNull, VARCHAR(200)}
      * @param description The value of description as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_Equal(String description) {
@@ -514,7 +514,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+     * DESCRIPTION: {NotNull, VARCHAR(200)}
      * @param description The value of description as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_NotEqual(String description) {
@@ -527,7 +527,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+     * DESCRIPTION: {NotNull, VARCHAR(200)}
      * @param description The value of description as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_GreaterThan(String description) {
@@ -536,7 +536,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+     * DESCRIPTION: {NotNull, VARCHAR(200)}
      * @param description The value of description as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_LessThan(String description) {
@@ -545,7 +545,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+     * DESCRIPTION: {NotNull, VARCHAR(200)}
      * @param description The value of description as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_GreaterEqual(String description) {
@@ -554,7 +554,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+     * DESCRIPTION: {NotNull, VARCHAR(200)}
      * @param description The value of description as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_LessEqual(String description) {
@@ -563,7 +563,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+     * DESCRIPTION: {NotNull, VARCHAR(200)}
      * @param descriptionList The collection of description as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_InScope(Collection<String> descriptionList) {
@@ -576,7 +576,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+     * DESCRIPTION: {NotNull, VARCHAR(200)}
      * @param descriptionList The collection of description as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDescription_NotInScope(Collection<String> descriptionList) {
@@ -589,7 +589,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br>
+     * DESCRIPTION: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setDescription_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param description The value of description as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
@@ -600,7 +600,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br>
+     * DESCRIPTION: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setDescription_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param description The value of description as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
@@ -612,7 +612,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+     * DESCRIPTION: {NotNull, VARCHAR(200)}
      * @param description The value of description as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
@@ -623,7 +623,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
+     * DESCRIPTION: {NotNull, VARCHAR(200)}
      * @param description The value of description as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
@@ -636,7 +636,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @param displayOrder The value of displayOrder as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_Equal(Integer displayOrder) {
@@ -649,7 +649,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @param displayOrder The value of displayOrder as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_NotEqual(Integer displayOrder) {
@@ -662,7 +662,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @param displayOrder The value of displayOrder as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_GreaterThan(Integer displayOrder) {
@@ -671,7 +671,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @param displayOrder The value of displayOrder as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_LessThan(Integer displayOrder) {
@@ -680,7 +680,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @param displayOrder The value of displayOrder as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_GreaterEqual(Integer displayOrder) {
@@ -689,7 +689,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @param displayOrder The value of displayOrder as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_LessEqual(Integer displayOrder) {
@@ -700,7 +700,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @param minNumber The min number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -713,7 +713,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @param minNumber The min number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -724,7 +724,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @param displayOrderList The collection of displayOrder as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDisplayOrder_InScope(Collection<Integer> displayOrderList) {
@@ -737,7 +737,7 @@ public abstract class AbstractBsMemberStatusCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @param displayOrderList The collection of displayOrder as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDisplayOrder_NotInScope(Collection<Integer> displayOrderList) {

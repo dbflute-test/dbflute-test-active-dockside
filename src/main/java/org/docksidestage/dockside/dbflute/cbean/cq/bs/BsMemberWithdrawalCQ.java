@@ -101,14 +101,14 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason}
+     * WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason}
      * @return this. (NotNull)
      */
     public BsMemberWithdrawalCQ addOrderBy_WithdrawalReasonCode_Asc() { regOBA("WITHDRAWAL_REASON_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason}
+     * WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason}
      * @return this. (NotNull)
      */
     public BsMemberWithdrawalCQ addOrderBy_WithdrawalReasonCode_Desc() { regOBD("WITHDRAWAL_REASON_CODE"); return this; }
@@ -121,14 +121,14 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
+     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
      * @return this. (NotNull)
      */
     public BsMemberWithdrawalCQ addOrderBy_WithdrawalReasonInputText_Asc() { regOBA("WITHDRAWAL_REASON_INPUT_TEXT"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
+     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
      * @return this. (NotNull)
      */
     public BsMemberWithdrawalCQ addOrderBy_WithdrawalReasonInputText_Desc() { regOBD("WITHDRAWAL_REASON_INPUT_TEXT"); return this; }
@@ -141,14 +141,14 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (退会日時)WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(26, 6)}
+     * WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsMemberWithdrawalCQ addOrderBy_WithdrawalDatetime_Asc() { regOBA("WITHDRAWAL_DATETIME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (退会日時)WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(26, 6)}
+     * WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsMemberWithdrawalCQ addOrderBy_WithdrawalDatetime_Desc() { regOBD("WITHDRAWAL_DATETIME"); return this; }
@@ -287,7 +287,7 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * MEMBER by my MEMBER_ID, named 'member'.
      * @return The instance of condition-query. (NotNull)
      */
     public MemberCQ queryMember() {
@@ -307,7 +307,7 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
 
     /**
      * Get the condition-query for relation table. <br>
-     * (退会理由)WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
+     * WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
      * @return The instance of condition-query. (NotNull)
      */
     public WithdrawalReasonCQ queryWithdrawalReason() {

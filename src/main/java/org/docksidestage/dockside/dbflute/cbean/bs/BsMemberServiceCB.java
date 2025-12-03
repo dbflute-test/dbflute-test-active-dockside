@@ -85,7 +85,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param memberServiceId (会員サービスID): PK, ID, NotNull, INTEGER(10). (NotNull)
+     * @param memberServiceId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return this. (NotNull)
      */
     public MemberServiceCB acceptPK(Integer memberServiceId) {
@@ -97,7 +97,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
 
     /**
      * Accept the query condition of unique key as equal.
-     * @param memberId (会員ID): UQ, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param memberId : UQ, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @return this. (NotNull)
      */
     public MemberServiceCB acceptUniqueOf(Integer memberId) {
@@ -261,7 +261,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
     }
     /**
      * Set up relation columns to select clause. <br>
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * MEMBER by my MEMBER_ID, named 'member'.
      * <pre>
      * <span style="color: #0000C0">memberServiceBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Member()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -285,7 +285,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
 
     /**
      * Set up relation columns to select clause. <br>
-     * (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
+     * SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
      * <pre>
      * <span style="color: #0000C0">memberServiceBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_ServiceRank()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
@@ -351,22 +351,22 @@ public class BsMemberServiceCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)}
+         * MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMemberServiceId() { return doColumn("MEMBER_SERVICE_ID"); }
         /**
-         * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+         * MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMemberId() { return doColumn("MEMBER_ID"); }
         /**
-         * (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)}
+         * SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnServicePointCount() { return doColumn("SERVICE_POINT_COUNT"); }
         /**
-         * (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank}
+         * SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnServiceRankCode() { return doColumn("SERVICE_RANK_CODE"); }
@@ -413,7 +413,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
         protected String getTableDbName() { return "MEMBER_SERVICE"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (会員)MEMBER by my MEMBER_ID, named 'member'.
+         * MEMBER by my MEMBER_ID, named 'member'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public MemberCB.HpSpecification specifyMember() {
@@ -433,7 +433,7 @@ public class BsMemberServiceCB extends AbstractConditionBean {
         }
         /**
          * Prepare to specify functions about relation table. <br>
-         * (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
+         * SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
         public ServiceRankCB.HpSpecification specifyServiceRank() {

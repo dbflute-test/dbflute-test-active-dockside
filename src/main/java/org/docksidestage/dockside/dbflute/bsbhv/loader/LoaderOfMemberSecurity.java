@@ -7,7 +7,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The referrer loader of (会員セキュリティ情報)MEMBER_SECURITY as TABLE.
+ * The referrer loader of MEMBER_SECURITY as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public class LoaderOfMemberSecurity {

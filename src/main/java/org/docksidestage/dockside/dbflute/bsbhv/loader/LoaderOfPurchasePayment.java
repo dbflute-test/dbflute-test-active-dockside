@@ -7,7 +7,7 @@ import org.docksidestage.dockside.dbflute.exbhv.*;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The referrer loader of (購入支払)PURCHASE_PAYMENT as TABLE.
+ * The referrer loader of PURCHASE_PAYMENT as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public class LoaderOfPurchasePayment {

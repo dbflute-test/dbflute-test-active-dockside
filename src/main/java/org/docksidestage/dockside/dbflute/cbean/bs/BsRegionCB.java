@@ -85,7 +85,7 @@ public class BsRegionCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param regionId (地域ID): PK, NotNull, INTEGER(10), classification=Region. (NotNull)
+     * @param regionId : PK, NotNull, INTEGER(10), classification=Region. (NotNull)
      * @return this. (NotNull)
      */
     public RegionCB acceptPK(CDef.Region regionId) {
@@ -288,12 +288,12 @@ public class BsRegionCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
+         * REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegionId() { return doColumn("REGION_ID"); }
         /**
-         * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
+         * REGION_NAME: {NotNull, VARCHAR(50)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegionName() { return doColumn("REGION_NAME"); }
@@ -308,7 +308,7 @@ public class BsRegionCB extends AbstractConditionBean {
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
          * {select max(FOO) from MEMBER_ADDRESS where ...) as FOO_MAX} <br>
-         * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+         * MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
          * <pre>
          * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(addressCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
          *     addressCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>

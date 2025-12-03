@@ -45,7 +45,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
     //                                                                               =====
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      * @param memberAddressId The value of memberAddressId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberAddressId_Equal(Integer memberAddressId) {
@@ -58,7 +58,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      * @param memberAddressId The value of memberAddressId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberAddressId_NotEqual(Integer memberAddressId) {
@@ -71,7 +71,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      * @param memberAddressId The value of memberAddressId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberAddressId_GreaterThan(Integer memberAddressId) {
@@ -80,7 +80,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      * @param memberAddressId The value of memberAddressId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberAddressId_LessThan(Integer memberAddressId) {
@@ -89,7 +89,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      * @param memberAddressId The value of memberAddressId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberAddressId_GreaterEqual(Integer memberAddressId) {
@@ -98,7 +98,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      * @param memberAddressId The value of memberAddressId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberAddressId_LessEqual(Integer memberAddressId) {
@@ -109,7 +109,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      * @param minNumber The min number of memberAddressId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of memberAddressId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -122,7 +122,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      * @param minNumber The min number of memberAddressId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of memberAddressId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -133,7 +133,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      * @param memberAddressIdList The collection of memberAddressId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberAddressId_InScope(Collection<Integer> memberAddressIdList) {
@@ -146,7 +146,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      * @param memberAddressIdList The collection of memberAddressId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberAddressId_NotInScope(Collection<Integer> memberAddressIdList) {
@@ -159,13 +159,13 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      */
     public void setMemberAddressId_IsNull() { regMemberAddressId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      */
     public void setMemberAddressId_IsNotNull() { regMemberAddressId(CK_ISNN, DOBJ); }
 
@@ -174,7 +174,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberId The value of memberId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberId_Equal(Integer memberId) {
@@ -187,7 +187,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberId The value of memberId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberId_NotEqual(Integer memberId) {
@@ -200,7 +200,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberId The value of memberId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberId_GreaterThan(Integer memberId) {
@@ -209,7 +209,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberId The value of memberId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberId_LessThan(Integer memberId) {
@@ -218,7 +218,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberId The value of memberId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberId_GreaterEqual(Integer memberId) {
@@ -227,7 +227,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberId The value of memberId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberId_LessEqual(Integer memberId) {
@@ -238,7 +238,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param minNumber The min number of memberId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of memberId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -251,7 +251,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param minNumber The min number of memberId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of memberId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -262,7 +262,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberIdList The collection of memberId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberId_InScope(Collection<Integer> memberIdList) {
@@ -275,7 +275,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @param memberIdList The collection of memberId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberId_NotInScope(Collection<Integer> memberIdList) {
@@ -291,7 +291,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
+     * VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
      * @param validBeginDate The value of validBeginDate as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setValidBeginDate_Equal(java.time.LocalDate validBeginDate) {
@@ -300,7 +300,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
+     * VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
      * @param validBeginDate The value of validBeginDate as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setValidBeginDate_GreaterThan(java.time.LocalDate validBeginDate) {
@@ -309,7 +309,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
+     * VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
      * @param validBeginDate The value of validBeginDate as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setValidBeginDate_LessThan(java.time.LocalDate validBeginDate) {
@@ -318,7 +318,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
+     * VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
      * @param validBeginDate The value of validBeginDate as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setValidBeginDate_GreaterEqual(java.time.LocalDate validBeginDate) {
@@ -327,7 +327,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
+     * VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
      * @param validBeginDate The value of validBeginDate as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setValidBeginDate_LessEqual(java.time.LocalDate validBeginDate) {
@@ -337,7 +337,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
+     * VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
      * <pre>e.g. setValidBeginDate_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of validBeginDate. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of validBeginDate. (basically NotNull: if op.allowOneSide(), null allowed)
@@ -350,7 +350,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
+     * VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
      * <pre>e.g. setValidBeginDate_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of validBeginDate. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of validBeginDate. (basically NotNull: if op.allowOneSide(), null allowed)
@@ -366,7 +366,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効終了日)VALID_END_DATE: {NotNull, DATE(10)}
+     * VALID_END_DATE: {NotNull, DATE(10)}
      * @param validEndDate The value of validEndDate as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setValidEndDate_Equal(java.time.LocalDate validEndDate) {
@@ -375,7 +375,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効終了日)VALID_END_DATE: {NotNull, DATE(10)}
+     * VALID_END_DATE: {NotNull, DATE(10)}
      * @param validEndDate The value of validEndDate as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setValidEndDate_GreaterThan(java.time.LocalDate validEndDate) {
@@ -384,7 +384,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効終了日)VALID_END_DATE: {NotNull, DATE(10)}
+     * VALID_END_DATE: {NotNull, DATE(10)}
      * @param validEndDate The value of validEndDate as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setValidEndDate_LessThan(java.time.LocalDate validEndDate) {
@@ -393,7 +393,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効終了日)VALID_END_DATE: {NotNull, DATE(10)}
+     * VALID_END_DATE: {NotNull, DATE(10)}
      * @param validEndDate The value of validEndDate as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setValidEndDate_GreaterEqual(java.time.LocalDate validEndDate) {
@@ -402,7 +402,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効終了日)VALID_END_DATE: {NotNull, DATE(10)}
+     * VALID_END_DATE: {NotNull, DATE(10)}
      * @param validEndDate The value of validEndDate as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setValidEndDate_LessEqual(java.time.LocalDate validEndDate) {
@@ -412,7 +412,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効終了日)VALID_END_DATE: {NotNull, DATE(10)}
+     * VALID_END_DATE: {NotNull, DATE(10)}
      * <pre>e.g. setValidEndDate_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of validEndDate. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of validEndDate. (basically NotNull: if op.allowOneSide(), null allowed)
@@ -425,7 +425,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (有効終了日)VALID_END_DATE: {NotNull, DATE(10)}
+     * VALID_END_DATE: {NotNull, DATE(10)}
      * <pre>e.g. setValidEndDate_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of validEndDate. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of validEndDate. (basically NotNull: if op.allowOneSide(), null allowed)
@@ -441,7 +441,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
+     * ADDRESS: {NotNull, VARCHAR(200)}
      * @param address The value of address as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setAddress_Equal(String address) {
@@ -454,7 +454,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
+     * ADDRESS: {NotNull, VARCHAR(200)}
      * @param address The value of address as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setAddress_NotEqual(String address) {
@@ -467,7 +467,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
+     * ADDRESS: {NotNull, VARCHAR(200)}
      * @param address The value of address as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setAddress_GreaterThan(String address) {
@@ -476,7 +476,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
+     * ADDRESS: {NotNull, VARCHAR(200)}
      * @param address The value of address as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setAddress_LessThan(String address) {
@@ -485,7 +485,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
+     * ADDRESS: {NotNull, VARCHAR(200)}
      * @param address The value of address as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setAddress_GreaterEqual(String address) {
@@ -494,7 +494,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
+     * ADDRESS: {NotNull, VARCHAR(200)}
      * @param address The value of address as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setAddress_LessEqual(String address) {
@@ -503,7 +503,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
+     * ADDRESS: {NotNull, VARCHAR(200)}
      * @param addressList The collection of address as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setAddress_InScope(Collection<String> addressList) {
@@ -516,7 +516,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
+     * ADDRESS: {NotNull, VARCHAR(200)}
      * @param addressList The collection of address as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setAddress_NotInScope(Collection<String> addressList) {
@@ -529,7 +529,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)} <br>
+     * ADDRESS: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setAddress_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param address The value of address as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
@@ -540,7 +540,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)} <br>
+     * ADDRESS: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setAddress_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param address The value of address as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
@@ -552,7 +552,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
+     * ADDRESS: {NotNull, VARCHAR(200)}
      * @param address The value of address as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
@@ -563,7 +563,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
+     * ADDRESS: {NotNull, VARCHAR(200)}
      * @param address The value of address as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
@@ -576,7 +576,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region}
+     * REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region}
      * @param regionId The value of regionId as equal. (basically NotNull: error as default, or no condition as option)
      */
     protected void setRegionId_Equal(Integer regionId) {
@@ -585,7 +585,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). As Region. And NullIgnored, OnlyOnceRegistered. <br>
-     * (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br>
+     * REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br>
      * mainly region of member address
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
@@ -631,7 +631,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region}
+     * REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region}
      * @param regionId The value of regionId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     protected void setRegionId_NotEqual(Integer regionId) {
@@ -640,7 +640,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). As Region. And NullIgnored, OnlyOnceRegistered. <br>
-     * (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br>
+     * REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br>
      * mainly region of member address
      * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
      */
@@ -686,7 +686,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region}
+     * REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region}
      * @param regionIdList The collection of regionId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setRegionId_InScope(Collection<Integer> regionIdList) {
@@ -695,7 +695,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. As Region. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br>
+     * REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br>
      * mainly region of member address
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
@@ -709,7 +709,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region}
+     * REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region}
      * @param regionIdList The collection of regionId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     protected void setRegionId_NotInScope(Collection<Integer> regionIdList) {
@@ -718,7 +718,7 @@ public abstract class AbstractBsMemberAddressCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. As Region. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br>
+     * REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region} <br>
      * mainly region of member address
      * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
      */

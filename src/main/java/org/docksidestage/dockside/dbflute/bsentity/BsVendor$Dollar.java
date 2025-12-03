@@ -10,7 +10,9 @@ import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of VENDOR_$_DOLLAR as TABLE.
+ * The entity of VENDOR_$_DOLLAR as TABLE. <br>
+ * shalias:{}<br>
+ * xxxxxxxxxxxxxxxxx
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsVendor$Dollar extends AbstractEntity implements DomainEntity {

@@ -37,7 +37,7 @@ public class LoaderOfSummaryProduct {
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br>
-     * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
+     * PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
      * <span style="color: #0000C0">summaryProductBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">summaryProductList</span>, <span style="color: #553000">productLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">productLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {

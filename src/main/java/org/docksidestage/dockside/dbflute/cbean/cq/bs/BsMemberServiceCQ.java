@@ -81,14 +81,14 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsMemberServiceCQ addOrderBy_MemberServiceId_Asc() { regOBA("MEMBER_SERVICE_ID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)}
+     * MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsMemberServiceCQ addOrderBy_MemberServiceId_Desc() { regOBD("MEMBER_SERVICE_ID"); return this; }
@@ -101,14 +101,14 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @return this. (NotNull)
      */
     public BsMemberServiceCQ addOrderBy_MemberId_Asc() { regOBA("MEMBER_ID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @return this. (NotNull)
      */
     public BsMemberServiceCQ addOrderBy_MemberId_Desc() { regOBD("MEMBER_ID"); return this; }
@@ -121,14 +121,14 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)}
+     * SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsMemberServiceCQ addOrderBy_ServicePointCount_Asc() { regOBA("SERVICE_POINT_COUNT"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)}
+     * SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsMemberServiceCQ addOrderBy_ServicePointCount_Desc() { regOBD("SERVICE_POINT_COUNT"); return this; }
@@ -141,14 +141,14 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank}
+     * SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank}
      * @return this. (NotNull)
      */
     public BsMemberServiceCQ addOrderBy_ServiceRankCode_Asc() { regOBA("SERVICE_RANK_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank}
+     * SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank}
      * @return this. (NotNull)
      */
     public BsMemberServiceCQ addOrderBy_ServiceRankCode_Desc() { regOBD("SERVICE_RANK_CODE"); return this; }
@@ -307,7 +307,7 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * (会員)MEMBER by my MEMBER_ID, named 'member'.
+     * MEMBER by my MEMBER_ID, named 'member'.
      * @return The instance of condition-query. (NotNull)
      */
     public MemberCQ queryMember() {
@@ -327,7 +327,7 @@ public class BsMemberServiceCQ extends AbstractBsMemberServiceCQ {
 
     /**
      * Get the condition-query for relation table. <br>
-     * (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
+     * SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
      * @return The instance of condition-query. (NotNull)
      */
     public ServiceRankCQ queryServiceRank() {

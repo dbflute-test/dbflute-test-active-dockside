@@ -109,14 +109,14 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
+     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_ProductStatusCode_Asc() { regOBA("PRODUCT_STATUS_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
+     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_ProductStatusCode_Desc() { regOBD("PRODUCT_STATUS_CODE"); return this; }
@@ -129,14 +129,14 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_ProductStatusName_Asc() { regOBA("PRODUCT_STATUS_NAME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_ProductStatusName_Desc() { regOBD("PRODUCT_STATUS_NAME"); return this; }
@@ -149,14 +149,14 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_DisplayOrder_Asc() { regOBA("DISPLAY_ORDER"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_DisplayOrder_Desc() { regOBD("DISPLAY_ORDER"); return this; }

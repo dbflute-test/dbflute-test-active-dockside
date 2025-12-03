@@ -20,14 +20,14 @@ public class MemberNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
-     * (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
+     * MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
      */
     public void withMemberStatus() {
         _query.xdoNss(() -> _query.queryMemberStatus());
     }
     /**
      * With nested relation columns to select clause. <br>
-     * (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br>
+     * MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br>
      * Member's address at the target date.
      * @param targetDate The bind parameter of fixed condition for targetDate. (NotNull)
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
@@ -38,7 +38,7 @@ public class MemberNss {
     }
     /**
      * With nested relation columns to select clause. <br>
-     * (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br>
+     * MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br>
      * Member's latest login
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
@@ -48,7 +48,7 @@ public class MemberNss {
     }
     /**
      * With nested relation columns to select clause. <br>
-     * (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
+     * MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberSecurityNss withMemberSecurityAsOne() {
@@ -57,7 +57,7 @@ public class MemberNss {
     }
     /**
      * With nested relation columns to select clause. <br>
-     * (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
+     * MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberServiceNss withMemberServiceAsOne() {
@@ -66,7 +66,7 @@ public class MemberNss {
     }
     /**
      * With nested relation columns to select clause. <br>
-     * (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
+     * MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
     public MemberWithdrawalNss withMemberWithdrawalAsOne() {

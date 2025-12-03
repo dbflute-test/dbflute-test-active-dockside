@@ -22,7 +22,7 @@ import org.docksidestage.dockside.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.dockside.dbflute.cbean.*;
 
 /**
- * The behavior of (購入)PURCHASE as TABLE.
+ * The behavior of PURCHASE as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, PurchaseCB> {
@@ -100,7 +100,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * </pre>
      * @param cbLambda The callback for condition-bean of Purchase. (NotNull)
      * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -139,7 +139,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * Select the entity by the primary-key value.
      * @param purchaseId : PK, ID, NotNull, BIGINT(19). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -166,11 +166,11 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
 
     /**
      * Select the entity by the unique-key value.
-     * @param memberId (会員ID): UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
-     * @param productId (商品ID): +UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT. (NotNull)
-     * @param purchaseDatetime (購入日時): +UQ, IX+, NotNull, TIMESTAMP(26, 6). (NotNull)
+     * @param memberId : UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param productId : +UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT. (NotNull)
+     * @param purchaseDatetime : +UQ, IX+, NotNull, TIMESTAMP(26, 6). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityAlreadyDeletedException When get(), alwaysPresent() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -368,7 +368,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
 
     /**
      * Load referrer of purchasePaymentList by the set-upper of referrer. <br>
-     * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
+     * PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
      * <pre>
      * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">loadPurchasePayment</span>(<span style="color: #553000">purchaseList</span>, <span style="color: #553000">paymentCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">paymentCB</span>.setupSelect...
@@ -399,7 +399,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
 
     /**
      * Load referrer of purchasePaymentList by the set-upper of referrer. <br>
-     * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
+     * PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
      * <pre>
      * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">loadPurchasePayment</span>(<span style="color: #553000">purchase</span>, <span style="color: #553000">paymentCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">paymentCB</span>.setupSelect...

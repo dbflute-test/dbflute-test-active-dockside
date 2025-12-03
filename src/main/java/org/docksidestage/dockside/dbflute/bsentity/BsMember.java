@@ -14,7 +14,7 @@ import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of (会員)MEMBER as TABLE. <br>
+ * The entity of MEMBER as TABLE. <br>
  * 会員のプロフィールやアカウントなどの基本情報を保持する。<br>
  * 基本的に物理削除はなく、退会したらステータスが退会会員になる。<br>
  * ライフサイクルやカテゴリの違う会員情報は、one-to-oneなどの関連テーブルにて。<br>
@@ -33,37 +33,37 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** (会員ID)MEMBER_ID: {PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS} */
+    /** MEMBER_ID: {PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS} */
     protected Integer _memberId;
 
-    /** (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)} */
+    /** MEMBER_NAME: {IX, NotNull, VARCHAR(200)} */
     protected String _memberName;
 
-    /** (会員アカウント)MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)} */
+    /** MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)} */
     protected String _memberAccount;
 
-    /** (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} */
+    /** MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} */
     protected String _memberStatusCode;
 
-    /** (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(26, 6)} */
+    /** FORMALIZED_DATETIME: {IX, TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _formalizedDatetime;
 
-    /** (生年月日)BIRTHDATE: {DATE(10)} */
+    /** BIRTHDATE: {DATE(10)} */
     protected java.time.LocalDate _birthdate;
 
-    /** (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} */
+    /** REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _registerDatetime;
 
-    /** (登録ユーザ)REGISTER_USER: {NotNull, VARCHAR(200)} */
+    /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     protected String _registerUser;
 
-    /** (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} */
+    /** UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _updateDatetime;
 
-    /** (更新ユーザ)UPDATE_USER: {NotNull, VARCHAR(200)} */
+    /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     protected String _updateUser;
 
-    /** (バージョンNO)VERSION_NO: {NotNull, BIGINT(19)} */
+    /** VERSION_NO: {NotNull, BIGINT(19)} */
     protected Long _versionNo;
 
     // ===================================================================================
@@ -91,7 +91,7 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     /**
      * To be unique by the unique column. <br>
      * You can update the entity by the key when entity update (NOT batch update).
-     * @param memberAccount (会員アカウント): UQ, NotNull, VARCHAR(50). (NotNull)
+     * @param memberAccount : UQ, NotNull, VARCHAR(50). (NotNull)
      */
     public void uniqueBy(String memberAccount) {
         __uniqueDrivenProperties.clear();
@@ -104,7 +104,7 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     //                                                             =======================
     /**
      * Get the value of memberStatusCode as the classification of MemberStatus. <br>
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * status of member from entry to withdrawal
      * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
      * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
@@ -115,7 +115,7 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
 
     /**
      * Set the value of memberStatusCode as the classification of MemberStatus. <br>
-     * (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * status of member from entry to withdrawal
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
      */
@@ -209,11 +209,11 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'. */
+    /** MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'. */
     protected OptionalEntity<MemberStatus> _memberStatus;
 
     /**
-     * [get] (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'. <br>
+     * [get] MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'memberStatus'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -223,18 +223,18 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員ステータス)MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
+     * [set] MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
      * @param memberStatus The entity of foreign property 'memberStatus'. (NullAllowed)
      */
     public void setMemberStatus(OptionalEntity<MemberStatus> memberStatus) {
         _memberStatus = memberStatus;
     }
 
-    /** (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. */
+    /** MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. */
     protected OptionalEntity<MemberAddress> _memberAddressAsValid;
 
     /**
-     * [get] (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br>
+     * [get] MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br>
      * Member's address at the target date. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'memberAddressAsValid'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
@@ -245,7 +245,7 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員住所情報)MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br>
+     * [set] MEMBER_ADDRESS by my MEMBER_ID, named 'memberAddressAsValid'. <br>
      * Member's address at the target date.
      * @param memberAddressAsValid The entity of foreign property 'memberAddressAsValid'. (NullAllowed)
      */
@@ -253,11 +253,11 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
         _memberAddressAsValid = memberAddressAsValid;
     }
 
-    /** (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. */
+    /** MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. */
     protected OptionalEntity<MemberLogin> _memberLoginAsLatest;
 
     /**
-     * [get] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br>
+     * [get] MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br>
      * Member's latest login <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'memberLoginAsLatest'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
@@ -268,7 +268,7 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員ログイン)MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br>
+     * [set] MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'. <br>
      * Member's latest login
      * @param memberLoginAsLatest The entity of foreign property 'memberLoginAsLatest'. (NullAllowed)
      */
@@ -276,11 +276,11 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
         _memberLoginAsLatest = memberLoginAsLatest;
     }
 
-    /** (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'. */
+    /** MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'. */
     protected OptionalEntity<MemberSecurity> _memberSecurityAsOne;
 
     /**
-     * [get] (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
+     * [get] MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return the entity of foreign property(referrer-as-one) 'memberSecurityAsOne'. (NotNull, EmptyAllowed: when e.g. no data, no setupSelect)
      */
@@ -290,18 +290,18 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員セキュリティ情報)MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
+     * [set] MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
      * @param memberSecurityAsOne The entity of foreign property(referrer-as-one) 'memberSecurityAsOne'. (NullAllowed)
      */
     public void setMemberSecurityAsOne(OptionalEntity<MemberSecurity> memberSecurityAsOne) {
         _memberSecurityAsOne = memberSecurityAsOne;
     }
 
-    /** (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'. */
+    /** MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'. */
     protected OptionalEntity<MemberService> _memberServiceAsOne;
 
     /**
-     * [get] (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
+     * [get] MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return the entity of foreign property(referrer-as-one) 'memberServiceAsOne'. (NotNull, EmptyAllowed: when e.g. no data, no setupSelect)
      */
@@ -311,18 +311,18 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員サービス)MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
+     * [set] MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
      * @param memberServiceAsOne The entity of foreign property(referrer-as-one) 'memberServiceAsOne'. (NullAllowed)
      */
     public void setMemberServiceAsOne(OptionalEntity<MemberService> memberServiceAsOne) {
         _memberServiceAsOne = memberServiceAsOne;
     }
 
-    /** (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'. */
+    /** MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'. */
     protected OptionalEntity<MemberWithdrawal> _memberWithdrawalAsOne;
 
     /**
-     * [get] (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
+     * [get] MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return the entity of foreign property(referrer-as-one) 'memberWithdrawalAsOne'. (NotNull, EmptyAllowed: when e.g. no data, no setupSelect)
      */
@@ -332,7 +332,7 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員退会情報)MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
+     * [set] MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
      * @param memberWithdrawalAsOne The entity of foreign property(referrer-as-one) 'memberWithdrawalAsOne'. (NullAllowed)
      */
     public void setMemberWithdrawalAsOne(OptionalEntity<MemberWithdrawal> memberWithdrawalAsOne) {
@@ -342,11 +342,11 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    /** (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'. */
+    /** MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'. */
     protected List<MemberAddress> _memberAddressList;
 
     /**
-     * [get] (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
+     * [get] MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
      * @return The entity list of referrer property 'memberAddressList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberAddress> getMemberAddressList() {
@@ -355,18 +355,18 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
+     * [set] MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
      * @param memberAddressList The entity list of referrer property 'memberAddressList'. (NullAllowed)
      */
     public void setMemberAddressList(List<MemberAddress> memberAddressList) {
         _memberAddressList = memberAddressList;
     }
 
-    /** (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'. */
+    /** MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'. */
     protected List<MemberFollowing> _memberFollowingByMyMemberIdList;
 
     /**
-     * [get] (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
+     * [get] MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
      * @return The entity list of referrer property 'memberFollowingByMyMemberIdList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberFollowing> getMemberFollowingByMyMemberIdList() {
@@ -375,18 +375,18 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
+     * [set] MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
      * @param memberFollowingByMyMemberIdList The entity list of referrer property 'memberFollowingByMyMemberIdList'. (NullAllowed)
      */
     public void setMemberFollowingByMyMemberIdList(List<MemberFollowing> memberFollowingByMyMemberIdList) {
         _memberFollowingByMyMemberIdList = memberFollowingByMyMemberIdList;
     }
 
-    /** (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'. */
+    /** MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'. */
     protected List<MemberFollowing> _memberFollowingByYourMemberIdList;
 
     /**
-     * [get] (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
+     * [get] MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
      * @return The entity list of referrer property 'memberFollowingByYourMemberIdList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberFollowing> getMemberFollowingByYourMemberIdList() {
@@ -395,18 +395,18 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
+     * [set] MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
      * @param memberFollowingByYourMemberIdList The entity list of referrer property 'memberFollowingByYourMemberIdList'. (NullAllowed)
      */
     public void setMemberFollowingByYourMemberIdList(List<MemberFollowing> memberFollowingByYourMemberIdList) {
         _memberFollowingByYourMemberIdList = memberFollowingByYourMemberIdList;
     }
 
-    /** (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'. */
+    /** MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'. */
     protected List<MemberLogin> _memberLoginList;
 
     /**
-     * [get] (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
+     * [get] MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
      * @return The entity list of referrer property 'memberLoginList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberLogin> getMemberLoginList() {
@@ -415,18 +415,18 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
+     * [set] MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
      * @param memberLoginList The entity list of referrer property 'memberLoginList'. (NullAllowed)
      */
     public void setMemberLoginList(List<MemberLogin> memberLoginList) {
         _memberLoginList = memberLoginList;
     }
 
-    /** (購入)PURCHASE by MEMBER_ID, named 'purchaseList'. */
+    /** PURCHASE by MEMBER_ID, named 'purchaseList'. */
     protected List<Purchase> _purchaseList;
 
     /**
-     * [get] (購入)PURCHASE by MEMBER_ID, named 'purchaseList'.
+     * [get] PURCHASE by MEMBER_ID, named 'purchaseList'.
      * @return The entity list of referrer property 'purchaseList'. (NotNull: even if no loading, returns empty list)
      */
     public List<Purchase> getPurchaseList() {
@@ -435,7 +435,7 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (購入)PURCHASE by MEMBER_ID, named 'purchaseList'.
+     * [set] PURCHASE by MEMBER_ID, named 'purchaseList'.
      * @param purchaseList The entity list of referrer property 'purchaseList'. (NullAllowed)
      */
     public void setPurchaseList(List<Purchase> purchaseList) {
@@ -560,8 +560,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員ID)MEMBER_ID: {PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS} <br>
-     * 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
+     * [get] MEMBER_ID: {PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS} <br>
+     * 会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
@@ -570,8 +570,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS} <br>
-     * 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
+     * [set] MEMBER_ID: {PK, ID, NotNull, INTEGER(10), FK to MEMBER_ADDRESS} <br>
+     * 会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @param memberId The value of the column 'MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -580,8 +580,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)} <br>
-     * 会員のフルネームの名称。<br>
+     * [get] MEMBER_NAME: {IX, NotNull, VARCHAR(200)} <br>
+     * 会員名称: 会員のフルネームの名称。<br>
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @return The value of the column 'MEMBER_NAME'. (basically NotNull if selected: for the constraint)
      */
@@ -591,8 +591,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)} <br>
-     * 会員のフルネームの名称。<br>
+     * [set] MEMBER_NAME: {IX, NotNull, VARCHAR(200)} <br>
+     * 会員名称: 会員のフルネームの名称。<br>
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @param memberName The value of the column 'MEMBER_NAME'. (basically NotNull if update: for the constraint)
      */
@@ -602,8 +602,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] (会員アカウント)MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)} <br>
-     * ログインIDとして利用する。<br>
+     * [get] MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)} <br>
+     * 会員アカウント: ログインIDとして利用する。<br>
      * 昨今メールアドレスをログインIDとすることが多いので、あまり見かけないかも!?
      * @return The value of the column 'MEMBER_ACCOUNT'. (basically NotNull if selected: for the constraint)
      */
@@ -613,8 +613,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員アカウント)MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)} <br>
-     * ログインIDとして利用する。<br>
+     * [set] MEMBER_ACCOUNT: {UQ, NotNull, VARCHAR(50)} <br>
+     * 会員アカウント: ログインIDとして利用する。<br>
      * 昨今メールアドレスをログインIDとすることが多いので、あまり見かけないかも!?
      * @param memberAccount The value of the column 'MEMBER_ACCOUNT'. (basically NotNull if update: for the constraint)
      */
@@ -624,8 +624,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
-     * 会員ステータスを参照するコード。<br>
+     * [get] MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * 会員ステータスコード: 会員ステータスを参照するコード。<br>
      * ステータスが変わるたびに、このカラムが更新される。
      * @return The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
@@ -635,8 +635,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
-     * 会員ステータスを参照するコード。<br>
+     * [set] MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * 会員ステータスコード: 会員ステータスを参照するコード。<br>
      * ステータスが変わるたびに、このカラムが更新される。
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if update: for the constraint)
      */
@@ -647,8 +647,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(26, 6)} <br>
-     * 会員が正式に確定した(正式会員になった)日時。<br>
+     * [get] FORMALIZED_DATETIME: {IX, TIMESTAMP(26, 6)} <br>
+     * 正式会員日時: 会員が正式に確定した(正式会員になった)日時。<br>
      * 一度確定したらもう二度と更新されないはずだ！
      * @return The value of the column 'FORMALIZED_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
@@ -658,8 +658,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (正式会員日時)FORMALIZED_DATETIME: {IX, TIMESTAMP(26, 6)} <br>
-     * 会員が正式に確定した(正式会員になった)日時。<br>
+     * [set] FORMALIZED_DATETIME: {IX, TIMESTAMP(26, 6)} <br>
+     * 正式会員日時: 会員が正式に確定した(正式会員になった)日時。<br>
      * 一度確定したらもう二度と更新されないはずだ！
      * @param formalizedDatetime The value of the column 'FORMALIZED_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
@@ -669,8 +669,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] (生年月日)BIRTHDATE: {DATE(10)} <br>
-     * 必須項目ではないので、このデータがない会員もいる。
+     * [get] BIRTHDATE: {DATE(10)} <br>
+     * 生年月日: 必須項目ではないので、このデータがない会員もいる。
      * @return The value of the column 'BIRTHDATE'. (NullAllowed even if selected: for no constraint)
      */
     public java.time.LocalDate getBirthdate() {
@@ -679,8 +679,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (生年月日)BIRTHDATE: {DATE(10)} <br>
-     * 必須項目ではないので、このデータがない会員もいる。
+     * [set] BIRTHDATE: {DATE(10)} <br>
+     * 生年月日: 必須項目ではないので、このデータがない会員もいる。
      * @param birthdate The value of the column 'BIRTHDATE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setBirthdate(java.time.LocalDate birthdate) {
@@ -689,8 +689,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
-     * レコードが登録された日時。<br>
+     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
+     * 登録日時: レコードが登録された日時。<br>
      * 会員が登録された日時とほぼ等しいが、そういった業務的な役割を兼務させるのはあまり推奨されない。といいつつ、このテーブルには会員登録日時がない...<br>
      * 仕様はどのテーブルでも同じなので、共通カラムの説明はこのテーブルでしか書かない。
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
@@ -701,8 +701,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (登録日時)REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
-     * レコードが登録された日時。<br>
+     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
+     * 登録日時: レコードが登録された日時。<br>
      * 会員が登録された日時とほぼ等しいが、そういった業務的な役割を兼務させるのはあまり推奨されない。といいつつ、このテーブルには会員登録日時がない...<br>
      * 仕様はどのテーブルでも同じなので、共通カラムの説明はこのテーブルでしか書かない。
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
@@ -713,8 +713,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] (登録ユーザ)REGISTER_USER: {NotNull, VARCHAR(200)} <br>
-     * レコードを登録したユーザ。<br>
+     * [get] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
+     * 登録ユーザ: レコードを登録したユーザ。<br>
      * 会員テーブルであれば当然、会員自身であるはずだが、他のテーブルの場合では管理画面から運用者による登録など考えられるので、しっかり保持しておく。
      * @return The value of the column 'REGISTER_USER'. (basically NotNull if selected: for the constraint)
      */
@@ -724,8 +724,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (登録ユーザ)REGISTER_USER: {NotNull, VARCHAR(200)} <br>
-     * レコードを登録したユーザ。<br>
+     * [set] REGISTER_USER: {NotNull, VARCHAR(200)} <br>
+     * 登録ユーザ: レコードを登録したユーザ。<br>
      * 会員テーブルであれば当然、会員自身であるはずだが、他のテーブルの場合では管理画面から運用者による登録など考えられるので、しっかり保持しておく。
      * @param registerUser The value of the column 'REGISTER_USER'. (basically NotNull if update: for the constraint)
      */
@@ -735,8 +735,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
-     * レコードが（最後に）更新された日時。<br>
+     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
+     * 更新日時: レコードが（最後に）更新された日時。<br>
      * 業務的な利用はあまり推奨されないと別項目で説明したが、このカラムはソートの要素としてよく利用される。
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
@@ -746,8 +746,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (更新日時)UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
-     * レコードが（最後に）更新された日時。<br>
+     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
+     * 更新日時: レコードが（最後に）更新された日時。<br>
      * 業務的な利用はあまり推奨されないと別項目で説明したが、このカラムはソートの要素としてよく利用される。
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
@@ -757,8 +757,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] (更新ユーザ)UPDATE_USER: {NotNull, VARCHAR(200)} <br>
-     * レコードを更新したユーザ。<br>
+     * [get] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
+     * 更新ユーザ: レコードを更新したユーザ。<br>
      * システムは誰が何をしたのかちゃんと覚えているのさ。
      * @return The value of the column 'UPDATE_USER'. (basically NotNull if selected: for the constraint)
      */
@@ -768,8 +768,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (更新ユーザ)UPDATE_USER: {NotNull, VARCHAR(200)} <br>
-     * レコードを更新したユーザ。<br>
+     * [set] UPDATE_USER: {NotNull, VARCHAR(200)} <br>
+     * 更新ユーザ: レコードを更新したユーザ。<br>
      * システムは誰が何をしたのかちゃんと覚えているのさ。
      * @param updateUser The value of the column 'UPDATE_USER'. (basically NotNull if update: for the constraint)
      */
@@ -779,8 +779,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] (バージョンNO)VERSION_NO: {NotNull, BIGINT(19)} <br>
-     * データのバージョンを示すナンバー。<br>
+     * [get] VERSION_NO: {NotNull, BIGINT(19)} <br>
+     * バージョンNO: データのバージョンを示すナンバー。<br>
      * 更新回数と等しく、主に排他制御のために利用される。
      * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
      */
@@ -790,8 +790,8 @@ public abstract class BsMember extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] (バージョンNO)VERSION_NO: {NotNull, BIGINT(19)} <br>
-     * データのバージョンを示すナンバー。<br>
+     * [set] VERSION_NO: {NotNull, BIGINT(19)} <br>
+     * バージョンNO: データのバージョンを示すナンバー。<br>
      * 更新回数と等しく、主に排他制御のために利用される。
      * @param versionNo The value of the column 'VERSION_NO'. (basically NotNull if update: for the constraint)
      */

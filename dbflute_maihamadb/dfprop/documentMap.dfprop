@@ -71,7 +71,7 @@ map:{
     #  as alias, treated as description (real comment).
     #  But you can change it by 'isDbCommentOnAliasBasis'.
     #
-    ; aliasDelimiterInDbComment = :
+    #; aliasDelimiterInDbComment = :
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
