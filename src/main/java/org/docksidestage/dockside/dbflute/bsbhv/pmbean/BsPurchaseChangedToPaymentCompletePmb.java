@@ -20,7 +20,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** The parameter of paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg}. */
+    /** The parameter of paymentCompleteFlg:ref(PURCHASE) :: refers to PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg}. */
     protected Integer _paymentCompleteFlg;
 
     /** The parameter of memberName:likePrefix. */
@@ -133,7 +133,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
+     * [get] paymentCompleteFlg:ref(PURCHASE) :: refers to PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * @return The value of paymentCompleteFlg. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getPaymentCompleteFlg() {
@@ -141,7 +141,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     }
 
     /**
-     * [set as Flg] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
+     * [set as Flg] paymentCompleteFlg:ref(PURCHASE) :: refers to PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * general boolean classification for every flg-column
      * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the property)
      */
@@ -150,7 +150,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     }
 
     /**
-     * [set as True] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
+     * [set as True] paymentCompleteFlg:ref(PURCHASE) :: refers to PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * means yes
      */
     public void setPaymentCompleteFlg_True() {
@@ -158,7 +158,7 @@ public class BsPurchaseChangedToPaymentCompletePmb implements ExecuteHandlingPmb
     }
 
     /**
-     * [set as False] paymentCompleteFlg:ref(PURCHASE) :: refers to (支払完了フラグ)PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
+     * [set as False] paymentCompleteFlg:ref(PURCHASE) :: refers to PAYMENT_COMPLETE_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
      * means no
      */
     public void setPaymentCompleteFlg_False() {

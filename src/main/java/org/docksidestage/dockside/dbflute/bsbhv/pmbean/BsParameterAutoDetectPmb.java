@@ -33,7 +33,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     /** The option of like-search for prefixSearchOption. */
     protected LikeSearchOption _prefixSearchOptionInternalLikeSearchOption;
 
-    /** The parameter of suffixSearchOption:ref(MEMBER.MEMBER_NAME)|likeSuffix :: refers to (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)}. */
+    /** The parameter of suffixSearchOption:ref(MEMBER.MEMBER_NAME)|likeSuffix :: refers to MEMBER_NAME: {IX, NotNull, VARCHAR(200)}. */
     protected String _suffixSearchOption;
 
     /** The option of like-search for suffixSearchOption. */
@@ -69,10 +69,10 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     /** The parameter of integerList. */
     protected List<Integer> _integerList;
 
-    /** The parameter of cdefList:cls(MemberStatus)|ref(MEMBER.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
+    /** The parameter of cdefList:cls(MemberStatus)|ref(MEMBER.MEMBER_STATUS_CODE) :: refers to MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
     protected List<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> _cdefList;
 
-    /** The parameter of memberStatusCodeList:cls(MemberStatus)|ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
+    /** The parameter of memberStatusCodeList:cls(MemberStatus)|ref(MEMBER) :: refers to MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
     protected List<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> _memberStatusCodeList;
 
     /** The parameter of forCommentBasic:likePrefix. */
@@ -327,7 +327,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     }
 
     /**
-     * [get] suffixSearchOption:ref(MEMBER.MEMBER_NAME)|likeSuffix :: refers to (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)} <br>
+     * [get] suffixSearchOption:ref(MEMBER.MEMBER_NAME)|likeSuffix :: refers to MEMBER_NAME: {IX, NotNull, VARCHAR(200)} <br>
      * @return The value of suffixSearchOption. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getSuffixSearchOption() {
@@ -335,7 +335,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     }
 
     /**
-     * [set as suffixSearch] suffixSearchOption:ref(MEMBER.MEMBER_NAME)|likeSuffix :: refers to (会員名称)MEMBER_NAME: {IX, NotNull, VARCHAR(200)} <br>
+     * [set as suffixSearch] suffixSearchOption:ref(MEMBER.MEMBER_NAME)|likeSuffix :: refers to MEMBER_NAME: {IX, NotNull, VARCHAR(200)} <br>
      * @param suffixSearchOption The value of suffixSearchOption. (NullAllowed)
      */
     public void setSuffixSearchOption_SuffixSearch(String suffixSearchOption) {
@@ -495,7 +495,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     }
 
     /**
-     * [get] cdefList:cls(MemberStatus)|ref(MEMBER.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * [get] cdefList:cls(MemberStatus)|ref(MEMBER.MEMBER_STATUS_CODE) :: refers to MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * @return The value of cdefList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> getCdefList() {
@@ -503,7 +503,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     }
 
     /**
-     * [set] cdefList:cls(MemberStatus)|ref(MEMBER.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * [set] cdefList:cls(MemberStatus)|ref(MEMBER.MEMBER_STATUS_CODE) :: refers to MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * @param cdefList The value of cdefList. (NullAllowed)
      */
     public void setCdefList(List<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> cdefList) {
@@ -511,7 +511,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     }
 
     /**
-     * [get] memberStatusCodeList:cls(MemberStatus)|ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * [get] memberStatusCodeList:cls(MemberStatus)|ref(MEMBER) :: refers to MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * @return The value of memberStatusCodeList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> getMemberStatusCodeList() {
@@ -519,7 +519,7 @@ public abstract class BsParameterAutoDetectPmb implements ExecuteHandlingPmb<Mem
     }
 
     /**
-     * [set] memberStatusCodeList:cls(MemberStatus)|ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * [set] memberStatusCodeList:cls(MemberStatus)|ref(MEMBER) :: refers to MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * @param memberStatusCodeList The value of memberStatusCodeList. (NullAllowed)
      */
     public void setMemberStatusCodeList(List<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> memberStatusCodeList) {

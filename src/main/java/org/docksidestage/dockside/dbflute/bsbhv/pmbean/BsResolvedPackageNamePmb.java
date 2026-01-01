@@ -73,10 +73,10 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     /** The parameter of cdefFlg. */
     protected org.docksidestage.dockside.dbflute.allcommon.CDef.Flg _cdefFlg;
 
-    /** The parameter of cdefList:ref(MEMBER.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
+    /** The parameter of cdefList:ref(MEMBER.MEMBER_STATUS_CODE) :: refers to MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
     protected List<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> _cdefList;
 
-    /** The parameter of memberStatusCodeList:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
+    /** The parameter of memberStatusCodeList:ref(MEMBER) :: refers to MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus}. */
     protected List<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> _memberStatusCodeList;
 
     /** The parameter of member. */
@@ -499,7 +499,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     }
 
     /**
-     * [get] cdefList:ref(MEMBER.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * [get] cdefList:ref(MEMBER.MEMBER_STATUS_CODE) :: refers to MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * @return The value of cdefList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> getCdefList() {
@@ -507,7 +507,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     }
 
     /**
-     * [set] cdefList:ref(MEMBER.MEMBER_STATUS_CODE) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * [set] cdefList:ref(MEMBER.MEMBER_STATUS_CODE) :: refers to MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * @param cdefList The value of cdefList. (NullAllowed)
      */
     public void setCdefList(List<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> cdefList) {
@@ -515,7 +515,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     }
 
     /**
-     * [get] memberStatusCodeList:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * [get] memberStatusCodeList:ref(MEMBER) :: refers to MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * @return The value of memberStatusCodeList. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> getMemberStatusCodeList() {
@@ -523,7 +523,7 @@ public class BsResolvedPackageNamePmb implements ExecuteHandlingPmb<MemberBhv>, 
     }
 
     /**
-     * [set] memberStatusCodeList:ref(MEMBER) :: refers to (会員ステータスコード)MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
+     * [set] memberStatusCodeList:ref(MEMBER) :: refers to MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
      * @param memberStatusCodeList The value of memberStatusCodeList. (NullAllowed)
      */
     public void setMemberStatusCodeList(List<org.docksidestage.dockside.dbflute.allcommon.CDef.MemberStatus> memberStatusCodeList) {

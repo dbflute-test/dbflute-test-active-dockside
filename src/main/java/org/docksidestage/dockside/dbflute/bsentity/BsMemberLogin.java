@@ -14,9 +14,8 @@ import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
  * The entity of MEMBER_LOGIN as TABLE. <br>
- * ログインするたびに登録されるログイン履歴。<br>
- * 登録されたら更新されるも削除されることもない。さらには、登録する人もプログラムもはっきりしているので、(紙面の都合上もあって)ここでは共通カラムは省略している。<br>
- * sea/land
+ * 会員ログイン: ログインするたびに登録されるログイン履歴。<br>
+ * 登録されたら更新されるも削除されることもない。さらには、登録する人もプログラムもはっきりしているので、(紙面の都合上もあって)ここでは共通カラムは省略している。
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsMemberLogin extends AbstractEntity implements DomainEntity {

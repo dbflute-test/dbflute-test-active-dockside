@@ -68,20 +68,20 @@ public class MemberMonthlyPurchaseDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, "会員ID", Integer.class, "memberId", null, false, false, false, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, "会員名称", String.class, "memberName", null, false, false, false, "VARCHAR", 200, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMemberId = cci("MEMBER_ID", "MEMBER_ID", null, null, Integer.class, "memberId", null, false, false, false, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMemberName = cci("MEMBER_NAME", "MEMBER_NAME", null, null, String.class, "memberName", null, false, false, false, "VARCHAR", 200, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPurchaseMonth = cci("PURCHASE_MONTH", "PURCHASE_MONTH", null, null, java.time.LocalDate.class, "purchaseMonth", null, false, false, false, "DATE", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPurchasePriceAvg = cci("PURCHASE_PRICE_AVG", "PURCHASE_PRICE_AVG", null, null, Integer.class, "purchasePriceAvg", null, false, false, false, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPurchasePriceMax = cci("PURCHASE_PRICE_MAX", "PURCHASE_PRICE_MAX", null, null, Integer.class, "purchasePriceMax", null, false, false, false, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnServicePointCount = cci("SERVICE_POINT_COUNT", "SERVICE_POINT_COUNT", null, "サービスポイント数", Integer.class, "servicePointCount", null, false, false, false, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnServicePointCount = cci("SERVICE_POINT_COUNT", "SERVICE_POINT_COUNT", null, null, Integer.class, "servicePointCount", null, false, false, false, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
 
     /**
-     * (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID}
+     * MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnMemberId() { return _columnMemberId; }
     /**
-     * (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME}
+     * MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnMemberName() { return _columnMemberName; }
@@ -101,7 +101,7 @@ public class MemberMonthlyPurchaseDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnPurchasePriceMax() { return _columnPurchasePriceMax; }
     /**
-     * (サービスポイント数)SERVICE_POINT_COUNT: {INTEGER(10), refers to MEMBER_SERVICE.SERVICE_POINT_COUNT}
+     * SERVICE_POINT_COUNT: {INTEGER(10), refers to MEMBER_SERVICE.SERVICE_POINT_COUNT}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnServicePointCount() { return _columnServicePointCount; }

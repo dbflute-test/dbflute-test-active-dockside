@@ -24,16 +24,16 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** (会員ID)UNPAID_MAN_ID: {PK, INTEGER(10), refers to MEMBER.MEMBER_ID} */
+    /** UNPAID_MAN_ID: {PK, INTEGER(10), refers to MEMBER.MEMBER_ID} */
     protected Integer _unpaidManId;
 
-    /** (会員名称)UNPAID_MAN_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} */
+    /** UNPAID_MAN_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} */
     protected String _unpaidManName;
 
     /** UNPAID_PRICE_SUMMARY: {BIGINT(19)} */
     protected Long _unpaidPriceSummary;
 
-    /** (会員ステータス名称)STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
+    /** STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} */
     protected String _statusName;
 
     // ===================================================================================
@@ -95,7 +95,7 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     }
 
     /**
-     * (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
+     * MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
      * @return The entity list of referrer property 'memberAddressList'. (NotNull: If it's not loaded yet, initializes the list instance of referrer as empty and returns it.)
      */
     public List<MemberAddress> getMemberAddressList() {
@@ -103,7 +103,7 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     }
 
     /**
-     * (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
+     * MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
      * @return The entity list of referrer property 'memberFollowingByMyMemberIdList'. (NotNull: If it's not loaded yet, initializes the list instance of referrer as empty and returns it.)
      */
     public List<MemberFollowing> getMemberFollowingByMyMemberIdList() {
@@ -111,7 +111,7 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     }
 
     /**
-     * (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
+     * MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
      * @return The entity list of referrer property 'memberFollowingByYourMemberIdList'. (NotNull: If it's not loaded yet, initializes the list instance of referrer as empty and returns it.)
      */
     public List<MemberFollowing> getMemberFollowingByYourMemberIdList() {
@@ -119,7 +119,7 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     }
 
     /**
-     * (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
+     * MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
      * @return The entity list of referrer property 'memberLoginList'. (NotNull: If it's not loaded yet, initializes the list instance of referrer as empty and returns it.)
      */
     public List<MemberLogin> getMemberLoginList() {
@@ -127,7 +127,7 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     }
 
     /**
-     * (購入)PURCHASE by MEMBER_ID, named 'purchaseList'.
+     * PURCHASE by MEMBER_ID, named 'purchaseList'.
      * @return The entity list of referrer property 'purchaseList'. (NotNull: If it's not loaded yet, initializes the list instance of referrer as empty and returns it.)
      */
     public List<Purchase> getPurchaseList() {
@@ -193,8 +193,8 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員ID)UNPAID_MAN_ID: {PK, INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
-     * 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
+     * [get] UNPAID_MAN_ID: {PK, INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
+     * 会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @return The value of the column 'UNPAID_MAN_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getUnpaidManId() {
@@ -203,8 +203,8 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     }
 
     /**
-     * [set] (会員ID)UNPAID_MAN_ID: {PK, INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
-     * 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
+     * [set] UNPAID_MAN_ID: {PK, INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
+     * 会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @param unpaidManId The value of the column 'UNPAID_MAN_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUnpaidManId(Integer unpaidManId) {
@@ -213,8 +213,8 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     }
 
     /**
-     * [get] (会員名称)UNPAID_MAN_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
-     * 会員のフルネームの名称。<br>
+     * [get] UNPAID_MAN_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
+     * 会員名称: 会員のフルネームの名称。<br>
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @return The value of the column 'UNPAID_MAN_NAME'. (NullAllowed even if selected: for no constraint)
      */
@@ -224,8 +224,8 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     }
 
     /**
-     * [set] (会員名称)UNPAID_MAN_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
-     * 会員のフルネームの名称。<br>
+     * [set] UNPAID_MAN_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
+     * 会員名称: 会員のフルネームの名称。<br>
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @param unpaidManName The value of the column 'UNPAID_MAN_NAME'. (NullAllowed: null update allowed for no constraint)
      */
@@ -253,8 +253,8 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     }
 
     /**
-     * [get] (会員ステータス名称)STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
-     * 表示用の名称。<br>
+     * [get] STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
+     * 会員ステータス名称: 表示用の名称。<br>
      * 国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。
      * @return The value of the column 'STATUS_NAME'. (NullAllowed even if selected: for no constraint)
      */
@@ -264,8 +264,8 @@ public abstract class BsUnpaidSummaryMember extends AbstractEntity implements Cu
     }
 
     /**
-     * [set] (会員ステータス名称)STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
-     * 表示用の名称。<br>
+     * [set] STATUS_NAME: {VARCHAR(50), refers to MEMBER_STATUS.MEMBER_STATUS_NAME} <br>
+     * 会員ステータス名称: 表示用の名称。<br>
      * 国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。
      * @param statusName The value of the column 'STATUS_NAME'. (NullAllowed: null update allowed for no constraint)
      */

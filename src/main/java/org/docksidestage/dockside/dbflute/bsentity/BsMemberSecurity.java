@@ -14,8 +14,7 @@ import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
  * The entity of MEMBER_SECURITY as TABLE. <br>
- * 会員とは one-to-one で、会員一人につき必ず一つのセキュリティ情報がある<br>
- * sea
+ * 会員セキュリティ情報: 会員とは one-to-one で、会員一人につき必ず一つのセキュリティ情報がある
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsMemberSecurity extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {

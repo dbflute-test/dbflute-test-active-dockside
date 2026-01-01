@@ -24,22 +24,22 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implemen
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} */
+    /** MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} */
     protected Integer _memberId;
 
-    /** (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} */
+    /** MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} */
     protected String _memberName;
 
-    /** (登録日時)REGISTER_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.REGISTER_DATETIME} */
+    /** REGISTER_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.REGISTER_DATETIME} */
     protected java.time.LocalDateTime _registerDatetime;
 
-    /** (登録ユーザ)REGISTER_USER: {VARCHAR(200), refers to MEMBER.REGISTER_USER} */
+    /** REGISTER_USER: {VARCHAR(200), refers to MEMBER.REGISTER_USER} */
     protected String _registerUser;
 
-    /** (更新日時)UPDATE_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.UPDATE_DATETIME} */
+    /** UPDATE_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.UPDATE_DATETIME} */
     protected java.time.LocalDateTime _updateDatetime;
 
-    /** (更新ユーザ)UPDATE_USER: {VARCHAR(200), refers to MEMBER.UPDATE_USER} */
+    /** UPDATE_USER: {VARCHAR(200), refers to MEMBER.UPDATE_USER} */
     protected String _updateUser;
 
     // ===================================================================================
@@ -140,8 +140,8 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implemen
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
-     * 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
+     * [get] MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
+     * 会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
@@ -150,8 +150,8 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implemen
     }
 
     /**
-     * [set] (会員ID)MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
-     * 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
+     * [set] MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
+     * 会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -160,8 +160,8 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implemen
     }
 
     /**
-     * [get] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
-     * 会員のフルネームの名称。<br>
+     * [get] MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
+     * 会員名称: 会員のフルネームの名称。<br>
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
      */
@@ -171,8 +171,8 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implemen
     }
 
     /**
-     * [set] (会員名称)MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
-     * 会員のフルネームの名称。<br>
+     * [set] MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
+     * 会員名称: 会員のフルネームの名称。<br>
      * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed: null update allowed for no constraint)
      */
@@ -182,8 +182,8 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implemen
     }
 
     /**
-     * [get] (登録日時)REGISTER_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.REGISTER_DATETIME} <br>
-     * レコードが登録された日時。<br>
+     * [get] REGISTER_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.REGISTER_DATETIME} <br>
+     * 登録日時: レコードが登録された日時。<br>
      * 会員が登録された日時とほぼ等しいが、そういった業務的な役割を兼務させるのはあまり推奨されない。といいつつ、このテーブルには会員登録日時がない...<br>
      * 仕様はどのテーブルでも同じなので、共通カラムの説明はこのテーブルでしか書かない。
      * @return The value of the column 'REGISTER_DATETIME'. (NullAllowed even if selected: for no constraint)
@@ -194,8 +194,8 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implemen
     }
 
     /**
-     * [set] (登録日時)REGISTER_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.REGISTER_DATETIME} <br>
-     * レコードが登録された日時。<br>
+     * [set] REGISTER_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.REGISTER_DATETIME} <br>
+     * 登録日時: レコードが登録された日時。<br>
      * 会員が登録された日時とほぼ等しいが、そういった業務的な役割を兼務させるのはあまり推奨されない。といいつつ、このテーブルには会員登録日時がない...<br>
      * 仕様はどのテーブルでも同じなので、共通カラムの説明はこのテーブルでしか書かない。
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (NullAllowed: null update allowed for no constraint)
@@ -206,8 +206,8 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implemen
     }
 
     /**
-     * [get] (登録ユーザ)REGISTER_USER: {VARCHAR(200), refers to MEMBER.REGISTER_USER} <br>
-     * レコードを登録したユーザ。<br>
+     * [get] REGISTER_USER: {VARCHAR(200), refers to MEMBER.REGISTER_USER} <br>
+     * 登録ユーザ: レコードを登録したユーザ。<br>
      * 会員テーブルであれば当然、会員自身であるはずだが、他のテーブルの場合では管理画面から運用者による登録など考えられるので、しっかり保持しておく。
      * @return The value of the column 'REGISTER_USER'. (NullAllowed even if selected: for no constraint)
      */
@@ -217,8 +217,8 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implemen
     }
 
     /**
-     * [set] (登録ユーザ)REGISTER_USER: {VARCHAR(200), refers to MEMBER.REGISTER_USER} <br>
-     * レコードを登録したユーザ。<br>
+     * [set] REGISTER_USER: {VARCHAR(200), refers to MEMBER.REGISTER_USER} <br>
+     * 登録ユーザ: レコードを登録したユーザ。<br>
      * 会員テーブルであれば当然、会員自身であるはずだが、他のテーブルの場合では管理画面から運用者による登録など考えられるので、しっかり保持しておく。
      * @param registerUser The value of the column 'REGISTER_USER'. (NullAllowed: null update allowed for no constraint)
      */
@@ -228,8 +228,8 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implemen
     }
 
     /**
-     * [get] (更新日時)UPDATE_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.UPDATE_DATETIME} <br>
-     * レコードが（最後に）更新された日時。<br>
+     * [get] UPDATE_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.UPDATE_DATETIME} <br>
+     * 更新日時: レコードが（最後に）更新された日時。<br>
      * 業務的な利用はあまり推奨されないと別項目で説明したが、このカラムはソートの要素としてよく利用される。
      * @return The value of the column 'UPDATE_DATETIME'. (NullAllowed even if selected: for no constraint)
      */
@@ -239,8 +239,8 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implemen
     }
 
     /**
-     * [set] (更新日時)UPDATE_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.UPDATE_DATETIME} <br>
-     * レコードが（最後に）更新された日時。<br>
+     * [set] UPDATE_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.UPDATE_DATETIME} <br>
+     * 更新日時: レコードが（最後に）更新された日時。<br>
      * 業務的な利用はあまり推奨されないと別項目で説明したが、このカラムはソートの要素としてよく利用される。
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (NullAllowed: null update allowed for no constraint)
      */
@@ -250,8 +250,8 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implemen
     }
 
     /**
-     * [get] (更新ユーザ)UPDATE_USER: {VARCHAR(200), refers to MEMBER.UPDATE_USER} <br>
-     * レコードを更新したユーザ。<br>
+     * [get] UPDATE_USER: {VARCHAR(200), refers to MEMBER.UPDATE_USER} <br>
+     * 更新ユーザ: レコードを更新したユーザ。<br>
      * システムは誰が何をしたのかちゃんと覚えているのさ。
      * @return The value of the column 'UPDATE_USER'. (NullAllowed even if selected: for no constraint)
      */
@@ -261,8 +261,8 @@ public abstract class BsSurpriseSimilarPKComment extends AbstractEntity implemen
     }
 
     /**
-     * [set] (更新ユーザ)UPDATE_USER: {VARCHAR(200), refers to MEMBER.UPDATE_USER} <br>
-     * レコードを更新したユーザ。<br>
+     * [set] UPDATE_USER: {VARCHAR(200), refers to MEMBER.UPDATE_USER} <br>
+     * 更新ユーザ: レコードを更新したユーザ。<br>
      * システムは誰が何をしたのかちゃんと覚えているのさ。
      * @param updateUser The value of the column 'UPDATE_USER'. (NullAllowed: null update allowed for no constraint)
      */
