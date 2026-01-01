@@ -66,8 +66,7 @@ public class WxDBMetaBasicTest extends PlainTestCase {
 
         // ## Act & Assert ##
         log("alias=" + dbm.getTableAlias());
-        assertNotNull(dbm.getTableAlias());
-        assertNotSame(dbm.getTableDbName(), dbm.getTableAlias());
+        assertNull(dbm.getTableAlias()); // because it does not use alias definition.
         assertNull(VendorCheckDbm.getInstance().getTableAlias());
     }
 
