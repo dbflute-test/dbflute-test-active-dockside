@@ -14,9 +14,7 @@ import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of PURCHASE_PAYMENT as TABLE. <br>
- * 購入支払: 購入に対する支払。<br>
- * 分割払いもできるのでmanyとなり、会員からの孫テーブルのテストができてうれしい。
+ * The entity of PURCHASE_PAYMENT as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsPurchasePayment extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {
@@ -301,7 +299,6 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     //                                                                            ========
     /**
      * [get] PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} <br>
-     * 購入支払ID: 連番
      * @return The value of the column 'PURCHASE_PAYMENT_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getPurchasePaymentId() {
@@ -311,7 +308,6 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
 
     /**
      * [set] PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} <br>
-     * 購入支払ID: 連番
      * @param purchasePaymentId The value of the column 'PURCHASE_PAYMENT_ID'. (basically NotNull if update: for the constraint)
      */
     public void setPurchasePaymentId(Long purchasePaymentId) {
@@ -321,7 +317,6 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
 
     /**
      * [get] PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE} <br>
-     * 購入ID: 支払い対象の購入へのID
      * @return The value of the column 'PURCHASE_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getPurchaseId() {
@@ -331,7 +326,6 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
 
     /**
      * [set] PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE} <br>
-     * 購入ID: 支払い対象の購入へのID
      * @param purchaseId The value of the column 'PURCHASE_ID'. (basically NotNull if update: for the constraint)
      */
     public void setPurchaseId(Long purchaseId) {
@@ -341,7 +335,6 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
 
     /**
      * [get] PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} <br>
-     * 支払金額: 支払った金額。さて、小数点なのはなぜでしょう？
      * @return The value of the column 'PAYMENT_AMOUNT'. (basically NotNull if selected: for the constraint)
      */
     public java.math.BigDecimal getPaymentAmount() {
@@ -351,7 +344,6 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
 
     /**
      * [set] PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} <br>
-     * 支払金額: 支払った金額。さて、小数点なのはなぜでしょう？
      * @param paymentAmount The value of the column 'PAYMENT_AMOUNT'. (basically NotNull if update: for the constraint)
      */
     public void setPaymentAmount(java.math.BigDecimal paymentAmount) {
@@ -361,7 +353,6 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
 
     /**
      * [get] PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(26, 6)} <br>
-     * 支払日時: 支払ったときの日時
      * @return The value of the column 'PAYMENT_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getPaymentDatetime() {
@@ -371,7 +362,6 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
 
     /**
      * [set] PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(26, 6)} <br>
-     * 支払日時: 支払ったときの日時
      * @param paymentDatetime The value of the column 'PAYMENT_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setPaymentDatetime(java.time.LocalDateTime paymentDatetime) {
@@ -381,7 +371,6 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
 
     /**
      * [get] PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod} <br>
-     * 支払方法コード: 手渡しや銀行振込など
      * @return The value of the column 'PAYMENT_METHOD_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getPaymentMethodCode() {
@@ -391,7 +380,6 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
 
     /**
      * [set] PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod} <br>
-     * 支払方法コード: 手渡しや銀行振込など
      * @param paymentMethodCode The value of the column 'PAYMENT_METHOD_CODE'. (basically NotNull if update: for the constraint)
      */
     protected void setPaymentMethodCode(String paymentMethodCode) {

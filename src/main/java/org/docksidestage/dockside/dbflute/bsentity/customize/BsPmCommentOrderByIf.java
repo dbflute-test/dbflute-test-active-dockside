@@ -122,7 +122,6 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity implements Cus
     //                                                                            ========
     /**
      * [get] MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
-     * 会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getMemberId() {
@@ -132,7 +131,6 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity implements Cus
 
     /**
      * [set] MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
-     * 会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -142,8 +140,6 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity implements Cus
 
     /**
      * [get] MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
-     * 会員名称: 会員のフルネームの名称。<br>
-     * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberName() {
@@ -153,8 +149,6 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity implements Cus
 
     /**
      * [set] MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
-     * 会員名称: 会員のフルネームの名称。<br>
-     * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberName(String memberName) {
@@ -164,8 +158,6 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity implements Cus
 
     /**
      * [get] MEMBER_ACCOUNT: {VARCHAR(50), refers to MEMBER.MEMBER_ACCOUNT} <br>
-     * 会員アカウント: ログインIDとして利用する。<br>
-     * 昨今メールアドレスをログインIDとすることが多いので、あまり見かけないかも!?
      * @return The value of the column 'MEMBER_ACCOUNT'. (NullAllowed even if selected: for no constraint)
      */
     public String getMemberAccount() {
@@ -175,8 +167,6 @@ public abstract class BsPmCommentOrderByIf extends AbstractEntity implements Cus
 
     /**
      * [set] MEMBER_ACCOUNT: {VARCHAR(50), refers to MEMBER.MEMBER_ACCOUNT} <br>
-     * 会員アカウント: ログインIDとして利用する。<br>
-     * 昨今メールアドレスをログインIDとすることが多いので、あまり見かけないかも!?
      * @param memberAccount The value of the column 'MEMBER_ACCOUNT'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberAccount(String memberAccount) {

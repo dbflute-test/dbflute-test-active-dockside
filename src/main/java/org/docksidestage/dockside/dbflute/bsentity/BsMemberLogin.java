@@ -13,9 +13,7 @@ import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of MEMBER_LOGIN as TABLE. <br>
- * 会員ログイン: ログインするたびに登録されるログイン履歴。<br>
- * 登録されたら更新されるも削除されることもない。さらには、登録する人もプログラムもはっきりしているので、(紙面の都合上もあって)ここでは共通カラムは省略している。
+ * The entity of MEMBER_LOGIN as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsMemberLogin extends AbstractEntity implements DomainEntity {
@@ -401,7 +399,6 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
     //                                                                            ========
     /**
      * [get] MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)} <br>
-     * 会員ログインID:
      * @return The value of the column 'MEMBER_LOGIN_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getMemberLoginId() {
@@ -411,7 +408,6 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
 
     /**
      * [set] MEMBER_LOGIN_ID: {PK, ID, NotNull, BIGINT(19)} <br>
-     * 会員ログインID:
      * @param memberLoginId The value of the column 'MEMBER_LOGIN_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberLoginId(Long memberLoginId) {
@@ -421,7 +417,6 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
 
     /**
      * [get] MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
-     * 会員ID:
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
@@ -431,7 +426,6 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
 
     /**
      * [set] MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
-     * 会員ID:
      * @param memberId The value of the column 'MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -441,8 +435,6 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
 
     /**
      * [get] LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(26, 6)} <br>
-     * ログイン日時: ログインした瞬間の日時。<br>
-     * 同じ会員が同じ日時にログインはできない。(ユニーク制約で重複ログインできないようにしてある)
      * @return The value of the column 'LOGIN_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getLoginDatetime() {
@@ -452,8 +444,6 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
 
     /**
      * [set] LOGIN_DATETIME: {+UQ, IX, NotNull, TIMESTAMP(26, 6)} <br>
-     * ログイン日時: ログインした瞬間の日時。<br>
-     * 同じ会員が同じ日時にログインはできない。(ユニーク制約で重複ログインできないようにしてある)
      * @param loginDatetime The value of the column 'LOGIN_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setLoginDatetime(java.time.LocalDateTime loginDatetime) {
@@ -463,7 +453,6 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
 
     /**
      * [get] MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
-     * モバイルログインフラグ: モバイル機器からのログインか否か。
      * @return The value of the column 'MOBILE_LOGIN_FLG'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMobileLoginFlg() {
@@ -473,7 +462,6 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
 
     /**
      * [set] MOBILE_LOGIN_FLG: {NotNull, INTEGER(10), classification=Flg} <br>
-     * モバイルログインフラグ: モバイル機器からのログインか否か。
      * @param mobileLoginFlg The value of the column 'MOBILE_LOGIN_FLG'. (basically NotNull if update: for the constraint)
      */
     protected void setMobileLoginFlg(Integer mobileLoginFlg) {
@@ -484,7 +472,6 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
 
     /**
      * [get] LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
-     * ログイン時会員ステータスコード: ログイン時の会員ステータス
      * @return The value of the column 'LOGIN_MEMBER_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getLoginMemberStatusCode() {
@@ -494,7 +481,6 @@ public abstract class BsMemberLogin extends AbstractEntity implements DomainEnti
 
     /**
      * [set] LOGIN_MEMBER_STATUS_CODE: {IX, NotNull, CHAR(3), FK to MEMBER_STATUS, classification=MemberStatus} <br>
-     * ログイン時会員ステータスコード: ログイン時の会員ステータス
      * @param loginMemberStatusCode The value of the column 'LOGIN_MEMBER_STATUS_CODE'. (basically NotNull if update: for the constraint)
      */
     protected void setLoginMemberStatusCode(String loginMemberStatusCode) {

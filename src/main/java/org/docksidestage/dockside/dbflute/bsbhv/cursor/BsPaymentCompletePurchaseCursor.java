@@ -103,8 +103,6 @@ public class BsPaymentCompletePurchaseCursor implements CursorAccessor {
 
     /**
      * [get] MEMBER_ID: {INTEGER(10), refers to PURCHASE.MEMBER_ID} <br>
-     * 会員ID: 会員を参照するID。<br>
-     * 購入を識別する自然キー(複合ユニーク制約)の筆頭要素。
      * @return The value of memberId. (NullAllowed)
      * @throws SQLException When it fails to get the value from result set.
      */
@@ -114,8 +112,6 @@ public class BsPaymentCompletePurchaseCursor implements CursorAccessor {
 
     /**
      * [get] MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
-     * 会員名称: 会員のフルネームの名称。<br>
-     * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @return The value of memberName. (NullAllowed)
      * @throws SQLException When it fails to get the value from result set.
      */
@@ -125,7 +121,6 @@ public class BsPaymentCompletePurchaseCursor implements CursorAccessor {
 
     /**
      * [get] PRODUCT_ID: {INTEGER(10), refers to PURCHASE.PRODUCT_ID} <br>
-     * 商品ID: あなたは何を買ったのか？
      * @return The value of productId. (NullAllowed)
      * @throws SQLException When it fails to get the value from result set.
      */
@@ -135,8 +130,6 @@ public class BsPaymentCompletePurchaseCursor implements CursorAccessor {
 
     /**
      * [get] PRODUCT_NAME: {VARCHAR(50), refers to PRODUCT.PRODUCT_NAME} <br>
-     * 商品名称: ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。<br>
-     * 実業務ではしっかりとコメントを入れることが強く強く推奨される。「よりによってこのテーブルでやらないでよ！」あわわ、何も聞こえません〜
      * @return The value of productName. (NullAllowed)
      * @throws SQLException When it fails to get the value from result set.
      */
@@ -146,7 +139,6 @@ public class BsPaymentCompletePurchaseCursor implements CursorAccessor {
 
     /**
      * [get] PURCHASE_DATETIME: {TIMESTAMP(26, 6), refers to PURCHASE.PURCHASE_DATETIME} <br>
-     * 購入日時: 購入した瞬間の日時。
      * @return The value of purchaseDatetime. (NullAllowed)
      * @throws SQLException When it fails to get the value from result set.
      */

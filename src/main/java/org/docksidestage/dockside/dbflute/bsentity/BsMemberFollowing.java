@@ -12,8 +12,7 @@ import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of MEMBER_FOLLOWING as TABLE. <br>
- * 会員フォローイング: とある会員が他の会員をフォローできる。すると、フォローした会員の購入履歴が閲覧できる。
+ * The entity of MEMBER_FOLLOWING as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsMemberFollowing extends AbstractEntity implements DomainEntity {
@@ -198,7 +197,6 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
     //                                                                            ========
     /**
      * [get] MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)} <br>
-     * 会員フォローイングID: 連番
      * @return The value of the column 'MEMBER_FOLLOWING_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getMemberFollowingId() {
@@ -208,7 +206,6 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
 
     /**
      * [set] MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)} <br>
-     * 会員フォローイングID: 連番
      * @param memberFollowingId The value of the column 'MEMBER_FOLLOWING_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberFollowingId(Long memberFollowingId) {
@@ -218,7 +215,6 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
 
     /**
      * [get] MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br>
-     * わたし: 気になった人がいて...勇気を振り絞った会員のID。
      * @return The value of the column 'MY_MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMyMemberId() {
@@ -228,7 +224,6 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
 
     /**
      * [set] MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER} <br>
-     * わたし: 気になった人がいて...勇気を振り絞った会員のID。
      * @param myMemberId The value of the column 'MY_MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMyMemberId(Integer myMemberId) {
@@ -238,7 +233,6 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
 
     /**
      * [get] YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} <br>
-     * あなた: いきなりのアクションに...ちょっと心揺らいだ会員のID。
      * @return The value of the column 'YOUR_MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getYourMemberId() {
@@ -248,7 +242,6 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
 
     /**
      * [set] YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER} <br>
-     * あなた: いきなりのアクションに...ちょっと心揺らいだ会員のID。
      * @param yourMemberId The value of the column 'YOUR_MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setYourMemberId(Integer yourMemberId) {
@@ -258,7 +251,6 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
 
     /**
      * [get] FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(26, 6)} <br>
-     * その瞬間: ふりかえるとちょっと恥ずかしい気持ちになる日時
      * @return The value of the column 'FOLLOW_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getFollowDatetime() {
@@ -268,7 +260,6 @@ public abstract class BsMemberFollowing extends AbstractEntity implements Domain
 
     /**
      * [set] FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(26, 6)} <br>
-     * その瞬間: ふりかえるとちょっと恥ずかしい気持ちになる日時
      * @param followDatetime The value of the column 'FOLLOW_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setFollowDatetime(java.time.LocalDateTime followDatetime) {

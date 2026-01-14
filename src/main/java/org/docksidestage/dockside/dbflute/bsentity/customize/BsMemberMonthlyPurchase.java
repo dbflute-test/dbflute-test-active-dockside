@@ -140,7 +140,6 @@ public abstract class BsMemberMonthlyPurchase extends AbstractEntity implements 
     //                                                                            ========
     /**
      * [get] MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
-     * 会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。<br>
      * // grouping item
      * @return The value of the column 'MEMBER_ID'. (NullAllowed even if selected: for no constraint)
      */
@@ -151,7 +150,6 @@ public abstract class BsMemberMonthlyPurchase extends AbstractEntity implements 
 
     /**
      * [set] MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
-     * 会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。<br>
      * // grouping item
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
@@ -162,8 +160,6 @@ public abstract class BsMemberMonthlyPurchase extends AbstractEntity implements 
 
     /**
      * [get] MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
-     * 会員名称: 会員のフルネームの名称。<br>
-     * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。<br>
      * // non grouping item (1:1 data) is allowed on H2 database
      * @return The value of the column 'MEMBER_NAME'. (NullAllowed even if selected: for no constraint)
      */
@@ -174,8 +170,6 @@ public abstract class BsMemberMonthlyPurchase extends AbstractEntity implements 
 
     /**
      * [set] MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
-     * 会員名称: 会員のフルネームの名称。<br>
-     * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。<br>
      * // non grouping item (1:1 data) is allowed on H2 database
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed: null update allowed for no constraint)
      */
@@ -246,7 +240,6 @@ public abstract class BsMemberMonthlyPurchase extends AbstractEntity implements 
 
     /**
      * [get] SERVICE_POINT_COUNT: {INTEGER(10), refers to MEMBER_SERVICE.SERVICE_POINT_COUNT} <br>
-     * サービスポイント数: 購入したら増えて使ったら減る。<br>
      * // non grouping item (relationship 1:1 data) is allowed on H2 database
      * @return The value of the column 'SERVICE_POINT_COUNT'. (NullAllowed even if selected: for no constraint)
      */
@@ -257,7 +250,6 @@ public abstract class BsMemberMonthlyPurchase extends AbstractEntity implements 
 
     /**
      * [set] SERVICE_POINT_COUNT: {INTEGER(10), refers to MEMBER_SERVICE.SERVICE_POINT_COUNT} <br>
-     * サービスポイント数: 購入したら増えて使ったら減る。<br>
      * // non grouping item (relationship 1:1 data) is allowed on H2 database
      * @param servicePointCount The value of the column 'SERVICE_POINT_COUNT'. (NullAllowed: null update allowed for no constraint)
      */

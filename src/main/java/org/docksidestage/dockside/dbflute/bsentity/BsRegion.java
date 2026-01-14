@@ -11,9 +11,7 @@ import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of REGION as TABLE. <br>
- * 地域: 主に会員の住所に対応する漠然とした地域。<br>
- * かなりざっくりした感じではある。唯一の業務的one-to-oneの親テーブルのケース。
+ * The entity of REGION as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsRegion extends AbstractEntity implements DomainEntity {
@@ -254,8 +252,6 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
     //                                                                            ========
     /**
      * [get] REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
-     * 地域ID: 地域をしっかりと識別するID。<br>
-     * 珍しく(固定的な)マスタテーブルとしては数値だが、Exampleなのでやはり色々なパターンがないとね、ってところで。
      * @return The value of the column 'REGION_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getRegionId() {
@@ -265,8 +261,6 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
 
     /**
      * [set] REGION_ID: {PK, NotNull, INTEGER(10), classification=Region} <br>
-     * 地域ID: 地域をしっかりと識別するID。<br>
-     * 珍しく(固定的な)マスタテーブルとしては数値だが、Exampleなのでやはり色々なパターンがないとね、ってところで。
      * @param regionId The value of the column 'REGION_ID'. (basically NotNull if update: for the constraint)
      */
     protected void setRegionId(Integer regionId) {
@@ -277,7 +271,6 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
 
     /**
      * [get] REGION_NAME: {NotNull, VARCHAR(50)} <br>
-     * 地域名称: 地域を漠然と表す名称。
      * @return The value of the column 'REGION_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getRegionName() {
@@ -287,7 +280,6 @@ public abstract class BsRegion extends AbstractEntity implements DomainEntity {
 
     /**
      * [set] REGION_NAME: {NotNull, VARCHAR(50)} <br>
-     * 地域名称: 地域を漠然と表す名称。
      * @param regionName The value of the column 'REGION_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setRegionName(String regionName) {

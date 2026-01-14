@@ -14,8 +14,7 @@ import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of PRODUCT as TABLE. <br>
- * 商品:
+ * The entity of PRODUCT as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsProduct extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {
@@ -382,8 +381,6 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
 
     /**
      * [get] PRODUCT_NAME: {IX, NotNull, VARCHAR(50)} <br>
-     * 商品名称: ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。<br>
-     * 実業務ではしっかりとコメントを入れることが強く強く推奨される。「よりによってこのテーブルでやらないでよ！」あわわ、何も聞こえません〜
      * @return The value of the column 'PRODUCT_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getProductName() {
@@ -393,8 +390,6 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
 
     /**
      * [set] PRODUCT_NAME: {IX, NotNull, VARCHAR(50)} <br>
-     * 商品名称: ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。<br>
-     * 実業務ではしっかりとコメントを入れることが強く強く推奨される。「よりによってこのテーブルでやらないでよ！」あわわ、何も聞こえません〜
      * @param productName The value of the column 'PRODUCT_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setProductName(String productName) {
@@ -404,7 +399,6 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
 
     /**
      * [get] PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)} <br>
-     * 商品ハンドルコード: これだけは書いておこう、商品を識別する業務上のコード。よく品番とか言うかもしれませんねぇ...
      * @return The value of the column 'PRODUCT_HANDLE_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getProductHandleCode() {
@@ -414,7 +408,6 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
 
     /**
      * [set] PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)} <br>
-     * 商品ハンドルコード: これだけは書いておこう、商品を識別する業務上のコード。よく品番とか言うかもしれませんねぇ...
      * @param productHandleCode The value of the column 'PRODUCT_HANDLE_CODE'. (basically NotNull if update: for the constraint)
      */
     public void setProductHandleCode(String productHandleCode) {
@@ -461,7 +454,6 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
 
     /**
      * [get] REGULAR_PRICE: {NotNull, INTEGER(10)} <br>
-     * 定価:
      * @return The value of the column 'REGULAR_PRICE'. (basically NotNull if selected: for the constraint)
      */
     public Integer getRegularPrice() {
@@ -471,7 +463,6 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
 
     /**
      * [set] REGULAR_PRICE: {NotNull, INTEGER(10)} <br>
-     * 定価:
      * @param regularPrice The value of the column 'REGULAR_PRICE'. (basically NotNull if update: for the constraint)
      */
     public void setRegularPrice(Integer regularPrice) {

@@ -11,8 +11,7 @@ import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of WITHDRAWAL_REASON as TABLE. <br>
- * 退会理由: 会員に選ばせる定型的な退会理由のマスタ。そういえば、これ表示順カラムがないですねぇ...
+ * The entity of WITHDRAWAL_REASON as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsWithdrawalReason extends AbstractEntity implements DomainEntity {
@@ -268,7 +267,6 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     //                                                                            ========
     /**
      * [get] WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
-     * 退会理由コード:
      * @return The value of the column 'WITHDRAWAL_REASON_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getWithdrawalReasonCode() {
@@ -278,7 +276,6 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
 
     /**
      * [set] WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
-     * 退会理由コード:
      * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (basically NotNull if update: for the constraint)
      */
     protected void setWithdrawalReasonCode(String withdrawalReasonCode) {
@@ -289,8 +286,6 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
 
     /**
      * [get] WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
-     * 退会理由テキスト: 退会理由の内容。<br>
-     * テキスト形式なので目いっぱい書けるが、そうするとUI側できれいに見せるのが大変でしょうね。
      * @return The value of the column 'WITHDRAWAL_REASON_TEXT'. (basically NotNull if selected: for the constraint)
      */
     public String getWithdrawalReasonText() {
@@ -300,8 +295,6 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
 
     /**
      * [set] WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
-     * 退会理由テキスト: 退会理由の内容。<br>
-     * テキスト形式なので目いっぱい書けるが、そうするとUI側できれいに見せるのが大変でしょうね。
      * @param withdrawalReasonText The value of the column 'WITHDRAWAL_REASON_TEXT'. (basically NotNull if update: for the constraint)
      */
     public void setWithdrawalReasonText(String withdrawalReasonText) {

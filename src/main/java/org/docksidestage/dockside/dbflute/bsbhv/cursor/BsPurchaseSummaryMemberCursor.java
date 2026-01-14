@@ -90,7 +90,6 @@ public class BsPurchaseSummaryMemberCursor implements CursorAccessor {
     //                                                                  ==================
     /**
      * [get] MEMBER_ID: {INTEGER(10), refers to MEMBER.MEMBER_ID} <br>
-     * 会員ID: 連番として自動採番される。会員IDだけに限らず採番方法はDBMS次第。
      * @return The value of memberId. (NullAllowed)
      * @throws SQLException When it fails to get the value from result set.
      */
@@ -100,8 +99,6 @@ public class BsPurchaseSummaryMemberCursor implements CursorAccessor {
 
     /**
      * [get] MEMBER_NAME: {VARCHAR(200), refers to MEMBER.MEMBER_NAME} <br>
-     * 会員名称: 会員のフルネームの名称。<br>
-     * 苗字と名前を分けて管理することが多いが、ここでは単純にひとまとめ。
      * @return The value of memberName. (NullAllowed)
      * @throws SQLException When it fails to get the value from result set.
      */
@@ -111,7 +108,6 @@ public class BsPurchaseSummaryMemberCursor implements CursorAccessor {
 
     /**
      * [get] BIRTHDATE: {DATE(10), refers to MEMBER.BIRTHDATE} <br>
-     * 生年月日: 必須項目ではないので、このデータがない会員もいる。
      * @return The value of birthdate. (NullAllowed)
      * @throws SQLException When it fails to get the value from result set.
      */
@@ -121,8 +117,6 @@ public class BsPurchaseSummaryMemberCursor implements CursorAccessor {
 
     /**
      * [get] FORMALIZED_DATETIME: {TIMESTAMP(26, 6), refers to MEMBER.FORMALIZED_DATETIME} <br>
-     * 正式会員日時: 会員が正式に確定した(正式会員になった)日時。<br>
-     * 一度確定したらもう二度と更新されないはずだ！
      * @return The value of formalizedDatetime. (NullAllowed)
      * @throws SQLException When it fails to get the value from result set.
      */

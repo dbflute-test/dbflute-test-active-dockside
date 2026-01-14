@@ -14,11 +14,7 @@ import org.docksidestage.dockside.dbflute.allcommon.CDef;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of MEMBER_WITHDRAWAL as TABLE. <br>
- * 会員退会情報: 退会会員の退会に関する詳細な情報。<br>
- * 退会会員のみデータが存在し、"1 : 0..1" のパターンの one-to-one である。<br>
- * 共通カラムがあってバージョンNOがないパターン。<br>
- * 基本的に更新は入らないが、重要なデータなので万が一のために更新系の共通カラムも。
+ * The entity of MEMBER_WITHDRAWAL as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsMemberWithdrawal extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {
@@ -330,8 +326,6 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
 
     /**
      * [get] WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason} <br>
-     * 退会理由コード: 定型的な退会した理由を参照するコード。<br>
-     * 何も言わずに退会する会員もいるので必須項目ではない。
      * @return The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getWithdrawalReasonCode() {
@@ -341,8 +335,6 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
 
     /**
      * [set] WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason} <br>
-     * 退会理由コード: 定型的な退会した理由を参照するコード。<br>
-     * 何も言わずに退会する会員もいるので必須項目ではない。
      * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     protected void setWithdrawalReasonCode(String withdrawalReasonCode) {
@@ -353,8 +345,6 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
 
     /**
      * [get] WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} <br>
-     * 退会理由入力テキスト: 会員がフリーテキストで入力できる退会理由。<br>
-     * もう言いたいこと言ってもらう感じ。サイト運営側としてはこういうのは真摯に受け止めて改善していきたいところ。
      * @return The value of the column 'WITHDRAWAL_REASON_INPUT_TEXT'. (NullAllowed even if selected: for no constraint)
      */
     public String getWithdrawalReasonInputText() {
@@ -364,8 +354,6 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
 
     /**
      * [set] WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} <br>
-     * 退会理由入力テキスト: 会員がフリーテキストで入力できる退会理由。<br>
-     * もう言いたいこと言ってもらう感じ。サイト運営側としてはこういうのは真摯に受け止めて改善していきたいところ。
      * @param withdrawalReasonInputText The value of the column 'WITHDRAWAL_REASON_INPUT_TEXT'. (NullAllowed: null update allowed for no constraint)
      */
     public void setWithdrawalReasonInputText(String withdrawalReasonInputText) {
@@ -375,8 +363,6 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
 
     /**
      * [get] WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
-     * 退会日時: 退会した瞬間の日時。<br>
-     * 正式会員日時と違い、こっちは one-to-one の別テーブルで管理されている。
      * @return The value of the column 'WITHDRAWAL_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getWithdrawalDatetime() {
@@ -386,8 +372,6 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
 
     /**
      * [set] WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
-     * 退会日時: 退会した瞬間の日時。<br>
-     * 正式会員日時と違い、こっちは one-to-one の別テーブルで管理されている。
      * @param withdrawalDatetime The value of the column 'WITHDRAWAL_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setWithdrawalDatetime(java.time.LocalDateTime withdrawalDatetime) {

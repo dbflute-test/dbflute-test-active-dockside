@@ -12,8 +12,7 @@ import org.docksidestage.dockside.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.dockside.dbflute.exentity.*;
 
 /**
- * The entity of PRODUCT_CATEGORY as TABLE. <br>
- * 商品カテゴリ: 商品のカテゴリを表現するマスタ。自己参照FKの階層になっている。
+ * The entity of PRODUCT_CATEGORY as TABLE.
  * @author DBFlute(AutoGenerator)
  */
 public abstract class BsProductCategory extends AbstractEntity implements DomainEntity {
@@ -204,7 +203,6 @@ public abstract class BsProductCategory extends AbstractEntity implements Domain
     //                                                                            ========
     /**
      * [get] PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)} <br>
-     * 商品カテゴリコード: 自分のテーブルの別のレコードからも参照される。
      * @return The value of the column 'PRODUCT_CATEGORY_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getProductCategoryCode() {
@@ -214,7 +212,6 @@ public abstract class BsProductCategory extends AbstractEntity implements Domain
 
     /**
      * [set] PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)} <br>
-     * 商品カテゴリコード: 自分のテーブルの別のレコードからも参照される。
      * @param productCategoryCode The value of the column 'PRODUCT_CATEGORY_CODE'. (basically NotNull if update: for the constraint)
      */
     public void setProductCategoryCode(String productCategoryCode) {
@@ -224,7 +221,6 @@ public abstract class BsProductCategory extends AbstractEntity implements Domain
 
     /**
      * [get] PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)} <br>
-     * 商品カテゴリ名称:
      * @return The value of the column 'PRODUCT_CATEGORY_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getProductCategoryName() {
@@ -234,7 +230,6 @@ public abstract class BsProductCategory extends AbstractEntity implements Domain
 
     /**
      * [set] PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)} <br>
-     * 商品カテゴリ名称:
      * @param productCategoryName The value of the column 'PRODUCT_CATEGORY_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setProductCategoryName(String productCategoryName) {
@@ -244,7 +239,6 @@ public abstract class BsProductCategory extends AbstractEntity implements Domain
 
     /**
      * [get] PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY} <br>
-     * 親カテゴリコード: 最上位の場合はデータなし。まさひく自己参照FKカラム！
      * @return The value of the column 'PARENT_CATEGORY_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getParentCategoryCode() {
@@ -254,7 +248,6 @@ public abstract class BsProductCategory extends AbstractEntity implements Domain
 
     /**
      * [set] PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY} <br>
-     * 親カテゴリコード: 最上位の場合はデータなし。まさひく自己参照FKカラム！
      * @param parentCategoryCode The value of the column 'PARENT_CATEGORY_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setParentCategoryCode(String parentCategoryCode) {
