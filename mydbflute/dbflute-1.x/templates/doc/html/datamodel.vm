@@ -412,88 +412,119 @@ pre.spolicyviodisp {
 	width: 100%;
 	top: 0;
 	left: 0;
-	padding-top: 50px;
-	background-color: rgba(0, 0, 0, 0.5);
+	padding-top: 40px;
+	background-color: rgba(0, 0, 0, 0.4);
 }
 .decommentmodalcontent {
 	position: relative;
 	z-index: 10;
-	width: 50%;
+	width: 70%;
+	max-width: 650px;
 	margin: 0 auto;
-	border: 1px solid #999999;
-	padding: 15px;
+	padding: 28px 32px;
 	background-color: #fff8f8;
-	border-radius: 4px;
+	border-radius: 16px;
+	border: none;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 .decommentmodalcontent p {
 	font-size: 14px;
-	color: #222277;
+	color: #333;
+	margin-bottom: 6px;
+}
+.decomment-target-name {
+	display: inline-block;
+	background-color: #e8f0fe;
+	padding: 2px 8px;
+	border-radius: 4px;
+	font-weight: bold;
+	color: #1a73e8;
 }
 .decommentinput {
 	display: block;
 	width: 100%;
 	margin-top: 10px;
+	padding: 8px;
 	font-size: 12px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-sizing: border-box;
+	transition: border-color 0.2s;
+}
+.decommentinput:focus {
+	outline: none;
+	border-color: #709dff;
 }
 .decomment-alias-input-area {
-	margin-top: 10px;
+	margin-top: 20px;
 	display: flex;
 	align-items: center;
-	gap: 10px;
+	gap: 12px;
 }
 .decomment-alias-label {
 	font-size: 12px;
-	color: #222277;
+	color: #555;
 	white-space: nowrap;
 }
 .decomment-alias-input {
 	flex: 1;
-	max-width: 300px;
+	max-width: 350px;
 	padding: 5px;
 	font-size: 12px;
-	border: 1px solid #ccc;
-	border-radius: 3px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	transition: border-color 0.2s;
 }
-.decommentmodal-ok-area {
-	text-align: right;
-	margin: 0em 1em 0em 0em
+.decomment-alias-input:focus {
+	outline: none;
+	border-color: #709dff;
+}
+.decommentmodal-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 24px;
+}
+.decommentmodal-guide-link {
+	font-size: 12px;
+	color: #5a8eff;
+	text-decoration: none;
+}
+.decommentmodal-guide-link:hover {
+	text-decoration: underline;
 }
 .decommentmodal-ok-btn {
 	display: inline-block;
-	margin: 0.5em 0em;
-	padding: 0.5em 1.5em 0.5em 1.5em;
+	padding: 0.6em 2.5em;
 	text-decoration: none;
-	border-radius: 3px;
+	border-radius: 10px;
 	font-weight: bold;
 	color: #FFF;
-	text-align: right;
-	background-image: -webkit-linear-gradient(45deg, #709dff 0%, #b0c9ff 100%);
-	background-image: linear-gradient(45deg, #709dff 0%, #b0c9ff 100%);
-	transition: .4s;
+	background-color: #5a8eff;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.2s;
 }
-.decommentmodal-ok-btn:hover{
-	background-image: -webkit-linear-gradient(45deg, #709dff 50%, #b0c9ff 100%);
-	background-image: linear-gradient(45deg, #709dff 50%, #b0c9ff 100%);
+.decommentmodal-ok-btn:hover {
+	background-color: #4a7eef;
 }
 .decommentmodal-close-btn {
 	position: absolute;
-	margin-left: 10px;
-	padding: 0;
-	right: 10px;
-	top: 5px;
+	right: 12px;
+	top: 12px;
 	cursor: pointer;
-	width: 28px;
-	height: 28px;
+	width: 32px;
+	height: 32px;
 	border: 0;
 	border-radius: 50%;
-	color: #657786;
-	font-size: 14px;
-	line-height: 24px;
+	color: #666;
+	font-size: 18px;
+	line-height: 32px;
 	text-align: center;
-	transition: box-shadow .15s ease-in-out;
+	transition: background-color 0.15s;
 }
 .decommentmodal-close-btn:hover {
-	background-color: #eed;
+	background-color: #f0f0f0;
 }
 .decomment-user-input {
 	display: none;
@@ -506,6 +537,52 @@ pre.spolicyviodisp {
 .decomment-user-name-desc {
 	margin-left: 0.5em;
 	color: #222277;
+}
+
+/* -------------------------------------------------
+                            Notification Banner
+------------------------------------------------- */
+.notificationbanner {
+	display: none;
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	z-index: 1000;
+	max-width: 400px;
+}
+.notificationbannercontent {
+	position: relative;
+	padding: 15px;
+	background-color: #709dff;
+	border: 1px solid #5a7fcf;
+	border-radius: 4px;
+	color: #ffffff;
+}
+.notificationbannercontent p {
+	margin: 0;
+	padding-right: 20px;
+	font-size: 14px;
+	color: #ffffff;
+}
+.notificationbanner-close-btn {
+	position: absolute;
+	padding: 0;
+	right: 10px;
+	top: 5px;
+	cursor: pointer;
+	width: 28px;
+	height: 28px;
+	border: 0;
+	border-radius: 50%;
+	background-color: transparent;
+	color: #ffffff;
+	font-size: 14px;
+	line-height: 24px;
+	text-align: center;
+	transition: box-shadow .15s ease-in-out;
+}
+.notificationbanner-close-btn:hover {
+	background-color: rgba(255, 255, 255, 0.2);
 }
 	</style>
 #if ($isStyleSheetInheritable && $database.isSchemaHtmlStyleSheetEmbedded())
@@ -666,7 +743,7 @@ ${database.schemaDescription}
 <div class="keywordsearch">
 	<input type="text" id="incremental-search-field" tabindex=1 value="" placeholder="Table Search" />
 	<ul id="suggestion-list" class="suggestionarea"></ul>
-	<span class="searchmemo">*Push 'tab' (primary tab order)</span>
+	<span class="searchmemo">*Push 'shift + command (ctrl) + , (comma)'</span>
 </div>
 <table>
 	<thead>
@@ -923,14 +1000,24 @@ ${schemaPolicyDisplay.policyMessageHtmlPreText}
 <div id="decomment-modal" class="decommentmodal">
 	<div class="decommentmodalcontent">
 		<div id="decomment-close" class="decommentmodal-close-btn"><span>x</span></div>
-		<p>Input the new comment of <span id="decomment-modal-column-info"></span></p>
-		<textarea id="decomment-input" class="decommentinput" rows="5"></textarea>
+		<p>Input the new comment of <span id="decomment-modal-column-info" class="decomment-target-name"></span></p>
+		<textarea id="decomment-input" class="decommentinput" rows="10"></textarea>
 		<div class="decomment-alias-input-area">
 			<label for="decomment-alias-input" class="decomment-alias-label">Alias:</label>
 			<input type="text" id="decomment-alias-input" class="decomment-alias-input"/>
 		</div>
 		<div id="decomment-user-input" class="decomment-user-input"><input type="text" id="decomment-user-name" class="decomment-user-name" placeholder="User name"/><span class="decomment-user-name-desc">*required (saved in cookie)</span></div>
-		<div class="decommentmodal-ok-area"><button id="decomment-ok" class="decommentmodal-ok-btn">OK</button></div>
+		<div class="decommentmodal-footer">
+			<a href="https://jflute.hatenadiary.jp/entry/20170628/letsdbcomment" target="_blank" class="decommentmodal-guide-link">Learn more</a>
+			<button id="decomment-ok" class="decommentmodal-ok-btn">OK</button>
+		</div>
+	</div>
+</div>
+<!-- Notification Banner for informational messages -->
+<div id="notification-banner" class="notificationbanner">
+	<div class="notificationbannercontent">
+		<div id="notification-close" class="notificationbanner-close-btn"><span>×</span></div>
+		<p id="notification-message"></p>
 	</div>
 </div>
 <script>
@@ -1116,20 +1203,20 @@ Incremental.prototype = {
 	 * Select suggestion
 	 */
 	selectSuggestion: function (ev) {
-		var keyCode = ev.keyCode,
+		var key = ev.key,
 			visibleChildNodes = this.filterVisibleChild(),
 			prevIdx;
 
-		if (keyCode === 38 || keyCode === 40) {
+		if (key === 'ArrowUp' || key === 'ArrowDown') {
 
 			if (visibleChildNodes.length) {
 				prevIdx = this.suggestionIdx;
 
-				if (keyCode === 40 && this.suggestionIdx < visibleChildNodes.length - 1) {
+				if (key === 'ArrowDown' && this.suggestionIdx < visibleChildNodes.length - 1) {
 					this.suggestionIdx++;
 				}
 
-				if (keyCode === 38 && this.suggestionIdx > 0) {
+				if (key === 'ArrowUp' && this.suggestionIdx > 0) {
 					this.suggestionIdx--;
 				}
 
@@ -1156,7 +1243,7 @@ Incremental.prototype = {
 	 * @param {Object} ev
 	 */
 	setInputValue: function (ev) {
-		var keyCode = ev.keyCode,
+		var key = ev.key,
 			visibleChildNodes = this.filterVisibleChild(),
 			currentSuggestionTxt,
 			selectedSection;
@@ -1164,7 +1251,7 @@ Incremental.prototype = {
 		if (visibleChildNodes.length) {
 			currentSuggestionTxt = this.util.getElemTxt(visibleChildNodes[this.suggestionIdx]);
 
-			if (keyCode === 13) {
+			if (key === 'Enter') {
 				this.targetInput.value = currentSuggestionTxt;
 				selectedSection = this.getSelectedSection(visibleChildNodes[this.suggestionIdx]);
 				this.clearSuggestion();
@@ -1286,6 +1373,27 @@ Incremental.prototype.util = {
 
 var searcher = new Incremental(document.getElementById('incremental-search-field'), document.getElementById('table-list-body'));
 searcher.init();
+
+// ===================================================================================
+//                                                              Search Keyboard Shortcut
+//                                                              ========================
+// Keyboard shortcut to focus search: Shift+Cmd+,
+document.addEventListener('keydown', function(e) {
+	// Skip if user is already typing in an input/textarea
+	if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+		return;
+	}
+
+	if (e.shiftKey && (e.ctrlKey || e.metaKey) && e.key === ',') {
+		e.preventDefault();
+		var searchField = document.getElementById('incremental-search-field');
+		if (searchField) {
+			searchField.focus();
+			searchField.select();
+			searchField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		}
+	}
+});
 </script>
 #macro(escape $str)$!str.replaceAll("'", "\\'").replaceAll("\n", "<br>")#end
 <script>
@@ -1466,8 +1574,66 @@ var DecommentUtil = new function(){
 		if (!decomment) {
 			return '';
 		}
-		return decomment.replace(/(?:dfalias|shalias):\s*\{[^}]*\}\s*\n?/g, '').trim();
+		var result = decomment.replace(/(?:dfalias|shalias):\s*\{[^}]*\}\s*\n?/g, '');
+		// remove leading <br> to prevent empty line when opening in plain schema html
+		return result.replace(/^<br\s*\/?>/i, '').trim();
 	}
+}
+
+// ===================================================================================
+//                                                              Notification Handler
+//                                                              ====================
+/**
+ * @author shiny
+ */
+var NotificationHandler = new function() {
+	var AUTO_HIDE_DELAY = 10000; // 10 seconds
+	var hideTimeout = null;
+
+	/**
+	 * Show notification banner with message
+	 * @param {string} message - The message to display (NotNull)
+	 */
+	this.show = function(message) {
+		var bannerElement = document.getElementById('notification-banner');
+		var messageElement = document.getElementById('notification-message');
+
+		if (!bannerElement || !messageElement) {
+			return;
+		}
+
+		if (hideTimeout) {
+			clearTimeout(hideTimeout);
+		}
+
+		messageElement.innerText = message;
+		bannerElement.style.display = 'block';
+
+		var closeBtn = document.getElementById('notification-close');
+		if (closeBtn) {
+			closeBtn.onclick = function() {
+				NotificationHandler.hide();
+			};
+		}
+
+		hideTimeout = setTimeout(function() {
+			NotificationHandler.hide();
+		}, AUTO_HIDE_DELAY);
+	};
+
+	/**
+	 * Hide notification banner
+	 */
+	this.hide = function() {
+		var bannerElement = document.getElementById('notification-banner');
+		if (bannerElement) {
+			bannerElement.style.display = 'none';
+		}
+		if (hideTimeout) {
+			clearTimeout(hideTimeout);
+			hideTimeout = null;
+		}
+	};
 }
 
 // ===================================================================================
@@ -2466,6 +2632,11 @@ Decomment.prototype = {
 			var tableName = table.querySelector('.namecell').getAttribute('data-name');
 			var commentElement = table.querySelector('.commentcell');
 			that.setupSaveTableClickEvent(tableName, commentElement);
+			// also setup click event on alias cell if it exists
+			var aliasElement = table.querySelector('.aliascell');
+			if (aliasElement) {
+				that.setupSaveTableClickEvent(tableName, aliasElement, { focusTarget: 'alias' });
+			}
 		});
 		var commentTables = document.querySelectorAll('.tablecomment')
 		Array.prototype.forEach.call(commentTables, function (tableElement) {
@@ -2484,10 +2655,11 @@ Decomment.prototype = {
 	 * Setup save table comment click event to html
 	 * @param {string} tableName - Table name
 	 * @param {Object} commentElement - Comment element
+	 * @param {object} options - Options object (e.g. { focusTarget: 'alias' })
 	 */
-	setupSaveTableClickEvent: function(tableName, commentElement) {
+	setupSaveTableClickEvent: function(tableName, commentElement, options) {
 		var tableProperty = this.storeClient.getTablePickup(tableName) || new PickupTableProperty(tableName, null)
-		commentElement.onclick = this.createSaveDecommentFunction(tableProperty);
+		commentElement.onclick = this.createSaveDecommentFunction(tableProperty, options);
 	},
 
 	/**
@@ -2508,6 +2680,12 @@ Decomment.prototype = {
 				var columnName = column.querySelector('.columnnamecell').innerText.trim();
 				var columnProperty = that.storeClient.getColumnPickup(tableName, columnName) || new PickupTableProperty(tableName, columnName)
 				commentElement.onclick = that.createSaveDecommentFunction(columnProperty);
+
+				// also setup click event on alias cell if it exists
+				var aliasElement = column.querySelector('.aliascell');
+				if (aliasElement) {
+					aliasElement.onclick = that.createSaveDecommentFunction(columnProperty, { focusTarget: 'alias' });
+				}
 			});
 		});
 	},
@@ -2515,10 +2693,12 @@ Decomment.prototype = {
 	/**
  	 * Create save decomment function
 	 * param {object} commentProperty - Comment property
+	 * param {object} options - Options object (e.g. { focusTarget: 'alias' })
 	 * returns {function} Save decomment function
 	 */
-	createSaveDecommentFunction: function (commentProperty) {
+	createSaveDecommentFunction: function (commentProperty, options) {
 		var that = this;
+		options = options || {};
  		return function () {
 			// prevent modal from opening if user is selecting text (for copy/paste)
 			var selection = window.getSelection();
@@ -2536,12 +2716,18 @@ Decomment.prototype = {
 			// Clean comment without dfalias:{} or shalias:{} in textarea
 			var cleanComment = DecommentUtil.removeAliasFromDecomment(previousWholeComment);
 			inputElement.value = cleanComment;
-			inputElement.focus();
 
 			// populate alias input
 			var aliasInputElement = document.getElementById("decomment-alias-input");
 			var previousAlias = commentProperty.getCurrentDisplayedAlias();
 			aliasInputElement.value = previousAlias;
+
+			// focus on alias input if opened from alias cell, otherwise focus on comment input
+			if (options.focusTarget === 'alias') {
+				aliasInputElement.focus();
+			} else {
+				inputElement.focus();
+			}
 
 			document.getElementById("decomment-close").onclick = function () {
 				modalElement.style.display = "none";
@@ -2572,9 +2758,16 @@ Decomment.prototype = {
 				commentProperty.decomments = [{'body': decomment}]
 				commentProperty.inputAuthor = that.getUserName();
 				var params = commentProperty.toRequestParams()
+				var shouldCheckAliasColumn = aliasFromInput && aliasFromInput.length > 0;
+
 				new ApiClient().saveDecomment(params, function () {
 					that.fetchVirtualPickup();
 					that.hideUserNameInput();
+
+					// Show notification if alias saved but column doesn't exist
+					if (shouldCheckAliasColumn) {
+						that.checkAndNotifyMissingAliasColumn(params);
+					}
 				});
 				modalElement.style.display = "none";
 			};
@@ -2628,12 +2821,69 @@ Decomment.prototype = {
 	 */
 	setupKeyDownEvent : function() {
 		document.onkeydown = function (e) {
-			// ESC
-			if(e.keyCode == 27){
-				var modalElement = document.getElementById("decomment-modal");
+			var modalElement = document.getElementById("decomment-modal");
+			// ESC to close modal
+			if (e.key === 'Escape') {
 				modalElement.style.display = "none";
 			}
+			// Cmd+Enter (Mac) or Ctrl+Enter (Windows) to submit
+			if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+				if (modalElement.style.display !== "none") {
+					document.getElementById("decomment-ok").click();
+				}
+			}
 		}
+	},
+
+	/**
+	 * Check if alias column exists and notify if missing
+	 * @param {Object} params - Request params containing targetType, tableName, etc.
+	 */
+	checkAndNotifyMissingAliasColumn: function(params) {
+		var hasAliasColumn = false;
+		var message = '';
+
+		if (params.targetType === 'TABLE') {
+			var tableListBody = document.getElementById('table-list-body');
+			if (!tableListBody) {
+				return;
+			}
+			hasAliasColumn = tableListBody.querySelector('.aliascell') !== null;
+			message = 'Alias saved! Please run the Doc task to display the alias column (alias display area) in the table list.';
+		} else if (params.targetType === 'COLUMN') {
+			var tableId = this.getTableIdForSchemaHtml(params.tableName);
+			var tableHeading = document.getElementById(tableId);
+			if (!tableHeading) {
+				return;
+			}
+
+			var sibling = tableHeading.nextElementSibling;
+			while (sibling) {
+				if (sibling.tagName === 'TABLE') {
+					hasAliasColumn = sibling.querySelector('.aliascell') !== null;
+					break;
+				}
+				sibling = sibling.nextElementSibling;
+			}
+			message = 'Alias saved! Please run the Doc task to display the alias column (alias display area) in table ' + params.tableName + '.';
+		}
+
+		if (!hasAliasColumn) {
+			NotificationHandler.show(message);
+		}
+	},
+
+	/**
+	 * Get table ID for SchemaHTML (same logic as server-side)
+	 * @param {string} tableName - The table name
+	 * @return {string} table ID for HTML
+	 */
+	getTableIdForSchemaHtml: function(tableName) {
+		var normalized = tableName.toLowerCase();
+		if (normalized.indexOf('.') !== -1) {
+			normalized = normalized.replace(/\./g, '_');
+		}
+		return normalized;
 	},
 
 	/**
